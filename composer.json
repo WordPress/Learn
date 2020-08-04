@@ -1,0 +1,57 @@
+{
+	"name": "wporg/learn",
+	"description": "",
+	"homepage": "https://learn.wordpress.org",
+	"license": "GPL-2.0-or-later",
+	"support": {
+		"issues": "https://github.com/WordPress/learn/issues"
+	},
+	"config": {
+		"platform": {
+			"php": "7.2"
+		}
+	},
+	"extra": {
+		"installer-paths": {
+			"wp-content/plugins/{$name}/": ["type:wordpress-plugin"],
+			"wp-content/themes/{$name}/": ["type:wordpress-theme"]
+		}
+	},
+	"repositories": [
+		{
+			"type": "composer",
+			"url": "https://wpackagist.org/"
+		},
+		{
+			"type": "package",
+			"package": [
+				{
+					"name": "wordpress-meta/wporg-markdown",
+					"type": "wordpress-plugin",
+					"version": "1",
+					"source": {
+						"type": "svn",
+						"url": "https://meta.svn.wordpress.org/sites/",
+						"reference": "trunk/wordpress.org/public_html/wp-content/plugins/wporg-markdown/"
+					}
+				},
+				{
+					"name": "wordpress-meta/wporg",
+					"type": "wordpress-theme",
+					"version": "1",
+					"source": {
+						"type": "svn",
+						"url": "https://meta.svn.wordpress.org/sites/",
+						"reference": "trunk/wordpress.org/public_html/wp-content/themes/pub/wporg/"
+					}
+				}
+			]
+		}
+	],
+	"require": {
+		"wpackagist-plugin/jetpack": "*",
+		"wpackagist-plugin/wordpress-importer": "*",
+		"wordpress-meta/wporg-markdown": "1",
+		"wordpress-meta/wporg": "1"
+	}
+}

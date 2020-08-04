@@ -1,0 +1,25 @@
+{
+	"name": "wp_env_base",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"create:existing": "npm run wp-env start && npm run update:plugins && npm run update:theme && npm run update:cron-1 && npm run update:cron-2 && npm run update:jetpack-1 && npm run update:jetpack-2 && npm run update:permalinks",
+		"create": "npm run composer-install && npm run create:existing",
+		"composer-install": "composer install",
+		"update:configs": "npm run wp-env run cli wp config set WPORGPATH __DIR__ . '/wp-content/themes/' --raw && npm run wp-env run cli wp config set JETPACK_DEV_DEBUG true",
+		"update:permalinks": "npm run wp-env run cli wp rewrite structure '/%postname%/'",
+		"update:plugins": "npm run wp-env run cli wp plugin activate wordpress-importer jetpack wporg-learn/wporg-learn.php wporg-markdown/plugin.php",
+		"update:theme": "npm run wp-env run cli wp theme activate wporg-learn",
+		"update:cron-1": "npm run wp-env run cli wp cron event run wporg_learn_manifest_import",
+		"update:cron-2": "npm run wp-env run cli wp cron event run wporg_learn_markdown_import",
+		"update:jetpack-1": "npm run wp-env run cli wp jetpack module activate contact-form",
+		"update:jetpack-2": "npm run wp-env run cli wp jetpack module activate markdown",
+		"wp-env": "wp-env"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@wordpress/env": "^1.6.0"
+	}
+}

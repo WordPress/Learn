@@ -1,0 +1,6 @@
+/node_modules
+/vendor
+/wp-content/plugins/jetpack
+/wp-content/plugins/wordpress-importer
+/wp-content/plugins/wporg-markdown
+/wp-content/themes/wporg
