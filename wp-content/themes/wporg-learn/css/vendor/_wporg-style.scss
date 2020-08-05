@@ -944,63 +944,6 @@ textarea {
 	line-height: 1.5;
 }
 
-@media screen and (min-width: 48em) {
-	html {
-		font-size: 1.125rem;
-	}
-}
-
-h1, h2, h3, h4, .bbp-view .review-ratings .col-5 > div:first-child, h5, h6 {
-	clear: both;
-	font-family: inherit;
-	line-height: 1.5;
-	margin: 2rem 0 1rem;
-}
-
-h1, .h1 {
-	font-size: 2.44140625rem;
-}
-
-h1.title {
-	font-size: 0.8rem;
-	color: #0073aa;
-	font-weight: 600;
-	letter-spacing: 0.05rem;
-	text-transform: uppercase;
-}
-
-h2, .h2 {
-	font-size: 1.953125rem;
-	font-weight: 300;
-}
-
-h3, .h3 {
-	font-size: 1.5625rem;
-	font-weight: 400;
-}
-
-h4, .h4, .bbp-view .review-ratings .col-5 > div:first-child {
-	font-size: 1.25rem;
-	border: none;
-	color: #32373c;
-	font-weight: 600;
-	padding: 0;
-}
-
-h5, .h5 {
-	font-size: 1rem;
-	font-weight: 600;
-	letter-spacing: 0.01rem;
-	text-transform: uppercase;
-}
-
-h6, .h6 {
-	font-size: 0.8rem;
-	font-weight: 600;
-	letter-spacing: 0.8px;
-	text-transform: uppercase;
-}
-
 p {
 	margin: 1em 0;
 }
@@ -3955,6 +3898,7 @@ section {
 .viewmore {
 	position: relative;
 	padding-right: 18px;
+	text-decoration: underline;
 }
 
 .viewmore:hover {

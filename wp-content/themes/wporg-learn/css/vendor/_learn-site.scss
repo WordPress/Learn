@@ -16,7 +16,7 @@ body:not(.trac):not(.home-page) #main {
 	color: #fff;
 }
 
-h1, h2, h3 { color: #555; }
+h1, h2, h3, h4 { color: #555 !important; }
 
 /* ___ Homepage ___ */
 
@@ -175,8 +175,6 @@ h1, h2, h3 { color: #555; }
 
 .lesson-lists {
 	margin: 0 -1rem;
-	overflow: hidden;
-	padding: 0 1rem 2rem;
 }
 
 .lesson-lists .lesson-item .viewmore::after {
@@ -208,16 +206,11 @@ h1, h2, h3 { color: #555; }
 
 .lesson-lists .lesson-item {
 	margin-bottom: 40px;
-	/* min-height: 200px; */
-}
-
-.lesson-lists .lesson-item h3 {
-	font-size: 20px;
-	margin: 0 0 15px 0;
-}
-
-.lesson-lists .lesson-item {
 	font-size: 14px;
+
+	.title {
+		font-weight: 300;
+	}
 }
 
 .submit-idea-cta {

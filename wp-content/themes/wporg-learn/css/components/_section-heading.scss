@@ -1,0 +1,11 @@
+.section-heading {
+	margin-bottom: 2rem;
+	
+	&_title, &_link  {
+		margin-bottom: 0;
+	}
+
+	&_title {
+		font-weight: 300;
+	}
+}
