@@ -4,10 +4,16 @@ namespace WPOrg_Learn\Post_Meta;
 
 defined( 'WPINC' ) || die();
 
+/**
+ * Register all post meta keys.
+ */
 function register() {
 	register_workshop_meta();
 }
 
+/**
+ * Register post meta keys for workshops.
+ */
 function register_workshop_meta() {
 	$post_type = 'wporg_workshop';
 
