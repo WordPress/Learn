@@ -1,4 +1,5 @@
-/node_modules
+/**/.DS_STORE
+/**/node_modules
 /vendor
 /wp-content/plugins/jetpack
 /wp-content/plugins/wordpress-importer
