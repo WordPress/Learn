@@ -37,6 +37,7 @@ add_filter( 'the_content', array('WPORG_Learn\Lesson_Plan', 'replace_image_links
 
 
 add_action( 'init', 'WPORG_Learn\Post_Types\register' );
+add_action( 'init', 'WPORG_Learn\Post_Meta\register' );
 add_action( 'init', array( 'WPORG_Learn\Workshop', 'lesson_workshop_taxonomy' ) );
 add_action( 'init', array( 'WPORG_Learn\Workshop', 'workshop_topics_taxonomy' ) );
 add_filter('query_vars', 'add_category');
