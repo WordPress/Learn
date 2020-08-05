@@ -11,7 +11,7 @@ get_header();?>
 	<main id="main" class="site-main home-page" role="main">
 		<section class="quick-intro">
 			<div class="shapes">
-				<a class="parallelogram lesson-plans dashicons-before dashicons-welcome-learn-more" href="/lesson-plans/">
+				<a class="parallelogram lesson-plans dashicons-before dashicons-clipboard" href="/lesson-plans/">
 					<p>
 						<strong><?php _e( 'Lesson Plans', 'wporg-forums' ); ?></strong>
 						<?php
@@ -34,10 +34,12 @@ get_header();?>
 
 		<section class="about-training">
 			<div class="getin">
-				<div class="graphic"></div>
-				<h3><?php _e( 'Get Involved' ); ?></h3>
-				<p><?php _e( 'Want to grow WordPress? As part of Training Team you could help others learn WordPress accross the world.' ); ?></p>
-				<a href="https://make.wordpress.org/training/handbook/"><?php _e( 'Learn About The Training Team' ); ?></a>
+				<div class="graphic"><span class="dashicons dashicons-welcome-learn-more"></span></div>
+				<div>
+					<h3><?php _e( 'Get Involved' ); ?></h3>
+					<p><?php _e( 'Want to grow WordPress? As part of Training Team you could help others learn WordPress accross the world.' ); ?></p>
+					<a href="https://make.wordpress.org/training/handbook/"><?php _e( 'Learn About The Training Team' ); ?></a>
+				</div>
 			</div>
 		</section>
 
@@ -47,7 +49,7 @@ get_header();?>
 
 		<hr>
 
-		<section class="lesson-lists">
+		<section class="lesson-lists clearfix">
 			<div class="col">
 				<div class="lesson-item">
 					<h2 class="h4 title"><?php _e( 'User-oriented Lesson Plans' ); ?></h2>
@@ -97,6 +99,8 @@ get_header();?>
 				</div>
 			</div>
 		</section>
+
+		<hr>
 
 		<?php wporg_submit_idea_cta(); ?>
 		

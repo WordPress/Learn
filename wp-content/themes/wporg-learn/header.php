@@ -50,7 +50,7 @@ if ( is_front_page() ) {
 			    <form role="search" method="get" class="search-form" action="<?php esc_url( home_url( '/' ) ) ?>">
 			        <label>
 			            <span class="screen-reader-text"><?php _e('Search for:', 'wporg-forums' ) ?></span>
-			            <input type="search" class="search-field" placeholder="<?php esc_attr_e( 'Search Lesson Plans and Workshop Ideas', 'wporg-forums' )?>" value="<?php get_search_query() ?>" name="s" />
+			            <input type="search" class="search-field" placeholder="<?php esc_attr_e( 'Search a teaching resource', 'wporg-forums' )?>" value="<?php get_search_query() ?>" name="s" />
 			        </label>
 			        <button type="submit" class="search-submit button button-primary button-search"><i class="dashicons dashicons-search"></i><span class="screen-reader-text"><?php esc_attr_e( 'Search', 'wporg-forums' ) ?></span></button>
 			    </form>
