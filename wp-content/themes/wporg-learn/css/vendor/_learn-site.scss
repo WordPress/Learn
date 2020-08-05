@@ -31,7 +31,6 @@ h1, h2, h3, h4 { color: #555 !important; }
 }
 
 .site-header .site-description {
-	font-size: 20px;
 	max-width: 650px;
 }
 
@@ -146,12 +145,12 @@ h1, h2, h3, h4 { color: #555 !important; }
 
 .about-training .getin .graphic {
 	background: #826eb4;
-	margin: 0 auto;
+	margin-bottom: 16px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	height: 150px;
-	width: 150px;
+	height: 125px;
+	width: 125px;
 }
 
 .about-training .getin .graphic .dashicons {
@@ -170,12 +169,11 @@ h1, h2, h3, h4 { color: #555 !important; }
 	.about-training .getin .graphic {
 		left: 0;
 		top: 6px;
+		margin: 0 auto;
 		position: absolute;
+		height: 150px;
+		width: 150px;
 	}	
-}
-
-.lesson-lists {
-	margin: 0 -1rem;
 }
 
 .lesson-lists .lesson-item .viewmore::after {
@@ -194,6 +192,19 @@ h1, h2, h3, h4 { color: #555 !important; }
 	}
 }
 
+.lesson-lists .lesson-item {
+	margin-bottom: 40px;
+	font-size: 14px;
+	
+	.title {
+		font-weight: 300;
+	}
+
+	p {
+		color: #555D66;
+	}
+}
+
 @media only screen and (min-width: 768px) {
 	.lesson-lists {
 		padding-left: 0;
@@ -203,14 +214,9 @@ h1, h2, h3, h4 { color: #555 !important; }
 	.lesson-lists .col {
 		width: 33.3333%;
 	}
-}
 
-.lesson-lists .lesson-item {
-	margin-bottom: 40px;
-	font-size: 14px;
-
-	.title {
-		font-weight: 300;
+	.lesson-lists .col .lesson-item:last-child {
+		margin-bottom: 0;
 	}
 }
 
@@ -221,7 +227,6 @@ h1, h2, h3, h4 { color: #555 !important; }
 .submit-idea-cta h3 {
 	font-size: 30px;
 	margin-bottom: 30px;
-	margin-top: 0;
 }
 
 /* ___ Lesson Plans ___ */
