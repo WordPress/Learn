@@ -12,6 +12,7 @@ require_once dirname( __FILE__ ) . '/inc/class-markdown-import.php';
 require_once dirname( __FILE__ ) . '/inc/class-shortcodes.php';
 require_once dirname( __FILE__ ) . '/inc/class-lesson-plan.php';
 require_once dirname( __FILE__ ) . '/inc/class-workshop.php';
+require_once dirname( __FILE__ ) . '/inc/post-type.php';
 
 /**
  * Registry of actions and filters
@@ -35,7 +36,7 @@ add_action( 'init', array( 'WPORG_Learn\Lesson_Plan', 'lesson_instruction_type_t
 add_filter( 'the_content', array('WPORG_Learn\Lesson_Plan', 'replace_image_links' ) );
 
 
-add_action( 'init', array( 'WPORG_Learn\Workshop', 'workshop_post_type' ) );
+add_action( 'init', 'WPORG_Learn\Post_Types\register' );
 add_action( 'init', array( 'WPORG_Learn\Workshop', 'lesson_workshop_taxonomy' ) );
 add_action( 'init', array( 'WPORG_Learn\Workshop', 'workshop_topics_taxonomy' ) );
 add_filter('query_vars', 'add_category');
