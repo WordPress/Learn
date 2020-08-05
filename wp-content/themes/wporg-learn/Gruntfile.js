@@ -8,8 +8,8 @@ module.exports = function( grunt ) {
 
 		paths.forEach( function( component ) {
 			var paths = [
-				'../pub/wporg/css/' + component + '/**/*.scss',
-				'!../pub/wporg/css/' + component + '/_' + component + '.scss'
+				'../wporg/css/' + component + '/**/*.scss',
+				'!../wporg/css/' + component + '/_' + component + '.scss'
 			];
 
 			if ( isChild ) {
@@ -66,7 +66,7 @@ module.exports = function( grunt ) {
 
 		watch: {
 			css: {
-				files: ['**/*.scss', '../pub/wporg/css/**/*scss'],
+				files: ['**/*.scss', '../wporg/css/**/*scss'],
 				tasks: ['css']
 			}
 		}
