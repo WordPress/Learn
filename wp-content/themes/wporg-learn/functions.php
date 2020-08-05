@@ -179,7 +179,8 @@ return get_post_meta( get_the_ID(), 'download_lesson_plan_slides_url', true );
 function wporg_submit_idea_cta() { ?> 
 
 	<section class="submit-idea-cta">
-		<h3><?php _e( 'Have an Idea for a Lesson or Workshop? Let us know!' ); ?></h3>
+		<div class="content-icon"><span class="dashicons dashicons-lightbulb"></span></div>
+		<h3><?php _e( 'Have an Idea for a Workshop? Let us know!' ); ?></h3>
 		<a class="button button-primary button-large" href="<?php echo esc_url( site_url( '/submit-an-idea/' ) ); ?>"><?php _e( 'Submit an Idea' ); ?></a>
 	</section>
 
