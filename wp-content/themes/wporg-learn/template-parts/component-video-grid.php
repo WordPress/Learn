@@ -20,7 +20,7 @@ $featured = new \WP_Query( $args );
 	<section>
 		<div class="row align-middle between section-heading">
 			<h2 class="h4 section-heading_title"><?php esc_html_e( 'Recent Workshops', 'wporg-learn' ); ?></h2>
-			<a class="section-heading_link" href="/workshops"><?php _e( 'View All »' ); ?></a>
+			<a class="section-heading_link" href="/workshops"><?php esc_html_e( 'View All »', 'wporg-learn' ); ?></a>
 		</div>
 	
 		<ul class="row gutters between video-grid">
