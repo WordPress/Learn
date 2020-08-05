@@ -1,0 +1,31 @@
+{
+	"name": "wporg-learn",
+	"version": "1.0.0",
+	"description": "Theme for learn.wordpress.org/",
+	"author": "wordpressdotorg",
+	"license": "GPL-2.0+",
+	"repository": {
+		"type": "git",
+		"url": "https://learn.wordpress.org"
+	},
+	"scripts": {
+		"start": "grunt watch",
+		"build": "grunt build",
+		"dev": "grunt"
+	},
+	"browserslist": [
+		"extends @wordpress/browserslist-config"
+	],
+	"devDependencies": {
+		"@wordpress/browserslist-config": "2.6.0",
+		"autoprefixer": "9.6.1",
+		"cssnano": "4.1.10",
+		"grunt": "1.0.4",
+		"grunt-contrib-watch": "1.1.0",
+		"grunt-postcss": "0.9.0",
+		"grunt-sass": "3.1.0",
+		"grunt-sass-globbing": "1.5.1",
+		"node-sass": "4.12.0",
+		"pixrem": "5.0.0"
+	}
+}
