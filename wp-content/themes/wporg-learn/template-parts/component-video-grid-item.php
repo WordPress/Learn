@@ -10,6 +10,10 @@
 ?>
 
 <li class="col-4 video-grid_item">
-	<?php echo the_post_thumbnail( 'full' ); ?>
+	<?php if( has_post_thumbnail() ) : ?>
+		<?php echo the_post_thumbnail( 'full' ); ?>
+	<?php else : ?>
+		<div class="video-grid_item--no-image"></div>
+	<? endif; ?>
 	<a class="video-grid_item_link" href="<?php echo esc_url( get_the_permalink() ); ?>"><?php the_title(); ?></a>
 </li>

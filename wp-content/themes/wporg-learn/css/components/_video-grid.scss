@@ -3,7 +3,18 @@
 	margin: 0;
 	list-style: none;
 
-	&_item_link {
-		font-weight: bold;
+	&_item {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+
+		&_link {
+			font-weight: bold;
+		}
+
+		&--no-image {
+			height: 100%;
+			background: #eee;
+		}
 	}
 }

@@ -10,6 +10,7 @@
 $args = array(
 	'post_type' => 'wporg_workshop',
 	'category_name' => 'featured',
+	'posts_per_page' => '3',
 );
 
 $featured = new \WP_Query( $args );
