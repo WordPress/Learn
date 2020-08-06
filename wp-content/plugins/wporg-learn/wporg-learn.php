@@ -13,6 +13,7 @@ require_once dirname( __FILE__ ) . '/inc/class-shortcodes.php';
 require_once dirname( __FILE__ ) . '/inc/class-lesson-plan.php';
 require_once dirname( __FILE__ ) . '/inc/class-workshop.php';
 require_once dirname( __FILE__ ) . '/inc/post-type.php';
+require_once dirname( __FILE__ ) . '/inc/post-meta.php';
 
 /**
  * Registry of actions and filters
@@ -38,6 +39,8 @@ add_filter( 'the_content', array('WPORG_Learn\Lesson_Plan', 'replace_image_links
 
 add_action( 'init', 'WPORG_Learn\Post_Types\register' );
 add_action( 'init', 'WPORG_Learn\Post_Meta\register' );
+add_action( 'add_meta_boxes', 'WPORG_Learn\Post_Meta\add_workshop_metaboxes' );
+add_action( 'save_post_wporg_workshop', 'WPORG_Learn\Post_Meta\save_workshop_metabox_fields', 10, 2 );
 add_action( 'init', array( 'WPORG_Learn\Workshop', 'lesson_workshop_taxonomy' ) );
 add_action( 'init', array( 'WPORG_Learn\Workshop', 'workshop_topics_taxonomy' ) );
 add_filter('query_vars', 'add_category');
