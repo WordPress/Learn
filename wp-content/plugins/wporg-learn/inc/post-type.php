@@ -64,8 +64,37 @@ function register_workshop() {
 		'exclude_from_search'   => false,
 		'publicly_queryable'    => true,
 		'capability_type'       => 'page',
-		'show_in_rest'          => true
-
+		'show_in_rest'          => true,
+		'template' => array(
+			//array( 'wporg-learn/workshop-video' ), <- Doesn't exist yet
+			array( 'core/columns', array(),
+				array(
+					array( 'core/column', array(), array(
+						array( 'core/paragraph', array(
+							'placeholder' => 'Describe what the workshop is about'
+						) ),
+						array( 'core/heading', array(
+							'level' => '2',
+							'content' => __( 'Learning outcomes', 'wporg_learn' ),
+						) ),
+						array( 'core/list', array( ) ),
+						array( 'core/heading', array(
+							'level' => '2',
+							'content' => __( 'Comprehension questions', 'wporg_learn' ),
+						) ),
+						array( 'core/list', array( ) )
+					) ),
+					array( 'core/column', array(
+						'anchor' => 'true'
+					), array(
+						//array( 'wporg-learn/detail-list' ) <- Doesn't exist yet
+						//array( 'wporg-learn/discussion-action' ) <- Doesn't exist yet
+					) ),
+				),
+			),
+			array( 'core/separator', array( ) ),
+			//array( 'wporg-learn/author-details' ) <- Doesn't exist yet
+		),
 	);
 
 	register_post_type( 'wporg_workshop', $args );
