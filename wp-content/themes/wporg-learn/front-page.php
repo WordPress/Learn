@@ -22,7 +22,7 @@ get_header();?>
 				</a>
 				<a class="parallelogram workshop-ideas dashicons-before dashicons-lightbulb" href="/workshops/">
 					<p>
-						<strong><?php _e( 'Workshop Ideas', 'wporg-forums' ); ?></strong>
+						<strong><?php _e( 'Workshops', 'wporg-forums' ); ?></strong>
 						<?php
 							_e( 'Workshops are great way to get people hands-on with WordPress. Here are some ideas to help run a workshop for your own.', 'wporg-forums' );
 						?>
@@ -49,13 +49,13 @@ get_header();?>
 				<h2 class="h4 section-heading_title"><?php esc_html_e( 'Recent Workshops', 'wporg-learn' ); ?></h2>
 				<a class="section-heading_link" href="/workshops"><?php esc_html_e( 'View All »', 'wporg-learn' ); ?></a>
 			</div>
-		
-			<?php 
+
+			<?php
 				$args = array(
 					'posts_per_page' => '3',
 				);
 				set_query_var( 'video-grid-options', $args );
-				get_template_part( 'template-parts/component', 'video-grid' ); 
+				get_template_part( 'template-parts/component', 'video-grid' );
 			?>
 		</section>
 		<hr>
@@ -114,7 +114,7 @@ get_header();?>
 		<hr>
 
 		<?php wporg_submit_idea_cta(); ?>
-		
+
 		<?php if ( ! is_active_sidebar( 'front-page-blocks' ) ) : ?>
 			<?php //get_template_part( 'template-parts/bbpress', 'front' ); ?>
 		<?php else : ?>
