@@ -71,16 +71,16 @@ function register_workshop() {
 				array(
 					array( 'core/column', array(), array(
 						array( 'core/paragraph', array(
-							'placeholder' => 'Describe what the workshop is about'
+							'placeholder' => __( 'Describe what the workshop is about', 'wporg-learn' ),
 						) ),
 						array( 'core/heading', array(
 							'level' => '2',
-							'content' => __( 'Learning outcomes', 'wporg_learn' ),
+							'content' => __( 'Learning outcomes', 'wporg-learn' ),
 						) ),
 						array( 'core/list', array( ) ),
 						array( 'core/heading', array(
 							'level' => '2',
-							'content' => __( 'Comprehension questions', 'wporg_learn' ),
+							'content' => __( 'Comprehension questions', 'wporg-learn' ),
 						) ),
 						array( 'core/list', array( ) )
 					) ),
