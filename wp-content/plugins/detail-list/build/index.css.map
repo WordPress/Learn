@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///editor.scss"],"names":[],"mappings":"AAAA;;;;EAIE;AACF;EACE,uBAAuB,EAAE","file":"index.css","sourcesContent":["/**\n * The following styles get applied inside the editor only.\n *\n * Replace them with your own styles or remove the file completely.\n */\n.wp-block-create-block-detail-list {\n  border: 1px dotted #f00; }\n"],"sourceRoot":""}

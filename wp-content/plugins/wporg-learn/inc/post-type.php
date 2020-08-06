@@ -87,7 +87,7 @@ function register_workshop() {
 					array( 'core/column', array(
 						'anchor' => 'true'
 					), array(
-						//array( 'wporg-learn/detail-list' ) <- Doesn't exist yet
+						array( 'wporg-learn/detail-list' ),
 						//array( 'wporg-learn/discussion-action' ) <- Doesn't exist yet
 					) ),
 				),
