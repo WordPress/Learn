@@ -10,9 +10,14 @@ get_header();?>
 
 <div>
 	<main class="site-main">
-		<h2><?php esc_html_e( 'Workshops', 'wporg-learn' ); ?></h2>
+		<section>
+			<h2><?php esc_html_e( 'Workshops', 'wporg-learn' ); ?></h2>
+			<hr>
+			<?php get_template_part( 'template-parts/component', 'video-grid' ); ?>
+		</section>
 		<hr>
-		<?php get_template_part( 'template-parts/component', 'video-grid' ); ?>
+
+		<?php wporg_submit_idea_cta(); ?>
 	</main>
 </div>
 
