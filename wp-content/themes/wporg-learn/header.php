@@ -32,7 +32,7 @@ if ( is_front_page() ) {
 <div id="page" class="<?php echo esc_html( $home_page ); ?>site">
 	<a class="skip-link screen-reader-text" href="#main"><?php esc_html_e( 'Skip to content', 'wporg-forums' ); ?></a>
 
-	<div id="content" class="site-content">
+	<div id="content">
 		<header id="masthead" class="site-header <?php echo is_front_page() ? 'home' : ''; ?>" role="banner">
 			<div class="site-branding">
 				<?php

@@ -1,0 +1,32 @@
+.featured-workshop {
+	margin: $gutter-default * 2 0 0;
+
+	&_video {
+		height: $gutter-default * 25;
+		width: 100%;
+		background: #eee;
+	}
+
+	&_title {
+		display: block;
+		margin-bottom: $gutter-default / 2;
+		font-weight: bold;
+		text-decoration: underline;
+		font-size: $gutter-default * 1.25;
+	}
+
+	&_content {
+		margin-top: $gutter-default;
+
+		&_author {
+			padding-top: $gutter-default;
+
+			@include breakpoint( $breakpoint-tablet ) {
+				padding-top: 0;
+				padding-left: $gutter-default * 2;
+		
+			}
+		}
+	}
+}
+
