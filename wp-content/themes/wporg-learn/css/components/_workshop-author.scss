@@ -1,0 +1,24 @@
+.workshop-author {
+	display: flex;
+	align-items: center;
+	
+	/* We want to make sure a long name doesn't overlap the image */
+	> div:first-child {
+		min-width:  $gutter-default * 3.5;
+	}
+
+	&_profile {
+		display: flex;
+		margin-right: $gutter-default * 1.5;
+		height: $gutter-default * 3.5;
+		border-radius: $gutter-default * 2;
+	}
+
+	&_name {
+		color: $color__text;
+	}
+
+	&_handle {
+		text-decoration: underline;
+	}
+}
