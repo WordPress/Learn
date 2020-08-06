@@ -1,14 +1,18 @@
 
 .video-grid {
-	margin: 0;
+	margin: 0 -8px;
 	list-style: none;
 
 	&_item {
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
+		padding: 32px 8px 0;
+		margin: 0;
 
 		&_link {
+			display: block;
+			margin-top: 8px;
 			font-weight: bold;
 		}
 

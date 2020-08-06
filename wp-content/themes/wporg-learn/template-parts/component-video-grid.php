@@ -9,26 +9,23 @@
 
 $args = array(
 	'post_type' => 'wporg_workshop',
-	'category_name' => 'featured',
-	'posts_per_page' => '3',
 );
+
+$options = get_query_var( 'video-grid-options' );
+
+if( is_array( $options ) ) {
+	$args = array_merge( $args, $options );
+}
 
 $featured = new \WP_Query( $args );
 
 ?>
 
 <?php if ( $featured->have_posts() )  : ?>
-	<section>
-		<div class="row align-middle between section-heading">
-			<h2 class="h4 section-heading_title"><?php esc_html_e( 'Recent Workshops', 'wporg-learn' ); ?></h2>
-			<a class="section-heading_link" href="/workshops"><?php esc_html_e( 'View All »', 'wporg-learn' ); ?></a>
-		</div>
-	
-		<ul class="row gutters between video-grid">
-			<?php while ( $featured->have_posts() ) :
-				$featured->the_post();
-				get_template_part( 'template-parts/component', 'video-grid-item' );
-			endwhile; ?>	
-		</ul>
-	</section>
+	<ul class="row video-grid">
+		<?php while ( $featured->have_posts() ) :
+			$featured->the_post();
+			get_template_part( 'template-parts/component', 'video-grid-item' );
+		endwhile; ?>	
+	</ul>
 <?php endif; ?>

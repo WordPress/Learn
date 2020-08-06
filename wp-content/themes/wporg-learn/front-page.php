@@ -44,9 +44,20 @@ get_header();?>
 		</section>
 
 		<hr>
-
-		<?php get_template_part( 'template-parts/component', 'video-grid' ); ?>
-
+		<section>
+			<div class="row align-middle between section-heading">
+				<h2 class="h4 section-heading_title"><?php esc_html_e( 'Recent Workshops', 'wporg-learn' ); ?></h2>
+				<a class="section-heading_link" href="/workshops"><?php esc_html_e( 'View All »', 'wporg-learn' ); ?></a>
+			</div>
+		
+			<?php 
+				$args = array(
+					'posts_per_page' => '3',
+				);
+				set_query_var( 'video-grid-options', $args );
+				get_template_part( 'template-parts/component', 'video-grid' ); 
+			?>
+		</section>
 		<hr>
 
 		<section class="lesson-lists clearfix">
