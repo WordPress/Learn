@@ -4,10 +4,16 @@ namespace WPOrg_Learn\Post_Types;
 
 defined( 'WPINC' ) || die();
 
+/**
+ * Register all post types.
+ */
 function register() {
 	register_workshop();
 }
 
+/**
+ * Register a Workshop post type.
+ */
 function register_workshop() {
 	$labels = array(
 		'name'                  => _x( 'Workshops', 'Post Type General Name', 'wporg_learn' ),

@@ -99,7 +99,7 @@ class Workshop {
 			'show_in_rest'               => true,
 		);
 
-		register_taxonomy( 'lesson_group', array( 'wporg_workshop', 'lesson-plan' ), $args );
+		register_taxonomy( 'lesson_group', array( 'lesson-plan' ), $args );
 	}
 
 	/**

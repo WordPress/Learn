@@ -5,7 +5,7 @@
  * @package WPBBP
  */
 
-get_header(); 
+get_header();
 ?>
 
 	<main id="main" class="site-main page-full-width" role="main">
