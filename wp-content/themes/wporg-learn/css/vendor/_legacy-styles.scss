@@ -2773,9 +2773,11 @@ body, #pagebody {
 .site-title a {
 	color: #fff;
 	font-weight: 300;
+	text-decoration: none;
 }
 
 .site-title a:hover, .site-title a:focus, .site-title a:active {
+	color: #fff;
 	text-decoration: none;
 }
 
