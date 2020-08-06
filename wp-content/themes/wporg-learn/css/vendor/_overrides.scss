@@ -8,10 +8,6 @@ body:not(.trac):not(.home-page) #main {
 	margin-top: 0.5rem;
 }
 
-#page {
-	background-color: #f1f1f1;
-}
-
 .site-branding h1 {
 	color: #fff;
 }
@@ -34,7 +30,11 @@ h1, h2, h3, h4 { color: #555 !important; }
 	max-width: 650px;
 }
 
- .home-page .shapes {
+.site-main {
+	margin-top: 64px !important;
+}
+
+.home-page .shapes {
 	position: relative;
 }
 
@@ -670,4 +670,8 @@ p {
 
 .directory-navigation .menu  {
 	padding: 0;
+}
+
+hr {
+	height: 1px;
 }
