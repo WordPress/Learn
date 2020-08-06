@@ -20,13 +20,13 @@ get_header();?>
 						<u><?php _e( 'See the Lesson Plans' ); ?></u>
 					</p>
 				</a>
-				<a class="parallelogram workshop-ideas dashicons-before dashicons-lightbulb" href="/workshops/">
+				<a class="parallelogram workshop-ideas dashicons-before dashicons-slides" href="/workshops/">
 					<p>
 						<strong><?php _e( 'Workshops', 'wporg-forums' ); ?></strong>
 						<?php
 							_e( 'Workshops are great way to get people hands-on with WordPress. Here are some ideas to help run a workshop for your own.', 'wporg-forums' );
 						?>
-						<u><?php _e( 'View Workshop Ideas' ); ?></u>
+						<u><?php _e( 'Browse Workshops' ); ?></u>
 					</p>
 				</a>
 			</div>
