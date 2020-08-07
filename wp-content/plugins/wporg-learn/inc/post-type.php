@@ -47,9 +47,7 @@ function register_workshop() {
 
 	$video_template_part = 	array( 'core/group',
 		array( 'className' => 'workshop-page_video' ),
-		array( 
-			array( 'core/video' ) 
-		)
+		array( array( 'core-embed/youtube' ) )
 	);
 
 	$outcome_template_part = array( 'core/group',
@@ -78,6 +76,11 @@ function register_workshop() {
 		)
 	);
 
+	$sidebar_template_part = array( 'core/group',
+		array( 'className' => 'workshop-page_sidebar' ),
+		array( array( 'wporg-learn/detail-list' ), array( 'wporg-learn/link-button' ) )
+	);
+
 	$args = array(
 		'label'                 => __( 'Workshop', 'wporg_learn' ),
 		'description'           => __( 'WordPress.org Training Workshop', 'wporg_learn' ),
@@ -103,13 +106,19 @@ function register_workshop() {
 			array( 'core/group', 
 			array( 'className' => 'workshop-page_content' ), 
 				array(
-
 					$video_template_part,
-					array( 'core/paragraph', array(
-						'placeholder' => __( 'Describe what the workshop is about', 'wporg-learn' ),
+					array( 'core/columns', array( ), array(
+						array( 'core/column', array( 'width' => 66.66 ), array(
+							array( 'core/paragraph', array(
+								'placeholder' => __( 'Describe what the workshop is about', 'wporg-learn' ),
+							) ),
+							$outcome_template_part,
+							$comprehension_template_part,
+						) ),
+						array( 'core/column', array( 'width' => 33.333 ), array(
+							$sidebar_template_part,
+						) ) 
 					) ),
-					$outcome_template_part,
-					$comprehension_template_part,
 				) ),
 			array( 'core/separator', array( ) ),
 		),
