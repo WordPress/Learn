@@ -45,6 +45,42 @@ function register_workshop() {
 		'filter_items_list'     => __( 'Filter Workshops list', 'wporg_learn' ),
 	);
 
+	$video_template_part = 	array( 'core/group',
+		array( 'className' => 'workshop-page_video' ),
+		array( array( 'core-embed/youtube' ) )
+	);
+
+	$outcome_template_part = array( 'core/group',
+		array( 'className' => 'workshop-page_list' ),
+		array( 
+			array( 'core/heading', array(
+				'level' => '2',
+				'content' => __( 'Learning outcomes', 'wporg-learn' ),
+			) ),
+			array( 'core/list', array(
+				'ordered' => true
+			 ) ),
+		)
+	);
+
+	$comprehension_template_part = array( 'core/group',
+		array( 'className' => 'workshop-page_list' ),
+		array( 
+			array( 'core/heading', array(
+				'level' => '2',
+				'content' => __( 'Comprehension questions', 'wporg-learn' ),
+			) ),
+			array( 'core/list', array( 
+				'ordered' => true
+			 ) ),
+		)
+	);
+
+	$sidebar_template_part = array( 'core/group',
+		array( 'className' => 'workshop-page_sidebar' ),
+		array( array( 'wporg-learn/detail-list' ), array( 'wporg-learn/link-button' ) )
+	);
+
 	$args = array(
 		'label'                 => __( 'Workshop', 'wporg_learn' ),
 		'description'           => __( 'WordPress.org Training Workshop', 'wporg_learn' ),
@@ -64,8 +100,28 @@ function register_workshop() {
 		'exclude_from_search'   => false,
 		'publicly_queryable'    => true,
 		'capability_type'       => 'page',
-		'show_in_rest'          => true
-
+		'show_in_rest'          => true,
+		'template_lock'         => 'all',
+		'template' => array(
+			array( 'core/group', 
+			array( 'className' => 'workshop-page_content' ), 
+				array(
+					$video_template_part,
+					array( 'core/columns', array( ), array(
+						array( 'core/column', array( 'width' => 66.66 ), array(
+							array( 'core/paragraph', array(
+								'placeholder' => __( 'Describe what the workshop is about', 'wporg-learn' ),
+							) ),
+							$outcome_template_part,
+							$comprehension_template_part,
+						) ),
+						array( 'core/column', array( 'width' => 33.333 ), array(
+							$sidebar_template_part,
+						) ) 
+					) ),
+				) ),
+			array( 'core/separator', array( ) ),
+		),
 	);
 
 	register_post_type( 'wporg_workshop', $args );

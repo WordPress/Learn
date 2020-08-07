@@ -1,0 +1,48 @@
+.workshop-page {
+	&_content {
+		margin: $gutter-default 0 $gutter-default * 4;
+	}
+
+	&_video {
+		// This markup is provided by gutenberg
+		figure {
+			margin: $gutter-default * 2 0;
+		}
+
+		iframe {
+			width: 100%;
+
+			@include breakpoint( $breakpoint-tablet ) {
+				height: 528px;
+			}
+		}
+		// End
+	}
+
+	&_sidebar {
+		padding-top: 32px;
+
+		@include breakpoint( $breakpoint-tablet ) {
+			padding-top: 0;
+			padding-left: 16px;
+		}
+	}
+
+	&_list {
+		margin-top: $gutter-default * 3;
+		color: $color__text;
+
+		h2 {
+			font-size: 24px;
+		}
+
+		ol {
+			margin: 0 0 0 16px;
+			padding: 0;
+		}
+
+		li {
+			margin-top: $gutter-default / 2;
+		}
+	}
+}
