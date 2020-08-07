@@ -45,6 +45,39 @@ function register_workshop() {
 		'filter_items_list'     => __( 'Filter Workshops list', 'wporg_learn' ),
 	);
 
+	$video_template_part = 	array( 'core/group',
+		array( 'className' => 'workshop-page_video' ),
+		array( 
+			array( 'core/video' ) 
+		)
+	);
+
+	$outcome_template_part = array( 'core/group',
+		array( 'className' => 'workshop-page_list' ),
+		array( 
+			array( 'core/heading', array(
+				'level' => '2',
+				'content' => __( 'Learning outcomes', 'wporg-learn' ),
+			) ),
+			array( 'core/list', array(
+				'ordered' => true
+			 ) ),
+		)
+	);
+
+	$comprehension_template_part = array( 'core/group',
+		array( 'className' => 'workshop-page_list' ),
+		array( 
+			array( 'core/heading', array(
+				'level' => '2',
+				'content' => __( 'Comprehension questions', 'wporg-learn' ),
+			) ),
+			array( 'core/list', array( 
+				'ordered' => true
+			 ) ),
+		)
+	);
+
 	$args = array(
 		'label'                 => __( 'Workshop', 'wporg_learn' ),
 		'description'           => __( 'WordPress.org Training Workshop', 'wporg_learn' ),
@@ -66,34 +99,17 @@ function register_workshop() {
 		'capability_type'       => 'page',
 		'show_in_rest'          => true,
 		'template' => array(
-			//array( 'wporg-learn/workshop-video' ), <- Doesn't exist yet
-			array( 'core/columns', array(),
+			array( 'core/group', 
+			array( 'className' => 'workshop-page_content' ), 
 				array(
-					array( 'core/column', array(), array(
-						array( 'core/paragraph', array(
-							'placeholder' => __( 'Describe what the workshop is about', 'wporg-learn' ),
-						) ),
-						array( 'core/heading', array(
-							'level' => '2',
-							'content' => __( 'Learning outcomes', 'wporg-learn' ),
-						) ),
-						array( 'core/list', array( ) ),
-						array( 'core/heading', array(
-							'level' => '2',
-							'content' => __( 'Comprehension questions', 'wporg-learn' ),
-						) ),
-						array( 'core/list', array( ) )
+					$video_template_part,
+					array( 'core/paragraph', array(
+						'placeholder' => __( 'Describe what the workshop is about', 'wporg-learn' ),
 					) ),
-					array( 'core/column', array(
-						'anchor' => 'true'
-					), array(
-						array( 'wporg-learn/detail-list' ),
-						//array( 'wporg-learn/discussion-action' ) <- Doesn't exist yet
-					) ),
-				),
-			),
+					$outcome_template_part,
+					$comprehension_template_part,
+				) ),
 			array( 'core/separator', array( ) ),
-			//array( 'wporg-learn/author-details' ) <- Doesn't exist yet
 		),
 	);
 

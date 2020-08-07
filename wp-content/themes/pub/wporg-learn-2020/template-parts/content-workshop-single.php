@@ -5,7 +5,8 @@
 			<h2 class="section-heading_title"><?php the_title(); ?></h2>
 		</div>
 		<hr>
-
-		<?php the_content(); ?>
+		<div class="workshop-page">
+			<?php the_content(); ?>
+		</div>
 	</section>
 </article>
