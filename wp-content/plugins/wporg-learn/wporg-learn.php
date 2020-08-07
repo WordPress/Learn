@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin name: WP Training Team Customizations
- * Description: Provides general customizations for the WP Training Team's presence on WordPress.org
- * Version:     0.1.0
+ * Plugin name: Learn
+ * Description: Functionality for learn.wordpress.org. See also the wporg-learn theme.
+ * Version:     1
  * Author:      WordPress.org
  * Author URI:  http://wordpress.org/
  * License:     GPLv2 or later
