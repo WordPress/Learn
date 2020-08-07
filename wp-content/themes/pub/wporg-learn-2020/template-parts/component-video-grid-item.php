@@ -11,7 +11,7 @@
 
 <li class="col-4 video-grid_item">
 	<?php if( has_post_thumbnail() ) : ?>
-		<?php echo the_post_thumbnail( 'full' ); ?>
+		<?php echo the_post_thumbnail( 'medium' ); ?>
 	<?php else : ?>
 		<div class="video-grid_item--no-image"></div>
 	<? endif; ?>
