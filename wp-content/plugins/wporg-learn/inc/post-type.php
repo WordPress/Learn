@@ -98,10 +98,12 @@ function register_workshop() {
 		'publicly_queryable'    => true,
 		'capability_type'       => 'page',
 		'show_in_rest'          => true,
+		'template_lock'         => 'all',
 		'template' => array(
 			array( 'core/group', 
 			array( 'className' => 'workshop-page_content' ), 
 				array(
+
 					$video_template_part,
 					array( 'core/paragraph', array(
 						'placeholder' => __( 'Describe what the workshop is about', 'wporg-learn' ),
