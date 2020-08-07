@@ -5,6 +5,12 @@
 		height: $gutter-default * 25;
 		width: 100%;
 		background: #eee;
+		overflow: hidden;
+
+		> img {
+			width: 100%;
+			display: block;
+		}
 	}
 
 	&_title {

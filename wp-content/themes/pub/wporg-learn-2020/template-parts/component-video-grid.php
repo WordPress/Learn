@@ -7,24 +7,20 @@
  * @package WPBBP
  */
 
-$args = array(
-	'post_type' => 'wporg_workshop',
-);
-
 $options = get_query_var( 'video-grid-options' );
 
 if( is_array( $options ) ) {
-	$args = array_merge( $args, $options );
+	$latest_posts = wporg_get_workshops( $options );
+} else {
+	$latest_posts = wporg_get_workshops();
 }
-
-$featured = new \WP_Query( $args );
 
 ?>
 
-<?php if ( $featured->have_posts() )  : ?>
+<?php if ( $latest_posts->have_posts() )  : ?>
 	<ul class="row video-grid">
-		<?php while ( $featured->have_posts() ) :
-			$featured->the_post();
+		<?php while ( $latest_posts->have_posts() ) :
+			$latest_posts->the_post();
 			get_template_part( 'template-parts/component', 'video-grid-item' );
 		endwhile; ?>	
 	</ul>

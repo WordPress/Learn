@@ -198,3 +198,22 @@ function wporg_submit_idea_cta() { ?>
 	</section>
 
 <?php } 
+
+/**
+ * Returns whether all post for workshop
+ *
+ * @return array
+ */
+function wporg_get_workshops( $options = NULL ) {
+	$args = array(
+		'post_type' => 'wporg_workshop',
+	);
+
+	if( ! is_null( $options ) ) {
+		$args = array_merge( $args, $options );
+
+	} 
+
+	$query = new \WP_Query( $args );
+	return $query;
+}
