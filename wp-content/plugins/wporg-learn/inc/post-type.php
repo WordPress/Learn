@@ -86,7 +86,7 @@ function register_workshop() {
 		'description'           => __( 'WordPress.org Training Workshop', 'wporg_learn' ),
 		'labels'                => $labels,
 		'supports'              => array( 'title', 'editor', 'comments', 'revisions', 'custom-fields', 'thumbnail' ),
-		'taxonomies'            => array( 'lesson_group', 'topic', 'category' ),
+		'taxonomies'            => array( 'level', 'topic', 'category' ),
 		'hierarchical'          => true,
 		'public'                => true,
 		'show_ui'               => true,
