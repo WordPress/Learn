@@ -10,7 +10,7 @@
 		"update:configs": "npm run wp-env run cli wp config set JETPACK_DEV_DEBUG true && npm run wp-env run cli wp config set WPORG_SANDBOXED true;",
 		"update:permalinks": "npm run wp-env run cli wp rewrite structure '/%postname%/'",
 		"update:plugins": "npm run wp-env run cli wp plugin activate wordpress-importer jetpack wporg-learn/wporg-learn.php wporg-markdown/plugin.php",
-		"update:theme": "npm run wp-env run cli wp theme activate wporg-learn",
+		"update:theme": "npm run wp-env run cli wp theme activate pub/wporg-learn-2020",
 		"update:cron-1": "npm run wp-env run cli wp cron event run wporg_learn_manifest_import",
 		"update:cron-2": "npm run wp-env run cli wp cron event run wporg_learn_markdown_import",
 		"update:jetpack-1": "npm run wp-env run cli wp jetpack module activate contact-form",

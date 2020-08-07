@@ -14,7 +14,7 @@
 	"extra": {
 		"installer-paths": {
 			"wp-content/plugins/{$name}/": ["type:wordpress-plugin"],
-			"wp-content/themes/{$name}/": ["type:wordpress-theme"]
+			"wp-content/themes/pub/{$name}/": ["type:wordpress-theme"]
 		}
 	},
 	"repositories": [
