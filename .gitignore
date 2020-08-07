@@ -9,6 +9,8 @@
 
 !/wp-content/plugins
 !/wp-content/plugins/wporg-learn
+!/wp-content/plugins/wporg-detail-list
+!/wp-content/plugins/wporg-link-button
 !/wp-content/themes
 !/wp-content/themes/pub
 !/wp-content/themes/pub/wporg-learn-2020

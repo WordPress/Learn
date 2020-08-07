@@ -1,0 +1,28 @@
+/**
+ * The following styles get applied inside the editor only.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+ .wp-block-wporg-learn-detail-list {
+	min-height: 150px;
+	padding: 16px;
+	display: flex;
+	flex-direction: column;
+	background: #eee;
+	align-items: center;
+	justify-content: center;
+	font-size: 14px;
+
+	p {
+		margin: 4px !important;
+		text-align: center;
+		font-size: 18px !important;
+		line-height: 22px !important;
+	}
+
+	p:last-child {
+		font-size: 10px !important;
+	}
+}
+

@@ -1,0 +1,30 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+ 
+ .wp-block-wporg-learn-detail-list {	
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	color: #555d66;
+
+	li {
+		display: flex;
+		justify-content: space-between;
+		padding: 8px 0;
+		border-top: 1px solid #E2E4E7;
+	
+		&:last-child {
+			border-bottom: 1px solid #E2E4E7;
+		}
+
+		> span {
+			text-align: right;
+			flex-basis: 50%;
+			word-break: normal;
+		}
+	}
+}
