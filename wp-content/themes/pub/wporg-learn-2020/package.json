@@ -1,9 +1,9 @@
 {
-	"name": "wporg-learn",
+	"name": "wporg-learn-2020",
 	"version": "1.0.0",
-	"description": "Theme for learn.wordpress.org/",
-	"author": "wordpressdotorg",
-	"license": "GPL-2.0+",
+	"description": "Theme for learn.wordpress.org",
+	"author": "WordPress.org",
+	"license": "GPL-2.0-or-later",
 	"repository": {
 		"type": "git",
 		"url": "https://learn.wordpress.org"
