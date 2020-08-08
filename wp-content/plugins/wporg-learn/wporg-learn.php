@@ -12,8 +12,9 @@ require_once dirname( __FILE__ ) . '/inc/class-markdown-import.php';
 require_once dirname( __FILE__ ) . '/inc/class-shortcodes.php';
 require_once dirname( __FILE__ ) . '/inc/class-lesson-plan.php';
 require_once dirname( __FILE__ ) . '/inc/class-workshop.php';
-require_once dirname( __FILE__ ) . '/inc/post-type.php';
+require_once dirname( __FILE__ ) . '/inc/blocks.php';
 require_once dirname( __FILE__ ) . '/inc/post-meta.php';
+require_once dirname( __FILE__ ) . '/inc/post-type.php';
 
 /**
  * Registry of actions and filters
@@ -36,7 +37,9 @@ add_action( 'init', array( 'WPORG_Learn\Lesson_Plan', 'lesson_audience_taxonomy'
 add_action( 'init', array( 'WPORG_Learn\Lesson_Plan', 'lesson_instruction_type_taxonomy' ) );
 add_filter( 'the_content', array('WPORG_Learn\Lesson_Plan', 'replace_image_links' ) );
 
-
+add_action( 'init', 'WPORG_Learn\Blocks\workshop_details_init' );
+add_action( 'enqueue_block_editor_assets', 'WPORG_Learn\Blocks\enqueue_block_style_assets' );
+add_action( 'wp_enqueue_scripts', 'WPORG_Learn\Blocks\enqueue_block_style_assets' );
 add_action( 'init', 'WPORG_Learn\Post_Types\register' );
 add_action( 'init', 'WPORG_Learn\Post_Meta\register' );
 add_action( 'add_meta_boxes', 'WPORG_Learn\Post_Meta\add_workshop_metaboxes' );
