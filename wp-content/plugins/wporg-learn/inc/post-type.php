@@ -47,7 +47,7 @@ function register_workshop() {
 
 	$video_template_part = 	array( 'core/group',
 		array( 'className' => 'workshop-page_video' ),
-		array( array( 'core-embed/youtube' ) )
+		array( array( 'core-embed/wordpress-tv' ) )
 	);
 
 	$outcome_template_part = array( 'core/group',
