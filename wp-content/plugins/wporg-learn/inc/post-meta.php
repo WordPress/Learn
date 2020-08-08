@@ -157,8 +157,10 @@ function save_workshop_metabox_fields( $post_id, WP_Post $post ) {
 	}
 
 	$duration = filter_input( INPUT_POST, 'duration', FILTER_SANITIZE_NUMBER_INT, FILTER_REQUIRE_ARRAY );
-	$duration = $duration['h'] * HOUR_IN_SECONDS + $duration['m'] * MINUTE_IN_SECONDS;
-	update_post_meta( $post_id, 'duration', $duration );
+	if ( isset( $duration['h'], $duration['m'] ) ) {
+		$duration = $duration['h'] * HOUR_IN_SECONDS + $duration['m'] * MINUTE_IN_SECONDS;
+		update_post_meta( $post_id, 'duration', $duration );
+	}
 
 	$facilitator_wporg_username = filter_input( INPUT_POST, 'facilitator-wporg-username' );
 	$usernames = array_map( 'trim', explode( ',', $facilitator_wporg_username ) );
