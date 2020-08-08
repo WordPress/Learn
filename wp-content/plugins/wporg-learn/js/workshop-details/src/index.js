@@ -32,12 +32,12 @@ import save from './save';
  *
  * @see https://developer.wordpress.org/block-editor/developers/block-api/#registering-a-block
  */
-registerBlockType( 'wporg-learn/link-button', {
+registerBlockType( 'wporg-learn/workshop-details', {
 	/**
 	 * This is the display title for your block, which can be translated with `i18n` functions.
 	 * The block inserter will show this name.
 	 */
-	title: __( 'Link Button', 'wporg-learn' ),
+	title: __( 'Workshop Details', 'wporg-learn' ),
 
 	/**
 	 * This is a short description for your block, can be translated with `i18n` functions.
@@ -46,19 +46,13 @@ registerBlockType( 'wporg-learn/link-button', {
 	description: __(
 		'Example block written with ESNext standard and JSX support – build step required.',
 		'wporg-learn'
-    ),
-    
-    attributes: {
-        url: {
-    		type: 'string',
-        },
-    },
+	),
 
 	/**
 	 * Blocks are grouped into categories to help users browse and discover them.
 	 * The categories provided by core are `common`, `embed`, `formatting`, `layout` and `widgets`.
 	 */
-	category: 'widgets',
+    category: 'widgets',
 
 	/**
 	 * An icon property should be specified to make it easier to identify a block.
@@ -82,5 +76,5 @@ registerBlockType( 'wporg-learn/link-button', {
 	/**
 	 * @see ./save.js
 	 */
-	save,
+	save
 } );

@@ -47,12 +47,12 @@ function register_workshop() {
 
 	$video_template_part = 	array( 'core/group',
 		array( 'className' => 'workshop-page_video' ),
-		array( array( 'core-embed/youtube' ) )
+		array( array( 'core-embed/wordpress-tv' ) )
 	);
 
 	$outcome_template_part = array( 'core/group',
 		array( 'className' => 'workshop-page_list' ),
-		array( 
+		array(
 			array( 'core/heading', array(
 				'level' => '2',
 				'content' => __( 'Learning outcomes', 'wporg-learn' ),
@@ -65,20 +65,34 @@ function register_workshop() {
 
 	$comprehension_template_part = array( 'core/group',
 		array( 'className' => 'workshop-page_list' ),
-		array( 
+		array(
 			array( 'core/heading', array(
 				'level' => '2',
 				'content' => __( 'Comprehension questions', 'wporg-learn' ),
 			) ),
-			array( 'core/list', array( 
+			array( 'core/list', array(
 				'ordered' => true
-			 ) ),
+			) ),
 		)
 	);
 
 	$sidebar_template_part = array( 'core/group',
 		array( 'className' => 'workshop-page_sidebar' ),
-		array( array( 'wporg-learn/detail-list' ), array( 'wporg-learn/link-button' ) )
+		array(
+			array( 'wporg-learn/workshop-details' ),
+			array( 'core/button', array(
+				'text'         => __( 'Join a Group Discussion', 'wporg-learn' ),
+				'url'          => 'https://wordpress.org',
+				'borderRadius' => 5,
+				'className'    => 'is-style-secondary-full-width',
+			) ),
+			array( 'core/paragraph', array(
+				'content' => sprintf(
+					__( 'You must agree to our <a href="%s">Code of Conduct</a> in order to participate.', 'wporg-learn' ),
+					'https://learn.wordpress.org/code-of-conduct/'
+				)
+			) )
+		)
 	);
 
 	$args = array(
@@ -103,8 +117,8 @@ function register_workshop() {
 		'show_in_rest'          => true,
 		'template_lock'         => 'all',
 		'template' => array(
-			array( 'core/group', 
-			array( 'className' => 'workshop-page_content' ), 
+			array( 'core/group',
+			array( 'className' => 'workshop-page_content' ),
 				array(
 					$video_template_part,
 					array( 'core/columns', array( ), array(
@@ -117,7 +131,7 @@ function register_workshop() {
 						) ),
 						array( 'core/column', array( 'width' => 33.333 ), array(
 							$sidebar_template_part,
-						) ) 
+						) )
 					) ),
 				) ),
 			array( 'core/separator', array( ) ),

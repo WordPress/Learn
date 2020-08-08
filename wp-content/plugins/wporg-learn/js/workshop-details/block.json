@@ -1,0 +1,14 @@
+{
+	"name": "wporg-learn/workshop-details",
+	"title": "Workshop Details",
+	"category": "widgets",
+	"icon": "smiley",
+	"description": "",
+	"textdomain": "wporg-learn",
+	"supports": {
+		"html": false
+	},
+	"editorScript": "file:../../build/workshop-details.js",
+	"editorStyle": "file:../../build/workshop-details.css",
+	"style": "file:../../build/style-workshop-details.css"
+}
