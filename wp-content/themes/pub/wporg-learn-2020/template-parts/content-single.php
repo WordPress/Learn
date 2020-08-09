@@ -15,10 +15,11 @@ $download_url = wporg_get_download_slides_url();
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-	<div class="entry-content">	
-		<header class="entry-header">
-			<?php the_title( '<h1 class="entry-title h3">', '</h1>' ); ?>
-		</header><!-- .entry-header -->
+	<section>	
+		<header class="row align-middle between section-heading section-heading--with-space">
+			<h2 class="section-heading_title"><?php the_title(); ?></h2>
+		</header>
+
 		<div class="lp-content">
 			<div class="lp-content-inner github-markdown">
 				<?php
@@ -71,5 +72,5 @@ $download_url = wporg_get_download_slides_url();
 				</div>
 			</aside>
 			</div>
-	</div><!-- .entry-content -->
+	</section>
 </article><!-- #post-## -->
