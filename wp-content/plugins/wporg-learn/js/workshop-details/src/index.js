@@ -25,7 +25,6 @@ import './style.scss';
  * Internal dependencies
  */
 import Edit from './edit';
-import save from './save';
 
 /**
  * Every block starts by registering a new block type definition.
@@ -44,7 +43,7 @@ registerBlockType( 'wporg-learn/workshop-details', {
 	 * It will be shown in the Block Tab in the Settings Sidebar.
 	 */
 	description: __(
-		'Example block written with ESNext standard and JSX support – build step required.',
+		'Show details about the workshop, pulled from post meta.',
 		'wporg-learn'
 	),
 
@@ -76,5 +75,5 @@ registerBlockType( 'wporg-learn/workshop-details', {
 	/**
 	 * @see ./save.js
 	 */
-	save
+	save: () => null,
 } );
