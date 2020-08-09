@@ -87,6 +87,7 @@ function register_workshop() {
 				'className'    => 'is-style-secondary-full-width',
 			) ),
 			array( 'core/paragraph', array(
+				'className' => 'terms',
 				'content' => sprintf(
 					__( 'You must agree to our <a href="%s">Code of Conduct</a> in order to participate.', 'wporg-learn' ),
 					'https://learn.wordpress.org/code-of-conduct/'
