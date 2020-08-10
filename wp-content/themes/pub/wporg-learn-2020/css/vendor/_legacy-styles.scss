@@ -3171,7 +3171,7 @@ body, #pagebody {
 }
 
 .helphub-page .entry-content a,
-.page .entry-content a {
+.page .entry-content a:not(.button) {
 	text-decoration: underline;
 }
 
