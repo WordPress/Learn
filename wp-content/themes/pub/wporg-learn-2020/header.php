@@ -58,7 +58,7 @@ if ( is_front_page() ) {
 				<?php
 				} elseif ( is_page() ) {
 				?>
-				<h1 class="site-title"><?php the_title(); ?></h1>
+				<h1 class="site-title"><a href="<?php echo esc_url( get_the_permalink() ); ?>" rel="home"><?php the_title(); ?></a></h1>
 				<?php
 				} else {
 				?>
