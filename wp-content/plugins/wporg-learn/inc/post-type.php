@@ -117,6 +117,7 @@ function register_workshop() {
 		'capability_type'       => 'page',
 		'show_in_rest'          => true,
 		'template_lock'         => 'all',
+		'rewrite'               => array( 'slug' => 'workshop' ),
 		'template' => array(
 			array( 'core/group',
 			array( 'className' => 'workshop-page_content' ),
