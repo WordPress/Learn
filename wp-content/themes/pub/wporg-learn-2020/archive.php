@@ -9,70 +9,38 @@
 
 namespace WordPressdotorg\Theme;
 
-
-/**
- * Gets the url for the next page
- * 
- * @return string
- */
-function get_paging_url() {
-	$non_existing_page_num = 999999999;
-
-	// We will send a dummy number into the get_pagenum_link to get a url and replace that with a placeholder
-	$url_with_placeholder = str_replace( $non_existing_page_num, '%#%', esc_url( get_pagenum_link( $non_existing_page_num ) ) );
-	$default_cat = wporg_get_default_cat();
-	
-	// Because of routing, we want to inject the first category if they are in the root.
-	return preg_replace( '/(workshops|lesson-plans)\/page/', '$1/' . $default_cat->slug . '/page' , $url_with_placeholder );
-}
-
-$paged = ( get_query_var( 'page' ) ) ? absint( get_query_var( 'page' ) ) : 1;
-
-$args = array(
-	'posts_per_page' => get_option( 'posts_per_page' ),
-	'post_type' => get_post_type(),
-	'category_name' => wporg_get_cat_or_default_slug(),
-	'paged' => $paged,
-);
-
-$category_posts = new \WP_Query( $args );
-
 get_header();
 ?>
 
-<?php get_template_part( 'template-parts/component', 'directory-nav' ); ?>
+	<main id="main" class="site-main col-8" role="main">
 
-<main id="main" class="site-main page-full-width" role="main">
-	<?php get_template_part( 'template-parts/component', 'filters' ); ?>
+	<?php if ( have_posts() ) : ?>
 
-	<?php if ( $category_posts->have_posts() ) : ?>
-
-		<div id="lesson-plans" class="lp-list">
-		
-			<?php while ( $category_posts->have_posts() ) :
-					$category_posts->the_post();
-					get_template_part( 'template-parts/content', 'archive' );
-				endwhile; 
+		<header class="page-header">
+			<?php
+				the_archive_title( '<h1 class="page-title">', '</h1>' );
+				the_archive_description( '<div class="taxonomy-description">', '</div>' );
 			?>
-			
-		</div>
-		
-		<?php echo paginate_links( array(
-				'base' => get_paging_url(),
-				'format' => '?page=%#%',
-				'current' => max( 1, get_query_var('page') ),
-				'total' => $category_posts->max_num_pages
-			) ); ?>
+		</header><!-- .page-header -->
 
-	<?php else : ?>
-		<div class="lp-empty"><?php echo _e("We were unable to find any matches." , 'wporg-learn'); ?></div>
-	<?php endif; ?>
+		<?php
+		/* Start the Loop */
+		while ( have_posts() ) :
+			the_post();
 
-</main><!-- #main -->
+			get_template_part( 'template-parts/content' );
+		endwhile;
 
-<?php if ( $category_posts->have_posts() ) : ?>
-	<?php wporg_submit_idea_cta(); ?>
-<?php endif; ?>
+		the_posts_pagination();
+
+	else :
+		get_template_part( 'template-parts/content', 'none' );
+
+	endif;
+	?>
+
+	</main><!-- #main -->
 
 <?php
+get_sidebar();
 get_footer();
