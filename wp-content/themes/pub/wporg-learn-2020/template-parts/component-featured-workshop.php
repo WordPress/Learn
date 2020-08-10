@@ -23,7 +23,7 @@ $featured_workshop = wporg_get_workshops( $args );
 		<a class="featured-workshop_title" href="<?php echo esc_url( get_the_permalink() ); ?>"><?php echo the_title() ?></a>
 		<div class="row">
 			<div class="col-8">	
-				<p><?php echo get_the_excerpt(); ?></p>
+				<p><?php the_excerpt(); ?></p>
 			</div>
 			<div class="col-4 featured-workshop_content_author">
 				<?php get_template_part( 'template-parts/component', 'author' ); ?>
