@@ -168,3 +168,16 @@ add_action( 'wp_head', function(){
 	</style>
 	<?php
 });
+
+/**
+ * Filter to change wporg_workshop post type url
+ */
+function wporg_workshop_register_post_type_args( $args, $post_type ) {
+    if ( 'wporg_workshop' === $post_type ) {
+        $args['rewrite']['slug'] = 'workshop';
+    }
+
+    return $args;
+}
+
+add_filter( 'register_post_type_args', 'wporg_workshop_register_post_type_args', 10, 2 );
