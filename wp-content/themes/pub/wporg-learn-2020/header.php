@@ -38,12 +38,12 @@ if ( is_front_page() ) {
 				<?php
 				if ( is_front_page() ) {
 				?>
-				<h1 class="site-title"><a href="<?php echo esc_url(home_url('/')); ?>" rel="home"><?php _ex('Help Others Learn WordPress', 'Site title', 'wporg-forums'); ?></a></h1>
+				<h1 class="site-title"><a href="<?php echo esc_url(home_url('/')); ?>" rel="home"><?php _ex('Learn WordPress', 'Site title', 'wporg-forums'); ?></a></h1>
 
 				<p class="site-description">
 					<?php
 					/* Translators: subhead */
-					_e('Whether you&#8217;re a first-time blogger or seasoned developer, there&#8217;s always more to learn. From the contributors who make WordPress, these vast resourses will help you teach WordPress to others.', 'wporg-forums');
+					_e('Whether you&#8217;re a first-time blogger or seasoned developer, there&#8217;s always more to learn. From community members all over the world, these vast resourses will help you learn more about WordPress and teach it to others.', 'wporg-forums');
 					?>
 				</p>
 
