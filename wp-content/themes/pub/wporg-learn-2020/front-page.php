@@ -11,22 +11,22 @@ get_header();?>
 	<main id="main" class="site-main home-page" role="main">
 		<section class="quick-intro">
 			<div class="shapes">
-				<a class="parallelogram lesson-plans dashicons-before dashicons-clipboard" href="/lesson-plans/">
-					<p>
-						<strong><?php _e( 'Lesson Plans', 'wporg-forums' ); ?></strong>
-						<?php
-							_e( 'Are you teaching WordPress to others? These lesson plans are designed to guide and inspire you to deliver great content.', 'wporg-forums' );
-						?>
-						<u><?php _e( 'See the Lesson Plans' ); ?></u>
-					</p>
-				</a>
 				<a class="parallelogram workshop-ideas dashicons-before dashicons-slides" href="/workshops/">
 					<p>
 						<strong><?php _e( 'Workshops', 'wporg-forums' ); ?></strong>
 						<?php
-							_e( 'Workshops are great way to get people hands-on with WordPress. Here are some ideas to help run a workshop for your own.', 'wporg-forums' );
+						_e( 'Workshops are a great way to get hands-on with WordPress. Here are some workshops for you to level up your WordPress skills.', 'wporg-learn' );
 						?>
 						<u><?php _e( 'Browse Workshops' ); ?></u>
+					</p>
+				</a>
+				<a class="parallelogram lesson-plans dashicons-before dashicons-clipboard" href="/lesson-plans/">
+					<p>
+						<strong><?php _e( 'Lesson Plans', 'wporg-forums' ); ?></strong>
+						<?php
+							_e( 'Are you teaching WordPress to others? These lesson plans are designed to guide and inspire you to deliver great content.', 'wporg-learn' );
+						?>
+						<u><?php _e( 'See the Lesson Plans' ); ?></u>
 					</p>
 				</a>
 			</div>
