@@ -98,6 +98,7 @@ class Markdown_Import {
 			'post_parent' => $post_parent,
 			'post_title'  => sanitize_text_field( wp_slash( $doc['title'] ) ),
 			'post_name'   => sanitize_title_with_dashes( $doc['slug'] ),
+			'post_category' => array( 1 )
 		);
 		$post_id = wp_insert_post( $post_data );
 		if ( ! $post_id ) {

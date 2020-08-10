@@ -19,6 +19,9 @@ npm run wp-env run cli wp theme activate pub/wporg-learn-2020
 ## Install dependencies
 yarn
 
+## Rename the default category
+npm run wp-env run cli "wp term update category 1 --name=All --slug=all"
+
 ## Import lesson plans
 npm run wp-env run cli wp cron event run wporg_learn_manifest_import
 npm run wp-env run cli wp cron event run wporg_learn_markdown_import
