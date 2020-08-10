@@ -43,7 +43,7 @@ if ( is_front_page() ) {
 				<p class="site-description">
 					<?php
 					/* Translators: subhead */
-					_e('Whether you&#8217;re a first-time blogger or seasoned developer, there&#8217;s always more to learn. From the contributors who make WordPress, these vast resourses will help you learn more about WordPress and teach it to others.', 'wporg-forums');
+					_e('Whether you&#8217;re a first-time blogger or seasoned developer, there&#8217;s always more to learn. From community members all over the world, these vast resourses will help you learn more about WordPress and teach it to others.', 'wporg-forums');
 					?>
 				</p>
 
