@@ -14,7 +14,7 @@
 	],
 	"scripts": {
 		"install:env": "./bin/index.sh",
-		"create": "npm run composer-install && npm run install:env",
+		"create": "composer install && npm run install:env",
 		"wp-env": "wp-env"
 	},
 	"main": "index.js"
