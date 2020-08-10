@@ -49,7 +49,7 @@
 		}
 	],
 	"require": {
-		"wpackagist-plugin/jetpack": "*",
+		"wpackagist-plugin/jetpack": "8.7",
 		"wpackagist-plugin/wordpress-importer": "*",
 		"wordpress-meta/wporg-markdown": "1",
 		"wordpress-meta/wporg": "1"
