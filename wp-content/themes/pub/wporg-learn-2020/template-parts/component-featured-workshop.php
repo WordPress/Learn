@@ -20,7 +20,6 @@ $featured_workshop = wporg_get_workshops( $args );
 	?>
 	<div class="featured-workshop_video"><?php echo the_post_thumbnail( 'full' ); ?></div>
 	<div class="featured-workshop_content">
-
 		<a class="featured-workshop_title" href="<?php echo esc_url( get_the_permalink() ); ?>"><?php echo the_title() ?></a>
 		<div class="row">
 			<div class="col-8">	
@@ -30,7 +29,6 @@ $featured_workshop = wporg_get_workshops( $args );
 				<?php get_template_part( 'template-parts/component', 'author' ); ?>
 			</div>
 		</div>
-
 	</div>
 	<?php endwhile; ?>
 </div>
