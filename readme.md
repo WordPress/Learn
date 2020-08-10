@@ -8,7 +8,7 @@
 
 ## Setup
 1. `yarn`
-2. `yarn run create` (run `yarn run create:existing` to reset environment).
+2. `yarn run create`.
 3. Visit site at `localhost:8888`
 
 ## Stopping Environment
