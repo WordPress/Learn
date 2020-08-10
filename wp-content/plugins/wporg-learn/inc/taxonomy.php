@@ -18,7 +18,7 @@ function register_lesson_taxonomies() {
 	$labels = array(
 		'name'                       => _x( 'Categories', 'Taxonomy General Name', 'wporg_learn' ),
 		'singular_name'              => _x( 'Category', 'Taxonomy Singular Name', 'wporg_learn' ),
-		'menu_name'                  => __( 'Category', 'wporg_learn' ),
+		'menu_name'                  => __( 'Categories', 'wporg_learn' ),
 		'all_items'                  => __( 'All Categories', 'wporg_learn' ),
 		'new_item_name'              => __( 'New Category', 'wporg_learn' ),
 		'add_new_item'               => __( 'Add New Category', 'wporg_learn' ),
