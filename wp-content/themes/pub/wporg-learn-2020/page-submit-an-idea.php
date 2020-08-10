@@ -23,7 +23,7 @@ get_header(); ?>
 							<div class="col">
 								<span class="dashicons dashicons-welcome-learn-more"></span>
 								<p>
-								Workshops are a collection of leesions and a great way to get people hands-on with WordPress.
+								Workshops are a collection of lessons and a great way to get people hands-on with WordPress.
 								</p>
 								<a class="button button-primary button-large" href="/submit-workshop-idea"><?php _e( 'Workshop Idea' ); ?></a>
 							</div>
