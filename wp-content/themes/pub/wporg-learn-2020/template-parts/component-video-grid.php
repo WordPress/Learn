@@ -18,7 +18,7 @@ if( is_array( $options ) ) {
 ?>
 
 <?php if ( $latest_posts->have_posts() )  : ?>
-	<ul class="row video-grid">
+	<ul id="workshop-grid" class="row video-grid">
 		<?php while ( $latest_posts->have_posts() ) :
 			$latest_posts->the_post();
 			get_template_part( 'template-parts/component', 'video-grid-item' );

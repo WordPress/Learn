@@ -19,6 +19,15 @@ function setup() {
 add_action( 'after_setup_theme', __NAMESPACE__ . '\setup' );
 
 /**
+ * Enqueue scripts
+ */
+function scripts() {
+	wp_enqueue_script( 'wporg-learn-javascript', get_stylesheet_directory_uri() . '/js/index.js', array(), '20200811', true );
+}
+
+add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\scripts' );
+
+/**
  * The Header for our theme.
  *
  * @package WPBBP

@@ -13,7 +13,7 @@ $args = array( 'posts_per_page' => '1' );
 $featured_workshop = wporg_get_workshops( $args );
 ?>
 
-<div class="featured-workshop">
+<div id="featured-workshop" class="featured-workshop">
 	<?php
 		while ( $featured_workshop->have_posts() ) :
 			$featured_workshop->the_post();
