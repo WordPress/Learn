@@ -8,7 +8,7 @@
  */
 
 
-$slides_url = wporg_get_slides_url();
+$slides_url   = wporg_get_slides_url();
 $download_url = wporg_get_download_slides_url();
 
 ?>
@@ -35,24 +35,24 @@ $download_url = wporg_get_download_slides_url();
 			<aside class="lp-sidebar">
 				<div class="lp-details">
 					<ul>
-						<?php 
-							foreach( wporg_get_custom_taxonomies( get_the_ID() ) as $detail ) {
-								if( !empty( $detail[ 'values' ] ) ) {
-									include( locate_template( 'template-parts/component-taxonomy-item.php' ) ); 
-								}			
+						<?php
+						foreach ( wporg_get_custom_taxonomies( get_the_ID() ) as $detail ) {
+							if ( ! empty( $detail['values'] ) ) {
+								include locate_template( 'template-parts/component-taxonomy-item.php' );
 							}
+						}
 						?>
 					</ul>
 
 					<ul class="lp-links">
 
-					<?php if( $slides_url ) : ?>
+					<?php if ( $slides_url ) : ?>
 						<li>
 							<a href="<?php echo $slides_url; ?>" target="_blank"><span class="dashicons dashicons-admin-page"></span> <?php _e( 'View Lesson Plan Slides' ); ?></a>
 						</li>
 					<?php endif; ?>
 
-					<?php if( $download_url ) : ?>
+					<?php if ( $download_url ) : ?>
 						<li>
 							<a href="<?php echo $download_url; ?>"><span class="dashicons dashicons-download"></span> <?php _e( 'Download Lesson Slides' ); ?></a>
 						</li>

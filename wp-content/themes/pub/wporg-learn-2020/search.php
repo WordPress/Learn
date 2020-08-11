@@ -10,23 +10,23 @@
 namespace WordPressdotorg\Theme;
 
 $search_query = sprintf(
-    /* translators: Search query. */
-    esc_html__( 'Search Results for: %s', 'wporg-learn' ),
-    get_search_query()
+	/* translators: Search query. */
+	esc_html__( 'Search Results for: %s', 'wporg-learn' ),
+	get_search_query()
 );
 
 get_header(); ?>
 
 	<main id="main" class="site-main type-page" role="main">
-        <div class="clearfix">
-            <div class="bbp-breadcrumb">
-                <p>
-                    <a href="<?php echo home_url(); ?>" class="bbp-breadcrumb-home">Learn Home</a>
-                    <span class="bbp-breadcrumb-sep">»</span>
-                    <span class="bbp-breadcrumb-current"><?php echo $search_query; ?></span>
-                </p>
-            </div>
-        </div>
+		<div class="clearfix">
+			<div class="bbp-breadcrumb">
+				<p>
+					<a href="<?php echo home_url(); ?>" class="bbp-breadcrumb-home">Learn Home</a>
+					<span class="bbp-breadcrumb-sep">»</span>
+					<span class="bbp-breadcrumb-current"><?php echo $search_query; ?></span>
+				</p>
+			</div>
+		</div>
 
 		<?php if ( have_posts() ) : ?>
 
@@ -38,7 +38,7 @@ get_header(); ?>
 			// Start the loop.
 			while ( have_posts() ) :
 				the_post();
-			?>
+				?>
 
 			<article id="post-<?php the_ID(); ?>" <?php post_class( 'card' ); ?>>
 				<header class="entry-header">
@@ -68,7 +68,7 @@ get_header(); ?>
 				</footer><!-- .entry-footer -->
 			</article><!-- #post-## -->
 
-			<?php
+				<?php
 				// End the loop.
 				endwhile;
 

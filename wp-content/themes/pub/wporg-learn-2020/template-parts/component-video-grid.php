@@ -9,7 +9,7 @@
 
 $options = get_query_var( 'video-grid-options' );
 
-if( is_array( $options ) ) {
+if ( is_array( $options ) ) {
 	$latest_posts = wporg_get_workshops( $options );
 } else {
 	$latest_posts = wporg_get_workshops();
@@ -17,7 +17,7 @@ if( is_array( $options ) ) {
 
 ?>
 
-<?php if ( $latest_posts->have_posts() )  : ?>
+<?php if ( $latest_posts->have_posts() ) : ?>
 	<ul class="row video-grid">
 		<?php while ( $latest_posts->have_posts() ) :
 			$latest_posts->the_post();

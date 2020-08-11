@@ -56,7 +56,7 @@ get_header();?>
 				);
 				set_query_var( 'video-grid-options', $args );
 				get_template_part( 'template-parts/component', 'video-grid' );
-			?>
+				?>
 		</section>
 		<hr>
 		
