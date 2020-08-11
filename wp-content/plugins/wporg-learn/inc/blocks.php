@@ -54,12 +54,32 @@ function workshop_details_init() {
 	) );
 }
 
+
+
+/**
+ * Build the html output based on input fields
+ *
+ * @param array   $fields
+ * @return string HTML output.
+ */
+function get_workshop_details_html_output( $fields ) {
+	$output = '<ul class="wp-block-wporg-learn-workshop-details">';
+
+	foreach( $fields as $key => $value ) {
+		$output .= sprintf( '<li><b>%1$s</b><span>%2$s</span></li>', $key, $value );
+	}
+
+	$output .= '</ul>';
+
+	return $output;
+}
+
 /**
  * Render the block content (html) on the frontend of the site.
  *
  * @param array  $attributes
  * @param string $content
- * @return string HTML output used by the calendar JS.
+ * @return string HTML output used by the block
  */
 function workshop_details_render_callback( $attributes, $content ) {
 	$post = get_post();
@@ -67,20 +87,18 @@ function workshop_details_render_callback( $attributes, $content ) {
 	$level = wp_get_post_terms( $post->ID, 'level', array( 'fields' => 'names' ) );
 	$captions = get_post_meta( $post->ID, 'video_caption_language' );
 
-	return sprintf(
-		'<ul class="wp-block-wporg-learn-workshop-details">
-			<li><b>Length</b><span>%1$s</span></li>
-			<li><b>Topic</b><span>%2$s</span></li>
-			<li><b>Level</b><span>%3$s</span></li>
-			<li><b>Language</b><span>%4$s</span></li>
-			<li><b>Captions</b><span>%5$s</span></li>
-		</ul>',
-		get_workshop_duration( $post, 'string' ),
-		implode( ', ', array_map( 'esc_html', $topics ) ),
-		implode( ', ', array_map( 'esc_html', $level ) ),
-		esc_html( $post->video_language ),
-		implode( ', ', array_map( 'esc_html', $captions ) )
-    );
+	$fields = array(
+		__( 'Length' , 'wporg-learn') => get_workshop_duration( $post, 'string' ),
+		__( 'Topic' , 'wporg-learn') => implode( ', ', array_map( 'esc_html', $topics ) ),
+		__( 'Level' , 'wporg-learn') => implode( ', ', array_map( 'esc_html', $level ) ),
+		__( 'Language' , 'wporg-learn') => esc_html( $post->video_language ),
+		__( 'Captions' , 'wporg-learn') => implode( ', ', array_map( 'esc_html', $captions ) ),
+	);
+
+	// Remove empty fields
+	$fields_to_output = array_filter( $fields );
+
+	return get_workshop_details_html_output( $fields_to_output );
 }
 
 /**
