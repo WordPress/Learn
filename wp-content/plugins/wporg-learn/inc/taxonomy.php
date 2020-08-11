@@ -38,7 +38,7 @@ function register_lesson_taxonomies() {
 
 	$args = array(
 		'labels'            => $labels,
-		'hierarchical'      => false,
+		'hierarchical'      => true,
 		'public'            => true,
 		'rewrite'           => array(
 			'slug' => 'lesson-plans'
