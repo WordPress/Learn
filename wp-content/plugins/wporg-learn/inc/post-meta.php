@@ -34,9 +34,9 @@ function register_workshop_meta() {
 
 	register_post_meta(
 		$post_type,
-		'facilitator_wporg_username',
+		'presenter_wporg_username',
 		array(
-			'description'       => __( 'The WordPress.org user name of a facilitator for this workshop.', 'wporg_learn' ),
+			'description'       => __( 'The WordPress.org user name of a presenter for this workshop.', 'wporg_learn' ),
 			'type'              => 'string',
 			'single'            => false,
 			'sanitize_callback' => 'sanitize_user',
@@ -114,9 +114,9 @@ function add_workshop_metaboxes() {
 	);
 
 	add_meta_box(
-		'workshop-facilitators',
-		__( 'Facilitators', 'wporg_learn' ),
-		__NAMESPACE__ . '\render_metabox_workshop_facilitators',
+		'workshop-presenters',
+		__( 'Presenters', 'wporg_learn' ),
+		__NAMESPACE__ . '\render_metabox_workshop_presenters',
 		'wporg_workshop',
 		'side'
 	);
@@ -135,14 +135,14 @@ function render_metabox_workshop_details( WP_Post $post ) {
 }
 
 /**
- * Render the Facilitators meta box.
+ * Render the Presenters meta box.
  *
  * @param WP_Post $post
  */
-function render_metabox_workshop_facilitators( WP_Post $post ) {
-	$facilitators = get_post_meta( $post->ID, 'facilitator_wporg_username' ) ?: array();
+function render_metabox_workshop_presenters( WP_Post $post ) {
+	$presenters = get_post_meta( $post->ID, 'presenter_wporg_username' ) ?: array();
 
-	require dirname( dirname( __FILE__ ) ) . '/views/metabox-workshop-facilitators.php';
+	require dirname( dirname( __FILE__ ) ) . '/views/metabox-workshop-presenters.php';
 }
 
 /**
@@ -162,11 +162,11 @@ function save_workshop_metabox_fields( $post_id, WP_Post $post ) {
 		update_post_meta( $post_id, 'duration', $duration );
 	}
 
-	$facilitator_wporg_username = filter_input( INPUT_POST, 'facilitator-wporg-username' );
-	$usernames = array_map( 'trim', explode( ',', $facilitator_wporg_username ) );
-	delete_post_meta( $post_id, 'facilitator_wporg_username' );
+	$presenter_wporg_username = filter_input( INPUT_POST, 'presenter-wporg-username' );
+	$usernames = array_map( 'trim', explode( ',', $presenter_wporg_username ) );
+	delete_post_meta( $post_id, 'presenter_wporg_username' );
 	foreach( $usernames as $username ) {
-		add_post_meta( $post_id, 'facilitator_wporg_username', $username );
+		add_post_meta( $post_id, 'presenter_wporg_username', $username );
 	}
 
 	$video_language = filter_input( INPUT_POST, 'video-language' );

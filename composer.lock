@@ -155,15 +155,15 @@
         },
         {
             "name": "wpackagist-plugin/jetpack",
-            "version": "8.8",
+            "version": "8.8.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/jetpack/",
-                "reference": "tags/8.8"
+                "reference": "tags/8.8.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/jetpack.8.8.zip"
+                "url": "https://downloads.wordpress.org/plugin/jetpack.8.8.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
