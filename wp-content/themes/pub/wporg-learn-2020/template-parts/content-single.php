@@ -17,7 +17,7 @@ $download_url = wporg_get_download_slides_url();
 
 	<section>	
 		<header class="row align-middle between section-heading section-heading--with-space">
-			<h2 class="section-heading_title"><?php the_title(); ?></h2>
+			<h1 class="section-heading_title h2"><?php the_title(); ?></h1>
 		</header>
 
 		<div class="lp-content">
@@ -64,7 +64,7 @@ $download_url = wporg_get_download_slides_url();
 					</ul>
 
 					<div class="lp-suggestion">
-						<h4 class="lp-suggestion_title"><?php _e( 'Suggestions' ); ?></h4>
+						<h2 class="lp-suggestion_title h4"><?php _e( 'Suggestions' ); ?></h2>
 						<p><?php _e( 'Found a typo, grammar error,or outdated screenshot?' ); ?></p>
 						<p><?php _e( 'Used this lesson plan in your event and have some suggestions?' ); ?></p>
 						<a href="<?php echo esc_url( site_url( '/submit-an-idea/' ) ); ?>"><?php _e( 'Let us know!' ); ?></a>

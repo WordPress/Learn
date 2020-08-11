@@ -17,7 +17,7 @@ get_header(); ?>
 			<div id="submit-an-idea" class="type-page">
 				<div class="entry-content">
 					<section class="submit-idea-cta">
-						<h4><?php _e( 'Is this a Workshop or Lesson Plan idea?' ); ?></h4>
+						<h2><?php _e( 'Is this a Workshop or Lesson Plan idea?' ); ?></h2>
 
 						<div class="idea-type-lists">
 							<div class="col">
