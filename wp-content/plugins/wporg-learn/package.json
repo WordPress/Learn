@@ -1,7 +1,7 @@
 {
-	"name": "wporg-learn",
+	"name": "wporg-learn-plugin",
 	"version": "1.0.0",
-	"description": "",
+	"description": "Plugin for learn.wordpress.org",
 	"author": "WordPress.org",
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",
