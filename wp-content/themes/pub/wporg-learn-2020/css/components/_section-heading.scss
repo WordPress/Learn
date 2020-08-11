@@ -1,5 +1,6 @@
 .section-heading {
-	&_title, &_link  {
+	&_title,
+	&_link {
 		margin-bottom: 0;
 	}
 
@@ -9,7 +10,7 @@
 
 	&_link {
 		text-decoration: underline;
-		font-weight: bold;
+		font-weight: 600;
 		margin-top: $gutter-default !important; // Override button styles
 
 		@media only screen and (min-width: $breakpoint-tablet) {

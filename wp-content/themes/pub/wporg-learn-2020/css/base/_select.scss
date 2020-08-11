@@ -3,7 +3,7 @@
 .custom-select {
 	display: inline-block;
 	box-sizing: border-box;
-	padding: 0.5rem 2rem 0.5rem .8rem;
+	padding: 0.5rem 2rem 0.5rem 0.8rem;
 	width: auto;
 
 	font-size: 1em;
@@ -17,23 +17,24 @@
 	appearance: none;
 
 	background-color: transparent;
+	/* stylelint-disable-next-line function-url-quotes */
 	background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg width="14" height="8" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M2 0L7 5L12 0L14 1L7 8L0 1L2 0Z" fill="%23555D66"/%3E%3C/svg%3E%0A');
 	background-repeat: no-repeat;
-	background-position: right .7em top 50%;
-	background-size: .65em auto;
+	background-position: right 0.7em top 50%;
+	background-size: 0.65em auto;
 
 	&::-ms-expand {
 		display: none;
 	}
 
 	&:focus {
-		box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
+		box-shadow: 0 0 1px 3px rgba(59, 153, 252, 0.7);
 		box-shadow: 0 0 0 3px -moz-mac-focusring;
 		color: #222;
 		outline: none;
 	}
 
-	& option {
-		font-weight: normal;
+	option {
+		font-weight: 400;
 	}
 }

@@ -28,7 +28,12 @@ export default function Edit( { className } ) {
 	return (
 		<div className={ className }>
 			<p>{ __( 'Workshop Details', 'wporg-learn' ) }</p>
-            <p>{ __( 'This will be dynamically populated based on custom fields.', 'wporg-learn' ) }</p>
+			<p>
+				{ __(
+					'This will be dynamically populated based on custom fields.',
+					'wporg-learn'
+				) }
+			</p>
 		</div>
 	);
 }

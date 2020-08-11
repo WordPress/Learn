@@ -5,7 +5,7 @@
  * Replace them with your own styles or remove the file completely.
  */
 
- .wp-block-wporg-learn-workshop-details {
+.wp-block-wporg-learn-workshop-details {
 	list-style: none;
 	margin: 0;
 	padding: 0;
@@ -15,10 +15,10 @@
 		display: flex;
 		justify-content: space-between;
 		padding: 8px 0;
-		border-top: 1px solid #E2E4E7;
+		border-top: 1px solid #e2e4e7;
 
 		&:last-child {
-			border-bottom: 1px solid #E2E4E7;
+			border-bottom: 1px solid #e2e4e7;
 		}
 
 		> span {
