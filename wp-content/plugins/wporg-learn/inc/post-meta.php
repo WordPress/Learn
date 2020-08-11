@@ -79,7 +79,7 @@ function register_workshop_meta() {
  * @return int|DateInterval|string
  */
 function get_workshop_duration( WP_Post $workshop, $format = 'raw' ) {
-	$raw_duration = $workshop->duration ?: 0;
+	$raw_duration = $workshop->duration ? absint( $workshop->duration ) : 0;
 	$interval = date_diff( new DateTime( '@0' ), new DateTime( "@$raw_duration" ) ); // The '@' ignores timezone.
 	$return = null;
 
@@ -88,7 +88,7 @@ function get_workshop_duration( WP_Post $workshop, $format = 'raw' ) {
 			$return = $interval;
 			break;
 		case 'string':
-			$return = human_readable_duration( $interval->format( 'HH:ii:ss' ) );
+			$return = human_readable_duration( $interval->format( '%H:%I:%S' ) );
 			break;
 		case 'raw':
 		default:
@@ -157,8 +157,8 @@ function save_workshop_metabox_fields( $post_id, WP_Post $post ) {
 	}
 
 	$duration = filter_input( INPUT_POST, 'duration', FILTER_SANITIZE_NUMBER_INT, FILTER_REQUIRE_ARRAY );
-	if ( isset( $duration['h'], $duration['m'] ) ) {
-		$duration = $duration['h'] * HOUR_IN_SECONDS + $duration['m'] * MINUTE_IN_SECONDS;
+	if ( isset( $duration['h'], $duration['m'], $duration['s'] ) ) {
+		$duration = $duration['h'] * HOUR_IN_SECONDS + $duration['m'] * MINUTE_IN_SECONDS + $duration['s'];
 		update_post_meta( $post_id, 'duration', $duration );
 	}
 

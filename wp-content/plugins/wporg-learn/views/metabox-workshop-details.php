@@ -28,6 +28,17 @@
 		/>
 		<?php _e( 'minutes', 'wporg_learn' ); ?>
 	</label>
+	<label for="workshop-duration-seconds">
+		<input
+				id="workshop-duration-seconds"
+				name="duration[s]"
+				class="tiny-text"
+				type="number"
+				value="<?php echo absint( $duration_interval->s ); ?>"
+				max="59"
+		/>
+		<?php _e( 'seconds', 'wporg_learn' ); ?>
+	</label>
 </p>
 
 <?php // todo Change this to a select dropdown with locale values. ?>
