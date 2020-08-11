@@ -22,7 +22,7 @@
 			
 			img.addEventListener( 'click', function () {
 				window.location.href = link.href;
-			})
+			} )
 		}
 	}
 
@@ -39,7 +39,7 @@
 
 		img.addEventListener( 'click', function () {
 			window.location.href = link.href;
-		})
+		} )
 	}
 
 	bindWorkshopImageNavigation();
