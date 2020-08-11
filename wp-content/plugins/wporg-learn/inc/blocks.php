@@ -2,6 +2,8 @@
 
 namespace WPOrg_Learn\Blocks;
 
+use function WPOrg_Learn\Post_Meta\get_workshop_duration;
+
 defined( 'WPINC' ) || die();
 
 /**
@@ -61,8 +63,9 @@ function workshop_details_init() {
  */
 function workshop_details_render_callback( $attributes, $content ) {
 	$post = get_post();
-	$topics = wp_get_post_terms( $post->ID, 'topic' );
-	$level = wp_get_post_terms( $post->ID, 'level' );
+	$topics = wp_get_post_terms( $post->ID, 'topic', array( 'fields' => 'names' ) );
+	$level = wp_get_post_terms( $post->ID, 'level', array( 'fields' => 'names' ) );
+	$captions = get_post_meta( $post->ID, 'video_caption_language' );
 
 	return sprintf(
 		'<ul class="wp-block-wporg-learn-workshop-details">
@@ -72,11 +75,11 @@ function workshop_details_render_callback( $attributes, $content ) {
 			<li><b>Language</b><span>%4$s</span></li>
 			<li><b>Captions</b><span>%5$s</span></li>
 		</ul>',
-		$post->duration,
-		$topics && $topics[0] ? $topics[0]->name : '',
-		$level && $level[0] ? $level[0]->name : '',
-		$post->video_language,
-		$post->video_caption_language
+		get_workshop_duration( $post, 'string' ),
+		implode( ', ', array_map( 'esc_html', $topics ) ),
+		implode( ', ', array_map( 'esc_html', $level ) ),
+		esc_html( $post->video_language ),
+		implode( ', ', array_map( 'esc_html', $captions ) )
     );
 }
 
