@@ -42,7 +42,7 @@ public static function lesson_plan_post_type() {
 		'description'           => __( 'WordPress.org Training Lesson Plan', 'wporg_learn' ),
 		'labels'                => $labels,
 		'supports'              => array( 'title', 'editor', 'comments', 'revisions', 'custom-fields' ),
-		'taxonomies'            => array( 'duration', 'level', 'audience', 'instruction_type', 'category' ),
+		'taxonomies'            => array( 'duration', 'level', 'audience', 'instruction_type' ),
 		'hierarchical'          => true,
 		'public'                => true,
 		'show_ui'               => true,

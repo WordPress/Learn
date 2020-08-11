@@ -15,6 +15,7 @@ require_once dirname( __FILE__ ) . '/inc/class-workshop.php';
 require_once dirname( __FILE__ ) . '/inc/blocks.php';
 require_once dirname( __FILE__ ) . '/inc/post-meta.php';
 require_once dirname( __FILE__ ) . '/inc/post-type.php';
+require_once dirname( __FILE__ ) . '/inc/taxonomy.php';
 
 /**
  * Registry of actions and filters
@@ -35,6 +36,7 @@ add_action( 'init', array( 'WPORG_Learn\Lesson_Plan', 'lesson_duration_taxonomy'
 add_action( 'init', array( 'WPORG_Learn\Lesson_Plan', 'lesson_level_taxonomy' ) );
 add_action( 'init', array( 'WPORG_Learn\Lesson_Plan', 'lesson_audience_taxonomy' ) );
 add_action( 'init', array( 'WPORG_Learn\Lesson_Plan', 'lesson_instruction_type_taxonomy' ) );
+add_action( 'init', 'WPORG_Learn\Taxonomy\register' );
 add_filter( 'the_content', array('WPORG_Learn\Lesson_Plan', 'replace_image_links' ) );
 
 add_action( 'init', 'WPORG_Learn\Blocks\workshop_details_init' );
@@ -46,34 +48,7 @@ add_action( 'add_meta_boxes', 'WPORG_Learn\Post_Meta\add_workshop_metaboxes' );
 add_action( 'save_post_wporg_workshop', 'WPORG_Learn\Post_Meta\save_workshop_metabox_fields', 10, 2 );
 add_action( 'init', array( 'WPORG_Learn\Workshop', 'lesson_workshop_taxonomy' ) );
 add_action( 'init', array( 'WPORG_Learn\Workshop', 'workshop_topics_taxonomy' ) );
-add_filter('query_vars', 'add_category');
-add_action('init', 'string_url_rewrite', 10, 0);
 add_filter( 'excerpt_length', 'theme_slug_excerpt_length', 999 );
-
-/**
- * Add a query parameter for use with the lesson-plan/workshop search directory
- * @param array $vars
- * @return array
- */
-function add_category( $vars ) {
-	$vars[] = 'category';
-	return $vars;
-}
-
-/**
- * Creates rewrites that are used in the lesson plan/workshop directory.
- */
-function string_url_rewrite() {
-	global $wp_rewrite;
-
-	add_rewrite_rule( '^workshops/([^/]+)/?$' , 'index.php?post_type=workshop&category=$matches[1]', 'top' );
-	add_rewrite_rule( '^workshops/([^/]+)/page/([0-9])/?$' , 'index.php?post_type=workshop&category=$matches[1]&page=$matches[2]', 'top' );
-
-	add_rewrite_rule( '^lesson-plans/([^/]+)/?$' , 'index.php?post_type=lesson-plan&category=$matches[1]', 'top' );
-	add_rewrite_rule( '^lesson-plans/([^/]+)/page/([0-9])/?$' , 'index.php?post_type=lesson-plan&category=$matches[1]&page=$matches[2]', 'top' );
-
-    $wp_rewrite->flush_rules( true );
-}
 
 /**
  * Filter the excerpt length to 50 words.
