@@ -103,7 +103,7 @@ function get_workshop_duration( WP_Post $workshop, $format = 'raw' ) {
 					);
 				}
 			} elseif ( $interval->i > 0 ) {
-				$return = $minutes = human_time_diff( 0, $interval->i * MINUTE_IN_SECONDS );
+				$return = human_time_diff( 0, $interval->i * MINUTE_IN_SECONDS );
 			} elseif ( $interval->s > 0 ) {
 				$return = human_time_diff( 0, $interval->s );
 			}
