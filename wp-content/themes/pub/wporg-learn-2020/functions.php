@@ -227,11 +227,11 @@ function wporg_get_workshop_authors() {
 	$wp_users = [];
 	$authors = get_post_meta( get_the_ID(), 'facilitator_wporg_username' );
 
-	foreach ( $authors as $author) {
+	foreach ( $authors as $author ) {
 		$wp_user = get_user_by( 'login', $author );
 
 		if( $wp_user ) {
-			array_push( $wp_users, $wp_user);
+			array_push( $wp_users, $wp_user );
 		}
 	}
 
