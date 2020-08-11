@@ -224,23 +224,16 @@ function wporg_get_workshops( $options = NULL ) {
  * @return WP_User[]|array
  */
 function wporg_get_workshop_authors() {	
-	return get_post_meta( get_the_ID(), 'facilitator_wporg_username' );
-}
+	$wp_users = [];
+	$authors = get_post_meta( get_the_ID(), 'facilitator_wporg_username' );
 
-/**
- * Sets the author query var
- *
- * @return null
- */
-function wporg_set_workshop_author_query_var( $author ) {
-	return set_query_var( 'workshop-author', $author );
-}
+	foreach ( $authors as $author) {
+		$wp_user = get_user_by( 'login', $author );
 
-/**
- * Returns the author query var
- *
- * @return array
- */
-function wporg_get_workshop_author_query_var() {
-	return get_query_var( 'workshop-author' );
+		if( $wp_user ) {
+			array_push( $wp_users, $wp_user);
+		}
+	}
+
+	return $wp_users;
 }

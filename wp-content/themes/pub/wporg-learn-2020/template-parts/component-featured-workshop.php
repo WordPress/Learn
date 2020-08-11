@@ -26,7 +26,14 @@ $featured_workshop = wporg_get_workshops( $args );
 				<p><?php the_excerpt(); ?></p>
 			</div>
 			<div class="col-4 featured-workshop_content_author">
-				<?php get_template_part( 'template-parts/component', 'author' ); ?>
+				<?php
+					$authors = wporg_get_workshop_authors();
+
+					// We'll only display the first author in this view
+					if( isset( $authors[ 0 ] ) ){
+						get_template_part( 'template-parts/component', 'author', array( 'author' => $authors[ 0 ] ) );
+					}
+				?>
 			</div>
 		</div>
 	</div>
