@@ -28,7 +28,7 @@ if ( wporg_post_type_is_workshop() ) {
 				<?php if ( ! empty( $topic_list ) ) : ?>
 					<ul class="lp-topics <?php echo count( $topic_list ) > 4 ? 'lp-topics--split' : ''; ?>">
 					<?php foreach ( $topic_list as $topic ) : ?>
-						<li><?php echo $topic; ?></li> 
+						<li><?php echo esc_html( $topic ); ?></li> 
 					<?php endforeach; ?>
 					</ul>
 				<?php endif; ?>

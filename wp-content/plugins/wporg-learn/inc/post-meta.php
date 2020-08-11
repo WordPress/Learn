@@ -91,7 +91,8 @@ function get_workshop_duration( WP_Post $workshop, $format = 'raw' ) {
 			if ( $interval->d > 0 ) {
 				$return = human_time_diff( 0, $interval->d * DAY_IN_SECONDS );
 			} elseif ( $interval->h > 0 ) {
-				$return = $hours = human_time_diff( 0, $interval->h * HOUR_IN_SECONDS );
+				$hours = human_time_diff( 0, $interval->h * HOUR_IN_SECONDS );
+				$return = $hours;
 
 				if ( $interval->i > 0 ) {
 					$minutes = human_time_diff( 0, $interval->i * MINUTE_IN_SECONDS );

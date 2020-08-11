@@ -229,12 +229,12 @@ class Lesson_Plan {
 	 * Append an "Edit on GitHub" link to Lesson Plan document titles
 	 */
 	public static function filter_the_title_edit_link( $title, $id = null ) {
-		// Only apply to the main title for the document
+		// Only apply to the main title for the document.
 		if ( ! is_singular( 'lesson_plan' )
 			|| ! is_main_query()
 			|| ! in_the_loop()
 			|| is_embed()
-			|| $id !== get_queried_object_id() ) {
+			|| get_queried_object_id() !== $id ) {
 			return $title;
 		}
 

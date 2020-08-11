@@ -27,6 +27,9 @@ class Markdown_Import {
 		}
 	}
 
+	/**
+	 * Actions taken on `wporg_learn_manifest_import` event.
+	 */
 	public static function action_wporg_learn_manifest_import() {
 		$response = wp_remote_get( self::$lesson_plan_manifest );
 		if ( is_wp_error( $response ) ) {
@@ -110,6 +113,9 @@ class Markdown_Import {
 		return get_post( $post_id );
 	}
 
+	/**
+	 * Actions taken on `wporg_learn_markdown_import` event.
+	 */
 	public static function action_wporg_learn_markdown_import() {
 		$q       = new WP_Query( array(
 			'post_type'      => self::$supported_post_type,
@@ -154,6 +160,7 @@ class Markdown_Import {
 
 		$response = self::update_post_from_markdown_source( $post_id );
 		if ( is_wp_error( $response ) ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			wp_die( $response->get_error_message() );
 		}
 
@@ -298,6 +305,7 @@ class Markdown_Import {
 		// We need to allow inputs with all of our attributes for wp_filter_post_kses().
 		global $allowedposttags;
 
+		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		$allowedposttags['input'] = array(
 			'type'     => array(),
 			'disabled' => array(),

@@ -11,13 +11,13 @@ $current_term = get_query_var( 'term' ) ?: 'all';
 	<ul class="filter-links">
 		<li>
 			<a href="<?php echo esc_url( get_post_type_archive_link( 'lesson-plan' ) ); ?>" class="<?php echo ( 'all' === $current_term ) ? 'current' : ''; ?>">
-				<?php _e( 'All', 'wporg-learn' ); ?>
+				<?php esc_html_e( 'All', 'wporg-learn' ); ?>
 			</a>
 		</li>
-		<?php foreach ( $terms as $term ) : ?>
+		<?php foreach ( $terms as $t ) : ?>
 			<li>
-				<a href="<?php echo get_term_link( $term, 'wporg_lesson_category' ); ?>" class="<?php echo ( $term->slug === $current_term ) ? 'current' : ''; ?>">
-					<?php echo esc_html( $term->name ); ?>
+				<a href="<?php echo esc_url( get_term_link( $t, 'wporg_lesson_category' ) ); ?>" class="<?php echo ( $t->slug === $current_term ) ? 'current' : ''; ?>">
+					<?php echo esc_html( $t->name ); ?>
 				</a>
 			</li>
 		<?php endforeach; ?>

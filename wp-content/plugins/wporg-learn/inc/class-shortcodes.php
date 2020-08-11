@@ -153,7 +153,7 @@ class Shortcodes {
 				$status_image = sprintf( 'https://travis-ci.org/%s.svg?branch=master', $repo_name );
 				$status_link  = sprintf( 'https://travis-ci.org/%s/branches', $repo_name );
 			}
-			$out .= '<td><a href="' . esc_url( $status_link ) . '"><img src="' . esc_url( $status_image ) . '">' . '</a></td>' . PHP_EOL;
+			$out .= '<td><a href="' . esc_url( $status_link ) . '"><img src="' . esc_url( $status_image ) . '"></a></td>' . PHP_EOL;
 			$out .= '</tr>' . PHP_EOL;
 		}
 		$out .= '</table>';
@@ -164,9 +164,9 @@ class Shortcodes {
 	 * Make an API request to GitHub
 	 */
 	private static function github_request( $url ) {
-
-		$cache_key = 'cli_github_' . md5( $url );
-		if ( false !== ( $cache_value = get_transient( $cache_key ) ) ) {
+		$cache_key   = 'cli_github_' . md5( $url );
+		$cache_value = get_transient( $cache_key );
+		if ( false !== $cache_value ) {
 			return $cache_value;
 		}
 
@@ -192,5 +192,4 @@ class Shortcodes {
 		set_transient( $cache_key, $data, '', 3 * MINUTE_IN_SECONDS );
 		return $data;
 	}
-
 }

@@ -26,7 +26,7 @@ get_header();
 			<?php the_posts_pagination(); ?>
 		<?php else : ?>
 			<div class="lp-empty">
-				<?php echo _e( 'We were unable to find any matches.', 'wporg-learn' ); ?>
+				<?php echo esc_html_e( 'We were unable to find any matches.', 'wporg-learn' ); ?>
 			</div>
 		<?php endif; ?>
 

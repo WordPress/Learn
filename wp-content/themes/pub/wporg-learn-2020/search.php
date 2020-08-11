@@ -21,9 +21,9 @@ get_header(); ?>
 		<div class="clearfix">
 			<div class="bbp-breadcrumb">
 				<p>
-					<a href="<?php echo home_url(); ?>" class="bbp-breadcrumb-home">Learn Home</a>
+					<a href="<?php echo esc_url( home_url() ); ?>" class="bbp-breadcrumb-home"><?php esc_html_e( 'Learn Home', 'wporg-learn' ); ?></a>
 					<span class="bbp-breadcrumb-sep">»</span>
-					<span class="bbp-breadcrumb-current"><?php echo $search_query; ?></span>
+					<span class="bbp-breadcrumb-current"><?php echo esc_html( $search_query ); ?></span>
 				</p>
 			</div>
 		</div>
@@ -31,7 +31,7 @@ get_header(); ?>
 		<?php if ( have_posts() ) : ?>
 
 			<header class="page-header">
-				<h1 class="h3"><?php echo $search_query; ?></h1>
+				<h1 class="h3"><?php echo esc_html( $search_query ); ?></h1>
 			</header><!-- .page-header -->
 
 			<?php
@@ -58,7 +58,7 @@ get_header(); ?>
 					edit_post_link(
 						sprintf(
 							/* translators: %s: Name of current post */
-							__( 'Edit<span class="screen-reader-text"> "%s"</span>', 'wporg' ),
+							__( 'Edit<span class="screen-reader-text"> "%s"</span>', 'wporg-learn' ),
 							get_the_title()
 						),
 						'<span class="edit-link">',

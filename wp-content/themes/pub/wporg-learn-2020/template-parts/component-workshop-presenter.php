@@ -13,7 +13,7 @@ $presenter = $args['presenter'];
 ?>
 
 <?php if ( $presenter ) : ?>
-	<div class="workshop-presenter <?php echo $args['class']; ?> ">
+	<div class="workshop-presenter <?php echo esc_attr( $args['class'] ); ?> ">
 		<div>
 			<?php echo get_avatar( $presenter->ID, 56, '', '', array( 'class' => 'workshop-presenter_profile' ) ); ?>
 		</div>

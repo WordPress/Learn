@@ -11,6 +11,7 @@ defined( 'WPINC' ) || die();
  * in the corresponding context.
  *
  * @see https://developer.wordpress.org/block-editor/tutorials/block-tutorial/applying-styles-with-stylesheets/
+ * @throws Error If the build files are not found.
  */
 function workshop_details_init() {
 	$dir = dirname( __DIR__ );
@@ -54,8 +55,6 @@ function workshop_details_init() {
 	) );
 }
 
-
-
 /**
  * Build the html output based on input fields
  *
@@ -95,7 +94,7 @@ function workshop_details_render_callback( $attributes, $content ) {
 		__( 'Captions', 'wporg-learn' ) => implode( ', ', array_map( 'esc_html', $captions ) ),
 	);
 
-	// Remove empty fields
+	// Remove empty fields.
 	$fields_to_output = array_filter( $fields );
 
 	return get_workshop_details_html_output( $fields_to_output );
@@ -103,6 +102,8 @@ function workshop_details_render_callback( $attributes, $content ) {
 
 /**
  * Enqueue scripts and stylesheets for custom block styles.
+ *
+ * @throws Error If the build files are not found.
  */
 function enqueue_block_style_assets() {
 	$dir = dirname( __DIR__ );

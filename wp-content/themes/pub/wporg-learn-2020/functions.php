@@ -54,7 +54,7 @@ function wporg_get_tax_slugs_from_workshop() {
 /**
  * Get the lesson plans associated to a taxonomy
  *
- * @param string $slugs Comma separated list of taxonomy terms
+ * @param string $slugs Comma separated list of taxonomy terms.
  * @package WPBBP
  */
 function wporg_get_lesson_plans_by_tax_slugs_query( $slugs ) {
@@ -121,8 +121,8 @@ function wporg_get_cat_or_default_slug() {
 /**
  * Get the values associated to the page/post
  *
- * @param string $id Id of the post
- * @param string $tax_slug The slug for the custom taxonomy
+ * @param string $id Id of the post.
+ * @param string $tax_slug The slug for the custom taxonomy.
  * @return string
  */
 function get_taxonomy_values( $id, $tax_slug ) {
@@ -134,7 +134,7 @@ function get_taxonomy_values( $id, $tax_slug ) {
 /**
  * Returns the taxonomies associated to a lesson or workshop
  *
- * @param string $id Id of the post
+ * @param string $id Id of the post.
  * @return string
  */
 function wporg_get_custom_taxonomies( $id ) {
@@ -203,15 +203,15 @@ function wporg_get_download_slides_url() {
  *
  * @package WPBBP
  */
-function wporg_submit_idea_cta() { ?>
-
+function wporg_submit_idea_cta() {
+	?>
 	<section class="submit-idea-cta">
 		<div class="content-icon"><span class="dashicons dashicons-lightbulb"></span></div>
-		<h2><?php _e( 'Have an Idea for a Workshop? Let us know!' ); ?></h2>
-		<a class="button button-primary button-large" href="https://wordcampcentral.survey.fm/learn-wordpress-workshop-application"><?php _e( 'Submit an Idea' ); ?></a>
+		<h2><?php esc_html_e( 'Have an Idea for a Workshop? Let us know!', 'wporg-learn' ); ?></h2>
+		<a class="button button-primary button-large" href="https://wordcampcentral.survey.fm/learn-wordpress-workshop-application"><?php esc_html_e( 'Submit an Idea', 'wporg-learn' ); ?></a>
 	</section>
-
-<?php }
+	<?php
+}
 
 /**
  * Returns whether all post for workshop
@@ -258,8 +258,8 @@ function wporg_get_workshop_presenters( $workshop = null ) {
 /**
  * Display a featured image, falling back to the VideoPress thumbnail if no featured image was explicitly set.
  *
- * @param $post The Workshop post for which we want the thumbnail.
- * @param $size The image size: 'medium', 'full'.
+ * @param WP_Post $post The Workshop post for which we want the thumbnail.
+ * @param string  $size The image size: 'medium', 'full'.
  */
 function wporg_get_post_thumbnail( $post, $size = 'post-thumbnail' ) {
 	$thumbnail = get_the_post_thumbnail( $post, $size );
@@ -271,7 +271,7 @@ function wporg_get_post_thumbnail( $post, $size = 'post-thumbnail' ) {
 			if ( substr( $key, 0, 8 ) === '_oembed_' && preg_match( '#https://video.wordpress.com/embed/(\w+)#', $value[0], $match ) ) {
 				$video = videopress_get_video_details( $match[1] );
 				if ( ! is_wp_error( $video ) && isset( $video->poster ) ) {
-					return '<img class="attachment-' . esc_attr( $size ) . ' wp-post-image" src=' . esc_url( $video->poster ) . ' loading="lazy" />';
+					return '<img class="attachment-' . esc_attr( $size ) . ' wp-post-image" src=' . esc_url( $video->poster ) . ' loading="lazy" alt="" />';
 				}
 			}
 		}

@@ -44,7 +44,7 @@ $crumbs = array(
 
 $referer = wp_get_referer();
 
-// If we came from a workshop, we want to modify the breadrumbs to bring us back to the workshop
+// If we came from a workshop, we want to modify the breadrumbs to bring us back to the workshop.
 if ( lesson_came_from_workshop( $referer ) ) {
 	$workshop = get_workshop_from_slug( basename( $referer ) );
 
@@ -62,12 +62,12 @@ if ( lesson_came_from_workshop( $referer ) ) {
 } else {
 
 	// Get information about the post title.
-	$post_type = get_post_type_object( get_post_type( get_queried_object() ) );
+	$cpt_object = get_post_type_object( get_post_type( get_queried_object() ) );
 
 	if ( wporg_post_type_is_lesson() ) {
 		array_push( $crumbs, array(
-			'label' => ucfirst( $post_type->labels->name ),
-			'url'   => home_url( $post_type->has_archive ),
+			'label' => ucfirst( $cpt_object->labels->name ),
+			'url'   => home_url( $cpt_object->has_archive ),
 		) );
 	}
 }
@@ -79,16 +79,16 @@ array_push( $crumbs, array(
 ?>
 
 <div class="clearfix">
-	<div class="bbp-breadcrumb">        
+	<div class="bbp-breadcrumb">
 	<?php
-		$crumb_length = count( $crumbs );
+	$crumb_length = count( $crumbs );
 
 	for ( $x = 0; $x < $crumb_length; $x++ ) {
 		if ( empty( $crumbs[ $x ]['url'] ) ) {
-			echo '<span class="bbp-breadcrumb-current">' . $crumbs[ $x ]['label'] . '</span>';
+			echo '<span class="bbp-breadcrumb-current">' . esc_html( $crumbs[ $x ]['label'] ) . '</span>';
 		} else {
-			echo '<a href="' . $crumbs[ $x ]['url'] . '" class="bbp-breadcrumb-home">';
-			echo $crumbs[ $x ]['label'];
+			echo '<a href="' . esc_url( $crumbs[ $x ]['url'] ) . '" class="bbp-breadcrumb-home">';
+			echo esc_html( $crumbs[ $x ]['label'] );
 			echo '</a>';
 		}
 

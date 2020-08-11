@@ -72,7 +72,7 @@ function theme_slug_excerpt_length( $length ) {
 		return $length;
 	}
 
-	if ( $post->post_type == 'workshop' ) {
+	if ( 'workshop' === $post->post_type ) {
 		return 35;
 	}
 
