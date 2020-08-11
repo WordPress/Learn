@@ -7,13 +7,23 @@
 		<hr>
 		<div class="workshop-page">
 			<?php the_content(); ?>
+			<?php foreach ( wporg_get_workshop_authors() as $author ) {
+				$author = get_user_by( 'login', $author );
+			
+				if( $author ) {
+					$test = wporg_set_workshop_author_query_var( $author );
+				?>
 
-			<section class="row">
-				<div class="col-4">
-					<?php get_template_part( 'template-parts/component', 'author' ); ?>
-				</div>
-				<p class="col-8"><?php echo get_the_author_meta( 'description' ); ?></p>
-			</section>
+				<section class="row">
+					<div class="col-4">
+						<?php echo get_template_part( 'template-parts/component', 'author' ); ?>
+					</div>
+					<p class="col-8"><?php echo $author->description; ?></p>
+				</section>
+			<?php 
+				}
+			}
+			?>
 		</div>
 	</section>
 </article>

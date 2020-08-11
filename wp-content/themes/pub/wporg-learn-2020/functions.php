@@ -217,3 +217,30 @@ function wporg_get_workshops( $options = NULL ) {
 	$query = new \WP_Query( $args );
 	return $query;
 }
+
+/**
+ * Returns the authors for the workshop
+ *
+ * @return WP_User[]|array
+ */
+function wporg_get_workshop_authors() {	
+	return get_post_meta( get_the_ID(), 'facilitator_wporg_username' );
+}
+
+/**
+ * Sets the author query var
+ *
+ * @return null
+ */
+function wporg_set_workshop_author_query_var( $author ) {
+	return set_query_var( 'workshop-author', $author );
+}
+
+/**
+ * Returns the author query var
+ *
+ * @return array
+ */
+function wporg_get_workshop_author_query_var() {
+	return get_query_var( 'workshop-author' );
+}
