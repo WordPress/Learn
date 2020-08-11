@@ -104,16 +104,6 @@ function get_workshop_duration( WP_Post $workshop, $format = 'raw' ) {
 				}
 			} elseif ( $interval->i > 0 ) {
 				$return = $minutes = human_time_diff( 0, $interval->i * MINUTE_IN_SECONDS );
-
-				if ( $interval->s > 0 ) {
-					$seconds = human_time_diff( 0, $interval->s );
-					$return = sprintf(
-						// translators: 1 is a string like "20 mins". 2 is a string like "32 seconds".
-						_x( '%1$s, %2$s', 'minutes and seconds','wporg-learn' ),
-						$minutes,
-						$seconds
-					);
-				}
 			} elseif ( $interval->s > 0 ) {
 				$return = human_time_diff( 0, $interval->s );
 			}
