@@ -24,12 +24,9 @@ if ( !isset( $wporg_global_header_options['in_wrapper'] ) )
 $wporg_global_header_options['in_wrapper'] .= '<a class="skip-link screen-reader-text" href="#content">' . esc_html__( 'Skip to content', 'wporg-forums' ) . '</a>';
 wporg_get_global_header();
 
-if ( is_front_page() ) {
-	$home_page = 'home ';
-}
 ?>
 
-<div id="page" class="<?php echo esc_html( $home_page ); ?>site">
+<div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#main"><?php esc_html_e( 'Skip to content', 'wporg-forums' ); ?></a>
 
 	<div id="content">
