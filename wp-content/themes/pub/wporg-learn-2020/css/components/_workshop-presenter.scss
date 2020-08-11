@@ -1,7 +1,7 @@
-.workshop-author {
+.workshop-presenter {
 	display: flex;
 	align-items: center;
-	
+
 	/* We want to make sure a long name doesn't overlap the image */
 	> div:first-child {
 		min-width:  $gutter-default * 3.5;

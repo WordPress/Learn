@@ -3,6 +3,10 @@
 		margin: $gutter-default 0 $gutter-default * 4;
 	}
 
+	&_section {
+		padding: 4rem 0 0;
+	}
+
 	&_video {
 		// This markup is provided by gutenberg
 		figure {
