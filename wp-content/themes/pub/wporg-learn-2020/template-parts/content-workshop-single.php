@@ -2,7 +2,7 @@
 <main class="site-main">
 	<section>
 		<div class="row align-middle between section-heading section-heading--with-space">
-			<h2 class="section-heading_title"><?php the_title(); ?></h2>
+			<h1 class="section-heading_title h2"><?php the_title(); ?></h1>
 		</div>
 		<hr>
 		<div class="workshop-page">

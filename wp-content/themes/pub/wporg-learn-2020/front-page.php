@@ -36,7 +36,7 @@ get_header();?>
 			<div class="getin">
 				<div class="graphic"><span class="dashicons dashicons-welcome-learn-more"></span></div>
 				<div>
-					<h3><?php _e( 'Get Involved' ); ?></h3>
+					<h2 class="h3"><?php _e( 'Get Involved' ); ?></h2>
 					<p><?php _e( 'Want to grow WordPress? As part of Training Team you could help others learn WordPress accross the world.' ); ?></p>
 					<a href="https://make.wordpress.org/training/handbook/"><?php _e( 'Learn About The Training Team' ); ?></a>
 				</div>
@@ -62,36 +62,38 @@ get_header();?>
 
 		<section class="lesson-lists clearfix">
 			<div class="col">
+				<h2 class="screen-reader-text"><?php _e( 'Lesson Plans' ); ?></h2>
 				<div class="lesson-item">
-					<h2 class="h4 title"><?php _e( 'User-oriented Lesson Plans' ); ?></h2>
+					<h3 class="h4 title"><?php _e( 'User-oriented Lesson Plans' ); ?></h3>
 					<p><?php _e( 'User lessons are targeted towards end-users, those who actually publish content.' ); ?></p>
 					<a class="viewmore" href="#"><?php _e( 'View the lesson plans' ); ?></a>
 				</div>
 				<div class="lesson-item">
-					<h2 class="h4 title"><?php _e( 'Theme-oriented Lesson Plans' ); ?></h2>
+					<h3 class="h4 title"><?php _e( 'Theme-oriented Lesson Plans' ); ?></h3>
 					<p><?php _e( 'Theme lessons are targeted towards entry-level developers, those who actually write code.' ); ?></p>
 					<a class="viewmore" href="#"><?php _e( 'View the lesson plans' ); ?></a>
 				</div>
 				<div class="lesson-item">
-					<h2 class="h4 title"><?php _e( 'Plugin-oriented Lesson Plans' ); ?></h2>
+					<h3 class="h4 title"><?php _e( 'Plugin-oriented Lesson Plans' ); ?></h3>
 					<p><?php _e( 'Plugin lessons are targeted towards entry-level developers, those who actually write code.' ); ?></p>
 					<a class="viewmore" href="#"><?php _e( 'View the lesson plans' ); ?></a>
 				</div>
 			</div>
 
 			<div class="col">
+				<h2 class="screen-reader-text"><?php _e( 'Workshop Ideas' ); ?></h2>
 				<div class="lesson-item">
-					<h2 class="h4 title"><?php _e( 'Half-day Workshop Ideas' ); ?></h2>
+					<h3 class="h4 title"><?php _e( 'Half-day Workshop Ideas' ); ?></h3>
 					<p><?php _e( 'Concepts and activities for workshops that are only a few hours long.' ); ?></p>
 					<a class="viewmore" href="#"><?php _e( 'View the Workshop Ideas' ); ?></a>
 				</div>
 				<div class="lesson-item">
-					<h2 class="h4 title"><?php _e( 'Full-day Workshop Ideas' ); ?></h2>
+					<h3 class="h4 title"><?php _e( 'Full-day Workshop Ideas' ); ?></h3>
 					<p><?php _e( 'Concepts and activities for workshops that fill the whole day.' ); ?></p>
 					<a class="viewmore" href="#"><?php _e( 'View the Workshop Ideas' ); ?></a>
 				</div>
 				<div class="lesson-item">
-					<h2 class="h4 title"><?php _e( 'Multi-day Workshop Ideas' ); ?></h2>
+					<h3 class="h4 title"><?php _e( 'Multi-day Workshop Ideas' ); ?></h3>
 					<p><?php _e( 'Concepts and activities for workshops that span the course of 2 or more days.' ); ?></p>
 					<a class="viewmore" href="#"><?php _e( 'View the Workshop Ideas' ); ?></a>
 				</div>
