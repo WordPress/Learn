@@ -15,7 +15,7 @@ $author = $args[ 'author' ];
 <?php if( $author ) : ?>
 <div class="workshop-author">
 	<div>
-		<?php echo get_avatar( $author->ID , 56, '', '', array ( "class" => 'workshop-author_profile' ) ); ?>
+		<?php echo get_avatar( $author->ID , 56, '', '', array ( 'class' => 'workshop-author_profile' ) ); ?>
 	</div>
 	<div>
 		<div class="workshop-author_name"><?php echo esc_html(  $author->display_name ); ?></div>
