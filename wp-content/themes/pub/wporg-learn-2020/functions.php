@@ -194,7 +194,7 @@ function wporg_submit_idea_cta() { ?>
 	<section class="submit-idea-cta">
 		<div class="content-icon"><span class="dashicons dashicons-lightbulb"></span></div>
 		<h2><?php _e( 'Have an Idea for a Workshop? Let us know!' ); ?></h2>
-		<a class="button button-primary button-large" href="<?php echo esc_url( site_url( '/submit-an-idea/' ) ); ?>"><?php _e( 'Submit an Idea' ); ?></a>
+		<a class="button button-primary button-large" href="https://wordcampcentral.survey.fm/learn-wordpress-workshop-application"><?php _e( 'Submit an Idea' ); ?></a>
 	</section>
 
 <?php } 
