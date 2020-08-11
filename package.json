@@ -15,7 +15,9 @@
 	"scripts": {
 		"install:env": "./bin/index.sh",
 		"create": "composer install && npm run install:env",
-		"wp-env": "wp-env"
+		"wp-env": "wp-env",
+		"lint:php": "composer run lint",
+		"format:php": "composer run format"
 	},
 	"main": "index.js"
 }
