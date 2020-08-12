@@ -11,11 +11,7 @@
 
 <li class="col-4 video-grid_item">
 	<a class="video-grid_item_link" href="<?php echo esc_url( get_the_permalink() ); ?>">
-		<?php if( has_post_thumbnail() ) : ?>
-			<?php echo the_post_thumbnail( 'medium' ); ?>
-		<?php else : ?>
-			<div class="video-grid_item--no-image"></div>
-		<? endif; ?>
+		<?php echo wporg_get_post_thumbnail( $post, 'medium' );; ?>
 		<?php the_title(); ?>
 	</a>
 </li>
