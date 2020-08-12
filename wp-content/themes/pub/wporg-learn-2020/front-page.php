@@ -59,62 +59,7 @@ get_header();?>
 			?>
 		</section>
 		<hr>
-
-		<section class="lesson-lists clearfix">
-			<div class="col">
-				<h2 class="screen-reader-text"><?php _e( 'Lesson Plans' ); ?></h2>
-				<div class="lesson-item">
-					<h3 class="h4 title"><?php _e( 'User-oriented Lesson Plans' ); ?></h3>
-					<p><?php _e( 'User lessons are targeted towards end-users, those who actually publish content.' ); ?></p>
-					<a class="viewmore" href="#"><?php _e( 'View the lesson plans' ); ?></a>
-				</div>
-				<div class="lesson-item">
-					<h3 class="h4 title"><?php _e( 'Theme-oriented Lesson Plans' ); ?></h3>
-					<p><?php _e( 'Theme lessons are targeted towards entry-level developers, those who actually write code.' ); ?></p>
-					<a class="viewmore" href="#"><?php _e( 'View the lesson plans' ); ?></a>
-				</div>
-				<div class="lesson-item">
-					<h3 class="h4 title"><?php _e( 'Plugin-oriented Lesson Plans' ); ?></h3>
-					<p><?php _e( 'Plugin lessons are targeted towards entry-level developers, those who actually write code.' ); ?></p>
-					<a class="viewmore" href="#"><?php _e( 'View the lesson plans' ); ?></a>
-				</div>
-			</div>
-
-			<div class="col">
-				<h2 class="screen-reader-text"><?php _e( 'Workshop Ideas' ); ?></h2>
-				<div class="lesson-item">
-					<h3 class="h4 title"><?php _e( 'Half-day Workshop Ideas' ); ?></h3>
-					<p><?php _e( 'Concepts and activities for workshops that are only a few hours long.' ); ?></p>
-					<a class="viewmore" href="#"><?php _e( 'View the Workshop Ideas' ); ?></a>
-				</div>
-				<div class="lesson-item">
-					<h3 class="h4 title"><?php _e( 'Full-day Workshop Ideas' ); ?></h3>
-					<p><?php _e( 'Concepts and activities for workshops that fill the whole day.' ); ?></p>
-					<a class="viewmore" href="#"><?php _e( 'View the Workshop Ideas' ); ?></a>
-				</div>
-				<div class="lesson-item">
-					<h3 class="h4 title"><?php _e( 'Multi-day Workshop Ideas' ); ?></h3>
-					<p><?php _e( 'Concepts and activities for workshops that span the course of 2 or more days.' ); ?></p>
-					<a class="viewmore" href="#"><?php _e( 'View the Workshop Ideas' ); ?></a>
-				</div>
-			</div>
-
-			<div class="col">
-				<div class="lesson-item">
-					<h2 class="h4 title"><?php _e( 'Want to Help More People Speak at Meetups and WordCamps?' ); ?></h2>
-					<p><?php _e( 'WordPress is a built on a community where diversity and inclusion are key to growth. Meetups and WordCamps are the best way to teach others about WordPress on a local level and these resources can help diversify the speakers at these events.' ); ?></p>
-					<a class="viewmore" href="#"><?php _e( 'View the Speaker Diversity Lesson plans' ); ?></a>
-				</div>
-				<div class="lesson-item">
-					<h2 class="h4 title"><?php _e( 'Helpful Links' ); ?></h2>
-					<a class="viewmore" href="#"><?php _e( 'WordCamp Central' ); ?></a> <br />
-					<a class="viewmore" href="#"><?php _e( 'WordPress Meetups' ); ?></a>
-				</div>
-			</div>
-		</section>
-
-		<hr>
-
+		
 		<?php wporg_submit_idea_cta(); ?>
 
 		<?php if ( ! is_active_sidebar( 'front-page-blocks' ) ) : ?>

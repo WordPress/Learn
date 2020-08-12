@@ -12,7 +12,7 @@ class Markdown_Import {
 	private static $meta_key = 'wporg_learn_markdown_source';
 	private static $nonce_name = 'wporg-learn-markdown-source-nonce';
 	private static $submit_name = 'wporg-learn-markdown-import';
-	private static $supported_post_types = 'lesson-plan';
+	private static $supported_post_type = 'lesson-plan';
 	private static $posts_per_page = 100;
 
 	/**
@@ -40,7 +40,7 @@ class Markdown_Import {
 		}
 		// Fetch all lesson plan posts for comparison
 		$q = new WP_Query( array(
-			'post_type'      => self::$supported_post_types,
+			'post_type'      => self::$supported_post_type,
 			'post_status'    => 'publish',
 			'posts_per_page' => self::$posts_per_page,
 		) );
@@ -93,7 +93,7 @@ class Markdown_Import {
 	 */
 	private static function create_post_from_manifest_doc( $doc, $post_parent = null ) {
 		$post_data = array(
-			'post_type'   => self::$supported_post_types,
+			'post_type'   => self::$supported_post_type,
 			'post_status' => 'publish',
 			'post_parent' => $post_parent,
 			'post_title'  => sanitize_text_field( wp_slash( $doc['title'] ) ),
@@ -112,7 +112,7 @@ class Markdown_Import {
 
 	public static function action_wporg_learn_markdown_import() {
 		$q = new WP_Query( array(
-			'post_type'      => self::$supported_post_types,
+			'post_type'      => self::$supported_post_type,
 			'post_status'    => 'publish',
 			'fields'         => 'ids',
 			'posts_per_page' => self::$posts_per_page,
@@ -148,7 +148,7 @@ class Markdown_Import {
 		$post_id = (int) $_GET['post'];
 		if ( ! current_user_can( 'edit_post', $post_id )
 			|| ! wp_verify_nonce( $_GET[ self::$nonce_name ], self::$input_name )
-			|| ! in_array( get_post_type( $post_id ), self::$supported_post_types, true ) ) {
+			|| get_post_type( $post_id ) !== self::$supported_post_type ) {
 			return;
 		}
 
@@ -165,7 +165,7 @@ class Markdown_Import {
 	 * Add an input field for specifying Markdown source
  	 */
 	public static function action_edit_form_after_title( $post ) {
-		if ( ! in_array( $post->post_type, self::$supported_post_types, true ) ) {
+		if ( $post->post_type !== self::$supported_post_type ) {
 			return;
 		}
 		$markdown_source = get_post_meta( $post->ID, self::$meta_key, true );
@@ -196,7 +196,7 @@ class Markdown_Import {
 
 		if ( ! isset( $_POST[ self::$input_name ] )
 			|| ! isset( $_POST[ self::$nonce_name ] )
-			|| ! in_array( get_post_type( $post_id ), self::$supported_post_types, true ) ) {
+			|| get_post_type( $post_id ) !== self::$supported_post_type ) {
 			return;
 		}
 
@@ -285,9 +285,9 @@ class Markdown_Import {
 
 	/**
 	 * Replace markdown checkboxes in the post-processed HTML.
-	 * 
+	 *
 	 * @param string $html The HTML after translation from markup.
-	 * 
+	 *
 	 * @return string The HTML after potentially replacing markdown checkboxes with HTML ones.
 	 */
 	public static function replace_markdown_checkboxes( $html ) {
