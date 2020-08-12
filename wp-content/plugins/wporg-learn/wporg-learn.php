@@ -8,7 +8,6 @@
  * License:     GPLv2 or later
  */
 
-require_once dirname( __FILE__ ) . '/inc/class-markdown-import.php';
 require_once dirname( __FILE__ ) . '/inc/class-shortcodes.php';
 require_once dirname( __FILE__ ) . '/inc/class-lesson-plan.php';
 require_once dirname( __FILE__ ) . '/inc/class-workshop.php';
@@ -20,14 +19,7 @@ require_once dirname( __FILE__ ) . '/inc/taxonomy.php';
 /**
  * Registry of actions and filters
  */
-add_action( 'init', array( 'WPOrg_Learn\Markdown_Import', 'action_init' ) );
 add_action( 'init', array( 'WPOrg_Learn\Shortcodes', 'action_init' ) );
-add_action( 'wporg_learn_manifest_import', array( 'WPOrg_Learn\Markdown_Import', 'action_wporg_learn_manifest_import' ) );
-add_action( 'wporg_learn_markdown_import', array( 'WPOrg_Learn\Markdown_Import', 'action_wporg_learn_markdown_import' ) );
-add_action( 'load-post.php', array( 'WPOrg_Learn\Markdown_Import', 'action_load_post_php' ) );
-add_action( 'edit_form_after_title', array( 'WPOrg_Learn\Markdown_Import', 'action_edit_form_after_title' ) );
-add_action( 'save_post', array( 'WPOrg_Learn\Markdown_Import', 'action_save_post' ) );
-add_filter( 'cron_schedules', array( 'WPOrg_Learn\Markdown_Import', 'filter_cron_schedules' ) );
 add_filter( 'the_title', array( 'WPOrg_Learn\Lesson_Plan', 'filter_the_title_edit_link' ), 10, 2 );
 add_filter( 'get_edit_post_link', array( 'WPOrg_Learn\Lesson_Plan', 'redirect_edit_link_to_github' ), 10, 3 );
 add_filter( 'o2_filter_post_actions', array( 'WPOrg_Learn\Lesson_Plan', 'redirect_o2_edit_link_to_github' ), 11, 2 );
@@ -49,6 +41,23 @@ add_action( 'save_post_wporg_workshop', 'WPORG_Learn\Post_Meta\save_workshop_met
 add_action( 'init', array( 'WPORG_Learn\Workshop', 'lesson_workshop_taxonomy' ) );
 add_action( 'init', array( 'WPORG_Learn\Workshop', 'workshop_topics_taxonomy' ) );
 add_filter( 'excerpt_length', 'theme_slug_excerpt_length', 999 );
+
+/**
+ * Markdown Import
+ *
+ * This functionality has been disabled as of 2020-08-12. All of the lesson plans have been imported
+ * to learn.wordpress.org and can be updated via the WP admin interface. Leaving this here for now
+ * in case we need to re-activate for some reason.
+ *
+require_once dirname( __FILE__ ) . '/inc/class-markdown-import.php';
+add_action( 'init', array( 'WPOrg_Learn\Markdown_Import', 'action_init' ) );
+add_action( 'wporg_learn_manifest_import', array( 'WPOrg_Learn\Markdown_Import', 'action_wporg_learn_manifest_import' ) );
+add_action( 'wporg_learn_markdown_import', array( 'WPOrg_Learn\Markdown_Import', 'action_wporg_learn_markdown_import' ) );
+add_action( 'load-post.php', array( 'WPOrg_Learn\Markdown_Import', 'action_load_post_php' ) );
+add_action( 'edit_form_after_title', array( 'WPOrg_Learn\Markdown_Import', 'action_edit_form_after_title' ) );
+add_action( 'save_post', array( 'WPOrg_Learn\Markdown_Import', 'action_save_post' ) );
+add_filter( 'cron_schedules', array( 'WPOrg_Learn\Markdown_Import', 'filter_cron_schedules' ) );
+ */
 
 /**
  * Filter the excerpt length to 50 words.
