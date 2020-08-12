@@ -81,8 +81,8 @@ function register_workshop() {
 		array(
 			array( 'wporg-learn/workshop-details' ),
 			array( 'core/button', array(
-				'text'         => __( 'Join a Group Discussion', 'wporg-learn' ),
-				'url'          => 'https://wordpress.org',
+				'text'         => __( 'Join a discussion group', 'wporg-learn' ),
+				'url'          => 'https://www.meetup.com/learn-wordpress-discussions/events/',
 				'borderRadius' => 5,
 				'className'    => 'is-style-secondary-full-width',
 			) ),
