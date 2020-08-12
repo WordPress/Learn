@@ -2,15 +2,24 @@
 	margin: $gutter-default * 2 0 0;
 
 	&_video {
-		height: $gutter-default * 25;
-		width: 100%;
-		background: #eee;
-		overflow: hidden;
-
 		> img {
 			width: 100%;
 			display: block;
 		}
+
+		// This markup is provided by gutenberg
+		figure {
+			margin: $gutter-default * 2 0;
+		}
+
+		iframe {
+			width: 100%;
+
+			@include breakpoint( $breakpoint-tablet ) {
+				height: 528px;
+			}
+		}
+		// End
 	}
 
 	&_title {
@@ -30,7 +39,7 @@
 			@include breakpoint( $breakpoint-tablet ) {
 				padding-top: 0;
 				padding-left: $gutter-default * 2;
-		
+
 			}
 		}
 	}

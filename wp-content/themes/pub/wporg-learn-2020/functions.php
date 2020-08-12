@@ -219,6 +219,49 @@ function wporg_get_workshops( $options = NULL ) {
 }
 
 /**
+ * Find a wp.tv or YouTube video in a workshop post and output the markup for it.
+ *
+ * @param WP_Post|null $workshop
+ * @param string $fallback
+ *
+ * @return string
+ */
+function wporg_get_workshop_video( $workshop = null, $fallback = 'thumbnail' ) {
+	// Recursive search function to search blocks and inner blocks for an array of block names.
+	$find = function( $block_names, $blocks ) use ( &$find ) {
+		$return = false;
+
+		foreach ( $blocks as $block ) {
+			if ( in_array( $block['blockName'], $block_names, true ) ) {
+				$return = $block;
+			} elseif ( isset( $block['innerBlocks'] ) ) {
+				$return = $find( $block_names, $block['innerBlocks'] );
+			}
+
+			if ( $return ) {
+				break;
+			}
+		}
+
+		return $return;
+	};
+
+	$post = get_post( $workshop );
+	$blocks = parse_blocks( $post->post_content );
+	$found_block = $find( array( 'core-embed/wordpress-tv', 'core-embed/youtube' ), $blocks );
+
+	if ( ! isset( $found_block['attrs']['url'] ) || ! $found_block['attrs']['url'] ) {
+		if ( 'thumbnail' === $fallback ) {
+			return get_the_post_thumbnail( $post, 'full' );
+		} else {
+			return '';
+		}
+	}
+
+	return apply_filters( 'the_content', render_block( $found_block ) );
+}
+
+/**
  * Returns the presenters for the workshop.
  *
  * @param WP_Post|int $workshop
