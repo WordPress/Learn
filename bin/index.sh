@@ -29,4 +29,3 @@ npm run wp-env run cli wp jetpack module activate markdown
 
 ## Change permalinks
 npm run wp-env run cli wp rewrite structure '/%postname%/'
-npm run wp-env run cli wp rewrite flush

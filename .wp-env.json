@@ -8,6 +8,7 @@
 	"core": "WordPress/WordPress#master",
 	"plugins": [],
 	"mappings": {
-		"wp-content": "./wp-content"
+		"wp-content": "./wp-content",
+		".htaccess": ".htaccess"
 	}
 }
