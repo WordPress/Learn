@@ -7,8 +7,26 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
-		padding: 32px 8px 0;
+		align-items: center;
+		padding: $gutter-default * 2 8px $gutter-default * 2;
 		margin: 0;
+
+		@media only screen and (min-width: $breakpoint-tablet) {
+			align-items: start;
+			padding-bottom: 0;
+		}
+
+		> img {
+			width: 100%;
+
+			@media only screen and (min-width: $breakpoint-small) {
+				padding: 0 $gutter-default * 2 $gutter-default;
+			}
+
+			@media only screen and (min-width: $breakpoint-tablet) {
+				padding: 0;
+			}
+		}
 
 		&_link {
 			display: block;

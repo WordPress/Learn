@@ -145,17 +145,20 @@ p {
 	max-width: 700px;
 	overflow: hidden;
 	position: relative;
+	text-align: center;
 }
 
 .about-training .getin .graphic {
 	background: #826eb4;
-	margin-bottom: 16px;
+	margin: 0 auto 16px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	height: 125px;
-	width: 125px;
+	height: 100px;
+	width: 100px;
 }
+
+
 
 .about-training .getin .graphic .dashicons {
 	font-size: 75px;
@@ -165,9 +168,10 @@ p {
 }
 
 
-@media only screen and (min-width: 576px) {
+@media only screen and (min-width: $breakpoint-small) {
 	.about-training .getin {
 		padding-left: 230px;
+		text-align: left;
 	}
 
 	.about-training .getin .graphic {

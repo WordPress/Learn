@@ -25,7 +25,9 @@ $featured_workshop = wporg_get_workshops( array( 'posts_per_page' => 1 ) );
 
 						// We'll only display the first author in this view
 						if ( isset( $presenters[0] ) ) :
-							get_template_part( 'template-parts/component', 'workshop-presenter', array( 'presenter' => $presenters[0] ) );
+							get_template_part( 'template-parts/component', 'workshop-presenter',
+								array( 'presenter' => $presenters[0], 'class' => 'workshop-presenter--is-centered' )
+							);
 						endif;
 					?>
 				</div>

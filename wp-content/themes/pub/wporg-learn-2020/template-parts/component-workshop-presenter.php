@@ -9,10 +9,11 @@
 
 $args = wp_parse_args( $args );
 $presenter = $args[ 'presenter' ];
+
 ?>
 
 <?php if ( $presenter ) : ?>
-	<div class="workshop-presenter">
+	<div class="workshop-presenter <?php echo isset( $args['class'] ) ? $args['class']  : '' ;?> ">
 		<div>
 			<?php echo get_avatar( $presenter->ID , 56, '', '', array ( 'class' => 'workshop-presenter_profile' ) ); ?>
 		</div>

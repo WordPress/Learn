@@ -1,8 +1,13 @@
 .featured-workshop {
-	margin: $gutter-default * 2 0 0;
+	margin: $gutter-default * 2 0 $gutter-default * 4;
+	text-align: center;
+
+	@media only screen and (min-width: $breakpoint-tablet) {
+		margin-bottom: 0;
+		text-align: left;
+	}
 
 	&_video {
-		height: $gutter-default * 25;
 		width: 100%;
 		background: #eee;
 		overflow: hidden;
