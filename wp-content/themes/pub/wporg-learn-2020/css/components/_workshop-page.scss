@@ -1,4 +1,6 @@
 .workshop-page {
+	color: $color__text;
+	
 	&_content {
 		margin: $gutter-default 0 $gutter-default * 4;
 	}
@@ -34,19 +36,18 @@
 
 	&_list {
 		margin-top: $gutter-default * 3;
-		color: $color__text;
+	}
 
-		h2 {
-			font-size: 24px;
-		}
+	h2 {
+		font-size: 24px;
+	}
 
-		ol {
-			margin: 0 0 0 16px;
-			padding: 0;
-		}
+	ol, ul {
+		margin: 0 0 0 16px;
+		padding: 0;
+	}
 
-		li {
-			margin-top: $gutter-default / 2;
-		}
+	li {
+		margin-top: $gutter-default / 2;
 	}
 }
