@@ -88,7 +88,25 @@ function get_workshop_duration( WP_Post $workshop, $format = 'raw' ) {
 			$return = $interval;
 			break;
 		case 'string':
-			$return = human_readable_duration( $interval->format( '%H:%I:%S' ) );
+			if ( $interval->d > 0 ) {
+				$return = human_time_diff( 0, $interval->d * DAY_IN_SECONDS );
+			} elseif ( $interval->h > 0 ) {
+				$return = $hours = human_time_diff( 0, $interval->h * HOUR_IN_SECONDS );
+
+				if ( $interval->i > 0 ) {
+					$minutes = human_time_diff( 0, $interval->i * MINUTE_IN_SECONDS );
+					$return = sprintf(
+						// translators: 1 is a string like "2 hours". 2 is a string like "20 mins".
+						_x( '%1$s, %2$s', 'hours and minutes','wporg-learn' ),
+						$hours,
+						$minutes
+					);
+				}
+			} elseif ( $interval->i > 0 ) {
+				$return = human_time_diff( 0, $interval->i * MINUTE_IN_SECONDS );
+			} elseif ( $interval->s > 0 ) {
+				$return = human_time_diff( 0, $interval->s );
+			}
 			break;
 		case 'raw':
 		default:
