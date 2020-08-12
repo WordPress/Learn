@@ -270,7 +270,7 @@ function wporg_get_post_thumbnail( $post, $size = 'post-thumbnail' ) {
         foreach ( get_post_meta( $post->ID, '', true ) as $key => $value ) {
             if ( substr( $key, 0, 8 ) === '_oembed_' && preg_match( '#https://video.wordpress.com/embed/(\w+)#', $value[0], $match ) ) {
                 $video = videopress_get_video_details( $match[1] );
-                if ( is_object( $video ) && isset( $video->poster ) ) {
+                if ( !is_wp_error( $video ) && isset( $video->poster ) ) {
                     return '<img class="attachment-' . esc_attr( $size ) . ' wp-post-image" src=' . esc_url( $video->poster ) . ' loading="lazy" />';
                 }
             }
