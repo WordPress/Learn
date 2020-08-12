@@ -14,6 +14,10 @@
  */
 function setup() {
 	add_theme_support( 'post-thumbnails' );
+
+	// The parent wporg theme is designed for use on wordpress.org/* and assumes locale-domains are available.
+	// Remove hreflang support.
+	remove_action( 'wp_head', 'WordPressdotorg\Theme\hreflang_link_attributes' );
 }
 
 add_action( 'after_setup_theme', __NAMESPACE__ . '\setup' );
