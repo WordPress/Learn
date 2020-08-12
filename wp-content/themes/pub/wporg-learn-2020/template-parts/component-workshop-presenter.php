@@ -7,7 +7,7 @@
  * @package WPBBP
  */
 
-$args = wp_parse_args( $args );
+$args = wp_parse_args( $args, array( 'class' => '' ) );
 $presenter = $args[ 'presenter' ];
 
 ?>
