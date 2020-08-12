@@ -67,7 +67,7 @@ $download_url = wporg_get_download_slides_url();
 						<h2 class="lp-suggestion_title h4"><?php _e( 'Suggestions' ); ?></h2>
 						<p><?php _e( 'Found a typo, grammar error,or outdated screenshot?' ); ?></p>
 						<p><?php _e( 'Used this lesson plan in your event and have some suggestions?' ); ?></p>
-						<a href="<?php echo esc_url( site_url( '/submit-an-idea/' ) ); ?>"><?php _e( 'Let us know!' ); ?></a>
+						<a href="https://wordcampcentral.survey.fm/learn-wordpress-workshop-application"><?php _e( 'Let us know!' ); ?></a>
 					</div>
 				</div>
 			</aside>
