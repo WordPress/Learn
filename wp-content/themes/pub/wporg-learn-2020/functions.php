@@ -19,8 +19,18 @@ function setup() {
 	// Remove hreflang support.
 	remove_action( 'wp_head', 'WordPressdotorg\Theme\hreflang_link_attributes' );
 }
-
 add_action( 'after_setup_theme', __NAMESPACE__ . '\setup' );
+
+/**
+ * Enqueue the CSS styles.
+ *
+ * The wporg theme does this with a static version, so we have to have it here too with our own cache-busting version.
+ * The version is set to the last modified time during development.
+ */
+function wporg_learn_styles() {
+	wp_enqueue_style( 'wporg-style', get_theme_file_uri( '/css/style.css' ), [ 'dashicons', 'open-sans' ], filemtime( __DIR__ . '/css/style.css' ) );
+}
+add_action( 'wp_enqueue_scripts', 'wporg_learn_styles' );
 
 /**
  * The Header for our theme.
