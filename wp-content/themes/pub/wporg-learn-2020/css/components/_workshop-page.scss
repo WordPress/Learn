@@ -1,6 +1,6 @@
 .workshop-page {
 	color: $color__text;
-	
+
 	&_content {
 		margin: $gutter-default 0 $gutter-default * 4;
 	}
@@ -30,7 +30,7 @@
 
 		@include breakpoint( $breakpoint-tablet ) {
 			padding-top: 0;
-			padding-left: 16px;
+			padding-left: $gutter-default;
 		}
 	}
 
@@ -43,7 +43,7 @@
 	}
 
 	ol, ul {
-		margin: 0 0 0 16px;
+		margin: 0 0 0 18px;
 		padding: 0;
 	}
 
