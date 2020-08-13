@@ -42,6 +42,7 @@ add_action( 'init', array( 'WPORG_Learn\Workshop', 'lesson_workshop_taxonomy' ) 
 add_action( 'init', array( 'WPORG_Learn\Workshop', 'workshop_topics_taxonomy' ) );
 add_filter( 'excerpt_length', 'theme_slug_excerpt_length', 999 );
 
+require_once dirname( __FILE__ ) . '/inc/class-markdown-import.php';
 /**
  * Markdown Import
  *
@@ -49,7 +50,6 @@ add_filter( 'excerpt_length', 'theme_slug_excerpt_length', 999 );
  * to learn.wordpress.org and can be updated via the WP admin interface. Leaving this here for now
  * in case we need to re-activate for some reason.
  *
-require_once dirname( __FILE__ ) . '/inc/class-markdown-import.php';
 add_action( 'init', array( 'WPOrg_Learn\Markdown_Import', 'action_init' ) );
 add_action( 'wporg_learn_manifest_import', array( 'WPOrg_Learn\Markdown_Import', 'action_wporg_learn_manifest_import' ) );
 add_action( 'wporg_learn_markdown_import', array( 'WPOrg_Learn\Markdown_Import', 'action_wporg_learn_markdown_import' ) );
