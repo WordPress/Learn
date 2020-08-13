@@ -27,12 +27,12 @@
 			right: 0;
 			height: 100%;
 			width: 100%;
-			opacity: 0;
+			background: radial-gradient(ellipse at center, rgba(32,32,32,0.3) 0,  rgba(0,0,0,0.7) 80%);
 			transition: .3s ease;
-			background: radial-gradient(circle, rgba(90,90,90,0.8) 1%, rgba(128,128,128,0.2) 25%);
+			opacity: 1;
 
 			> span::before {
-				color: white;
+				color: #fff;
 				font-size: 100px;
 				position: absolute;
 				top: 50%;
@@ -45,7 +45,7 @@
 
 		&:hover .overlay,
 		&:focus .overlay {
-			opacity: 1;
+			opacity: 0.8;
 		}
 	}
 
