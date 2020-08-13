@@ -11,13 +11,6 @@
 
 namespace WordPressdotorg\Forums;
 
-$menu_items = array(
-	/* translators: relative link to the forums home page */
-	_x( '/forums/', 'header menu', 'wporg-learn' ) => _x( 'Forums', 'header menu', 'wporg-learn' ),
-	_x( 'https://codex.wordpress.org/Main_Page', 'header menu', 'wporg-learn' ) => _x( 'Documentation', 'header menu', 'wporg-learn' ),
-	_x( 'https://make.wordpress.org/support/handbook/', 'header menu', 'wporg-learn' ) => _x( 'Get Involved', 'header menu', 'wporg-learn' ),
-);
-
 global $wporg_global_header_options;
 if ( ! isset( $wporg_global_header_options['in_wrapper'] ) ) {
 	$wporg_global_header_options['in_wrapper'] = '';
@@ -54,7 +47,28 @@ wporg_get_global_header();
 				<?php elseif ( is_page() ) : ?>
 				<h1 class="site-title"><a href="<?php echo esc_url( get_the_permalink() ); ?>" rel="home"><?php the_title(); ?></a></h1>
 				<?php else : ?>
-				<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php echo esc_html( _x( 'Learn WordPress', 'Site title', 'wporg-learn' ) ); ?></a></p>
+				<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+					<?php echo esc_html( _x( 'Learn WordPress', 'Site title', 'wporg-learn' ) ); ?>
+				</a></p>
+				<nav id="site-navigation" class="main-navigation" role="navigation">
+					<button
+						class="menu-toggle dashicons dashicons-arrow-down-alt2"
+						aria-controls="primary-menu"
+						aria-expanded="false"
+						aria-label="<?php esc_attr_e( 'Primary Menu', 'wporg-learn' ); ?>"
+					>
+					</button>
+
+					<div id="primary-menu" class="menu">
+						<?php
+						wp_nav_menu( array(
+							'theme_location' => 'primary',
+							'menu_id'        => 'primary-menu',
+						) );
+						?>
+					</div>
+				</nav><!-- #site-navigation -->
 				<?php endif; ?>
+
 			</div><!-- .site-branding -->
 		</header><!-- #masthead -->

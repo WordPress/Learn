@@ -20,7 +20,7 @@ get_header();?>
 	</section>
 	<hr>
 
-	<?php wporg_submit_idea_cta(); ?>
+	<?php get_template_part( 'template-parts/component', 'submit-idea-cta' ); ?>
 </main>
 
 <?php

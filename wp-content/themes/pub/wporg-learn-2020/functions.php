@@ -22,15 +22,16 @@ function setup() {
 add_action( 'after_setup_theme', __NAMESPACE__ . '\setup' );
 
 /**
- * Enqueue the CSS styles.
+ * Enqueue the CSS styles & scripts.
  *
  * The wporg theme does this with a static version, so we have to have it here too with our own cache-busting version.
  * The version is set to the last modified time during development.
  */
-function wporg_learn_styles() {
+function wporg_learn_scripts() {
 	wp_enqueue_style( 'wporg-style', get_theme_file_uri( '/css/style.css' ), array( 'dashicons', 'open-sans' ), filemtime( __DIR__ . '/css/style.css' ) );
+	wp_enqueue_script( 'wporg-navigation', get_template_directory_uri() . '/js/navigation.js', array(), filemtime( __DIR__ . '/js/navigation.js' ), true );
 }
-add_action( 'wp_enqueue_scripts', 'wporg_learn_styles' );
+add_action( 'wp_enqueue_scripts', 'wporg_learn_scripts' );
 
 /**
  * The Header for our theme.
@@ -196,21 +197,6 @@ function wporg_get_slides_url() {
  */
 function wporg_get_download_slides_url() {
 	return get_post_meta( get_the_ID(), 'download_lesson_plan_slides_url', true );
-}
-
-/**
- * Submit CTA button
- *
- * @package WPBBP
- */
-function wporg_submit_idea_cta() {
-	?>
-	<section class="submit-idea-cta">
-		<div class="content-icon"><span class="dashicons dashicons-lightbulb"></span></div>
-		<h2><?php esc_html_e( 'Have an Idea for a Workshop? Let us know!', 'wporg-learn' ); ?></h2>
-		<a class="button button-primary button-large" href="https://wordcampcentral.survey.fm/learn-wordpress-workshop-application"><?php esc_html_e( 'Submit an Idea', 'wporg-learn' ); ?></a>
-	</section>
-	<?php
 }
 
 /**
