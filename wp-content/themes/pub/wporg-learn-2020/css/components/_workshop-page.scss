@@ -9,6 +9,14 @@
 		padding: 4rem 0 0;
 	}
 
+	&_biography {
+		margin-top: $gutter-default * 2;
+
+		@include breakpoint( $breakpoint-tablet ) {
+			margin-top: 0;
+		}
+	}
+
 	&_video {
 		// This markup is provided by gutenberg
 		figure {

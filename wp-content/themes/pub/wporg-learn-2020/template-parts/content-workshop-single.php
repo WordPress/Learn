@@ -19,7 +19,7 @@
 						);
 						?>
 					</div>
-					<p class="col-8"><?php echo esc_html( $presenter->description ); ?></p>
+					<p class="col-8 workshop-page_biography"><?php echo esc_html( $presenter->description ); ?></p>
 				</section>
 			<?php endforeach; ?>
 		</div>
