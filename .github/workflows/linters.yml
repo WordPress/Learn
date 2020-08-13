@@ -15,6 +15,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Fetch wporg parent theme css
+      run: |
+        mkdir wp-content/themes/pub/wporg
+        svn export https://meta.svn.wordpress.org/sites/trunk/wordpress.org/public_html/wp-content/themes/pub/wporg/css css
+
     - name: Cache node modules
       uses: actions/cache@v2
       env:
