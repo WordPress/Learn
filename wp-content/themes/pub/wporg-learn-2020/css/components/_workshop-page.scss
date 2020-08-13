@@ -47,7 +47,7 @@
 		padding: 0;
 	}
 
-	li {
+	li + li {
 		margin-top: $gutter-default / 2;
 	}
 }
