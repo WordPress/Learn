@@ -276,9 +276,9 @@ class Lesson_Plan {
 	}
 
 	/**
-	 * o2 does inline editing, so we also need to remove the class name that it looks for.
+	 * The o2 plugin does inline editing, so we also need to remove the class name that it looks for.
 	 *
-	 * o2 obeys the edit_post capability for displaying the edit link, so we also need to manually
+	 * The o2 plugin obeys the edit_post capability for displaying the edit link, so we also need to manually
 	 * add the edit link if it isn't there - it always redirects to GitHub, so it doesn't need to
 	 * obey the edit_post capability in this instance.
 	 */
@@ -331,6 +331,13 @@ class Lesson_Plan {
 		return $actions;
 	}
 
+	/**
+	 * Get a link to the wptrainingteam GitHub repo.
+	 *
+	 * @param int $post_id
+	 *
+	 * @return mixed|string|string[]|\WP_Error
+	 */
 	private static function get_markdown_edit_link( $post_id ) {
 		$markdown_source = Markdown_Import::get_markdown_source( $post_id );
 		if ( is_wp_error( $markdown_source ) ) {
@@ -346,6 +353,13 @@ class Lesson_Plan {
 		return $markdown_source;
 	}
 
+	/**
+	 * Source images from the GitHub repo.
+	 *
+	 * @param string $content
+	 *
+	 * @return string|string[]
+	 */
 	public static function replace_image_links( $content ) {
 		$post_id         = get_the_ID();
 		$markdown_source = Markdown_Import::get_markdown_source( $post_id );
