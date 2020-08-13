@@ -11,13 +11,6 @@
 
 namespace WordPressdotorg\Forums;
 
-$menu_items = array(
-	/* translators: relative link to the forums home page */
-	_x( '/forums/', 'header menu', 'wporg-forums' )                                     => _x( 'Forums', 'header menu', 'wporg-forums' ),
-	_x( 'https://codex.wordpress.org/Main_Page', 'header menu', 'wporg-forums' )        => _x( 'Documentation', 'header menu', 'wporg-forums' ),
-	_x( 'https://make.wordpress.org/support/handbook/', 'header menu', 'wporg-forums' ) => _x( 'Get Involved', 'header menu', 'wporg-forums' ),
-);
-
 global $wporg_global_header_options;
 if ( !isset( $wporg_global_header_options['in_wrapper'] ) )
 	$wporg_global_header_options['in_wrapper'] = '';
@@ -51,7 +44,7 @@ wporg_get_global_header();
 			        </label>
 			        <button type="submit" class="search-submit button button-primary button-search"><i class="dashicons dashicons-search"></i><span class="screen-reader-text"><?php esc_attr_e( 'Search', 'wporg-forums' ) ?></span></button>
 			    </form>
-						
+
 				<?php
 				} elseif ( is_page() ) {
 				?>
@@ -60,29 +53,24 @@ wporg_get_global_header();
 				} else {
 				?>
 					<p class="site-title"><a href="<?php echo esc_url(home_url('/')); ?>" rel="home"><?php _ex('Learn WordPress', 'Site title', 'wporg-forums'); ?></a></p>
-					<?php /*
 					<nav id="site-navigation" class="main-navigation" role="navigation">
-						<button class="menu-toggle dashicons dashicons-arrow-down-alt2" aria-controls="primary-menu" aria-expanded="false" aria-label="<?php esc_attr_e( 'Primary Menu', 'wporg-forums' ); ?>"></button>
+						<button
+							class="menu-toggle dashicons dashicons-arrow-down-alt2"
+							aria-controls="primary-menu"
+							aria-expanded="false"
+							aria-label="<?php esc_attr_e( 'Primary Menu', 'wporg-learn' ); ?>"
+						>
+						</button>
+
 						<div id="primary-menu" class="menu">
-							<ul>
-								<?php
-								foreach ( $menu_items as $path => $text ) :
-									$class = '';
-									$url = parse_url( $path );
-									if ( ! empty( $url['host' ] ) ) {
-										$url = esc_url( $path );
-									} else {
-										$class = false !== strpos( $_SERVER['REQUEST_URI'], $url['path'] ) ? 'class="active" ' : '';
-										$url = esc_url( home_url( $path ) );
-									}
-								?>
-								<li class="page_item"><a <?php echo $class; ?>href="<?php echo $url; ?>"><?php echo esc_html( $text ); ?></a></li>
-								<?php endforeach; ?>
-								<li><?php get_search_form(); ?></li>
-							</ul>
+							<?php
+							wp_nav_menu( array(
+								'theme_location' => 'primary',
+								'menu_id'        => 'primary-menu',
+							) );
+							?>
 						</div>
 					</nav><!-- #site-navigation -->
-					*/ ?>
 				<?php } ?>
 			</div><!-- .site-branding -->
 		</header><!-- #masthead -->

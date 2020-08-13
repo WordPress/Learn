@@ -22,15 +22,17 @@ function setup() {
 add_action( 'after_setup_theme', __NAMESPACE__ . '\setup' );
 
 /**
- * Enqueue the CSS styles.
+ * Enqueue the CSS styles & scripts.
  *
  * The wporg theme does this with a static version, so we have to have it here too with our own cache-busting version.
  * The version is set to the last modified time during development.
  */
-function wporg_learn_styles() {
+function wporg_learn_scripts() {
 	wp_enqueue_style( 'wporg-style', get_theme_file_uri( '/css/style.css' ), [ 'dashicons', 'open-sans' ], filemtime( __DIR__ . '/css/style.css' ) );
+	wp_enqueue_script( 'wporg-navigation', get_template_directory_uri() . '/js/navigation.js', array(), filemtime( __DIR__ . '/js/navigation.js' ), true );
+
 }
-add_action( 'wp_enqueue_scripts', 'wporg_learn_styles' );
+add_action( 'wp_enqueue_scripts', 'wporg_learn_scripts' );
 
 /**
  * The Header for our theme.
