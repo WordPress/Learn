@@ -44,7 +44,7 @@ wporg_get_global_header();
 			        </label>
 			        <button type="submit" class="search-submit button button-primary button-search"><i class="dashicons dashicons-search"></i><span class="screen-reader-text"><?php esc_attr_e( 'Search', 'wporg-forums' ) ?></span></button>
 			    </form>
-						
+
 				<?php
 				} elseif ( is_page() ) {
 				?>
@@ -58,7 +58,7 @@ wporg_get_global_header();
 							class="menu-toggle dashicons dashicons-arrow-down-alt2"
 							aria-controls="primary-menu"
 							aria-expanded="false"
-							aria-label="<?php esc_attr_e( 'Primary Menu', 'wporg-5ftf' ); ?>"
+							aria-label="<?php esc_attr_e( 'Primary Menu', 'wporg-learn' ); ?>"
 						>
 						</button>
 
