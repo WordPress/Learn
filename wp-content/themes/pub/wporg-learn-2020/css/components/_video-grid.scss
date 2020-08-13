@@ -16,22 +16,22 @@
 			padding-bottom: 0;
 		}
 
-		> img {
-			width: 100%;
-
-			@media only screen and (min-width: $breakpoint-small) {
-				padding: 0 $gutter-default * 2 $gutter-default;
-			}
-
-			@media only screen and (min-width: $breakpoint-tablet) {
-				padding: 0;
-			}
-		}
-
 		&_link {
 			display: block;
 			margin-top: 8px;
 			font-weight: bold;
+
+			> img {
+				width: 100%;
+	
+				@media only screen and (min-width: $breakpoint-small) {
+					padding: 0 $gutter-default * 2 $gutter-default;
+				}
+	
+				@media only screen and (min-width: $breakpoint-tablet) {
+					padding: 0;
+				}
+			}
 		}
 
 		&--no-image {
