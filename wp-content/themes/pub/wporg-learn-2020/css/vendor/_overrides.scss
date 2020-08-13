@@ -38,124 +38,25 @@ p {
 	color: #555D66;
 }
 
-.home-page .shapes {
-	position: relative;
-}
-
-.home-page .shapes .parallelogram::before {
-	font-size: 80px;
-	height: 64px;
-	left: -30px;
-	position: relative;
-	-webkit-transform: skew(5deg);
-	-ms-transform: skew(5deg);
-	transform: skew(5deg);
-	width: 64px;
-}
-
-.home-page .shapes .parallelogram {
-	color: #fff;
-	display: block;
-	margin: 0 auto;
-	opacity: 0.9;
-	padding: 60px 40px;
-
-	text-align: center;
-	text-decoration: none;
-	-webkit-transform: skew(-5deg);
-	-ms-transform: skew(-5deg);
-	transform: skew(-5deg);
-
-}
-
-.home-page .shapes .parallelogram.lesson-plans {
-	background-color: #00669B;
-	margin-top: -2rem;
-	right: 30px;
-	top: 50px;
-	z-index: 10;
-}
-
-.home-page .shapes .parallelogram.workshop-ideas {
-	background-color: #389547;
-	top: 0;
-	left: 30px;
-	z-index: 1;
-}
-
-.home-page .shapes strong {
-	display: block;
-	font-size: 28px;
-	font-weight: 300;
-	padding-bottom: 15px;
-	padding-top: 15px;
-}
-
-.home-page .shapes p {
-	color: #fff;
-	font-size: 16px;
-	font-weight: 300;
-	margin: 0;
-	-webkit-transform: skew(5deg);
-	-ms-transform: skew(5deg);
-	transform: skew(5deg);
-}
-
-.home-page .shapes u {
-	display: block;
-	font-size: 18px;
-	padding-top: 15px;
-}
-
-@media only screen and (min-width: 768px) {
-	.home-page .shapes {
-		height: 400px;
-		margin: 0 -60px;
-	}
-
-	.home-page .shapes .parallelogram.workshop-ideas {
-		margin-top: 0;
-	}
-
-	.home-page .shapes .parallelogram {
-		width: 50%;
-		position: absolute;
-		padding: 50px 90px;
-		-webkit-transform: skew(-15deg);
-		-ms-transform: skew(-15deg);
-		transform: skew(-15deg);
-	}
-
-	.home-page .shapes .parallelogram::before {
-		-webkit-transform: skew(15deg);
-		-ms-transform: skew(15deg);
-		transform: skew(15deg);
-	}
-
-	.home-page .shapes p {
-		-webkit-transform: skew(15deg);
-		-ms-transform: skew(15deg);
-		transform: skew(15deg);
-	}
-}
-
-
 .about-training .getin {
 	margin: 0 auto;
 	max-width: 700px;
 	overflow: hidden;
 	position: relative;
+	text-align: center;
 }
 
 .about-training .getin .graphic {
 	background: #826eb4;
-	margin-bottom: 16px;
+	margin: 0 auto 16px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	height: 125px;
-	width: 125px;
+	height: 100px;
+	width: 100px;
 }
+
+
 
 .about-training .getin .graphic .dashicons {
 	font-size: 75px;
@@ -165,9 +66,10 @@ p {
 }
 
 
-@media only screen and (min-width: 576px) {
+@media only screen and (min-width: $breakpoint-small) {
 	.about-training .getin {
 		padding-left: 230px;
+		text-align: left;
 	}
 
 	.about-training .getin .graphic {

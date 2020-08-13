@@ -21,4 +21,8 @@
 	&_handle {
 		text-decoration: underline;
 	}
+
+	&--is-centered {
+		justify-content: center;
+	}
 }

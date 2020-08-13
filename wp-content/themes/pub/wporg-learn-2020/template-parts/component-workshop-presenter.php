@@ -7,12 +7,13 @@
  * @package WPBBP
  */
 
-$args = wp_parse_args( $args );
+$args = wp_parse_args( $args, array( 'class' => '' ) );
 $presenter = $args[ 'presenter' ];
+
 ?>
 
 <?php if ( $presenter ) : ?>
-	<div class="workshop-presenter">
+	<div class="workshop-presenter <?php echo $args['class']; ?> ">
 		<div>
 			<?php echo get_avatar( $presenter->ID , 56, '', '', array ( 'class' => 'workshop-presenter_profile' ) ); ?>
 		</div>
