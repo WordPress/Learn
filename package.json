@@ -13,7 +13,6 @@
 		"wp-content/themes/pub/wporg-learn-2020"
 	],
 	"scripts": {
-		"migrations": "./bin/migrations/index.sh",
 		"install:env": "./bin/index.sh",
 		"create": "composer install && npm run install:env",
 		"wp-env": "wp-env"
