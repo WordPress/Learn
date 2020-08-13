@@ -11,10 +11,41 @@
 		width: 100%;
 		background: #eee;
 		overflow: hidden;
+		display: block;
+		position: relative;
 
 		> img {
 			width: 100%;
 			display: block;
+		}
+
+		> .overlay {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			height: 100%;
+			width: 100%;
+			opacity: 0;
+			transition: .3s ease;
+			background: radial-gradient(circle, rgba(90,90,90,0.8) 1%, rgba(128,128,128,0.2) 25%);
+
+			> span::before {
+				color: white;
+				font-size: 100px;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				-ms-transform: translate(-50%, -50%);
+				text-align: center;
+			}
+		}
+
+		&:hover .overlay,
+		&:focus .overlay {
+			opacity: 1;
 		}
 	}
 
