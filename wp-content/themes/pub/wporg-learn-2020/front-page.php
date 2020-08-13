@@ -60,7 +60,7 @@ get_header();?>
 		</section>
 		<hr>
 		
-		<?php wporg_submit_idea_cta(); ?>
+		<?php get_template_part( 'template-parts/component', 'submit-idea-cta', array( 'icon' => 'lightbulb' ) ); ?>
 
 		<?php if ( ! is_active_sidebar( 'front-page-blocks' ) ) : ?>
 			<?php //get_template_part( 'template-parts/bbpress', 'front' ); ?>
