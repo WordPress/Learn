@@ -12,7 +12,7 @@ $featured_workshop = wporg_get_workshops( array( 'posts_per_page' => 1 ) );
 
 <div class="featured-workshop">
 	<?php while ( $featured_workshop->have_posts() ) : $featured_workshop->the_post(); ?>
-		<a href="<?php the_permalink(); ?>" class="featured-workshop_video">
+		<a href="<?php echo esc_url( add_query_arg( 'autoplay', 1, get_the_permalink() ) ); ?>" class="featured-workshop_video">
 			<?php echo wporg_get_post_thumbnail( $post, 'full' ); ?>
 			<div class="overlay"><span class="dashicons dashicons-controls-play"></span></div>
 		</a>

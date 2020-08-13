@@ -278,3 +278,14 @@ function wporg_get_post_thumbnail( $post, $size = 'post-thumbnail' ) {
     }
 }
 
+if ( !empty ( $_GET['autoplay'] ) ) {
+	add_filter( 'render_block', function( $html, $block ) {
+		if ( 'core-embed/wordpress-tv' === $block['blockName'] ) {
+			// Add autoplay attribute.
+			$html = preg_replace_callback( '!(<iframe[^>]+src=[\'"])(.+?)([\'"])!', function( $m ) {
+				return $m[1] .add_query_arg( 'autoPlay', 1, $m[2] ) . $m[3];
+			}, $html );
+		}
+		return $html;
+	}, 10, 2 );
+}
