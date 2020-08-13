@@ -1884,7 +1884,7 @@
   resolved "https://registry.yarnpkg.com/@wordpress/prettier-config/-/prettier-config-0.3.0.tgz#82bb85dd30ca4ae23f1c8cd4f12295e428aa4eed"
   integrity sha512-wL1ztV+so5Ttwz23lDmb8ZmREmND96sf+Dh/kbP2nyAw/DWt3K8uj31qbczVmjwfoetTiRoH9Z1CasgPs4bccg==
 
-"@wordpress/scripts@^12.1.1":
+"@wordpress/scripts@12.1.1":
   version "12.1.1"
   resolved "https://registry.yarnpkg.com/@wordpress/scripts/-/scripts-12.1.1.tgz#763d3c5375259437f45af368f3e80b4369a3070a"
   integrity sha512-PC8M9h6LkNJgzbRIVBuZrAchVNaEaWPSF47yljKRrg01xWlPtWRQwWWoYvleHuBrLozSElJYrA73W8d/vPPrtg==

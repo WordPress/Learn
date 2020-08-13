@@ -21,7 +21,7 @@
 	&_title {
 		display: block;
 		margin-bottom: $gutter-default / 2;
-		font-weight: bold;
+		font-weight: 600;
 		text-decoration: underline;
 		font-size: $gutter-default * 1.25;
 	}
@@ -35,7 +35,7 @@
 			@include breakpoint( $breakpoint-tablet ) {
 				padding-top: 0;
 				padding-left: $gutter-default * 2;
-		
+
 			}
 		}
 	}

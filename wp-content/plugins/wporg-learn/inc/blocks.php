@@ -11,6 +11,7 @@ defined( 'WPINC' ) || die();
  * in the corresponding context.
  *
  * @see https://developer.wordpress.org/block-editor/tutorials/block-tutorial/applying-styles-with-stylesheets/
+ * @throws Error If the build files are not found.
  */
 function workshop_details_init() {
 	$dir = dirname( __DIR__ );
@@ -22,7 +23,7 @@ function workshop_details_init() {
 		);
 	}
 
-	$script_asset = require( $script_asset_path );
+	$script_asset = require $script_asset_path;
 	wp_register_script(
 		'workshop-details-editor-script',
 		plugins_url( 'build/workshop-details.js', 'wporg-learn/wporg-learn.php' ),
@@ -50,22 +51,20 @@ function workshop_details_init() {
 		'editor_script'   => 'workshop-details-editor-script',
 		'editor_style'    => 'workshop-details-editor-style',
 		'style'           => 'workshop-details-style',
-		'render_callback' => __NAMESPACE__ . '\workshop_details_render_callback'
+		'render_callback' => __NAMESPACE__ . '\workshop_details_render_callback',
 	) );
 }
-
-
 
 /**
  * Build the html output based on input fields
  *
- * @param array   $fields
+ * @param array $fields
  * @return string HTML output.
  */
 function get_workshop_details_html_output( $fields ) {
 	$output = '<ul class="wp-block-wporg-learn-workshop-details">';
 
-	foreach( $fields as $key => $value ) {
+	foreach ( $fields as $key => $value ) {
 		$output .= sprintf( '<li><b>%1$s</b><span>%2$s</span></li>', $key, $value );
 	}
 
@@ -82,20 +81,20 @@ function get_workshop_details_html_output( $fields ) {
  * @return string HTML output used by the block
  */
 function workshop_details_render_callback( $attributes, $content ) {
-	$post = get_post();
-	$topics = wp_get_post_terms( $post->ID, 'topic', array( 'fields' => 'names' ) );
-	$level = wp_get_post_terms( $post->ID, 'level', array( 'fields' => 'names' ) );
+	$post     = get_post();
+	$topics   = wp_get_post_terms( $post->ID, 'topic', array( 'fields' => 'names' ) );
+	$level    = wp_get_post_terms( $post->ID, 'level', array( 'fields' => 'names' ) );
 	$captions = get_post_meta( $post->ID, 'video_caption_language' );
 
 	$fields = array(
-		__( 'Length' , 'wporg-learn') => get_workshop_duration( $post, 'string' ),
-		__( 'Topic' , 'wporg-learn') => implode( ', ', array_map( 'esc_html', $topics ) ),
-		__( 'Level' , 'wporg-learn') => implode( ', ', array_map( 'esc_html', $level ) ),
-		__( 'Language' , 'wporg-learn') => esc_html( $post->video_language ),
-		__( 'Captions' , 'wporg-learn') => implode( ', ', array_map( 'esc_html', $captions ) ),
+		__( 'Length', 'wporg-learn' )   => get_workshop_duration( $post, 'string' ),
+		__( 'Topic', 'wporg-learn' )    => implode( ', ', array_map( 'esc_html', $topics ) ),
+		__( 'Level', 'wporg-learn' )    => implode( ', ', array_map( 'esc_html', $level ) ),
+		__( 'Language', 'wporg-learn' ) => esc_html( $post->video_language ),
+		__( 'Captions', 'wporg-learn' ) => implode( ', ', array_map( 'esc_html', $captions ) ),
 	);
 
-	// Remove empty fields
+	// Remove empty fields.
 	$fields_to_output = array_filter( $fields );
 
 	return get_workshop_details_html_output( $fields_to_output );
@@ -103,6 +102,8 @@ function workshop_details_render_callback( $attributes, $content ) {
 
 /**
  * Enqueue scripts and stylesheets for custom block styles.
+ *
+ * @throws Error If the build files are not found.
  */
 function enqueue_block_style_assets() {
 	$dir = dirname( __DIR__ );
@@ -115,7 +116,7 @@ function enqueue_block_style_assets() {
 			);
 		}
 
-		$script_asset = require( $script_asset_path );
+		$script_asset = require $script_asset_path;
 		wp_enqueue_script(
 			'wporg-learn-block-styles',
 			plugins_url( 'build/block-styles.js', 'wporg-learn/wporg-learn.php' ),

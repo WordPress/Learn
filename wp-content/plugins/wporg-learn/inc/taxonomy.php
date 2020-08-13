@@ -41,7 +41,7 @@ function register_lesson_taxonomies() {
 		'hierarchical'      => true,
 		'public'            => true,
 		'rewrite'           => array(
-			'slug' => 'lesson-plans'
+			'slug' => 'lesson-plans',
 		),
 		'show_ui'           => true,
 		'show_admin_column' => true,

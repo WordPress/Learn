@@ -17,7 +17,8 @@ get_header();
 
 		<?php if ( have_posts() ) : ?>
 			<div id="lesson-plans" class="lp-list">
-				<?php while ( have_posts() ) : the_post(); ?>
+				<?php while ( have_posts() ) :
+					the_post(); ?>
 					<?php get_template_part( 'template-parts/content', 'archive' ); ?>
 				<?php endwhile; ?>
 			</div>
@@ -25,7 +26,7 @@ get_header();
 			<?php the_posts_pagination(); ?>
 		<?php else : ?>
 			<div class="lp-empty">
-				<?php echo _e( 'We were unable to find any matches.' , 'wporg-learn' ); ?>
+				<?php echo esc_html_e( 'We were unable to find any matches.', 'wporg-learn' ); ?>
 			</div>
 		<?php endif; ?>
 

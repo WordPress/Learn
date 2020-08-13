@@ -8,14 +8,19 @@
 	"dependencies": {
 		"@wordpress/env": "^1.6.0"
 	},
-	"workspaces": [
-		"wp-content/plugins/wporg-learn",
-		"wp-content/themes/pub/wporg-learn-2020"
-	],
+	"workspaces": {
+		"packages": [
+			"wp-content/plugins/wporg-learn",
+			"wp-content/themes/pub/wporg-learn-2020"
+		],
+		"nohoist": ["**/grunt-*"]
+	},
 	"scripts": {
 		"install:env": "./bin/index.sh",
 		"create": "composer install && npm run install:env",
-		"wp-env": "wp-env"
+		"wp-env": "wp-env",
+		"lint:php": "composer run lint",
+		"format:php": "composer run format"
 	},
 	"main": "index.js"
 }

@@ -8,7 +8,7 @@
 get_header(); ?>
 
 	<main id="main" class="site-main type-page" role="main">
-		<?php echo get_template_part( 'template-parts/component', 'breadcrumbs' );  ?>
+		<?php get_template_part( 'template-parts/component', 'breadcrumbs' ); ?>
 
 		<div id="main-content">
 			<?php

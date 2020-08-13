@@ -10,9 +10,9 @@
 ?>
 
 <li>
-    <span class="dashicons dashicons-<?php echo $detail[ 'icon' ]; ?>"></span>
-    <span><?php echo $detail[ 'label']; ?></span>
-    <strong>
-        <span><?php echo $detail[ 'values' ]; ?></span>
-    </strong>
+	<span class="dashicons dashicons-<?php echo esc_attr( $detail['icon'] ); ?>"></span>
+	<span><?php echo esc_html( $detail['label'] ); ?></span>
+	<strong>
+		<span><?php echo esc_html( $detail['values'] ); ?></span>
+	</strong>
 </li>

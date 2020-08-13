@@ -1,5 +1,5 @@
 {
-	"name": "wporg-learn-2020",
+	"name": "wporg-learn-theme",
 	"version": "1.0.0",
 	"description": "Theme for learn.wordpress.org",
 	"author": "WordPress.org",
@@ -11,13 +11,18 @@
 	"scripts": {
 		"start": "grunt watch",
 		"build": "grunt build",
-		"dev": "grunt"
+		"dev": "grunt",
+		"format:js": "wp-scripts format-js js",
+		"lint:css": "wp-scripts lint-style css",
+		"lint:js": "exit 0",
+		"packages-update": "wp-scripts packages-update"
 	},
 	"browserslist": [
 		"extends @wordpress/browserslist-config"
 	],
 	"devDependencies": {
 		"@wordpress/browserslist-config": "2.6.0",
+		"@wordpress/scripts": "12.1.1",
 		"autoprefixer": "9.6.1",
 		"cssnano": "4.1.10",
 		"grunt": "1.0.4",
@@ -27,5 +32,9 @@
 		"grunt-sass-globbing": "1.5.1",
 		"node-sass": "4.12.0",
 		"pixrem": "5.0.0"
+	},
+	"stylelint": {
+		"extends": "../../../../.stylelintrc",
+		"ignoreFiles": ["*/vendor/*", "**/*.css", "**/*.css.map"]
 	}
 }

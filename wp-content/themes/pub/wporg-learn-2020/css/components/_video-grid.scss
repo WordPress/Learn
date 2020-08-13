@@ -19,9 +19,9 @@
 		&_link {
 			display: block;
 			margin-top: 8px;
-			font-weight: bold;
+			font-weight: 600;
 			text-align: center;
-	
+
 			@media only screen and (min-width: $breakpoint-small) {
 				padding: 0 $gutter-default * 2 $gutter-default;
 			}

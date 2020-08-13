@@ -29,7 +29,7 @@ add_action( 'init', array( 'WPORG_Learn\Lesson_Plan', 'lesson_level_taxonomy' ) 
 add_action( 'init', array( 'WPORG_Learn\Lesson_Plan', 'lesson_audience_taxonomy' ) );
 add_action( 'init', array( 'WPORG_Learn\Lesson_Plan', 'lesson_instruction_type_taxonomy' ) );
 add_action( 'init', 'WPORG_Learn\Taxonomy\register' );
-add_filter( 'the_content', array('WPORG_Learn\Lesson_Plan', 'replace_image_links' ) );
+add_filter( 'the_content', array( 'WPORG_Learn\Lesson_Plan', 'replace_image_links' ) );
 
 add_action( 'init', 'WPORG_Learn\Blocks\workshop_details_init' );
 add_action( 'enqueue_block_editor_assets', 'WPORG_Learn\Blocks\enqueue_block_style_assets' );
@@ -72,14 +72,14 @@ function theme_slug_excerpt_length( $length ) {
 		return $length;
 	}
 
-	if( $post->post_type == 'workshop' ) {
+	if ( 'workshop' === $post->post_type ) {
 		return 35;
 	}
 
 	return 25;
 }
 
-add_action( 'wp_head', function(){
+add_action( 'wp_head', function() {
 	?>
 	<style>
 		pre code {

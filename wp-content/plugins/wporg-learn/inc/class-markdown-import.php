@@ -8,12 +8,12 @@ use WP_Query;
 class Markdown_Import {
 
 	private static $lesson_plan_manifest = 'https://wptrainingteam.github.io/manifest.json';
-	private static $input_name = 'wporg-learn-markdown-source';
-	private static $meta_key = 'wporg_learn_markdown_source';
-	private static $nonce_name = 'wporg-learn-markdown-source-nonce';
-	private static $submit_name = 'wporg-learn-markdown-import';
-	private static $supported_post_type = 'lesson-plan';
-	private static $posts_per_page = 100;
+	private static $input_name           = 'wporg-learn-markdown-source';
+	private static $meta_key             = 'wporg_learn_markdown_source';
+	private static $nonce_name           = 'wporg-learn-markdown-source-nonce';
+	private static $submit_name          = 'wporg-learn-markdown-import';
+	private static $supported_post_type  = 'lesson-plan';
+	private static $posts_per_page       = 100;
 
 	/**
 	 * Register our cron task if it doesn't already exist
@@ -27,6 +27,9 @@ class Markdown_Import {
 		}
 	}
 
+	/**
+	 * Actions taken on `wporg_learn_manifest_import` event.
+	 */
 	public static function action_wporg_learn_manifest_import() {
 		$response = wp_remote_get( self::$lesson_plan_manifest );
 		if ( is_wp_error( $response ) ) {
@@ -36,17 +39,17 @@ class Markdown_Import {
 		}
 		$manifest = json_decode( wp_remote_retrieve_body( $response ), true );
 		if ( ! $manifest ) {
-			return new WP_Error( 'invalid-manifest', 'Manifest did not unfurl properly.' );;
+			return new WP_Error( 'invalid-manifest', 'Manifest did not unfurl properly.' );
 		}
 		// Fetch all lesson plan posts for comparison
-		$q = new WP_Query( array(
+		$q        = new WP_Query( array(
 			'post_type'      => self::$supported_post_type,
 			'post_status'    => 'publish',
 			'posts_per_page' => self::$posts_per_page,
 		) );
 		$existing = $q->posts;
-		$created = 0;
-		foreach( $manifest as $doc ) {
+		$created  = 0;
+		foreach ( $manifest as $doc ) {
 			// Already exists
 			if ( wp_filter_object_list( $existing, array( 'post_name' => $doc['slug'] ) ) ) {
 				if ( class_exists( 'WP_CLI' ) ) {
@@ -64,7 +67,7 @@ class Markdown_Import {
 					// Create the parent and add it to the stack
 					if ( isset( $manifest[ $doc['parent'] ] ) ) {
 						$parent_doc = $manifest[ $doc['parent'] ];
-						$parent = self::create_post_from_manifest_doc( $parent_doc );
+						$parent     = self::create_post_from_manifest_doc( $parent_doc );
 						if ( $parent ) {
 							$created++;
 							$existing[] = $parent;
@@ -99,7 +102,7 @@ class Markdown_Import {
 			'post_title'  => sanitize_text_field( wp_slash( $doc['title'] ) ),
 			'post_name'   => sanitize_title_with_dashes( $doc['slug'] ),
 		);
-		$post_id = wp_insert_post( $post_data );
+		$post_id   = wp_insert_post( $post_data );
 		if ( ! $post_id ) {
 			return false;
 		}
@@ -110,16 +113,19 @@ class Markdown_Import {
 		return get_post( $post_id );
 	}
 
+	/**
+	 * Actions taken on `wporg_learn_markdown_import` event.
+	 */
 	public static function action_wporg_learn_markdown_import() {
-		$q = new WP_Query( array(
+		$q       = new WP_Query( array(
 			'post_type'      => self::$supported_post_type,
 			'post_status'    => 'publish',
 			'fields'         => 'ids',
 			'posts_per_page' => self::$posts_per_page,
 		) );
-		$ids = $q->posts;
+		$ids     = $q->posts;
 		$success = 0;
-		foreach( $ids as $id ) {
+		foreach ( $ids as $id ) {
 			$ret = self::update_post_from_markdown_source( $id );
 			if ( class_exists( 'WP_CLI' ) ) {
 				if ( is_wp_error( $ret ) ) {
@@ -154,6 +160,7 @@ class Markdown_Import {
 
 		$response = self::update_post_from_markdown_source( $post_id );
 		if ( is_wp_error( $response ) ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			wp_die( $response->get_error_message() );
 		}
 
@@ -163,7 +170,7 @@ class Markdown_Import {
 
 	/**
 	 * Add an input field for specifying Markdown source
- 	 */
+	 */
 	public static function action_edit_form_after_title( $post ) {
 		if ( $post->post_type !== self::$supported_post_type ) {
 			return;
@@ -176,13 +183,14 @@ class Markdown_Import {
 			value="<?php echo esc_attr( $markdown_source ); ?>"
 			placeholder="Enter a URL representing a markdown file to import"
 			size="50" />
-		</label> <?php
-			if ( $markdown_source ) :
-				$update_link = add_query_arg( array(
-					self::$submit_name => 'import',
-					self::$nonce_name  => wp_create_nonce( self::$input_name ),
-				), get_edit_post_link( $post->ID, 'raw' ) );
-				?>
+		</label> 
+		<?php
+		if ( $markdown_source ) :
+			$update_link = add_query_arg( array(
+				self::$submit_name => 'import',
+				self::$nonce_name  => wp_create_nonce( self::$input_name ),
+			), get_edit_post_link( $post->ID, 'raw' ) );
+			?>
 				<a class="button button-small button-primary" href="<?php echo esc_url( $update_link ); ?>">Import</a>
 			<?php endif; ?>
 		<?php wp_nonce_field( self::$input_name, self::$nonce_name ); ?>
@@ -217,7 +225,7 @@ class Markdown_Import {
 	public static function filter_cron_schedules( $schedules ) {
 		$schedules['15_minutes'] = array(
 			'interval' => 15 * MINUTE_IN_SECONDS,
-			'display'  => '15 minutes'
+			'display'  => '15 minutes',
 		);
 		return $schedules;
 	}
@@ -237,7 +245,7 @@ class Markdown_Import {
 		// Transform GitHub repo HTML pages into their raw equivalents
 		//$markdown_source = preg_replace( '#https?://github\.com/([^/]+/[^/]+)/blob/(.+)#', 'https://raw.githubusercontent.com/$1/$2', $markdown_source );
 		$markdown_source = add_query_arg( 'v', time(), $markdown_source );
-		$response = wp_remote_get( $markdown_source );
+		$response        = wp_remote_get( $markdown_source );
 		if ( is_wp_error( $response ) ) {
 			return $response;
 		} elseif ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
@@ -250,15 +258,15 @@ class Markdown_Import {
 
 		$title = null;
 		if ( preg_match( '/^#\s(.+)/', $markdown, $matches ) ) {
-			$title = $matches[1];
+			$title    = $matches[1];
 			$markdown = preg_replace( '/^#\s(.+)/', '', $markdown );
 		}
 
 		// Transform to HTML and save the post
 		jetpack_require_lib( 'markdown' );
-		$parser = new \WPCom_GHF_Markdown_Parser;
-		$html = $parser->transform( $markdown );
-		$html = self::replace_markdown_checkboxes( $html );
+		$parser = new \WPCom_GHF_Markdown_Parser();
+		$html   = $parser->transform( $markdown );
+		$html   = self::replace_markdown_checkboxes( $html );
 
 		$post_data = array(
 			'ID'           => $post_id,
@@ -292,18 +300,19 @@ class Markdown_Import {
 	 */
 	public static function replace_markdown_checkboxes( $html ) {
 		$empty_check_markup = '<input type="checkbox" id="" disabled="" class="task-list-item-checkbox">';
-		$full_check_markup = '<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked="">';
+		$full_check_markup  = '<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked="">';
 
 		// We need to allow inputs with all of our attributes for wp_filter_post_kses().
 		global $allowedposttags;
 
-		$allowedposttags['input'] = [
-			'type'     => [],
-			'disabled' => [],
-			'checked'  => [],
-			'class'    => [],
-			'id'       => [],
-		];
+		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+		$allowedposttags['input'] = array(
+			'type'     => array(),
+			'disabled' => array(),
+			'checked'  => array(),
+			'class'    => array(),
+			'id'       => array(),
+		);
 
 		$html = preg_replace( '/\[ \]/', $empty_check_markup, $html );
 		$html = preg_replace( '/\[x\]/', $full_check_markup, $html );

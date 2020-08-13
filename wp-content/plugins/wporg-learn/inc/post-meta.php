@@ -80,8 +80,8 @@ function register_workshop_meta() {
  */
 function get_workshop_duration( WP_Post $workshop, $format = 'raw' ) {
 	$raw_duration = $workshop->duration ? absint( $workshop->duration ) : 0;
-	$interval = date_diff( new DateTime( '@0' ), new DateTime( "@$raw_duration" ) ); // The '@' ignores timezone.
-	$return = null;
+	$interval     = date_diff( new DateTime( '@0' ), new DateTime( "@$raw_duration" ) ); // The '@' ignores timezone.
+	$return       = null;
 
 	switch ( $format ) {
 		case 'interval':
@@ -91,13 +91,14 @@ function get_workshop_duration( WP_Post $workshop, $format = 'raw' ) {
 			if ( $interval->d > 0 ) {
 				$return = human_time_diff( 0, $interval->d * DAY_IN_SECONDS );
 			} elseif ( $interval->h > 0 ) {
-				$return = $hours = human_time_diff( 0, $interval->h * HOUR_IN_SECONDS );
+				$hours = human_time_diff( 0, $interval->h * HOUR_IN_SECONDS );
+				$return = $hours;
 
 				if ( $interval->i > 0 ) {
 					$minutes = human_time_diff( 0, $interval->i * MINUTE_IN_SECONDS );
-					$return = sprintf(
+					$return  = sprintf(
 						// translators: 1 is a string like "2 hours". 2 is a string like "20 mins".
-						_x( '%1$s, %2$s', 'hours and minutes','wporg-learn' ),
+						_x( '%1$s, %2$s', 'hours and minutes', 'wporg-learn' ),
 						$hours,
 						$minutes
 					);
@@ -147,7 +148,7 @@ function add_workshop_metaboxes() {
  */
 function render_metabox_workshop_details( WP_Post $post ) {
 	$duration_interval = get_workshop_duration( $post, 'interval' );
-	$captions = get_post_meta( $post->ID, 'video_caption_language' ) ?: array();
+	$captions          = get_post_meta( $post->ID, 'video_caption_language' ) ?: array();
 
 	require dirname( dirname( __FILE__ ) ) . '/views/metabox-workshop-details.php';
 }
@@ -166,7 +167,7 @@ function render_metabox_workshop_presenters( WP_Post $post ) {
 /**
  * Update the post meta values from the meta box fields when the post is saved.
  *
- * @param int $post_id
+ * @param int     $post_id
  * @param WP_Post $post
  */
 function save_workshop_metabox_fields( $post_id, WP_Post $post ) {
@@ -181,9 +182,9 @@ function save_workshop_metabox_fields( $post_id, WP_Post $post ) {
 	}
 
 	$presenter_wporg_username = filter_input( INPUT_POST, 'presenter-wporg-username' );
-	$usernames = array_map( 'trim', explode( ',', $presenter_wporg_username ) );
+	$usernames                = array_map( 'trim', explode( ',', $presenter_wporg_username ) );
 	delete_post_meta( $post_id, 'presenter_wporg_username' );
-	foreach( $usernames as $username ) {
+	foreach ( $usernames as $username ) {
 		add_post_meta( $post_id, 'presenter_wporg_username', $username );
 	}
 
@@ -191,9 +192,9 @@ function save_workshop_metabox_fields( $post_id, WP_Post $post ) {
 	update_post_meta( $post_id, 'video_language', $video_language );
 
 	$video_caption_language = filter_input( INPUT_POST, 'video-caption-language' );
-	$captions = array_map( 'trim', explode( ',', $video_caption_language ) );
+	$captions               = array_map( 'trim', explode( ',', $video_caption_language ) );
 	delete_post_meta( $post_id, 'video_caption_language' );
-	foreach( $captions as $caption ) {
+	foreach ( $captions as $caption ) {
 		add_post_meta( $post_id, 'video_caption_language', $caption );
 	}
 }

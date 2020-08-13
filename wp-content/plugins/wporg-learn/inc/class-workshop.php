@@ -5,7 +5,7 @@ class Workshop {
 
 	/**
 	 *  Register Workshop Post Type
-	*/
+	 */
 	public static function workshop_post_type() {
 		$labels = array(
 			'name'                  => _x( 'Workshops', 'Post Type General Name', 'wporg_learn' ),
@@ -36,26 +36,26 @@ class Workshop {
 			'items_list_navigation' => __( 'Workshops list navigation', 'wporg_learn' ),
 			'filter_items_list'     => __( 'Filter Workshops list', 'wporg_learn' ),
 		);
-		$args = array(
-			'label'                 => __( 'Workshop', 'wporg_learn' ),
-			'description'           => __( 'WordPress.org Training Workshop', 'wporg_learn' ),
-			'labels'                => $labels,
-			'supports'              => array( 'title', 'editor', 'comments', 'revisions', 'custom-fields' ),
-			'taxonomies'            => array( 'lesson_group', 'topic', 'category' ),
-			'hierarchical'          => true,
-			'public'                => true,
-			'show_ui'               => true,
-			'show_in_menu'          => true,
-			'has_archive'           => 'workshops',
-			'menu_position'         => 6,
-			'menu_icon'             => 'dashicons-category',
-			'show_in_admin_bar'     => true,
-			'show_in_nav_menus'     => true,
-			'can_export'            => true,
-			'exclude_from_search'   => false,
-			'publicly_queryable'    => true,
-			'capability_type'       => 'page',
-			'show_in_rest'          => true
+		$args   = array(
+			'label'               => __( 'Workshop', 'wporg_learn' ),
+			'description'         => __( 'WordPress.org Training Workshop', 'wporg_learn' ),
+			'labels'              => $labels,
+			'supports'            => array( 'title', 'editor', 'comments', 'revisions', 'custom-fields' ),
+			'taxonomies'          => array( 'lesson_group', 'topic', 'category' ),
+			'hierarchical'        => true,
+			'public'              => true,
+			'show_ui'             => true,
+			'show_in_menu'        => true,
+			'has_archive'         => 'workshops',
+			'menu_position'       => 6,
+			'menu_icon'           => 'dashicons-category',
+			'show_in_admin_bar'   => true,
+			'show_in_nav_menus'   => true,
+			'can_export'          => true,
+			'exclude_from_search' => false,
+			'publicly_queryable'  => true,
+			'capability_type'     => 'page',
+			'show_in_rest'        => true,
 
 		);
 		register_post_type( 'workshop', $args );
@@ -63,7 +63,7 @@ class Workshop {
 
 	/**
 	 * Register Workshop Grouping Taxonomy
-	*/
+	 */
 	public static function lesson_workshop_taxonomy() {
 		$labels = array(
 			'name'                       => _x( 'Lesson Groups', 'Lesson Plans associated to workshop group.', 'wporg_learn' ),
@@ -89,14 +89,14 @@ class Workshop {
 		);
 
 		$args = array(
-			'labels'                     => $labels,
-			'hierarchical'               => true,
-			'public'                     => true,
-			'show_ui'                    => true,
-			'show_admin_column'          => true,
-			'show_in_nav_menus'          => true,
-			'show_tagcloud'              => false,
-			'show_in_rest'               => true,
+			'labels'            => $labels,
+			'hierarchical'      => true,
+			'public'            => true,
+			'show_ui'           => true,
+			'show_admin_column' => true,
+			'show_in_nav_menus' => true,
+			'show_tagcloud'     => false,
+			'show_in_rest'      => true,
 		);
 
 		register_taxonomy( 'lesson_group', array( 'lesson-plan' ), $args );
@@ -104,7 +104,7 @@ class Workshop {
 
 	/**
 	 * Register Workshop Topics Taxonomy
-	*/
+	 */
 	public static function workshop_topics_taxonomy() {
 		$labels = array(
 			'name'                       => _x( 'Topics', 'Topic Plans associated to workshop.', 'wporg_learn' ),
@@ -130,14 +130,14 @@ class Workshop {
 		);
 
 		$args = array(
-			'labels'                     => $labels,
-			'hierarchical'               => false,
-			'public'                     => true,
-			'show_ui'                    => true,
-			'show_admin_column'          => true,
-			'show_in_nav_menus'          => true,
-			'show_tagcloud'              => false,
-			'show_in_rest'               => true,
+			'labels'            => $labels,
+			'hierarchical'      => false,
+			'public'            => true,
+			'show_ui'           => true,
+			'show_admin_column' => true,
+			'show_in_nav_menus' => true,
+			'show_tagcloud'     => false,
+			'show_in_rest'      => true,
 		);
 
 		register_taxonomy( 'topic', array( 'wporg_workshop' ), $args );

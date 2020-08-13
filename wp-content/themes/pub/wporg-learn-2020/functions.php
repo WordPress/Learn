@@ -28,9 +28,8 @@ add_action( 'after_setup_theme', __NAMESPACE__ . '\setup' );
  * The version is set to the last modified time during development.
  */
 function wporg_learn_scripts() {
-	wp_enqueue_style( 'wporg-style', get_theme_file_uri( '/css/style.css' ), [ 'dashicons', 'open-sans' ], filemtime( __DIR__ . '/css/style.css' ) );
+	wp_enqueue_style( 'wporg-style', get_theme_file_uri( '/css/style.css' ), array( 'dashicons', 'open-sans' ), filemtime( __DIR__ . '/css/style.css' ) );
 	wp_enqueue_script( 'wporg-navigation', get_template_directory_uri() . '/js/navigation.js', array(), filemtime( __DIR__ . '/js/navigation.js' ), true );
-
 }
 add_action( 'wp_enqueue_scripts', 'wporg_learn_scripts' );
 
@@ -50,13 +49,13 @@ function wporg_get_global_header() {
  * @package WPBBP
  */
 function wporg_get_tax_slugs_from_workshop() {
-	return wp_get_post_terms( get_the_ID(), 'lesson_group',  array( 'fields' => 'slugs' ) );
+	return wp_get_post_terms( get_the_ID(), 'lesson_group', array( 'fields' => 'slugs' ) );
 }
 
 /**
  * Get the lesson plans associated to a taxonomy
  *
- * @param string $slugs Comma separated list of taxonomy terms
+ * @param string $slugs Comma separated list of taxonomy terms.
  * @package WPBBP
  */
 function wporg_get_lesson_plans_by_tax_slugs_query( $slugs ) {
@@ -112,7 +111,7 @@ function wporg_get_default_cat() {
 function wporg_get_cat_or_default_slug() {
 	$cat = wporg_get_filter_category();
 
-	if( empty( $cat ) ) {
+	if ( empty( $cat ) ) {
 		return wporg_get_default_cat()->slug;
 	}
 
@@ -123,12 +122,12 @@ function wporg_get_cat_or_default_slug() {
 /**
  * Get the values associated to the page/post
  *
- * @param string $id Id of the post
- * @param string $tax_slug The slug for the custom taxonomy
+ * @param string $id Id of the post.
+ * @param string $tax_slug The slug for the custom taxonomy.
  * @return string
  */
-function get_taxonomy_values( $id, $tax_slug ){
-	$terms = wp_get_post_terms( $id, $tax_slug, array( 'fields' => 'names' )  );
+function get_taxonomy_values( $id, $tax_slug ) {
+	$terms = wp_get_post_terms( $id, $tax_slug, array( 'fields' => 'names' ) );
 	return implode( ', ', $terms );
 }
 
@@ -136,32 +135,32 @@ function get_taxonomy_values( $id, $tax_slug ){
 /**
  * Returns the taxonomies associated to a lesson or workshop
  *
- * @param string $id Id of the post
+ * @param string $id Id of the post.
  * @return string
  */
 function wporg_get_custom_taxonomies( $id ) {
-	return [
-		[
-			'icon' => 'clock',
-			'label' => 'Length:',
-			'values' => get_taxonomy_values( $id, 'duration' )
-		],
-		[
-			'icon' => 'admin-users',
-			'label' => 'Audience:',
-			'values' => get_taxonomy_values( $id, 'audience' )
-		],
-		[
-			'icon' => 'dashboard',
-			'label' => 'Level:',
-			'values' => get_taxonomy_values( $id, 'level' )
-		],
-		[
-			'icon' => 'welcome-learn-more',
-			'label' => 'Type of Instruction:',
-			'values' => get_taxonomy_values( $id, 'instruction_type' )
-		]
-	];
+	return array(
+		array(
+			'icon'   => 'clock',
+			'label'  => 'Length:',
+			'values' => get_taxonomy_values( $id, 'duration' ),
+		),
+		array(
+			'icon'   => 'admin-users',
+			'label'  => 'Audience:',
+			'values' => get_taxonomy_values( $id, 'audience' ),
+		),
+		array(
+			'icon'   => 'dashboard',
+			'label'  => 'Level:',
+			'values' => get_taxonomy_values( $id, 'level' ),
+		),
+		array(
+			'icon'   => 'welcome-learn-more',
+			'label'  => 'Type of Instruction:',
+			'values' => get_taxonomy_values( $id, 'instruction_type' ),
+		),
+	);
 }
 
 /**
@@ -197,7 +196,7 @@ function wporg_get_slides_url() {
  * @return string|bool
  */
 function wporg_get_download_slides_url() {
-return get_post_meta( get_the_ID(), 'download_lesson_plan_slides_url', true );
+	return get_post_meta( get_the_ID(), 'download_lesson_plan_slides_url', true );
 }
 
 /**
@@ -205,12 +204,12 @@ return get_post_meta( get_the_ID(), 'download_lesson_plan_slides_url', true );
  *
  * @return array
  */
-function wporg_get_workshops( $options = NULL ) {
+function wporg_get_workshops( $options = null ) {
 	$args = array(
 		'post_type' => 'wporg_workshop',
 	);
 
-	if( ! is_null( $options ) ) {
+	if ( ! is_null( $options ) ) {
 		$args = array_merge( $args, $options );
 
 	}
@@ -242,26 +241,26 @@ function wporg_get_workshop_presenters( $workshop = null ) {
 	return $wp_users;
 }
 
-/**             
+/**
  * Display a featured image, falling back to the VideoPress thumbnail if no featured image was explicitly set.
- *          
- * @param $post The Workshop post for which we want the thumbnail.
- * @param $size The image size: 'medium', 'full'.
- */     
+ *
+ * @param WP_Post $post The Workshop post for which we want the thumbnail.
+ * @param string  $size The image size: 'medium', 'full'.
+ */
 function wporg_get_post_thumbnail( $post, $size = 'post-thumbnail' ) {
-    $thumbnail = get_the_post_thumbnail( $post, $size );
-    if ( $thumbnail ) {
-        return $thumbnail;
-    } else {
-        $post = get_post( $post );
-        foreach ( get_post_meta( $post->ID, '', true ) as $key => $value ) {
-            if ( substr( $key, 0, 8 ) === '_oembed_' && preg_match( '#https://video.wordpress.com/embed/(\w+)#', $value[0], $match ) ) {
-                $video = videopress_get_video_details( $match[1] );
-                if ( !is_wp_error( $video ) && isset( $video->poster ) ) {
-                    return '<img class="attachment-' . esc_attr( $size ) . ' wp-post-image" src=' . esc_url( $video->poster ) . ' loading="lazy" />';
-                }
-            }
-        }
-    }
+	$thumbnail = get_the_post_thumbnail( $post, $size );
+	if ( $thumbnail ) {
+		return $thumbnail;
+	} else {
+		$post = get_post( $post );
+		foreach ( get_post_meta( $post->ID, '', true ) as $key => $value ) {
+			if ( substr( $key, 0, 8 ) === '_oembed_' && preg_match( '#https://video.wordpress.com/embed/(\w+)#', $value[0], $match ) ) {
+				$video = videopress_get_video_details( $match[1] );
+				if ( ! is_wp_error( $video ) && isset( $video->poster ) ) {
+					return '<img class="attachment-' . esc_attr( $size ) . ' wp-post-image" src=' . esc_url( $video->poster ) . ' loading="lazy" alt="" />';
+				}
+			}
+		}
+	}
 }
 
