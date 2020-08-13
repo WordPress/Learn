@@ -254,3 +254,27 @@ function wporg_get_workshop_presenters( $workshop = null ) {
 
 	return $wp_users;
 }
+
+/**             
+ * Display a featured image, falling back to the VideoPress thumbnail if no featured image was explicitly set.
+ *          
+ * @param $post The Workshop post for which we want the thumbnail.
+ * @param $size The image size: 'medium', 'full'.
+ */     
+function wporg_get_post_thumbnail( $post, $size = 'post-thumbnail' ) {
+    $thumbnail = get_the_post_thumbnail( $post, $size );
+    if ( $thumbnail ) {
+        return $thumbnail;
+    } else {
+        $post = get_post( $post );
+        foreach ( get_post_meta( $post->ID, '', true ) as $key => $value ) {
+            if ( substr( $key, 0, 8 ) === '_oembed_' && preg_match( '#https://video.wordpress.com/embed/(\w+)#', $value[0], $match ) ) {
+                $video = videopress_get_video_details( $match[1] );
+                if ( !is_wp_error( $video ) && isset( $video->poster ) ) {
+                    return '<img class="attachment-' . esc_attr( $size ) . ' wp-post-image" src=' . esc_url( $video->poster ) . ' loading="lazy" />';
+                }
+            }
+        }
+    }
+}
+
