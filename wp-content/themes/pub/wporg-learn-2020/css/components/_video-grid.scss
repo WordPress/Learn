@@ -20,17 +20,19 @@
 			display: block;
 			margin-top: 8px;
 			font-weight: bold;
+			text-align: center;
+	
+			@media only screen and (min-width: $breakpoint-small) {
+				padding: 0 $gutter-default * 2 $gutter-default;
+			}
+
+			@media only screen and (min-width: $breakpoint-tablet) {
+				padding: 0;
+				text-align: left;
+			}
 
 			> img {
 				width: 100%;
-	
-				@media only screen and (min-width: $breakpoint-small) {
-					padding: 0 $gutter-default * 2 $gutter-default;
-				}
-	
-				@media only screen and (min-width: $breakpoint-tablet) {
-					padding: 0;
-				}
 			}
 		}
 
