@@ -10,7 +10,6 @@
 
 require_once dirname( __FILE__ ) . '/inc/class-shortcodes.php';
 require_once dirname( __FILE__ ) . '/inc/class-lesson-plan.php';
-require_once dirname( __FILE__ ) . '/inc/class-workshop.php';
 require_once dirname( __FILE__ ) . '/inc/blocks.php';
 require_once dirname( __FILE__ ) . '/inc/post-meta.php';
 require_once dirname( __FILE__ ) . '/inc/post-type.php';
