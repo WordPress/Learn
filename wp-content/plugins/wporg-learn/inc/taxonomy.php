@@ -14,6 +14,7 @@ function register() {
 	register_lesson_group();
 	register_lesson_instruction_type();
 	register_lesson_level();
+	register_workshop_series();
 	register_workshop_topic();
 }
 
@@ -262,6 +263,48 @@ function register_lesson_level() {
 	);
 
 	register_taxonomy( 'level', array( 'lesson-plan' ), $args );
+}
+
+/**
+ * Register the Workshop Series taxonomy.
+ */
+function register_workshop_series() {
+	$labels = array(
+		'name'                       => _x( 'Series', 'Topic Plans associated to workshop.', 'wporg_learn' ),
+		'singular_name'              => _x( 'Series', 'Taxonomy Singular Name', 'wporg_learn' ),
+		'menu_name'                  => __( 'Series', 'wporg_learn' ),
+		'all_items'                  => __( 'All series', 'wporg_learn' ),
+		'new_item_name'              => __( 'New Series Name', 'wporg_learn' ),
+		'add_new_item'               => __( 'Add Series', 'wporg_learn' ),
+		'edit_item'                  => __( 'Edit Series', 'wporg_learn' ),
+		'update_item'                => __( 'Update Series', 'wporg_learn' ),
+		'view_item'                  => __( 'View Series', 'wporg_learn' ),
+		'separate_items_with_commas' => __( 'Separate Series with commas', 'wporg_learn' ),
+		'add_or_remove_items'        => __( 'Add or remove Series', 'wporg_learn' ),
+		'choose_from_most_used'      => __( 'Choose from the most used', 'wporg_learn' ),
+		'popular_items'              => __( 'Popular Series', 'wporg_learn' ),
+		'search_items'               => __( 'Search Series', 'wporg_learn' ),
+		'not_found'                  => __( 'No Series Found', 'wporg_learn' ),
+		'no_terms'                   => __( 'No Series ', 'wporg_learn' ),
+		'items_list'                 => __( 'Series list', 'wporg_learn' ),
+		'items_list_navigation'      => __( 'Series list navigation', 'wporg_learn' ),
+	);
+
+	$args = array(
+		'labels'            => $labels,
+		'hierarchical'      => false,
+		'public'            => true,
+		'rewrite'           => array(
+			'slug' => 'workshops',
+		),
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'show_in_nav_menus' => true,
+		'show_tagcloud'     => false,
+		'show_in_rest'      => true,
+	);
+
+	register_taxonomy( 'wporg_workshop_series', array( 'wporg_workshop' ), $args );
 }
 
 /**
