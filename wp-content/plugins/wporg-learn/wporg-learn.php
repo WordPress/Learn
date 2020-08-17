@@ -19,27 +19,21 @@ require_once dirname( __FILE__ ) . '/inc/taxonomy.php';
 /**
  * Registry of actions and filters
  */
+add_action( 'init', 'WPORG_Learn\Post_Type\register' );
+add_action( 'init', 'WPORG_Learn\Post_Meta\register' );
+add_action( 'init', 'WPORG_Learn\Taxonomy\register' );
 add_action( 'init', array( 'WPOrg_Learn\Shortcodes', 'action_init' ) );
 add_filter( 'the_title', array( 'WPOrg_Learn\Lesson_Plan', 'filter_the_title_edit_link' ), 10, 2 );
 add_filter( 'get_edit_post_link', array( 'WPOrg_Learn\Lesson_Plan', 'redirect_edit_link_to_github' ), 10, 3 );
 add_filter( 'o2_filter_post_actions', array( 'WPOrg_Learn\Lesson_Plan', 'redirect_o2_edit_link_to_github' ), 11, 2 );
 add_action( 'init', array( 'WPORG_Learn\Lesson_Plan', 'lesson_plan_post_type' ) );
-add_action( 'init', array( 'WPORG_Learn\Lesson_Plan', 'lesson_duration_taxonomy' ) );
-add_action( 'init', array( 'WPORG_Learn\Lesson_Plan', 'lesson_level_taxonomy' ) );
-add_action( 'init', array( 'WPORG_Learn\Lesson_Plan', 'lesson_audience_taxonomy' ) );
-add_action( 'init', array( 'WPORG_Learn\Lesson_Plan', 'lesson_instruction_type_taxonomy' ) );
-add_action( 'init', 'WPORG_Learn\Taxonomy\register' );
 add_filter( 'the_content', array( 'WPORG_Learn\Lesson_Plan', 'replace_image_links' ) );
 
 add_action( 'init', 'WPORG_Learn\Blocks\workshop_details_init' );
 add_action( 'enqueue_block_editor_assets', 'WPORG_Learn\Blocks\enqueue_block_style_assets' );
 add_action( 'wp_enqueue_scripts', 'WPORG_Learn\Blocks\enqueue_block_style_assets' );
-add_action( 'init', 'WPORG_Learn\Post_Type\register' );
-add_action( 'init', 'WPORG_Learn\Post_Meta\register' );
 add_action( 'add_meta_boxes', 'WPORG_Learn\Post_Meta\add_workshop_metaboxes' );
 add_action( 'save_post_wporg_workshop', 'WPORG_Learn\Post_Meta\save_workshop_metabox_fields', 10, 2 );
-add_action( 'init', array( 'WPORG_Learn\Workshop', 'lesson_workshop_taxonomy' ) );
-add_action( 'init', array( 'WPORG_Learn\Workshop', 'workshop_topics_taxonomy' ) );
 add_filter( 'excerpt_length', 'theme_slug_excerpt_length', 999 );
 
 require_once dirname( __FILE__ ) . '/inc/class-markdown-import.php';
