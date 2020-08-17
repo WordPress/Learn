@@ -1,6 +1,6 @@
 <?php
 
-namespace WPOrg_Learn\Post_Types;
+namespace WPOrg_Learn\Post_Type;
 
 defined( 'WPINC' ) || die();
 

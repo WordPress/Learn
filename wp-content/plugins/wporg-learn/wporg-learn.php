@@ -34,7 +34,7 @@ add_filter( 'the_content', array( 'WPORG_Learn\Lesson_Plan', 'replace_image_link
 add_action( 'init', 'WPORG_Learn\Blocks\workshop_details_init' );
 add_action( 'enqueue_block_editor_assets', 'WPORG_Learn\Blocks\enqueue_block_style_assets' );
 add_action( 'wp_enqueue_scripts', 'WPORG_Learn\Blocks\enqueue_block_style_assets' );
-add_action( 'init', 'WPORG_Learn\Post_Types\register' );
+add_action( 'init', 'WPORG_Learn\Post_Type\register' );
 add_action( 'init', 'WPORG_Learn\Post_Meta\register' );
 add_action( 'add_meta_boxes', 'WPORG_Learn\Post_Meta\add_workshop_metaboxes' );
 add_action( 'save_post_wporg_workshop', 'WPORG_Learn\Post_Meta\save_workshop_metabox_fields', 10, 2 );
