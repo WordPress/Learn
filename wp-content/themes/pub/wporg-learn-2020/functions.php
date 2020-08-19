@@ -264,3 +264,86 @@ function wporg_get_post_thumbnail( $post, $size = 'post-thumbnail' ) {
 	}
 }
 
+/**
+ * Get the series taxonomy term object for a workshop post.
+ *
+ * @param int|WP_Post|null $workshop
+ *
+ * @return WP_Term|bool
+ */
+function wporg_workshop_series_get_term( $workshop = null ) {
+	if ( ! $workshop instanceof WP_Post ) {
+		$workshop = get_post( $workshop );
+	}
+
+	$terms = wp_get_post_terms( $workshop->ID, 'wporg_workshop_series' );
+
+	if ( empty( $terms ) ) {
+		return false;
+	}
+
+	return $terms[0];
+}
+
+/**
+ * Given a workshop post in a series, get all the workshop posts in the series.
+ *
+ * @param int|WP_Post|null $workshop
+ *
+ * @return WP_Post[]
+ */
+function wporg_workshop_series_get_siblings( $workshop = null ) {
+	$term = wporg_workshop_series_get_term( $workshop );
+
+	if ( ! $term ) {
+		return array();
+	}
+
+	$args = array(
+		'post_type'      => 'wporg_workshop',
+		'post_status'    => 'publish',
+		'posts_per_page' => 999,
+		'order'          => 'asc',
+		'tax_query'      => array(
+			array(
+				'taxonomy' => 'wporg_workshop_series',
+				'terms'    => $term->term_id,
+			),
+		),
+	);
+
+	return get_posts( $args );
+}
+
+/**
+ * Given a workshop post in a series, get an adjacent workshop post in the series.
+ *
+ * @param string           $which    Which adjacent post to retrieve. 'previous' or 'next'.
+ * @param int|WP_Post|null $workshop
+ *
+ * @return WP_Post|bool
+ */
+function wporg_workshop_series_get_adjacent( $which, $workshop = null ) {
+	if ( ! $workshop instanceof WP_Post ) {
+		$workshop = get_post( $workshop );
+	}
+
+	$siblings    = wporg_workshop_series_get_siblings( $workshop );
+	$sibling_ids = wp_list_pluck( $siblings, 'ID' );
+	$index       = array_search( $workshop->ID, $sibling_ids, true );
+
+	if ( false === $index ) {
+		return false;
+	}
+
+	switch ( $which ) {
+		case 'previous':
+			$index -= 1;
+			break;
+		case 'next':
+			$index += 1;
+			break;
+	}
+
+	return $siblings[ $index ] ?? false;
+}
