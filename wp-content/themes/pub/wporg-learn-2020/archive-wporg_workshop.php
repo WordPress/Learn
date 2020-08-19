@@ -12,7 +12,7 @@ get_header();?>
 	<section>
 		<div class="row align-middle between section-heading section-heading--with-space">
 			<h1 class="section-heading_title h2"><?php esc_html_e( 'Workshops', 'wporg-learn' ); ?></h1>
-			<a class="section-heading_link button button-large" href="https://wordcampcentral.survey.fm/learn-wordpress-workshop-application"><?php esc_html_e( 'Submit Workshop Idea', 'wporg-learn' ); ?></a>
+			<a class="section-heading_link button button-large" href="https://learn.wordpress.org/workshop-presenter-application/"><?php esc_html_e( 'Submit Workshop Idea', 'wporg-learn' ); ?></a>
 		</div>
 		<hr>
 		<?php get_template_part( 'template-parts/component', 'featured-workshop' ); ?>
