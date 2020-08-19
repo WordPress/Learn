@@ -6,6 +6,11 @@
 
 	&_title {
 		font-weight: 300;
+
+		.archive-title-prefix {
+			display: block;
+			font-size: 1rem;
+		}
 	}
 
 	&_link {

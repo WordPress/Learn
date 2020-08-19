@@ -265,6 +265,25 @@ function wporg_get_post_thumbnail( $post, $size = 'post-thumbnail' ) {
 }
 
 /**
+ * Conditionally change or remove the prefix from archive titles.
+ *
+ * @param string $prefix
+ *
+ * @return string
+ */
+function wporg_modify_archive_title_prefix( $prefix ) {
+	if ( is_post_type_archive() ) {
+		return '';
+	}
+
+	return sprintf(
+		'<span class="archive-title-prefix">%s</span>',
+		$prefix
+	);
+}
+add_filter( 'get_the_archive_title_prefix', 'wporg_modify_archive_title_prefix' );
+
+/**
  * Get the series taxonomy term object for a workshop post.
  *
  * @param int|WP_Post|null $workshop
