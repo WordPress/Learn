@@ -288,6 +288,7 @@ function register_workshop_series() {
 		'no_terms'                   => __( 'No Series ', 'wporg_learn' ),
 		'items_list'                 => __( 'Series list', 'wporg_learn' ),
 		'items_list_navigation'      => __( 'Series list navigation', 'wporg_learn' ),
+		'back_to_items'              => __( 'Back to Series', 'wporg_learn' ),
 	);
 
 	$args = array(
