@@ -10,7 +10,7 @@ $next        = wporg_workshop_series_get_adjacent( 'next', $post );
 			wp_kses_post( __( 'Series: %s', 'wporg-learn' ) ),
 			sprintf(
 				'<a href="%1$s">%2$s</a>',
-				get_term_link( $series_term ),
+				esc_html( get_term_link( $series_term ) ),
 				esc_html( $series_term->name )
 			)
 		);
@@ -20,25 +20,25 @@ $next        = wporg_workshop_series_get_adjacent( 'next', $post );
 	<ul class="row video-grid">
 		<li class="col-6 video-grid_item">
 			<?php if ( $previous ) : ?>
-				<?php _e( 'Previous workshop:', 'wporg-learn' ); ?>
+				<?php esc_html_e( 'Previous workshop:', 'wporg-learn' ); ?>
 				<a class="video-grid_item_link" href="<?php echo esc_url( get_the_permalink( $previous ) ); ?>">
 					<?php
 					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					echo wporg_get_post_thumbnail( $previous, 'medium' );
 					?>
-					<?php echo get_the_title( $previous ); ?>
+					<?php echo wp_kses_post( get_the_title( $previous ) ); ?>
 				</a>
 			<?php endif; ?>
 		</li>
 		<li class="col-6 video-grid_item">
 			<?php if ( $next ) : ?>
-				<?php _e( 'Next workshop:', 'wporg-learn' ); ?>
+				<?php esc_html_e( 'Next workshop:', 'wporg-learn' ); ?>
 				<a class="video-grid_item_link" href="<?php echo esc_url( get_the_permalink( $next ) ); ?>">
 					<?php
 					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					echo wporg_get_post_thumbnail( $next, 'medium' );
 					?>
-					<?php echo get_the_title( $next ); ?>
+					<?php echo wp_kses_post( get_the_title( $next ) ); ?>
 				</a>
 			<?php endif; ?>
 		</li>
