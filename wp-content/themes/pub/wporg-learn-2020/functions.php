@@ -338,10 +338,10 @@ function wporg_workshop_series_get_adjacent( $which, $workshop = null ) {
 
 	switch ( $which ) {
 		case 'previous':
-			$index -= 1;
+			$index --;
 			break;
 		case 'next':
-			$index += 1;
+			$index ++;
 			break;
 	}
 
