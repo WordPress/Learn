@@ -7,21 +7,16 @@
  * @package WPBBP
  */
 
-$options = get_query_var( 'video-grid-options' );
-
-if ( is_array( $options ) ) {
-	$latest_posts = wporg_get_workshops( $options );
-} else {
-	$latest_posts = wporg_get_workshops();
-}
-
+global $wp_query;
+$query = $args['query'] ?? $wp_query;
 ?>
 
-<?php if ( $latest_posts->have_posts() ) : ?>
+<?php if ( $query->have_posts() ) : ?>
 	<ul class="row video-grid">
-		<?php while ( $latest_posts->have_posts() ) :
-			$latest_posts->the_post();
-			get_template_part( 'template-parts/component', 'video-grid-item' );
-		endwhile; ?>	
+		<?php while ( $query->have_posts() ) :
+			$query->the_post();
+			?>
+			<?php get_template_part( 'template-parts/component', 'video-grid-item' ); ?>
+		<?php endwhile; ?>
 	</ul>
 <?php endif; ?>

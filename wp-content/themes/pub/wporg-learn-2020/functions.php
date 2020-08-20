@@ -200,22 +200,58 @@ function wporg_get_download_slides_url() {
 }
 
 /**
- * Returns whether all post for workshop
+ * Change the query for workshops in some circumstances.
  *
- * @return array
+ * @param WP_Query $query
+ *
+ * @return void
  */
-function wporg_get_workshops( $options = null ) {
-	$args = array(
-		'post_type' => 'wporg_workshop',
-	);
+function wporg_workshop_modify_query( WP_Query $query ) {
+	if ( $query->is_main_query() && $query->is_post_type_archive( 'wporg_workshop' ) ) {
+		$featured = wporg_get_featured_workshops();
 
-	if ( ! is_null( $options ) ) {
-		$args = array_merge( $args, $options );
-
+		if ( ! empty( $featured ) ) {
+			$featured = reset( $featured );
+			$query->set( 'post__not_in', array( $featured->ID ) );
+		}
 	}
 
-	$query = new \WP_Query( $args );
-	return $query;
+	if ( $query->is_main_query() && $query->is_tax( 'wporg_workshop_series' ) ) {
+		$query->set( 'order', 'asc' );
+	}
+}
+add_action( 'pre_get_posts', 'wporg_workshop_modify_query' );
+
+/**
+ * Get a query object for displaying workshop posts.
+ *
+ * @return WP_Query
+ */
+function wporg_get_workshops_query( array $args = array() ) {
+	$args = wp_parse_args( $args, array(
+		'post_type'   => 'wporg_workshop',
+		'post_status' => 'publish',
+	) );
+
+	return new WP_Query( $args );
+}
+
+/**
+ * Get a number of workshop posts that are marked as "featured".
+ *
+ * Currently there is no taxonomy or postmeta value to mark a workshop as "featured",
+ * so we're just grabbing the most recent workshops. This may change.
+ *
+ * @param int $number
+ *
+ * @return WP_Post[]
+ */
+function wporg_get_featured_workshops( $number = 1 ) {
+	$query = wporg_get_workshops_query( array(
+		'posts_per_page' => $number,
+	) );
+
+	return $query->get_posts();
 }
 
 /**
