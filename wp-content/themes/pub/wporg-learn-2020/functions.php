@@ -39,7 +39,7 @@ add_action( 'wp_enqueue_scripts', 'wporg_learn_scripts' );
  * @package WPBBP
  */
 function wporg_get_global_header() {
-	$GLOBALS['pagetitle'] = wp_title( '&#124;', false, 'right' ) . __( 'WordPress.org', 'wporg-learn' );
+	$GLOBALS['pagetitle'] = wp_title( '&#124;', false, 'right' ) . __( 'Learn WordPress', 'wporg-learn' );
 	require WPORGPATH . 'header.php';
 }
 
