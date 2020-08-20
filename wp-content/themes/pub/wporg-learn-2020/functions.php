@@ -207,6 +207,10 @@ function wporg_get_download_slides_url() {
  * @return void
  */
 function wporg_workshop_modify_query( WP_Query $query ) {
+	if ( is_admin() ) {
+		return;
+	}
+
 	if ( $query->is_main_query() && $query->is_post_type_archive( 'wporg_workshop' ) ) {
 		$featured = wporg_get_featured_workshops();
 
