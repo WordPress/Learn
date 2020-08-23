@@ -5,7 +5,9 @@
 		margin: 0;
 	}
 
-	.next-workshop {
-		align-items: end;
+	@media only screen and (min-width: $breakpoint-tablet) {
+		.next-workshop {
+			align-items: flex-end;
+		}
 	}
 }
