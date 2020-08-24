@@ -1,0 +1,13 @@
+.workshop-series {
+	padding: 4rem 0;
+
+	.workshop-page & ul {
+		margin: 0;
+	}
+
+	@media only screen and (min-width: $breakpoint-tablet) {
+		.next-workshop {
+			align-items: flex-end;
+		}
+	}
+}

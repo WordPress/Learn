@@ -1,6 +1,6 @@
 <?php
 
-namespace WPOrg_Learn\Post_Types;
+namespace WPOrg_Learn\Post_Type;
 
 defined( 'WPINC' ) || die();
 
@@ -8,7 +8,67 @@ defined( 'WPINC' ) || die();
  * Register all post types.
  */
 function register() {
+	register_lesson_plan();
 	register_workshop();
+}
+
+/**
+ * Register a Lesson Plan post type.
+ */
+function register_lesson_plan() {
+	$labels = array(
+		'name'                  => _x( 'Lesson Plans', 'Post Type General Name', 'wporg_learn' ),
+		'singular_name'         => _x( 'Lesson Plan', 'Post Type Singular Name', 'wporg_learn' ),
+		'menu_name'             => __( 'Lesson Plans', 'wporg_learn' ),
+		'name_admin_bar'        => __( 'Lesson Plan', 'wporg_learn' ),
+		'archives'              => __( 'Lesson Archives', 'wporg_learn' ),
+		'attributes'            => __( 'Lesson Attributes', 'wporg_learn' ),
+		'parent_item_colon'     => __( 'Parent Lesson:', 'wporg_learn' ),
+		'all_items'             => __( 'All Lessons', 'wporg_learn' ),
+		'add_new_item'          => __( 'Add New Lesson', 'wporg_learn' ),
+		'add_new'               => __( 'Add New', 'wporg_learn' ),
+		'new_item'              => __( 'New Lesson Plan', 'wporg_learn' ),
+		'edit_item'             => __( 'Edit Lesson Plan', 'wporg_learn' ),
+		'update_item'           => __( 'Update Lesson Plan', 'wporg_learn' ),
+		'view_item'             => __( 'View Lesson', 'wporg_learn' ),
+		'view_items'            => __( 'View Lessons', 'wporg_learn' ),
+		'search_items'          => __( 'Search Lesson', 'wporg_learn' ),
+		'not_found'             => __( 'Not found', 'wporg_learn' ),
+		'not_found_in_trash'    => __( 'Not found in Trash', 'wporg_learn' ),
+		'featured_image'        => __( 'Featured Image', 'wporg_learn' ),
+		'set_featured_image'    => __( 'Set featured image', 'wporg_learn' ),
+		'remove_featured_image' => __( 'Remove featured image', 'wporg_learn' ),
+		'use_featured_image'    => __( 'Use as featured image', 'wporg_learn' ),
+		'insert_into_item'      => __( 'Insert into lesson', 'wporg_learn' ),
+		'uploaded_to_this_item' => __( 'Uploaded to this lesson', 'wporg_learn' ),
+		'items_list'            => __( 'Lessons list', 'wporg_learn' ),
+		'items_list_navigation' => __( 'Lessons list navigation', 'wporg_learn' ),
+		'filter_items_list'     => __( 'Filter Lessons list', 'wporg_learn' ),
+	);
+
+	$args   = array(
+		'label'               => __( 'Lesson Plan', 'wporg_learn' ),
+		'description'         => __( 'WordPress.org Training Lesson Plan', 'wporg_learn' ),
+		'labels'              => $labels,
+		'supports'            => array( 'title', 'editor', 'comments', 'revisions', 'custom-fields' ),
+		'taxonomies'          => array( 'duration', 'level', 'audience', 'instruction_type' ),
+		'hierarchical'        => true,
+		'public'              => true,
+		'show_ui'             => true,
+		'show_in_menu'        => true,
+		'menu_position'       => 5,
+		'menu_icon'           => 'dashicons-welcome-learn-more',
+		'show_in_admin_bar'   => true,
+		'show_in_nav_menus'   => true,
+		'can_export'          => true,
+		'has_archive'         => 'lesson-plans',
+		'exclude_from_search' => false,
+		'publicly_queryable'  => true,
+		'capability_type'     => 'page',
+		'show_in_rest'        => true,
+	);
+
+	register_post_type( 'lesson-plan', $args );
 }
 
 /**

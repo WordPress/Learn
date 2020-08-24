@@ -6,6 +6,10 @@
 		<hr>
 		<div class="workshop-page">
 			<?php the_content(); ?>
+			<?php if ( is_object_in_term( get_the_ID(), 'wporg_workshop_series' ) ) : ?>
+				<?php get_template_part( 'template-parts/component', 'series-navigation' ); ?>
+				<hr class="wp-block-separator" />
+			<?php endif; ?>
 			<?php foreach ( wporg_get_workshop_presenters() as $presenter ) : ?>
 				<section class="row workshop-page_section"">
 					<div class="col-4">

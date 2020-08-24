@@ -3,6 +3,16 @@
 
 	&_content {
 		margin: $gutter-default 0 $gutter-default * 4;
+
+		ol,
+		ul {
+			margin: 0 0 0 18px;
+			padding: 0;
+		}
+
+		li + li {
+			margin-top: $gutter-default / 2;
+		}
 	}
 
 	&_section {
@@ -48,15 +58,5 @@
 
 	h2 {
 		font-size: 24px;
-	}
-
-	ol,
-	ul {
-		margin: 0 0 0 18px;
-		padding: 0;
-	}
-
-	li + li {
-		margin-top: $gutter-default / 2;
 	}
 }

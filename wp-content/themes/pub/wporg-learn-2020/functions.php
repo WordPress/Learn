@@ -200,22 +200,62 @@ function wporg_get_download_slides_url() {
 }
 
 /**
- * Returns whether all post for workshop
+ * Change the query for workshops in some circumstances.
  *
- * @return array
+ * @param WP_Query $query
+ *
+ * @return void
  */
-function wporg_get_workshops( $options = null ) {
-	$args = array(
-		'post_type' => 'wporg_workshop',
-	);
-
-	if ( ! is_null( $options ) ) {
-		$args = array_merge( $args, $options );
-
+function wporg_workshop_modify_query( WP_Query $query ) {
+	if ( is_admin() ) {
+		return;
 	}
 
-	$query = new \WP_Query( $args );
-	return $query;
+	if ( $query->is_main_query() && $query->is_post_type_archive( 'wporg_workshop' ) ) {
+		$featured = wporg_get_featured_workshops();
+
+		if ( ! empty( $featured ) ) {
+			$featured = reset( $featured );
+			$query->set( 'post__not_in', array( $featured->ID ) );
+		}
+	}
+
+	if ( $query->is_main_query() && $query->is_tax( 'wporg_workshop_series' ) ) {
+		$query->set( 'order', 'asc' );
+	}
+}
+add_action( 'pre_get_posts', 'wporg_workshop_modify_query' );
+
+/**
+ * Get a query object for displaying workshop posts.
+ *
+ * @return WP_Query
+ */
+function wporg_get_workshops_query( array $args = array() ) {
+	$args = wp_parse_args( $args, array(
+		'post_type'   => 'wporg_workshop',
+		'post_status' => 'publish',
+	) );
+
+	return new WP_Query( $args );
+}
+
+/**
+ * Get a number of workshop posts that are marked as "featured".
+ *
+ * Currently there is no taxonomy or postmeta value to mark a workshop as "featured",
+ * so we're just grabbing the most recent workshops. This may change.
+ *
+ * @param int $number
+ *
+ * @return WP_Post[]
+ */
+function wporg_get_featured_workshops( $number = 1 ) {
+	$query = wporg_get_workshops_query( array(
+		'posts_per_page' => $number,
+	) );
+
+	return $query->get_posts();
 }
 
 /**
@@ -264,3 +304,105 @@ function wporg_get_post_thumbnail( $post, $size = 'post-thumbnail' ) {
 	}
 }
 
+/**
+ * Conditionally change or remove the prefix from archive titles.
+ *
+ * @param string $prefix
+ *
+ * @return string
+ */
+function wporg_modify_archive_title_prefix( $prefix ) {
+	if ( is_post_type_archive() ) {
+		return '';
+	}
+
+	return sprintf(
+		'<span class="archive-title-prefix">%s</span>',
+		$prefix
+	);
+}
+add_filter( 'get_the_archive_title_prefix', 'wporg_modify_archive_title_prefix' );
+
+/**
+ * Get the series taxonomy term object for a workshop post.
+ *
+ * @param int|WP_Post|null $workshop
+ *
+ * @return WP_Term|bool
+ */
+function wporg_workshop_series_get_term( $workshop = null ) {
+	if ( ! $workshop instanceof WP_Post ) {
+		$workshop = get_post( $workshop );
+	}
+
+	$terms = wp_get_post_terms( $workshop->ID, 'wporg_workshop_series' );
+
+	if ( empty( $terms ) ) {
+		return false;
+	}
+
+	return $terms[0];
+}
+
+/**
+ * Given a workshop post in a series, get all the workshop posts in the series.
+ *
+ * @param int|WP_Post|null $workshop
+ *
+ * @return WP_Post[]
+ */
+function wporg_workshop_series_get_siblings( $workshop = null ) {
+	$term = wporg_workshop_series_get_term( $workshop );
+
+	if ( ! $term ) {
+		return array();
+	}
+
+	$args = array(
+		'post_type'      => 'wporg_workshop',
+		'post_status'    => 'publish',
+		'posts_per_page' => 999,
+		'order'          => 'asc',
+		'tax_query'      => array(
+			array(
+				'taxonomy' => 'wporg_workshop_series',
+				'terms'    => $term->term_id,
+			),
+		),
+	);
+
+	return get_posts( $args );
+}
+
+/**
+ * Given a workshop post in a series, get an adjacent workshop post in the series.
+ *
+ * @param string           $which    Which adjacent post to retrieve. 'previous' or 'next'.
+ * @param int|WP_Post|null $workshop
+ *
+ * @return WP_Post|bool
+ */
+function wporg_workshop_series_get_adjacent( $which, $workshop = null ) {
+	if ( ! $workshop instanceof WP_Post ) {
+		$workshop = get_post( $workshop );
+	}
+
+	$siblings    = wporg_workshop_series_get_siblings( $workshop );
+	$sibling_ids = wp_list_pluck( $siblings, 'ID' );
+	$index       = array_search( $workshop->ID, $sibling_ids, true );
+
+	if ( false === $index ) {
+		return false;
+	}
+
+	switch ( $which ) {
+		case 'previous':
+			$index --;
+			break;
+		case 'next':
+			$index ++;
+			break;
+	}
+
+	return $siblings[ $index ] ?? false;
+}
