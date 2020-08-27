@@ -1,5 +1,12 @@
 <?php
 
+$exampleItems = array(
+	array (
+		'label' => 'Label',
+		'value' => 'value'
+	)
+)
+
 ?>
 
 <div class="show-filters">
@@ -27,67 +34,35 @@
 			</div>
 			<div class="row">
 				<div class="col-3 filter-group">
-					<h4>Layout</h4>
+					<h4><?php esc_html_e( 'Category 1', 'wporg-learn' ); ?></h4>
 					<ol class="feature-group">
-						<li>
-							<input type="checkbox" id="filter-id-grid-layout" value="grid-layout">
-							<label for="filter-id-grid-layout">Grid Layout</label>
-						</li>
-												<li>
-							<input type="checkbox" id="filter-id-one-column" value="one-column">
-							<label for="filter-id-one-column">One Column</label>
-						</li>
+						<?php foreach ( $exampleItems as $item ) : ?>
+							<?php get_template_part( 'template-parts/component', 'filter-item', $item ); ?>
+						<?php endforeach; ?>
 					</ol>
 				</div>
 				<div class="col-3 filter-group">
-					<h4>Features</h4>
+					<h4><?php esc_html_e( 'Category 2', 'wporg-learn' ); ?></h4>
 					<ol class="feature-group">
-						<li>
-							<input type="checkbox" id="filter-id-accessibility-ready" value="accessibility-ready">
-							<label for="filter-id-accessibility-ready">Accessibility Ready</label>
-						</li>
-						<li>
-							<input type="checkbox" id="filter-id-block-patterns" value="block-patterns">
-							<label for="filter-id-block-patterns">Block Editor Patterns</label>
-						<li>
-							<input type="checkbox" id="filter-id-custom-menu" value="custom-menu">
-							<label for="filter-id-custom-menu">Custom Menu</label>
-						</li>
-						<li>
-							<input type="checkbox" id="filter-id-editor-style" value="editor-style">
-							<label for="filter-id-editor-style">Editor Style</label>
-						</li>
-						<li>
-							<input type="checkbox" id="filter-id-featured-image-header" value="featured-image-header">
-							<label for="filter-id-featured-image-header">Featured Image Header</label>
-						</li>
+						<?php foreach ( $exampleItems as $item ) : ?>
+							<?php get_template_part( 'template-parts/component', 'filter-item', $item ); ?>
+						<?php endforeach; ?>
 					</ol>
 				</div>
 				<div class="col-3 filter-group">
-					<h4>Subject</h4>
+					<h4><?php esc_html_e( 'Category 3', 'wporg-learn' ); ?></h4>
 					<ol class="feature-group">
-						<li>
-							<input type="checkbox" id="filter-id-blog" value="blog">
-							<label for="filter-id-blog">Blog</label>
-						</li>
-
-						<li>
-							<input type="checkbox" id="filter-id-portfolio" value="portfolio">
-							<label for="filter-id-portfolio">Portfolio</label>
-						</li>
+						<?php foreach ( $exampleItems as $item ) : ?>
+							<?php get_template_part( 'template-parts/component', 'filter-item', $item ); ?>
+						<?php endforeach; ?>
 					</ol>
 				</div>
 				<div class="col-3 filter-group">
-					<h4>Subject</h4>
+					<h4><?php esc_html_e( 'Category 4', 'wporg-learn' ); ?></h4>
 					<ol class="feature-group">
-						<li>
-							<input type="checkbox" id="filter-id-blog" value="blog">
-							<label for="filter-id-blog">Blog</label>
-						</li>
-						<li>
-							<input type="checkbox" id="filter-id-portfolio" value="portfolio">
-							<label for="filter-id-portfolio">Portfolio</label>
-						</li>
+						<?php foreach ( $exampleItems as $item ) : ?>
+							<?php get_template_part( 'template-parts/component', 'filter-item', $item ); ?>
+						<?php endforeach; ?>
 					</ol>
 				</div>
 			</div>
