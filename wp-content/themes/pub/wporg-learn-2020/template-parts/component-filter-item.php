@@ -12,6 +12,6 @@ $args = wp_parse_args( $args );
 ?>
 
 <li>
-	<input type="checkbox" id="filter-id-grid-layout" value="<?php echo $args['value']; ?>">
-	<label for="filter-id-grid-layout"><?php echo $args['label']; ?></label>
+	<input type="checkbox" id="<?php echo $args['value']; ?>" name="<?php echo $args['value']; ?>" value="<?php echo $args['value']; ?>">
+	<label for="<?php echo $args['value']; ?>"><?php echo $args['label']; ?></label>
 </li>

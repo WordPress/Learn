@@ -2,9 +2,17 @@
 
 $exampleItems = array(
 	array (
-		'label' => 'Label',
-		'value' => 'value'
+		'label' => 'Beginner',
+		'value' => 'beginner'
+	),
+	array (
+		'label' => 'Not Beginner',
+		'value' => 'no_beginner'
 	)
+);
+
+$buckets = array(
+	__( 'Category 1', 'wporg-learn' ) => $exampleItems
 )
 
 ?>
@@ -18,11 +26,11 @@ $exampleItems = array(
 				<input placeholder="Search workshops..." type="search" id="wp-filter-search-input" class="wp-filter-search">
 			</div>
 		</div>
-		<div>
+		<form method="post">
 			<div class="filter-drawer">
 				<div class="row gutters buttons">
 					<div class="col-12">
-						<button type="button" disabled="disabled" class="apply-filters button button-large button-secondary">Apply Filters<span></span></button>
+						<button type="submit" class="apply-filters button button-large button-secondary">Apply Filters<span></span></button>
 						<button type="button" class="clear-filters button button-large button-secondary">Clear</button>
 					</div>
 				</div>
@@ -33,39 +41,19 @@ $exampleItems = array(
 				<a href="#">Edit</a>
 			</div>
 			<div class="row">
+
+			<?php foreach( $buckets as $key => $value  ) :?>
 				<div class="col-3 filter-group">
-					<h4><?php esc_html_e( 'Category 1', 'wporg-learn' ); ?></h4>
+					<h4><?php esc_html_e( $key ); ?></h4>
 					<ol class="feature-group">
-						<?php foreach ( $exampleItems as $item ) : ?>
+						<?php foreach ( $value as $item ) : ?>
 							<?php get_template_part( 'template-parts/component', 'filter-item', $item ); ?>
 						<?php endforeach; ?>
 					</ol>
 				</div>
-				<div class="col-3 filter-group">
-					<h4><?php esc_html_e( 'Category 2', 'wporg-learn' ); ?></h4>
-					<ol class="feature-group">
-						<?php foreach ( $exampleItems as $item ) : ?>
-							<?php get_template_part( 'template-parts/component', 'filter-item', $item ); ?>
-						<?php endforeach; ?>
-					</ol>
-				</div>
-				<div class="col-3 filter-group">
-					<h4><?php esc_html_e( 'Category 3', 'wporg-learn' ); ?></h4>
-					<ol class="feature-group">
-						<?php foreach ( $exampleItems as $item ) : ?>
-							<?php get_template_part( 'template-parts/component', 'filter-item', $item ); ?>
-						<?php endforeach; ?>
-					</ol>
-				</div>
-				<div class="col-3 filter-group">
-					<h4><?php esc_html_e( 'Category 4', 'wporg-learn' ); ?></h4>
-					<ol class="feature-group">
-						<?php foreach ( $exampleItems as $item ) : ?>
-							<?php get_template_part( 'template-parts/component', 'filter-item', $item ); ?>
-						<?php endforeach; ?>
-					</ol>
-				</div>
+			<?php endforeach; ?>
+
 			</div>
-		</div>
+		</form>
 	</div>
 </div>
