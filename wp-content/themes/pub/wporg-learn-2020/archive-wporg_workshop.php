@@ -12,6 +12,8 @@
 			<?php endif; ?>
 		</div>
 		<hr>
+		<?php get_template_part( 'template-parts/component', 'filters' ); ?>
+
 		<?php // Only show the featured workshop on the first page of post type archives.
 		if ( is_post_type_archive() && get_query_var( 'paged' ) < 2 ) : ?>
 			<?php get_template_part( 'template-parts/component', 'featured-workshop' ); ?>
