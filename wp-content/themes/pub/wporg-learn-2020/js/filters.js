@@ -21,7 +21,7 @@
 		'.js-clear-filters-toggle'
 	);
 	var filterDrawerForm = document.querySelector( '.js-filter-drawer-form' );
-	var items = form.querySelectorAll( 'input[type="checkbox"]' );
+	var items = filterDrawerForm.querySelectorAll( 'input[type="checkbox"]' );
 
 	function clearCheckboxes() {
 		for ( var i = 0; i < items.length; i++ ) {
