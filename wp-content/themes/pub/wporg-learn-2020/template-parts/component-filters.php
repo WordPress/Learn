@@ -43,14 +43,7 @@ $buckets = array(
 						<button type="button" class="clear-filters button button-large button-secondary">Clear</button>
 					</div>
 				</div>
-
-			<div class="filtered-by">
-				<span>Filtering by:</span>
-				<div class="tags"></div>
-				<a href="#">Edit</a>
-			</div>
 			<div class="row">
-
 			<?php foreach( $buckets as $key => $value  ) :?>
 				<div class="col-3 filter-group">
 					<h4><?php esc_html_e( $key ); ?></h4>
