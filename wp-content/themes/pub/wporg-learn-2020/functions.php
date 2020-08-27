@@ -30,6 +30,8 @@ add_action( 'after_setup_theme', __NAMESPACE__ . '\setup' );
 function wporg_learn_scripts() {
 	wp_enqueue_style( 'wporg-style', get_theme_file_uri( '/css/style.css' ), array( 'dashicons', 'open-sans' ), filemtime( __DIR__ . '/css/style.css' ) );
 	wp_enqueue_script( 'wporg-navigation', get_template_directory_uri() . '/js/navigation.js', array(), filemtime( __DIR__ . '/js/navigation.js' ), true );
+	wp_enqueue_script( 'wporg-filters', get_theme_file_uri() . '/js/filters.js', array(), filemtime( __DIR__ . '/js/filters.js' ), true );
+
 }
 add_action( 'wp_enqueue_scripts', 'wporg_learn_scripts' );
 
