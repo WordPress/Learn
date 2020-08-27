@@ -1,6 +1,6 @@
 <?php
 /**
- * Template part for displaying the a filter item
+ * Template part for displaying the filter component item
  *
  * @link https://codex.wordpress.org/Template_Hierarchy
  *

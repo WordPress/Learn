@@ -1,4 +1,12 @@
 <?php
+/**
+ * Template part for displaying the filter component
+ *
+ * @link https://codex.wordpress.org/Template_Hierarchy
+ *
+ * @package WPBBP
+ */
+
 
 $exampleItems = array(
 	array (
@@ -13,7 +21,7 @@ $exampleItems = array(
 
 $buckets = array(
 	__( 'Category 1', 'wporg-learn' ) => $exampleItems
-)
+);
 
 ?>
 
@@ -21,12 +29,13 @@ $buckets = array(
 	<div class="wp-filter">
 		<div class="row between center wp-filter-controls">
 			<a class="button button-large drawer-toggle" href="#"><span>Feature Filter</span></a>
-			<div class="search-form">
-				<label class="screen-reader-text" for="wp-filter-search-input">Search Themes</label>
-				<input placeholder="Search workshops..." type="search" id="wp-filter-search-input" class="wp-filter-search">
-			</div>
+			<form class="search-form">
+				<label class="screen-reader-text" for="wp-filter-search-input">Search Workshop</label>
+				<input name="keyword" placeholder="Search workshops..." type="search" id="wp-filter-search-input" class="wp-filter-search">
+				<button type="submit">Search</button>
+			</form>
 		</div>
-		<form method="post">
+		<form id="filters" method="post">
 			<div class="filter-drawer">
 				<div class="row gutters buttons">
 					<div class="col-12">

@@ -70,20 +70,6 @@
 	color: #2ea2cc;
 }
 
-.wp-filter .wp-filter-search {
-	margin: $gutter-default 0 0;
-	padding: $gutter-default / 4;
-	width: 100%;
-	font-size: 14px;
-	font-weight: 300;
-	line-height: 1.5;
-
-	@media only screen and (min-width: $breakpoint-tablet) {
-		margin-top: 0;
-		width: 270px;
-	}
-}
-
 .wp-filter .search-form select {
 	height: 33px;
 	vertical-align: top;
