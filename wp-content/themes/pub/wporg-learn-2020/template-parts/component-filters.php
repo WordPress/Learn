@@ -28,7 +28,7 @@ $buckets = array(
 <div class="js-filter-drawer">
 	<div class="wp-filter">
 		<div class="row between center filter-drawer-controls">
-			<a class="js-filter-drawer-toggle button button-large drawer-toggle" href="#"><?php esc_html_e( 'Feature Filter' , 'wporg-learn' ); ?></a>
+			<a class="js-filter-drawer-toggle button button-large drawer-toggle" href="#"><?php esc_html_e( 'Filter Workshops' , 'wporg-learn' ); ?></a>
 			<form class="search-form">
 				<label class="screen-reader-text" for="wp-filter-search-input"><?php esc_html_e( 'Search Workshop' , 'wporg-learn' ); ?></label>
 				<input name="keyword" placeholder="<?php esc_html_e( 'Search workshops...' , 'wporg-learn' ); ?>" type="search" id="wp-filter-search-input" class="wp-filter-search">
