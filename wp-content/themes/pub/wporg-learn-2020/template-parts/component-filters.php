@@ -54,7 +54,6 @@ $buckets = array(
 					</ol>
 				</div>
 			<?php endforeach; ?>
-
 			</div>
 		</form>
 	</div>
