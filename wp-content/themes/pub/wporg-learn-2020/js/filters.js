@@ -39,7 +39,8 @@
 		return false;
 	}
 
-	toggleFilterButton.addEventListener( 'click', function () {
+	toggleFilterButton.addEventListener( 'click', function ( e ) {
+		e.preventDefault();
 		filterContainer.classList.toggle( 'show-filters' );
 	} );
 
@@ -48,7 +49,8 @@
 		applyFiltersButton.disabled = ! hasCheckedItems();
 	} );
 
-	clearFiltersButton.addEventListener( 'click', function () {
+	clearFiltersButton.addEventListener( 'click', function ( e ) {
+		e.preventDefault();
 		clearCheckboxes();
 	} );
 } )();
