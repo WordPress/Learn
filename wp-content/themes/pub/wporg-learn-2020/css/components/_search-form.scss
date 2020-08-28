@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 /*--------------------------------------------------------------
 # .search-form
@@ -21,6 +22,19 @@
 	}
 
 	button {
+=======
+.search-form {
+	border: 1px solid #e2e4e7;
+	background: #f8f9f9;
+	display: flex;
+	align-items: center;
+
+	/* Reset a few styles appled globally */
+	input[type="search"],
+	button[type="submit"] {
+		border: none;
+		box-shadow: none;
+>>>>>>> Change order of search and feature on mobile.
 		margin: 0;
 		border-radius: 0 2px 2px 0;
 		padding: 3px 12px;
