@@ -28,19 +28,19 @@ $buckets = array(
 <div class="js-filter-drawer">
 	<div class="wp-filter">
 		<div class="row between center wp-filter-controls">
-			<a class="js-filter-drawer-toggle button button-large drawer-toggle" href="#"><span>Feature Filter</span></a>
+			<a class="js-filter-drawer-toggle button button-large drawer-toggle" href="#"><?php esc_html_e( 'Feature Filter' , 'wporg-learn' ); ?></a>
 			<form class="search-form">
-				<label class="screen-reader-text" for="wp-filter-search-input">Search Workshop</label>
-				<input name="keyword" placeholder="Search workshops..." type="search" id="wp-filter-search-input" class="wp-filter-search">
-				<button type="submit">Search</button>
+				<label class="screen-reader-text" for="wp-filter-search-input"><?php esc_html_e( 'Search Workshop' , 'wporg-learn' ); ?></label>
+				<input name="keyword" placeholder="<?php esc_html_e( 'Search workshops...' , 'wporg-learn' ); ?>" type="search" id="wp-filter-search-input" class="wp-filter-search">
+				<button type="submit"><?php esc_html_e( 'Search' , 'wporg-learn' ); ?></button>
 			</form>
 		</div>
 		<form id="filters" class="js-filter-drawer-form" method="post">
 			<div class="filter-drawer">
 				<div class="row gutters buttons">
 					<div class="col-12">
-						<button type="submit" disabled="disabled" class="js-apply-filters-toggle button button-large button-secondary">Apply Filters<span></span></button>
-						<button type="button" class="js-clear-filters-toggle button button-large button-secondary">Clear</button>
+						<button type="submit" disabled="disabled" class="js-apply-filters-toggle button button-large button-secondary"><?php esc_html_e( 'Apply Filters' , 'wporg-learn' ); ?></button>
+						<button type="button" class="js-clear-filters-toggle button button-large button-secondary"><?php esc_html_e( 'Clear' , 'wporg-learn' ); ?></button>
 					</div>
 				</div>
 			<div class="row">
