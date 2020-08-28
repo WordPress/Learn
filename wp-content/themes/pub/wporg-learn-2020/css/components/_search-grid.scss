@@ -1,0 +1,16 @@
+.search-grid {
+	display: flex;
+	flex-direction: column;
+
+	@media only screen and (min-width: $breakpoint-tablet) {
+		flex-direction: row;
+		flex-wrap: wrap;
+
+		margin: 0 -1%; /* Offset the padding in the grid */
+
+		> * {
+			flex: 48%;
+			margin: 1%;
+		}
+	}
+}
