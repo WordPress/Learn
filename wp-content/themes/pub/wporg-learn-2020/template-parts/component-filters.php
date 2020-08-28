@@ -7,20 +7,19 @@
  * @package WPBBP
  */
 
-
-$exampleItems = array(
-	array (
+$example_items = array(
+	array(
 		'label' => 'Beginner',
-		'value' => 'beginner'
+		'value' => 'beginner',
 	),
-	array (
+	array(
 		'label' => 'Not Beginner',
-		'value' => 'no_beginner'
-	)
+		'value' => 'no_beginner',
+	),
 );
 
 $buckets = array(
-	__( 'Category 1', 'wporg-learn' ) => $exampleItems
+	__( 'Category 1', 'wporg-learn' ) => $example_items,
 );
 
 ?>
@@ -28,25 +27,25 @@ $buckets = array(
 <div class="js-filter-drawer">
 	<div class="wp-filter">
 		<div class="row between center filter-drawer-controls">
-			<a class="js-filter-drawer-toggle button button-large drawer-toggle" href="#"><?php esc_html_e( 'Filter Workshops' , 'wporg-learn' ); ?></a>
+			<a class="js-filter-drawer-toggle button button-large drawer-toggle" href="#"><?php esc_html_e( 'Filter Workshops', 'wporg-learn' ); ?></a>
 			<form class="search-form">
-				<label class="screen-reader-text" for="wp-filter-search-input"><?php esc_html_e( 'Search Workshop' , 'wporg-learn' ); ?></label>
-				<input name="keyword" placeholder="<?php esc_html_e( 'Search workshops...' , 'wporg-learn' ); ?>" type="search" id="wp-filter-search-input" class="wp-filter-search">
-				<button type="submit"><?php esc_html_e( 'Search' , 'wporg-learn' ); ?></button>
+				<label class="screen-reader-text" for="wp-filter-search-input"><?php esc_html_e( 'Search Workshop', 'wporg-learn' ); ?></label>
+				<input name="keyword" placeholder="<?php esc_html_e( 'Search workshops...', 'wporg-learn' ); ?>" type="search" id="wp-filter-search-input" class="wp-filter-search">
+				<button type="submit"><?php esc_html_e( 'Search', 'wporg-learn' ); ?></button>
 			</form>
 		</div>
 		<form id="filters" class="js-filter-drawer-form" method="post">
 			<div class="filter-drawer">
 				<div class="row gutters buttons">
 					<div class="col-12">
-						<button type="submit" disabled="disabled" class="js-apply-filters-toggle button button-large button-secondary"><?php esc_html_e( 'Apply Filters' , 'wporg-learn' ); ?></button>
-						<button type="button" class="js-clear-filters-toggle button button-large button-secondary"><?php esc_html_e( 'Clear' , 'wporg-learn' ); ?></button>
+						<button type="submit" disabled="disabled" class="js-apply-filters-toggle button button-large button-secondary"><?php esc_html_e( 'Apply Filters', 'wporg-learn' ); ?></button>
+						<button type="button" class="js-clear-filters-toggle button button-large button-secondary"><?php esc_html_e( 'Clear', 'wporg-learn' ); ?></button>
 					</div>
 				</div>
 			<div class="row">
-			<?php foreach( $buckets as $key => $value  ) :?>
+			<?php foreach ( $buckets as $key => $value ) : ?>
 				<div class="col-3 filter-group">
-					<h4><?php esc_html_e( $key ); ?></h4>
+					<h4><?php esc_html( $key ); ?></h4>
 					<ol class="feature-group">
 						<?php foreach ( $value as $item ) : ?>
 							<?php get_template_part( 'template-parts/component', 'filter-item', $item ); ?>
