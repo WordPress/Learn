@@ -71,16 +71,20 @@
 	vertical-align: top;
 }
 
+.wp-filter .drawer-toggle {
+	display: flex;
+	align-items: center;
+}
+
 .wp-filter .drawer-toggle::before {
 	display: inline-block;
-	vertical-align: sub;
 	content: "\f111";
 	margin: 0 5px 0 0;
 	color: #777;
 	transition: color 0.1s ease-in;
 	font-family: dashicons; /* stylelint-disable-line font-family-no-missing-generic-family-keyword */
 	font-size: 16px;
-	line-height: 1;
+	line-height: 16px;
 	text-align: center;
 	text-decoration: inherit;
 	font-weight: 400;
