@@ -14,6 +14,7 @@ $post_tags = array(
 )
 
 ?>
+<footer>
 <?php foreach ( $post_tags as $post_tag => $value ) : ?>
 	<?php if ( ! empty( $value ) ) : ?>
 		<div class="footer_item">
@@ -22,3 +23,4 @@ $post_tags = array(
 		</div>
 	<?php endif; ?>
 <?php endforeach; ?>
+</footer>
