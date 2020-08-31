@@ -33,6 +33,6 @@ $post_type_info = get_post_type_object( $post_type_name );
 	// Use the post type:
 	// If we don't have a template, don't show the footer
 	$hyphened_post_type = str_replace( '_', '-', $post_type );
-	get_template_part( 'template-parts/component', 'post-card-footer-' . hyphened_post_type );
+	get_template_part( 'template-parts/component', 'post-card-footer-' . $hyphened_post_type );
 	?>
 </article>
