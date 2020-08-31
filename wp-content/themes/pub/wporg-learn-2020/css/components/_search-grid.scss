@@ -1,7 +1,7 @@
 .search-grid {
 	display: flex;
 	flex-direction: column;
-	padding-top: $gutter-default;
+	padding: $gutter-default 0;
 
 	@media only screen and (min-width: $breakpoint-tablet) {
 		flex-direction: row;

@@ -31,9 +31,6 @@ get_header(); ?>
 						the_post();
 						get_template_part( 'template-parts/component', 'post-card' );
 					endwhile;
-
-					the_posts_pagination();
-
 					// If no content, include the "No posts found" template.
 				else :
 					get_template_part( 'template-parts/content', 'none' );
@@ -41,6 +38,7 @@ get_header(); ?>
 				endif;
 				?>
 			</div>
+			<?php the_posts_pagination(); ?>
 		</section>
 	</main><!-- .site-main -->
 
