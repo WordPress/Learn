@@ -44,6 +44,20 @@ function wporg_get_global_header() {
 }
 
 /**
+ * Adds a search form to the primary menu
+ */
+function add_search_form($items, $args) {
+	if( $args->theme_location == 'primary' ){
+		$items .= '<li>'
+		. get_search_form( [ 'echo' => false ] )
+		. '</li>';
+	}
+
+	return $items;
+}
+add_filter('wp_nav_menu_items', 'add_search_form', 10, 2);
+
+/**
  * Get the taxonomies associated to workshop
  *
  * @package WPBBP

@@ -39,7 +39,7 @@ wporg_get_global_header();
 				<form role="search" method="get" class="search-form" action="<?php esc_url( home_url( '/' ) ); ?>">
 					<label>
 						<span class="screen-reader-text"><?php esc_html_e( 'Search for:', 'wporg-learn' ); ?></span>
-						<input type="search" class="search-field" placeholder="<?php esc_attr_e( 'Search a teaching resource', 'wporg-learn' ); ?>" value="<?php get_search_query(); ?>" name="s" />
+						<input type="search" class="search-field" placeholder="<?php esc_attr_e( 'Search for a teaching resource', 'wporg-learn' ); ?>" value="<?php get_search_query(); ?>" name="s" />
 					</label>
 					<button type="submit" class="search-submit button button-primary button-search"><i class="dashicons dashicons-search"></i><span class="screen-reader-text"><?php esc_attr_e( 'Search', 'wporg-learn' ); ?></span></button>
 				</form>
