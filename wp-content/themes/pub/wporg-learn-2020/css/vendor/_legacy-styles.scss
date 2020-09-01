@@ -2747,6 +2747,22 @@ body, #pagebody {
 	padding: 0 1.5625rem;
 }
 
+.site-header .site-title--no-mobile {
+	display: none;
+
+	@media screen and (min-width: 800px) {
+		display: inline-block;
+	}
+}
+
+@media screen and (min-width: 737px) {
+	.site-header:not(.home) .site-branding {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+}
+
 @media screen and (min-width: 48em) {
 	.site-header .site-branding {
 		padding: 0 10px;

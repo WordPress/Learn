@@ -19,8 +19,9 @@ $wporg_global_header_options['in_wrapper'] .= '<a class="skip-link screen-reader
 wporg_get_global_header();
 
 $menu_items = array(
-	'/lesson-plans/' => __( 'Lesson Plans', 'wporg-learn' ),
 	'/workshops/'    => __( 'Workshops', 'wporg-learn' ),
+	'/lesson-plans/' => __( 'Lesson Plans', 'wporg-learn' ),
+	'/workshop-presenter-application/' => __( 'Submit a Workshop', 'wporg-learn' ),
 );
 
 ?>
@@ -52,9 +53,12 @@ $menu_items = array(
 				<?php elseif ( is_page() ) : ?>
 				<h1 class="site-title"><a href="<?php echo esc_url( get_the_permalink() ); ?>" rel="home"><?php the_title(); ?></a></h1>
 				<?php else : ?>
-				<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-					<?php echo esc_html( _x( 'Learn WordPress', 'Site title', 'wporg-learn' ) ); ?>
-				</a></p>
+				<p class="site-title">
+					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+						<?php echo esc_html( _x( 'Learn', 'Site title', 'wporg-learn' ) ); ?>
+						<span class="site-title--no-mobile"><?php echo esc_html( _x( 'WordPress', 'Site title', 'wporg-learn' ) ); ?></span>
+					</a>
+				</p>
 				<nav id="site-navigation" class="main-navigation" role="navigation">
 					<button
 						class="menu-toggle dashicons dashicons-arrow-down-alt2"
