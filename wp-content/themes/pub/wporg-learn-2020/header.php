@@ -18,6 +18,12 @@ if ( ! isset( $wporg_global_header_options['in_wrapper'] ) ) {
 $wporg_global_header_options['in_wrapper'] .= '<a class="skip-link screen-reader-text" href="#content">' . esc_html__( 'Skip to content', 'wporg-learn' ) . '</a>';
 wporg_get_global_header();
 
+$menu_items = array(
+	'/workshops/'    => __( 'Workshops', 'wporg-learn' ),
+	'/lesson-plans/' => __( 'Lesson Plans', 'wporg-learn' ),
+	'/workshop-presenter-application/' => __( 'Submit a Workshop', 'wporg-learn' ),
+);
+
 ?>
 
 <div id="page" class="site">
@@ -39,7 +45,7 @@ wporg_get_global_header();
 				<form role="search" method="get" class="search-form" action="<?php esc_url( home_url( '/' ) ); ?>">
 					<label>
 						<span class="screen-reader-text"><?php esc_html_e( 'Search for:', 'wporg-learn' ); ?></span>
-						<input type="search" class="search-field" placeholder="<?php esc_attr_e( 'Search a teaching resource', 'wporg-learn' ); ?>" value="<?php get_search_query(); ?>" name="s" />
+						<input type="search" class="search-field" placeholder="<?php esc_attr_e( 'Search for a teaching resource', 'wporg-learn' ); ?>" value="<?php get_search_query(); ?>" name="s" />
 					</label>
 					<button type="submit" class="search-submit button button-primary button-search"><i class="dashicons dashicons-search"></i><span class="screen-reader-text"><?php esc_attr_e( 'Search', 'wporg-learn' ); ?></span></button>
 				</form>
@@ -47,9 +53,12 @@ wporg_get_global_header();
 				<?php elseif ( is_page() ) : ?>
 				<h1 class="site-title"><a href="<?php echo esc_url( get_the_permalink() ); ?>" rel="home"><?php the_title(); ?></a></h1>
 				<?php else : ?>
-				<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-					<?php echo esc_html( _x( 'Learn WordPress', 'Site title', 'wporg-learn' ) ); ?>
-				</a></p>
+				<p class="site-title">
+					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+						<?php echo esc_html( _x( 'Learn', 'Site title', 'wporg-learn' ) ); ?>
+						<span class="site-title--no-mobile"><?php echo esc_html( _x( 'WordPress', 'Site title', 'wporg-learn' ) ); ?></span>
+					</a>
+				</p>
 				<nav id="site-navigation" class="main-navigation" role="navigation">
 					<button
 						class="menu-toggle dashicons dashicons-arrow-down-alt2"
@@ -58,14 +67,20 @@ wporg_get_global_header();
 						aria-label="<?php esc_attr_e( 'Primary Menu', 'wporg-learn' ); ?>"
 					>
 					</button>
-
 					<div id="primary-menu" class="menu">
-						<?php
-						wp_nav_menu( array(
-							'theme_location' => 'primary',
-							'menu_id'        => 'primary-menu',
-						) );
-						?>
+						<ul>
+							<?php
+							foreach ( $menu_items as $url_path => $text ) :
+								$class = false !== strpos( $_SERVER['REQUEST_URI'], $url_path ) ? 'active' : ''; // phpcs:ignore
+								?>
+							<li class="page_item">
+								<a class="<?php echo esc_attr( $class ); ?>" href="<?php echo esc_url( home_url( $url_path ) ); ?>">
+									<?php echo esc_html( $text ); ?>
+								</a>
+							</li>
+							<?php endforeach; ?>
+							<li><?php get_search_form(); ?></li>
+						</ul>
 					</div>
 				</nav><!-- #site-navigation -->
 				<?php endif; ?>

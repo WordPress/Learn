@@ -1,0 +1,79 @@
+
+/*--------------------------------------------------------------
+# .search-form
+--------------------------------------------------------------*/
+
+.site-header:not(.home) .search-form {
+	display: flex;
+	align-items: center;
+
+
+	> input {
+		flex: 1;
+		border: 0;
+		border-radius: 2px 0 0 2px;
+		display: inline-block;
+		font-size: 12px;
+		padding: 5px 10px;
+		position: relative;
+		width: auto;
+		height: 100%;
+	}
+
+	button {
+		margin: 0;
+		border-radius: 0 2px 2px 0;
+		padding: 3px 12px;
+		height: unset;
+	}
+}
+
+.site-header.home .search-form,
+.page-content .search-form {
+	display: flex;
+	justify-content: space-between;
+
+	background: #fff;
+	max-width: $gutter-default * 24;
+
+	> label {
+		flex: 1;
+	}
+
+	input {
+
+		padding: 0.5rem;
+		background: transparent;
+		border: none;
+		box-shadow: none;
+		width: 100%;
+		font-size: 14px;
+
+		@media only screen and (min-width: $breakpoint-tablet) {
+			font-size: 16px;
+		}
+	}
+
+	button {
+		background: transparent;
+		margin-bottom: 0;
+		border: 0;
+		box-shadow: none;
+		height: inherit;
+		text-shadow: none;
+		color: #32373c;
+
+		&:focus {
+			-webkit-box-shadow: 0 0 2px 1px $color__wp-blue;
+			box-shadow: 0 0 2px 1px $color__wp-blue;
+		}
+	}
+}
+
+.site-header.home .search-form {
+	margin: 0 auto;
+}
+
+.page-content .search-form {
+	border: 1px solid $color-gray-200;
+}
