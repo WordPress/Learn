@@ -64,7 +64,7 @@ $card-padding: 16px;
 
 		// This are post type names
 		&--wporg_workshop {
-			background: $color__workshops;
+			background: $color-accent-green-shade1;
 		}
 
 		&--wporg_workshop::before {
@@ -74,7 +74,7 @@ $card-padding: 16px;
 		}
 
 		&--lesson-plan {
-			background: $color__lesson-plans;
+			background: $color-accent-blue-shade4;
 		}
 
 		&--lesson-plan::before {
