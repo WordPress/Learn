@@ -20,9 +20,9 @@ $post_type_info = get_post_type_object( $post_type_name );
 	<?php endif; ?>
 	<div class="entry">
 		<header class="entry-header">
-			<h3 class="entry-title">
+			<h2 class="entry-title">
 				<a href="<?php echo esc_url( get_permalink() ); ?>" rel="bookmark"><?php the_title(); ?></a>
-			</h3>		
+			</h2>		
 		</header><!-- .entry-header -->
 
 		<div class="entry-excerpt">
