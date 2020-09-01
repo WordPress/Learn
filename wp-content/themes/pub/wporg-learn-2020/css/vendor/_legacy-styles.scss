@@ -2893,7 +2893,6 @@ body, #pagebody {
 
 /* Small menu. */
 
-
 .menu-toggle.dashicons {
 	background: transparent;
 	border: none;
@@ -2916,23 +2915,25 @@ body, #pagebody {
 	.menu-toggle.dashicons {
 		display: none;
 	}
-	
+
 	.main-navigation {
 		float: right;
 		position: relative;
 		width: auto;
 		top: auto;
 	}
+
 	.main-navigation.toggled {
 		padding: 1px 0;
 	}
-	
+
 	.main-navigation ul {
 		display: flex !important;
 		align-items: center;
 		font-size: 14px;
 
-	}	
+	}
+
 	.main-navigation ul li {
 		border: 0;
 		display: inline-block;
@@ -2940,9 +2941,11 @@ body, #pagebody {
 		margin-right: 1rem;
 		padding: 0;
 	}
+
 	.main-navigation ul li:last-of-type {
 		margin-right: 0;
 	}
+
 	.main-navigation button.button-search {
 		display: inline-block;
 	}
