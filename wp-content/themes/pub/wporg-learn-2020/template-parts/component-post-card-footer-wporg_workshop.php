@@ -8,7 +8,7 @@ $languages = esc_html( $post->video_language );
 $duration = get_workshop_duration( $post, 'string' );
 
 $post_tags = array(
-	'testimonial' => $topics_string,
+	'category' => $topics_string,
 	'clock' => $duration,
 	'admin-site-alt3' => $languages,
 )
