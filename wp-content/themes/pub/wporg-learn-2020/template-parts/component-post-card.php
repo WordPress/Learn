@@ -31,6 +31,6 @@ $post_type_info = get_post_type_object( $post_type_name );
 	</div>		
 	<?php
 	// If we don't have a template, don't show the footer
-	get_template_part( 'template-parts/component', 'post-card-footer-' . $post_type_name );
+	get_template_part( 'template-parts/component-post-card-footer', $post_type_name );
 	?>
 </article>
