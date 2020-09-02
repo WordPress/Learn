@@ -21,14 +21,15 @@ $example_items = array(
 $buckets = array(
 	__( 'Category 1', 'wporg-learn' ) => $example_items,
 );
-
 ?>
 
 <div class="js-filter-drawer">
 	<div class="wp-filter">
 		<div class="row between center filter-drawer-controls">
 			<a class="js-filter-drawer-toggle button button-large drawer-toggle" href="#"><?php esc_html_e( 'Filter Workshops', 'wporg-learn' ); ?></a>
-			<?php get_search_form(); ?>
+			<div class="search-form--inline search-form--has-border">
+				<?php get_search_form( [ 'placeholder' => __( 'Search Workshops', 'wporg-learn' ) ]); ?>
+			</div>
 		</div>
 		<form id="filters" class="js-filter-drawer-form" method="post">
 			<div class="filter-drawer">
