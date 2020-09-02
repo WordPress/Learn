@@ -8,7 +8,8 @@
 	"core": "WordPress/WordPress#master",
 	"plugins": [],
 	"mappings": {
+		".htaccess": "./.wp-env/.htaccess",
 		"wp-content": "./wp-content",
-		".htaccess": ".htaccess"
+		"wp-content/mu-plugins/_loader.php": "./.wp-env/_loader.php"
 	}
 }
