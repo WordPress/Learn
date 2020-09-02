@@ -28,13 +28,12 @@
 }
 
 .search-form {
-	&--inline {
+	&--is-inline {
 		.search-form {
 			display: flex;
 			justify-content: space-between;
 
 			background: #fff;
-			max-width: $gutter-default * 24;
 
 			> label {
 				flex: 1;
@@ -74,6 +73,32 @@
 	&--is-centered {
 		.search-form {
 			margin: 0 auto;
+		}
+	}
+
+	&--is-constrained {
+		.search-form {
+			max-width: $gutter-default * 24;
+		}
+	}
+
+	&--is-muted {
+		.search-form {
+			input,
+			button {
+				background: #f8f9F9;
+				color: #7e8993;
+			}
+			border-color: #d7dade !important;
+
+		}
+	}
+
+	&--has-medium-text {
+		.search-form {
+			input {
+				font-size: 14px;
+			}
 		}
 	}
 

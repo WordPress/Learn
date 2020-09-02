@@ -27,8 +27,8 @@ $buckets = array(
 	<div class="wp-filter">
 		<div class="row between center filter-drawer-controls">
 			<a class="js-filter-drawer-toggle button button-large drawer-toggle" href="#"><?php esc_html_e( 'Filter Workshops', 'wporg-learn' ); ?></a>
-			<div class="search-form--inline search-form--has-border">
-				<?php get_search_form( [ 'placeholder' => __( 'Search Workshops', 'wporg-learn' ) ]); ?>
+			<div class="search-form--is-inline search-form--is-muted search-form--has-border search-form--has-medium-text">
+				<?php get_search_form( array( 'placeholder' => __( 'Search Workshops', 'wporg-learn' ) ) ); ?>
 			</div>
 		</div>
 		<form id="filters" class="js-filter-drawer-form" method="post">

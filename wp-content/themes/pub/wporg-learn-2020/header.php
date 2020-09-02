@@ -42,7 +42,7 @@ $menu_items = array(
 					?>
 				</p>
 
-				<div class="search-form--inline search-form--is-centered">
+				<div class="search-form--is-inline search-form--is-constrained search-form--is-centered">
 					<?php get_search_form(); ?>
 				</div>
 				<?php elseif ( is_page() ) : ?>
@@ -74,7 +74,7 @@ $menu_items = array(
 								</a>
 							</li>
 							<?php endforeach; ?>
-							<li><?php get_search_form( [ 'placeholder' => __( 'Search for a resource', 'wporg-learn' ) ] ); ?></li>
+							<li><?php get_search_form( array( 'placeholder' => __( 'Search for a resource', 'wporg-learn' ) ) ); ?></li>
 						</ul>
 					</div>
 				</nav><!-- #site-navigation -->
