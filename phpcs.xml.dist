@@ -25,6 +25,12 @@
 	<!-- Exclude all plugins except the learn plugin -->
 	<exclude-pattern>/wp-content/plugins/(?!wporg-learn)</exclude-pattern>
 
+	<!-- Exclude all mu-plugin files except the ones we're changing -->
+    <exclude-pattern>/wp-content/mu-plugins/pub/(?!locales.php)</exclude-pattern>
+
+    <!-- Exclude alternate wp-content directories -->
+    <exclude-pattern>/wp-content_*</exclude-pattern>
+
 	<!-- Show sniff codes in all reports -->
 	<arg value="psn" />
 	<arg name="colors" />
@@ -133,7 +139,7 @@
 		<!-- I think it's better to have all the `use` statements come right after the namespace line. -->
 		<exclude name="PSR2.Namespaces.NamespaceDeclaration.BlankLineAfter" />
 	</rule>
-	
+
 	<!-- Verify that the text_domain is set to the desired text-domain. Multiple valid text domains can be
 	     provided as a comma-delimited list. -->
 	<rule ref="WordPress.WP.I18n">

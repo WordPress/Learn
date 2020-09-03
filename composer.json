@@ -13,6 +13,7 @@
 	},
 	"extra": {
 		"installer-paths": {
+			"wp-content/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
 			"wp-content/plugins/{$name}/": ["type:wordpress-plugin"],
 			"wp-content/themes/pub/{$name}/": ["type:wordpress-theme"]
 		}
@@ -26,13 +27,13 @@
 			"type": "package",
 			"package": [
 				{
-					"name": "wordpress-meta/wporg-markdown",
-					"type": "wordpress-plugin",
+					"name": "wordpress-meta/pub",
+					"type": "wordpress-muplugin",
 					"version": "1",
 					"source": {
 						"type": "svn",
 						"url": "https://meta.svn.wordpress.org/sites/",
-						"reference": "trunk/wordpress.org/public_html/wp-content/plugins/wporg-markdown/"
+						"reference": "trunk/wordpress.org/public_html/wp-content/mu-plugins/pub/"
 					}
 				},
 				{
@@ -49,9 +50,10 @@
 		}
 	],
 	"require": {
+		"composer/installers": "~1.0",
 		"wpackagist-plugin/jetpack": "*",
 		"wpackagist-plugin/wordpress-importer": "*",
-		"wordpress-meta/wporg-markdown": "1",
+		"wordpress-meta/pub": "1",
 		"wordpress-meta/wporg": "1"
 	},
 	"require-dev": {
