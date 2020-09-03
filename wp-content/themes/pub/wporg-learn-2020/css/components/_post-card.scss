@@ -23,6 +23,12 @@ $card-padding: 16px;
 		padding: $card-padding;
 	}
 
+	@media only screen and (min-width: $breakpoint-tablet) {
+		.entry-header {
+			padding-top: $gutter-default;
+		}
+	}
+
 	.entry-title {
 		font-size: ms(0);
 		line-height: 1.3;
