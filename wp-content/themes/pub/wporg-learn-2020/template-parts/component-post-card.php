@@ -13,7 +13,7 @@ $post_type_info = get_post_type_object( $post_type_name );
 
 ?>
 <article class="post-card">
-	<?php if ( ! in_array( $post_type_name, array( 'page', 'attachment', 'post' ) ) ) : ?>
+	<?php if ( ! in_array( $post_type_name, array( 'page', 'attachment', 'post', 'handbook' ) ) ) : ?>
 	<div class="post-card_tag post-card_tag--<?php echo esc_attr( $post_type_name ); ?>">
 		<?php echo esc_attr( $post_type_info->labels->singular_name ); ?>
 	</div>
