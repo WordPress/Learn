@@ -10,7 +10,7 @@
 	"mappings": {
 		".htaccess": "./.wp-env/.htaccess",
 		"wp-content": "./wp-content",
-		"wp-content/mu-plugins/_loader.php": "./.wp-env/_loader.php",
+		"wp-content/mu-plugins/0-sandbox.php": "./.wp-env/0-sandbox.php",
 		"wp-content/uploads/wporg_locales.sql": "./.wp-env/wporg_locales.sql"
 	}
 }
