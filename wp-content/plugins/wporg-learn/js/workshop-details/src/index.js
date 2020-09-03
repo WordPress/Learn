@@ -25,6 +25,7 @@ import './style.scss';
  * Internal dependencies
  */
 import Edit from './edit';
+import Attributes from './attributes';
 
 /**
  * Every block starts by registering a new block type definition.
@@ -65,7 +66,9 @@ registerBlockType( 'wporg-learn/workshop-details', {
 	supports: {
 		// Removes support for an HTML mode.
 		html: false,
-	},
+    },
+    
+    attributes: Attributes,
 
 	/**
 	 * @see ./edit.js
