@@ -52,6 +52,31 @@ add_filter( 'cron_schedules', array( 'WPOrg_Learn\Markdown_Import', 'filter_cron
  */
 
 /**
+ * Register scripts and styles for 3rd party libraries.
+ *
+ * @return void
+ */
+function wporg_learn_register_thirdparty_assets() {
+	wp_register_script(
+		'select2',
+		plugins_url( '/3rd-party/selectWoo/js/selectWoo.min.js', __FILE__ ),
+		array( 'jquery' ),
+		'1.0.8',
+		true
+	);
+
+	wp_register_style(
+		'select2',
+		plugins_url( '/3rd-party/selectWoo/css/selectWoo.min.css', __FILE__ ),
+		array(),
+		'1.0.8'
+	);
+}
+
+add_action( 'admin_enqueue_scripts', 'wporg_learn_register_thirdparty_assets', 9 );
+add_action( 'wp_enqueue_scripts', 'wporg_learn_register_thirdparty_assets', 9 );
+
+/**
  * Filter the excerpt length to 50 words.
  *
  * @param int $length Excerpt length.
