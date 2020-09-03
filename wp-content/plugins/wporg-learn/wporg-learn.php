@@ -12,6 +12,9 @@ namespace WPOrg_Learn;
 
 defined( 'WPINC' ) || die();
 
+define( __NAMESPACE__ . '\PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( __NAMESPACE__ . '\PLUGIN_URL', plugins_url( '/', __FILE__ ) );
+
 /**
  * Actions and filters.
  */
@@ -20,16 +23,25 @@ add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\register_thirdparty_asset
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\register_thirdparty_assets', 9 );
 
 /**
+ * Shortcut to the includes directory.
+ *
+ * @return string
+ */
+function get_includes_path() {
+	return plugin_dir_path( __FILE__ ) . 'inc/';
+}
+
+/**
  * Load the other PHP files for the plugin.
  *
  * @return void
  */
 function load_files() {
-	require_once dirname( __FILE__ ) . '/inc/blocks.php';
-	require_once dirname( __FILE__ ) . '/inc/class-markdown-import.php';
-	require_once dirname( __FILE__ ) . '/inc/post-meta.php';
-	require_once dirname( __FILE__ ) . '/inc/post-type.php';
-	require_once dirname( __FILE__ ) . '/inc/taxonomy.php';
+	require_once get_includes_path() . 'blocks.php';
+	require_once get_includes_path() . 'class-markdown-import.php';
+	require_once get_includes_path() . 'post-meta.php';
+	require_once get_includes_path() . 'post-type.php';
+	require_once get_includes_path() . 'taxonomy.php';
 }
 
 /**
