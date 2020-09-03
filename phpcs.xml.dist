@@ -90,6 +90,7 @@
 		<exclude-pattern>*/archive-wporg_workshop.php$</exclude-pattern>
 		<exclude-pattern>*/single-wporg_workshop.php$</exclude-pattern>
 		<exclude-pattern>*/taxonomy-wporg_lesson_category.php$</exclude-pattern>
+		<exclude-pattern>*/template-parts/component-post-card-footer-wporg_workshop.php$</exclude-pattern>
 	</rule>
 
 	<rule ref="WordPress-Docs">
