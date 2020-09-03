@@ -8,6 +8,13 @@ use WP_Post;
 defined( 'WPINC' ) || die();
 
 /**
+ * Actions and filters.
+ */
+add_action( 'init', __NAMESPACE__ . '\register' );
+add_action( 'add_meta_boxes', __NAMESPACE__ . '\add_workshop_metaboxes' );
+add_action( 'save_post_wporg_workshop', __NAMESPACE__ . '\save_workshop_metabox_fields', 10, 2 );
+
+/**
  * Register all post meta keys.
  */
 function register() {

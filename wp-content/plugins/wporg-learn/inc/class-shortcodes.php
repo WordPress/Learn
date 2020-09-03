@@ -2,6 +2,11 @@
 
 namespace WPOrg_Learn;
 
+/**
+ * Actions and filters.
+ */
+add_action( 'init', array( 'WPOrg_Learn\Shortcodes', 'action_init' ) );
+
 class Shortcodes {
 
 	private static $auth_token;

@@ -16,18 +16,10 @@ require_once dirname( __FILE__ ) . '/inc/post-type.php';
 require_once dirname( __FILE__ ) . '/inc/taxonomy.php';
 
 /**
- * Registry of actions and filters
+ * Actions and filters.
  */
-add_action( 'init', 'WPORG_Learn\Post_Type\register' );
-add_action( 'init', 'WPORG_Learn\Post_Meta\register' );
-add_action( 'init', 'WPORG_Learn\Taxonomy\register' );
-add_action( 'init', array( 'WPOrg_Learn\Shortcodes', 'action_init' ) );
-
-add_action( 'init', 'WPORG_Learn\Blocks\workshop_details_init' );
-add_action( 'enqueue_block_editor_assets', 'WPORG_Learn\Blocks\enqueue_block_style_assets' );
-add_action( 'wp_enqueue_scripts', 'WPORG_Learn\Blocks\enqueue_block_style_assets' );
-add_action( 'add_meta_boxes', 'WPORG_Learn\Post_Meta\add_workshop_metaboxes' );
-add_action( 'save_post_wporg_workshop', 'WPORG_Learn\Post_Meta\save_workshop_metabox_fields', 10, 2 );
+add_action( 'admin_enqueue_scripts', 'wporg_learn_register_thirdparty_assets', 9 );
+add_action( 'wp_enqueue_scripts', 'wporg_learn_register_thirdparty_assets', 9 );
 
 /**
  * Register scripts and styles for 3rd party libraries.
@@ -50,6 +42,3 @@ function wporg_learn_register_thirdparty_assets() {
 		'1.0.8'
 	);
 }
-
-add_action( 'admin_enqueue_scripts', 'wporg_learn_register_thirdparty_assets', 9 );
-add_action( 'wp_enqueue_scripts', 'wporg_learn_register_thirdparty_assets', 9 );
