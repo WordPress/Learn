@@ -1,10 +1,34 @@
 <?php
+/**
+ * Markdown Import
+ *
+ * This functionality has been disabled as of 2020-08-12. All of the lesson plans have been imported
+ * to learn.wordpress.org and can be updated via the WP admin interface. Leaving this here for now
+ * in case we need to re-activate for some reason.
+ */
 
 namespace WPOrg_Learn;
 
-use WP_Error;
-use WP_Query;
+use WP_Error, WP_Query;
 
+// These actions/filters should not be added while markdown import is disabled.
+//add_action( 'init', array( 'WPOrg_Learn\Markdown_Import', 'action_init' ) );
+//add_action( 'wporg_learn_manifest_import', array( 'WPOrg_Learn\Markdown_Import', 'action_wporg_learn_manifest_import' ) );
+//add_action( 'wporg_learn_markdown_import', array( 'WPOrg_Learn\Markdown_Import', 'action_wporg_learn_markdown_import' ) );
+//add_action( 'load-post.php', array( 'WPOrg_Learn\Markdown_Import', 'action_load_post_php' ) );
+//add_action( 'edit_form_after_title', array( 'WPOrg_Learn\Markdown_Import', 'action_edit_form_after_title' ) );
+//add_action( 'save_post', array( 'WPOrg_Learn\Markdown_Import', 'action_save_post' ) );
+//add_filter( 'cron_schedules', array( 'WPOrg_Learn\Markdown_Import', 'filter_cron_schedules' ) );
+
+// This filter is still necessary because the lesson plans that were originally imported from GitHub still require
+// that image assets be loaded from the same repositories.
+add_filter( 'the_content', array( 'WPOrg_Learn\Markdown_Import', 'replace_image_links' ) );
+
+/**
+ * Class Markdown_Import
+ *
+ * @package WPOrg_Learn
+ */
 class Markdown_Import {
 
 	private static $lesson_plan_manifest = 'https://wptrainingteam.github.io/manifest.json';
@@ -183,7 +207,7 @@ class Markdown_Import {
 			value="<?php echo esc_attr( $markdown_source ); ?>"
 			placeholder="Enter a URL representing a markdown file to import"
 			size="50" />
-		</label> 
+		</label>
 		<?php
 		if ( $markdown_source ) :
 			$update_link = add_query_arg( array(
@@ -317,5 +341,24 @@ class Markdown_Import {
 		$html = preg_replace( '/\[ \]/', $empty_check_markup, $html );
 		$html = preg_replace( '/\[x\]/', $full_check_markup, $html );
 		return $html;
+	}
+
+	/**
+	 * Source images from the GitHub repo.
+	 *
+	 * @param string $content
+	 *
+	 * @return string|string[]
+	 */
+	public static function replace_image_links( $content ) {
+		$post_id         = get_the_ID();
+		$markdown_source = self::get_markdown_source( $post_id );
+		if ( is_wp_error( $markdown_source ) ) {
+			return $content;
+		}
+		$markdown_source = str_replace( '/README.md', '', $markdown_source );
+		$content         = str_replace( '<img src="/images/', '<img src="' . $markdown_source . '/images/', $content );
+
+		return $content;
 	}
 }
