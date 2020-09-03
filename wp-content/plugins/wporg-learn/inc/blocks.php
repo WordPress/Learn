@@ -2,7 +2,7 @@
 
 namespace WPOrg_Learn\Blocks;
 
-Use Error;
+use Error;
 use function WPOrg_Learn\Post_Meta\get_workshop_duration;
 
 defined( 'WPINC' ) || die();
