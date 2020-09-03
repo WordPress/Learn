@@ -27,7 +27,6 @@ add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\register_thirdparty_assets',
 function load_files() {
 	require_once dirname( __FILE__ ) . '/inc/blocks.php';
 	require_once dirname( __FILE__ ) . '/inc/class-markdown-import.php';
-	require_once dirname( __FILE__ ) . '/inc/class-shortcodes.php';
 	require_once dirname( __FILE__ ) . '/inc/post-meta.php';
 	require_once dirname( __FILE__ ) . '/inc/post-type.php';
 	require_once dirname( __FILE__ ) . '/inc/taxonomy.php';
