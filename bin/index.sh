@@ -16,11 +16,14 @@ npm run wp-env run cli wp plugin activate jetpack wordpress-importer wporg-learn
 # Activate theme
 npm run wp-env run cli wp theme activate pub/wporg-learn-2020
 
-## Install dependencies
+# Install dependencies
 yarn
 
-## Activate jetpack modules
+# Activate jetpack modules
 npm run wp-env run cli wp jetpack module activate contact-form
 
-## Change permalinks
+# Change permalinks
 npm run wp-env run cli wp rewrite structure '/%postname%/'
+
+# Import locales table
+npm run wp-env run cli wp db import wp-content/uploads/wporg_locales.sql
