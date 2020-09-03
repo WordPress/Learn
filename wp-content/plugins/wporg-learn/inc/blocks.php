@@ -2,9 +2,17 @@
 
 namespace WPOrg_Learn\Blocks;
 
+use Error;
 use function WPOrg_Learn\Post_Meta\get_workshop_duration;
 
 defined( 'WPINC' ) || die();
+
+/**
+ * Actions and filters.
+ */
+add_action( 'init', __NAMESPACE__ . '\workshop_details_init' );
+add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\enqueue_block_style_assets' );
+add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_block_style_assets' );
 
 /**
  * Registers all block assets so that they can be enqueued through the block editor

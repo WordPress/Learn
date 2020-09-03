@@ -5,6 +5,11 @@ namespace WPOrg_Learn\Taxonomy;
 defined( 'WPINC' ) || die();
 
 /**
+ * Actions and filters.
+ */
+add_action( 'init', __NAMESPACE__ . '\register' );
+
+/**
  * Register all the taxonomies.
  */
 function register() {
