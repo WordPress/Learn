@@ -200,6 +200,26 @@ function wporg_get_download_slides_url() {
 }
 
 /**
+ * Modify the excerpt length for our custom post types.
+ *
+ * @param int $length Excerpt length.
+ *
+ * @return int (Maybe) modified excerpt length.
+ */
+function wporg_modify_excerpt_length( $length ) {
+	if ( is_admin() ) {
+		return $length;
+	}
+
+	if ( 'wporg_workshop' === get_post_type() ) {
+		return 35;
+	}
+
+	return 25;
+}
+add_filter( 'excerpt_length', 'wporg_modify_excerpt_length', 999 );
+
+/**
  * Change the query for workshops in some circumstances.
  *
  * @param WP_Query $query

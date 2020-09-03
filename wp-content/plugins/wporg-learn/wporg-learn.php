@@ -28,7 +28,6 @@ add_action( 'enqueue_block_editor_assets', 'WPORG_Learn\Blocks\enqueue_block_sty
 add_action( 'wp_enqueue_scripts', 'WPORG_Learn\Blocks\enqueue_block_style_assets' );
 add_action( 'add_meta_boxes', 'WPORG_Learn\Post_Meta\add_workshop_metaboxes' );
 add_action( 'save_post_wporg_workshop', 'WPORG_Learn\Post_Meta\save_workshop_metabox_fields', 10, 2 );
-add_filter( 'excerpt_length', 'theme_slug_excerpt_length', 999 );
 
 /**
  * Register scripts and styles for 3rd party libraries.
@@ -54,23 +53,3 @@ function wporg_learn_register_thirdparty_assets() {
 
 add_action( 'admin_enqueue_scripts', 'wporg_learn_register_thirdparty_assets', 9 );
 add_action( 'wp_enqueue_scripts', 'wporg_learn_register_thirdparty_assets', 9 );
-
-/**
- * Filter the excerpt length to 50 words.
- *
- * @param int $length Excerpt length.
- * @return int (Maybe) modified excerpt length.
- */
-function theme_slug_excerpt_length( $length ) {
-	global $post;
-
-	if ( is_admin() ) {
-		return $length;
-	}
-
-	if ( 'workshop' === $post->post_type ) {
-		return 35;
-	}
-
-	return 25;
-}
