@@ -170,245 +170,38 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "../../../node_modules/@babel/runtime/helpers/arrayLikeToArray.js":
-/*!*****************************************************************************************************!*\
-  !*** /Users/stevendufresne/dev/learn_theme/node_modules/@babel/runtime/helpers/arrayLikeToArray.js ***!
-  \*****************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-
-  for (var i = 0, arr2 = new Array(len); i < len; i++) {
-    arr2[i] = arr[i];
-  }
-
-  return arr2;
-}
-
-module.exports = _arrayLikeToArray;
-
-/***/ }),
-
-/***/ "../../../node_modules/@babel/runtime/helpers/arrayWithHoles.js":
-/*!***************************************************************************************************!*\
-  !*** /Users/stevendufresne/dev/learn_theme/node_modules/@babel/runtime/helpers/arrayWithHoles.js ***!
-  \***************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
-}
-
-module.exports = _arrayWithHoles;
-
-/***/ }),
-
-/***/ "../../../node_modules/@babel/runtime/helpers/arrayWithoutHoles.js":
-/*!******************************************************************************************************!*\
-  !*** /Users/stevendufresne/dev/learn_theme/node_modules/@babel/runtime/helpers/arrayWithoutHoles.js ***!
-  \******************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray */ "../../../node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
-
-function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) return arrayLikeToArray(arr);
-}
-
-module.exports = _arrayWithoutHoles;
-
-/***/ }),
-
-/***/ "../../../node_modules/@babel/runtime/helpers/iterableToArray.js":
-/*!****************************************************************************************************!*\
-  !*** /Users/stevendufresne/dev/learn_theme/node_modules/@babel/runtime/helpers/iterableToArray.js ***!
-  \****************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _iterableToArray(iter) {
-  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
-}
-
-module.exports = _iterableToArray;
-
-/***/ }),
-
-/***/ "../../../node_modules/@babel/runtime/helpers/iterableToArrayLimit.js":
-/*!*********************************************************************************************************!*\
-  !*** /Users/stevendufresne/dev/learn_theme/node_modules/@babel/runtime/helpers/iterableToArrayLimit.js ***!
-  \*********************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _iterableToArrayLimit(arr, i) {
-  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
-  var _arr = [];
-  var _n = true;
-  var _d = false;
-  var _e = undefined;
-
-  try {
-    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-      _arr.push(_s.value);
-
-      if (i && _arr.length === i) break;
-    }
-  } catch (err) {
-    _d = true;
-    _e = err;
-  } finally {
-    try {
-      if (!_n && _i["return"] != null) _i["return"]();
-    } finally {
-      if (_d) throw _e;
-    }
-  }
-
-  return _arr;
-}
-
-module.exports = _iterableToArrayLimit;
-
-/***/ }),
-
-/***/ "../../../node_modules/@babel/runtime/helpers/nonIterableRest.js":
-/*!****************************************************************************************************!*\
-  !*** /Users/stevendufresne/dev/learn_theme/node_modules/@babel/runtime/helpers/nonIterableRest.js ***!
-  \****************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-
-module.exports = _nonIterableRest;
-
-/***/ }),
-
-/***/ "../../../node_modules/@babel/runtime/helpers/nonIterableSpread.js":
-/*!******************************************************************************************************!*\
-  !*** /Users/stevendufresne/dev/learn_theme/node_modules/@babel/runtime/helpers/nonIterableSpread.js ***!
-  \******************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-
-module.exports = _nonIterableSpread;
-
-/***/ }),
-
-/***/ "../../../node_modules/@babel/runtime/helpers/slicedToArray.js":
-/*!**************************************************************************************************!*\
-  !*** /Users/stevendufresne/dev/learn_theme/node_modules/@babel/runtime/helpers/slicedToArray.js ***!
-  \**************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayWithHoles = __webpack_require__(/*! ./arrayWithHoles */ "../../../node_modules/@babel/runtime/helpers/arrayWithHoles.js");
-
-var iterableToArrayLimit = __webpack_require__(/*! ./iterableToArrayLimit */ "../../../node_modules/@babel/runtime/helpers/iterableToArrayLimit.js");
-
-var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray */ "../../../node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
-
-var nonIterableRest = __webpack_require__(/*! ./nonIterableRest */ "../../../node_modules/@babel/runtime/helpers/nonIterableRest.js");
-
-function _slicedToArray(arr, i) {
-  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
-}
-
-module.exports = _slicedToArray;
-
-/***/ }),
-
-/***/ "../../../node_modules/@babel/runtime/helpers/toConsumableArray.js":
-/*!******************************************************************************************************!*\
-  !*** /Users/stevendufresne/dev/learn_theme/node_modules/@babel/runtime/helpers/toConsumableArray.js ***!
-  \******************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayWithoutHoles = __webpack_require__(/*! ./arrayWithoutHoles */ "../../../node_modules/@babel/runtime/helpers/arrayWithoutHoles.js");
-
-var iterableToArray = __webpack_require__(/*! ./iterableToArray */ "../../../node_modules/@babel/runtime/helpers/iterableToArray.js");
-
-var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray */ "../../../node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
-
-var nonIterableSpread = __webpack_require__(/*! ./nonIterableSpread */ "../../../node_modules/@babel/runtime/helpers/nonIterableSpread.js");
-
-function _toConsumableArray(arr) {
-  return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
-}
-
-module.exports = _toConsumableArray;
-
-/***/ }),
-
-/***/ "../../../node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js":
-/*!***************************************************************************************************************!*\
-  !*** /Users/stevendufresne/dev/learn_theme/node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js ***!
-  \***************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray */ "../../../node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
-
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
-}
-
-module.exports = _unsupportedIterableToArray;
-
-/***/ }),
-
-/***/ "./js/workshop-details/src/attributes.js":
-/*!***********************************************!*\
-  !*** ./js/workshop-details/src/attributes.js ***!
-  \***********************************************/
+/***/ "./js/workshop-details/src/captions-control.js":
+/*!*****************************************************!*\
+  !*** ./js/workshop-details/src/captions-control.js ***!
+  \*****************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ({
-  languageLabels: {
-    type: 'array',
-    default: [{
-      label: 'English',
-      value: 'en'
-    }, {
-      label: 'French',
-      value: 'fr'
-    }, {
-      label: 'Korean',
-      value: 'kr'
-    }, {
-      label: 'Japan',
-      value: 'jp'
-    }]
-  },
-  videoLanguage: {
-    type: 'string',
-    default: 'en'
-  },
-  captionLanguages: {
-    type: 'array',
-    default: []
-  }
-});
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+var CaptionsControl = function CaptionsControl(_ref) {
+  var tokens = _ref.tokens,
+      options = _ref.options,
+      onChange = _ref.onChange;
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["FormTokenField"], {
+    value: tokens,
+    suggestions: options.map(function (i) {
+      return i.label;
+    }),
+    onChange: onChange,
+    placeholder: "Search Languages",
+    label: "Captions"
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (CaptionsControl);
 
 /***/ }),
 
@@ -422,34 +215,29 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Edit; });
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "../../../node_modules/@babel/runtime/helpers/toConsumableArray.js");
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "../../../node_modules/@babel/runtime/helpers/slicedToArray.js");
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./editor.scss */ "./js/workshop-details/src/editor.scss");
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_editor_scss__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _captions_control__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./captions-control */ "./js/workshop-details/src/captions-control.js");
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./editor.scss */ "./js/workshop-details/src/editor.scss");
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_editor_scss__WEBPACK_IMPORTED_MODULE_5__);
 
-
-
-
-/**
- * Retrieves the translation of text.
- *
- * @see https://developer.wordpress.org/block-editor/packages/packages-i18n/
- */
 
 /**
  * WordPress dependencies
  */
 
+
+
+
+/**
+ * Internal dependencies
+ */
 
 
 /**
@@ -472,71 +260,90 @@ __webpack_require__.r(__webpack_exports__);
  * @return {WPElement} Element to render.
  */
 
-function Edit(_ref) {
-  var className = _ref.className,
-      setAttributes = _ref.setAttributes,
-      attributes = _ref.attributes;
+var strings = {
+  language: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Language', 'wporg-learn'),
+  captions: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Captions', 'wporg-learn')
+};
+
+var BlockView = function BlockView(_ref) {
+  var items = _ref.items;
+
+  var blockViewItem = function blockViewItem(_ref2) {
+    var label = _ref2.label,
+        value = _ref2.value;
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("li", {
+      key: value
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("b", null, label), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", null, value));
+  };
+
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("ul", null, items.map(blockViewItem));
+};
+
+function Edit(_ref3) {
+  var className = _ref3.className,
+      setAttributes = _ref3.setAttributes,
+      attributes = _ref3.attributes;
   var languageLabels = attributes.languageLabels,
-      captionLanguages = attributes.captionLanguages,
+      videoCaptionLanguages = attributes.videoCaptionLanguages,
       videoLanguage = attributes.videoLanguage;
+  console.log(languageLabels);
+  /**
+   * Transform locale object into list of { label: 'English, value: 'en' }
+   */
 
-  var toggleCaptionLanguage = function toggleCaptionLanguage(_ref2) {
-    var _ref3 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1___default()(_ref2, 1),
-        newValue = _ref3[0];
-
-    var newCaptionList;
-
-    if (captionLanguages.includes(newValue)) {
-      // Remove the item
-      newCaptionList = captionLanguages.filter(function (i) {
-        return i !== newValue;
-      });
-    } else {
-      // Add the item
-      newCaptionList = [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(captionLanguages), [newValue]);
-    }
-
-    setAttributes({
-      captionLanguages: newCaptionList
-    });
-  };
-
-  var strings = {
-    language: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Language', 'wporg-learn'),
-    captions: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Captions', 'wporg-learn')
-  };
-
-  var _languageLabels$filte = languageLabels.filter(function (i) {
-    return i.value === videoLanguage;
-  }),
-      _languageLabels$filte2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1___default()(_languageLabels$filte, 1),
-      languageToDisplay = _languageLabels$filte2[0];
-
-  var captionsToDisplay = languageLabels.filter(function (i) {
-    return captionLanguages.includes(i.value);
-  }).map(function (i) {
-    return i.label;
+  var labelValueList = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useMemo"])(function () {
+    return Object.keys(languageLabels).map(function (i) {
+      return {
+        label: languageLabels[i],
+        value: i
+      };
+    }, [languageLabels]);
   });
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+  /**
+   * Transform list of locales into list of display names
+   */
+
+  var captions = videoCaptionLanguages.map(function (i) {
+    return languageLabels[i];
+  });
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: className
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("ul", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("li", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("b", null, strings.language), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("span", null, languageToDisplay.label)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("li", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("b", null, strings.captions), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("span", null, captionsToDisplay.join(', ')))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["PanelBody"], {
-    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Details', 'wporg-learn'),
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(BlockView, {
+    items: [{
+      label: strings.language,
+      value: languageLabels[videoLanguage]
+    }, {
+      label: strings.captions,
+      value: captions.join(', ')
+    }]
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["PanelBody"], {
+    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Details', 'wporg-learn'),
     initialOpen: true
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["SelectControl"], {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["SelectControl"], {
     label: strings.language,
     value: videoLanguage,
-    options: languageLabels,
+    options: labelValueList,
     onChange: function onChange(newValue) {
       return setAttributes({
         videoLanguage: newValue
       });
     }
-  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["SelectControl"], {
-    label: strings.captions,
-    value: captionLanguages,
-    options: languageLabels,
-    onChange: toggleCaptionLanguage,
-    multiple: true
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_captions_control__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    options: labelValueList,
+    tokens: captions,
+    onChange: function onChange(newList) {
+      /**
+       * Get the locales from a list of display names
+       */
+      var locales = labelValueList.filter(function (i) {
+        return newList.includes(i.label);
+      }).map(function (i) {
+        return i.value;
+      });
+      setAttributes({
+        videoCaptionLanguages: locales
+      });
+    }
   }))));
 }
 
@@ -569,7 +376,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./style.scss */ "./js/workshop-details/src/style.scss");
 /* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_style_scss__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./edit */ "./js/workshop-details/src/edit.js");
-/* harmony import */ var _attributes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./attributes */ "./js/workshop-details/src/attributes.js");
 /**
  * Registers a new block provided a unique name and an object defining its behavior.
  *
@@ -595,7 +401,6 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * Internal dependencies
  */
-
 
 
 /**
@@ -636,7 +441,6 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockType"])('wpo
     // Removes support for an HTML mode.
     html: false
   },
-  attributes: _attributes__WEBPACK_IMPORTED_MODULE_4__["default"],
 
   /**
    * @see ./edit.js

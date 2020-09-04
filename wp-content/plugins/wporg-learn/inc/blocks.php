@@ -4,6 +4,7 @@ namespace WPOrg_Learn\Blocks;
 
 use Error;
 use function WPOrg_Learn\Post_Meta\get_workshop_duration;
+use function WordPressdotorg\Locales\get_locales_with_english_names;
 
 defined( 'WPINC' ) || die();
 
@@ -60,6 +61,22 @@ function workshop_details_init() {
 		'editor_style'    => 'workshop-details-editor-style',
 		'style'           => 'workshop-details-style',
 		'render_callback' => __NAMESPACE__ . '\workshop_details_render_callback',
+		'attributes'      => array(
+			'languageLabels' => array(
+				'type' => 'array',
+				'default' => get_locales_with_english_names(),
+			),
+			'videoLanguage' => array(
+				'type' => 'string',
+				'source' => 'meta',
+				'meta' => 'video_language',
+			),
+			'videoCaptionLanguages' => array(
+				'type' => 'string',
+				'source' => 'meta',
+				'meta' => 'video_caption_language',
+			),
+		),
 	) );
 }
 
@@ -93,13 +110,19 @@ function workshop_details_render_callback( $attributes, $content ) {
 	$topics   = wp_get_post_terms( $post->ID, 'topic', array( 'fields' => 'names' ) );
 	$level    = wp_get_post_terms( $post->ID, 'level', array( 'fields' => 'names' ) );
 	$captions = get_post_meta( $post->ID, 'video_caption_language' );
+	$locales = get_locales_with_english_names();
+
+	// Grab the display name based on the locale
+	$mapped_captions = array_map( function ( $locale ) use ( $locales ) {
+		return $locales[ $locale ];
+	}, $captions );
 
 	$fields = array(
 		__( 'Length', 'wporg-learn' )   => get_workshop_duration( $post, 'string' ),
 		__( 'Topic', 'wporg-learn' )    => implode( ', ', array_map( 'esc_html', $topics ) ),
 		__( 'Level', 'wporg-learn' )    => implode( ', ', array_map( 'esc_html', $level ) ),
-		__( 'Language', 'wporg-learn' ) => esc_html( $post->video_language ),
-		__( 'Captions', 'wporg-learn' ) => implode( ', ', array_map( 'esc_html', $captions ) ),
+		__( 'Language', 'wporg-learn' ) => esc_html( $locales[ $post->video_language ] ),
+		__( 'Captions', 'wporg-learn' ) => implode( ', ', array_map( 'esc_html', $mapped_captions ) ),
 	);
 
 	// Remove empty fields.

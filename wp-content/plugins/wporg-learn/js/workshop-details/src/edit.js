@@ -1,15 +1,15 @@
 /**
- * Retrieves the translation of text.
- *
- * @see https://developer.wordpress.org/block-editor/packages/packages-i18n/
- */
-import { __ } from '@wordpress/i18n';
-
-/**
  * WordPress dependencies
  */
+import { __ } from '@wordpress/i18n';
 import { InspectorControls } from '@wordpress/block-editor';
 import { PanelBody, SelectControl } from '@wordpress/components';
+import { useMemo } from '@wordpress/element';
+
+/**
+ * Internal dependencies
+ */
+import CaptionsControl from './captions-control';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -30,46 +30,62 @@ import './editor.scss';
  *
  * @return {WPElement} Element to render.
  */
+
+const strings = {
+	language: __( 'Language', 'wporg-learn' ),
+	captions: __( 'Captions', 'wporg-learn' ),
+};
+
+const BlockView = ( { items } ) => {
+	const blockViewItem = ( { label, value } ) => (
+		<li key={ value }>
+			<b>{ label }</b>
+			<span>{ value }</span>
+		</li>
+	);
+
+	return <ul>{ items.map( blockViewItem ) }</ul>;
+};
+
 export default function Edit( { className, setAttributes, attributes } ) {
-	const { languageLabels, captionLanguages, videoLanguage } = attributes;
+	const { languageLabels, videoCaptionLanguages, videoLanguage } = attributes;
 
-	const toggleCaptionLanguage = ( [ newValue ] ) => {
-		let newCaptionList;
+	console.log( languageLabels );
 
-		if ( captionLanguages.includes( newValue ) ) {
-			// Remove the item
-			newCaptionList = captionLanguages.filter( ( i ) => i !== newValue );
-		} else {
-			// Add the item
-			newCaptionList = [ ...captionLanguages, newValue ];
-		}
+	/**
+	 * Transform locale object into list of { label: 'English, value: 'en' }
+	 */
+	const labelValueList = useMemo( () => {
+		return Object.keys( languageLabels ).map(
+			( i ) => {
+				return {
+					label: languageLabels[ i ],
+					value: i,
+				};
+			},
+			[ languageLabels ]
+		);
+	} );
 
-		setAttributes( {
-			captionLanguages: newCaptionList,
-		} );
-	};
-
-	const strings = {
-		language: __( 'Language', 'wporg-learn' ),
-		captions: __( 'Captions', 'wporg-learn' ),
-    };
-    
-    const [ languageToDisplay ] = languageLabels.filter( i => i.value === videoLanguage );
-    const captionsToDisplay = languageLabels.filter( i =>  captionLanguages.includes( i.value )).map( i => i.label );
+	/**
+	 * Transform list of locales into list of display names
+	 */
+	const captions = videoCaptionLanguages.map( ( i ) => languageLabels[ i ] );
 
 	return (
 		<div className={ className }>
-			<ul>
-				<li>
-					<b>{ strings.language }</b>
-					<span>{ languageToDisplay.label }</span>
-				</li>
-				<li>
-					<b>{ strings.captions }</b>
-					<span>{ captionsToDisplay.join( ', ' ) }</span>
-				</li>
-			</ul>
-
+			<BlockView
+				items={ [
+					{
+						label: strings.language,
+						value: languageLabels[ videoLanguage ],
+					},
+					{
+						label: strings.captions,
+						value: captions.join( ', ' ),
+					},
+				] }
+			/>
 			<InspectorControls>
 				<PanelBody
 					title={ __( 'Details', 'wporg-learn' ) }
@@ -78,19 +94,28 @@ export default function Edit( { className, setAttributes, attributes } ) {
 					<SelectControl
 						label={ strings.language }
 						value={ videoLanguage }
-						options={ languageLabels }
+						options={ labelValueList }
 						onChange={ ( newValue ) =>
 							setAttributes( {
 								videoLanguage: newValue,
 							} )
 						}
 					/>
-					<SelectControl
-						label={ strings.captions }
-						value={ captionLanguages }
-						options={ languageLabels }
-						onChange={ toggleCaptionLanguage }
-						multiple={ true }
+					<CaptionsControl
+						options={ labelValueList }
+						tokens={ captions }
+						onChange={ ( newList ) => {
+							/**
+							 * Get the locales from a list of display names
+							 */
+							const locales = labelValueList
+								.filter( ( i ) => newList.includes( i.label ) )
+								.map( ( i ) => i.value );
+
+							setAttributes( {
+								videoCaptionLanguages: locales,
+							} );
+						} }
 					/>
 				</PanelBody>
 			</InspectorControls>
