@@ -76,6 +76,11 @@ function workshop_details_init() {
 				'source' => 'meta',
 				'meta' => 'video_caption_language',
 			),
+			'duration' => array(
+				'type' => 'string',
+				'source' => 'meta',
+				'meta' => 'duration',
+			),
 		),
 	) );
 }
@@ -121,7 +126,7 @@ function workshop_details_render_callback( $attributes, $content ) {
 		__( 'Length', 'wporg-learn' )   => get_workshop_duration( $post, 'string' ),
 		__( 'Topic', 'wporg-learn' )    => implode( ', ', array_map( 'esc_html', $topics ) ),
 		__( 'Level', 'wporg-learn' )    => implode( ', ', array_map( 'esc_html', $level ) ),
-		__( 'Language', 'wporg-learn' ) => esc_html( $locales[ $post->video_language ] ),
+		__( 'Language', 'wporg-learn' ) => esc_html( ! empty( $post->video_language ) ? $locales[ $post->video_language ] : '' ),
 		__( 'Captions', 'wporg-learn' ) => implode( ', ', array_map( 'esc_html', $mapped_captions ) ),
 	);
 

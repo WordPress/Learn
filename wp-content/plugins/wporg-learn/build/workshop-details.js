@@ -170,6 +170,140 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "../../../node_modules/@babel/runtime/helpers/arrayLikeToArray.js":
+/*!*****************************************************************************************************!*\
+  !*** /Users/stevendufresne/dev/learn_theme/node_modules/@babel/runtime/helpers/arrayLikeToArray.js ***!
+  \*****************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+module.exports = _arrayLikeToArray;
+
+/***/ }),
+
+/***/ "../../../node_modules/@babel/runtime/helpers/arrayWithHoles.js":
+/*!***************************************************************************************************!*\
+  !*** /Users/stevendufresne/dev/learn_theme/node_modules/@babel/runtime/helpers/arrayWithHoles.js ***!
+  \***************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+module.exports = _arrayWithHoles;
+
+/***/ }),
+
+/***/ "../../../node_modules/@babel/runtime/helpers/iterableToArrayLimit.js":
+/*!*********************************************************************************************************!*\
+  !*** /Users/stevendufresne/dev/learn_theme/node_modules/@babel/runtime/helpers/iterableToArrayLimit.js ***!
+  \*********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _iterableToArrayLimit(arr, i) {
+  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _e = undefined;
+
+  try {
+    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+module.exports = _iterableToArrayLimit;
+
+/***/ }),
+
+/***/ "../../../node_modules/@babel/runtime/helpers/nonIterableRest.js":
+/*!****************************************************************************************************!*\
+  !*** /Users/stevendufresne/dev/learn_theme/node_modules/@babel/runtime/helpers/nonIterableRest.js ***!
+  \****************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+module.exports = _nonIterableRest;
+
+/***/ }),
+
+/***/ "../../../node_modules/@babel/runtime/helpers/slicedToArray.js":
+/*!**************************************************************************************************!*\
+  !*** /Users/stevendufresne/dev/learn_theme/node_modules/@babel/runtime/helpers/slicedToArray.js ***!
+  \**************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayWithHoles = __webpack_require__(/*! ./arrayWithHoles */ "../../../node_modules/@babel/runtime/helpers/arrayWithHoles.js");
+
+var iterableToArrayLimit = __webpack_require__(/*! ./iterableToArrayLimit */ "../../../node_modules/@babel/runtime/helpers/iterableToArrayLimit.js");
+
+var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray */ "../../../node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
+
+var nonIterableRest = __webpack_require__(/*! ./nonIterableRest */ "../../../node_modules/@babel/runtime/helpers/nonIterableRest.js");
+
+function _slicedToArray(arr, i) {
+  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
+}
+
+module.exports = _slicedToArray;
+
+/***/ }),
+
+/***/ "../../../node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js":
+/*!***************************************************************************************************************!*\
+  !*** /Users/stevendufresne/dev/learn_theme/node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js ***!
+  \***************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray */ "../../../node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
+}
+
+module.exports = _unsupportedIterableToArray;
+
+/***/ }),
+
 /***/ "./js/workshop-details/src/captions-control.js":
 /*!*****************************************************!*\
   !*** ./js/workshop-details/src/captions-control.js ***!
@@ -187,7 +321,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var CaptionsControl = function CaptionsControl(_ref) {
-  var tokens = _ref.tokens,
+  var label = _ref.label,
+      tokens = _ref.tokens,
       options = _ref.options,
       onChange = _ref.onChange;
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["FormTokenField"], {
@@ -197,11 +332,90 @@ var CaptionsControl = function CaptionsControl(_ref) {
     }),
     onChange: onChange,
     placeholder: "Search Languages",
-    label: "Captions"
+    label: label
   });
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (CaptionsControl);
+
+/***/ }),
+
+/***/ "./js/workshop-details/src/duration-control.js":
+/*!*****************************************************!*\
+  !*** ./js/workshop-details/src/duration-control.js ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "../../../node_modules/@babel/runtime/helpers/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils */ "./js/workshop-details/src/utils.js");
+
+
+
+
+
+
+var DurationControl = function DurationControl(_ref) {
+  var duration = _ref.duration,
+      onChange = _ref.onChange;
+
+  var _useState = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["useState"])(Object(_utils__WEBPACK_IMPORTED_MODULE_3__["getHours"])(duration)),
+      _useState2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_useState, 2),
+      hours = _useState2[0],
+      setHours = _useState2[1];
+
+  var _useState3 = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["useState"])(Object(_utils__WEBPACK_IMPORTED_MODULE_3__["getMinutes"])(duration)),
+      _useState4 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_useState3, 2),
+      minutes = _useState4[0],
+      setMinutes = _useState4[1];
+
+  var _useState5 = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["useState"])(Object(_utils__WEBPACK_IMPORTED_MODULE_3__["getSeconds"])(duration)),
+      _useState6 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_useState5, 2),
+      seconds = _useState6[0],
+      setSeconds = _useState6[1];
+
+  Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
+    var hoursInSeconds = +hours * 3600;
+    var minutesInSeconds = +minutes * 60;
+    onChange(hoursInSeconds + minutesInSeconds + +seconds);
+  }, [hours, minutes, seconds]);
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["TextControl"], {
+    label: "Hours",
+    value: hours,
+    onChange: function onChange(hours) {
+      return setHours(hours);
+    },
+    type: "number",
+    min: "0"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["TextControl"], {
+    label: "Minutes",
+    value: minutes,
+    onChange: function onChange(minutes) {
+      return setMinutes(minutes);
+    },
+    type: "number",
+    max: "59",
+    min: "0"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["TextControl"], {
+    label: "Seconds",
+    value: seconds,
+    onChange: function onChange(seconds) {
+      return setSeconds(seconds);
+    },
+    type: "number",
+    max: "59",
+    min: "0"
+  }));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (DurationControl);
 
 /***/ }),
 
@@ -224,8 +438,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _captions_control__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./captions-control */ "./js/workshop-details/src/captions-control.js");
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./editor.scss */ "./js/workshop-details/src/editor.scss");
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_editor_scss__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _duration_control__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./duration-control */ "./js/workshop-details/src/duration-control.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./utils */ "./js/workshop-details/src/utils.js");
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./editor.scss */ "./js/workshop-details/src/editor.scss");
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_editor_scss__WEBPACK_IMPORTED_MODULE_7__);
 
 
 /**
@@ -238,6 +454,8 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * Internal dependencies
  */
+
+
 
 
 /**
@@ -262,7 +480,9 @@ __webpack_require__.r(__webpack_exports__);
 
 var strings = {
   language: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Language', 'wporg-learn'),
-  captions: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Captions', 'wporg-learn')
+  captions: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Captions', 'wporg-learn'),
+  searchCaptions: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Search for languages (en)', 'wporg-learn'),
+  duration: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Length', 'wporg-learn')
 };
 
 var BlockView = function BlockView(_ref) {
@@ -285,8 +505,8 @@ function Edit(_ref3) {
       attributes = _ref3.attributes;
   var languageLabels = attributes.languageLabels,
       videoCaptionLanguages = attributes.videoCaptionLanguages,
-      videoLanguage = attributes.videoLanguage;
-  console.log(languageLabels);
+      videoLanguage = attributes.videoLanguage,
+      duration = attributes.duration;
   /**
    * Transform locale object into list of { label: 'English, value: 'en' }
    */
@@ -310,6 +530,9 @@ function Edit(_ref3) {
     className: className
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(BlockView, {
     items: [{
+      label: strings.duration,
+      value: Object(_utils__WEBPACK_IMPORTED_MODULE_6__["getDurationDisplay"])(duration)
+    }, {
       label: strings.language,
       value: languageLabels[videoLanguage]
     }, {
@@ -317,10 +540,9 @@ function Edit(_ref3) {
       value: captions.join(', ')
     }]
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["PanelBody"], {
-    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Details', 'wporg-learn'),
+    title: strings.language,
     initialOpen: true
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["SelectControl"], {
-    label: strings.language,
     value: videoLanguage,
     options: labelValueList,
     onChange: function onChange(newValue) {
@@ -328,7 +550,11 @@ function Edit(_ref3) {
         videoLanguage: newValue
       });
     }
-  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_captions_control__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["PanelBody"], {
+    title: strings.captions,
+    initialOpen: true
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_captions_control__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    label: strings.searchCaptions,
     options: labelValueList,
     tokens: captions,
     onChange: function onChange(newList) {
@@ -342,6 +568,15 @@ function Edit(_ref3) {
       });
       setAttributes({
         videoCaptionLanguages: locales
+      });
+    }
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["PanelBody"], {
+    title: strings.duration
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_duration_control__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    duration: duration,
+    onChange: function onChange(timeInSeconds) {
+      setAttributes({
+        duration: timeInSeconds
       });
     }
   }))));
@@ -454,6 +689,34 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockType"])('wpo
     return null;
   }
 });
+
+/***/ }),
+
+/***/ "./js/workshop-details/src/utils.js":
+/*!******************************************!*\
+  !*** ./js/workshop-details/src/utils.js ***!
+  \******************************************/
+/*! exports provided: getHours, getMinutes, getSeconds, getDurationDisplay */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getHours", function() { return getHours; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getMinutes", function() { return getMinutes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSeconds", function() { return getSeconds; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDurationDisplay", function() { return getDurationDisplay; });
+var getHours = function getHours(duration) {
+  return Math.floor(~~(duration / 3600));
+};
+var getMinutes = function getMinutes(duration) {
+  return Math.floor(~~(duration % 3600 / 60));
+};
+var getSeconds = function getSeconds(duration) {
+  return Math.floor(~~duration % 60);
+};
+var getDurationDisplay = function getDurationDisplay(duration) {
+  return "".concat(getHours(duration), "hr ").concat(getMinutes(duration), "m ").concat(getSeconds(duration), "s");
+};
 
 /***/ }),
 

@@ -10,6 +10,8 @@ import { useMemo } from '@wordpress/element';
  * Internal dependencies
  */
 import CaptionsControl from './captions-control';
+import DurationControl from './duration-control';
+import { getDurationDisplay } from './utils';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -34,6 +36,8 @@ import './editor.scss';
 const strings = {
 	language: __( 'Language', 'wporg-learn' ),
 	captions: __( 'Captions', 'wporg-learn' ),
+	searchCaptions: __( 'Search for languages (en)', 'wporg-learn' ),
+	duration: __( 'Length', 'wporg-learn' ),
 };
 
 const BlockView = ( { items } ) => {
@@ -48,9 +52,12 @@ const BlockView = ( { items } ) => {
 };
 
 export default function Edit( { className, setAttributes, attributes } ) {
-	const { languageLabels, videoCaptionLanguages, videoLanguage } = attributes;
-
-	console.log( languageLabels );
+	const {
+		languageLabels,
+		videoCaptionLanguages,
+		videoLanguage,
+		duration,
+	} = attributes;
 
 	/**
 	 * Transform locale object into list of { label: 'English, value: 'en' }
@@ -77,6 +84,10 @@ export default function Edit( { className, setAttributes, attributes } ) {
 			<BlockView
 				items={ [
 					{
+						label: strings.duration,
+						value: getDurationDisplay( duration ),
+					},
+					{
 						label: strings.language,
 						value: languageLabels[ videoLanguage ],
 					},
@@ -87,12 +98,8 @@ export default function Edit( { className, setAttributes, attributes } ) {
 				] }
 			/>
 			<InspectorControls>
-				<PanelBody
-					title={ __( 'Details', 'wporg-learn' ) }
-					initialOpen={ true }
-				>
+				<PanelBody title={ strings.language } initialOpen={ true }>
 					<SelectControl
-						label={ strings.language }
 						value={ videoLanguage }
 						options={ labelValueList }
 						onChange={ ( newValue ) =>
@@ -101,7 +108,10 @@ export default function Edit( { className, setAttributes, attributes } ) {
 							} )
 						}
 					/>
+				</PanelBody>
+				<PanelBody title={ strings.captions } initialOpen={ true }>
 					<CaptionsControl
+						label={ strings.searchCaptions }
 						options={ labelValueList }
 						tokens={ captions }
 						onChange={ ( newList ) => {
@@ -114,6 +124,16 @@ export default function Edit( { className, setAttributes, attributes } ) {
 
 							setAttributes( {
 								videoCaptionLanguages: locales,
+							} );
+						} }
+					/>
+				</PanelBody>
+				<PanelBody title={ strings.duration }>
+					<DurationControl
+						duration={ duration }
+						onChange={ ( timeInSeconds ) => {
+							setAttributes( {
+								duration: timeInSeconds,
 							} );
 						} }
 					/>
