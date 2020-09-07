@@ -4,6 +4,7 @@ namespace WPOrg_Learn\Post_Meta;
 
 use DateTime, DateInterval;
 use WP_Post;
+use function WordPressdotorg\Locales\get_locales_with_english_names;
 
 defined( 'WPINC' ) || die();
 
@@ -58,6 +59,7 @@ function register_workshop_meta() {
 			'description'       => __( 'The language that the workshop is presented in.', 'wporg_learn' ),
 			'type'              => 'string',
 			'single'            => true,
+			'default'           => 'en_US',
 			'sanitize_callback' => '', // todo
 			'show_in_rest'      => true,
 		)
@@ -155,6 +157,7 @@ function add_workshop_metaboxes() {
  */
 function render_metabox_workshop_details( WP_Post $post ) {
 	$duration_interval = get_workshop_duration( $post, 'interval' );
+	$locales           = get_locales_with_english_names();
 	$captions          = get_post_meta( $post->ID, 'video_caption_language' ) ?: array();
 
 	require dirname( dirname( __FILE__ ) ) . '/views/metabox-workshop-details.php';

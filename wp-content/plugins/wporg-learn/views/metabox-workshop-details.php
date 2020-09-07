@@ -5,6 +5,7 @@
 
 /** @var WP_Post $post */
 /** @var DateInterval $duration_interval */
+/** @var array $locales */
 /** @var array $captions */
 ?>
 
@@ -45,22 +46,30 @@
 	</label>
 </p>
 
-<?php // todo Change this to a select dropdown with locale values. ?>
 <p>
 	<label for="workshop-video-language"><?php esc_html_e( 'Language', 'wporg_learn' ); ?></label>
-	<input
-		id="workshop-video-language"
-		name="video-language"
-		type="text"
-		value="<?php echo esc_attr( $post->video_language ); ?>"
-	/>
+	<select id="workshop-video-language" name="video-language" style="width: 100%;">
+		<?php foreach ( $locales as $code => $label ) : ?>
+			<option value="<?php echo esc_attr( $code ); ?>" <?php selected( $code, $post->video_language ); ?>>
+				<?php echo esc_html( $label ); ?>
+			</option>
+		<?php endforeach; ?>
+	</select>
 </p>
 
-<?php // todo Change this to a multiselect dropdown with locale values. ?>
 <p>
 	<label for="workshop-video-caption-language"><?php esc_html_e( 'Captions', 'wporg_learn' ); ?></label>
-	<textarea id="workshop-video-caption-language" name="video-caption-language"><?php echo esc_attr( implode( ', ', $captions ) ); ?></textarea>
-	<span class="help">
-		<?php esc_html_e( 'Separate multiple languages with a comma.', 'wporg_learn' ); ?>
-	</span>
+	<select id="workshop-video-caption-language" name="video-caption-language[]" style="width: 100%;" multiple>
+		<?php foreach ( $locales as $code => $label ) : ?>
+			<option value="<?php echo esc_attr( $code ); ?>" <?php selected( in_array( $code, $captions, true ) ); ?>>
+				<?php echo esc_html( $label ); ?>
+			</option>
+		<?php endforeach; ?>
+	</select>
 </p>
+
+<script>
+	( function( $ ) {
+		$( '#workshop-video-language, #workshop-video-caption-language' ).select2();
+	} )( jQuery );
+</script>
