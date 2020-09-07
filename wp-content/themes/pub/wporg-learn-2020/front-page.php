@@ -6,7 +6,7 @@
  * @package WPBBP
  */
 
-get_header();?>
+get_header(); ?>
 
 	<main id="main" class="site-main home-page" role="main">
 		<section class="quick-intro">
@@ -62,32 +62,6 @@ get_header();?>
 		<hr>
 
 		<?php get_template_part( 'template-parts/component', 'submit-idea-cta', array( 'icon' => 'lightbulb' ) ); ?>
-
-		<?php if ( ! is_active_sidebar( 'front-page-blocks' ) ) : ?>
-			<?php //get_template_part( 'template-parts/bbpress', 'front' ); ?>
-		<?php else : ?>
-			<div class="three-up helphub-front-page">
-				<?php dynamic_sidebar( 'front-page-blocks' ); ?>
-			</div>
-
-			<hr>
-
-			<div id="helphub-forum-link" class="text-center">
-				<h3><?php esc_html_e( 'Support Forums', 'wporg-learn' ); ?></h3>
-
-				<p>
-					<span>
-						<?php esc_html_e( 'Can\'t find what you\'re looking for? Find out if others share your experience.', 'wporg-learn' ); ?>
-					</span>
-
-					<br>
-
-					<a href="<?php echo esc_url( site_url( '/forums/' ) ); ?>"><?php esc_html_e( 'Check out our support forums', 'wporg-learn' ); ?></a>
-				</p>
-			</div>
-		<?php endif; ?>
-
 	</main>
 
-<?php
-get_footer();
+<?php get_footer();
