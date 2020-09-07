@@ -119,7 +119,7 @@ function workshop_details_render_callback( $attributes, $content ) {
 
 	// Grab the display name based on the locale
 	$mapped_captions = array_map( function ( $locale ) use ( $locales ) {
-		return $locales[ $locale ];
+		return empty( $locale ) ? '' : $locales[ $locale ];
 	}, $captions );
 
 	$fields = array(

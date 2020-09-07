@@ -11,8 +11,8 @@ defined( 'WPINC' ) || die();
  * Actions and filters.
  */
 add_action( 'init', __NAMESPACE__ . '\register' );
-// add_action( 'add_meta_boxes', __NAMESPACE__ . '\add_workshop_metaboxes' );
-// add_action( 'save_post_wporg_workshop', __NAMESPACE__ . '\save_workshop_metabox_fields', 10, 2 );
+add_action( 'add_meta_boxes', __NAMESPACE__ . '\add_workshop_metaboxes' );
+add_action( 'save_post_wporg_workshop', __NAMESPACE__ . '\save_workshop_metabox_fields', 10, 2 );
 
 /**
  * Register all post meta keys.
@@ -60,6 +60,7 @@ function register_workshop_meta() {
 			'single'            => true,
 			'sanitize_callback' => '', // todo
 			'show_in_rest'      => true,
+			'default'           => '',
 		)
 	);
 
@@ -72,6 +73,7 @@ function register_workshop_meta() {
 			'single'            => false,
 			'sanitize_callback' => '', // todo
 			'show_in_rest'      => true,
+			'default'           => '',
 		)
 	);
 }
@@ -132,14 +134,6 @@ function get_workshop_duration( WP_Post $workshop, $format = 'raw' ) {
  */
 function add_workshop_metaboxes() {
 	add_meta_box(
-		'workshop-details',
-		__( 'Workshop Details', 'wporg_learn' ),
-		__NAMESPACE__ . '\render_metabox_workshop_details',
-		'wporg_workshop',
-		'side'
-	);
-
-	add_meta_box(
 		'workshop-presenters',
 		__( 'Presenters', 'wporg_learn' ),
 		__NAMESPACE__ . '\render_metabox_workshop_presenters',
@@ -182,26 +176,10 @@ function save_workshop_metabox_fields( $post_id, WP_Post $post ) {
 		return;
 	}
 
-	$duration = filter_input( INPUT_POST, 'duration', FILTER_SANITIZE_NUMBER_INT, FILTER_REQUIRE_ARRAY );
-	if ( isset( $duration['h'], $duration['m'], $duration['s'] ) ) {
-		$duration = $duration['h'] * HOUR_IN_SECONDS + $duration['m'] * MINUTE_IN_SECONDS + $duration['s'];
-		update_post_meta( $post_id, 'duration', $duration );
-	}
-
 	$presenter_wporg_username = filter_input( INPUT_POST, 'presenter-wporg-username' );
 	$usernames                = array_map( 'trim', explode( ',', $presenter_wporg_username ) );
 	delete_post_meta( $post_id, 'presenter_wporg_username' );
 	foreach ( $usernames as $username ) {
 		add_post_meta( $post_id, 'presenter_wporg_username', $username );
-	}
-
-	$video_language = filter_input( INPUT_POST, 'video-language' );
-	update_post_meta( $post_id, 'video_language', $video_language );
-
-	$video_caption_language = filter_input( INPUT_POST, 'video-caption-language' );
-	$captions               = array_map( 'trim', explode( ',', $video_caption_language ) );
-	delete_post_meta( $post_id, 'video_caption_language' );
-	foreach ( $captions as $caption ) {
-		add_post_meta( $post_id, 'video_caption_language', $caption );
 	}
 }

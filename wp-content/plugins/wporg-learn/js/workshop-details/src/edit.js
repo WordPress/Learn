@@ -57,7 +57,9 @@ export default function Edit( { className, setAttributes, attributes } ) {
 		videoCaptionLanguages,
 		videoLanguage,
 		duration,
-	} = attributes;
+    } = attributes;
+    
+    console.log( attributes );
 
 	/**
 	 * Transform locale object into list of { label: 'English, value: 'en' }

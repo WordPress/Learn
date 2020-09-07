@@ -507,6 +507,7 @@ function Edit(_ref3) {
       videoCaptionLanguages = attributes.videoCaptionLanguages,
       videoLanguage = attributes.videoLanguage,
       duration = attributes.duration;
+  console.log(attributes);
   /**
    * Transform locale object into list of { label: 'English, value: 'en' }
    */
