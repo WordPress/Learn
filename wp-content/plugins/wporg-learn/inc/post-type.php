@@ -5,6 +5,11 @@ namespace WPOrg_Learn\Post_Type;
 defined( 'WPINC' ) || die();
 
 /**
+ * Actions and filters.
+ */
+add_action( 'init', __NAMESPACE__ . '\register' );
+
+/**
  * Register all post types.
  */
 function register() {

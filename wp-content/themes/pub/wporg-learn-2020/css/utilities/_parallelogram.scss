@@ -26,14 +26,14 @@
 }
 
 .home-page .shapes .parallelogram.lesson-plans {
-	background-color: #00669b;
+	background-color: $color-accent-blue-shade4;
 	right: 16px;
 	top: 50px;
 	z-index: 10;
 }
 
 .home-page .shapes .parallelogram.workshop-ideas {
-	background-color: #389547;
+	background-color: $color-accent-green-shade1;
 	top: 0;
 	left: 16px;
 	z-index: 1;
