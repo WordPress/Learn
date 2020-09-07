@@ -42,7 +42,7 @@ const strings = {
 
 const BlockView = ( { items } ) => {
 	const blockViewItem = ( { label, value } ) => (
-		<li key={ value }>
+		<li key={ label }>
 			<b>{ label }</b>
 			<span>{ value }</span>
 		</li>
@@ -57,9 +57,7 @@ export default function Edit( { className, setAttributes, attributes } ) {
 		videoCaptionLanguages,
 		videoLanguage,
 		duration,
-    } = attributes;
-    
-    console.log( attributes );
+	} = attributes;
 
 	/**
 	 * Transform locale object into list of { label: 'English, value: 'en' }

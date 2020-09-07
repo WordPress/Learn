@@ -73,7 +73,6 @@ function register_workshop_meta() {
 			'single'            => false,
 			'sanitize_callback' => '', // todo
 			'show_in_rest'      => true,
-			'default'           => '',
 		)
 	);
 }

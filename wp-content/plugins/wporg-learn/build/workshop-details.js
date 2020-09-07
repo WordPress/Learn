@@ -492,7 +492,7 @@ var BlockView = function BlockView(_ref) {
     var label = _ref2.label,
         value = _ref2.value;
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("li", {
-      key: value
+      key: label
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("b", null, label), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", null, value));
   };
 
@@ -507,7 +507,6 @@ function Edit(_ref3) {
       videoCaptionLanguages = attributes.videoCaptionLanguages,
       videoLanguage = attributes.videoLanguage,
       duration = attributes.duration;
-  console.log(attributes);
   /**
    * Transform locale object into list of { label: 'English, value: 'en' }
    */
