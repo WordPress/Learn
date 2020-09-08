@@ -67,12 +67,12 @@ function workshop_details_init() {
 				'default' => get_locales_with_english_names(),
 			),
 			'videoLanguage' => array(
-				'type' => 'string',
+				'type' => 'array',
 				'source' => 'meta',
 				'meta' => 'video_language',
 			),
 			'videoCaptionLanguages' => array(
-				'type' => 'string',
+				'type' => 'array',
 				'source' => 'meta',
 				'meta' => 'video_caption_language',
 			),

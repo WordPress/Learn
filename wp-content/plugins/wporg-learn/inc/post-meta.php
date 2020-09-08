@@ -57,10 +57,9 @@ function register_workshop_meta() {
 		array(
 			'description'       => __( 'The language that the workshop is presented in.', 'wporg_learn' ),
 			'type'              => 'string',
-			'single'            => true,
+			'single'            => false,
 			'sanitize_callback' => '', // todo
 			'show_in_rest'      => true,
-			'default'           => '',
 		)
 	);
 

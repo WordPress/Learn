@@ -9,6 +9,7 @@ import { useMemo } from '@wordpress/element';
 /**
  * Internal dependencies
  */
+import LanguageControl from './language-control';
 import CaptionsControl from './captions-control';
 import DurationControl from './duration-control';
 import { getDurationDisplay } from './utils';
@@ -35,8 +36,9 @@ import './editor.scss';
 
 const strings = {
 	language: __( 'Language', 'wporg-learn' ),
+	searchLanguages: __( 'Search languages (en)', 'wporg-learn' ),
 	captions: __( 'Captions', 'wporg-learn' ),
-	searchCaptions: __( 'Search for languages (en)', 'wporg-learn' ),
+	searchCaptions: __( 'Search languages (en)', 'wporg-learn' ),
 	duration: __( 'Length', 'wporg-learn' ),
 };
 
@@ -79,6 +81,8 @@ export default function Edit( { className, setAttributes, attributes } ) {
 	 */
 	const captions = videoCaptionLanguages.map( ( i ) => languageLabels[ i ] );
 
+	const languages = videoLanguage.map( ( i ) => languageLabels[ i ] );
+
 	return (
 		<div className={ className }>
 			<BlockView
@@ -89,7 +93,7 @@ export default function Edit( { className, setAttributes, attributes } ) {
 					},
 					{
 						label: strings.language,
-						value: languageLabels[ videoLanguage ],
+						value: languages[ 0 ],
 					},
 					{
 						label: strings.captions,
@@ -99,14 +103,22 @@ export default function Edit( { className, setAttributes, attributes } ) {
 			/>
 			<InspectorControls>
 				<PanelBody title={ strings.language } initialOpen={ true }>
-					<SelectControl
-						value={ videoLanguage }
+					<LanguageControl
+						label={ strings.searchLanguages }
 						options={ labelValueList }
-						onChange={ ( newValue ) =>
+						tokens={ languages }
+						onChange={ ( newList ) => {
+							/**
+							 * Get the locales from a list of display names
+							 */
+							const locales = labelValueList
+								.filter( ( i ) => newList.includes( i.label ) )
+								.map( ( i ) => i.value );
+
 							setAttributes( {
-								videoLanguage: newValue,
-							} )
-						}
+								videoLanguage: locales,
+							} );
+						} }
 					/>
 				</PanelBody>
 				<PanelBody title={ strings.captions } initialOpen={ true }>

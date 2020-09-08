@@ -437,11 +437,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _captions_control__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./captions-control */ "./js/workshop-details/src/captions-control.js");
-/* harmony import */ var _duration_control__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./duration-control */ "./js/workshop-details/src/duration-control.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./utils */ "./js/workshop-details/src/utils.js");
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./editor.scss */ "./js/workshop-details/src/editor.scss");
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_editor_scss__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _language_control__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./language-control */ "./js/workshop-details/src/language-control.js");
+/* harmony import */ var _captions_control__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./captions-control */ "./js/workshop-details/src/captions-control.js");
+/* harmony import */ var _duration_control__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./duration-control */ "./js/workshop-details/src/duration-control.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./utils */ "./js/workshop-details/src/utils.js");
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./editor.scss */ "./js/workshop-details/src/editor.scss");
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_editor_scss__WEBPACK_IMPORTED_MODULE_8__);
 
 
 /**
@@ -454,6 +455,7 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -480,8 +482,9 @@ __webpack_require__.r(__webpack_exports__);
 
 var strings = {
   language: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Language', 'wporg-learn'),
+  searchLanguages: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Search languages (en)', 'wporg-learn'),
   captions: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Captions', 'wporg-learn'),
-  searchCaptions: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Search for languages (en)', 'wporg-learn'),
+  searchCaptions: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Search languages (en)', 'wporg-learn'),
   duration: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Length', 'wporg-learn')
 };
 
@@ -526,15 +529,18 @@ function Edit(_ref3) {
   var captions = videoCaptionLanguages.map(function (i) {
     return languageLabels[i];
   });
+  var languages = videoLanguage.map(function (i) {
+    return languageLabels[i];
+  });
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: className
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(BlockView, {
     items: [{
       label: strings.duration,
-      value: Object(_utils__WEBPACK_IMPORTED_MODULE_6__["getDurationDisplay"])(duration)
+      value: Object(_utils__WEBPACK_IMPORTED_MODULE_7__["getDurationDisplay"])(duration)
     }, {
       label: strings.language,
-      value: languageLabels[videoLanguage]
+      value: languages[0]
     }, {
       label: strings.captions,
       value: captions.join(', ')
@@ -542,18 +548,27 @@ function Edit(_ref3) {
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["PanelBody"], {
     title: strings.language,
     initialOpen: true
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["SelectControl"], {
-    value: videoLanguage,
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_language_control__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    label: strings.searchLanguages,
     options: labelValueList,
-    onChange: function onChange(newValue) {
-      return setAttributes({
-        videoLanguage: newValue
+    tokens: languages,
+    onChange: function onChange(newList) {
+      /**
+       * Get the locales from a list of display names
+       */
+      var locales = labelValueList.filter(function (i) {
+        return newList.includes(i.label);
+      }).map(function (i) {
+        return i.value;
+      });
+      setAttributes({
+        videoLanguage: locales
       });
     }
   })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["PanelBody"], {
     title: strings.captions,
     initialOpen: true
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_captions_control__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_captions_control__WEBPACK_IMPORTED_MODULE_5__["default"], {
     label: strings.searchCaptions,
     options: labelValueList,
     tokens: captions,
@@ -572,7 +587,7 @@ function Edit(_ref3) {
     }
   })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["PanelBody"], {
     title: strings.duration
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_duration_control__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_duration_control__WEBPACK_IMPORTED_MODULE_6__["default"], {
     duration: duration,
     onChange: function onChange(timeInSeconds) {
       setAttributes({
@@ -689,6 +704,43 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockType"])('wpo
     return null;
   }
 });
+
+/***/ }),
+
+/***/ "./js/workshop-details/src/language-control.js":
+/*!*****************************************************!*\
+  !*** ./js/workshop-details/src/language-control.js ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+var LanguageControl = function LanguageControl(_ref) {
+  var label = _ref.label,
+      tokens = _ref.tokens,
+      options = _ref.options,
+      onChange = _ref.onChange;
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["FormTokenField"], {
+    value: tokens,
+    suggestions: options.map(function (i) {
+      return i.label;
+    }),
+    onChange: onChange,
+    placeholder: label,
+    label: label,
+    maxLength: 1
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (LanguageControl);
 
 /***/ }),
 
