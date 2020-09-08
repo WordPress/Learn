@@ -234,6 +234,8 @@ function wporg_workshop_modify_query( WP_Query $query ) {
 	}
 
 	if ( $query->is_main_query() && $query->is_post_type_archive( 'wporg_workshop' ) ) {
+		wporg_workshop_maybe_apply_query_filters( $query );
+
 		$featured = wporg_get_featured_workshops();
 
 		if ( ! empty( $featured ) ) {
@@ -247,6 +249,45 @@ function wporg_workshop_modify_query( WP_Query $query ) {
 	}
 }
 add_action( 'pre_get_posts', 'wporg_workshop_modify_query' );
+
+/**
+ * Update a query object if filter parameters are present.
+ *
+ * @param WP_Query $query Query object, passed by reference.
+ *
+ * @return void
+ */
+function wporg_workshop_maybe_apply_query_filters( WP_Query &$query ) {
+	$filters = filter_input_array(
+		INPUT_GET,
+		array(
+			'language' => FILTER_SANITIZE_STRING,
+		),
+		false
+	);
+
+	$meta_query = array( 'relation' => 'AND' );
+	$tax_query = array();
+
+	foreach ( $filters as $filter_name => $filter_value ) {
+		switch ( $filter_name ) {
+			case 'language':
+				$meta_query[] = array(
+					'key'   => 'video_language',
+					'value' => $filter_value,
+				);
+				break;
+		}
+	}
+
+	if ( ! empty( $meta_query ) ) {
+		$query->set( 'meta_query', $meta_query );
+	}
+
+	if ( ! empty( $tax_query ) ) {
+		$query->set( 'tax_query', $tax_query );
+	}
+}
 
 /**
  * Get a query object for displaying workshop posts.
@@ -276,6 +317,8 @@ function wporg_get_featured_workshops( $number = 1 ) {
 	$query = wporg_get_workshops_query( array(
 		'posts_per_page' => $number,
 	) );
+
+	wporg_workshop_maybe_apply_query_filters( $query );
 
 	return $query->get_posts();
 }
