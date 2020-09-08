@@ -60,7 +60,7 @@ function register_workshop_meta() {
 			'type'              => 'string',
 			'single'            => true,
 			'default'           => 'en_US',
-			'sanitize_callback' => '', // todo
+			'sanitize_callback' => __NAMESPACE__ . '\sanitize_locale',
 			'show_in_rest'      => true,
 		)
 	);
@@ -72,10 +72,35 @@ function register_workshop_meta() {
 			'description'       => __( 'A language for which captions are available for the workshop video.', 'wporg_learn' ),
 			'type'              => 'string',
 			'single'            => false,
-			'sanitize_callback' => '', // todo
+			'sanitize_callback' => __NAMESPACE__ . '\sanitize_locale',
 			'show_in_rest'      => true,
 		)
 	);
+}
+
+/**
+ * Sanitize a locale value.
+ *
+ * @param string $meta_value
+ * @param string $meta_key
+ * @param string $object_type
+ * @param string $object_subtype
+ *
+ * @return string
+ */
+function sanitize_locale( $meta_value, $meta_key, $object_type, $object_subtype ) {
+	if ( 'wporg_workshop' !== $object_subtype ) {
+		return $meta_value;
+	}
+
+	$meta_value = trim( $meta_value );
+	$locales = array_keys( get_locales_with_english_names() );
+
+	if ( ! in_array( $meta_value, $locales, true ) ) {
+		return '';
+	}
+
+	return $meta_value;
 }
 
 /**
@@ -201,10 +226,11 @@ function save_workshop_metabox_fields( $post_id, WP_Post $post ) {
 	$video_language = filter_input( INPUT_POST, 'video-language' );
 	update_post_meta( $post_id, 'video_language', $video_language );
 
-	$video_caption_language = filter_input( INPUT_POST, 'video-caption-language' );
-	$captions               = array_map( 'trim', explode( ',', $video_caption_language ) );
-	delete_post_meta( $post_id, 'video_caption_language' );
-	foreach ( $captions as $caption ) {
-		add_post_meta( $post_id, 'video_caption_language', $caption );
+	$captions = filter_input( INPUT_POST, 'video-caption-language', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+	if ( is_array( $captions ) ) {
+		delete_post_meta( $post_id, 'video_caption_language' );
+		foreach ( $captions as $caption ) {
+			add_post_meta( $post_id, 'video_caption_language', $caption );
+		}
 	}
 }
