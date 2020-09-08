@@ -141,18 +141,6 @@ function add_workshop_metaboxes() {
 }
 
 /**
- * Render the Workshop Details meta box.
- *
- * @param WP_Post $post
- */
-function render_metabox_workshop_details( WP_Post $post ) {
-	$duration_interval = get_workshop_duration( $post, 'interval' );
-	$captions          = get_post_meta( $post->ID, 'video_caption_language' ) ?: array();
-
-	require dirname( dirname( __FILE__ ) ) . '/views/metabox-workshop-details.php';
-}
-
-/**
  * Render the Presenters meta box.
  *
  * @param WP_Post $post
