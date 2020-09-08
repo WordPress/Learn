@@ -4,7 +4,7 @@ namespace WPOrg_Learn\Post_Meta;
 
 use DateTime, DateInterval;
 use WP_Post;
-use function WordPressdotorg\Locales\get_locales_with_english_names;
+use function WordPressdotorg\Locales\{ get_locales_with_english_names };
 
 defined( 'WPINC' ) || die();
 
@@ -150,6 +150,39 @@ function get_workshop_duration( WP_Post $workshop, $format = 'raw' ) {
 	}
 
 	return $return;
+}
+
+/**
+ * Get a list of locales that are associated with at least one workshop.
+ *
+ * @param string $meta_key
+ * @param string $label_language
+ *
+ * @return array
+ */
+function get_available_workshop_locales( $meta_key, $label_language = 'english' ) {
+	global $wpdb;
+
+	$results = $wpdb->get_col( $wpdb->prepare(
+		"
+			SELECT DISTINCT meta_value
+			FROM $wpdb->postmeta
+			WHERE meta_key = %s
+			ORDER BY meta_value ASC
+		",
+		$meta_key
+	) );
+
+	if ( empty( $results ) ) {
+		return array();
+	}
+
+	$available_locales = array_fill_keys( $results, '' );
+
+	$locale_fn = "\WordPressdotorg\Locales\get_locales_with_{$label_language}_names";
+	$locales   = $locale_fn();
+
+	return array_intersect_key( $locales, $available_locales );
 }
 
 /**
