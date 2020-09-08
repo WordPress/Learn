@@ -42,7 +42,7 @@ $buckets = array(
 			<div class="row">
 			<?php foreach ( $buckets as $key => $value ) : ?>
 				<div class="col-3 filter-group">
-					<h4><?php esc_html_e( $key ); ?></h4>
+					<h4><?php echo esc_html( $key ); ?></h4>
 					<ol class="feature-group">
 						<?php foreach ( $value as $item ) : ?>
 							<?php get_template_part( 'template-parts/component', 'filter-item', $item ); ?>
