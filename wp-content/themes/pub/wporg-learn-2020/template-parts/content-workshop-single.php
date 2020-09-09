@@ -23,7 +23,9 @@
 						);
 						?>
 					</div>
-					<p class="col-8 workshop-page_biography"><?php echo esc_html( $presenter->description ); ?></p>
+					<div class="col-8 workshop-page_biography">
+						<?php echo wp_kses_post( wpautop( wporg_get_workshop_presenter_bio( $presenter ) ) ); ?>
+					</div>
 				</section>
 			<?php endforeach; ?>
 		</div>
