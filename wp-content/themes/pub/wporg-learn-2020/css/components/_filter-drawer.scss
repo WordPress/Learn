@@ -138,6 +138,10 @@
 	color: #fff;
 }
 
+.clear-filters {
+	margin: 0 1em;
+}
+
 .filter-group {
 	background: #fff;
 	box-sizing: border-box;
@@ -148,10 +152,20 @@
 	}
 }
 
-.filter-group h4 {
+.filter-group-label {
+	display: block;
 	font-size: 14px;
+	font-weight: 700;
 	position: relative;
 	margin: 0 0 $gutter-default / 2 0;
+
+	& > * {
+		font-weight: 400;
+	}
+
+	.select2-container--default .select2-selection--single {
+		border-radius: 0;
+	}
 }
 
 .filter-drawer ol {

@@ -28,10 +28,30 @@ add_action( 'after_setup_theme', __NAMESPACE__ . '\setup' );
  * The version is set to the last modified time during development.
  */
 function wporg_learn_scripts() {
-	wp_enqueue_style( 'wporg-style', get_theme_file_uri( '/css/style.css' ), array( 'dashicons', 'open-sans' ), filemtime( __DIR__ . '/css/style.css' ) );
-	wp_enqueue_script( 'wporg-navigation', get_template_directory_uri() . '/js/navigation.js', array(), filemtime( __DIR__ . '/js/navigation.js' ), true );
-	wp_enqueue_script( 'wporg-filters', get_theme_file_uri() . '/js/filters.js', array(), filemtime( __DIR__ . '/js/filters.js' ), true );
+	wp_enqueue_style(
+		'wporg-style',
+		get_theme_file_uri( '/css/style.css' ),
+		array( 'dashicons', 'open-sans' ),
+		filemtime( __DIR__ . '/css/style.css' )
+	);
+	wp_enqueue_script(
+		'wporg-navigation',
+		get_template_directory_uri() . '/js/navigation.js',
+		array(),
+		filemtime( __DIR__ . '/js/navigation.js' ),
+		true
+	);
 
+	if ( is_post_type_archive( 'wporg_workshop' ) ) {
+		wp_enqueue_style( 'select2' );
+		wp_enqueue_script(
+			'wporg-filters',
+			get_theme_file_uri() . '/js/filters.js',
+			array( 'jquery', 'select2' ),
+			filemtime( __DIR__ . '/js/filters.js' ),
+			true
+		);
+	}
 }
 add_action( 'wp_enqueue_scripts', 'wporg_learn_scripts' );
 
@@ -261,22 +281,59 @@ function wporg_workshop_maybe_apply_query_filters( WP_Query &$query ) {
 	$filters = filter_input_array(
 		INPUT_GET,
 		array(
+			'series'   => FILTER_SANITIZE_STRING,
+			'topic'    => FILTER_SANITIZE_STRING,
 			'language' => FILTER_SANITIZE_STRING,
+			'captions' => FILTER_SANITIZE_STRING,
 		),
 		false
 	);
 
-	$meta_query = array( 'relation' => 'AND' );
+	$meta_query = array();
 	$tax_query = array();
 
-	foreach ( $filters as $filter_name => $filter_value ) {
-		switch ( $filter_name ) {
-			case 'language':
-				$meta_query[] = array(
-					'key'   => 'video_language',
-					'value' => $filter_value,
-				);
-				break;
+	if ( is_array( $filters ) ) {
+		$filters = array_filter( $filters );
+
+		foreach ( $filters as $filter_name => $filter_value ) {
+			switch ( $filter_name ) {
+				case 'series':
+					if ( ! empty( $tax_query ) ) {
+						$tax_query['relation'] = 'AND';
+					}
+					$tax_query[] = array(
+						'taxonomy' => 'wporg_workshop_series',
+						'terms'    => $filter_value,
+					);
+					break;
+				case 'topic':
+					if ( ! empty( $tax_query ) ) {
+						$tax_query['relation'] = 'AND';
+					}
+					$tax_query[] = array(
+						'taxonomy' => 'topic',
+						'terms'    => $filter_value,
+					);
+					break;
+				case 'language':
+					if ( ! empty( $meta_query ) ) {
+						$meta_query['relation'] = 'AND';
+					}
+					$meta_query[] = array(
+						'key'   => 'video_language',
+						'value' => $filter_value,
+					);
+					break;
+				case 'captions':
+					if ( ! empty( $meta_query ) ) {
+						$meta_query['relation'] = 'AND';
+					}
+					$meta_query[] = array(
+						'key'   => 'video_caption_language',
+						'value' => $filter_value,
+					);
+					break;
+			}
 		}
 	}
 
