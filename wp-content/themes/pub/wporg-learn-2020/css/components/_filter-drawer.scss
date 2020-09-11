@@ -146,7 +146,7 @@
 	background: #fff;
 	box-sizing: border-box;
 	padding-bottom: $gutter-default;
-	width: calc( 20% - 8px );
+	width: calc(20% - 8px);
 
 	@media only screen and (min-width: $breakpoint-tablet) {
 		padding-bottom: 0;
@@ -175,7 +175,7 @@
 }
 
 .filter-buttons {
-	width: calc( 20% - 8px );
+	width: calc(20% - 8px);
 	display: inline-flex;
 	flex-direction: column;
 	justify-content: center;
