@@ -52,7 +52,7 @@ function register_lesson_audience() {
 
 	$args   = array(
 		'labels'            => $labels,
-		'hierarchical'      => false,
+		'hierarchical'      => true,
 		'public'            => true,
 		'show_ui'           => true,
 		'show_admin_column' => true,
@@ -135,7 +135,7 @@ function register_lesson_duration() {
 
 	$args   = array(
 		'labels'            => $labels,
-		'hierarchical'      => false,
+		'hierarchical'      => true,
 		'public'            => true,
 		'show_ui'           => true,
 		'show_admin_column' => true,
@@ -217,7 +217,7 @@ function register_lesson_instruction_type() {
 
 	$args   = array(
 		'labels'            => $labels,
-		'hierarchical'      => false,
+		'hierarchical'      => true,
 		'public'            => true,
 		'show_ui'           => true,
 		'show_admin_column' => true,
@@ -258,7 +258,7 @@ function register_lesson_level() {
 
 	$args   = array(
 		'labels'            => $labels,
-		'hierarchical'      => false,
+		'hierarchical'      => true,
 		'public'            => true,
 		'show_ui'           => true,
 		'show_admin_column' => true,
@@ -298,7 +298,7 @@ function register_workshop_series() {
 
 	$args = array(
 		'labels'            => $labels,
-		'hierarchical'      => false,
+		'hierarchical'      => true,
 		'public'            => true,
 		'rewrite'           => array(
 			'slug' => 'workshops',
@@ -342,7 +342,7 @@ function register_workshop_topic() {
 
 	$args = array(
 		'labels'            => $labels,
-		'hierarchical'      => false,
+		'hierarchical'      => true,
 		'public'            => true,
 		'show_ui'           => true,
 		'show_admin_column' => true,
