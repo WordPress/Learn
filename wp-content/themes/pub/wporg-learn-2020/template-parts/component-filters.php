@@ -33,57 +33,43 @@ $buckets = array(
 );
 ?>
 
-<div class="js-filter-drawer">
-	<div class="wp-filter">
-		<div class="row between center filter-drawer-controls">
-			<a class="js-filter-drawer-toggle button button-large drawer-toggle" href="#"><?php esc_html_e( 'Filter Workshops', 'wporg-learn' ); ?></a>
-			<div class="search-form--is-inline search-form--is-muted search-form--has-border search-form--has-medium-text">
-				<?php get_search_form( array( 'placeholder' => __( 'Search Workshops', 'wporg-learn' ) ) ); ?>
+<form id="filters" class="filter-form" method="get">
+	<div class="row gutters between">
+		<?php foreach ( $buckets as $bucket ) :
+			if ( empty( $bucket['items'] ) ) :
+				continue;
+			endif;
+			?>
+			<div class="filter-group">
+				<label for="<?php echo esc_attr( $bucket['name'] ); ?>" class="filter-group-label">
+					<?php echo esc_html( $bucket['label'] ); ?>
+					<select
+						id="<?php echo esc_attr( $bucket['name'] ); ?>"
+						class="filter-group-select"
+						name="<?php echo esc_attr( $bucket['name'] ); ?>"
+						style="width: 100%;"
+						data-placeholder="<?php esc_attr_e( 'Select', 'wporg-learn' ); ?>"
+					>
+						<option value=""></option>
+						<?php foreach ( $bucket['items'] as $item_value => $item_label ) : ?>
+							<option
+								value="<?php echo esc_attr( $item_value ); ?>"
+								<?php selected( $item_value, filter_input( INPUT_GET, $bucket['name'] ) ); ?>
+							>
+								<?php echo esc_html( $item_label ); ?>
+							</option>
+						<?php endforeach; ?>
+					</select>
+				</label>
 			</div>
+		<?php endforeach; ?>
+		<div class="filter-buttons">
+			<button type="submit" class="button button-large button-secondary">
+				<?php esc_html_e( 'Apply Filters', 'wporg-learn' ); ?>
+			</button>
+			<a href="<?php echo esc_url( get_post_type_archive_link( 'wporg_workshop' ) ); ?>" class="clear-filters">
+				<?php esc_html_e( 'Clear All Filters', 'wporg-learn' ); ?>
+			</a>
 		</div>
-		<form id="filters" class="js-filter-drawer-form" method="get">
-			<div class="filter-drawer">
-				<div class="row">
-					<div class="col-12 row gutters align-middle buttons">
-						<button type="submit" class="js-apply-filters-toggle button button-large button-secondary">
-							<?php esc_html_e( 'Apply Filters', 'wporg-learn' ); ?>
-						</button>
-						<a href="<?php echo esc_url( get_post_type_archive_link( 'wporg_workshop' ) ); ?>" class="clear-filters">
-							<?php esc_html_e( 'Clear All Filters', 'wporg-learn' ); ?>
-						</a>
-					</div>
-				</div>
-				<div class="row gutters between">
-					<?php foreach ( $buckets as $bucket ) :
-						if ( empty( $bucket['items'] ) ) :
-							continue;
-						endif;
-						?>
-						<div class="col-3 filter-group">
-							<label for="<?php echo esc_attr( $bucket['name'] ); ?>" class="filter-group-label">
-								<?php echo esc_html( $bucket['label'] ); ?>
-								<select
-									id="<?php echo esc_attr( $bucket['name'] ); ?>"
-									class="filter-group-select"
-									name="<?php echo esc_attr( $bucket['name'] ); ?>"
-									style="width: 100%;"
-									data-placeholder="<?php esc_attr_e( 'Select', 'wporg-learn' ); ?>"
-								>
-									<option value=""></option>
-									<?php foreach ( $bucket['items'] as $item_value => $item_label ) : ?>
-										<option
-											value="<?php echo esc_attr( $item_value ); ?>"
-											<?php selected( $item_value, filter_input( INPUT_GET, $bucket['name'] ) ); ?>
-										>
-											<?php echo esc_html( $item_label ); ?>
-										</option>
-									<?php endforeach; ?>
-								</select>
-							</label>
-						</div>
-					<?php endforeach; ?>
-				</div>
-			</div>
-		</form>
 	</div>
-</div>
+</form>

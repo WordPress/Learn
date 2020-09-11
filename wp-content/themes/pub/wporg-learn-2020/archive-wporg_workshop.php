@@ -3,16 +3,20 @@
 <main class="site-main">
 	<section>
 		<div class="row align-middle between section-heading section-heading--with-space">
-			<?php the_archive_title( '<h1 class="section-heading_title h2 col-9">', '</h1>' ); ?>
-			<a class="section-heading_link button button-large" href="https://learn.wordpress.org/workshop-presenter-application/"><?php esc_html_e( 'Submit Workshop Idea', 'wporg-learn' ); ?></a>
+			<?php the_archive_title( '<h1 class="section-heading_title h2">', '</h1>' ); ?>
+			<?php get_template_part( 'template-parts/component', 'workshop-search' ); ?>
 			<?php if ( is_tax( 'wporg_workshop_series' ) ) :
 				$series_term = wporg_workshop_series_get_term( $post );
 				?>
-				<?php echo wp_kses_post( wpautop( term_description( $series_term->term_id ) ) ); ?>
+				<div class="section-heading_description col-12">
+					<?php echo wp_kses_post( wpautop( term_description( $series_term->term_id ) ) ); ?>
+				</div>
 			<?php endif; ?>
 		</div>
 		<hr>
-		<?php get_template_part( 'template-parts/component', 'filters' ); ?>
+		<?php if ( is_post_type_archive( 'wporg_workshop' ) ) : ?>
+			<?php get_template_part( 'template-parts/component', 'filters' ); ?>
+		<?php endif; ?>
 
 		<?php // Only show the featured workshop on the first page of post type archives.
 		if ( is_post_type_archive() && get_query_var( 'paged' ) < 2 ) : ?>

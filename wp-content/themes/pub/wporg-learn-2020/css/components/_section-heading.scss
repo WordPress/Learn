@@ -23,6 +23,14 @@
 		}
 	}
 
+	&_description {
+		margin: 1rem 0 0;
+
+		*:last-child {
+			margin-bottom: 0;
+		}
+	}
+
 	&--with-space {
 		padding-bottom: 16px;
 	}

@@ -138,14 +138,15 @@
 	color: #fff;
 }
 
-.clear-filters {
-	margin: 0 1em;
+.filter-form {
+	padding: 16px 0 2rem;
 }
 
 .filter-group {
 	background: #fff;
 	box-sizing: border-box;
 	padding-bottom: $gutter-default;
+	width: calc( 20% - 8px );
 
 	@media only screen and (min-width: $breakpoint-tablet) {
 		padding-bottom: 0;
@@ -154,7 +155,7 @@
 
 .filter-group-label {
 	display: block;
-	font-size: 14px;
+	font-size: 13px;
 	font-weight: 700;
 	position: relative;
 	margin: 0 0 $gutter-default / 2 0;
@@ -163,8 +164,27 @@
 		font-weight: 400;
 	}
 
-	.select2-container--default .select2-selection--single {
-		border-radius: 0;
+	.select2-container--default {
+		margin-top: 0.8rem;
+
+		.select2-selection--single,
+		.select2-selection--multiple {
+			border-radius: 0;
+		}
+	}
+}
+
+.filter-buttons {
+	width: calc( 20% - 8px );
+	display: inline-flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-end;
+
+	.clear-filters {
+		font-size: 13px;
+		padding-top: 0.5rem;
+		color: #d94f4f;
 	}
 }
 
