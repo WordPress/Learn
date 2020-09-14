@@ -330,7 +330,7 @@ function wporg_get_workshop_presenter_bio( WP_User $user ) {
 			$xprofile_field_id
 		);
 
-		$bio = $wpdb->get_var( $sql, ARRAY_A ) ?: ''; // phpcs:ignore WordPress.DB.PreparedSQL -- prepare called above.
+		$bio = $wpdb->get_var( $sql ) ?: ''; // phpcs:ignore WordPress.DB.PreparedSQL -- prepare called above.
 	}
 
 	if ( ! $bio ) {
