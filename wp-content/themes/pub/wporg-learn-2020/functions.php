@@ -302,6 +302,45 @@ function wporg_get_workshop_presenters( $workshop = null ) {
 }
 
 /**
+ * Get the bio of a user, either from profiles.wordpress.org or usermeta.
+ *
+ * This relies on the availability of the `bpmain_bp_xprofile_data` table, so for local environments
+ * it falls back on values in `usermeta`.
+ *
+ * @param WP_User $user
+ *
+ * @return string
+ */
+function wporg_get_workshop_presenter_bio( WP_User $user ) {
+	global $wpdb;
+
+	$bio = '';
+
+	if ( 'local' !== wp_get_environment_type() ) {
+		$xprofile_field_id = 3;
+
+		$sql = $wpdb->prepare(
+			'
+				SELECT value
+				FROM bpmain_bp_xprofile_data
+				WHERE user_id = %1$d
+				AND field_id = %2$d
+			',
+			$user->ID,
+			$xprofile_field_id
+		);
+
+		$bio = $wpdb->get_var( $sql ) ?: ''; // phpcs:ignore WordPress.DB.PreparedSQL -- prepare called above.
+	}
+
+	if ( ! $bio ) {
+		$bio = $user->description;
+	}
+
+	return $bio;
+}
+
+/**
  * Display a featured image, falling back to the VideoPress thumbnail if no featured image was explicitly set.
  *
  * @param WP_Post $post The Workshop post for which we want the thumbnail.
