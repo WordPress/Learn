@@ -78,7 +78,7 @@
 
 .wp-filter .drawer-toggle::before {
 	display: inline-block;
-	content: "\f111";
+	content: '\f111';
 	margin: 0 5px 0 0;
 	color: #777;
 	transition: color 0.1s ease-in;
@@ -146,10 +146,11 @@
 	background: #fff;
 	box-sizing: border-box;
 	padding-bottom: $gutter-default;
-	width: calc(20% - 8px);
+	flex: 1;
 
-	@media only screen and (min-width: $breakpoint-tablet) {
+	@media only screen and ( min-width: $breakpoint-tablet ) {
 		padding-bottom: 0;
+		padding-right: $gutter-default;
 	}
 }
 
@@ -158,14 +159,14 @@
 	font-size: 13px;
 	font-weight: 700;
 	position: relative;
-	margin: 0 0 $gutter-default / 2 0;
+	margin: 0;
 
 	* {
 		font-weight: 400;
 	}
 
 	.select2-container--default {
-		margin-top: 0.8rem;
+		margin-top: $gutter-default / 2;
 
 		.select2-selection--single,
 		.select2-selection--multiple {
@@ -175,13 +176,21 @@
 }
 
 .filter-buttons {
-	width: calc(20% - 8px);
+	position: relative;
 	display: inline-flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: flex-end;
 	align-items: flex-end;
+	margin-top: $gutter-default;
+
+	@media only screen and ( min-width: $breakpoint-tablet ) {
+		margin-top: 0;
+	}
 
 	.clear-filters {
+		position: absolute;
+		bottom: -$gutter-default * 1.75;
+		right: 0;
 		font-size: 13px;
 		padding-top: 0.5rem;
 		color: #d94f4f;
@@ -203,7 +212,7 @@
 	width: 100%;
 }
 
-@media only screen and (min-width: $breakpoint-tablet) {
+@media only screen and ( min-width: $breakpoint-tablet ) {
 	.filter-drawer .buttons {
 		padding-bottom: $gutter-default;
 	}
@@ -282,4 +291,9 @@
 	font-size: 16px;
 	font-weight: 300;
 	line-height: 1.5;
+}
+
+/* We are currently using select-2 for the dropdown */
+.select2-container li {
+	font-size: 14px;
 }

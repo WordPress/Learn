@@ -34,13 +34,13 @@ $buckets = array(
 ?>
 
 <form id="filters" class="filter-form" method="get">
-	<div class="row gutters between">
+	<div class="row between">
 		<?php foreach ( $buckets as $bucket ) :
 			if ( empty( $bucket['items'] ) ) :
 				continue;
 			endif;
 			?>
-			<div class="filter-group">
+			<div class="filter-group col-2">
 				<label for="<?php echo esc_attr( $bucket['name'] ); ?>" class="filter-group-label">
 					<?php echo esc_html( $bucket['label'] ); ?>
 					<select
@@ -63,7 +63,7 @@ $buckets = array(
 				</label>
 			</div>
 		<?php endforeach; ?>
-		<div class="filter-buttons">
+		<div class="filter-buttons col-2">
 			<button type="submit" class="button button-large button-secondary">
 				<?php esc_html_e( 'Apply Filters', 'wporg-learn' ); ?>
 			</button>
