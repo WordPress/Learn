@@ -453,11 +453,9 @@ add_filter( 'get_the_archive_title_prefix', 'wporg_modify_archive_title_prefix' 
  * @return WP_Term|bool
  */
 function wporg_workshop_series_get_term( $workshop = null ) {
-	if ( ! $workshop instanceof WP_Post ) {
-		$workshop = get_post( $workshop );
-	}
+	$workshop = get_post( $workshop );
 
-	if ( empty( $workshop ) ) {
+	if ( ! $workshop instanceof WP_Post ) {
 		return false;
 	}
 

@@ -5,7 +5,7 @@
 		<div class="row align-middle between section-heading section-heading--with-space">
 			<?php the_archive_title( '<h1 class="section-heading_title h2">', '</h1>' ); ?>
 			<?php get_template_part( 'template-parts/component', 'workshop-search' ); ?>
-			<?php if ( is_tax( 'wporg_workshop_series' ) ) :
+			<?php if ( is_tax( 'wporg_workshop_series' ) && have_posts() ) :
 				$series_term = wporg_workshop_series_get_term( $post );
 				?>
 				<div class="section-heading_description col-12">
