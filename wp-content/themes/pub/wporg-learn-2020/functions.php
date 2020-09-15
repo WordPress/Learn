@@ -285,6 +285,7 @@ function wporg_workshop_maybe_apply_query_filters( WP_Query &$query ) {
 			'topic'    => FILTER_SANITIZE_STRING,
 			'language' => FILTER_SANITIZE_STRING,
 			'captions' => FILTER_SANITIZE_STRING,
+			'search'   => FILTER_SANITIZE_STRING,
 		),
 		false
 	);
@@ -332,6 +333,9 @@ function wporg_workshop_maybe_apply_query_filters( WP_Query &$query ) {
 						'key'   => 'video_caption_language',
 						'value' => $filter_value,
 					);
+					break;
+				case 'search':
+					$query->set( 's', $filter_value );
 					break;
 			}
 		}
