@@ -256,11 +256,13 @@ function wporg_workshop_modify_query( WP_Query $query ) {
 	if ( $query->is_main_query() && $query->is_post_type_archive( 'wporg_workshop' ) ) {
 		wporg_workshop_maybe_apply_query_filters( $query );
 
-		$featured = wporg_get_featured_workshops();
+		if ( true !== $query->get( 'wporg_workshop_filters' ) ) {
+			$featured = wporg_get_featured_workshops();
 
-		if ( ! empty( $featured ) ) {
-			$featured = reset( $featured );
-			$query->set( 'post__not_in', array( $featured->ID ) );
+			if ( ! empty( $featured ) ) {
+				$featured = reset( $featured );
+				$query->set( 'post__not_in', array( $featured->ID ) );
+			}
 		}
 	}
 
@@ -281,8 +283,8 @@ function wporg_workshop_maybe_apply_query_filters( WP_Query &$query ) {
 	$filters = filter_input_array(
 		INPUT_GET,
 		array(
-			'series'   => FILTER_SANITIZE_STRING,
-			'topic'    => FILTER_SANITIZE_STRING,
+			'series'   => FILTER_SANITIZE_NUMBER_INT,
+			'topic'    => FILTER_SANITIZE_NUMBER_INT,
 			'language' => FILTER_SANITIZE_STRING,
 			'captions' => FILTER_SANITIZE_STRING,
 			'search'   => FILTER_SANITIZE_STRING,
@@ -292,6 +294,7 @@ function wporg_workshop_maybe_apply_query_filters( WP_Query &$query ) {
 
 	$meta_query = array();
 	$tax_query = array();
+	$is_filtered = false;
 
 	if ( is_array( $filters ) ) {
 		$filters = array_filter( $filters );
@@ -336,6 +339,7 @@ function wporg_workshop_maybe_apply_query_filters( WP_Query &$query ) {
 					break;
 				case 'search':
 					$query->set( 's', $filter_value );
+					$is_filtered = true;
 					break;
 			}
 		}
@@ -343,10 +347,16 @@ function wporg_workshop_maybe_apply_query_filters( WP_Query &$query ) {
 
 	if ( ! empty( $meta_query ) ) {
 		$query->set( 'meta_query', $meta_query );
+		$is_filtered = true;
 	}
 
 	if ( ! empty( $tax_query ) ) {
 		$query->set( 'tax_query', $tax_query );
+		$is_filtered = true;
+	}
+
+	if ( $is_filtered ) {
+		$query->set( 'wporg_workshop_filters', true );
 	}
 }
 
@@ -378,8 +388,6 @@ function wporg_get_featured_workshops( $number = 1 ) {
 	$query = wporg_get_workshops_query( array(
 		'posts_per_page' => $number,
 	) );
-
-	wporg_workshop_maybe_apply_query_filters( $query );
 
 	return $query->get_posts();
 }

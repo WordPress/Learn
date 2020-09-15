@@ -1,4 +1,8 @@
-<?php get_header(); ?>
+<?php
+global $wp_query;
+$is_filtered = $wp_query->get( 'wporg_workshop_filters' );
+
+get_header(); ?>
 
 <main class="site-main">
 	<section>
@@ -20,7 +24,7 @@
 
 		<?php if ( have_posts() ) : ?>
 			<?php // Only show the featured workshop on the first page of post type archives.
-			if ( is_post_type_archive() && get_query_var( 'paged' ) < 2 ) : ?>
+			if ( is_post_type_archive() && get_query_var( 'paged' ) < 2 && ! $is_filtered ) : ?>
 				<?php get_template_part( 'template-parts/component', 'featured-workshop' ); ?>
 			<?php endif; ?>
 			<?php get_template_part( 'template-parts/component', 'video-grid' ); ?>
