@@ -457,6 +457,10 @@ function wporg_workshop_series_get_term( $workshop = null ) {
 		$workshop = get_post( $workshop );
 	}
 
+	if ( empty( $workshop ) ) {
+		return false;
+	}
+
 	$terms = wp_get_post_terms( $workshop->ID, 'wporg_workshop_series' );
 
 	if ( empty( $terms ) ) {
