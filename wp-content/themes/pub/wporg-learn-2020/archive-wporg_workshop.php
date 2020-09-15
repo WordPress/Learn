@@ -18,13 +18,19 @@
 			<?php get_template_part( 'template-parts/component', 'filters' ); ?>
 		<?php endif; ?>
 
-		<?php // Only show the featured workshop on the first page of post type archives.
-		if ( is_post_type_archive() && get_query_var( 'paged' ) < 2 ) : ?>
-			<?php get_template_part( 'template-parts/component', 'featured-workshop' ); ?>
-		<?php endif; ?>
-		<?php get_template_part( 'template-parts/component', 'video-grid' ); ?>
+		<?php if ( have_posts() ) : ?>
+			<?php // Only show the featured workshop on the first page of post type archives.
+			if ( is_post_type_archive() && get_query_var( 'paged' ) < 2 ) : ?>
+				<?php get_template_part( 'template-parts/component', 'featured-workshop' ); ?>
+			<?php endif; ?>
+			<?php get_template_part( 'template-parts/component', 'video-grid' ); ?>
 
-		<?php the_posts_pagination(); ?>
+			<?php the_posts_pagination(); ?>
+		<?php else : ?>
+			<p>
+				<?php esc_html_e( 'No workshops were found.', 'wporg-learn' ); ?>
+			</p>
+		<?php endif; ?>
 	</section>
 	<hr>
 
