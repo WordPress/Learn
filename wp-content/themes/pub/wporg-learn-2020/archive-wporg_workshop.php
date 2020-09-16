@@ -19,7 +19,7 @@ get_header(); ?>
 		</div>
 		<hr>
 		<?php if ( is_post_type_archive( 'wporg_workshop' ) ) : ?>
-			<?php get_template_part( 'template-parts/component', 'filters' ); ?>
+			<?php get_template_part( 'template-parts/component', 'workshop-filters' ); ?>
 		<?php endif; ?>
 
 		<?php if ( have_posts() ) : ?>
