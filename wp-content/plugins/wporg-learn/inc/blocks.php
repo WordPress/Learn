@@ -3,6 +3,7 @@
 namespace WPOrg_Learn\Blocks;
 
 use Error;
+use function WordPressdotorg\Locales\get_locale_name_from_code;
 use function WPOrg_Learn\Post_Meta\get_workshop_duration;
 
 defined( 'WPINC' ) || die();
@@ -73,7 +74,11 @@ function get_workshop_details_html_output( $fields ) {
 	$output = '<ul class="wp-block-wporg-learn-workshop-details">';
 
 	foreach ( $fields as $key => $value ) {
-		$output .= sprintf( '<li><b>%1$s</b><span>%2$s</span></li>', $key, $value );
+		$output .= sprintf(
+			'<li><b>%1$s</b><span>%2$s</span></li>',
+			$key,
+			$value
+		);
 	}
 
 	$output .= '</ul>';
@@ -98,8 +103,16 @@ function workshop_details_render_callback( $attributes, $content ) {
 		__( 'Length', 'wporg-learn' )   => get_workshop_duration( $post, 'string' ),
 		__( 'Topic', 'wporg-learn' )    => implode( ', ', array_map( 'esc_html', $topics ) ),
 		__( 'Level', 'wporg-learn' )    => implode( ', ', array_map( 'esc_html', $level ) ),
-		__( 'Language', 'wporg-learn' ) => esc_html( $post->video_language ),
-		__( 'Captions', 'wporg-learn' ) => implode( ', ', array_map( 'esc_html', $captions ) ),
+		__( 'Language', 'wporg-learn' ) => esc_html( get_locale_name_from_code( $post->video_language, 'native' ) ),
+		__( 'Captions', 'wporg-learn' ) => implode(
+			', ',
+			array_map(
+				function( $caption_lang ) {
+					return esc_html( get_locale_name_from_code( $caption_lang, 'native' ) );
+				},
+				$captions
+			)
+		),
 	);
 
 	// Remove empty fields.
