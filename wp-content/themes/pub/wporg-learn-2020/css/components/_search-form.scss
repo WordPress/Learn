@@ -7,7 +7,6 @@
 	display: flex;
 	align-items: center;
 
-
 	> input {
 		flex: 1;
 		border: 0;
@@ -28,52 +27,84 @@
 	}
 }
 
-.site-header.home .search-form,
-.page-content .search-form {
-	display: flex;
-	justify-content: space-between;
+.search-form {
+	&--is-inline {
+		.search-form {
+			display: flex;
+			justify-content: space-between;
 
-	background: #fff;
-	max-width: $gutter-default * 24;
+			background: #fff;
 
-	> label {
-		flex: 1;
-	}
+			> label {
+				flex: 1;
+			}
 
-	input {
+			input {
 
-		padding: 0.5rem;
-		background: transparent;
-		border: none;
-		box-shadow: none;
-		width: 100%;
-		font-size: 14px;
+				padding: 0.5rem;
+				background: transparent;
+				border: none;
+				box-shadow: none;
+				width: 100%;
+				font-size: 14px;
 
-		@media only screen and (min-width: $breakpoint-tablet) {
-			font-size: 16px;
+				@media only screen and (min-width: $breakpoint-tablet) {
+					font-size: 16px;
+				}
+			}
+
+			button {
+				background: transparent;
+				margin-bottom: 0;
+				border: 0;
+				box-shadow: none;
+				height: inherit;
+				text-shadow: none;
+				color: #32373c;
+
+				&:focus {
+					-webkit-box-shadow: 0 0 2px 1px $color__wp-blue;
+					box-shadow: 0 0 2px 1px $color__wp-blue;
+				}
+			}
 		}
 	}
 
-	button {
-		background: transparent;
-		margin-bottom: 0;
-		border: 0;
-		box-shadow: none;
-		height: inherit;
-		text-shadow: none;
-		color: #32373c;
-
-		&:focus {
-			-webkit-box-shadow: 0 0 2px 1px $color__wp-blue;
-			box-shadow: 0 0 2px 1px $color__wp-blue;
+	&--is-centered {
+		.search-form {
+			margin: 0 auto;
 		}
 	}
-}
 
-.site-header.home .search-form {
-	margin: 0 auto;
-}
+	&--is-constrained {
+		.search-form {
+			max-width: $gutter-default * 24;
+		}
+	}
 
-.page-content .search-form {
-	border: 1px solid $color-gray-200;
+	&--is-muted {
+		.search-form {
+			input,
+			button {
+				background: #f8f9f9;
+				color: #7e8993;
+			}
+			border-color: #d7dade !important;
+
+		}
+	}
+
+	&--has-medium-text {
+		.search-form {
+			input {
+				font-size: 14px;
+			}
+		}
+	}
+
+	&--has-border {
+		.search-form {
+			border: 1px solid $color-gray-200;
+		}
+	}
 }

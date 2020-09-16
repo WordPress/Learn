@@ -81,4 +81,19 @@ namespace WordPressdotorg\Locales {
 
 		return wp_list_pluck( $locales, 'english_name', 'wp_locale' );
 	}
+
+	/**
+	 * Get the name of a locale from the code.
+	 *
+	 * @param string $code      The locale code to look up. E.g. en_US.
+	 * @param string $name_type Optional. 'native' or 'english'. Default 'native'.
+	 *
+	 * @return mixed|string
+	 */
+	function get_locale_name_from_code( $code, $name_type = 'native' ) {
+		$function = __NAMESPACE__ . "\get_locales_with_{$name_type}_names";
+		$locales  = $function();
+
+		return $locales[ $code ] ?? '';
+	}
 }

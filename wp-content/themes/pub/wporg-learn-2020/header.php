@@ -42,14 +42,9 @@ $menu_items = array(
 					?>
 				</p>
 
-				<form role="search" method="get" class="search-form" action="<?php esc_url( home_url( '/' ) ); ?>">
-					<label>
-						<span class="screen-reader-text"><?php esc_html_e( 'Search for:', 'wporg-learn' ); ?></span>
-						<input type="search" class="search-field" placeholder="<?php esc_attr_e( 'Search for a teaching resource', 'wporg-learn' ); ?>" value="<?php get_search_query(); ?>" name="s" />
-					</label>
-					<button type="submit" class="search-submit button button-primary button-search"><i class="dashicons dashicons-search"></i><span class="screen-reader-text"><?php esc_attr_e( 'Search', 'wporg-learn' ); ?></span></button>
-				</form>
-
+				<div class="search-form--is-inline search-form--is-constrained search-form--is-centered">
+					<?php get_search_form(); ?>
+				</div>
 				<?php elseif ( is_page() ) : ?>
 				<h1 class="site-title"><a href="<?php echo esc_url( get_the_permalink() ); ?>" rel="home"><?php the_title(); ?></a></h1>
 				<?php else : ?>
@@ -79,7 +74,7 @@ $menu_items = array(
 								</a>
 							</li>
 							<?php endforeach; ?>
-							<li><?php get_search_form(); ?></li>
+							<li><?php get_search_form( array( 'placeholder' => __( 'Search for a resource', 'wporg-learn' ) ) ); ?></li>
 						</ul>
 					</div>
 				</nav><!-- #site-navigation -->

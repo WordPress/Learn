@@ -19,8 +19,8 @@ define( __NAMESPACE__ . '\PLUGIN_URL', plugins_url( '/', __FILE__ ) );
  * Actions and filters.
  */
 add_action( 'plugins_loaded', __NAMESPACE__ . '\load_files' );
-add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\register_thirdparty_assets', 9 );
-add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\register_thirdparty_assets', 9 );
+add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\register_thirdparty_assets', 1 );
+add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\register_thirdparty_assets', 1 );
 
 /**
  * Shortcut to the includes directory.
@@ -54,8 +54,7 @@ function register_thirdparty_assets() {
 		'select2',
 		plugins_url( '/3rd-party/selectWoo/js/selectWoo.min.js', __FILE__ ),
 		array( 'jquery' ),
-		'1.0.8',
-		true
+		'1.0.8'
 	);
 
 	wp_register_style(
@@ -64,4 +63,12 @@ function register_thirdparty_assets() {
 		array(),
 		'1.0.8'
 	);
+
+	if ( 'enqueue_block_editor_assets' === current_action() ) {
+		global $typenow;
+		if ( 'wporg_workshop' === $typenow ) {
+			wp_enqueue_script( 'select2' );
+			wp_enqueue_style( 'select2' );
+		}
+	}
 }

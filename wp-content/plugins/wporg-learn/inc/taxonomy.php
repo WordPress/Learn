@@ -344,6 +344,7 @@ function register_workshop_topic() {
 		'labels'            => $labels,
 		'hierarchical'      => true,
 		'public'            => true,
+		'query_var'         => 'wporg_workshop_topic',
 		'show_ui'           => true,
 		'show_admin_column' => true,
 		'show_in_nav_menus' => true,

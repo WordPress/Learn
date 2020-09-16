@@ -1,10 +1,11 @@
 <?php
 
+use function WordPressdotorg\Locales\get_locale_name_from_code;
 use function WPOrg_Learn\Post_Meta\get_workshop_duration;
 
 $topics = wp_get_post_terms( $post->ID, 'topic', array( 'fields' => 'names' ) );
 $topics_string = implode( ', ', array_map( 'esc_html', $topics ) );
-$languages = esc_html( $post->video_language );
+$languages = esc_html( get_locale_name_from_code( $post->video_language, 'native' ) );
 $duration = get_workshop_duration( $post, 'string' );
 
 $post_tags = array(

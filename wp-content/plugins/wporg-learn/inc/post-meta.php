@@ -4,6 +4,7 @@ namespace WPOrg_Learn\Post_Meta;
 
 use DateTime, DateInterval;
 use WP_Post;
+use function WordPressdotorg\Locales\{ get_locales_with_english_names };
 
 defined( 'WPINC' ) || die();
 
@@ -58,7 +59,8 @@ function register_workshop_meta() {
 			'description'       => __( 'The language that the workshop is presented in.', 'wporg_learn' ),
 			'type'              => 'string',
 			'single'            => true,
-			'sanitize_callback' => '', // todo
+			'default'           => 'en_US',
+			'sanitize_callback' => __NAMESPACE__ . '\sanitize_locale',
 			'show_in_rest'      => true,
 		)
 	);
@@ -70,10 +72,35 @@ function register_workshop_meta() {
 			'description'       => __( 'A language for which captions are available for the workshop video.', 'wporg_learn' ),
 			'type'              => 'string',
 			'single'            => false,
-			'sanitize_callback' => '', // todo
+			'sanitize_callback' => __NAMESPACE__ . '\sanitize_locale',
 			'show_in_rest'      => true,
 		)
 	);
+}
+
+/**
+ * Sanitize a locale value.
+ *
+ * @param string $meta_value
+ * @param string $meta_key
+ * @param string $object_type
+ * @param string $object_subtype
+ *
+ * @return string
+ */
+function sanitize_locale( $meta_value, $meta_key, $object_type, $object_subtype ) {
+	if ( 'wporg_workshop' !== $object_subtype ) {
+		return $meta_value;
+	}
+
+	$meta_value = trim( $meta_value );
+	$locales = array_keys( get_locales_with_english_names() );
+
+	if ( ! in_array( $meta_value, $locales, true ) ) {
+		return '';
+	}
+
+	return $meta_value;
 }
 
 /**
@@ -126,6 +153,39 @@ function get_workshop_duration( WP_Post $workshop, $format = 'raw' ) {
 }
 
 /**
+ * Get a list of locales that are associated with at least one workshop.
+ *
+ * @param string $meta_key
+ * @param string $label_language
+ *
+ * @return array
+ */
+function get_available_workshop_locales( $meta_key, $label_language = 'english' ) {
+	global $wpdb;
+
+	$results = $wpdb->get_col( $wpdb->prepare(
+		"
+			SELECT DISTINCT meta_value
+			FROM $wpdb->postmeta
+			WHERE meta_key = %s
+			ORDER BY meta_value ASC
+		",
+		$meta_key
+	) );
+
+	if ( empty( $results ) ) {
+		return array();
+	}
+
+	$available_locales = array_fill_keys( $results, '' );
+
+	$locale_fn = "\WordPressdotorg\Locales\get_locales_with_{$label_language}_names";
+	$locales   = $locale_fn();
+
+	return array_intersect_key( $locales, $available_locales );
+}
+
+/**
  * Add meta boxes to the Edit Workshop screen.
  *
  * Todo these should be replaced with block editor panels.
@@ -155,6 +215,7 @@ function add_workshop_metaboxes() {
  */
 function render_metabox_workshop_details( WP_Post $post ) {
 	$duration_interval = get_workshop_duration( $post, 'interval' );
+	$locales           = get_locales_with_english_names();
 	$captions          = get_post_meta( $post->ID, 'video_caption_language' ) ?: array();
 
 	require dirname( dirname( __FILE__ ) ) . '/views/metabox-workshop-details.php';
@@ -198,10 +259,11 @@ function save_workshop_metabox_fields( $post_id, WP_Post $post ) {
 	$video_language = filter_input( INPUT_POST, 'video-language' );
 	update_post_meta( $post_id, 'video_language', $video_language );
 
-	$video_caption_language = filter_input( INPUT_POST, 'video-caption-language' );
-	$captions               = array_map( 'trim', explode( ',', $video_caption_language ) );
-	delete_post_meta( $post_id, 'video_caption_language' );
-	foreach ( $captions as $caption ) {
-		add_post_meta( $post_id, 'video_caption_language', $caption );
+	$captions = filter_input( INPUT_POST, 'video-caption-language', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+	if ( is_array( $captions ) ) {
+		delete_post_meta( $post_id, 'video_caption_language' );
+		foreach ( $captions as $caption ) {
+			add_post_meta( $post_id, 'video_caption_language', $caption );
+		}
 	}
 }
