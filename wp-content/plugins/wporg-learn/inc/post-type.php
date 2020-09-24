@@ -273,6 +273,7 @@ function render_workshop_list_table_columns( $column_name, $post_id ) {
 
 /**
  * Register our post types with Jetpack Sitemaps.
+ *
  * @link https://developer.jetpack.com/hooks/jetpack_sitemap_post_types/
  *
  * @param array $post_types
