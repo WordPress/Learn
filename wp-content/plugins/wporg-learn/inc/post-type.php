@@ -12,6 +12,7 @@ defined( 'WPINC' ) || die();
 add_action( 'init', __NAMESPACE__ . '\register' );
 add_filter( 'manage_wporg_workshop_posts_columns', __NAMESPACE__ . '\add_workshop_list_table_columns' );
 add_action( 'manage_wporg_workshop_posts_custom_column', __NAMESPACE__ . '\render_workshop_list_table_columns', 10, 2 );
+add_filter( 'jetpack_sitemap_post_types', __NAMESPACE__ . '\jetpack_sitemap_post_types' );
 
 /**
  * Register all post types.
@@ -268,4 +269,18 @@ function render_workshop_list_table_columns( $column_name, $post_id ) {
 			) );
 			break;
 	}
+}
+
+/**
+ * Register our post types with Jetpack Sitemaps.
+ * @link https://developer.jetpack.com/hooks/jetpack_sitemap_post_types/
+ *
+ * @param array $post_types
+ * @return array
+ */
+function jetpack_sitemap_post_types( $post_types ) {
+	$post_types[] = 'lesson-plan';
+	$post_types[] = 'wporg_workshop';
+
+	return $post_types;
 }
