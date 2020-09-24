@@ -13,6 +13,7 @@ add_action( 'init', __NAMESPACE__ . '\register' );
 add_filter( 'manage_wporg_workshop_posts_columns', __NAMESPACE__ . '\add_workshop_list_table_columns' );
 add_action( 'manage_wporg_workshop_posts_custom_column', __NAMESPACE__ . '\render_workshop_list_table_columns', 10, 2 );
 add_filter( 'jetpack_sitemap_post_types', __NAMESPACE__ . '\jetpack_sitemap_post_types' );
+add_filter( 'jetpack_page_sitemap_other_urls', __NAMESPACE__ . '\jetpack_page_sitemap_other_urls' );
 
 /**
  * Register all post types.
@@ -284,4 +285,41 @@ function jetpack_sitemap_post_types( $post_types ) {
 	$post_types[] = 'wporg_workshop';
 
 	return $post_types;
+}
+
+/**
+ * Register our post type archives with Jetpack Sitemaps.
+ *
+ * @link https://developer.jetpack.com/hooks/jetpack_page_sitemap_other_urls/
+ *
+ * @param array $urls
+ * @return array
+ */
+function jetpack_page_sitemap_other_urls( $urls ) {
+	foreach ( array( 'wporg_workshop', 'lesson-plan' ) as $post_type ) {
+		$url = get_post_type_archive_link( $post_type );
+		if ( ! $url ) {
+			continue;
+		}
+
+		$latest_post = get_posts( array(
+			'post_type'   => $post_type,
+			'numberposts' => 1,
+			'orderby'     => 'date',
+			'order'       => 'DESC',
+		) );
+		if ( ! $latest_post ) {
+			continue;
+		}
+
+		$urls[] = array(
+			'loc'     => $url,
+			'lastmod' => gmdate(
+				'Y-m-d\TH:i:s\Z',
+				strtotime( $latest_post[0]->post_modified_gmt )
+			),
+		);
+	}
+
+	return $urls;
 }
