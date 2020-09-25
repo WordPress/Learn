@@ -12,6 +12,7 @@
 !/wp-content/mu-plugins
 !/wp-content/mu-plugins/pub
 !/wp-content/mu-plugins/pub/locales.php
+!/wp-content/mu-plugins/pub/class-validator.php
 !/wp-content/plugins
 !/wp-content/plugins/wporg-learn
 !/wp-content/themes
