@@ -58,9 +58,9 @@ class Validator {
 	/**
 	 * Validate a data set.
 	 *
-	 * @param object|WP_Error $data
+	 * @param mixed|WP_Error $data
 	 *
-	 * @return bool|WP_Error
+	 * @return mixed|WP_Error
 	 */
 	public function validate( $data ) {
 		$schema = $this->get_schema();
