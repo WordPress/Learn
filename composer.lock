@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a2c4a5eefae320864a8de2e21cb69d9a",
+    "content-hash": "50bc9a55376d2711f8f4a1d59d7d9790",
     "packages": [
         {
             "name": "composer/installers",
@@ -154,22 +154,58 @@
             "type": "wordpress-theme"
         },
         {
-            "name": "wpackagist-plugin/jetpack",
-            "version": "8.9",
+            "name": "wpackagist-plugin/edit-flow",
+            "version": "0.9.6",
             "source": {
                 "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/jetpack/",
-                "reference": "tags/8.9"
+                "url": "https://plugins.svn.wordpress.org/edit-flow/",
+                "reference": "tags/0.9.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/jetpack.8.9.zip"
+                "url": "https://downloads.wordpress.org/plugin/edit-flow.0.9.6.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/edit-flow/"
+        },
+        {
+            "name": "wpackagist-plugin/jetpack",
+            "version": "8.9.1",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/jetpack/",
+                "reference": "tags/8.9.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/jetpack.8.9.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/jetpack/"
+        },
+        {
+            "name": "wpackagist-plugin/sensei-lms",
+            "version": "3.5.1",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/sensei-lms/",
+                "reference": "tags/3.5.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/sensei-lms.3.5.1.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/sensei-lms/"
         },
         {
             "name": "wpackagist-plugin/wordpress-importer",

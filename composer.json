@@ -53,6 +53,7 @@
 		"composer/installers": "~1.0",
 		"wpackagist-plugin/edit-flow": "*",
 		"wpackagist-plugin/jetpack": "*",
+		"wpackagist-plugin/sensei-lms": "*",
 		"wpackagist-plugin/wordpress-importer": "*",
 		"wordpress-meta/pub": "1",
 		"wordpress-meta/wporg": "1"
