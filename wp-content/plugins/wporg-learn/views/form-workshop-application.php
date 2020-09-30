@@ -4,6 +4,7 @@ namespace WPOrg_Learn\View\Form;
 
 use WP_Error;
 use function WordPressdotorg\Locales\get_locales_with_native_names;
+use function WPOrg_Learn\Form\{ render_input_field, render_textarea_field };
 
 defined( 'WPINC' ) || die();
 
@@ -44,133 +45,106 @@ $prefix = 'submission:';
 			<p>
 				<?php esc_html_e( 'The following data from your user profile will be used in this application:', 'wporg-learn' ); ?>
 			</p>
-			<label for="wporg-user-name">
-				<span class="label-text"><?php esc_html_e( 'WordPress.org User Name', 'wporg-learn' ); ?></span>
-				<input
-					id="wporg-user-name"
-					type="text"
-					value="<?php echo esc_attr( $form['wporg-user-name'] ); ?>"
-					readonly
-				/>
-			</label>
-			<label for="first-name">
-				<span class="label-text"><?php esc_html_e( 'First Name', 'wporg-learn' ); ?></span>
-				<input
-					id="first-name"
-					type="text"
-					value="<?php echo esc_attr( $form['first-name'] ); ?>"
-					readonly
-				/>
-			</label>
-			<label for="last-name">
-				<span class="label-text"><?php esc_html_e( 'Last Name', 'wporg-learn' ); ?></span>
-				<input
-					id="last-name"
-					type="text"
-					value="<?php echo esc_attr( $form['last-name'] ); ?>"
-					readonly
-				/>
-			</label>
-			<label for="email">
-				<span class="label-text"><?php esc_html_e( 'Email', 'wporg-learn' ); ?></span>
-				<input
-					id="email"
-					type="email"
-					value="<?php echo esc_attr( $form['email'] ); ?>"
-					readonly
-				/>
-			</label>
-			<label for="online-presence" <?php echo in_array( 'online-presence', $error_fields, true ) ? 'class="error"' : ''; ?>>
-				<span class="label-text"><?php esc_html_e( 'Where can we find you online? Please share links to your website(s) and as many social media accounts as applicable, including but not limited to Twitter, Linkedin, Facebook, Instagram, etc.', 'wporg-learn' ); ?></span>
-				<span class="required-field"><?php esc_html_e( '(required)', 'wporg-learn' ); ?></span>
-				<?php if ( in_array( 'online-presence', $error_fields, true ) ) : ?>
-					<span class="notice notice-error">
-						<?php echo wp_kses_data( $errors->get_error_message( "{$prefix}online-presence" ) ); ?>
-					</span>
-				<?php endif; ?>
-				<textarea
-					id="online-presence"
-					name="online-presence"
-					required
-				><?php echo esc_html( $form['online-presence'] ); ?></textarea>
-			</label>
+			<?php
+			echo render_input_field( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				'label'         => __( 'WordPress.org User Name', 'wporg-learn' ),
+				'id'            => 'wporg-user-name',
+				'value'         => $form['wporg-user-name'],
+				'readonly'      => true,
+			) );
+			echo render_input_field( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				'label'         => __( 'First Name', 'wporg-learn' ),
+				'id'            => 'first-name',
+				'value'         => $form['first-name'],
+				'readonly'      => true,
+			) );
+			echo render_input_field( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				'label'         => __( 'Last Name', 'wporg-learn' ),
+				'id'            => 'last-name',
+				'value'         => $form['last-name'],
+				'readonly'      => true,
+			) );
+			echo render_input_field( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				'label'         => __( 'Email', 'wporg-learn' ),
+				'type'          => 'email',
+				'id'            => 'email',
+				'value'         => $form['email'],
+				'readonly'      => true,
+			) );
+			echo render_textarea_field( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				'label'         => __( 'Where can we find you online? Please share links to your website(s) and as many social media accounts as applicable, including but not limited to Twitter, Linkedin, Facebook, Instagram, etc.', 'wporg-learn' ),
+				'id'            => 'online-presence',
+				'name'          => 'online-presence',
+				'value'         => $form['online-presence'],
+				'required'      => true,
+				'error_message' =>
+					in_array( 'online-presence', $error_fields, true )
+						? $errors->get_error_message( "{$prefix}online-presence" )
+						: '',
+			) );
+			?>
 		</fieldset>
 		<fieldset>
 			<legend>
 				<?php esc_html_e( 'Workshop Details', 'wporg-learn' ); ?>
 			</legend>
-			<label for="workshop-title" <?php echo in_array( 'workshop-title', $error_fields, true ) ? 'class="error"' : ''; ?>>
-				<span class="label-text"><?php esc_html_e( 'Workshop Title', 'wporg-learn' ); ?></span>
-				<span class="required-field"><?php esc_html_e( '(required)', 'wporg-learn' ); ?></span>
-				<?php if ( in_array( 'workshop-title', $error_fields, true ) ) : ?>
-					<span class="notice notice-error">
-						<?php echo wp_kses_data( $errors->get_error_message( "{$prefix}workshop-title" ) ); ?>
-					</span>
-				<?php endif; ?>
-				<input
-					id="workshop-title"
-					name="workshop-title"
-					type="text"
-					value="<?php echo esc_attr( $form['workshop-title'] ); ?>"
-					required
-				/>
-			</label>
-			<label for="description-short" <?php echo in_array( 'description-short', $error_fields, true ) ? 'class="error"' : ''; ?>>
-				<span class="label-text"><?php esc_html_e( 'Brief workshop description (less than 150 words)', 'wporg-learn' ); ?></span>
-				<span class="required-field"><?php esc_html_e( '(required)', 'wporg-learn' ); ?></span>
-				<?php if ( in_array( 'description-short', $error_fields, true ) ) : ?>
-					<span class="notice notice-error">
-						<?php echo wp_kses_data( $errors->get_error_message( "{$prefix}description-short" ) ); ?>
-					</span>
-				<?php endif; ?>
-				<textarea
-					id="description-short"
-					name="description-short"
-					required
-				><?php echo esc_html( $form['description-short'] ); ?></textarea>
-			</label>
-			<label for="description" <?php echo in_array( 'description', $error_fields, true ) ? 'class="error"' : ''; ?>>
-				<span class="label-text"><?php esc_html_e( 'Full workshop description', 'wporg-learn' ); ?></span>
-				<span class="required-field"><?php esc_html_e( '(required)', 'wporg-learn' ); ?></span>
-				<?php if ( in_array( 'description', $error_fields, true ) ) : ?>
-					<span class="notice notice-error">
-						<?php echo wp_kses_data( $errors->get_error_message( "{$prefix}description" ) ); ?>
-					</span>
-				<?php endif; ?>
-				<textarea
-					id="description"
-					name="description"
-					required
-				><?php echo esc_html( $form['description'] ); ?></textarea>
-			</label>
-			<label for="learning-objectives" <?php echo in_array( 'learning-objectives', $error_fields, true ) ? 'class="error"' : ''; ?>>
-				<span class="label-text"><?php esc_html_e( 'What are the learning objectives for this workshop?', 'wporg-learn' ); ?></span>
-				<span class="required-field"><?php esc_html_e( '(required)', 'wporg-learn' ); ?></span>
-				<?php if ( in_array( 'learning-objectives', $error_fields, true ) ) : ?>
-					<span class="notice notice-error">
-						<?php echo wp_kses_data( $errors->get_error_message( "{$prefix}learning-objectives" ) ); ?>
-					</span>
-				<?php endif; ?>
-				<textarea
-					id="learning-objectives"
-					name="learning-objectives"
-					required
-				><?php echo esc_html( $form['learning-objectives'] ); ?></textarea>
-			</label>
-			<label for="comprehension-questions" <?php echo in_array( 'comprehension-questions', $error_fields, true ) ? 'class="error"' : ''; ?>>
-				<span class="label-text"><?php esc_html_e( 'What comprehension questions should we ask at the end of your workshop? List at least 3 but no more than 10 questions for workshop viewers to answer on their own or discuss with a group to ensure they properly understood the material.', 'wporg-learn' ); ?></span>
-				<span class="required-field"><?php esc_html_e( '(required)', 'wporg-learn' ); ?></span>
-				<?php if ( in_array( 'comprehension-questions', $error_fields, true ) ) : ?>
-					<span class="notice notice-error">
-						<?php echo wp_kses_data( $errors->get_error_message( "{$prefix}comprehension-questions" ) ); ?>
-					</span>
-				<?php endif; ?>
-				<textarea
-					id="comprehension-questions"
-					name="comprehension-questions"
-					required
-				><?php echo esc_html( $form['comprehension-questions'] ); ?></textarea>
-			</label>
+			<?php
+			echo render_input_field( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				'label'         => __( 'Workshop Title', 'wporg-learn' ),
+				'id'            => 'workshop-title',
+				'name'          => 'workshop-title',
+				'value'         => $form['workshop-title'],
+				'required'      => true,
+				'error_message' =>
+					in_array( 'workshop-title', $error_fields, true )
+						? $errors->get_error_message( "{$prefix}workshop-title" )
+						: '',
+			) );
+			echo render_textarea_field( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				'label'         => __( 'Brief workshop description (less than 150 words)', 'wporg-learn' ),
+				'id'            => 'description-short',
+				'name'          => 'description-short',
+				'value'         => $form['description-short'],
+				'required'      => true,
+				'error_message' =>
+					in_array( 'description-short', $error_fields, true )
+						? $errors->get_error_message( "{$prefix}description-short" )
+						: '',
+			) );
+			echo render_textarea_field( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				'label'         => __( 'Full workshop description', 'wporg-learn' ),
+				'id'            => 'description',
+				'name'          => 'description',
+				'value'         => $form['description'],
+				'required'      => true,
+				'error_message' =>
+					in_array( 'description', $error_fields, true )
+						? $errors->get_error_message( "{$prefix}description" )
+						: '',
+			) );
+			echo render_textarea_field( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				'label'         => __( 'What are the learning objectives for this workshop?', 'wporg-learn' ),
+				'id'            => 'learning-objectives',
+				'name'          => 'learning-objectives',
+				'value'         => $form['learning-objectives'],
+				'required'      => true,
+				'error_message' =>
+					in_array( 'learning-objectives', $error_fields, true )
+						? $errors->get_error_message( "{$prefix}learning-objectives" )
+						: '',
+			) );
+			echo render_textarea_field( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				'label'         => __( 'What comprehension questions should we ask at the end of your workshop? List at least 3 but no more than 10 questions for workshop viewers to answer on their own or discuss with a group to ensure they properly understood the material.', 'wporg-learn' ),
+				'id'            => 'comprehension-questions',
+				'name'          => 'comprehension-questions',
+				'value'         => $form['comprehension-questions'],
+				'required'      => true,
+				'error_message' =>
+					in_array( 'comprehension-questions', $error_fields, true )
+						? $errors->get_error_message( "{$prefix}comprehension-questions" )
+						: '',
+			) );
+			?>
 			<fieldset class="checkbox-group <?php echo in_array( 'audience', $error_fields, true ) ? 'error' : ''; ?>">
 				<legend class="label-text">
 					<?php esc_html_e( 'Who is this workshop intended for?', 'wporg-learn' ); ?>
@@ -275,15 +249,18 @@ $prefix = 'submission:';
 					<?php echo wp_timezone_choice( $form['timezone'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				</select>
 			</label>
-			<label for="comments" <?php echo in_array( 'comments', $error_fields, true ) ? 'class="error"' : ''; ?>>
-				<span class="label-text"><?php esc_html_e( 'Is there anything else you think we should know?', 'wporg-learn' ); ?></span>
-				<?php if ( in_array( 'comments', $error_fields, true ) ) : ?>
-					<span class="notice notice-error">
-						<?php echo wp_kses_data( $errors->get_error_message( "{$prefix}comments" ) ); ?>
-					</span>
-				<?php endif; ?>
-				<textarea id="comments" name="comments"><?php // todo ?></textarea>
-			</label>
+			<?php
+			echo render_textarea_field( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				'label'         => __( 'Is there anything else you think we should know?', 'wporg-learn' ),
+				'id'            => 'comments',
+				'name'          => 'comments',
+				'value'         => $form['comments'],
+				'error_message' =>
+					in_array( 'comments', $error_fields, true )
+						? $errors->get_error_message( "{$prefix}comments" )
+						: '',
+			) );
+			?>
 		</fieldset>
 		<?php wp_nonce_field( 'workshop-application-' . $form['wporg-user-name'], 'nonce' ); ?>
 		<input

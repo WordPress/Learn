@@ -4,14 +4,8 @@ namespace WPOrg_Learn\Blocks;
 
 use Error;
 use function WordPressdotorg\Locales\get_locale_name_from_code;
-use function WPOrg_Learn\{ get_build_path, get_build_url, get_views_path };
-use function WPOrg_Learn\Form\{
-	get_workshop_application_field_schema,
-	get_workshop_application_form_submission,
-	get_workshop_application_form_user_details,
-	process_workshop_application_form_submission,
-	validate_workshop_application_form_submission
-};
+use function WPOrg_Learn\{ get_build_path, get_build_url };
+use function WPOrg_Learn\Form\render_workshop_application_form;
 use function WPOrg_Learn\Post_Meta\get_workshop_duration;
 
 defined( 'WPINC' ) || die();
@@ -182,51 +176,7 @@ function register_workshop_application_form() {
  * @return string
  */
 function workshop_application_form_render_callback() {
-	$schema       = get_workshop_application_field_schema();
-	$defaults     = wp_list_pluck( $schema['properties'], 'default' );
-	$form         = wp_parse_args( get_workshop_application_form_user_details(), $defaults );
-	$errors       = null;
-	$error_fields = array();
-
-	$audience = array(
-		'contributors' => __( 'Contributors', 'wporg-learn' ),
-		'designers'    => __( 'Designers', 'wporg-learn' ),
-		'developers'   => __( 'Developers', 'wporg-learn' ),
-		'publishers'   => __( 'Publishers', 'wporg-learn' ),
-	);
-	$audience_other = array_diff( $form['audience'], array_keys( $audience ) );
-	$audience_other = array_shift( $audience_other );
-
-	$experience_level = array(
-		'beginner'     => __( 'Beginner', 'wporg-learn' ),
-		'intermediate' => __( 'Intermediate', 'wporg-learn' ),
-		'expert'       => __( 'Expert', 'wporg-learn' ),
-	);
-	$experience_level_other = array_diff( $form['experience-level'], array_keys( $experience_level ) );
-	$experience_level_other = array_shift( $experience_level_other );
-
-	$submitted = filter_input( INPUT_POST, 'submit' );
-	if ( $submitted ) {
-		$submission = get_workshop_application_form_submission();
-		$form       = wp_parse_args( $submission, $form );
-		$validation = validate_workshop_application_form_submission( $submission );
-
-		if ( is_wp_error( $validation ) ) {
-			$errors = $validation;
-			$error_fields = array_map(
-				function( $code ) {
-					return str_replace( 'submission:', '', $code );
-				},
-				$validation->get_error_data( 'error' )
-			);
-		} else {
-			process_workshop_application_form_submission( $validation );
-		}
-	}
-
-	ob_start();
-	require get_views_path() . 'form-workshop-application.php';
-	return ob_get_clean();
+	return render_workshop_application_form();
 }
 
 /**
