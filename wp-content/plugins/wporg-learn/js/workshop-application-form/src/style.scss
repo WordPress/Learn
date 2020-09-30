@@ -1,0 +1,15 @@
+.wporg-learn-workshop-application-form {
+	label,
+	input,
+	select,
+	textarea {
+		display: block;
+	}
+
+	fieldset,
+	label {
+		&.error {
+			border: 1px solid red;
+		}
+	}
+}

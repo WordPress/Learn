@@ -1,9 +1,9 @@
-(window["wporgLearnPlugin"] = window["wporgLearnPlugin"] || []).push([["style-block-styles"],{
+(window["wporgLearnPlugin"] = window["wporgLearnPlugin"] || []).push([["style-workshop-application-form"],{
 
-/***/ "./js/block-styles/style.scss":
-/*!************************************!*\
-  !*** ./js/block-styles/style.scss ***!
-  \************************************/
+/***/ "./js/workshop-application-form/src/style.scss":
+/*!*****************************************************!*\
+  !*** ./js/workshop-application-form/src/style.scss ***!
+  \*****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -72,7 +72,7 @@
 /******/ 	// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 	// Promise = chunk loading, 0 = chunk loaded
 /******/ 	var installedChunks = {
-/******/ 		"block-styles": 0
+/******/ 		"workshop-application-form": 0
 /******/ 	};
 /******/
 /******/ 	var deferredModules = [];
@@ -163,17 +163,64 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push(["./js/block-styles/index.js","style-block-styles"]);
+/******/ 	deferredModules.push(["./js/workshop-application-form/src/index.js","style-workshop-application-form"]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./js/block-styles/index.js":
-/*!**********************************!*\
-  !*** ./js/block-styles/index.js ***!
-  \**********************************/
+/***/ "./js/workshop-application-form/src/edit.js":
+/*!**************************************************!*\
+  !*** ./js/workshop-application-form/src/edit.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Edit; });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./editor.scss */ "./js/workshop-application-form/src/editor.scss");
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_editor_scss__WEBPACK_IMPORTED_MODULE_2__);
+
+
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+function Edit(_ref) {
+  var className = _ref.className;
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: className
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Workshop Application Form', 'wporg-learn')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('This will render a form on the front end.', 'wporg-learn')));
+}
+
+/***/ }),
+
+/***/ "./js/workshop-application-form/src/editor.scss":
+/*!******************************************************!*\
+  !*** ./js/workshop-application-form/src/editor.scss ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "./js/workshop-application-form/src/index.js":
+/*!***************************************************!*\
+  !*** ./js/workshop-application-form/src/index.js ***!
+  \***************************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -183,26 +230,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./style.scss */ "./js/block-styles/style.scss");
-/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_style_scss__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit */ "./js/workshop-application-form/src/edit.js");
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./style.scss */ "./js/workshop-application-form/src/style.scss");
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_style_scss__WEBPACK_IMPORTED_MODULE_3__);
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
 
 
 
-Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockStyle"])('core/button', {
-  name: 'primary',
-  label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Primary', 'wporg-learn')
-});
-Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockStyle"])('core/button', {
-  name: 'primary-full-width',
-  label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Primary (Full-width)', 'wporg-learn')
-});
-Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockStyle"])('core/button', {
-  name: 'secondary',
-  label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Secondary', 'wporg-learn')
-});
-Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockStyle"])('core/button', {
-  name: 'secondary-full-width',
-  label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Secondary (Full-width)', 'wporg-learn')
+Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockType"])('wporg-learn/workshop-application-form', {
+  title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Workshop Application Form', 'wporg-learn'),
+  description: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Render a form for applying to present a workshop.', 'wporg-learn'),
+  category: 'widgets',
+  icon: 'smiley',
+  supports: {
+    html: false
+  },
+  edit: _edit__WEBPACK_IMPORTED_MODULE_2__["default"],
+  save: function save() {
+    return null;
+  }
 });
 
 /***/ }),
@@ -218,6 +271,17 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockStyle"])('co
 
 /***/ }),
 
+/***/ "@wordpress/element":
+/*!******************************************!*\
+  !*** external {"this":["wp","element"]} ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+(function() { module.exports = this["wp"]["element"]; }());
+
+/***/ }),
+
 /***/ "@wordpress/i18n":
 /*!***************************************!*\
   !*** external {"this":["wp","i18n"]} ***!
@@ -230,4 +294,4 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockStyle"])('co
 /***/ })
 
 /******/ });
-//# sourceMappingURL=block-styles.js.map
+//# sourceMappingURL=workshop-application-form.js.map
