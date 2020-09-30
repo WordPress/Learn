@@ -191,7 +191,11 @@ function validate_workshop_application_form_submission( $submission ) {
 	return $validator->validate( $submission );
 }
 
-
+/**
+ * Do stuff with a valid form submission.
+ *
+ * @param array $submission
+ */
 function process_workshop_application_form_submission( $submission ) {
 	// todo
 }
