@@ -3,15 +3,11 @@
 	margin: 0 auto;
 }
 
-.home-page .shapes .parallelogram::before {
-	font-size: 80px;
+.home-page .shapes .parallelogram p::before {
+	font-size: 64px;
 	height: 64px;
-	left: -30px;
+	left: -16px;
 	position: relative;
-}
-
-.home-page .shapes .parallelogram.lesson-plans::before {
-	font-size: 60px; /* Normalize the icon appearance */
 }
 
 .home-page .shapes .parallelogram {
@@ -32,7 +28,7 @@
 	z-index: 10;
 }
 
-.home-page .shapes .parallelogram.workshop-ideas {
+.home-page .shapes .parallelogram.workshops {
 	background-color: $color-accent-green-shade1;
 	top: 0;
 	left: 16px;
@@ -71,7 +67,7 @@
 		padding: 50px 90px;
 	}
 
-	.home-page .shapes .parallelogram.workshop-ideas {
+	.home-page .shapes .parallelogram.workshops {
 		margin-top: 0;
 	}
 }
@@ -84,25 +80,20 @@
 		transform: skew(-15deg);
 	}
 
-	.home-page .shapes .parallelogram::before {
+	.home-page .shapes .parallelogram::before,
+	.home-page .shapes p {
 		-webkit-transform: skew(15deg);
 		-ms-transform: skew(15deg);
 		transform: skew(15deg);
 	}
 
-	.home-page .shapes .parallelogram.workshop-ideas {
+	.home-page .shapes .parallelogram.workshops {
 		margin-top: 0;
 		left: 32px;
 	}
 
 	.home-page .shapes .parallelogram.lesson-plans {
 		right: 32px;
-	}
-
-	.home-page .shapes p {
-		-webkit-transform: skew(15deg);
-		-ms-transform: skew(15deg);
-		transform: skew(15deg);
 	}
 }
 
