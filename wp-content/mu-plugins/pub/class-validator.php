@@ -105,11 +105,8 @@ class Validator {
 
 		if ( ! is_object( $object ) ) {
 			$this->errors->add(
-				'error',
-				sprintf(
-					__( '%s must contain an object value.', 'wporg' ),
-					'<code>' . $prop . '</code>'
-				)
+				$prop,
+				__( 'This must be an object.', 'wporg' ),
 			);
 			$this->append_error_data( $prop, 'error' );
 
@@ -136,12 +133,8 @@ class Validator {
 			foreach ( $schema['required'] as $required_prop ) {
 				if ( ! property_exists( $object, $required_prop ) ) {
 					$this->errors->add(
-						'error',
-						sprintf(
-							__( 'The %1$s property is required in the %2$s object.', 'wporg' ),
-							'<code>' . $required_prop . '</code>',
-							'<code>' . $prop . '</code>'
-						)
+						"$prop:$required_prop",
+						__( 'This is required.', 'wporg' )
 					);
 					$this->append_error_data( "$prop:$required_prop", 'error' );
 					$results[] = false;
@@ -171,12 +164,8 @@ class Validator {
 				foreach ( array_keys( get_object_vars( $object ) ) as $key ) {
 					if ( ! isset( $schema['properties'][ $key ] ) ) {
 						$this->errors->add(
-							'error',
-							sprintf(
-								__( '%1$s is not a valid property in the %2$s object.', 'wporg' ),
-								'<code>' . $key . '</code>',
-								'<code>' . $prop . '</code>'
-							)
+							"$prop:$key",
+							__( 'This is not a valid property.', 'wporg' ),
 						);
 						$this->append_error_data( "$prop:$key", 'error' );
 						$results[] = false;
@@ -210,20 +199,56 @@ class Validator {
 	protected function validate_array( $array, $prop, $schema ) {
 		if ( ! wp_is_numeric_array( $array ) ) {
 			$this->errors->add(
-				'error',
-				sprintf(
-					__( '%s must contain an array value.', 'wporg' ),
-					'<code>' . $prop . '</code>'
-				)
+				$prop,
+				__( 'This must be an array.', 'wporg' )
 			);
 			$this->append_error_data( $prop, 'error' );
 
 			return false;
 		}
 
+		$results = array();
+
+		if ( isset( $schema['minItems'] ) ) {
+			if ( count( $array ) < $schema['minItems'] ) {
+				$this->errors->add(
+					$prop,
+					sprintf(
+						_n(
+							'This must contain at least %d item.',
+							'This must contain at least %d items.',
+							absint( $schema['minItems'] ),
+							'wporg-learn'
+						),
+						number_format_i18n( floatval( $schema['minItems'] ) )
+					)
+				);
+				$this->append_error_data( $prop, 'error' );
+				$results[] = false;
+			}
+		}
+
+		if ( isset( $schema['maxItems'] ) ) {
+			if ( count( $array ) > $schema['maxItems'] ) {
+				$this->errors->add(
+					$prop,
+					sprintf(
+						_n(
+							'This must contain at most %d item.',
+							'This must contain at most %d items.',
+							absint( $schema['minItems'] ),
+							'wporg-learn'
+						),
+						number_format_i18n( floatval( $schema['maxItems'] ) )
+					)
+				);
+				$this->append_error_data( $prop, 'error' );
+				$results[] = false;
+			}
+		}
+
 		if ( isset( $schema['items']['type'] ) ) {
-			$results = array();
-			$index   = 0;
+			$index = 0;
 
 			foreach ( $array as $item ) {
 				$results[] = $this->route_validation_for_type(
@@ -234,11 +259,9 @@ class Validator {
 				);
 				$index ++;
 			}
-
-			return ! in_array( false, $results, true );
 		}
 
-		return true;
+		return ! in_array( false, $results, true );
 	}
 
 	/**
@@ -253,11 +276,8 @@ class Validator {
 	protected function validate_string( $string, $prop, $schema ) {
 		if ( ! is_string( $string ) ) {
 			$this->errors->add(
-				'error',
-				sprintf(
-					__( '%s must contain a string value.', 'wporg' ),
-					'<code>' . $prop . '</code>'
-				)
+				$prop,
+				__( 'This must be a string.', 'wporg' )
 			);
 			$this->append_error_data( $prop, 'error' );
 
@@ -267,11 +287,10 @@ class Validator {
 		if ( isset( $schema['enum'] ) ) {
 			if ( ! in_array( $string, $schema['enum'], true ) ) {
 				$this->errors->add(
-					'error',
+					$prop,
 					sprintf(
-						__( '"%1$s" is not a valid value for the %2$s property.', 'wporg' ),
+						__( '"%s" is not a valid value.', 'wporg' ),
 						esc_html( $string ),
-						'<code>' . $prop . '</code>'
 					)
 				);
 				$this->append_error_data( $prop, 'error' );
@@ -289,13 +308,10 @@ class Validator {
 						'<code>' . $prop . '</code>'
 					);
 				} else {
-					$message = sprintf(
-						__( 'The value of %s does not match the required pattern.', 'wporg' ),
-						'<code>' . $prop . '</code>'
-					);
+					$message = __( 'This does not match the required pattern.', 'wporg' );
 				}
 
-				$this->errors->add( 'error', $message );
+				$this->errors->add( $prop, $message );
 				$this->append_error_data( $prop, 'error' );
 
 				return false;
@@ -307,11 +323,8 @@ class Validator {
 				case 'email':
 					if ( ! is_email( $string ) ) {
 						$this->errors->add(
-							'error',
-							sprintf(
-								__( '%s must contain a valid email address.', 'wporg' ),
-								'<code>' . $prop . '</code>'
-							)
+							$prop,
+							__( 'This must be a valid email address.', 'wporg' )
 						);
 						$this->append_error_data( $prop, 'error' );
 
@@ -324,11 +337,15 @@ class Validator {
 		if ( isset( $schema['minLength'] ) ) {
 			if ( strlen( $string ) < $schema['minLength'] ) {
 				$this->errors->add(
-					'error',
+					$prop,
 					sprintf(
-						__( '%1$s must be at least %2$d characters long.', 'wporg' ),
-						'<code>' . $prop . '</code>',
-						absint( $schema['minLength'] )
+						_n(
+							'This must be at least %d character long.',
+							'This must be at least %d characters long.',
+							absint( $schema['minLength'] ),
+							'wporg-learn'
+						),
+						number_format_i18n( floatval( $schema['minLength'] ) )
 					)
 				);
 				$this->append_error_data( $prop, 'error' );
@@ -340,11 +357,15 @@ class Validator {
 		if ( isset( $schema['maxLength'] ) ) {
 			if ( strlen( $string ) > $schema['maxLength'] ) {
 				$this->errors->add(
-					'error',
+					$prop,
 					sprintf(
-						__( '%1$s must be at most %2$d characters long.', 'wporg' ),
-						'<code>' . $prop . '</code>',
-						absint( $schema['maxLength'] )
+						_n(
+							'This must be at most %d character long.',
+							'This must be at most %d characters long.',
+							absint( $schema['maxLength'] ),
+							'wporg-learn'
+						),
+						number_format_i18n( floatval( $schema['maxLength'] ) )
 					)
 				);
 				$this->append_error_data( $prop, 'error' );
@@ -368,11 +389,8 @@ class Validator {
 	protected function validate_number( $number, $prop, $schema ) {
 		if ( ! is_numeric( $number ) ) {
 			$this->errors->add(
-				'error',
-				sprintf(
-					__( '%s must contain a numeric value.', 'wporg' ),
-					'<code>' . $prop . '</code>'
-				)
+				$prop,
+				__( 'This must be a numeric value.', 'wporg' )
 			);
 			$this->append_error_data( $prop, 'error' );
 
@@ -383,11 +401,10 @@ class Validator {
 			$precision = $this->get_number_precision( $schema['minimum'] );
 			if ( round( floatval( $number ), $precision ) < floatval( $schema['minimum'] ) ) {
 				$this->errors->add(
-					'error',
+					$prop,
 					sprintf(
-						__( 'The value of %1$s must be at least %2$f.', 'wporg' ),
-						'<code>' . $prop . '</code>',
-						floatval( $schema['minimum'] )
+						__( 'This value must be at least %f.', 'wporg' ),
+						number_format_i18n( floatval( $schema['minimum'] ), $precision )
 					)
 				);
 				$this->append_error_data( $prop, 'error' );
@@ -400,11 +417,10 @@ class Validator {
 			$precision = $this->get_number_precision( $schema['maximum'] );
 			if ( round( floatval( $number ), $precision ) > floatval( $schema['maximum'] ) ) {
 				$this->errors->add(
-					'error',
+					$prop,
 					sprintf(
-						__( 'The value of %1$s must be at most %2$f.', 'wporg' ),
-						'<code>' . $prop . '</code>',
-						floatval( $schema['maximum'] )
+						__( 'This value must be at most %f.', 'wporg' ),
+						number_format_i18n( floatval( $schema['maximum'] ), $precision )
 					)
 				);
 				$this->append_error_data( $prop, 'error' );
@@ -428,11 +444,8 @@ class Validator {
 	protected function validate_integer( $number, $prop, $schema ) {
 		if ( ! is_int( $number ) ) {
 			$this->errors->add(
-				'error',
-				sprintf(
-					__( '%s must contain an integer value.', 'wporg' ),
-					'<code>' . $prop . '</code>'
-				)
+				$prop,
+				__( 'This must be an integer value.', 'wporg' )
 			);
 			$this->append_error_data( $prop, 'error' );
 
@@ -454,9 +467,9 @@ class Validator {
 	protected function validate_boolean( $boolean, $prop ) {
 		if ( ! is_bool( $boolean ) ) {
 			$this->errors->add(
-				'error',
+				$prop,
 				sprintf(
-					__( '%s must contain a boolean value.', 'wporg' ),
+					__( 'This must be a boolean value.', 'wporg' ),
 					'<code>' . $prop . '</code>'
 				)
 			);
@@ -507,10 +520,9 @@ class Validator {
 
 		// Made it this far, it's none of the valid types.
 		$this->errors->add(
-			'error',
+			$prop,
 			sprintf(
-				__( '%1$s must contain a value that is one of these types: %2$s', 'wporg' ),
-				'<code>' . $prop . '</code>',
+				__( 'This must contain a value that is one of these types: %s', 'wporg' ),
 				// translators: used between list items, there is a space after the comma.
 				'<code>' . implode( '</code>' . __( ', ', 'wporg' ) . '<code>', $valid_types ) . '</code>'
 			)
@@ -552,7 +564,7 @@ class Validator {
 		 *
 		 * Example:
 		 *     - Pattern: \.css$
-		 *     - Description: The value must end in ".css".
+		 *     - Description: This value must end in ".css".
 		 *
 		 * @param string $description The description.
 		 * @param string $pattern     The regular expression.

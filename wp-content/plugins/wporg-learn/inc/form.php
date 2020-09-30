@@ -27,13 +27,13 @@ function get_workshop_application_field_schema() {
 			'first-name'              => array(
 				'input_filters' => FILTER_SANITIZE_STRING,
 				'type'          => 'string',
-				'required'      => true,
+				'required'      => false,
 				'default'       => '',
 			),
 			'last-name'               => array(
 				'input_filters' => FILTER_SANITIZE_STRING,
 				'type'          => 'string',
-				'required'      => true,
+				'required'      => false,
 				'default'       => '',
 			),
 			'email'                   => array(
@@ -88,8 +88,9 @@ function get_workshop_application_field_schema() {
 				'items'         => array(
 					'type' => 'string',
 				),
+				'minItems'      => 1,
 				'required'      => true,
-				'default'       => '',
+				'default'       => array(),
 			),
 			'experience-level'        => array(
 				'input_filters' => array(
@@ -100,8 +101,9 @@ function get_workshop_application_field_schema() {
 				'items'         => array(
 					'type' => 'string',
 				),
+				'minItems'      => 1,
 				'required'      => true,
-				'default'       => '',
+				'default'       => array(),
 			),
 			'language'                => array(
 				'input_filters' => FILTER_SANITIZE_STRING,
@@ -114,7 +116,7 @@ function get_workshop_application_field_schema() {
 				'input_filters' => FILTER_SANITIZE_STRING,
 				'type'          => 'string',
 				'required'      => true,
-				'default'       => 'UTC-0',
+				'default'       => 'UTC+0',
 			),
 			'comments'                => array(
 				'input_filters' => FILTER_SANITIZE_STRING,
@@ -142,28 +144,37 @@ function get_workshop_application_form_submission() {
 
 	$submission = filter_input_array(
 		INPUT_POST,
-		wp_list_pluck( $schema, 'input_filters' ),
+		wp_list_pluck( $schema['properties'], 'input_filters' ),
 		false
 	);
 
 	if ( empty( $submission ) ) {
-		$submission = array();
+		return array();
 	}
 
-	$current_user = wp_get_current_user();
-
-	if ( $current_user instanceof WP_User ) {
-		$user = array(
-			'wporg-user-name' => $current_user->user_login,
-			'first-name'      => $current_user->user_firstname,
-			'last-name'       => $current_user->user_lastname,
-			'email'           => $current_user->user_email,
-		);
-
-		$submission = array_merge( $submission, $user );
-	}
+	$submission = array_merge( $submission, get_workshop_application_form_user_details() );
 
 	return array_filter( $submission );
+}
+
+/**
+ * Get relevant data about the current user for the application form.
+ *
+ * @return array
+ */
+function get_workshop_application_form_user_details() {
+	$current_user = wp_get_current_user();
+
+	if ( ! $current_user instanceof WP_User ) {
+		return array();
+	}
+
+	return array(
+		'wporg-user-name' => $current_user->user_login,
+		'first-name'      => $current_user->user_firstname,
+		'last-name'       => $current_user->user_lastname,
+		'email'           => $current_user->user_email,
+	);
 }
 
 /**
@@ -178,4 +189,9 @@ function validate_workshop_application_form_submission( $submission ) {
 	$submission = (object) $submission;
 
 	return $validator->validate( $submission );
+}
+
+
+function process_workshop_application_form_submission( $submission ) {
+	// todo
 }
