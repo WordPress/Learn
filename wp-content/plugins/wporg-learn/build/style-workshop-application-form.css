@@ -1,12 +1,2 @@
-.wporg-learn-workshop-application-form label,
-.wporg-learn-workshop-application-form input,
-.wporg-learn-workshop-application-form select,
-.wporg-learn-workshop-application-form textarea {
-  display: block; }
+.wporg-learn-workshop-application-form label,.wporg-learn-workshop-application-form input,.wporg-learn-workshop-application-form select,.wporg-learn-workshop-application-form textarea{display:block}.wporg-learn-workshop-application-form fieldset.error,.wporg-learn-workshop-application-form label.error{border:1px solid #f00}
 
-.wporg-learn-workshop-application-form fieldset.error,
-.wporg-learn-workshop-application-form label.error {
-  border: 1px solid red; }
-
-
-/*# sourceMappingURL=style-workshop-application-form.css.map*/
