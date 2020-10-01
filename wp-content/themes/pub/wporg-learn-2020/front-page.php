@@ -11,8 +11,8 @@ get_header(); ?>
 	<main id="main" class="site-main home-page" role="main">
 		<section class="quick-intro">
 			<div class="shapes">
-				<a class="parallelogram workshop-ideas dashicons-before dashicons-slides" href="/workshops/">
-					<p>
+				<a class="parallelogram workshops" href="/workshops/">
+					<p class="dashicons-before dashicons-desktop">
 						<strong><?php esc_html_e( 'Workshops', 'wporg-learn' ); ?></strong>
 						<?php
 						esc_html_e( 'Workshops are a great way to get hands-on with WordPress. Here are some workshops for you to level up your WordPress skills.', 'wporg-learn' );
@@ -20,8 +20,8 @@ get_header(); ?>
 						<u><?php esc_html_e( 'Browse Workshops', 'wporg-learn' ); ?></u>
 					</p>
 				</a>
-				<a class="parallelogram lesson-plans dashicons-before dashicons-clipboard" href="/lesson-plans/">
-					<p>
+				<a class="parallelogram lesson-plans" href="/lesson-plans/">
+					<p class="dashicons-before dashicons-clipboard">
 						<strong><?php esc_html_e( 'Lesson Plans', 'wporg-learn' ); ?></strong>
 						<?php
 						esc_html_e( 'Are you teaching WordPress to others? These lesson plans are designed to guide and inspire you to deliver great content.', 'wporg-learn' );
