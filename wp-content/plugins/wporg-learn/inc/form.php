@@ -198,7 +198,55 @@ function validate_workshop_application_form_submission( $submission ) {
  * @param array $submission
  */
 function process_workshop_application_form_submission( $submission ) {
-	// todo
+	// TODO validate nonce
+
+	$validated = validate_workshop_application_form_submission( $submission );
+
+	if ( is_wp_error( $validated ) ) {
+		$error_count = count( $validated->get_error_data( 'error' ) );
+
+		$validated->add(
+			'submission_error',
+			sprintf(
+				_n(
+					'There is %d form field that needs attention.',
+					'There are %d form fields that need attention.',
+					$error_count,
+					'wporg-learn'
+				),
+				number_format_i18n( floatval( $error_count ) )
+			)
+		);
+
+		return $validated;
+	}
+
+	// todo Generate post content from template.
+	// todo Add taxonomy terms from audience and experience-level?
+
+	$post_args = array(
+		'post_status' => 'draft', // todo switch to an Edit Flow custom status.
+		'post_type'   => 'wporg_workshop',
+		'post_title'  => $validated['workshop-title'],
+		'post_excerpt' => $validated['description-short'],
+		'meta_input'  => array(
+			'video_language'       => $validated['language'],
+			'original_application' => $validated,
+		),
+	);
+
+	$result = wp_insert_post( $post_args );
+
+	if ( is_wp_error( $result ) ) {
+		return new WP_Error(
+			'submission_error',
+			$result->get_error_message()
+		);
+	}
+
+	// todo Send notification emails.
+
+	return true;
 }
 
 /**
@@ -207,11 +255,37 @@ function process_workshop_application_form_submission( $submission ) {
  * @return string
  */
 function render_workshop_application_form() {
-	$schema       = get_workshop_application_field_schema();
-	$defaults     = wp_list_pluck( $schema['properties'], 'default' );
-	$form         = wp_parse_args( get_workshop_application_form_user_details(), $defaults );
-	$errors       = null;
+	$schema     = get_workshop_application_field_schema();
+	$defaults   = wp_parse_args(
+		get_workshop_application_form_user_details(),
+		wp_list_pluck( $schema['properties'], 'default' )
+	);
+
+	if ( filter_input( INPUT_POST, 'submit' ) ) {
+		$submission = get_workshop_application_form_submission();
+		$processed  = process_workshop_application_form_submission( $submission );
+
+		if ( is_wp_error( $processed ) ) {
+			$state = 'error';
+		} else {
+			$state = 'success';
+		}
+	}
+
+	$form = $defaults;
+	$errors = null;
 	$error_fields = array();
+
+	if ( 'error' === $state ) {
+		$form = wp_parse_args( $submission, $defaults );
+		$errors = $processed;
+		$error_fields = array_map(
+			function( $code ) {
+				return str_replace( 'submission:', '', $code );
+			},
+			$processed->get_error_data( 'error' )
+		);
+	}
 
 	$audience = array(
 		'contributors' => __( 'Contributors', 'wporg-learn' ),
@@ -229,25 +303,6 @@ function render_workshop_application_form() {
 	);
 	$experience_level_other = array_diff( $form['experience-level'], array_keys( $experience_level ) );
 	$experience_level_other = array_shift( $experience_level_other );
-
-	$submitted = filter_input( INPUT_POST, 'submit' );
-	if ( $submitted ) {
-		$submission = get_workshop_application_form_submission();
-		$form       = wp_parse_args( $submission, $form );
-		$validation = validate_workshop_application_form_submission( $submission );
-
-		if ( is_wp_error( $validation ) ) {
-			$errors = $validation;
-			$error_fields = array_map(
-				function( $code ) {
-					return str_replace( 'submission:', '', $code );
-				},
-				$validation->get_error_data( 'error' )
-			);
-		} else {
-			process_workshop_application_form_submission( $validation );
-		}
-	}
 
 	ob_start();
 	require get_views_path() . 'form-workshop-application.php';
