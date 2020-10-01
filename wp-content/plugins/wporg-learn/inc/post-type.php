@@ -116,61 +116,86 @@ function register_workshop() {
 		'filter_items_list'     => __( 'Filter Workshops list', 'wporg_learn' ),
 	);
 
-	$video_template_part = array( 'core/group',
-		array( 'className' => 'workshop-page_video' ),
-		array( array( 'core-embed/wordpress-tv' ) ),
-	);
-
-	$outcome_template_part = array( 'core/group',
-		array( 'className' => 'workshop-page_list' ),
+	$template = array(
 		array(
-			array( 'core/heading', array(
-				'level'   => '2',
-				'content' => __( 'Learning outcomes', 'wporg-learn' ),
-			),
+			'core-embed/wordpress-tv',
+			array( 'className' => 'workshop-page_video' ),
 		),
-			array( 'core/list', array(
-				'ordered' => true,
-			 ),
-		),
-		),
-	);
-
-	$comprehension_template_part = array( 'core/group',
-		array( 'className' => 'workshop-page_list' ),
 		array(
-			array( 'core/heading', array(
-				'level'   => '2',
-				'content' => __( 'Comprehension questions', 'wporg-learn' ),
+			'core/columns',
+			array( 'className' => 'workshop-page_content' ),
+			array(
+				array(
+					'core/column',
+					array( 'width' => 66.66 ),
+					array(
+						array(
+							'core/paragraph',
+							array(
+								'placeholder' => __( 'Describe what the workshop is about.', 'wporg-learn' ),
+							),
+						),
+						array(
+							'core/heading',
+							array(
+								'level'   => '2',
+								'content' => __( 'Learning outcomes', 'wporg-learn' ),
+							),
+						),
+						array(
+							'core/list',
+							array(
+								'className' => 'workshop-page_list',
+								'ordered'   => true,
+							),
+						),
+						array(
+							'core/heading',
+							array(
+								'level'   => '2',
+								'content' => __( 'Comprehension questions', 'wporg-learn' ),
+							),
+						),
+						array(
+							'core/list',
+							array(
+								'className' => 'workshop-page_list',
+							),
+						),
+					),
+				), // End column block.
+				array(
+					'core/column',
+					array(
+						'className' => 'workshop-page_sidebar',
+						'width'     => 33.333,
+					),
+					array(
+						array( 'wporg-learn/workshop-details' ),
+						array(
+							'core/button',
+							array(
+								'className'    => 'is-style-secondary-full-width',
+								'text'         => __( 'Join a Group Discussion', 'wporg-learn' ),
+								'url'          => 'https://www.meetup.com/learn-wordpress-discussions/events/',
+								'borderRadius' => 5,
+							),
+						),
+						array(
+							'core/paragraph',
+							array(
+								'className' => 'terms',
+								'content'   => sprintf(
+									__( 'You must agree to our <a href="%s">Code of Conduct</a> in order to participate.', 'wporg-learn' ),
+									'https://learn.wordpress.org/code-of-conduct/'
+								),
+							),
+						),
+					),
+				), // End column block.
 			),
-		),
-			array( 'core/list', array(
-				'ordered' => true,
-			),
-		),
-		),
-	);
-
-	$sidebar_template_part = array( 'core/group',
-		array( 'className' => 'workshop-page_sidebar' ),
-		array(
-			array( 'wporg-learn/workshop-details' ),
-			array( 'core/button', array(
-				'text'         => __( 'Join a Group Discussion', 'wporg-learn' ),
-				'url'          => 'https://www.meetup.com/learn-wordpress-discussions/events/',
-				'borderRadius' => 5,
-				'className'    => 'is-style-secondary-full-width',
-			),
-		),
-			array( 'core/paragraph', array(
-				'className' => 'terms',
-				'content'   => sprintf(
-					__( 'You must agree to our <a href="%s">Code of Conduct</a> in order to participate.', 'wporg-learn' ),
-					'https://learn.wordpress.org/code-of-conduct/'
-				),
-			),
-		),
-		),
+		), // End columns block.
+		array( 'core/separator' ),
 	);
 
 	$args = array(
@@ -195,31 +220,7 @@ function register_workshop() {
 		'show_in_rest'        => true,
 		'template_lock'       => 'all',
 		'rewrite'             => array( 'slug' => 'workshop' ),
-		'template'            => array(
-			array( 'core/group',
-			array( 'className' => 'workshop-page_content' ),
-				array(
-					$video_template_part,
-					array( 'core/columns', array(), array(
-						array( 'core/column', array( 'width' => 66.66 ), array(
-							array( 'core/paragraph', array(
-								'placeholder' => __( 'Describe what the workshop is about', 'wporg-learn' ),
-							),
-						),
-							$outcome_template_part,
-							$comprehension_template_part,
-						),
-					),
-						array( 'core/column', array( 'width' => 33.333 ), array(
-							$sidebar_template_part,
-						),
-					),
-					),
-				),
-				),
-			),
-			array( 'core/separator', array() ),
-		),
+		'template'            => $template,
 	);
 
 	register_post_type( 'wporg_workshop', $args );
