@@ -171,7 +171,7 @@ function generate_workshop_template_structure( array $blurbs = array() ) {
 		// Turn separate lines into list items.
 		$content = str_replace( array( "\r\n", "\r" ), "\n", $blurbs[ $key ] );
 		$split   = explode( "\n", $content );
-		$split   = array_filter( array_map( 'trim', $split ) );
+		$split   = array_filter( array_map( 'trim', (array) $split ) );
 
 		if ( ! empty( $split ) ) {
 			$blurbs[ $key ] = '<li>' . implode( '</li><li>', $split ) . '</li>';
