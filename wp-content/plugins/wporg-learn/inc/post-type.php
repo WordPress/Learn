@@ -145,39 +145,14 @@ function register_workshop() {
 }
 
 /**
- * Create an array representation of a workshop's content template, with or without real content.
+ * Create an array representation of a workshop's content template.
  *
- * @param array $blurbs {
- *     The parts of the template that can be populated with real content.
- *
- *     @type string $description
- *     @type string $learning_objectives
- *     @type string $comprehension_questions
- * }
+ * Note that if this template structure changes, the content in views/content-workshop.php
+ * will also need to be updated.
  *
  * @return array
  */
-function generate_workshop_template_structure( array $blurbs = array() ) {
-	$blurbs = wp_parse_args(
-		$blurbs,
-		array(
-			'description'             => '',
-			'learning_objectives'     => '',
-			'comprehension_questions' => '',
-		)
-	);
-
-	foreach ( array( 'learning_objectives', 'comprehension_questions' ) as $key ) {
-		// Turn separate lines into list items.
-		$content = str_replace( array( "\r\n", "\r" ), "\n", $blurbs[ $key ] );
-		$split   = explode( "\n", $content );
-		$split   = array_filter( array_map( 'trim', (array) $split ) );
-
-		if ( ! empty( $split ) ) {
-			$blurbs[ $key ] = '<li>' . implode( '</li><li>', $split ) . '</li>';
-		}
-	}
-
+function generate_workshop_template_structure() {
 	$template = array(
 		array(
 			'core-embed/wordpress-tv',
@@ -195,7 +170,6 @@ function generate_workshop_template_structure( array $blurbs = array() ) {
 							'core/paragraph',
 							array(
 								'placeholder' => __( 'Describe what the workshop is about.', 'wporg-learn' ),
-								'content'     => $blurbs['description'],
 							),
 						),
 						array(
@@ -210,7 +184,6 @@ function generate_workshop_template_structure( array $blurbs = array() ) {
 							array(
 								'className' => 'workshop-page_list',
 								'ordered'   => true,
-								'values'    => $blurbs['learning_objectives'],
 							),
 						),
 						array(
@@ -224,7 +197,6 @@ function generate_workshop_template_structure( array $blurbs = array() ) {
 							'core/list',
 							array(
 								'className' => 'workshop-page_list',
-								'values'    => $blurbs['comprehension_questions'],
 							),
 						),
 					),

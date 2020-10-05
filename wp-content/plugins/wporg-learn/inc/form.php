@@ -187,7 +187,6 @@ function get_workshop_application_form_user_details() {
  */
 function validate_workshop_application_form_submission( $submission ) {
 	$validator  = new Validator( get_workshop_application_field_schema() );
-	$submission = (object) $submission;
 
 	return $validator->validate( $submission );
 }
@@ -221,15 +220,60 @@ function process_workshop_application_form_submission( $submission ) {
 		return $validated;
 	}
 
-	// todo Generate post content from template.
 	// todo Add taxonomy terms from audience and experience-level?
 
+	$blurbs = wp_parse_args(
+		$validated,
+		array(
+			'description'             => '',
+			'learning-objectives'     => '',
+			'comprehension-questions' => '',
+		)
+	);
+
+	$blurbs['description'] = wpautop( $blurbs['description'] );
+	if ( empty( $blurbs['description'] ) ) {
+		$blurbs['description'] = '
+			<!-- wp:paragraph {"placeholder":"Describe what the workshop is about."} -->
+			<p></p>
+			<!-- /wp:paragraph -->
+		';
+	} else {
+		$blurbs['description'] = str_replace(
+			array(
+				'<p>',
+				'</p>',
+			),
+			array(
+				"\n<!-- wp:paragraph -->\n<p>",
+				"</p>\n<!-- /wp:paragraph -->\n",
+			),
+			$blurbs['description']
+		);
+	}
+
+	foreach ( array( 'learning-objectives', 'comprehension-questions' ) as $key ) {
+		// Turn separate lines into list items.
+		$content = str_replace( array( "\r\n", "\r" ), "\n", $blurbs[ $key ] );
+		$split   = explode( "\n", $content );
+		$split   = array_filter( array_map( 'trim', (array) $split ) );
+
+		if ( ! empty( $split ) ) {
+			$blurbs[ $key ] = '<li>' . implode( '</li><li>', $split ) . '</li>';
+		}
+	}
+
+	ob_start();
+	require get_views_path() . 'content-workshop.php';
+	$content = ob_get_clean();
+
 	$post_args = array(
-		'post_status' => 'draft', // todo switch to an Edit Flow custom status.
-		'post_type'   => 'wporg_workshop',
-		'post_title'  => $validated['workshop-title'],
+		'post_status'  => 'needs-vetting', // Custom status created in Edit Flow.
+		'post_type'    => 'wporg_workshop',
+		'post_title'   => $validated['workshop-title'],
 		'post_excerpt' => $validated['description-short'],
-		'meta_input'  => array(
+		'post_content' => $content,
+		'meta_input'   => array(
 			'video_language'       => $validated['language'],
 			'original_application' => $validated,
 		),
@@ -260,6 +304,8 @@ function render_workshop_application_form() {
 		get_workshop_application_form_user_details(),
 		wp_list_pluck( $schema['properties'], 'default' )
 	);
+
+	$state = is_user_logged_in() ? 'new' : 'logged-out';
 
 	if ( filter_input( INPUT_POST, 'submit' ) ) {
 		$submission = get_workshop_application_form_submission();

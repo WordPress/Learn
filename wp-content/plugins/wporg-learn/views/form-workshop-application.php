@@ -8,6 +8,7 @@ use function WPOrg_Learn\Form\{ render_input_field, render_textarea_field };
 
 defined( 'WPINC' ) || die();
 
+/** @var string $state */
 /** @var array $form */
 /** @var WP_Error|null $errors */
 /** @var array $error_fields */
@@ -19,7 +20,7 @@ defined( 'WPINC' ) || die();
 $prefix = 'submission:';
 ?>
 
-<?php if ( is_user_logged_in() ) : ?>
+<?php if ( in_array( $state, array( 'new', 'error' ) ) ) : ?>
 	<form method="post" class="wp-block wporg-learn-workshop-application-form">
 		<?php if ( ! empty( $messages ) ) : ?>
 			<?php foreach ( $messages as $message ) : ?>
@@ -270,11 +271,18 @@ $prefix = 'submission:';
 			value="<?php esc_attr_e( 'Submit', 'wporg-learn' ); ?>"
 		/>
 	</form>
+<?php elseif ( 'success' === $state ) : ?>
+	<h2>
+		<?php esc_html_e( 'Success!', 'wporg-learn' ); ?>
+	</h2>
+	<p>
+		<?php esc_html_e( 'Your application has been submitted.', 'wporg-learn' ); ?>
+	</p>
 <?php else : ?>
 	<p>
 		<?php
 		printf(
-			wp_kses_post( __( 'You must be logged in with your WordPress.org account to submit this application. <a href="%s">Log in.</a>', 'wporg-learn' ) ),
+			wp_kses_post( __( 'You must be logged in with your WordPress.org account to view and submit this application. <a href="%s">Log in.</a>', 'wporg-learn' ) ),
 			esc_url( wp_login_url( apply_filters( 'the_permalink', get_permalink() ) ) )
 		);
 		?>
