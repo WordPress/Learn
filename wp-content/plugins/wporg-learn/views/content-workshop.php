@@ -53,7 +53,7 @@
 		<p class="terms">
 			<?php
 			printf(
-				esc_html__( 'You must agree to our <a href="%s">Code of Conduct</a> in order to participate.', 'wporg-learn' ),
+				wp_kses_post( __( 'You must agree to our <a href="%s">Code of Conduct</a> in order to participate.', 'wporg-learn' ) ),
 				'https://learn.wordpress.org/code-of-conduct/'
 			);
 			?>
