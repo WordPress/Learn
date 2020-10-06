@@ -197,7 +197,14 @@ function validate_workshop_application_form_submission( $submission ) {
  * @param array $submission
  */
 function process_workshop_application_form_submission( $submission ) {
-	// TODO validate nonce
+	$nonce = $submission['nonce'] ?? '';
+	$user  = $submission['wporg-user-name'] ?? '';
+	if ( ! wp_verify_nonce( $nonce, 'workshop-application-' . $user ) ) {
+		return new WP_Error(
+			'submission_error',
+			__( 'The form submission failed. Please try again.', 'wporg-learn' )
+		);
+	}
 
 	$validated = validate_workshop_application_form_submission( $submission );
 
@@ -326,9 +333,10 @@ function render_workshop_application_form() {
 		}
 	}
 
-	$form = $defaults;
-	$errors = null;
+	$form         = $defaults;
+	$errors       = null;
 	$error_fields = array();
+	$messages     = array();
 
 	if ( 'error' === $state ) {
 		$form = wp_parse_args( $submission, $defaults );
@@ -337,8 +345,9 @@ function render_workshop_application_form() {
 			function( $code ) {
 				return str_replace( 'submission:', '', $code );
 			},
-			$processed->get_error_data( 'error' )
+			$processed->get_error_data( 'error' ) ?? array()
 		);
+		$messages = $errors->get_error_messages( 'submission_error' );
 	}
 
 	$audience = array(

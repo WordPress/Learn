@@ -12,6 +12,7 @@ defined( 'WPINC' ) || die();
 /** @var array $form */
 /** @var WP_Error|null $errors */
 /** @var array $error_fields */
+/** @var array $messages */
 /** @var array $audience */
 /** @var string $audience_other */
 /** @var array $experience_level */
