@@ -155,17 +155,9 @@ function register_workshop_application_form() {
 		filemtime( get_build_path() . 'workshop-application-form.css' )
 	);
 
-	wp_register_style(
-		'workshop-application-form-style',
-		get_build_url() . 'style-workshop-application-form.css',
-		array(),
-		filemtime( get_build_path() . 'style-workshop-application-form.css' )
-	);
-
 	register_block_type( 'wporg-learn/workshop-application-form', array(
 		'editor_script'   => 'workshop-application-form-editor-script',
 		'editor_style'    => 'workshop-application-form-editor-style',
-		'style'           => 'workshop-application-form-style',
 		'render_callback' => __NAMESPACE__ . '\workshop_application_form_render_callback',
 	) );
 }

@@ -8,7 +8,6 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import Edit from './edit';
-import './style.scss';
 
 registerBlockType( 'wporg-learn/workshop-application-form', {
 	title: __( 'Workshop Application Form', 'wporg-learn' ),

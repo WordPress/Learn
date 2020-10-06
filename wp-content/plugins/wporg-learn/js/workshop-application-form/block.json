@@ -9,6 +9,5 @@
 		"html": false
 	},
 	"editorScript": "file:../../build/workshop-application-form.js",
-	"editorStyle": "file:../../build/workshop-application-form.css",
-	"style": "file:../../build/style-workshop-application-form.css"
+	"editorStyle": "file:../../build/workshop-application-form.css"
 }
