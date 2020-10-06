@@ -256,7 +256,15 @@ function process_workshop_application_form_submission( $submission ) {
 		// Turn separate lines into list items.
 		$content = str_replace( array( "\r\n", "\r" ), "\n", $blurbs[ $key ] );
 		$split   = explode( "\n", $content );
-		$split   = array_filter( array_map( 'trim', (array) $split ) );
+		$split   = array_filter( array_map(
+			function( $item ) {
+				// Attempt to strip out list item enumeration characters.
+				$item = preg_replace( '/^([\*\-]+|[1-9]{1,2}[\.\)]?|[A-Z]+[\.\)]?) ?/', '', $item );
+
+				return trim( $item );
+			},
+			(array) $split
+		) );
 
 		if ( ! empty( $split ) ) {
 			$blurbs[ $key ] = '<li>' . implode( '</li><li>', $split ) . '</li>';
