@@ -7,7 +7,6 @@ use function WordPressdotorg\Locales\get_locale_name_from_code;
 use function WPOrg_Learn\{ get_build_path, get_build_url };
 use function WPOrg_Learn\Form\render_workshop_application_form;
 use function WPOrg_Learn\Post_Meta\get_workshop_duration;
-use const WPOrg_Learn\{ PLUGIN_DIR, PLUGIN_URL };
 
 defined( 'WPINC' ) || die();
 
@@ -149,11 +148,19 @@ function register_workshop_application_form() {
 		$script_asset['version']
 	);
 
+	$script_asset_path = get_build_path() . 'form.asset.php';
+	if ( ! is_readable( $script_asset_path ) ) {
+		throw new Error(
+			'You need to run `npm start` or `npm run build` first.'
+		);
+	}
+
+	$script_asset = require $script_asset_path;
 	wp_register_script(
 		'workshop-application-form-script',
-		PLUGIN_URL . 'js/form.js',
-		array( 'jquery', 'select2' ),
-		filemtime( PLUGIN_DIR . 'js/form.js' ),
+		get_build_url() . 'form.js',
+		array_merge( $script_asset['dependencies'], array( 'jquery', 'select2' ) ),
+		$script_asset['version'],
 		true
 	);
 

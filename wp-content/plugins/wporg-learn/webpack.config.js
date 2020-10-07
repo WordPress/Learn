@@ -7,6 +7,7 @@ config.entry = {
 	'block-styles': './js/block-styles/index.js',
 	'workshop-application-form': './js/workshop-application-form/src/index.js',
 	'workshop-details': './js/workshop-details/src/index.js',
+	'form': './js/form.js',
 }
 
 /**

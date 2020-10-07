@@ -1,22 +1,25 @@
-(function($) {
-	var checkOther = document.querySelectorAll('.checkbox-and-text');
+const jQuery = window.jQuery || {};
 
-	Array.from(checkOther).forEach(function(container) {
-		var checkbox = container.querySelector('input[type="checkbox"]'),
-			text     = container.querySelector('input[type="text"]');
+( ( $ ) => {
+	const checkOther = document.querySelectorAll( '.checkbox-and-text' );
 
-		text.addEventListener('input', function(event) {
-			checkbox.checked = !! event.target.value;
-		});
+	Array.from( checkOther ).forEach( function ( container ) {
+		const checkbox = container.querySelector( 'input[type="checkbox"]' ),
+			text = container.querySelector( 'input[type="text"]' );
 
-		checkbox.addEventListener('change', function(event) {
-			if (event.target.checked) {
+		text.addEventListener(
+			'input',
+			( event ) => ( checkbox.checked = !! event.target.value )
+		);
+
+		checkbox.addEventListener( 'change', ( event ) => {
+			if ( event.target.checked ) {
 				text.focus();
 			} else {
 				text.value = '';
 			}
-		});
-	});
+		} );
+	} );
 
-	$('.do-select2').select2();
-})(jQuery);
+	$( '.do-select2' ).select2();
+} )( jQuery );
