@@ -22,6 +22,16 @@ $prefix = 'submission:';
 ?>
 
 <?php if ( in_array( $state, array( 'new', 'error' ) ) ) : ?>
+	<p>
+		<?php
+		printf(
+			wp_kses_post( __( 'You are logged in as <a href="%1$s">%2$s</a>. <a href="%3$s">Log out?</a>', 'wporg-learn' ) ),
+			esc_url( "https://profiles.wordpress.org/{$form['wporg-user-name']}/" ),
+			esc_html( $form['wporg-user-name'] ),
+			esc_url( wp_logout_url( apply_filters( 'the_permalink', get_permalink() ) ) )
+		);
+		?>
+	</p>
 	<form method="post" class="wp-block wporg-learn-workshop-application-form">
 		<?php if ( ! empty( $messages ) ) : ?>
 			<?php foreach ( $messages as $message ) : ?>
@@ -30,20 +40,10 @@ $prefix = 'submission:';
 				</div>
 			<?php endforeach; ?>
 		<?php endif; ?>
-		<fieldset>
+		<fieldset class="section">
 			<legend>
 				<?php esc_html_e( 'Presenter Details', 'wporg-learn' ); ?>
 			</legend>
-			<p>
-				<?php
-				printf(
-					wp_kses_post( __( 'You are logged in as <a href="%1$s">%2$s</a>. <a href="%3$s">Log out?</a>', 'wporg-learn' ) ),
-					esc_url( "https://profiles.wordpress.org/{$form['wporg-user-name']}/" ),
-					esc_html( $form['wporg-user-name'] ),
-					esc_url( wp_logout_url( apply_filters( 'the_permalink', get_permalink() ) ) )
-				);
-				?>
-			</p>
 			<p>
 				<?php esc_html_e( 'The following data from your user profile will be used in this application:', 'wporg-learn' ); ?>
 			</p>
@@ -86,7 +86,7 @@ $prefix = 'submission:';
 			) );
 			?>
 		</fieldset>
-		<fieldset>
+		<fieldset class="section">
 			<legend>
 				<?php esc_html_e( 'Workshop Details', 'wporg-learn' ); ?>
 			</legend>
@@ -158,7 +158,7 @@ $prefix = 'submission:';
 					</span>
 				<?php endif; ?>
 				<?php foreach ( $audience as $audience_value => $audience_label ) : ?>
-					<label for="audience-<?php echo esc_attr( $audience_value ); ?>">
+					<label for="audience-<?php echo esc_attr( $audience_value ); ?>" class="label-checkbox">
 						<input
 							id="audience-<?php echo esc_attr( $audience_value ); ?>"
 							name="audience[]"
@@ -169,7 +169,7 @@ $prefix = 'submission:';
 						<span class="label-text-checkbox"><?php echo esc_html( $audience_label ); ?></span>
 					</label>
 				<?php endforeach; ?>
-				<label for="audience-other">
+				<label for="audience-other" class="label-checkbox">
 					<input
 						id="audience-other"
 						type="checkbox"
@@ -196,7 +196,7 @@ $prefix = 'submission:';
 					</span>
 				<?php endif; ?>
 				<?php foreach ( $experience_level as $experience_level_value => $experience_level_label ) : ?>
-					<label for="experience-level-<?php echo esc_attr( $experience_level_value ); ?>">
+					<label for="experience-level-<?php echo esc_attr( $experience_level_value ); ?>" class="label-checkbox">
 						<input
 								id="experience-level-<?php echo esc_attr( $experience_level_value ); ?>"
 								name="experience-level[]"
@@ -207,7 +207,7 @@ $prefix = 'submission:';
 						<span class="label-text-checkbox"><?php echo esc_html( $experience_level_label ); ?></span>
 					</label>
 				<?php endforeach; ?>
-				<label for="experience-level-other">
+				<label for="experience-level-other" class="label-checkbox">
 					<input
 						id="experience-level-other"
 						type="checkbox"
@@ -268,7 +268,7 @@ $prefix = 'submission:';
 		<input
 			type="submit"
 			name="submit"
-			class="is-style-primary"
+			class="button button-primary"
 			value="<?php esc_attr_e( 'Submit', 'wporg-learn' ); ?>"
 		/>
 	</form>
