@@ -4,7 +4,7 @@ namespace WPOrg_Learn\Form;
 
 use WP_Error, WP_User;
 use WordPressdotorg\Validator;
-use function WordPressdotorg\Locales\get_locales_with_native_names;
+use function WordPressdotorg\Locales\get_locales_with_english_names;
 use function WPOrg_Learn\get_views_path;
 
 defined( 'WPINC' ) || die();
@@ -122,7 +122,7 @@ function get_workshop_application_field_schema() {
 				'input_filters' => FILTER_SANITIZE_STRING,
 				'label'         => __( 'In what language will this workshop be presented?', 'wporg-learn' ),
 				'type'          => 'string',
-				'enum'          => array_keys( get_locales_with_native_names() ),
+				'enum'          => array_keys( get_locales_with_english_names() ),
 				'required'      => true,
 				'default'       => 'en_US',
 			),
@@ -257,10 +257,46 @@ function process_workshop_application_form_submission( $submission ) {
 		return $validated;
 	}
 
-	// todo Add taxonomy terms from audience and experience-level?
+	$content = prepare_post_content_from_submission( $validated );
 
+	$post_args = array(
+		'post_status'  => 'needs-vetting', // Custom status created in Edit Flow.
+		'post_type'    => 'wporg_workshop',
+		'post_title'   => $validated['workshop-title'],
+		'post_excerpt' => $validated['description-short'],
+		'post_content' => $content,
+		'meta_input'   => array(
+			'video_language'       => $validated['language'],
+			'original_application' => $validated,
+		),
+	);
+
+	$result = wp_insert_post( $post_args );
+
+	if ( is_wp_error( $result ) ) {
+		return new WP_Error(
+			'submission_error',
+			$result->get_error_message()
+		);
+	}
+
+	add_post_meta( $result, 'presenter_wporg_username', $validated['wporg-user-name'] );
+
+	// todo Send notification emails.
+
+	return true;
+}
+
+/**
+ * Convert certain submission field values into a post content string.
+ *
+ * @param array $submission
+ *
+ * @return string
+ */
+function prepare_post_content_from_submission( $submission ) {
 	$blurbs = wp_parse_args(
-		$validated,
+		$submission,
 		array(
 			'description'             => '',
 			'learning-objectives'     => '',
@@ -310,32 +346,7 @@ function process_workshop_application_form_submission( $submission ) {
 
 	ob_start();
 	require get_views_path() . 'content-workshop.php';
-	$content = ob_get_clean();
-
-	$post_args = array(
-		'post_status'  => 'needs-vetting', // Custom status created in Edit Flow.
-		'post_type'    => 'wporg_workshop',
-		'post_title'   => $validated['workshop-title'],
-		'post_excerpt' => $validated['description-short'],
-		'post_content' => $content,
-		'meta_input'   => array(
-			'video_language'       => $validated['language'],
-			'original_application' => $validated,
-		),
-	);
-
-	$result = wp_insert_post( $post_args );
-
-	if ( is_wp_error( $result ) ) {
-		return new WP_Error(
-			'submission_error',
-			$result->get_error_message()
-		);
-	}
-
-	// todo Send notification emails.
-
-	return true;
+	return ob_get_clean();
 }
 
 /**

@@ -268,27 +268,35 @@ function save_workshop_metabox_fields( $post_id, WP_Post $post ) {
 		return;
 	}
 
+	// This nonce field is rendered in the Workshop Details metabox.
+	$nonce = filter_input( INPUT_POST, 'workshop-metabox-nonce' );
+	if ( ! wp_verify_nonce( $nonce, 'workshop-metaboxes' ) ) {
+		return;
+	}
+
 	$duration = filter_input( INPUT_POST, 'duration', FILTER_SANITIZE_NUMBER_INT, FILTER_REQUIRE_ARRAY );
 	if ( isset( $duration['h'], $duration['m'], $duration['s'] ) ) {
 		$duration = $duration['h'] * HOUR_IN_SECONDS + $duration['m'] * MINUTE_IN_SECONDS + $duration['s'];
 		update_post_meta( $post_id, 'duration', $duration );
 	}
 
-	$presenter_wporg_username = filter_input( INPUT_POST, 'presenter-wporg-username' );
-	$usernames                = array_map( 'trim', explode( ',', $presenter_wporg_username ) );
-	delete_post_meta( $post_id, 'presenter_wporg_username' );
-	foreach ( $usernames as $username ) {
-		add_post_meta( $post_id, 'presenter_wporg_username', $username );
-	}
-
 	$video_language = filter_input( INPUT_POST, 'video-language' );
 	update_post_meta( $post_id, 'video_language', $video_language );
 
 	$captions = filter_input( INPUT_POST, 'video-caption-language', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+	delete_post_meta( $post_id, 'video_caption_language' );
 	if ( is_array( $captions ) ) {
-		delete_post_meta( $post_id, 'video_caption_language' );
 		foreach ( $captions as $caption ) {
 			add_post_meta( $post_id, 'video_caption_language', $caption );
+		}
+	}
+
+	$presenter_wporg_username = filter_input( INPUT_POST, 'presenter-wporg-username' );
+	$usernames                = array_map( 'trim', explode( ',', $presenter_wporg_username ) );
+	delete_post_meta( $post_id, 'presenter_wporg_username' );
+	if ( is_array( $usernames ) ) {
+		foreach ( $usernames as $username ) {
+			add_post_meta( $post_id, 'presenter_wporg_username', $username );
 		}
 	}
 }

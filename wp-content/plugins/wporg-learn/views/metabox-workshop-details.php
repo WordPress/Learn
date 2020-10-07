@@ -46,6 +46,8 @@
 	</label>
 </p>
 
+<?php wp_nonce_field( 'workshop-metaboxes', 'workshop-metabox-nonce' ); ?>
+
 <p>
 	<label for="workshop-video-language"><?php esc_html_e( 'Language', 'wporg_learn' ); ?></label>
 	<select id="workshop-video-language" name="video-language" style="width: 100%;">
