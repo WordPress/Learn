@@ -34,9 +34,11 @@
 	fieldset,
 	label {
 		margin: 1rem 0;
+
 		&.label-checkbox {
 			margin: 0;
 		}
+
 		&.error {
 			border: 1px solid #f00;
 		}
@@ -45,9 +47,10 @@
 	fieldset {
 		border: 0;
 		padding: 0;
+
 		&.section {
 			> legend {
-				font-size: ms( 6 );
+				font-size: ms(6);
 				font-weight: 300;
 				margin: 2rem 0 1rem;
 			}
@@ -66,6 +69,7 @@
 		padding: 4px 5px;
 		vertical-align: text-bottom;
 		width: 100%;
+
 		@media only screen and (min-width: $breakpoint-tablet) {
 			width: 70%;
 		}
