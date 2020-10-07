@@ -165,6 +165,18 @@ function get_workshop_application_form_submission() {
 		false
 	);
 
+	$submission = array_map(
+		function( $item ) {
+			// Ensure arrays don't contain items that are empty strings.
+			if ( is_array( $item ) ) {
+				$item = array_filter( $item );
+			}
+
+			return $item;
+		},
+		$submission
+	);
+
 	if ( empty( $submission ) ) {
 		return array();
 	}
@@ -361,7 +373,14 @@ function render_workshop_application_form() {
 		$errors = $processed;
 		$error_fields = array_map(
 			function( $code ) {
-				return str_replace( 'submission:', '', $code );
+				return preg_replace(
+					array(
+						'/^submission:/',
+						'/\[[0-9]+\]$/',
+					),
+					'',
+					$code
+				);
 			},
 			$processed->get_error_data( 'error' ) ?? array()
 		);

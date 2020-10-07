@@ -170,19 +170,20 @@ $prefix = 'submission:';
 						<span class="label-text-checkbox"><?php echo esc_html( $audience_label ); ?></span>
 					</label>
 				<?php endforeach; ?>
-				<label for="audience-other" class="label-checkbox">
+				<label for="audience-other" class="label-checkbox checkbox-and-text">
 					<input
 						id="audience-other"
 						type="checkbox"
+						aria-hidden="true"
 						<?php checked( ! is_null( $audience_other ) ); ?>
 					/>
-					<span class="label-text-checkbox"><?php esc_html_e( 'Other', 'wporg-learn' ); ?></span>
+					<span class="label-text-checkbox screen-reader-text"><?php esc_html_e( 'Other', 'wporg-learn' ); ?></span>
 					<input
 						id="audience-other-text"
 						name="audience[]"
 						type="text"
+						placeholder="<?php esc_html_e( 'Something else?', 'wporg-learn' ); ?>"
 						value="<?php echo esc_attr( $audience_other ); ?>"
-						<?php disabled( is_null( $audience_other ) ); ?>
 					/>
 				</label>
 			</fieldset>
@@ -199,28 +200,29 @@ $prefix = 'submission:';
 				<?php foreach ( $experience_level as $experience_level_value => $experience_level_label ) : ?>
 					<label for="experience-level-<?php echo esc_attr( $experience_level_value ); ?>" class="label-checkbox">
 						<input
-								id="experience-level-<?php echo esc_attr( $experience_level_value ); ?>"
-								name="experience-level[]"
-								type="checkbox"
-								value="<?php echo esc_attr( $experience_level_value ); ?>"
+							id="experience-level-<?php echo esc_attr( $experience_level_value ); ?>"
+							name="experience-level[]"
+							type="checkbox"
+							value="<?php echo esc_attr( $experience_level_value ); ?>"
 							<?php checked( in_array( $experience_level_value, $form['experience-level'], true ) ); ?>
 						/>
 						<span class="label-text-checkbox"><?php echo esc_html( $experience_level_label ); ?></span>
 					</label>
 				<?php endforeach; ?>
-				<label for="experience-level-other" class="label-checkbox">
+				<label for="experience-level-other" class="label-checkbox checkbox-and-text">
 					<input
 						id="experience-level-other"
 						type="checkbox"
+						aria-hidden="true"
 						<?php checked( ! is_null( $experience_level_other ) ); ?>
 					/>
-					<span class="label-text-checkbox"><?php esc_html_e( 'Other', 'wporg-learn' ); ?></span>
+					<span class="label-text-checkbox screen-reader-text"><?php esc_html_e( 'Other', 'wporg-learn' ); ?></span>
 					<input
 						id="experience-level-other-text"
 						name="experience-level[]"
 						type="text"
+						placeholder="<?php esc_html_e( 'Something else?', 'wporg-learn' ); ?>"
 						value="<?php echo esc_attr( $experience_level_other ); ?>"
-						<?php disabled( is_null( $experience_level_other ) ); ?>
 					/>
 				</label>
 			</fieldset>
@@ -232,7 +234,7 @@ $prefix = 'submission:';
 						<?php echo wp_kses_data( $errors->get_error_message( "{$prefix}language" ) ); ?>
 					</span>
 				<?php endif; ?>
-				<select id="language" name="language" required>
+				<select id="language" name="language" class="do-select2" required>
 					<?php foreach ( get_locales_with_native_names() as $code => $name ) : ?>
 						<option value="<?php echo esc_attr( $code ); ?>" <?php selected( $code, $form['language'] ); ?>>
 							<?php echo esc_html( $name ); ?>
@@ -248,7 +250,7 @@ $prefix = 'submission:';
 						<?php echo wp_kses_data( $errors->get_error_message( "{$prefix}timezone" ) ); ?>
 					</span>
 				<?php endif; ?>
-				<select id="timezone" name="timezone" required>
+				<select id="timezone" name="timezone" class="do-select2" required>
 					<?php echo wp_timezone_choice( $form['timezone'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				</select>
 			</label>

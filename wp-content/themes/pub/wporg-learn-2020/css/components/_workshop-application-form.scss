@@ -23,6 +23,7 @@
 	label,
 	input,
 	select,
+	.select2-container,
 	textarea {
 		display: block;
 	}
@@ -41,6 +42,12 @@
 
 		&.error {
 			border: 1px solid #f00;
+			padding: 1rem;
+		}
+
+		.notice {
+			display: block;
+			margin: 0 0 1rem;
 		}
 	}
 
@@ -57,8 +64,13 @@
 		}
 	}
 
+	.label-text {
+		font-weight: 700;
+	}
+
 	.required-field {
 		font-style: italic;
+		font-weight: 400;
 	}
 
 	input[type="text"],
@@ -72,6 +84,24 @@
 
 		@media only screen and (min-width: $breakpoint-tablet) {
 			width: 70%;
+		}
+	}
+
+	.checkbox-and-text {
+		input[type="text"] {
+			display: inline-block;
+			margin: 0;
+			vertical-align: text-top;
+			max-width: 37rem;
+		}
+	}
+
+	.select2-container {
+		.select2-selection--single {
+			border: 1px solid #ddd;
+			border-radius: 0;
+			height: auto;
+			font-size: 14px;
 		}
 	}
 }
