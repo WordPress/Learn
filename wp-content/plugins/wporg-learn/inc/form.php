@@ -2,7 +2,7 @@
 
 namespace WPOrg_Learn\Form;
 
-use WP_Error, WP_User;
+use WP_Error, WP_Query, WP_User;
 use WordPressdotorg\Validator;
 use function WordPressdotorg\Locales\get_locales_with_english_names;
 use function WPOrg_Learn\get_views_path;
@@ -234,7 +234,12 @@ function process_workshop_application_form_submission( $submission ) {
 		);
 	}
 
-	// todo rate limit submissions
+	if ( is_submission_rate_limited( $submission ) ) {
+		return new WP_Error(
+			'submission_error',
+			__( 'You have reached your submission limit. Try again in an hour.', 'wporg-learn' )
+		);
+	}
 
 	$validated = validate_workshop_application_form_submission( $submission );
 
@@ -282,9 +287,43 @@ function process_workshop_application_form_submission( $submission ) {
 
 	add_post_meta( $result, 'presenter_wporg_username', $validated['wporg-user-name'] );
 
-	// todo Send notification emails.
-
 	return true;
+}
+
+/**
+ * Check if a submission should be subject to rate limiting.
+ *
+ * Rate limiting considers how many successful submissions have been made in the past hour.
+ *
+ * @param array $submission
+ *
+ * @return bool
+ */
+function is_submission_rate_limited( $submission ) {
+	$limit = 5;
+
+	$args = array(
+		'post_type' => 'wporg_workshop',
+		'post_status' => 'needs-vetting',
+		'meta_query' => array(
+			array(
+				'key' => 'presenter_wporg_username',
+				'value' => $submission['wporg-user-name'],
+			),
+		),
+		'date_query' => array(
+			array(
+				'after' => '-1 hour',
+			),
+		),
+	);
+	$query = new WP_Query( $args );
+
+	if ( $query->found_posts >= $limit ) {
+		return true;
+	}
+
+	return false;
 }
 
 /**
