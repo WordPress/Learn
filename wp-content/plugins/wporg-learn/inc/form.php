@@ -222,6 +222,8 @@ function process_workshop_application_form_submission( $submission ) {
 		);
 	}
 
+	// todo rate limit submissions
+
 	$validated = validate_workshop_application_form_submission( $submission );
 
 	if ( is_wp_error( $validated ) ) {
@@ -282,7 +284,7 @@ function process_workshop_application_form_submission( $submission ) {
 		$split   = array_filter( array_map(
 			function( $item ) {
 				// Attempt to strip out list item enumeration characters.
-				$item = preg_replace( '/^([*\-]+|[1-9]{1,2}[\.\)]?|[A-Z]+[\.\) ]+) ?/', '', $item );
+				$item = preg_replace( '/^([*\-]+|[1-9]{1,2}[\.\)]?|[A-Z]+[\.\)]+) ?/', '', $item );
 
 				return trim( $item );
 			},
