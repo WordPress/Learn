@@ -21,24 +21,28 @@ function get_workshop_application_field_schema() {
 		'properties' => array(
 			'wporg-user-name'         => array(
 				'input_filters' => FILTER_SANITIZE_STRING,
+				'label'         => __( 'WordPress.org User Name', 'wporg-learn' ),
 				'type'          => 'string',
 				'required'      => true,
 				'default'       => '',
 			),
 			'first-name'              => array(
 				'input_filters' => FILTER_SANITIZE_STRING,
+				'label'         => __( 'First Name', 'wporg-learn' ),
 				'type'          => 'string',
 				'required'      => false,
 				'default'       => '',
 			),
 			'last-name'               => array(
 				'input_filters' => FILTER_SANITIZE_STRING,
+				'label'         => __( 'Last Name', 'wporg-learn' ),
 				'type'          => 'string',
 				'required'      => false,
 				'default'       => '',
 			),
 			'email'                   => array(
 				'input_filters' => FILTER_SANITIZE_EMAIL,
+				'label'         => __( 'Email', 'wporg-learn' ),
 				'type'          => 'string',
 				'format'        => 'email',
 				'required'      => true,
@@ -46,36 +50,42 @@ function get_workshop_application_field_schema() {
 			),
 			'online-presence'         => array(
 				'input_filters' => FILTER_SANITIZE_STRING,
+				'label'         => __( 'Where can we find you online? Please share links to your website(s) and as many social media accounts as applicable, including but not limited to Twitter, Linkedin, Facebook, Instagram, etc.', 'wporg-learn' ),
 				'type'          => 'string',
 				'required'      => true,
 				'default'       => '',
 			),
 			'workshop-title'          => array(
 				'input_filters' => FILTER_SANITIZE_STRING,
+				'label'         => __( 'Workshop Title', 'wporg-learn' ),
 				'type'          => 'string',
 				'required'      => true,
 				'default'       => '',
 			),
 			'description'             => array(
 				'input_filters' => FILTER_SANITIZE_STRING,
+				'label'         => __( 'Full workshop description', 'wporg-learn' ),
 				'type'          => 'string',
 				'required'      => true,
 				'default'       => '',
 			),
 			'description-short'       => array(
 				'input_filters' => FILTER_SANITIZE_STRING,
+				'label'         => __( 'Brief workshop description (less than 150 words)', 'wporg-learn' ),
 				'type'          => 'string',
 				'required'      => true,
 				'default'       => '',
 			),
 			'learning-objectives'     => array(
 				'input_filters' => FILTER_SANITIZE_STRING,
+				'label'         => __( 'What are the learning objectives for this workshop?', 'wporg-learn' ),
 				'type'          => 'string',
 				'required'      => true,
 				'default'       => '',
 			),
 			'comprehension-questions' => array(
 				'input_filters' => FILTER_SANITIZE_STRING,
+				'label'         => __( 'What comprehension questions should we ask at the end of your workshop? List at least 3 but no more than 10 questions for workshop viewers to answer on their own or discuss with a group to ensure they properly understood the material.', 'wporg-learn' ),
 				'type'          => 'string',
 				'required'      => true,
 				'default'       => '',
@@ -85,6 +95,7 @@ function get_workshop_application_field_schema() {
 					'filter' => FILTER_SANITIZE_STRING,
 					'flags'  => FILTER_REQUIRE_ARRAY,
 				),
+				'label'         => __( 'Who is this workshop intended for?', 'wporg-learn' ),
 				'type'          => 'array',
 				'items'         => array(
 					'type' => 'string',
@@ -98,6 +109,7 @@ function get_workshop_application_field_schema() {
 					'filter' => FILTER_SANITIZE_STRING,
 					'flags'  => FILTER_REQUIRE_ARRAY,
 				),
+				'label'         => __( 'What experience level is this workshop aimed at?', 'wporg-learn' ),
 				'type'          => 'array',
 				'items'         => array(
 					'type' => 'string',
@@ -108,6 +120,7 @@ function get_workshop_application_field_schema() {
 			),
 			'language'                => array(
 				'input_filters' => FILTER_SANITIZE_STRING,
+				'label'         => __( 'In what language will this workshop be presented?', 'wporg-learn' ),
 				'type'          => 'string',
 				'enum'          => array_keys( get_locales_with_native_names() ),
 				'required'      => true,
@@ -115,18 +128,21 @@ function get_workshop_application_field_schema() {
 			),
 			'timezone'                => array(
 				'input_filters' => FILTER_SANITIZE_STRING,
+				'label'         => __( 'From what timezone would you conduct discussion groups?', 'wporg-learn' ),
 				'type'          => 'string',
 				'required'      => true,
 				'default'       => 'UTC+0',
 			),
 			'comments'                => array(
 				'input_filters' => FILTER_SANITIZE_STRING,
+				'label'         => __( 'Is there anything else you think we should know?', 'wporg-learn' ),
 				'type'          => 'string',
 				'required'      => false,
 				'default'       => '',
 			),
 			'nonce'                   => array(
 				'input_filters' => FILTER_SANITIZE_STRING,
+				'label'         => '',
 				'type'          => 'string',
 				'required'      => true,
 				'default'       => '',

@@ -9,6 +9,7 @@ use function WPOrg_Learn\Form\{ render_input_field, render_textarea_field };
 defined( 'WPINC' ) || die();
 
 /** @var string $state */
+/** @var array $schema */
 /** @var array $form */
 /** @var WP_Error|null $errors */
 /** @var array $error_fields */
@@ -49,32 +50,32 @@ $prefix = 'submission:';
 			</p>
 			<?php
 			echo render_input_field( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				'label'         => __( 'WordPress.org User Name', 'wporg-learn' ),
+				'label'         => $schema['properties']['wporg-user-name']['label'],
 				'id'            => 'wporg-user-name',
 				'value'         => $form['wporg-user-name'],
 				'readonly'      => true,
 			) );
 			echo render_input_field( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				'label'         => __( 'First Name', 'wporg-learn' ),
+				'label'         => $schema['properties']['first-name']['label'],
 				'id'            => 'first-name',
 				'value'         => $form['first-name'],
 				'readonly'      => true,
 			) );
 			echo render_input_field( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				'label'         => __( 'Last Name', 'wporg-learn' ),
+				'label'         => $schema['properties']['last-name']['label'],
 				'id'            => 'last-name',
 				'value'         => $form['last-name'],
 				'readonly'      => true,
 			) );
 			echo render_input_field( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				'label'         => __( 'Email', 'wporg-learn' ),
+				'label'         => $schema['properties']['email']['label'],
 				'type'          => 'email',
 				'id'            => 'email',
 				'value'         => $form['email'],
 				'readonly'      => true,
 			) );
 			echo render_textarea_field( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				'label'         => __( 'Where can we find you online? Please share links to your website(s) and as many social media accounts as applicable, including but not limited to Twitter, Linkedin, Facebook, Instagram, etc.', 'wporg-learn' ),
+				'label'         => $schema['properties']['online-presence']['label'],
 				'id'            => 'online-presence',
 				'name'          => 'online-presence',
 				'value'         => $form['online-presence'],
@@ -92,7 +93,7 @@ $prefix = 'submission:';
 			</legend>
 			<?php
 			echo render_input_field( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				'label'         => __( 'Workshop Title', 'wporg-learn' ),
+				'label'         => $schema['properties']['workshop-title']['label'],
 				'id'            => 'workshop-title',
 				'name'          => 'workshop-title',
 				'value'         => $form['workshop-title'],
@@ -103,7 +104,7 @@ $prefix = 'submission:';
 						: '',
 			) );
 			echo render_textarea_field( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				'label'         => __( 'Brief workshop description (less than 150 words)', 'wporg-learn' ),
+				'label'         => $schema['properties']['description-short']['label'],
 				'id'            => 'description-short',
 				'name'          => 'description-short',
 				'value'         => $form['description-short'],
@@ -114,7 +115,7 @@ $prefix = 'submission:';
 						: '',
 			) );
 			echo render_textarea_field( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				'label'         => __( 'Full workshop description', 'wporg-learn' ),
+				'label'         => $schema['properties']['description']['label'],
 				'id'            => 'description',
 				'name'          => 'description',
 				'value'         => $form['description'],
@@ -125,7 +126,7 @@ $prefix = 'submission:';
 						: '',
 			) );
 			echo render_textarea_field( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				'label'         => __( 'What are the learning objectives for this workshop?', 'wporg-learn' ),
+				'label'         => $schema['properties']['learning-objectives']['label'],
 				'id'            => 'learning-objectives',
 				'name'          => 'learning-objectives',
 				'value'         => $form['learning-objectives'],
@@ -136,7 +137,7 @@ $prefix = 'submission:';
 						: '',
 			) );
 			echo render_textarea_field( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				'label'         => __( 'What comprehension questions should we ask at the end of your workshop? List at least 3 but no more than 10 questions for workshop viewers to answer on their own or discuss with a group to ensure they properly understood the material.', 'wporg-learn' ),
+				'label'         => $schema['properties']['comprehension-questions']['label'],
 				'id'            => 'comprehension-questions',
 				'name'          => 'comprehension-questions',
 				'value'         => $form['comprehension-questions'],
@@ -149,7 +150,7 @@ $prefix = 'submission:';
 			?>
 			<fieldset class="checkbox-group <?php echo in_array( 'audience', $error_fields, true ) ? 'error' : ''; ?>">
 				<legend class="label-text">
-					<?php esc_html_e( 'Who is this workshop intended for?', 'wporg-learn' ); ?>
+					<?php echo esc_html( $schema['properties']['audience']['label'] ); ?>
 					<span class="required-field"><?php esc_html_e( '(required)', 'wporg-learn' ); ?></span>
 				</legend>
 				<?php if ( in_array( 'audience', $error_fields, true ) ) : ?>
@@ -187,7 +188,7 @@ $prefix = 'submission:';
 			</fieldset>
 			<fieldset class="checkbox-group <?php echo in_array( 'experience-level', $error_fields, true ) ? 'error' : ''; ?>">
 				<legend class="label-text">
-					<?php esc_html_e( 'What experience level is this workshop aimed at?', 'wporg-learn' ); ?>
+					<?php echo esc_html( $schema['properties']['experience-level']['label'] ); ?>
 					<span class="required-field"><?php esc_html_e( '(required)', 'wporg-learn' ); ?></span>
 				</legend>
 				<?php if ( in_array( 'experience-level', $error_fields, true ) ) : ?>
@@ -224,7 +225,7 @@ $prefix = 'submission:';
 				</label>
 			</fieldset>
 			<label for="language" <?php echo in_array( 'language', $error_fields, true ) ? 'class="error"' : ''; ?>>
-				<span class="label-text"><?php esc_html_e( 'In what language will this workshop be presented?', 'wporg-learn' ); ?></span>
+				<span class="label-text"><?php echo esc_html( $schema['properties']['language']['label'] ); ?></span>
 				<span class="required-field"><?php esc_html_e( '(required)', 'wporg-learn' ); ?></span>
 				<?php if ( in_array( 'language', $error_fields, true ) ) : ?>
 					<span class="notice notice-error">
@@ -240,7 +241,7 @@ $prefix = 'submission:';
 				</select>
 			</label>
 			<label for="timezone" <?php echo in_array( 'timezone', $error_fields, true ) ? 'class="error"' : ''; ?>>
-				<span class="label-text"><?php esc_html_e( 'From what timezone would you conduct discussion groups?', 'wporg-learn' ); ?></span>
+				<span class="label-text"><?php echo esc_html( $schema['properties']['timezone']['label'] ); ?></span>
 				<span class="required-field"><?php esc_html_e( '(required)', 'wporg-learn' ); ?></span>
 				<?php if ( in_array( 'timezone', $error_fields, true ) ) : ?>
 					<span class="notice notice-error">
@@ -253,7 +254,7 @@ $prefix = 'submission:';
 			</label>
 			<?php
 			echo render_textarea_field( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				'label'         => __( 'Is there anything else you think we should know?', 'wporg-learn' ),
+				'label'         => $schema['properties']['comments']['label'],
 				'id'            => 'comments',
 				'name'          => 'comments',
 				'value'         => $form['comments'],

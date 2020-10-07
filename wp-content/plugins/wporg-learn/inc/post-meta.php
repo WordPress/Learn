@@ -5,6 +5,8 @@ namespace WPOrg_Learn\Post_Meta;
 use DateTime, DateInterval;
 use WP_Post;
 use function WordPressdotorg\Locales\{ get_locales_with_english_names };
+use function WPOrg_Learn\get_views_path;
+use function WPOrg_Learn\Form\get_workshop_application_field_schema;
 
 defined( 'WPINC' ) || die();
 
@@ -206,6 +208,14 @@ function add_workshop_metaboxes() {
 		'wporg_workshop',
 		'side'
 	);
+
+	add_meta_box(
+		'workshop-application',
+		__( 'Original Application', 'wporg_learn' ),
+		__NAMESPACE__ . '\render_metabox_workshop_application',
+		'wporg_workshop',
+		'advanced'
+	);
 }
 
 /**
@@ -218,7 +228,7 @@ function render_metabox_workshop_details( WP_Post $post ) {
 	$locales           = get_locales_with_english_names();
 	$captions          = get_post_meta( $post->ID, 'video_caption_language' ) ?: array();
 
-	require dirname( dirname( __FILE__ ) ) . '/views/metabox-workshop-details.php';
+	require get_views_path() . 'metabox-workshop-details.php';
 }
 
 /**
@@ -229,7 +239,22 @@ function render_metabox_workshop_details( WP_Post $post ) {
 function render_metabox_workshop_presenters( WP_Post $post ) {
 	$presenters = get_post_meta( $post->ID, 'presenter_wporg_username' ) ?: array();
 
-	require dirname( dirname( __FILE__ ) ) . '/views/metabox-workshop-presenters.php';
+	require get_views_path() . 'metabox-workshop-presenters.php';
+}
+
+/**
+ * Render the Original Application meta box.
+ *
+ * @param WP_Post $post
+ */
+function render_metabox_workshop_application( WP_Post $post ) {
+	$schema = get_workshop_application_field_schema();
+	$application = wp_parse_args(
+		get_post_meta( $post->ID, 'original_application', true ) ?: array(),
+		wp_list_pluck( $schema['properties'], 'default' )
+	);
+
+	require get_views_path() . 'metabox-workshop-application.php';
 }
 
 /**
