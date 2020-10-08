@@ -115,7 +115,7 @@ class Validator {
 		if ( ! is_object( $object ) ) {
 			$this->errors->add(
 				$prop,
-				__( 'This must be an object.', 'wporg' ),
+				__( 'This must be an object.', 'wporg' )
 			);
 			$this->append_error_data( $prop, 'error' );
 
@@ -174,7 +174,7 @@ class Validator {
 					if ( ! isset( $schema['properties'][ $key ] ) ) {
 						$this->errors->add(
 							"$prop:$key",
-							__( 'This is not a valid property.', 'wporg' ),
+							__( 'This is not a valid property.', 'wporg' )
 						);
 						$this->append_error_data( "$prop:$key", 'error' );
 						$results[] = false;
@@ -299,7 +299,7 @@ class Validator {
 					$prop,
 					sprintf(
 						__( '"%s" is not a valid value.', 'wporg' ),
-						esc_html( $string ),
+						esc_html( $string )
 					)
 				);
 				$this->append_error_data( $prop, 'error' );
