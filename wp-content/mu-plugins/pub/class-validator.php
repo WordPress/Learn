@@ -227,7 +227,7 @@ class Validator {
 							'This must contain at least %d item.',
 							'This must contain at least %d items.',
 							absint( $schema['minItems'] ),
-							'wporg-learn'
+							'wporg'
 						),
 						number_format_i18n( floatval( $schema['minItems'] ) )
 					)
@@ -246,7 +246,7 @@ class Validator {
 							'This must contain at most %d item.',
 							'This must contain at most %d items.',
 							absint( $schema['minItems'] ),
-							'wporg-learn'
+							'wporg'
 						),
 						number_format_i18n( floatval( $schema['maxItems'] ) )
 					)
@@ -352,7 +352,7 @@ class Validator {
 							'This must be at least %d character long.',
 							'This must be at least %d characters long.',
 							absint( $schema['minLength'] ),
-							'wporg-learn'
+							'wporg'
 						),
 						number_format_i18n( floatval( $schema['minLength'] ) )
 					)
@@ -372,7 +372,7 @@ class Validator {
 							'This must be at most %d character long.',
 							'This must be at most %d characters long.',
 							absint( $schema['maxLength'] ),
-							'wporg-learn'
+							'wporg'
 						),
 						number_format_i18n( floatval( $schema['maxLength'] ) )
 					)
