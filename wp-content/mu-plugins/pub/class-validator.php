@@ -72,7 +72,7 @@ class Validator {
 			);
 		}
 
-		$prop = $schema['label'] ?: 'data';
+		$prop = $schema['label'] ?? 'data';
 
 		$valid = $this->route_validation_for_type(
 			$schema['type'],
@@ -86,6 +86,15 @@ class Validator {
 		}
 
 		return $data;
+	}
+
+	/**
+	 * Clear any current errors.
+	 *
+	 * @return void
+	 */
+	public function reset_errors() {
+		$this->errors = new WP_Error();
 	}
 
 	/**
@@ -398,12 +407,13 @@ class Validator {
 		}
 
 		if ( isset( $schema['minimum'] ) ) {
-			$precision = $this->get_number_precision( $schema['minimum'] );
-			if ( round( floatval( $number ), $precision ) < floatval( $schema['minimum'] ) ) {
+			$precision  = $this->get_number_precision( $schema['minimum'] );
+			$multiplier = $precision > 0 ? pow( 10, $precision ) : 1;
+			if ( floor( $number * $multiplier ) < $schema['minimum'] * $multiplier ) {
 				$this->errors->add(
 					$prop,
 					sprintf(
-						__( 'This value must be at least %f.', 'wporg' ),
+						__( 'This value must be at least %s.', 'wporg' ),
 						number_format_i18n( floatval( $schema['minimum'] ), $precision )
 					)
 				);
@@ -414,12 +424,13 @@ class Validator {
 		}
 
 		if ( isset( $schema['maximum'] ) ) {
-			$precision = $this->get_number_precision( $schema['maximum'] );
-			if ( round( floatval( $number ), $precision ) > floatval( $schema['maximum'] ) ) {
+			$precision  = $this->get_number_precision( $schema['maximum'] );
+			$multiplier = $precision > 0 ? pow( 10, $precision ) : 1;
+			if ( ceil( $number * $multiplier ) > $schema['maximum'] * $multiplier ) {
 				$this->errors->add(
 					$prop,
 					sprintf(
-						__( 'This value must be at most %f.', 'wporg' ),
+						__( 'This value must be at most %s.', 'wporg' ),
 						number_format_i18n( floatval( $schema['maximum'] ), $precision )
 					)
 				);
@@ -580,9 +591,12 @@ class Validator {
 	 * @return int
 	 */
 	protected function get_number_precision( $number ) {
+		$locale_data  = localeconv();
+		$decimal_char = $locale_data['decimal_point'];
+
 		$decimals = substr(
 			(string) $number,
-			strpos( (string) $number, '.' ) + 1
+			strpos( (string) $number, $decimal_char ) + 1
 		);
 
 		if ( ! $decimals ) {
