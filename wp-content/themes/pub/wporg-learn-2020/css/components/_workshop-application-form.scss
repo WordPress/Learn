@@ -1,4 +1,6 @@
 .wporg-learn-workshop-application-form {
+	position: relative;
+
 	input[type="checkbox"],
 	input[type="color"],
 	input[type="date"],
@@ -62,6 +64,12 @@
 				margin: 2rem 0 1rem;
 			}
 		}
+
+		&.checkbox-group {
+			> legend {
+				margin: 0 0 0.5rem;
+			}
+		}
 	}
 
 	.label-text {
@@ -97,11 +105,37 @@
 	}
 
 	.select2-container {
+		margin: 0.5rem 0 0;
+
 		.select2-selection--single {
 			border: 1px solid #ddd;
 			border-radius: 0;
 			height: auto;
 			font-size: 14px;
+		}
+
+		.select2-dropdown {
+			border: 1px solid #ddd;
+			border-radius: 0;
+
+			&.select2-dropdown--above {
+				top: -7px;
+			}
+
+			&.select2-dropdown--below {
+				top: -9px;
+			}
+		}
+
+		.select2-search__field {
+			border-color: #ddd;
+			margin: 0;
+			padding: 4px;
+			width: 100%;
+		}
+
+		.select2-results {
+			border-top: 1px solid #ddd;
 		}
 	}
 }

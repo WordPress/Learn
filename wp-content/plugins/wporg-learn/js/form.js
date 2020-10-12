@@ -21,5 +21,7 @@ const jQuery = window.jQuery || {};
 		} );
 	} );
 
-	$( '.do-select2' ).select2();
+	$( '.do-select2' ).select2( {
+		dropdownParent: $( '.wporg-learn-workshop-application-form' ),
+	} );
 } )( jQuery );
