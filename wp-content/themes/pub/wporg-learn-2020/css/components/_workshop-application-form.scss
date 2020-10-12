@@ -1,6 +1,10 @@
 .wporg-learn-workshop-application-form {
 	position: relative;
 
+	@media only screen and (min-width: $breakpoint-tablet) {
+		max-width: $breakpoint-tablet;
+	}
+
 	input[type="checkbox"],
 	input[type="color"],
 	input[type="date"],
@@ -89,10 +93,6 @@
 		padding: 4px 5px;
 		vertical-align: text-bottom;
 		width: 100%;
-
-		@media only screen and (min-width: $breakpoint-tablet) {
-			width: 70%;
-		}
 	}
 
 	.checkbox-and-text {
@@ -100,7 +100,11 @@
 			display: inline-block;
 			margin: 0;
 			vertical-align: text-top;
-			max-width: 37rem;
+			width: calc(100% - 33px);
+
+			@media only screen and (min-width: 48em) {
+				width: calc(100% - 25px);
+			}
 		}
 	}
 
