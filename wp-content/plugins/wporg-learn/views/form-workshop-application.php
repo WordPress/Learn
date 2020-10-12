@@ -175,6 +175,7 @@ $prefix = 'submission:';
 						id="audience-other"
 						type="checkbox"
 						aria-hidden="true"
+						tabindex="-1"
 						<?php checked( ! is_null( $audience_other ) ); ?>
 					/>
 					<span class="label-text-checkbox screen-reader-text"><?php esc_html_e( 'Other', 'wporg-learn' ); ?></span>
@@ -214,6 +215,7 @@ $prefix = 'submission:';
 						id="experience-level-other"
 						type="checkbox"
 						aria-hidden="true"
+						tabindex="-1"
 						<?php checked( ! is_null( $experience_level_other ) ); ?>
 					/>
 					<span class="label-text-checkbox screen-reader-text"><?php esc_html_e( 'Other', 'wporg-learn' ); ?></span>
