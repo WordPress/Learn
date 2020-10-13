@@ -32,6 +32,11 @@
 	.select2-container,
 	textarea {
 		display: block;
+		font-size: 1rem;
+
+		@media only screen and (min-width: 48em) {
+			font-size: 0.875rem;
+		}
 	}
 
 	input[type="checkbox"] {
@@ -43,7 +48,7 @@
 		margin: 1rem 0;
 
 		&.label-checkbox {
-			margin: 0;
+			margin: 0 0 0.5rem;
 		}
 
 		&.error {
@@ -100,7 +105,7 @@
 			display: inline-block;
 			margin: 0;
 			vertical-align: text-top;
-			width: calc(100% - 33px);
+			width: calc(100% - 35px);
 
 			@media only screen and (min-width: 48em) {
 				width: calc(100% - 25px);
@@ -115,7 +120,11 @@
 			border: 1px solid #ddd;
 			border-radius: 0;
 			height: auto;
-			font-size: 14px;
+			font-size: 1rem;
+
+			@media only screen and (min-width: 48em) {
+				font-size: 0.875rem;
+			}
 		}
 
 		.select2-dropdown {
