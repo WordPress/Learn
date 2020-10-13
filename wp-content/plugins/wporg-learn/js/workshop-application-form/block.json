@@ -1,0 +1,13 @@
+{
+	"name": "wporg-learn/workshop-application-form",
+	"title": "Workshop Application Form",
+	"category": "widgets",
+	"icon": "smiley",
+	"description": "",
+	"textdomain": "wporg-learn",
+	"supports": {
+		"html": false
+	},
+	"editorScript": "file:../../build/workshop-application-form.js",
+	"editorStyle": "file:../../build/workshop-application-form.css"
+}

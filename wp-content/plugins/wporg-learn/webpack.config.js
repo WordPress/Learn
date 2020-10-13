@@ -4,8 +4,10 @@ const config = require( '@wordpress/scripts/config/webpack.config' );
  * Set up the custom entry points.
  */
 config.entry = {
-	'workshop-details': './js/workshop-details/src/index.js',
 	'block-styles': './js/block-styles/index.js',
+	'workshop-application-form': './js/workshop-application-form/src/index.js',
+	'workshop-details': './js/workshop-details/src/index.js',
+	'form': './js/form.js',
 }
 
 /**

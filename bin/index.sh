@@ -11,7 +11,7 @@ npm run wp-env run cli wp config set JETPACK_DEV_DEBUG true
 npm run wp-env run cli wp config set WPORG_SANDBOXED true
 
 # Activate plugins
-npm run wp-env run cli wp plugin activate jetpack wordpress-importer wporg-learn/wporg-learn.php
+npm run wp-env run cli wp plugin activate edit-flow jetpack wordpress-importer wporg-learn/wporg-learn.php
 
 # Activate theme
 npm run wp-env run cli wp theme activate pub/wporg-learn-2020

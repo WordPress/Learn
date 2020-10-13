@@ -4,6 +4,8 @@ namespace WPOrg_Learn\Blocks;
 
 use Error;
 use function WordPressdotorg\Locales\get_locale_name_from_code;
+use function WPOrg_Learn\{ get_build_path, get_build_url };
+use function WPOrg_Learn\Form\render_workshop_application_form;
 use function WPOrg_Learn\Post_Meta\get_workshop_duration;
 
 defined( 'WPINC' ) || die();
@@ -11,22 +13,28 @@ defined( 'WPINC' ) || die();
 /**
  * Actions and filters.
  */
-add_action( 'init', __NAMESPACE__ . '\workshop_details_init' );
+add_action( 'init', __NAMESPACE__ . '\register_types' );
 add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\enqueue_block_style_assets' );
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_block_style_assets' );
 
 /**
- * Registers all block assets so that they can be enqueued through the block editor
- * in the corresponding context.
+ * Register block types.
  *
- * @see https://developer.wordpress.org/block-editor/tutorials/block-tutorial/applying-styles-with-stylesheets/
+ * @return void
+ */
+function register_types() {
+	register_workshop_details();
+	register_workshop_application_form();
+}
+
+/**
+ * Register Workshop Details block type and related assets.
+ *
  * @throws Error If the build files are not found.
  */
-function workshop_details_init() {
-	$dir = dirname( __DIR__ );
-
-	$script_asset_path = "$dir/build/workshop-details.asset.php";
-	if ( ! file_exists( $script_asset_path ) ) {
+function register_workshop_details() {
+	$script_asset_path = get_build_path() . 'workshop-details.asset.php';
+	if ( ! is_readable( $script_asset_path ) ) {
 		throw new Error(
 			'You need to run `npm start` or `npm run build` for the "wporg-learn/workshop-details" block first.'
 		);
@@ -35,25 +43,23 @@ function workshop_details_init() {
 	$script_asset = require $script_asset_path;
 	wp_register_script(
 		'workshop-details-editor-script',
-		plugins_url( 'build/workshop-details.js', 'wporg-learn/wporg-learn.php' ),
+		get_build_url() . 'workshop-details.js',
 		$script_asset['dependencies'],
 		$script_asset['version']
 	);
 
-	$editor_css = 'build/workshop-details.css';
 	wp_register_style(
 		'workshop-details-editor-style',
-		plugins_url( $editor_css, 'wporg-learn/wporg-learn.php' ),
+		get_build_url() . 'workshop-details.css',
 		array(),
-		filemtime( "$dir/$editor_css" )
+		filemtime( get_build_path() . 'workshop-details.css' )
 	);
 
-	$style_css = 'build/style-workshop-details.css';
 	wp_register_style(
 		'workshop-details-style',
-		plugins_url( $style_css, 'wporg-learn/wporg-learn.php' ),
+		get_build_url() . 'style-workshop-details.css',
 		array(),
-		filemtime( "$dir/$style_css" )
+		filemtime( get_build_path() . 'style-workshop-details.css' )
 	);
 
 	register_block_type( 'wporg-learn/workshop-details', array(
@@ -122,25 +128,77 @@ function workshop_details_render_callback( $attributes, $content ) {
 }
 
 /**
+ * Register Workshop Application Form block type and related assets.
+ *
+ * @throws Error If the build files are not found.
+ */
+function register_workshop_application_form() {
+	$script_asset_path = get_build_path() . 'workshop-application-form.asset.php';
+	if ( ! is_readable( $script_asset_path ) ) {
+		throw new Error(
+			'You need to run `npm start` or `npm run build` for the "wporg-learn/workshop-application-form" block first.'
+		);
+	}
+
+	$script_asset = require $script_asset_path;
+	wp_register_script(
+		'workshop-application-form-editor-script',
+		get_build_url() . 'workshop-application-form.js',
+		$script_asset['dependencies'],
+		$script_asset['version']
+	);
+
+	$script_asset_path = get_build_path() . 'form.asset.php';
+	if ( ! is_readable( $script_asset_path ) ) {
+		throw new Error(
+			'You need to run `npm start` or `npm run build` first.'
+		);
+	}
+
+	$script_asset = require $script_asset_path;
+	wp_register_script(
+		'workshop-application-form-script',
+		get_build_url() . 'form.js',
+		array_merge( $script_asset['dependencies'], array( 'jquery', 'select2' ) ),
+		$script_asset['version'],
+		true
+	);
+
+	register_block_type( 'wporg-learn/workshop-application-form', array(
+		'editor_script'   => 'workshop-application-form-editor-script',
+		'script'          => 'workshop-application-form-script',
+		'style'           => 'select2',
+		'render_callback' => __NAMESPACE__ . '\workshop_application_form_render_callback',
+	) );
+}
+
+/**
+ * Render the Workshop Application Form block markup.
+ *
+ * @return string
+ */
+function workshop_application_form_render_callback() {
+	return render_workshop_application_form();
+}
+
+/**
  * Enqueue scripts and stylesheets for custom block styles.
  *
  * @throws Error If the build files are not found.
  */
 function enqueue_block_style_assets() {
-	$dir = dirname( __DIR__ );
-
 	if ( is_admin() ) {
-		$script_asset_path = "$dir/build/workshop-details.asset.php";
+		$script_asset_path = get_build_path() . 'block-styles.asset.php';
 		if ( ! file_exists( $script_asset_path ) ) {
 			throw new Error(
-				'You need to run `npm start` or `npm run build` for the "wporg-learn/workshop-details" block first.'
+				'You need to run `npm start` or `npm run build` for block styles first.'
 			);
 		}
 
 		$script_asset = require $script_asset_path;
 		wp_enqueue_script(
 			'wporg-learn-block-styles',
-			plugins_url( 'build/block-styles.js', 'wporg-learn/wporg-learn.php' ),
+			get_build_url() . 'block-styles.js',
 			$script_asset['dependencies'],
 			$script_asset['version']
 		);
@@ -148,8 +206,8 @@ function enqueue_block_style_assets() {
 
 	wp_enqueue_style(
 		'wporg-learn-block-styles',
-		plugins_url( 'build/style-block-styles.css', 'wporg-learn/wporg-learn.php' ),
+		get_build_url() . 'style-block-styles.css',
 		array(),
-		filemtime( $dir . '/build/style-block-styles.css' )
+		filemtime( get_build_path() . 'style-block-styles.css' )
 	);
 }

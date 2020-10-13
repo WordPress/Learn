@@ -23,12 +23,39 @@ add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\register_thirdparty
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\register_thirdparty_assets', 1 );
 
 /**
+ * Shortcut to the build directory.
+ *
+ * @return string
+ */
+function get_build_path() {
+	return PLUGIN_DIR . 'build/';
+}
+
+/**
+ * Shortcut to the build URL.
+ *
+ * @return string
+ */
+function get_build_url() {
+	return PLUGIN_URL . 'build/';
+}
+
+/**
  * Shortcut to the includes directory.
  *
  * @return string
  */
 function get_includes_path() {
-	return plugin_dir_path( __FILE__ ) . 'inc/';
+	return PLUGIN_DIR . 'inc/';
+}
+
+/**
+ * Shortcut to the views directory.
+ *
+ * @return string
+ */
+function get_views_path() {
+	return PLUGIN_DIR . 'views/';
 }
 
 /**
@@ -39,6 +66,7 @@ function get_includes_path() {
 function load_files() {
 	require_once get_includes_path() . 'blocks.php';
 	require_once get_includes_path() . 'class-markdown-import.php';
+	require_once get_includes_path() . 'form.php';
 	require_once get_includes_path() . 'post-meta.php';
 	require_once get_includes_path() . 'post-type.php';
 	require_once get_includes_path() . 'taxonomy.php';

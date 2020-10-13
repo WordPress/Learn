@@ -116,6 +116,43 @@ function register_workshop() {
 		'filter_items_list'     => __( 'Filter Workshops list', 'wporg_learn' ),
 	);
 
+	$args = array(
+		'label'               => __( 'Workshop', 'wporg_learn' ),
+		'description'         => __( 'WordPress.org Training Workshop', 'wporg_learn' ),
+		'labels'              => $labels,
+		'supports'            => array( 'title', 'editor', 'comments', 'revisions', 'custom-fields', 'thumbnail', 'excerpt' ),
+		'taxonomies'          => array( 'topic' ),
+		'hierarchical'        => true,
+		'public'              => true,
+		'show_ui'             => true,
+		'show_in_menu'        => true,
+		'has_archive'         => 'workshops',
+		'menu_position'       => 6,
+		'menu_icon'           => 'dashicons-desktop',
+		'show_in_admin_bar'   => true,
+		'show_in_nav_menus'   => true,
+		'can_export'          => true,
+		'exclude_from_search' => false,
+		'publicly_queryable'  => true,
+		'capability_type'     => 'page',
+		'show_in_rest'        => true,
+		'template_lock'       => 'all',
+		'rewrite'             => array( 'slug' => 'workshop' ),
+		'template'            => generate_workshop_template_structure(),
+	);
+
+	register_post_type( 'wporg_workshop', $args );
+}
+
+/**
+ * Create an array representation of a workshop's content template.
+ *
+ * Note that if this template structure changes, the content in views/content-workshop.php
+ * will also need to be updated.
+ *
+ * @return array
+ */
+function generate_workshop_template_structure() {
 	$template = array(
 		array(
 			'core-embed/wordpress-tv',
@@ -198,32 +235,7 @@ function register_workshop() {
 		array( 'core/separator' ),
 	);
 
-	$args = array(
-		'label'               => __( 'Workshop', 'wporg_learn' ),
-		'description'         => __( 'WordPress.org Training Workshop', 'wporg_learn' ),
-		'labels'              => $labels,
-		'supports'            => array( 'title', 'editor', 'comments', 'revisions', 'custom-fields', 'thumbnail', 'excerpt' ),
-		'taxonomies'          => array( 'level', 'topic' ),
-		'hierarchical'        => true,
-		'public'              => true,
-		'show_ui'             => true,
-		'show_in_menu'        => true,
-		'has_archive'         => 'workshops',
-		'menu_position'       => 6,
-		'menu_icon'           => 'dashicons-desktop',
-		'show_in_admin_bar'   => true,
-		'show_in_nav_menus'   => true,
-		'can_export'          => true,
-		'exclude_from_search' => false,
-		'publicly_queryable'  => true,
-		'capability_type'     => 'page',
-		'show_in_rest'        => true,
-		'template_lock'       => 'all',
-		'rewrite'             => array( 'slug' => 'workshop' ),
-		'template'            => $template,
-	);
-
-	register_post_type( 'wporg_workshop', $args );
+	return $template;
 }
 
 /**
