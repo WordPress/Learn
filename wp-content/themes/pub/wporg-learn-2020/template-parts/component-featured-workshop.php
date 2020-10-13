@@ -18,10 +18,12 @@ $featured_workshop = reset( $featured_workshop );
 		setup_postdata( $post );
 		?>
 			<div class="featured-workshop_video">
-				<?php
-				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				echo wporg_get_post_thumbnail( $post, 'full' );
-				?>
+				<a href="<?php echo esc_url( get_the_permalink() ); ?>">
+					<?php
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					echo wporg_get_post_thumbnail( $post, 'full' );
+					?>
+				</a>
 			</div>
 			<div class="featured-workshop_content">
 				<a class="featured-workshop_title" href="<?php echo esc_url( get_the_permalink() ); ?>"><?php the_title(); ?></a>
