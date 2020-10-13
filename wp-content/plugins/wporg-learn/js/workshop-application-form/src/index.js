@@ -16,7 +16,7 @@ registerBlockType( 'wporg-learn/workshop-application-form', {
 		'wporg-learn'
 	),
 	category: 'widgets',
-	icon: 'smiley',
+	icon: 'forms',
 	supports: {
 		html: false,
 	},
