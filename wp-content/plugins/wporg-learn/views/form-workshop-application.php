@@ -46,34 +46,34 @@ $prefix = 'submission:';
 				<?php esc_html_e( 'Presenter Details', 'wporg-learn' ); ?>
 			</legend>
 			<p>
-				<?php esc_html_e( 'The following data from your user profile will be used in this application:', 'wporg-learn' ); ?>
+				<?php
+				printf(
+					wp_kses_post( __( 'The following data from your <a href="%s">user profile</a> will be used in this application:', 'wporg-learn' ) ),
+					esc_url( sprintf( 'https://wordpress.org/support/users/%s/edit/', $form['wporg-user-name'] ) )
+				);
+				?>
 			</p>
+			<table>
+				<tbody>
+				<tr>
+					<th><?php echo esc_html( $schema['properties']['wporg-user-name']['label'] ); ?></th>
+					<td><?php echo esc_html( $form['wporg-user-name'] ); ?></td>
+				</tr>
+				<tr>
+					<th><?php echo esc_html( $schema['properties']['first-name']['label'] ); ?></th>
+					<td><?php echo esc_html( $form['first-name'] ); ?></td>
+				</tr>
+				<tr>
+					<th><?php echo esc_html( $schema['properties']['last-name']['label'] ); ?></th>
+					<td><?php echo esc_html( $form['last-name'] ); ?></td>
+				</tr>
+				<tr>
+					<th><?php echo esc_html( $schema['properties']['email']['label'] ); ?></th>
+					<td><?php echo esc_html( $form['email'] ); ?></td>
+				</tr>
+				</tbody>
+			</table>
 			<?php
-			echo render_input_field( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				'label'         => $schema['properties']['wporg-user-name']['label'],
-				'id'            => 'wporg-user-name',
-				'value'         => $form['wporg-user-name'],
-				'readonly'      => true,
-			) );
-			echo render_input_field( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				'label'         => $schema['properties']['first-name']['label'],
-				'id'            => 'first-name',
-				'value'         => $form['first-name'],
-				'readonly'      => true,
-			) );
-			echo render_input_field( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				'label'         => $schema['properties']['last-name']['label'],
-				'id'            => 'last-name',
-				'value'         => $form['last-name'],
-				'readonly'      => true,
-			) );
-			echo render_input_field( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				'label'         => $schema['properties']['email']['label'],
-				'type'          => 'email',
-				'id'            => 'email',
-				'value'         => $form['email'],
-				'readonly'      => true,
-			) );
 			echo render_textarea_field( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				'label'         => $schema['properties']['online-presence']['label'],
 				'id'            => 'online-presence',

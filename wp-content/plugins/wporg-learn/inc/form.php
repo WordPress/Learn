@@ -501,6 +501,7 @@ function render_input_field( array $args ) {
 			'value'         => '',
 			'required'      => false,
 			'readonly'      => false,
+			'disabled'      => false,
 			'error_message' => '',
 		)
 	);
@@ -532,6 +533,7 @@ function render_input_field( array $args ) {
 			value="<?php echo esc_attr( $args['value'] ); ?>"
 			<?php echo true === $args['required'] ? 'required' : ''; ?>
 			<?php echo true === $args['readonly'] ? 'readonly' : ''; ?>
+			<?php echo true === $args['disabled'] ? 'disabled' : ''; ?>
 		/>
 	</label>
 	<?php
@@ -556,6 +558,8 @@ function render_textarea_field( array $args ) {
 			'name'          => '',
 			'value'         => '',
 			'required'      => false,
+			'readonly'      => false,
+			'disabled'      => false,
 			'error_message' => '',
 		)
 	);
@@ -584,6 +588,8 @@ function render_textarea_field( array $args ) {
 			id="<?php echo esc_attr( $args['id'] ); ?>"
 			name="<?php echo esc_attr( $args['name'] ); ?>"
 			<?php echo true === $args['required'] ? 'required' : ''; ?>
+			<?php echo true === $args['readonly'] ? 'readonly' : ''; ?>
+			<?php echo true === $args['disabled'] ? 'disabled' : ''; ?>
 		><?php echo esc_html( $args['value'] ); ?></textarea>
 	</label>
 	<?php
