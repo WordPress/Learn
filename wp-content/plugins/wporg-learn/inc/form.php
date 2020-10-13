@@ -265,7 +265,7 @@ function process_workshop_application_form_submission( $submission ) {
 	$content = prepare_post_content_from_submission( $validated );
 
 	$post_args = array(
-		'post_status'  => 'needs-vetting', // Custom status created in Edit Flow.
+		'post_status'  => get_default_workshop_status(),
 		'post_type'    => 'wporg_workshop',
 		'post_title'   => $validated['workshop-title'],
 		'post_excerpt' => $validated['description-short'],
@@ -303,15 +303,15 @@ function is_submission_rate_limited( $submission ) {
 	$limit = 5;
 
 	$args = array(
-		'post_type' => 'wporg_workshop',
-		'post_status' => 'needs-vetting',
-		'meta_query' => array(
+		'post_type'   => 'wporg_workshop',
+		'post_status' => get_default_workshop_status(),
+		'meta_query'  => array(
 			array(
-				'key' => 'presenter_wporg_username',
+				'key'   => 'presenter_wporg_username',
 				'value' => $submission['wporg-user-name'],
 			),
 		),
-		'date_query' => array(
+		'date_query'  => array(
 			array(
 				'after' => '-1 hour',
 			),
@@ -324,6 +324,29 @@ function is_submission_rate_limited( $submission ) {
 	}
 
 	return false;
+}
+
+/**
+ * The post status that should be assigned when creating a new workshop post.
+ *
+ * "Needs Vetting" is a custom status that should be created in the Edit Flow plugin and configured
+ * to work with the Workshop post type. If it doesn't exist, however, we should fall back on "Draft".
+ *
+ * @return string
+ */
+function get_default_workshop_status() {
+	if ( function_exists( 'EditFlow' ) ) {
+		$status = 'needs-vetting';
+		$all_stati = get_post_stati();
+		$module_data = EditFlow()->get_module_by( 'name', 'custom_status' );
+		$supported_post_types = EditFlow()->helpers->get_post_types_for_module( $module_data );
+
+		if ( array_key_exists( $status, $all_stati ) && in_array( 'wporg_workshop', $supported_post_types, true ) ) {
+			return $status;
+		}
+	}
+
+	return 'draft';
 }
 
 /**
