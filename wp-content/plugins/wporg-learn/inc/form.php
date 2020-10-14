@@ -557,6 +557,8 @@ function render_textarea_field( array $args ) {
 			'class'         => array(),
 			'name'          => '',
 			'value'         => '',
+			'rows'          => '',
+			'cols'          => '',
 			'required'      => false,
 			'readonly'      => false,
 			'disabled'      => false,
@@ -587,6 +589,9 @@ function render_textarea_field( array $args ) {
 		<textarea
 			id="<?php echo esc_attr( $args['id'] ); ?>"
 			name="<?php echo esc_attr( $args['name'] ); ?>"
+			<?php echo $args['rows'] ? sprintf( 'rows="%s"', esc_attr( $args['rows'] ) ) : ''; ?>
+			<?php echo $args['cols'] ? sprintf( 'cols="%s"', esc_attr( $args['cols'] ) ) : ''; ?>
+			<?php echo true === $args['required'] ? 'required' : ''; ?>
 			<?php echo true === $args['required'] ? 'required' : ''; ?>
 			<?php echo true === $args['readonly'] ? 'readonly' : ''; ?>
 			<?php echo true === $args['disabled'] ? 'disabled' : ''; ?>
