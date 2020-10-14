@@ -79,6 +79,7 @@ $prefix = 'submission:';
 				'id'            => 'online-presence',
 				'name'          => 'online-presence',
 				'value'         => $form['online-presence'],
+				'rows'          => 4,
 				'required'      => true,
 				'error_message' =>
 					in_array( 'online-presence', $error_fields, true )
@@ -108,6 +109,7 @@ $prefix = 'submission:';
 				'id'            => 'description-short',
 				'name'          => 'description-short',
 				'value'         => $form['description-short'],
+				'rows'          => 4,
 				'required'      => true,
 				'error_message' =>
 					in_array( 'description-short', $error_fields, true )
@@ -119,6 +121,7 @@ $prefix = 'submission:';
 				'id'            => 'description',
 				'name'          => 'description',
 				'value'         => $form['description'],
+				'rows'          => 4,
 				'required'      => true,
 				'error_message' =>
 					in_array( 'description', $error_fields, true )
@@ -130,6 +133,7 @@ $prefix = 'submission:';
 				'id'            => 'learning-objectives',
 				'name'          => 'learning-objectives',
 				'value'         => $form['learning-objectives'],
+				'rows'          => 4,
 				'required'      => true,
 				'error_message' =>
 					in_array( 'learning-objectives', $error_fields, true )
@@ -141,6 +145,7 @@ $prefix = 'submission:';
 				'id'            => 'comprehension-questions',
 				'name'          => 'comprehension-questions',
 				'value'         => $form['comprehension-questions'],
+				'rows'          => 4,
 				'required'      => true,
 				'error_message' =>
 					in_array( 'comprehension-questions', $error_fields, true )
@@ -244,24 +249,13 @@ $prefix = 'submission:';
 					<?php endforeach; ?>
 				</select>
 			</label>
-			<label for="timezone" <?php echo in_array( 'timezone', $error_fields, true ) ? 'class="error"' : ''; ?>>
-				<span class="label-text"><?php echo esc_html( $schema['properties']['timezone']['label'] ); ?></span>
-				<span class="required-field"><?php esc_html_e( '(required)', 'wporg-learn' ); ?></span>
-				<?php if ( in_array( 'timezone', $error_fields, true ) ) : ?>
-					<span class="notice notice-error">
-						<?php echo wp_kses_data( $errors->get_error_message( "{$prefix}timezone" ) ); ?>
-					</span>
-				<?php endif; ?>
-				<select id="timezone" name="timezone" class="do-select2" required>
-					<?php echo wp_timezone_choice( $form['timezone'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-				</select>
-			</label>
 			<?php
 			echo render_textarea_field( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				'label'         => $schema['properties']['comments']['label'],
 				'id'            => 'comments',
 				'name'          => 'comments',
 				'value'         => $form['comments'],
+				'rows'          => 4,
 				'error_message' =>
 					in_array( 'comments', $error_fields, true )
 						? $errors->get_error_message( "{$prefix}comments" )

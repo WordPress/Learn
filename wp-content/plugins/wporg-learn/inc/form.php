@@ -126,13 +126,6 @@ function get_workshop_application_field_schema() {
 				'required'      => true,
 				'default'       => 'en_US',
 			),
-			'timezone'                => array(
-				'input_filters' => FILTER_SANITIZE_STRING,
-				'label'         => __( 'From what timezone would you conduct discussion groups?', 'wporg-learn' ),
-				'type'          => 'string',
-				'required'      => true,
-				'default'       => 'UTC+0',
-			),
 			'comments'                => array(
 				'input_filters' => FILTER_SANITIZE_STRING,
 				'label'         => __( 'Is there anything else you think we should know?', 'wporg-learn' ),
@@ -557,6 +550,8 @@ function render_textarea_field( array $args ) {
 			'class'         => array(),
 			'name'          => '',
 			'value'         => '',
+			'rows'          => '',
+			'cols'          => '',
 			'required'      => false,
 			'readonly'      => false,
 			'disabled'      => false,
@@ -587,6 +582,9 @@ function render_textarea_field( array $args ) {
 		<textarea
 			id="<?php echo esc_attr( $args['id'] ); ?>"
 			name="<?php echo esc_attr( $args['name'] ); ?>"
+			<?php echo $args['rows'] ? sprintf( 'rows="%s"', esc_attr( $args['rows'] ) ) : ''; ?>
+			<?php echo $args['cols'] ? sprintf( 'cols="%s"', esc_attr( $args['cols'] ) ) : ''; ?>
+			<?php echo true === $args['required'] ? 'required' : ''; ?>
 			<?php echo true === $args['required'] ? 'required' : ''; ?>
 			<?php echo true === $args['readonly'] ? 'readonly' : ''; ?>
 			<?php echo true === $args['disabled'] ? 'disabled' : ''; ?>
