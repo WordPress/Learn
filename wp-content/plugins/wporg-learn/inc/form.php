@@ -126,13 +126,6 @@ function get_workshop_application_field_schema() {
 				'required'      => true,
 				'default'       => 'en_US',
 			),
-			'timezone'                => array(
-				'input_filters' => FILTER_SANITIZE_STRING,
-				'label'         => __( 'From what timezone would you conduct discussion groups?', 'wporg-learn' ),
-				'type'          => 'string',
-				'required'      => true,
-				'default'       => 'UTC+0',
-			),
 			'comments'                => array(
 				'input_filters' => FILTER_SANITIZE_STRING,
 				'label'         => __( 'Is there anything else you think we should know?', 'wporg-learn' ),

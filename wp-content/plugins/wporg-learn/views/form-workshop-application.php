@@ -249,18 +249,6 @@ $prefix = 'submission:';
 					<?php endforeach; ?>
 				</select>
 			</label>
-			<label for="timezone" <?php echo in_array( 'timezone', $error_fields, true ) ? 'class="error"' : ''; ?>>
-				<span class="label-text"><?php echo esc_html( $schema['properties']['timezone']['label'] ); ?></span>
-				<span class="required-field"><?php esc_html_e( '(required)', 'wporg-learn' ); ?></span>
-				<?php if ( in_array( 'timezone', $error_fields, true ) ) : ?>
-					<span class="notice notice-error">
-						<?php echo wp_kses_data( $errors->get_error_message( "{$prefix}timezone" ) ); ?>
-					</span>
-				<?php endif; ?>
-				<select id="timezone" name="timezone" class="do-select2" required>
-					<?php echo wp_timezone_choice( $form['timezone'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-				</select>
-			</label>
 			<?php
 			echo render_textarea_field( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				'label'         => $schema['properties']['comments']['label'],
