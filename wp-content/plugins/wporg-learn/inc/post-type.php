@@ -155,8 +155,11 @@ function register_workshop() {
 function generate_workshop_template_structure() {
 	$template = array(
 		array(
-			'core-embed/wordpress-tv',
-			array( 'className' => 'workshop-page_video' ),
+			'core/embed',
+			array(
+				'className'        => 'workshop-page_video',
+				'providerNameSlug' => 'wordpress-tv',
+			),
 		),
 		array(
 			'core/columns',
