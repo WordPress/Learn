@@ -2,6 +2,8 @@
 /**/node_modules
 /vendor
 
+.wp-env.override.json
+
 /wp-content/*
 /wp-content/mu-plugins/*
 /wp-content/mu-plugins/pub/*
