@@ -509,6 +509,38 @@ function wporg_modify_archive_title_prefix( $prefix ) {
 add_filter( 'get_the_archive_title_prefix', 'wporg_modify_archive_title_prefix' );
 
 /**
+ * Append pagination to the archive title.
+ *
+ * @global WP_Query $wp_query
+ * @global int $paged
+ *
+ * @param string $title
+ *
+ * @return mixed
+ */
+function wporg_modify_archive_title( $title ) {
+	global $wp_query, $paged;
+
+	if ( $paged > 1 ) {
+		$suffix = sprintf(
+			__( 'Page %1$d of %2$d', 'wporg-learn' ),
+			absint( $paged ),
+			absint( $wp_query->max_num_pages )
+		);
+
+		$title = sprintf(
+			// translators: 1: Archive title; 2: Pagination, e.g. Page 2 of 4.
+			__( '%1$s &ndash; %2$s', 'wporg-learn' ),
+			$title,
+			$suffix
+		);
+	}
+
+	return $title;
+}
+add_filter( 'get_the_archive_title', 'wporg_modify_archive_title' );
+
+/**
  * Get the series taxonomy term object for a workshop post.
  *
  * @param int|WP_Post|null $workshop
