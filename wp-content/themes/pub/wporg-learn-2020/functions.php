@@ -233,10 +233,6 @@ function wporg_modify_excerpt_length( $length ) {
 		return $length;
 	}
 
-	if ( 'lesson-plan' === get_post_type() ) {
-		return 55;
-	}
-
 	if ( 'wporg_workshop' === get_post_type() ) {
 		return 35;
 	}
