@@ -17,6 +17,7 @@
 	},
 	"scripts": {
 		"install:env": "./bin/index.sh",
+		"install:githooks": "mv .git/hooks .git/hooks_orig && ln -s ../.githooks .git/hooks",
 		"create": "composer install && npm run install:env",
 		"wp-env": "wp-env",
 		"lint:php": "composer run lint",

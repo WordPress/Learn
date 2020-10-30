@@ -1,0 +1,55 @@
+#!/bin/sh
+
+function main {
+    php
+    js
+    css
+
+    echo
+    exit 0
+}
+
+function php {
+    echo "Checking PHP... "
+    yarn run lint:php &> /dev/null
+
+    if [ $? != 0 ]; then
+        echo "There are PHP linting errors."
+    	prompt_to_continue
+    fi
+}
+
+function js {
+    echo "Checking JavaScript... "
+    yarn workspaces run lint:js &> /dev/null
+
+    if [ $? != 0 ]; then
+        echo "There are JavaScript linting errors."
+        prompt_to_continue
+    fi
+}
+
+function css {
+    echo "Checking CSS... "
+    yarn workspaces run lint:css &> /dev/null
+
+    if [ $? != 0 ]; then
+        echo "There are CSS linting errors."
+        prompt_to_continue
+    fi
+}
+
+function prompt_to_continue {
+	# Assign STDIN to the keyboard, which isn't the default when hooks are executed.
+	exec < /dev/tty
+
+	echo "Proceed with push? [y/N] "
+	read PROCEED
+
+	if [[ 'y' != $PROCEED ]]; then
+		printf "\nAborting.\n"
+		exit 1
+	fi
+}
+
+main
