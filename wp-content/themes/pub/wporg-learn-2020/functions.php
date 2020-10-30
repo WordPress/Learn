@@ -252,15 +252,17 @@ add_filter( 'excerpt_length', 'wporg_modify_excerpt_length', 999 );
  *
  * @return void
  */
-function wporg_workshop_modify_query( WP_Query $query ) {
+function wporg_archive_modify_query( WP_Query $query ) {
 	if ( is_admin() ) {
 		return;
 	}
 
-	if ( $query->is_main_query() && $query->is_post_type_archive( 'wporg_workshop' ) ) {
-		wporg_workshop_maybe_apply_query_filters( $query );
+	$valid_post_types = array( 'lesson-plan', 'wporg_workshop' );
 
-		if ( true !== $query->get( 'wporg_workshop_filters' ) ) {
+	if ( $query->is_main_query() && $query->is_post_type_archive( $valid_post_types ) ) {
+		wporg_archive_maybe_apply_query_filters( $query );
+
+		if ( $query->is_post_type_archive( 'wporg_workshop' ) && true !== $query->get( 'wporg_workshop_filters' ) ) {
 			$featured = wporg_get_featured_workshops();
 
 			if ( ! empty( $featured ) ) {
@@ -274,7 +276,7 @@ function wporg_workshop_modify_query( WP_Query $query ) {
 		$query->set( 'order', 'asc' );
 	}
 }
-add_action( 'pre_get_posts', 'wporg_workshop_modify_query' );
+add_action( 'pre_get_posts', 'wporg_archive_modify_query' );
 
 /**
  * Update a query object if filter parameters are present.
@@ -283,7 +285,7 @@ add_action( 'pre_get_posts', 'wporg_workshop_modify_query' );
  *
  * @return void
  */
-function wporg_workshop_maybe_apply_query_filters( WP_Query &$query ) {
+function wporg_archive_maybe_apply_query_filters( WP_Query &$query ) {
 	$filters = filter_input_array(
 		INPUT_GET,
 		array(
@@ -367,11 +369,14 @@ function wporg_workshop_maybe_apply_query_filters( WP_Query &$query ) {
 /**
  * Get a query object for displaying workshop posts.
  *
+ * @param string $post_type The post type of the archive.
+ * @param array  $args      Arguments for the query.
+ *
  * @return WP_Query
  */
-function wporg_get_workshops_query( array $args = array() ) {
+function wporg_get_archive_query( $post_type, array $args = array() ) {
 	$args = wp_parse_args( $args, array(
-		'post_type'   => 'wporg_workshop',
+		'post_type'   => $post_type,
 		'post_status' => 'publish',
 	) );
 
@@ -389,9 +394,12 @@ function wporg_get_workshops_query( array $args = array() ) {
  * @return WP_Post[]
  */
 function wporg_get_featured_workshops( $number = 1 ) {
-	$query = wporg_get_workshops_query( array(
-		'posts_per_page' => $number,
-	) );
+	$query = wporg_get_archive_query(
+		'wporg_workshop',
+		array(
+			'posts_per_page' => $number,
+		)
+	);
 
 	return $query->get_posts();
 }
