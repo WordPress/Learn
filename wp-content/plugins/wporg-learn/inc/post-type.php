@@ -168,7 +168,7 @@ function generate_workshop_template_structure() {
 			array(
 				array(
 					'core/column',
-					array( 'width' => 66.66 ),
+					array( 'width' => '66.66%' ),
 					array(
 						array(
 							'core/paragraph',
@@ -209,7 +209,7 @@ function generate_workshop_template_structure() {
 					'core/column',
 					array(
 						'className' => 'workshop-page_sidebar',
-						'width'     => 33.333,
+						'width'     => '33.333%',
 					),
 					array(
 						array( 'wporg-learn/workshop-details' ),
