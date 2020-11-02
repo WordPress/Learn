@@ -52,9 +52,12 @@ get_header(); ?>
 
 			<?php
 			$args = array(
-				'query' => wporg_get_workshops_query( array(
-					'posts_per_page' => 6,
-				) ),
+				'query' => wporg_get_archive_query(
+					'wporg_workshop',
+					array(
+						'posts_per_page' => 6,
+					)
+				),
 			);
 			get_template_part( 'template-parts/component', 'video-grid', $args );
 			?>

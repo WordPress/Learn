@@ -9,10 +9,15 @@
 
 namespace WordPressdotorg\Theme;
 
-get_header();
-?>
+get_header(); ?>
 
-	<main id="main" class="site-main page-full-width" role="main">
+<main id="main" class="site-main">
+	<section>
+		<div class="row align-middle between section-heading section-heading--with-space">
+			<?php the_archive_title( '<h1 class="section-heading_title h2">', '</h1>' ); ?>
+			<?php get_template_part( 'template-parts/component', 'archive-search' ); ?>
+		</div>
+		<hr>
 		<?php get_template_part( 'template-parts/component', 'lesson-filters' ); ?>
 
 		<?php if ( have_posts() ) : ?>
@@ -25,14 +30,14 @@ get_header();
 
 			<?php the_posts_pagination(); ?>
 		<?php else : ?>
-			<div class="lp-empty">
-				<?php echo esc_html_e( 'We were unable to find any matches.', 'wporg-learn' ); ?>
-			</div>
+			<p>
+				<?php echo esc_html( get_post_type_object( get_post_type() )->labels->not_found ); ?>
+			</p>
 		<?php endif; ?>
-
-	</main><!-- #main -->
+	</section>
+	<hr>
 
 	<?php get_template_part( 'template-parts/component', 'submit-idea-cta' ); ?>
+</main>
 
-<?php
-get_footer();
+<?php get_footer();

@@ -248,15 +248,17 @@ add_filter( 'excerpt_length', 'wporg_modify_excerpt_length', 999 );
  *
  * @return void
  */
-function wporg_workshop_modify_query( WP_Query $query ) {
+function wporg_archive_modify_query( WP_Query $query ) {
 	if ( is_admin() ) {
 		return;
 	}
 
-	if ( $query->is_main_query() && $query->is_post_type_archive( 'wporg_workshop' ) ) {
-		wporg_workshop_maybe_apply_query_filters( $query );
+	$valid_post_types = array( 'lesson-plan', 'wporg_workshop' );
 
-		if ( true !== $query->get( 'wporg_workshop_filters' ) ) {
+	if ( $query->is_main_query() && $query->is_post_type_archive( $valid_post_types ) ) {
+		wporg_archive_maybe_apply_query_filters( $query );
+
+		if ( $query->is_post_type_archive( 'wporg_workshop' ) && true !== $query->get( 'wporg_workshop_filters' ) ) {
 			$featured = wporg_get_featured_workshops();
 
 			if ( ! empty( $featured ) ) {
@@ -270,7 +272,7 @@ function wporg_workshop_modify_query( WP_Query $query ) {
 		$query->set( 'order', 'asc' );
 	}
 }
-add_action( 'pre_get_posts', 'wporg_workshop_modify_query' );
+add_action( 'pre_get_posts', 'wporg_archive_modify_query' );
 
 /**
  * Update a query object if filter parameters are present.
@@ -279,7 +281,7 @@ add_action( 'pre_get_posts', 'wporg_workshop_modify_query' );
  *
  * @return void
  */
-function wporg_workshop_maybe_apply_query_filters( WP_Query &$query ) {
+function wporg_archive_maybe_apply_query_filters( WP_Query &$query ) {
 	$filters = filter_input_array(
 		INPUT_GET,
 		array(
@@ -363,11 +365,14 @@ function wporg_workshop_maybe_apply_query_filters( WP_Query &$query ) {
 /**
  * Get a query object for displaying workshop posts.
  *
+ * @param string $post_type The post type of the archive.
+ * @param array  $args      Arguments for the query.
+ *
  * @return WP_Query
  */
-function wporg_get_workshops_query( array $args = array() ) {
+function wporg_get_archive_query( $post_type, array $args = array() ) {
 	$args = wp_parse_args( $args, array(
-		'post_type'   => 'wporg_workshop',
+		'post_type'   => $post_type,
 		'post_status' => 'publish',
 	) );
 
@@ -385,9 +390,12 @@ function wporg_get_workshops_query( array $args = array() ) {
  * @return WP_Post[]
  */
 function wporg_get_featured_workshops( $number = 1 ) {
-	$query = wporg_get_workshops_query( array(
-		'posts_per_page' => $number,
-	) );
+	$query = wporg_get_archive_query(
+		'wporg_workshop',
+		array(
+			'posts_per_page' => $number,
+		)
+	);
 
 	return $query->get_posts();
 }
@@ -495,6 +503,38 @@ function wporg_modify_archive_title_prefix( $prefix ) {
 	);
 }
 add_filter( 'get_the_archive_title_prefix', 'wporg_modify_archive_title_prefix' );
+
+/**
+ * Append pagination to the archive title.
+ *
+ * @global WP_Query $wp_query
+ * @global int $paged
+ *
+ * @param string $title
+ *
+ * @return mixed
+ */
+function wporg_modify_archive_title( $title ) {
+	global $wp_query, $paged;
+
+	if ( $paged > 1 ) {
+		$suffix = sprintf(
+			__( 'Page %1$d of %2$d', 'wporg-learn' ),
+			absint( $paged ),
+			absint( $wp_query->max_num_pages )
+		);
+
+		$title = sprintf(
+			// translators: 1: Archive title; 2: Pagination, e.g. Page 2 of 4.
+			__( '%1$s &ndash; %2$s', 'wporg-learn' ),
+			$title,
+			$suffix
+		);
+	}
+
+	return $title;
+}
+add_filter( 'get_the_archive_title', 'wporg_modify_archive_title' );
 
 /**
  * Get the series taxonomy term object for a workshop post.
