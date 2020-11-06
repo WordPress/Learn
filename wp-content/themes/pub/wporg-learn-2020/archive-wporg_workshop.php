@@ -31,8 +31,8 @@ get_header(); ?>
 
 			<?php the_posts_pagination(); ?>
 		<?php else : ?>
-			<p>
-				<?php echo esc_html( get_post_type_object( get_post_type() )->labels->not_found ); ?>
+			<p class="not-found">
+				<?php echo esc_html( get_post_type_object( 'wporg_workshop' )->labels->not_found ); ?>
 			</p>
 		<?php endif; ?>
 	</section>
