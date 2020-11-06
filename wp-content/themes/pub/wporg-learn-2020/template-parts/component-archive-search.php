@@ -1,6 +1,15 @@
 <?php
 $search_query = filter_input( INPUT_GET, 'search' );
-$search_label = get_post_type_object( get_post_type() )->labels->search_items;
+
+$pt = '';
+if ( is_post_type_archive() ) {
+	$pt = get_query_var( 'post_type' );
+} else if ( is_tax() ) {
+	$current_tax = get_taxonomy( get_query_var( 'taxonomy' ) );
+	$obj_types = $current_tax->object_type ?? array();
+	$pt = array_shift( $obj_types );
+}
+$search_label = get_post_type_object( $pt )->labels->search_items ?? '';
 ?>
 <div class="search-form--is-inline search-form--is-muted search-form--has-border search-form--has-medium-text">
 	<form role="search" method="get" class="search-form">
