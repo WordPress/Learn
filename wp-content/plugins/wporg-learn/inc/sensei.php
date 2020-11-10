@@ -12,6 +12,8 @@ defined( 'WPINC' ) || die();
  */
 add_filter( 'sensei_user_quiz_status', __NAMESPACE__ . '\quiz_status_message', 10, 2 );
 add_action( 'template_redirect', __NAMESPACE__ . '\course_autoenrollment_from_quiz' );
+add_action( 'sensei_single_quiz_content_inside_before', __NAMESPACE__ . '\prepend_lesson_content_to_quiz' );
+add_action( 'sensei_pagination', __NAMESPACE__ . '\remove_quiz_pagination_breadcrumb', 1 );
 
 /**
  * Modify the status message so that logging in takes precedence over enrolling in the course.
@@ -43,6 +45,8 @@ function quiz_status_message( $status, $lesson_id ) {
 
 /**
  * Enroll a logged-in user in a course when they visit a quiz page.
+ *
+ * @return void
  */
 function course_autoenrollment_from_quiz() {
 	if ( is_single() && 'quiz' === get_post_type() && is_user_logged_in() ) {
@@ -62,5 +66,37 @@ function course_autoenrollment_from_quiz() {
 
 			$manual_enrollment->enrol_learner( $user_id, $course_id );
 		}
+	}
+}
+
+/**
+ * Add a quiz's lesson content to the top of the quiz page.
+ *
+ * @param int $quiz_id
+ *
+ * @return void
+ */
+function prepend_lesson_content_to_quiz( $quiz_id ) {
+	$quiz = get_post( $quiz_id );
+	$lesson_id = $quiz->post_parent;
+
+	setup_postdata( $lesson_id );
+
+	if ( apply_filters( 'sensei_video_position', 'top', $lesson_id ) == 'top' ) {
+		do_action( 'sensei_lesson_video', $lesson_id );
+	}
+	the_content();
+
+	wp_reset_postdata();
+}
+
+/**
+ * Remove the breadcrumb that leads back to the lesson from the footer of quiz pages.
+ *
+ * @return void
+ */
+function remove_quiz_pagination_breadcrumb() {
+	if ( is_single() && 'quiz' === get_post_type() ) {
+		remove_action( 'sensei_pagination', array( Sensei()->frontend, 'sensei_breadcrumb' ), 80 );
 	}
 }
