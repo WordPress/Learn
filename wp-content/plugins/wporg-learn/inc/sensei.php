@@ -12,7 +12,7 @@ defined( 'WPINC' ) || die();
  */
 add_filter( 'sensei_user_quiz_status', __NAMESPACE__ . '\quiz_status_message', 10, 2 );
 add_action( 'template_redirect', __NAMESPACE__ . '\course_autoenrollment_from_quiz' );
-add_action( 'sensei_single_quiz_content_inside_before', __NAMESPACE__ . '\prepend_lesson_content_to_quiz' );
+add_action( 'sensei_single_quiz_content_inside_before', __NAMESPACE__ . '\prepend_lesson_content_to_quiz', 100 );
 add_action( 'sensei_pagination', __NAMESPACE__ . '\remove_quiz_pagination_breadcrumb', 1 );
 add_action( 'template_redirect', __NAMESPACE__ . '\redirect_lesson_to_quiz' );
 
