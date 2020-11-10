@@ -83,10 +83,12 @@ function prepend_lesson_content_to_quiz( $quiz_id ) {
 
 	setup_postdata( $lesson_id );
 
+	echo '<section class="entry fix">';
 	if ( apply_filters( 'sensei_video_position', 'top', $lesson_id ) == 'top' ) {
 		do_action( 'sensei_lesson_video', $lesson_id );
 	}
 	the_content();
+	echo '</section>';
 
 	wp_reset_postdata();
 }
