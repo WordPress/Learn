@@ -3,7 +3,7 @@
 namespace WPOrg_Learn\Sensei;
 
 use Exception;
-use Sensei_Course, Sensei_Course_Enrolment_Manager;
+use Sensei_Course, Sensei_Lesson, Sensei_Course_Enrolment_Manager;
 
 defined( 'WPINC' ) || die();
 
@@ -14,6 +14,7 @@ add_filter( 'sensei_user_quiz_status', __NAMESPACE__ . '\quiz_status_message', 1
 add_action( 'template_redirect', __NAMESPACE__ . '\course_autoenrollment_from_quiz' );
 add_action( 'sensei_single_quiz_content_inside_before', __NAMESPACE__ . '\prepend_lesson_content_to_quiz' );
 add_action( 'sensei_pagination', __NAMESPACE__ . '\remove_quiz_pagination_breadcrumb', 1 );
+add_action( 'template_redirect', __NAMESPACE__ . '\redirect_lesson_to_quiz' );
 
 /**
  * Modify the status message so that logging in takes precedence over enrolling in the course.
@@ -98,5 +99,22 @@ function prepend_lesson_content_to_quiz( $quiz_id ) {
 function remove_quiz_pagination_breadcrumb() {
 	if ( is_single() && 'quiz' === get_post_type() ) {
 		remove_action( 'sensei_pagination', array( Sensei()->frontend, 'sensei_breadcrumb' ), 80 );
+	}
+}
+
+/**
+ * Redirect lessons to their quizzes if there are questions.
+ *
+ * @return void
+ */
+function redirect_lesson_to_quiz() {
+	if ( is_single() && 'lesson' === get_post_type() ) {
+		$lesson_id = get_the_ID();
+
+		if ( Sensei_Lesson::lesson_quiz_has_questions( $lesson_id ) ) {
+			$quiz_id = Sensei()->lesson->lesson_quizzes( $lesson_id );
+			$quiz_permalink = get_permalink( $quiz_id );
+			wp_safe_redirect( $quiz_permalink );
+		}
 	}
 }
