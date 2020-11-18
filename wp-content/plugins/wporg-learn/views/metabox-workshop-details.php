@@ -7,6 +7,8 @@
 /** @var DateInterval $duration_interval */
 /** @var array $locales */
 /** @var array $captions */
+/** @var array $all_lessons */
+/** @var array $selected_lessons */
 ?>
 
 <p>
@@ -70,8 +72,19 @@
 	</select>
 </p>
 
+<p>
+	<label for="workshop-linked-lesson-id"><?php esc_html_e( 'Linked Quizzes', 'wporg_learn' ); ?></label>
+	<select id="workshop-linked-lesson-id" name="linked-lesson-id[]" style="width: 100%;" multiple>
+		<?php foreach ( $all_lessons as $lesson ) : ?>
+			<option value="<?php echo esc_attr( $lesson->ID ); ?>" <?php selected( in_array( $lesson->ID, $selected_lessons, true ) ); ?>>
+				<?php echo esc_html( get_the_title( $lesson->ID ) ); ?>
+			</option>
+		<?php endforeach; ?>
+	</select>
+</p>
+
 <script>
 	( function( $ ) {
-		$( '#workshop-video-language, #workshop-video-caption-language' ).select2();
+		$( '#workshop-video-language, #workshop-video-caption-language, #workshop-linked-lesson-id' ).select2();
 	} )( jQuery );
 </script>
