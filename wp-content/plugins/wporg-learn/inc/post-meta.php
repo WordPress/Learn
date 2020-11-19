@@ -14,14 +14,50 @@ defined( 'WPINC' ) || die();
  * Actions and filters.
  */
 add_action( 'init', __NAMESPACE__ . '\register' );
+add_action( 'add_meta_boxes', __NAMESPACE__ . '\add_lesson_plan_metaboxes' );
 add_action( 'add_meta_boxes', __NAMESPACE__ . '\add_workshop_metaboxes' );
-add_action( 'save_post_wporg_workshop', __NAMESPACE__ . '\save_workshop_metabox_fields', 10, 2 );
+add_action( 'save_post_lesson-plan', __NAMESPACE__ . '\save_lesson_plan_metabox_fields' );
+add_action( 'save_post_wporg_workshop', __NAMESPACE__ . '\save_workshop_metabox_fields' );
 
 /**
  * Register all post meta keys.
  */
 function register() {
+	register_lesson_plan_meta();
 	register_workshop_meta();
+}
+
+/**
+ * Register post meta keys for lesson plans.
+ */
+function register_lesson_plan_meta() {
+	$post_type = 'lesson-plan';
+
+	register_post_meta(
+		$post_type,
+		'slides_view_url',
+		array(
+			'description'       => __( 'A URL for viewing lesson plan slides.', 'wporg_learn' ),
+			'type'              => 'string',
+			'single'            => true,
+			'default'           => '',
+			'sanitize_callback' => 'esc_url_raw',
+			'show_in_rest'      => true,
+		)
+	);
+
+	register_post_meta(
+		$post_type,
+		'slides_download_url',
+		array(
+			'description'       => __( 'A URL for downloading lesson plan slides.', 'wporg_learn' ),
+			'type'              => 'string',
+			'single'            => true,
+			'default'           => '',
+			'sanitize_callback' => 'esc_url_raw',
+			'show_in_rest'      => true,
+		)
+	);
 }
 
 /**
@@ -188,6 +224,54 @@ function get_available_workshop_locales( $meta_key, $label_language = 'english' 
 }
 
 /**
+ * Add meta boxes to the Edit Lesson Plan screen.
+ *
+ * Todo these should be replaced with block editor panels.
+ */
+function add_lesson_plan_metaboxes() {
+	add_meta_box(
+		'lesson-plan-slides',
+		__( 'Slides', 'wporg_learn' ),
+		__NAMESPACE__ . '\render_metabox_lesson_plan_slides',
+		'lesson-plan',
+		'side'
+	);
+}
+
+/**
+ * Render the Lesson Plan Slides metabox.
+ *
+ * @param WP_Post $post
+ */
+function render_metabox_lesson_plan_slides( WP_Post $post ) {
+	// The $post var is used in the include file.
+	require get_views_path() . 'metabox-lesson-plan-slides.php';
+}
+
+/**
+ * Update the post meta values from the meta box fields when the post is saved.
+ *
+ * @param int $post_id
+ */
+function save_lesson_plan_metabox_fields( $post_id ) {
+	if ( wp_is_post_revision( $post_id ) || ! current_user_can( 'edit_post', $post_id ) ) {
+		return;
+	}
+
+	// This nonce field is rendered in the Lesson Plan Slides metabox.
+	$nonce = filter_input( INPUT_POST, 'lesson-plan-metabox-nonce' );
+	if ( ! wp_verify_nonce( $nonce, 'lesson-plan-metaboxes' ) ) {
+		return;
+	}
+
+	$view_url = filter_input( INPUT_POST, 'slides-view-url', FILTER_VALIDATE_URL ) ?: '';
+	update_post_meta( $post_id, 'slides_view_url', $view_url );
+
+	$download_url = filter_input( INPUT_POST, 'slides-download-url', FILTER_VALIDATE_URL ) ?: '';
+	update_post_meta( $post_id, 'slides_download_url', $download_url );
+}
+
+/**
  * Add meta boxes to the Edit Workshop screen.
  *
  * Todo these should be replaced with block editor panels.
@@ -260,10 +344,9 @@ function render_metabox_workshop_application( WP_Post $post ) {
 /**
  * Update the post meta values from the meta box fields when the post is saved.
  *
- * @param int     $post_id
- * @param WP_Post $post
+ * @param int $post_id
  */
-function save_workshop_metabox_fields( $post_id, WP_Post $post ) {
+function save_workshop_metabox_fields( $post_id ) {
 	if ( wp_is_post_revision( $post_id ) || ! current_user_can( 'edit_post', $post_id ) ) {
 		return;
 	}
