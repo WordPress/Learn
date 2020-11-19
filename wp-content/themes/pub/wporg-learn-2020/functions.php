@@ -204,24 +204,6 @@ function wporg_post_type_is_lesson() {
 }
 
 /**
- * Returns the custom field view_lesson_plan_slides_url, if it doesn't exists returns false
- *
- * @return string|bool
- */
-function wporg_get_slides_url() {
-	return get_post_meta( get_the_ID(), 'view_lesson_plan_slides_url', true );
-}
-
-/**
- * Returns the custom field download_lesson_plan_slides_url, if it doesn't exists returns false
- *
- * @return string|bool
- */
-function wporg_get_download_slides_url() {
-	return get_post_meta( get_the_ID(), 'download_lesson_plan_slides_url', true );
-}
-
-/**
  * Modify the excerpt length for our custom post types.
  *
  * @param int $length Excerpt length.
