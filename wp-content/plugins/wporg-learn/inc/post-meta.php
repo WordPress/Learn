@@ -243,6 +243,8 @@ function render_metabox_workshop_details( WP_Post $post ) {
 		'post_type'      => 'lesson',
 		'post_status'    => 'publish',
 		'posts_per_page' => 999,
+		'orderby'        => 'title',
+		'order'          => 'asc',
 	) );
 
 	require get_views_path() . 'metabox-workshop-details.php';

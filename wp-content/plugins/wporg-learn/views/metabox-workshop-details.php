@@ -75,6 +75,7 @@
 <p>
 	<label for="workshop-linked-lesson-id"><?php esc_html_e( 'Linked Quiz', 'wporg_learn' ); ?></label>
 	<select id="workshop-linked-lesson-id" name="linked-lesson-id" style="width: 100%;">
+		<option value="" disabled hidden <?php selected( ! $post->linked_lesson_id ); ?>></option>
 		<?php foreach ( $all_lessons as $lesson ) : ?>
 			<option value="<?php echo esc_attr( $lesson->ID ); ?>" <?php selected( $lesson->ID, $post->linked_lesson_id ); ?>>
 				<?php echo esc_html( get_the_title( $lesson->ID ) ); ?>
