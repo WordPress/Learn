@@ -85,7 +85,7 @@ function register_workshop_meta() {
 		array(
 			'description'       => __( 'The post ID of a lesson that covers this workshop.', 'wporg_learn' ),
 			'type'              => 'integer',
-			'single'            => false,
+			'single'            => true,
 			'sanitize_callback' => 'absint',
 			'show_in_rest'      => true,
 		)
@@ -244,10 +244,6 @@ function render_metabox_workshop_details( WP_Post $post ) {
 		'post_status'    => 'publish',
 		'posts_per_page' => 999,
 	) );
-	$selected_lessons  = array_map(
-		'absint',
-		get_post_meta( $post->ID, 'linked_lesson_id' ) ?: array()
-	);
 
 	require get_views_path() . 'metabox-workshop-details.php';
 }
@@ -312,13 +308,8 @@ function save_workshop_metabox_fields( $post_id, WP_Post $post ) {
 		}
 	}
 
-	$lessons = filter_input( INPUT_POST, 'linked-lesson-id', FILTER_SANITIZE_NUMBER_INT, FILTER_REQUIRE_ARRAY );
-	delete_post_meta( $post_id, 'linked_lesson_id' );
-	if ( is_array( $lessons ) ) {
-		foreach ( $lessons as $lesson_id ) {
-			add_post_meta( $post_id, 'linked_lesson_id', $lesson_id );
-		}
-	}
+	$lesson_id = filter_input( INPUT_POST, 'linked-lesson-id', FILTER_SANITIZE_NUMBER_INT );
+	update_post_meta( $post_id, 'linked_lesson_id', $lesson_id );
 
 	$presenter_wporg_username = filter_input( INPUT_POST, 'presenter-wporg-username' );
 	$usernames                = array_map( 'trim', explode( ',', $presenter_wporg_username ) );
