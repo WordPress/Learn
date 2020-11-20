@@ -603,3 +603,19 @@ function wporg_workshop_series_get_adjacent( $which, $workshop = null ) {
 
 	return $siblings[ $index ] ?? false;
 }
+
+/**
+ * Robots "noindex" rules for specific parts of the Learn site.
+ *
+ * @param bool $noindex
+ *
+ * @return bool
+ */
+function wporg_learn_noindex( $noindex ) {
+	if ( is_singular( 'quiz' ) ) {
+		$noindex = true;
+	}
+
+	return $noindex;
+}
+add_filter( 'wporg_noindex_request', 'wporg_learn_noindex' );
