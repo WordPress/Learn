@@ -21,7 +21,7 @@ defined( 'WPINC' ) || die();
 	<?php endif; ?>
 
 	<?php if ( ! empty( $quiz_url ) ) : ?>
-		<div class="wp-block-button is-style-secondary-full-width">
+		<div class="wp-block-button is-style-primary-full-width">
 			<a class="wp-block-button__link" href="<?php echo esc_attr( $quiz_url ); ?>" style="border-radius:5px">
 				<?php esc_html_e( 'Take a Quiz, Test Your Knowledge', 'wporg-learn' ); ?>
 			</a>
