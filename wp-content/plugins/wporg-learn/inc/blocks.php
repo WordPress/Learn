@@ -49,13 +49,6 @@ function register_workshop_details() {
 	);
 
 	wp_register_style(
-		'workshop-details-editor-style',
-		get_build_url() . 'workshop-details.css',
-		array(),
-		filemtime( get_build_path() . 'workshop-details.css' )
-	);
-
-	wp_register_style(
 		'workshop-details-style',
 		get_build_url() . 'style-workshop-details.css',
 		array(),
@@ -64,7 +57,6 @@ function register_workshop_details() {
 
 	register_block_type( 'wporg-learn/workshop-details', array(
 		'editor_script'   => 'workshop-details-editor-script',
-		'editor_style'    => 'workshop-details-editor-style',
 		'style'           => 'workshop-details-style',
 		'render_callback' => __NAMESPACE__ . '\workshop_details_render_callback',
 	) );
