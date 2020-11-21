@@ -15,7 +15,7 @@ defined( 'WPINC' ) || die();
  */
 function get_discussion_events() {
 	wp_cache_add_global_groups( array( 'learn-events' ) );
-	$cache_expiration = HOUR_IN_SECONDS * 6;
+	$cache_expiration = HOUR_IN_SECONDS * 12;
 
 	$events = wp_cache_get( 'discussion-events', 'learn-events' );
 
@@ -24,6 +24,9 @@ function get_discussion_events() {
 		$end_date = new DateTime( '@' . strtotime( '1 month' ) );
 
 		$raw_events = get_discussion_events_from_db( $start_date, $end_date );
+
+		// Only keep three events for now.
+		$raw_events = array_slice( $raw_events, 0, 3 );
 
 		$event_fields_to_keep = array( 'title', 'url', 'description', 'date_utc' );
 		$events = array_map(
