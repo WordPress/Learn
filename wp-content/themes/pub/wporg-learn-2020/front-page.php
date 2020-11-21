@@ -44,6 +44,7 @@ get_header(); ?>
 		</section>
 
 		<hr>
+
 		<section>
 			<div class="row align-middle between section-heading">
 				<h2 class="h4 section-heading_title"><?php esc_html_e( 'Recent Workshops', 'wporg-learn' ); ?></h2>
@@ -62,7 +63,21 @@ get_header(); ?>
 			get_template_part( 'template-parts/component', 'video-grid', $args );
 			?>
 		</section>
+
 		<hr>
+
+		<?php $discussion_events = \WPOrg_Learn\Events\get_discussion_events(); ?>
+		<?php if ( ! empty( $discussion_events ) ) : ?>
+			<section>
+				<ul class="discussion-event-list">
+					<?php foreach ( $discussion_events as $event ) : ?>
+						<?php get_template_part( 'template-parts/component', 'discussion-event-short-item', $event ); ?>
+					<?php endforeach; ?>
+				</ul>
+			</section>
+
+			<hr>
+		<?php endif; ?>
 
 		<?php get_template_part( 'template-parts/component', 'submit-idea-cta', array( 'icon' => 'lightbulb' ) ); ?>
 	</main>
