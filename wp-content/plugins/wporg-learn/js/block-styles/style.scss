@@ -14,6 +14,15 @@
 	}
 }
 
+.is-style-primary,
+.is-style-primary-full-width {
+	.wp-block-button__link,
+	.wp-block-button__link:visited {
+		border: 1px solid #006799;
+		box-shadow: 0 1px 0 #006799;
+	}
+}
+
 .is-style-secondary,
 .is-style-secondary-full-width {
 	.wp-block-button__link,
