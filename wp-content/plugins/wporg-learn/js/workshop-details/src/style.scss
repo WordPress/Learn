@@ -6,25 +6,37 @@
  */
 
 .wp-block-wporg-learn-workshop-details {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	color: #555d66;
+	margin: 0 0 32px;
 
-	li {
-		display: flex;
-		justify-content: space-between;
-		padding: 8px 0;
-		border-top: 1px solid #e2e4e7;
+	.workshop-details-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		color: #555d66;
 
-		&:last-child {
-			border-bottom: 1px solid #e2e4e7;
+		li {
+			display: flex;
+			justify-content: space-between;
+			padding: 8px 0;
+			border-top: 1px solid #e2e4e7;
+
+			&:last-child {
+				border-bottom: 1px solid #e2e4e7;
+			}
+
+			> span {
+				text-align: right;
+				flex-basis: 50%;
+				word-break: normal;
+			}
 		}
+	}
 
-		> span {
-			text-align: right;
-			flex-basis: 50%;
-			word-break: normal;
+	.is-style-primary-full-width,
+	.is-style-secondary-full-width {
+		.wp-block-button__link,
+		.wp-block-button__link:visited {
+			margin: 32px 0 0;
 		}
 	}
 }

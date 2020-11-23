@@ -3,8 +3,9 @@
 namespace WPOrg_Learn\Blocks;
 
 use Error;
+use Sensei_Lesson;
 use function WordPressdotorg\Locales\get_locale_name_from_code;
-use function WPOrg_Learn\{ get_build_path, get_build_url };
+use function WPOrg_Learn\{get_build_path, get_build_url, get_views_path};
 use function WPOrg_Learn\Form\render_workshop_application_form;
 use function WPOrg_Learn\Post_Meta\get_workshop_duration;
 
@@ -63,28 +64,6 @@ function register_workshop_details() {
 }
 
 /**
- * Build the html output based on input fields
- *
- * @param array $fields
- * @return string HTML output.
- */
-function get_workshop_details_html_output( $fields ) {
-	$output = '<ul class="wp-block-wporg-learn-workshop-details">';
-
-	foreach ( $fields as $key => $value ) {
-		$output .= sprintf(
-			'<li><b>%1$s</b><span>%2$s</span></li>',
-			$key,
-			$value
-		);
-	}
-
-	$output .= '</ul>';
-
-	return $output;
-}
-
-/**
  * Render the block content (html) on the frontend of the site.
  *
  * @param array  $attributes
@@ -114,9 +93,21 @@ function workshop_details_render_callback( $attributes, $content ) {
 	);
 
 	// Remove empty fields.
-	$fields_to_output = array_filter( $fields );
+	$fields = array_filter( $fields );
 
-	return get_workshop_details_html_output( $fields_to_output );
+	$lesson_id = get_post_meta( $post->ID, 'linked_lesson_id', true );
+	$quiz_url = '';
+	if ( $lesson_id && Sensei_Lesson::lesson_quiz_has_questions( $lesson_id ) ) {
+		$quiz_id = Sensei()->lesson->lesson_quizzes( $lesson_id );
+		if ( $quiz_id ) {
+			$quiz_url = get_permalink( $quiz_id );
+		}
+	}
+
+	ob_start();
+	require get_views_path() . 'block-workshop-details.php';
+
+	return ob_get_clean();
 }
 
 /**

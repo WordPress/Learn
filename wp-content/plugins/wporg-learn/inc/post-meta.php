@@ -114,6 +114,18 @@ function register_workshop_meta() {
 			'show_in_rest'      => true,
 		)
 	);
+
+	register_post_meta(
+		$post_type,
+		'linked_lesson_id',
+		array(
+			'description'       => __( 'The post ID of a lesson that covers this workshop.', 'wporg_learn' ),
+			'type'              => 'integer',
+			'single'            => true,
+			'sanitize_callback' => 'absint',
+			'show_in_rest'      => true,
+		)
+	);
 }
 
 /**
@@ -311,6 +323,13 @@ function render_metabox_workshop_details( WP_Post $post ) {
 	$duration_interval = get_workshop_duration( $post, 'interval' );
 	$locales           = get_locales_with_english_names();
 	$captions          = get_post_meta( $post->ID, 'video_caption_language' ) ?: array();
+	$all_lessons       = get_posts( array(
+		'post_type'      => 'lesson',
+		'post_status'    => 'publish',
+		'posts_per_page' => 999,
+		'orderby'        => 'title',
+		'order'          => 'asc',
+	) );
 
 	require get_views_path() . 'metabox-workshop-details.php';
 }
@@ -373,6 +392,9 @@ function save_workshop_metabox_fields( $post_id ) {
 			add_post_meta( $post_id, 'video_caption_language', $caption );
 		}
 	}
+
+	$lesson_id = filter_input( INPUT_POST, 'linked-lesson-id', FILTER_SANITIZE_NUMBER_INT );
+	update_post_meta( $post_id, 'linked_lesson_id', $lesson_id );
 
 	$presenter_wporg_username = filter_input( INPUT_POST, 'presenter-wporg-username' );
 	$usernames                = array_map( 'trim', explode( ',', $presenter_wporg_username ) );

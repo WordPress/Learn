@@ -4,13 +4,20 @@
 .is-style-secondary-full-width {
 	.wp-block-button__link,
 	.wp-block-button__link:visited {
-		background: #0085ba;
-		color: #fff;
 		text-align: center;
 		font-size: 13px;
 		font-weight: 600;
+		text-decoration: none;
 		padding: 0.9rem;
-		margin: 32px 0;
+		margin: 0 0 32px;
+		background: #0085ba;
+		color: #fff;
+		border: 1px solid #006799;
+		box-shadow: 0 1px 0 #006799;
+	}
+
+	.wp-block-button__link:hover {
+		background: #008ec2;
 	}
 }
 
@@ -18,10 +25,17 @@
 .is-style-secondary-full-width {
 	.wp-block-button__link,
 	.wp-block-button__link:visited {
-		background: #f8f9f9;
+		background: #f7f7f7;
 		color: #555;
-		border: 1px solid #d9dcdf;
-		box-shadow: 0 1px 0 #d9dcdf;
+		border: 1px solid #ccc;
+		box-shadow: 0 1px 0 #ccc;
+	}
+
+	.wp-block-button__link:hover {
+		background: #fafafa;
+		color: #23282d;
+		border: 1px solid #999;
+		box-shadow: 0 1px 0 #999;
 	}
 }
 
