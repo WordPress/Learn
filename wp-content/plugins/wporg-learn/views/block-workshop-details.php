@@ -4,8 +4,8 @@ namespace WPOrg_Learn\View\Blocks;
 
 defined( 'WPINC' ) || die();
 
-/** @var array $quiz_url */
 /** @var array $fields */
+/** @var string $quiz_url */
 ?>
 
 <div class="wp-block-wporg-learn-workshop-details">

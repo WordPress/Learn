@@ -107,7 +107,9 @@ function workshop_details_render_callback( $attributes, $content ) {
 	$quiz_url = '';
 	if ( $lesson_id && Sensei_Lesson::lesson_quiz_has_questions( $lesson_id ) ) {
 		$quiz_id = Sensei()->lesson->lesson_quizzes( $lesson_id );
-		$quiz_url = get_permalink( $quiz_id );
+		if ( $quiz_id ) {
+			$quiz_url = get_permalink( $quiz_id );
+		}
 	}
 
 	ob_start();
