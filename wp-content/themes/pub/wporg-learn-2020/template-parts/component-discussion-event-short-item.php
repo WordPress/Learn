@@ -4,7 +4,7 @@ namespace WordPressdotorg\Theme;
 
 /** @var array $args */
 
-$timestamp = strtotime( $args['date_utc'] ) - $args['date_utc_offset'];
+$timestamp = strtotime( $args['date_utc'] ) - (int) $args['date_utc_offset'];
 ?>
 
 <li class="discussion-event">
