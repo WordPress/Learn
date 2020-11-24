@@ -3,13 +3,19 @@
 namespace WordPressdotorg\Theme;
 
 /** @var array $args */
+
+$timestamp = strtotime( $args['date_utc'] ) - $args['date_utc_offset'];
 ?>
 
 <li class="discussion-event">
 	<div>
-		<span class="discussion-event-date" data-date="<?php echo esc_attr( $args['date_utc'] ); ?>">
-			<?php echo esc_html( gmdate( 'l, F jS, Y', strtotime( $args['date_utc'] ) ) ); ?>
-		</span>
+		<abbr
+			class="discussion-event-date"
+			title="<?php echo esc_attr( gmdate( 'c', $timestamp ) ); ?>"
+			data-date-utc="<?php echo esc_attr( gmdate( 'c', $timestamp ) ); ?>"
+		>
+			<?php echo esc_html( gmdate( 'l, F jS, Y', $timestamp ) ); ?>
+		</abbr>
 		<a class="discussion-event-link" href="<?php echo esc_attr( $args['url'] ); ?>">
 			<?php echo esc_html( $args['title'] ); ?>
 		</a>

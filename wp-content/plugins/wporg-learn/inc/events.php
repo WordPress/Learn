@@ -2,10 +2,16 @@
 
 namespace WPOrg_Learn\Events;
 
-use DateTime, Exception;
+use DateTime, Exception, Error;
 use wpdb;
+use function WPOrg_Learn\{ get_build_path, get_build_url };
 
 defined( 'WPINC' ) || die();
+
+/**
+ * Actions and filters.
+ */
+add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_event_assets' );
 
 /**
  * Retrieve current and upcoming Learn discussion group events using caching mechanisms.
@@ -28,7 +34,7 @@ function get_discussion_events() {
 		// Only keep three events for now.
 		$raw_events = array_slice( $raw_events, 0, 3 );
 
-		$event_fields_to_keep = array( 'title', 'url', 'description', 'date_utc' );
+		$event_fields_to_keep = array( 'title', 'url', 'description', 'date_utc', 'date_utc_offset' );
 		$events = array_map(
 			function( $event ) use ( $event_fields_to_keep ) {
 				return array_intersect_key(
@@ -79,4 +85,27 @@ function get_discussion_events_from_db( DateTime $start_date, DateTime $end_date
 	);
 
 	return $results ?: array();
+}
+
+/**
+ * Enqueue scripts and stylesheets for event functionality.
+ *
+ * @throws Error If the build files are not found.
+ */
+function enqueue_event_assets() {
+	$script_asset_path = get_build_path() . 'event.asset.php';
+	if ( ! file_exists( $script_asset_path ) ) {
+		throw new Error(
+			'You need to run `npm start` or `npm run build` for event.js first.'
+		);
+	}
+
+	$script_asset = require $script_asset_path;
+	wp_register_script(
+		'wporg-learn-event',
+		get_build_url() . 'event.js',
+		$script_asset['dependencies'],
+		$script_asset['version'],
+		true
+	);
 }
