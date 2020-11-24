@@ -25,5 +25,6 @@ npm run wp-env run cli wp jetpack module activate contact-form
 # Change permalinks
 npm run wp-env run cli wp rewrite structure '/%postname%/'
 
-# Import locales table
+# Import tables
+npm run wp-env run cli wp db import wp-content/uploads/wporg_events.sql
 npm run wp-env run cli wp db import wp-content/uploads/wporg_locales.sql
