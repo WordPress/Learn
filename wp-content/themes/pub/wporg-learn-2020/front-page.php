@@ -68,7 +68,15 @@ get_header(); ?>
 
 		<?php $discussion_events = \WPOrg_Learn\Events\get_discussion_events(); ?>
 		<?php if ( ! empty( $discussion_events ) ) : ?>
-			<section>
+			<section class="wporg-learn-workshop-discussion-events">
+				<div class="row align-middle between section-heading">
+					<h2 class="h4 section-heading_title">
+						<?php esc_html_e( 'Upcoming Discussion Groups', 'wporg-learn' ); ?>
+					</h2>
+					<a class="section-heading_link" href="https://www.meetup.com/learn-wordpress-discussions/">
+						<?php esc_html_e( 'View All »', 'wporg-learn' ); ?>
+					</a>
+				</div>
 				<ul class="discussion-event-list">
 					<?php foreach ( $discussion_events as $event ) : ?>
 						<?php get_template_part( 'template-parts/component', 'discussion-event-short-item', $event ); ?>
