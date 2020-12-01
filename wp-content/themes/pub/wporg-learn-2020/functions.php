@@ -82,6 +82,7 @@ function wporg_get_tax_slugs_from_workshop() {
  */
 function wporg_get_lesson_plans_by_tax_slugs_query( $slugs ) {
 	$args = array(
+		'order'     => 'asc',
 		'post_type' => 'lesson-plan',
 		'tax_query' => array(
 			array(
