@@ -52,6 +52,10 @@ function wporg_learn_scripts() {
 			true
 		);
 	}
+
+	if ( is_front_page() ) {
+		wp_enqueue_script( 'wporg-learn-event' );
+	}
 }
 add_action( 'wp_enqueue_scripts', 'wporg_learn_scripts' );
 
