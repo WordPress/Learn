@@ -82,6 +82,14 @@ get_header(); ?>
 						<?php get_template_part( 'template-parts/component', 'discussion-event-short-item', $event ); ?>
 					<?php endforeach; ?>
 				</ul>
+				<p>
+					<?php
+					printf(
+						wp_kses_post( __( 'Want to facilitate a discussion group about a workshop? <a href="%s">Apply to become a facilitator.</a>', 'wporg-learn' ) ),
+						'https://learn.wordpress.org/facilitate-a-discussion-group/'
+					);
+					?>
+				</p>
 			</section>
 
 			<hr>
