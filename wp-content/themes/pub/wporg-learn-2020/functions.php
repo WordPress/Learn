@@ -623,3 +623,17 @@ function wporg_learn_noindex( $noindex ) {
 	return $noindex;
 }
 add_filter( 'wporg_noindex_request', 'wporg_learn_noindex' );
+
+/**
+ * Fixes bug in (or at least in using) SyntaxHighlighter code shortcodes that
+ * causes double-encoding of `>` character.
+ *
+ * Copied from themes/pub/wporg-developer/inc/formatting.php
+ *
+ * @param string $content The text being handled as code.
+ * @return string
+ */
+function wporg_learn_fix_code_entity_encoding( $content ) {
+	return str_replace( '&amp;gt;', '&gt;', $content );
+}
+add_filter( 'syntaxhighlighter_htmlresult', 'wporg_learn_fix_code_entity_encoding', 20 );
