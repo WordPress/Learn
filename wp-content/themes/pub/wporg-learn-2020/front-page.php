@@ -37,7 +37,7 @@ get_header(); ?>
 				<div class="graphic"><span class="dashicons dashicons-welcome-learn-more"></span></div>
 				<div>
 					<h2 class="h3"><?php esc_html_e( 'Get Involved', 'wporg-learn' ); ?></h2>
-					<p><?php esc_html_e( 'Want to grow WordPress? As part of Training Team you could help others learn WordPress accross the world.', 'wporg-learn' ); ?></p>
+					<p><?php esc_html_e( 'Want to grow WordPress? As part of the Training Team you could help others learn WordPress across the world.', 'wporg-learn' ); ?></p>
 					<a href="https://make.wordpress.org/training/handbook/"><?php esc_html_e( 'Learn About The Training Team', 'wporg-learn' ); ?></a>
 				</div>
 			</div>
