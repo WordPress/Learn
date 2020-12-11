@@ -15,6 +15,7 @@ add_action( 'template_redirect', __NAMESPACE__ . '\course_autoenrollment_from_qu
 add_action( 'sensei_single_quiz_content_inside_before', __NAMESPACE__ . '\prepend_lesson_content_to_quiz', 100 );
 add_action( 'sensei_pagination', __NAMESPACE__ . '\remove_quiz_pagination_breadcrumb', 1 );
 add_action( 'template_redirect', __NAMESPACE__ . '\redirect_lesson_to_quiz' );
+add_action( 'sensei_single_course_content_inside_after', __NAMESPACE__ . '\remove_single_course_lessons_title', 1 );
 
 /**
  * Modify the status message so that logging in takes precedence over enrolling in the course.
@@ -118,5 +119,16 @@ function redirect_lesson_to_quiz() {
 			$quiz_permalink = get_permalink( $quiz_id );
 			wp_safe_redirect( $quiz_permalink );
 		}
+	}
+}
+
+/**
+ * Remove the "Lessons" heading on a single course page.
+ *
+ * @return void
+ */
+function remove_single_course_lessons_title() {
+	if ( is_singular( 'course' ) ) {
+		remove_action( 'sensei_single_course_content_inside_after', array( 'Sensei_Course', 'the_course_lessons_title' ), 9 );
 	}
 }
