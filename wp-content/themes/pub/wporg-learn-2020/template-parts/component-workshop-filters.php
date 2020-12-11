@@ -33,7 +33,7 @@ $buckets = array(
 );
 ?>
 
-<form id="filters" class="filter-form" method="get">
+<form id="filters" class="filter-form" method="get" action="<?php echo esc_url( get_post_type_archive_link( 'wporg_workshop' ) ); ?>">
 	<div class="row between">
 		<?php foreach ( $buckets as $bucket ) :
 			if ( empty( $bucket['items'] ) ) :
