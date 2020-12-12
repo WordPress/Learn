@@ -7,10 +7,15 @@
  * and that other 'pages' on your WordPress site may use a
  * different template.
  *
- * @package WPBBP
+ * @link https://codex.wordpress.org/Template_Hierarchy
+ *
+ * @package WordPressdotorg\Theme
  */
 
-get_header(); ?>
+namespace WordPressdotorg\Theme;
+
+get_header();
+?>
 
 	<main id="main" class="site-main" role="main">
 		<?php get_template_part( 'template-parts/component', 'breadcrumbs' ); ?>

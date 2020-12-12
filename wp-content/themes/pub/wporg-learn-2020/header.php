@@ -1,15 +1,15 @@
 <?php
 /**
- * The header for our theme.
+ * The Header template for our theme.
  *
- * This is the template that displays all of the <head> section and everything up until <div id="content">
+ * Displays all of the <head> section and everything up till <div id="content">
  *
- * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
+ * @link https://codex.wordpress.org/Template_Hierarchy
  *
- * @package WPBBP
+ * @package WordPressdotorg\Theme
  */
 
-namespace WordPressdotorg\Forums;
+namespace WordPressdotorg\Theme;
 
 global $wporg_global_header_options;
 if ( ! isset( $wporg_global_header_options['in_wrapper'] ) ) {
