@@ -254,6 +254,20 @@ function wporg_archive_modify_query( WP_Query $query ) {
 		}
 	}
 
+	// Some lesson plans were created at exactly the same second, so we're adding the ID to the implicit sort order to avoid randomization.
+	if (
+		( $query->is_post_type_archive( 'lesson-plan' ) || $query->is_tax( 'wporg_lesson_category' ) ) &&
+		empty( $query->get( 'orderby' ) )
+	) {
+		$query->set(
+			'orderby',
+			array(
+				'post_date' => 'DESC',
+				'ID' => 'ASC',
+			)
+		);
+	}
+
 	if ( $query->is_main_query() && $query->is_tax( 'wporg_workshop_series' ) ) {
 		$query->set( 'order', 'asc' );
 	}
