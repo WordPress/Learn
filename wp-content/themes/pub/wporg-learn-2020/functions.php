@@ -243,6 +243,16 @@ function wporg_archive_modify_query( WP_Query $query ) {
 
 	if ( $query->is_main_query() && $query->is_post_type_archive( $valid_post_types ) ) {
 		wporg_archive_maybe_apply_query_filters( $query );
+		// Some lesson plans were created at exactly the same second, so we're adding the ID to the implicit sort order to avoid randomization.
+		if ( $query->is_post_type_archive( 'lesson-plan' ) && empty( $query->get( 'orderby' ) ) ) {
+			$query->set(
+				'orderby',
+				array(
+					'post_date' => 'DESC',
+					'ID' => 'ASC',
+				)
+			);
+		}
 
 		if ( $query->is_post_type_archive( 'wporg_workshop' ) && true !== $query->get( 'wporg_workshop_filters' ) ) {
 			$featured = wporg_get_featured_workshops();
