@@ -1,0 +1,131 @@
+.card {
+	background-color: #fbfbfc;
+	border: 1px solid #ccd0d4;
+	border-radius: 3px;
+	color: #555d66;
+	margin-bottom: 0.5rem;
+	padding: 1.75rem;
+	position: relative;
+
+	/* Fix over-specific rule in the parent theme. */
+	body:not(.single):not(.search) .site-main &.post {
+		margin-bottom: 0.5rem;
+	}
+
+	.card-entry {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+
+	.card-header {
+		margin: 0;
+
+		h2 {
+			font-weight: 400;
+		}
+
+		a {
+			text-decoration: underline;
+		}
+	}
+
+	.card-meta {
+		list-style: none;
+		margin: 0;
+		font-size: 0.875rem;
+
+		li {
+			margin: 0;
+			padding: 0 0 0.5rem 1.5rem;
+			position: relative;
+
+			.dashicons {
+				position: absolute;
+				top: 0.1rem;
+				left: 0;
+			}
+		}
+
+		@media only screen and (min-width: $breakpoint-tablet) {
+			display: flex;
+			flex-flow: row wrap;
+			justify-content: flex-start;
+
+			li {
+				width: 45%;
+				margin: 0 5% 0 0;
+			}
+		}
+	}
+
+	.card-meta-item-label {
+		font-weight: 700;
+	}
+
+	.card-type {
+		background: #333;
+		border-top-right-radius: 3px;
+		font-size: 0.8rem;
+		color: #fff;
+		padding: $gutter-default / 4;
+		padding-right: $gutter-default / 2.66;
+		padding-left: $gutter-default * 1.75;
+		position: absolute;
+		top: 0;
+		right: 0;
+
+		&::before {
+			position: absolute;
+			left: 6px;
+			font-family: dashicons; /* stylelint-disable-line font-family-no-missing-generic-family-keyword */
+		}
+
+		// This are post type names
+		&--wporg_workshop {
+			background: $color-accent-green-shade1;
+		}
+
+		&--wporg_workshop::before {
+			content: "\f181";
+			top: 0;
+			font-size: 18px;
+		}
+
+		&--lesson-plan {
+			background: $color-accent-blue-shade4;
+		}
+
+		&--lesson-plan::before {
+			top: 2px;
+			left: 7px; // This icon is not proportionally spaced and needs some extra padding
+			content: "\f481";
+			font-size: 14px;
+		}
+	}
+}
+
+.card-grid {
+	margin: 1.5rem 0;
+
+	@media only screen and (min-width: $breakpoint-tablet) {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		margin-left: -0.5rem; /* Offset the padding in the grid */
+		margin-right: -0.5rem; /* Offset the padding in the grid */
+
+		> * {
+			margin: 0.5rem;
+		}
+
+		&_2 {
+			> * {
+				flex-grow: 0;
+				flex-shrink: 0;
+				flex-basis: 48%;
+			}
+		}
+	}
+}

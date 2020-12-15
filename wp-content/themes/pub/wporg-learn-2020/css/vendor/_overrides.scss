@@ -149,7 +149,7 @@ p {
 
 }
 
-.lp-list .lp-item-wrap, .card {
+.lp-list .lp-item-wrap {
 	background-color: #fff;
 	border: 1px solid #e5e5e5;
 	padding: 1.75rem;
@@ -168,10 +168,6 @@ p {
 
 .lp-list .lp-item--full {
 	width: 100%;
-}
-
-.card {
-	margin-bottom: 30px;
 }
 
 .lp-list .lp-item-wrap--split .lp-body {

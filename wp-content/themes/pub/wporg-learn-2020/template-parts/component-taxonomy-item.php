@@ -13,6 +13,6 @@
 	<span class="dashicons dashicons-<?php echo esc_attr( $detail['icon'] ); ?>"></span>
 	<span><?php echo esc_html( $detail['label'] ); ?></span>
 	<strong>
-		<span><?php echo esc_html( $detail['values'] ); ?></span>
+		<span><?php echo esc_html( $detail['value'] ); ?></span>
 	</strong>
 </li>

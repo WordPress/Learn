@@ -20,29 +20,24 @@ get_header(); ?>
 
 		<hr>
 
-		<div class="row gutters between">
-			<div class="card-grid col-9">
-				<?php if ( have_posts() ) : ?>
-					<?php while ( have_posts() ) :
-						the_post();
-						get_template_part(
-							'template-parts/component',
-							'card',
-							wporg_learn_get_card_template_args( get_the_ID() )
-						);
-					endwhile; ?>
-				<?php else : ?>
-					<p class="not-found">
-						<?php echo esc_html( get_post_type_object( 'lesson-plan' )->labels->not_found ); ?>
-					</p>
-				<?php endif; ?>
-			</div>
-
-			<?php get_template_part( 'template-parts/component', 'lesson-filters' ); ?>
+		<div class="card-grid card-grid_2">
+			<?php if ( have_posts() ) : ?>
+				<?php while ( have_posts() ) :
+					the_post();
+					get_template_part(
+						'template-parts/component',
+						'card',
+						wporg_learn_get_card_template_args( get_the_ID() )
+					);
+				endwhile; ?>
+			<?php else : ?>
+				<?php get_template_part( 'template-parts/content', 'none' ); ?>
+			<?php endif; ?>
 		</div>
 
 		<?php the_posts_pagination(); ?>
 	</section>
+
 	<hr>
 
 	<?php get_template_part( 'template-parts/component', 'submit-idea-cta' ); ?>

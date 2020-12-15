@@ -1,11 +1,16 @@
 <?php
 /**
- * The template for displaying all single post or CPT entry.
+ * The template for displaying all single posts.
  *
- * @package WPBBP
+ * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
+ *
+ * @package WordPressdotorg\Theme
  */
 
-get_header(); ?>
+namespace WordPressdotorg\Theme;
+
+get_header();
+?>
 
 	<main id="main" class="site-main" role="main">
 

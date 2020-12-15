@@ -32,8 +32,8 @@
 				<div class="lp-details">
 					<ul>
 						<?php
-						foreach ( wporg_get_custom_taxonomies( get_the_ID() ) as $detail ) {
-							if ( ! empty( $detail['values'] ) ) {
+						foreach ( wporg_learn_get_lesson_plan_taxonomy_data( get_the_ID() ) as $detail ) {
+							if ( ! empty( $detail['value'] ) ) {
 								include locate_template( 'template-parts/component-taxonomy-item.php' );
 							}
 						}

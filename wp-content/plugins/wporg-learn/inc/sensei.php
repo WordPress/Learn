@@ -13,9 +13,12 @@ defined( 'WPINC' ) || die();
 add_filter( 'sensei_user_quiz_status', __NAMESPACE__ . '\quiz_status_message', 10, 2 );
 add_action( 'template_redirect', __NAMESPACE__ . '\course_autoenrollment_from_quiz' );
 add_action( 'sensei_single_quiz_content_inside_before', __NAMESPACE__ . '\prepend_lesson_content_to_quiz', 100 );
-add_action( 'sensei_pagination', __NAMESPACE__ . '\remove_quiz_pagination_breadcrumb', 1 );
+add_action( 'sensei_pagination', __NAMESPACE__ . '\remove_various_pagination', 1 );
 add_action( 'template_redirect', __NAMESPACE__ . '\redirect_lesson_to_quiz' );
 add_action( 'sensei_single_course_content_inside_after', __NAMESPACE__ . '\remove_single_course_lessons_title', 1 );
+add_filter( 'sensei_load_default_supported_theme_wrappers', '__return_false' );
+add_action( 'sensei_before_main_content', __NAMESPACE__ . '\theme_wrapper_start' );
+add_action( 'sensei_after_main_content', __NAMESPACE__ . '\theme_wrapper_end' );
 
 /**
  * Modify the status message so that logging in takes precedence over enrolling in the course.
@@ -99,9 +102,13 @@ function prepend_lesson_content_to_quiz( $quiz_id ) {
  *
  * @return void
  */
-function remove_quiz_pagination_breadcrumb() {
+function remove_various_pagination() {
 	if ( is_single() && 'quiz' === get_post_type() ) {
 		remove_action( 'sensei_pagination', array( Sensei()->frontend, 'sensei_breadcrumb' ), 80 );
+	}
+
+	if ( is_single() ) {
+		remove_action( 'sensei_pagination', array( 'Sensei_Frontend', 'load_content_pagination' ), 30 );
 	}
 }
 
@@ -131,4 +138,25 @@ function remove_single_course_lessons_title() {
 	if ( is_singular( 'course' ) ) {
 		remove_action( 'sensei_single_course_content_inside_after', array( 'Sensei_Course', 'the_course_lessons_title' ), 9 );
 	}
+}
+
+/**
+ * Define a content wrapper opening for frontend Sensei views.
+ */
+function theme_wrapper_start() {
+	?>
+	<main id="main" class="site-main type-page" role="main">
+	<?php get_template_part( 'template-parts/component', 'breadcrumbs' ); ?>
+		<div id="main-content">
+	<?php
+}
+
+/**
+ * Define a content wrapper closing for frontend Sensei views.
+ */
+function theme_wrapper_end() {
+	?>
+		</div>
+	</main>
+	<?php
 }
