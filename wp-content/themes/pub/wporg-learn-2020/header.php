@@ -22,7 +22,7 @@ $menu_items = array(
 	'/workshops/'    => __( 'Workshops', 'wporg-learn' ),
 	'/courses/'    => __( 'Courses', 'wporg-learn' ),
 	'/lesson-plans/' => __( 'Lesson Plans', 'wporg-learn' ),
-	'/contribue/' => __( 'Contribute', 'wporg-learn' ),
+	'/contribute/' => __( 'Contribute', 'wporg-learn' ),
 );
 
 ?>
