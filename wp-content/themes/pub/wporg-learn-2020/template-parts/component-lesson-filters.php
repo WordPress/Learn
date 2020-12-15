@@ -7,8 +7,8 @@ $terms = get_terms( array(
 $current_term = get_query_var( 'term' ) ?: 'all';
 ?>
 
-<div class="wp-filter">
-	<ul class="filter-links">
+<div class="lesson-plan-filters col-3">
+	<ul>
 		<li>
 			<a href="<?php echo esc_url( get_post_type_archive_link( 'lesson-plan' ) ); ?>" class="<?php echo ( 'all' === $current_term ) ? 'current' : ''; ?>">
 				<?php esc_html_e( 'All', 'wporg-learn' ); ?>

@@ -17,23 +17,31 @@ get_header(); ?>
 			<?php the_archive_title( '<h1 class="section-heading_title h2">', '</h1>' ); ?>
 			<?php get_template_part( 'template-parts/component', 'archive-search' ); ?>
 		</div>
-		<hr>
-		<?php get_template_part( 'template-parts/component', 'lesson-filters' ); ?>
 
-		<?php if ( have_posts() ) : ?>
-			<div id="lesson-plans" class="lp-list">
-				<?php while ( have_posts() ) :
-					the_post(); ?>
-					<?php get_template_part( 'template-parts/content', 'archive' ); ?>
-				<?php endwhile; ?>
+		<hr>
+
+		<div class="row gutters between">
+			<div class="card-grid col-9">
+				<?php if ( have_posts() ) : ?>
+					<?php while ( have_posts() ) :
+						the_post();
+						get_template_part(
+							'template-parts/component',
+							'card',
+							wporg_learn_get_card_template_args( get_the_ID() )
+						);
+					endwhile; ?>
+				<?php else : ?>
+					<p class="not-found">
+						<?php echo esc_html( get_post_type_object( 'lesson-plan' )->labels->not_found ); ?>
+					</p>
+				<?php endif; ?>
 			</div>
 
-			<?php the_posts_pagination(); ?>
-		<?php else : ?>
-			<p class="not-found">
-				<?php echo esc_html( get_post_type_object( 'lesson-plan' )->labels->not_found ); ?>
-			</p>
-		<?php endif; ?>
+			<?php get_template_part( 'template-parts/component', 'lesson-filters' ); ?>
+		</div>
+
+		<?php the_posts_pagination(); ?>
 	</section>
 	<hr>
 

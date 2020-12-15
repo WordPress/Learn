@@ -144,47 +144,48 @@ function wporg_get_cat_or_default_slug() {
 	return $cat;
 }
 
-
 /**
  * Get the values associated to the page/post
  *
- * @param string $id Id of the post.
+ * @param string $post_id Id of the post.
  * @param string $tax_slug The slug for the custom taxonomy.
+ *
  * @return string
  */
-function get_taxonomy_values( $id, $tax_slug ) {
-	$terms = wp_get_post_terms( $id, $tax_slug, array( 'fields' => 'names' ) );
+function wporg_learn_get_taxonomy_terms_string( $post_id, $tax_slug ) {
+	$terms = wp_get_post_terms( $post_id, $tax_slug, array( 'fields' => 'names' ) );
+
 	return implode( ', ', $terms );
 }
-
 
 /**
  * Returns the taxonomies associated to a lesson or workshop
  *
- * @param string $id Id of the post.
- * @return string
+ * @param int $post_id Id of the post.
+ *
+ * @return array
  */
-function wporg_get_custom_taxonomies( $id ) {
+function wporg_learn_get_lesson_plan_taxonomy_data( $post_id ) {
 	return array(
 		array(
-			'icon'   => 'clock',
-			'label'  => 'Length:',
-			'values' => get_taxonomy_values( $id, 'duration' ),
+			'icon'  => 'clock',
+			'label' => wporg_label_with_colon( get_taxonomy_labels( get_taxonomy( 'duration' ) )->singular_name ),
+			'value' => wporg_learn_get_taxonomy_terms_string( $post_id, 'duration' ),
 		),
 		array(
-			'icon'   => 'admin-users',
-			'label'  => 'Audience:',
-			'values' => get_taxonomy_values( $id, 'audience' ),
+			'icon'  => 'admin-users',
+			'label' => wporg_label_with_colon( get_taxonomy_labels( get_taxonomy( 'audience' ) )->singular_name ),
+			'value' => wporg_learn_get_taxonomy_terms_string( $post_id, 'audience' ),
 		),
 		array(
-			'icon'   => 'dashboard',
-			'label'  => 'Level:',
-			'values' => get_taxonomy_values( $id, 'level' ),
+			'icon'  => 'dashboard',
+			'label' => wporg_label_with_colon( get_taxonomy_labels( get_taxonomy( 'level' ) )->singular_name ),
+			'value' => wporg_learn_get_taxonomy_terms_string( $post_id, 'level' ),
 		),
 		array(
-			'icon'   => 'welcome-learn-more',
-			'label'  => 'Type of Instruction:',
-			'values' => get_taxonomy_values( $id, 'instruction_type' ),
+			'icon'  => 'welcome-learn-more',
+			'label' => wporg_label_with_colon( get_taxonomy_labels( get_taxonomy( 'instruction_type' ) )->singular_name ),
+			'value' => wporg_learn_get_taxonomy_terms_string( $post_id, 'instruction_type' ),
 		),
 	);
 }
@@ -363,6 +364,72 @@ function wporg_get_archive_query( $post_type, array $args = array() ) {
 	) );
 
 	return new WP_Query( $args );
+}
+
+/**
+ * Get an array of data to be given to the card component template via the third argument of get_template_part().
+ *
+ * @param int $post_id
+ *
+ * @return array[]
+ */
+function wporg_learn_get_card_template_args( $post_id ) {
+	$post = get_post( $post_id );
+	$post_type = get_post_type( $post );
+
+	$args = array(
+		'class' => array(),
+		'meta'  => array(),
+	);
+
+	switch ( $post_type ) {
+		case 'course':
+			// TODO
+			break;
+
+		case 'lesson-plan':
+			$args['meta'] = wporg_learn_get_lesson_plan_taxonomy_data( $post_id );
+			break;
+
+		case 'wporg_workshop':
+			$args['meta'] = array(
+				array(
+					'icon'  => 'category',
+					'label' => wporg_label_with_colon( get_taxonomy_labels( get_taxonomy( 'topic' ) )->singular_name ),
+					'value' => wporg_learn_get_taxonomy_terms_string( $post_id, 'topic' ),
+				),
+				array(
+					'icon'  => 'clock',
+					'label' => __( 'Duration:', 'wporg-learn' ),
+					'value' => \WPOrg_Learn\Post_Meta\get_workshop_duration( $post, 'string' ),
+				),
+				array(
+					'icon'  => 'admin-site-alt3',
+					'label' => __( 'Language:', 'wporg-learn' ),
+					'value' => \WordPressdotorg\Locales\get_locale_name_from_code( $post->video_language, 'native' ),
+				),
+			);
+			break;
+	}
+
+	return $args;
+}
+
+/**
+ * Append a colon to a label string.
+ *
+ * Example: This is a self-referential example.
+ *
+ * @param string $label
+ *
+ * @return string
+ */
+function wporg_label_with_colon( $label ) {
+	return sprintf(
+		// translators: %s is a field label. This adds a colon, which will be followed by the contents of the field.
+		__( '%s:', 'wporg-learn' ),
+		$label
+	);
 }
 
 /**
