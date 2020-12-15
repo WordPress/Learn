@@ -1,3 +1,11 @@
+.sensei {
+	&:not(.post-type-archive-course) {
+		section {
+			padding: 0;
+		}
+	}
+}
+
 .single-course {
 	.course-lessons {
 		.lesson {

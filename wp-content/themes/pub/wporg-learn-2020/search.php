@@ -39,9 +39,10 @@ get_header(); ?>
 			</div>
 			<?php the_posts_pagination(); ?>
 		</section>
-	</main>
-	<hr>
 
-	<?php get_template_part( 'template-parts/component', 'submit-idea-cta' ); ?>
+		<hr>
+
+		<?php get_template_part( 'template-parts/component', 'submit-idea-cta' ); ?>
+	</main>
 <?php
 get_footer();

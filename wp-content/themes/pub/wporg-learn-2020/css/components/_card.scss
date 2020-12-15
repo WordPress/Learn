@@ -3,9 +3,14 @@
 	border: 1px solid #ccd0d4;
 	border-radius: 3px;
 	color: #555d66;
-	margin-bottom: 2rem;
+	margin-bottom: 0.5rem;
 	padding: 1.75rem;
 	position: relative;
+
+	/* Fix over-specific rule in the parent theme. */
+	body:not(.single):not(.search) .site-main &.post {
+		margin-bottom: 0.5rem;
+	}
 
 	.card-entry {
 		display: flex;
@@ -117,7 +122,9 @@
 
 		&_2 {
 			> * {
-				flex: 48%;
+				flex-grow: 0;
+				flex-shrink: 0;
+				flex-basis: 48%;
 			}
 		}
 	}

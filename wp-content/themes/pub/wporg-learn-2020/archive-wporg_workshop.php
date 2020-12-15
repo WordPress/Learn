@@ -1,4 +1,14 @@
 <?php
+/**
+ * The template for displaying archive pages.
+ *
+ * @link https://codex.wordpress.org/Template_Hierarchy
+ *
+ * @package WordPressdotorg\Theme
+ */
+
+namespace WordPressdotorg\Theme;
+
 global $wp_query;
 $is_filtered = $wp_query->get( 'wporg_workshop_filters' );
 
