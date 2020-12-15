@@ -20,8 +20,9 @@ wporg_get_global_header();
 
 $menu_items = array(
 	'/workshops/'    => __( 'Workshops', 'wporg-learn' ),
+	'/courses/'    => __( 'Courses', 'wporg-learn' ),
 	'/lesson-plans/' => __( 'Lesson Plans', 'wporg-learn' ),
-	'/workshop-presenter-application/' => __( 'Submit a Workshop', 'wporg-learn' ),
+	'/contribute/' => __( 'Contribute', 'wporg-learn' ),
 );
 
 ?>
