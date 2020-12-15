@@ -272,6 +272,19 @@ function wporg_archive_modify_query( WP_Query $query ) {
 	if ( $query->is_main_query() && $query->is_tax( 'wporg_workshop_series' ) ) {
 		$query->set( 'order', 'asc' );
 	}
+
+	// Possibly temporary until more of the courses are filled out.
+	if ( $query->is_main_query() && $query->is_post_type_archive( 'course' ) ) {
+		$query->set(
+			'meta_query',
+			array(
+				array(
+					'key'   => '_course_featured',
+					'value' => 'featured',
+				),
+			)
+		);
+	}
 }
 add_action( 'pre_get_posts', 'wporg_archive_modify_query' );
 
