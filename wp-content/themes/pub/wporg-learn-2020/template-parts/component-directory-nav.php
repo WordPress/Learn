@@ -7,10 +7,11 @@
  * @package WPBBP
  */
 
+$current_post_type = get_post_type();
 ?>
 
 <nav id="site-navigation" class="directory-navigation" role="navigation">
 	<ul id="menu-theme-directory" class="menu">
-		<li class="<?php echo ( wporg_post_type_is_lesson() ? 'current' : '' ); ?>"><a href="<?php echo esc_url( home_url( '/lesson-plans/' ) ); ?>"><?php esc_html_e( 'Lesson Plans', 'wporg-learn' ); ?></a></li>
+		<li class="<?php echo ( 'lesson-plan' === $current_post_type ? 'current' : '' ); ?>"><a href="<?php echo esc_url( home_url( '/lesson-plans/' ) ); ?>"><?php esc_html_e( 'Lesson Plans', 'wporg-learn' ); ?></a></li>
 	</ul>
 </nav>

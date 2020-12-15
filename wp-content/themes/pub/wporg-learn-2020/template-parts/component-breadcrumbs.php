@@ -7,34 +7,6 @@
  * @package WPBBP
  */
 
-/**
- * Returns list of workshops based on slug
- *
- * @return array|bool
- */
-function get_workshop_from_slug( $slug ) {
-	$args = array(
-		'name'        => $slug,
-		'post_type'   => 'workshop',
-		'post_status' => 'publish',
-		'numberposts' => 1,
-	);
-
-	$workshop = get_posts( $args );
-
-	return isset( $workshop[0] ) ? $workshop[0] : false;
-}
-
-/**
- * Returns whether we are viewing a lesson from a workshop
- *
- * @param string $referer
- * @return bool
- */
-function lesson_came_from_workshop( $referer ) {
-	return wporg_post_type_is_lesson() && strrpos( $referer, 'workshop' );
-}
-
 $crumbs = array(
 	array(
 		'label' => __( 'Learn Home', 'wporg-learn' ),
@@ -42,34 +14,14 @@ $crumbs = array(
 	),
 );
 
-$referer = wp_get_referer();
+// Get information about the post title.
+$cpt_object = get_post_type_object( get_post_type( get_queried_object() ) );
 
-// If we came from a workshop, we want to modify the breadrumbs to bring us back to the workshop.
-if ( lesson_came_from_workshop( $referer ) ) {
-	$workshop = get_workshop_from_slug( basename( $referer ) );
-
-	if ( $workshop ) {
-		array_push( $crumbs, array(
-			'label' => __( 'Workshops', 'wporg-learn' ),
-			'url'   => get_post_type_archive_link( 'workshop' ),
-		) );
-
-		array_push( $crumbs, array(
-			'label' => $workshop->post_title,
-			'url'   => get_post_permalink( $workshop->ID ),
-		) );
-	}
-} else {
-
-	// Get information about the post title.
-	$cpt_object = get_post_type_object( get_post_type( get_queried_object() ) );
-
-	if ( wporg_post_type_is_lesson() ) {
-		array_push( $crumbs, array(
-			'label' => ucfirst( $cpt_object->labels->name ),
-			'url'   => home_url( $cpt_object->has_archive ),
-		) );
-	}
+if ( 'lesson-plan' === get_post_type() ) {
+	array_push( $crumbs, array(
+		'label' => ucfirst( $cpt_object->labels->name ),
+		'url'   => home_url( $cpt_object->has_archive ),
+	) );
 }
 
 array_push( $crumbs, array(

@@ -205,15 +205,6 @@ function wporg_post_type_is_workshop() {
 }
 
 /**
- * Returns whether the post type is a lesson-plan
- *
- * @return bool
- */
-function wporg_post_type_is_lesson() {
-	return get_post_type() == 'lesson-plan';
-}
-
-/**
  * Modify the excerpt length for our custom post types.
  *
  * @param int $length Excerpt length.
