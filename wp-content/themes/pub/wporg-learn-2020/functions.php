@@ -58,6 +58,10 @@ function wporg_learn_scripts() {
 		);
 	}
 
+	if ( is_post_type_archive( 'course' ) || is_search() ) {
+		wp_dequeue_style( 'sensei-frontend' );
+	}
+
 	if ( is_front_page() ) {
 		wp_enqueue_script( 'wporg-learn-event' );
 	}
@@ -380,7 +384,25 @@ function wporg_learn_get_card_template_args( $post_id ) {
 
 	switch ( $post_type ) {
 		case 'course':
-			// TODO
+			$lesson_count = Sensei()->course->course_lesson_count( $post_id );
+
+			$args['meta'] = array(
+				array(
+					'icon'  => 'editor-ul',
+					'label' => wporg_label_with_colon( get_post_type_labels( get_post_type_object( 'lesson' ) )->name ),
+					'value' => $lesson_count,
+				),
+			);
+
+			if ( is_user_logged_in() ) {
+				$completed    = count( Sensei()->course->get_completed_lesson_ids( $post_id, get_current_user_id() ) );
+
+				$args['meta'][] = array(
+					'icon'  => ( $lesson_count === $completed ) ? 'awards' : 'edit-large',
+					'label' => __( 'Completed:', 'wporg-learn' ),
+					'value' => $completed,
+				);
+			}
 			break;
 
 		case 'lesson-plan':
