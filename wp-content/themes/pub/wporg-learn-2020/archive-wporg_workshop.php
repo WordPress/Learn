@@ -9,8 +9,12 @@
 
 namespace WordPressdotorg\Theme;
 
+use WP_Post;
+
 global $wp_query;
-$is_filtered = $wp_query->get( 'wporg_workshop_filters' );
+$is_filtered = $wp_query->get( 'wporg_archive_filters' );
+
+/** @var WP_Post $post */
 
 get_header(); ?>
 
