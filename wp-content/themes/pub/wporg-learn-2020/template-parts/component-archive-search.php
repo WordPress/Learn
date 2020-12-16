@@ -10,11 +10,22 @@ if ( is_post_type_archive() ) {
 	$pt = array_shift( $obj_types );
 }
 $search_label = get_post_type_object( $pt )->labels->search_items ?? '';
+
+$form_action = get_post_type_archive_link( $pt );
 ?>
 <div class="search-form--is-inline search-form--is-muted search-form--has-border search-form--has-medium-text">
-	<form role="search" method="get" class="search-form">
-		<label for="archive-search" class="screen-reader-text"><?php echo esc_html( _x( 'Search for:', 'label', 'wporg-learn' ) ); ?></label>
-		<input type="search" id="archive-search" class="search-field" placeholder="<?php echo esc_attr( $search_label ); ?>" value="<?php echo esc_attr( $search_query ); ?>" name="search" />
+	<form role="search" method="get" class="search-form" action="<?php echo esc_attr( $form_action ); ?>">
+		<label for="archive-search" class="screen-reader-text">
+			<?php echo esc_html( _x( 'Search for:', 'label', 'wporg-learn' ) ); ?>
+		</label>
+		<input
+			type="search"
+			id="archive-search"
+			class="search-field"
+			placeholder="<?php echo esc_attr( $search_label ); ?>"
+			value="<?php echo esc_attr( $search_query ); ?>"
+			name="search"
+		/>
 		<button class="button button-primary button-search">
 			<i class="dashicons dashicons-search"></i>
 			<span class="screen-reader-text"><?php echo esc_html( $search_label ); ?></span>
