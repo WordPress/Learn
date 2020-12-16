@@ -17,8 +17,10 @@ function setup() {
 	add_theme_support( 'sensei' );
 
 	global $woothemes_sensei;
-	remove_action( 'sensei_before_main_content', array( $woothemes_sensei->frontend, 'sensei_output_content_wrapper' ) );
-	remove_action( 'sensei_after_main_content', array( $woothemes_sensei->frontend, 'sensei_output_content_wrapper_end' ) );
+	if ( $woothemes_sensei ) {
+		remove_action( 'sensei_before_main_content', array( $woothemes_sensei->frontend, 'sensei_output_content_wrapper' ) );
+		remove_action( 'sensei_after_main_content', array( $woothemes_sensei->frontend, 'sensei_output_content_wrapper_end' ) );
+	}
 
 	// The parent wporg theme is designed for use on wordpress.org/* and assumes locale-domains are available.
 	// Remove hreflang support.
