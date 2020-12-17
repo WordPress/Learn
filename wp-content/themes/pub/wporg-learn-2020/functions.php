@@ -242,12 +242,12 @@ function wporg_archive_modify_query( WP_Query $query ) {
 		return;
 	}
 
-	$valid_post_types = array( 'lesson-plan', 'wporg_workshop' );
+	$valid_post_types = array( 'lesson-plan', 'wporg_workshop', 'course' );
 
 	if ( $query->is_main_query() && $query->is_post_type_archive( $valid_post_types ) ) {
 		wporg_archive_maybe_apply_query_filters( $query );
 
-		if ( $query->is_post_type_archive( 'wporg_workshop' ) && true !== $query->get( 'wporg_workshop_filters' ) ) {
+		if ( $query->is_post_type_archive( 'wporg_workshop' ) && true !== $query->get( 'wporg_archive_filters' ) ) {
 			$featured = wporg_get_featured_workshops();
 
 			if ( ! empty( $featured ) ) {
@@ -301,13 +301,40 @@ function wporg_archive_maybe_apply_query_filters( WP_Query &$query ) {
 	$filters = filter_input_array(
 		INPUT_GET,
 		array(
-			'series'   => FILTER_SANITIZE_NUMBER_INT,
-			'topic'    => FILTER_SANITIZE_NUMBER_INT,
-			'language' => FILTER_SANITIZE_STRING,
-			'captions' => FILTER_SANITIZE_STRING,
 			'search'   => FILTER_SANITIZE_STRING,
+			'captions' => FILTER_SANITIZE_STRING,
+			'language' => FILTER_SANITIZE_STRING,
+			'audience' => array(
+				'filter' => FILTER_VALIDATE_INT,
+				'flags'  => FILTER_REQUIRE_ARRAY,
+			),
+			'duration' => array(
+				'filter' => FILTER_VALIDATE_INT,
+				'flags'  => FILTER_REQUIRE_ARRAY,
+			),
+			'level'    => array(
+				'filter' => FILTER_VALIDATE_INT,
+				'flags'  => FILTER_REQUIRE_ARRAY,
+			),
+			'series'   => FILTER_VALIDATE_INT,
+			'topic'    => FILTER_VALIDATE_INT,
+			'type'     => array(
+				'filter' => FILTER_VALIDATE_INT,
+				'flags'  => FILTER_REQUIRE_ARRAY,
+			),
 		),
 		false
+	);
+
+	$entity_map = array(
+		'captions' => 'video_caption_language',
+		'language' => 'video_language',
+		'audience' => 'audience',
+		'duration' => 'duration',
+		'level'    => 'level',
+		'series'   => 'wporg_workshop_series',
+		'topic'    => 'topic',
+		'type'     => 'instruction_type',
 	);
 
 	$meta_query = array();
@@ -319,45 +346,33 @@ function wporg_archive_maybe_apply_query_filters( WP_Query &$query ) {
 
 		foreach ( $filters as $filter_name => $filter_value ) {
 			switch ( $filter_name ) {
-				case 'series':
-					if ( ! empty( $tax_query ) ) {
-						$tax_query['relation'] = 'AND';
-					}
-					$tax_query[] = array(
-						'taxonomy' => 'wporg_workshop_series',
-						'terms'    => $filter_value,
-					);
+				case 'search':
+					$query->set( 's', $filter_value );
+					$is_filtered = true;
 					break;
-				case 'topic':
-					if ( ! empty( $tax_query ) ) {
-						$tax_query['relation'] = 'AND';
-					}
-					$tax_query[] = array(
-						'taxonomy' => 'topic',
-						'terms'    => $filter_value,
-					);
-					break;
+				case 'captions':
 				case 'language':
 					if ( ! empty( $meta_query ) ) {
 						$meta_query['relation'] = 'AND';
 					}
 					$meta_query[] = array(
-						'key'   => 'video_language',
+						'key'   => $entity_map[ $filter_name ],
 						'value' => $filter_value,
 					);
 					break;
-				case 'captions':
-					if ( ! empty( $meta_query ) ) {
-						$meta_query['relation'] = 'AND';
+				case 'audience':
+				case 'duration':
+				case 'level':
+				case 'series':
+				case 'topic':
+				case 'type':
+					if ( ! empty( $tax_query ) ) {
+						$tax_query['relation'] = 'AND';
 					}
-					$meta_query[] = array(
-						'key'   => 'video_caption_language',
-						'value' => $filter_value,
+					$tax_query[] = array(
+						'taxonomy' => $entity_map[ $filter_name ],
+						'terms'    => $filter_value,
 					);
-					break;
-				case 'search':
-					$query->set( 's', $filter_value );
-					$is_filtered = true;
 					break;
 			}
 		}
@@ -374,7 +389,7 @@ function wporg_archive_maybe_apply_query_filters( WP_Query &$query ) {
 	}
 
 	if ( $is_filtered ) {
-		$query->set( 'wporg_workshop_filters', true );
+		$query->set( 'wporg_archive_filters', true );
 	}
 }
 

@@ -54,6 +54,7 @@ function register_lesson_audience() {
 		'labels'            => $labels,
 		'hierarchical'      => true,
 		'public'            => true,
+		'query_var'         => 'wporg_lesson_audience', // Prevent collisions with query params in the archive filter.
 		'show_ui'           => true,
 		'show_admin_column' => true,
 		'show_in_nav_menus' => true,
@@ -137,6 +138,7 @@ function register_lesson_duration() {
 		'labels'            => $labels,
 		'hierarchical'      => true,
 		'public'            => true,
+		'query_var'         => 'wporg_lesson_duration', // Prevent collisions with query params in the archive filter.
 		'show_ui'           => true,
 		'show_admin_column' => true,
 		'show_in_nav_menus' => false,
@@ -219,6 +221,7 @@ function register_lesson_instruction_type() {
 		'labels'            => $labels,
 		'hierarchical'      => true,
 		'public'            => true,
+		'query_var'         => 'wporg_lesson_type', // Prevent collisions with query params in the archive filter.
 		'show_ui'           => true,
 		'show_admin_column' => true,
 		'show_in_nav_menus' => true,
@@ -260,6 +263,7 @@ function register_lesson_level() {
 		'labels'            => $labels,
 		'hierarchical'      => true,
 		'public'            => true,
+		'query_var'         => 'wporg_lesson_level', // Prevent collisions with query params in the archive filter.
 		'show_ui'           => true,
 		'show_admin_column' => true,
 		'show_in_nav_menus' => true,
@@ -344,7 +348,7 @@ function register_workshop_topic() {
 		'labels'            => $labels,
 		'hierarchical'      => true,
 		'public'            => true,
-		'query_var'         => 'wporg_workshop_topic',
+		'query_var'         => 'wporg_workshop_topic', // Prevent collisions with query params in the archive filter.
 		'show_ui'           => true,
 		'show_admin_column' => true,
 		'show_in_nav_menus' => true,
