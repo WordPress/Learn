@@ -24,9 +24,9 @@ get_header(); ?>
 					<p class="dashicons-before dashicons-clipboard">
 						<strong><?php esc_html_e( 'Lesson Plans', 'wporg-learn' ); ?></strong>
 						<?php
-						esc_html_e( 'Are you teaching WordPress to others? These lesson plans are designed to guide and inspire you to deliver great content.', 'wporg-learn' );
+						esc_html_e( 'Are you sharing WordPress with others? These lesson plans are designed to guide and inspire you to deliver great content.', 'wporg-learn' );
 						?>
-						<u><?php esc_html_e( 'See the Lesson Plans', 'wporg-learn' ); ?></u>
+						<u><?php esc_html_e( 'Access Lesson Plans', 'wporg-learn' ); ?></u>
 					</p>
 				</a>
 			</div>
