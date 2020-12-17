@@ -39,7 +39,7 @@ $menu_items = array(
 				<p class="site-description">
 					<?php
 					/* Translators: subhead */
-					esc_html_e( 'Whether you&#8217;re a first-time blogger or seasoned developer, there&#8217;s always more to learn. From community members all over the world, these vast resources will help you learn more about WordPress and teach it to others.', 'wporg-learn' );
+					esc_html_e( 'Whether you&#8217;re a first-time blogger or seasoned developer, there&#8217;s always more to learn. From community members all over the world, these vast resources will help you learn more about WordPress and share it with others.', 'wporg-learn' );
 					?>
 				</p>
 
