@@ -574,7 +574,7 @@ function wporg_get_workshop_presenter_bio( WP_User $user ) {
 		$bio = $user->description;
 	}
 
-	return $bio;
+	return apply_filters( 'the_content', wp_unslash( $bio ) );
 }
 
 /**
