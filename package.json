@@ -6,7 +6,7 @@
 	"license": "GPL-2.0-or-later",
 	"private": true,
 	"dependencies": {
-		"@wordpress/env": "^1.6.0"
+		"@wordpress/env": "^3.0.0"
 	},
 	"workspaces": {
 		"packages": [
