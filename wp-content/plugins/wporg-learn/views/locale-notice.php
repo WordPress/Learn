@@ -1,0 +1,33 @@
+<?php
+/**
+ * Markup for a notice when a locale isn't fully translated.
+ */
+
+namespace WPOrg_Learn\Locale;
+
+use function WordPressdotorg\Locales\{ get_locales_with_native_names };
+
+defined( 'WPINC' ) || die();
+
+/** @var string $contribute_url */
+?>
+
+<div class="wporg-learn-locale-notice">
+	<p>
+		<?php
+		printf(
+			wp_kses_post(
+				/* translators: %s is a URL. */
+				__(
+					'The translation for this locale is incomplete. Help us get to 100 percent by <a href="%s">contributing a translation</a>.',
+					'wporg-learn'
+				)
+			),
+			esc_url( $contribute_url )
+		);
+		?>
+	</p>
+	<button type="button" class="wporg-learn-locale-notice-dismiss">
+		<span class="screen-reader-text"><?php esc_html_e( 'Dismiss this notice.', 'wporg-learn' ); ?></span>
+	</button>
+</div>

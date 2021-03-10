@@ -1,0 +1,10 @@
+#wpadminbar #wp-admin-bar-locale-switcher {
+	> .ab-item {
+		cursor: pointer;
+
+		&::before {
+			content: "\f326";
+			top: 2px;
+		}
+	}
+}

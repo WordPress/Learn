@@ -70,6 +70,7 @@ function load_files() {
 	require_once get_includes_path() . 'events.php';
 	require_once get_includes_path() . 'form.php';
 	require_once get_includes_path() . 'i18n.php';
+	require_once get_includes_path() . 'locale.php';
 	require_once get_includes_path() . 'post-meta.php';
 	require_once get_includes_path() . 'post-type.php';
 	require_once get_includes_path() . 'sensei.php';
