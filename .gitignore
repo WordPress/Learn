@@ -1,9 +1,11 @@
+# Global.
 /**/.DS_STORE
 /**/node_modules
 /vendor
 
 .wp-env.override.json
 
+# Ignore 3rd-party code.
 /wp-content/*
 /wp-content/mu-plugins/*
 /wp-content/mu-plugins/pub/*
@@ -11,6 +13,7 @@
 /wp-content/themes/*
 /wp-content/themes/pub/*
 
+# Track our custom code.
 !/wp-content/mu-plugins
 !/wp-content/mu-plugins/pub
 !/wp-content/mu-plugins/pub/locales.php
@@ -20,3 +23,6 @@
 !/wp-content/themes
 !/wp-content/themes/pub
 !/wp-content/themes/pub/wporg-learn-2020
+
+# Ignore subfolders in our custom code.
+/wp-content/plugins/wporg-learn/build
