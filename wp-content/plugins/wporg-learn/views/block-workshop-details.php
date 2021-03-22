@@ -27,4 +27,19 @@ defined( 'WPINC' ) || die();
 			</a>
 		</div>
 	<?php endif; ?>
+
+	<div class="wp-block-button is-style-secondary-full-width">
+		<a class="wp-block-button__link" href="https://www.meetup.com/learn-wordpress-discussions/events/" style="border-radius:5px">
+			<?php esc_html_e( 'Join a Group Discussion', 'wporg-learn' ); ?>
+		</a>
+	</div>
+
+	<p class="terms">
+		<?php
+		printf(
+			wp_kses_post( __( 'You must agree to our <a href="%s">Code of Conduct</a> in order to participate.', 'wporg-learn' ) ),
+			'https://learn.wordpress.org/code-of-conduct/'
+		);
+		?>
+	</p>
 </div>

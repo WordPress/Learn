@@ -210,28 +210,31 @@ function generate_workshop_template_structure() {
 					array(
 						'className' => 'workshop-page_sidebar',
 						'width'     => '33.333%',
+						'templateLock' => 'all',
+							// ^ not working. should prevent add/removing blocks to the column
+							// only want to change inputs inside thw details block
 					),
 					array(
 						array( 'wporg-learn/workshop-details' ),
-						array(
-							'core/button',
-							array(
-								'className'    => 'is-style-secondary-full-width',
-								'text'         => __( 'Join a Group Discussion', 'wporg-learn' ),
-								'url'          => 'https://www.meetup.com/learn-wordpress-discussions/events/',
-								'borderRadius' => 5,
-							),
-						),
-						array(
-							'core/paragraph',
-							array(
-								'className' => 'terms',
-								'content'   => sprintf(
-									__( 'You must agree to our <a href="%s">Code of Conduct</a> in order to participate.', 'wporg-learn' ),
-									'https://learn.wordpress.org/code-of-conduct/'
-								),
-							),
-						),
+//						array(
+//							'core/button',
+//							array(
+//								'className'    => 'is-style-secondary-full-width',
+//								'text'         => __( 'Join a Group Discussion', 'wporg-learn' ),
+//								'url'          => 'https://www.meetup.com/learn-wordpress-discussions/events/',
+//								'borderRadius' => 5,
+//							),
+//						),
+//						array(
+//							'core/paragraph',
+//							array(
+//								'className' => 'terms',
+//								'content'   => sprintf(
+//									__( 'You must agree to our <a href="%s">Code of Conduct</a> in order to participate.', 'wporg-learn' ),
+//									'https://learn.wordpress.org/code-of-conduct/'
+//								),
+//							),
+//						),
 					),
 				), // End column block.
 			),
