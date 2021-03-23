@@ -376,6 +376,9 @@ function save_workshop_metabox_fields( $post_id ) {
 		return;
 	}
 
+	$video_url = filter_input( INPUT_POST, 'video-url', FILTER_SANITIZE_URL );
+	update_post_meta( $post_id, 'video_url', esc_url_raw( $video_url ) );
+
 	$duration = filter_input( INPUT_POST, 'duration', FILTER_SANITIZE_NUMBER_INT, FILTER_REQUIRE_ARRAY );
 	if ( isset( $duration['h'], $duration['m'], $duration['s'] ) ) {
 		$duration = $duration['h'] * HOUR_IN_SECONDS + $duration['m'] * MINUTE_IN_SECONDS + $duration['s'];
