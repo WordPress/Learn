@@ -11,7 +11,7 @@
 
 namespace WordPressdotorg\Theme;
 
-use function WPOrg_Learn\Locale\{ locale_switcher, locale_notice };
+use function WPOrg_Learn\Locale\{ locale_notice };
 
 global $wporg_global_header_options;
 if ( ! isset( $wporg_global_header_options['in_wrapper'] ) ) {
