@@ -1,29 +1,31 @@
-/* global wpCookies */
-( function( window, $, wpCookies ) {
-
+/* global jQuery, wpCookies */
+( function ( window, $, wpCookies ) {
 	'use strict';
 
-	var localeNotice = window.WPOrgLearnLocaleNotice || {},
-		app;
+	const localeNotice = window.WPOrgLearnLocaleNotice || {};
 
-	app = $.extend( localeNotice, {
+	const app = $.extend( localeNotice, {
 		$notice: $(),
 
-		init: function() {
-			app.$notice   = $( '.wporg-learn-locale-notice' );
+		init() {
+			app.$notice = $( '.wporg-learn-locale-notice' );
 
-			app.$notice.on( 'click', '.wporg-learn-locale-notice-dismiss', function( event ) {
-				event.preventDefault();
-				app.dismissNotice();
-			} );
+			app.$notice.on(
+				'click',
+				'.wporg-learn-locale-notice-dismiss',
+				function ( event ) {
+					event.preventDefault();
+					app.dismissNotice();
+				}
+			);
 		},
 
-		dismissNotice: function() {
-			app.$notice.fadeTo( 100, 0, function() {
-				app.$notice.slideUp( 100, function() {
+		dismissNotice() {
+			app.$notice.fadeTo( 100, 0, function () {
+				app.$notice.slideUp( 100, function () {
 					app.$notice.remove();
-				});
-			});
+				} );
+			} );
 
 			wpCookies.set(
 				'wporg-learn-locale-notice-dismissed',
@@ -33,11 +35,10 @@
 				app.cookie.domain,
 				app.cookie.secure
 			);
-		}
+		},
 	} );
 
-	$( document ).ready( function() {
+	$( document ).ready( function () {
 		app.init();
 	} );
-
 } )( window, jQuery, wpCookies );
