@@ -43,7 +43,11 @@ function admin_bar_node( $wp_admin_bar ) {
 	$node = array(
 		'id'     => 'locale-switcher',
 		'parent' => 'top-secondary',
-		'title'  => $all_locales[ $current_locale ],
+		'title'  => sprintf(
+			__( '<span class="screen-reader-text">Current language:</span> %s', 'wporg' ),
+			$all_locales[ $current_locale ]
+		),
+		'href'   => '#',
 	);
 
 	$wp_admin_bar->add_node( $node );

@@ -27,7 +27,10 @@ const LocaleSwitcher = ( props ) => {
 	const closeModal = () => setOpen( false );
 	const [ value, setValue ] = useState( false );
 
-	externalButton.addEventListener( 'click', openModal );
+	externalButton.addEventListener( 'click', ( event ) => {
+		event.preventDefault();
+		openModal();
+	} );
 
 	return (
 		<>
