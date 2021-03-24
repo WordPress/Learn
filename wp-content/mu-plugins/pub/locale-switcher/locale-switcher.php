@@ -85,7 +85,7 @@ function enqueue_assets() {
 			$accumulator[] = array(
 				'label' => sprintf(
 					// translators: 1: Native name for locale. 2: WP code for locale, e.g. en_US.
-					__( '%1$s - %2$s', 'wporg' ),
+					__( '%1$s [%2$s]', 'wporg' ),
 					$locales[ $key ],
 					$key
 				),

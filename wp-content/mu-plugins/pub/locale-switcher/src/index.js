@@ -33,8 +33,9 @@ const LocaleSwitcher = ( props ) => {
 		<>
 			{ isOpen && (
 				<Modal
+					closeButtonLabel={ __( 'Cancel', 'wporg' ) }
 					onRequestClose={ closeModal }
-					title={ __( 'Choose a language', 'wporg' ) }
+					title={ __( 'Change language', 'wporg' ) }
 				>
 					<ComboboxControl
 						onChange={ ( val ) => {
