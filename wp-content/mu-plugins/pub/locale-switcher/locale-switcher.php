@@ -74,12 +74,18 @@ function enqueue_assets() {
 		true
 	);
 
-	$locales = array_unique( get_locales_with_native_names() );
+	$locales = get_locales_with_native_names();
+	ksort( $locales );
 	$locale_options = array_reduce(
 		array_keys( $locales ),
 		function( $accumulator, $key ) use ( $locales ) {
 			$accumulator[] = array(
-				'label' => $locales[ $key ],
+				'label' => sprintf(
+					// translators: 1: Native name for locale. 2: WP code for locale, e.g. en_US.
+					__( '%1$s - %2$s', 'wporg' ),
+					$locales[ $key ],
+					$key
+				),
 				'value' => $key,
 			);
 
