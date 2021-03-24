@@ -12,7 +12,7 @@ defined( 'WPINC' ) || die();
 add_action( 'plugins_loaded', __NAMESPACE__ . '\maybe_load', 99 );
 
 /**
- * Hook up the functionality if the Locale Detection plugin is activated.
+ * Hook up the functionality only if the Locale Detection plugin is activated.
  *
  * @return void
  */
@@ -20,20 +20,23 @@ function maybe_load() {
 	if ( class_exists( '\WordPressdotorg\LocaleDetection\Detector' ) ) {
 		add_action( 'admin_bar_menu', __NAMESPACE__ . '\admin_bar_node' );
 		add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_assets' );
-		add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\enqueue_assets' );
 		add_action( 'wp_print_footer_scripts', __NAMESPACE__ . '\locale_switcher_container' );
-		add_action( 'admin_print_footer_scripts', __NAMESPACE__ . '\locale_switcher_container' );
 	}
 }
 
 /**
- * Add a Locale node to the admin bar.
+ * Add a Locale node to the admin bar on the front end.
  *
  * @param \WP_Admin_Bar $wp_admin_bar
  *
  * @return void
  */
 function admin_bar_node( $wp_admin_bar ) {
+	// This only needs to be shown on the front end.
+	if ( is_admin() ) {
+		return;
+	}
+
 	$all_locales    = get_locales_with_native_names();
 	$current_locale = get_locale();
 
