@@ -1,0 +1,60 @@
+.wporg-learn-locale-notice {
+	background: #fafafa;
+	margin-bottom: 5px;
+	padding: 1px 38px 1px 12px;
+	position: relative;
+	text-align: center;
+}
+
+.wporg-learn-locale-notice p {
+	margin: 0.5em 0;
+	padding: 2px;
+}
+
+.wporg-learn-locale-notice-dismiss::before {
+	background: none;
+	color: #333;
+	content: "\f153";
+	display: block;
+	font: 400 16px/20px dashicons, sans-serif;
+	speak: none;
+	margin: 0.5em 0;
+	height: 20px;
+	text-align: center;
+	width: 20px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.wporg-learn-locale-notice-dismiss {
+	position: absolute;
+	top: 0;
+	right: 1px;
+	border: none;
+	margin: 0;
+	padding: 7px;
+	background: none;
+	color: #333;
+	cursor: pointer;
+}
+
+.rtl .wporg-learn-locale-notice-dismiss {
+	left: 1px;
+	right: inherit;
+}
+
+.wporg-learn-locale-notice-dismiss:hover,
+.wporg-learn-locale-notice-dismiss:active,
+.wporg-learn-locale-notice-dismiss:focus {
+	background: inherit;
+}
+
+.wporg-learn-locale-notice-dismiss:hover::before,
+.wporg-learn-locale-notice-dismiss:active::before,
+.wporg-learn-locale-notice-dismiss:focus::before {
+	color: #0073aa;
+}
+
+.wporg-learn-locale-notice-dismiss:focus {
+	outline: none;
+}

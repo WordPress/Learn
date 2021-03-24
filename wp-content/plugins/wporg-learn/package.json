@@ -7,7 +7,7 @@
 	"main": "build/index.js",
 	"scripts": {
 		"start": "wp-scripts start",
-		"build": "wp-scripts build",
+		"build": "wp-scripts build --webpack--devtool",
 		"format:js": "wp-scripts format-js js",
 		"lint:css": "wp-scripts lint-style './**/*.{css,scss}' '!3rd-party'",
 		"lint:js": "wp-scripts lint-js js",
