@@ -18,7 +18,9 @@ get_header();
 			 * newer posts only store prose there. Meta data, layout, etc is handled in
 			 * `content-workshop-single.php`.
 			 */
-			$layout_hardcoded = has_block( 'core/columns' ) && has_block( 'core/separator' );
+			$layout_hardcoded = has_block( 'core/columns' )
+				&& has_block( 'wporg-learn/workshop-details' )
+				&& has_block( 'core/separator' );
 
 			if ( $layout_hardcoded ) {
 				get_template_part( 'template-parts/content', 'workshop-single-hardcoded' );

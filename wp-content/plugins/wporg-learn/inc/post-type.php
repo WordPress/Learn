@@ -137,7 +137,6 @@ function register_workshop() {
 		'publicly_queryable'  => true,
 		'capability_type'     => 'page',
 		'show_in_rest'        => true,
-		'template_lock'       => 'all',
 		'rewrite'             => array( 'slug' => 'workshop' ),
 		'template'            => generate_workshop_template_structure(),
 	);
