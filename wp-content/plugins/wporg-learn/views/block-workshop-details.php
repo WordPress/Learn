@@ -4,8 +4,14 @@ namespace WPOrg_Learn\View\Blocks;
 
 defined( 'WPINC' ) || die();
 
-/** @var array $fields */
-/** @var string $quiz_url */
+/**
+ * @global WP_Post $post
+ * @var    array   $fields
+ * @var    string  $quiz_url
+ */
+
+$has_transcript = false !== strpos( $post->post_content, 'id="transcript"' );
+
 ?>
 
 <div class="wp-block-wporg-learn-workshop-details">
@@ -17,6 +23,14 @@ defined( 'WPINC' ) || die();
 					<span><?php echo esc_html( $value ); ?></span>
 				</li>
 			<?php endforeach; ?>
+
+			<?php if ( $has_transcript ) : ?>
+				<li>
+					<a class="components-button is-secondary is-small" href="#transcript">
+						<?php esc_html_e( 'Jump to transcript', 'wporg-learn' ); ?>
+					</a>
+				</li>
+			<?php endif; ?>
 		</ul>
 	<?php endif; ?>
 

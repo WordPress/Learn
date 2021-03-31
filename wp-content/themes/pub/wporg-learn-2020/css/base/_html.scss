@@ -1,0 +1,9 @@
+html {
+
+	/*
+	 * Prevent the admin bar from covering anchor headings.
+	 *
+	 * @link https://css-tricks.com/fixed-headers-on-page-links-and-overlapping-content-oh-my/
+	 */
+	scroll-padding-top: $admin-bar-height + 12px;
+}
