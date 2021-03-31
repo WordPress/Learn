@@ -68,6 +68,18 @@ function register_workshop_meta() {
 
 	register_post_meta(
 		$post_type,
+		'video_url',
+		array(
+			'description'       => __( "The URL of the Workshop's video.", 'wporg_learn' ),
+			'type'              => 'string',
+			'single'            => true,
+			'sanitize_callback' => 'esc_url_raw',
+			'show_in_rest'      => true,
+		)
+	);
+
+	register_post_meta(
+		$post_type,
 		'duration',
 		array(
 			'description'       => __( 'The duration in seconds of the workshop. Should be converted to a human readable string for display.', 'wporg_learn' ),
@@ -375,6 +387,9 @@ function save_workshop_metabox_fields( $post_id ) {
 	if ( ! wp_verify_nonce( $nonce, 'workshop-metaboxes' ) ) {
 		return;
 	}
+
+	$video_url = filter_input( INPUT_POST, 'video-url', FILTER_SANITIZE_URL );
+	update_post_meta( $post_id, 'video_url', $video_url );
 
 	$duration = filter_input( INPUT_POST, 'duration', FILTER_SANITIZE_NUMBER_INT, FILTER_REQUIRE_ARRAY );
 	if ( isset( $duration['h'], $duration['m'], $duration['s'] ) ) {

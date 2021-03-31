@@ -137,7 +137,6 @@ function register_workshop() {
 		'publicly_queryable'  => true,
 		'capability_type'     => 'page',
 		'show_in_rest'        => true,
-		'template_lock'       => 'all',
 		'rewrite'             => array( 'slug' => 'workshop' ),
 		'template'            => generate_workshop_template_structure(),
 	);
@@ -148,7 +147,7 @@ function register_workshop() {
 /**
  * Create an array representation of a workshop's content template.
  *
- * Note that if this template structure changes, the content in views/content-workshop.php
+ * ⚠️ Note that if this template structure changes, the content in views/content-workshop.php
  * will also need to be updated.
  *
  * @return array
@@ -156,87 +155,42 @@ function register_workshop() {
 function generate_workshop_template_structure() {
 	$template = array(
 		array(
-			'core/embed',
+			'core/paragraph',
 			array(
-				'className'        => 'workshop-page_video',
-				'providerNameSlug' => 'wordpress-tv',
+				'placeholder' => __( 'Describe what the workshop is about.', 'wporg-learn' ),
+			),
+		),
+
+		// Learning outcomes
+		array(
+			'core/heading',
+			array(
+				'level'   => '2',
+				'content' => __( 'Learning outcomes', 'wporg-learn' ),
 			),
 		),
 		array(
-			'core/columns',
-			array( 'className' => 'workshop-page_content' ),
+			'core/list',
 			array(
-				array(
-					'core/column',
-					array( 'width' => '66.66%' ),
-					array(
-						array(
-							'core/paragraph',
-							array(
-								'placeholder' => __( 'Describe what the workshop is about.', 'wporg-learn' ),
-							),
-						),
-						array(
-							'core/heading',
-							array(
-								'level'   => '2',
-								'content' => __( 'Learning outcomes', 'wporg-learn' ),
-							),
-						),
-						array(
-							'core/list',
-							array(
-								'className' => 'workshop-page_list',
-								'ordered'   => true,
-							),
-						),
-						array(
-							'core/heading',
-							array(
-								'level'   => '2',
-								'content' => __( 'Comprehension questions', 'wporg-learn' ),
-							),
-						),
-						array(
-							'core/list',
-							array(
-								'className' => 'workshop-page_list',
-							),
-						),
-					),
-				), // End column block.
-				array(
-					'core/column',
-					array(
-						'className' => 'workshop-page_sidebar',
-						'width'     => '33.333%',
-					),
-					array(
-						array( 'wporg-learn/workshop-details' ),
-						array(
-							'core/button',
-							array(
-								'className'    => 'is-style-secondary-full-width',
-								'text'         => __( 'Join a Group Discussion', 'wporg-learn' ),
-								'url'          => 'https://www.meetup.com/learn-wordpress-discussions/events/',
-								'borderRadius' => 5,
-							),
-						),
-						array(
-							'core/paragraph',
-							array(
-								'className' => 'terms',
-								'content'   => sprintf(
-									__( 'You must agree to our <a href="%s">Code of Conduct</a> in order to participate.', 'wporg-learn' ),
-									'https://learn.wordpress.org/code-of-conduct/'
-								),
-							),
-						),
-					),
-				), // End column block.
+				'className' => 'workshop-page_list',
+				'ordered'   => true,
 			),
-		), // End columns block.
-		array( 'core/separator' ),
+		),
+
+		// Comprehension questions
+		array(
+			'core/heading',
+			array(
+				'level'   => '2',
+				'content' => __( 'Comprehension questions', 'wporg-learn' ),
+			),
+		),
+		array(
+			'core/list',
+			array(
+				'className' => 'workshop-page_list',
+			),
+		),
 	);
 
 	return $template;

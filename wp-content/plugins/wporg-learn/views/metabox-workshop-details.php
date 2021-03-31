@@ -12,6 +12,18 @@
 ?>
 
 <p>
+	<label><?php esc_html_e( 'WordPress.tv URL', 'wporg_learn' ); ?></label><br />
+	<label for="workshop-video-url">
+		<textarea
+			id="workshop-video-url"
+			name="video-url"
+			class="large-text"
+			rows="4"
+		><?php echo esc_url( $post->video_url ); ?></textarea>
+	</label>
+</p>
+
+<p>
 	<label><?php esc_html_e( 'Duration', 'wporg_learn' ); ?></label><br />
 	<label for="workshop-duration-hours">
 		<input
@@ -20,6 +32,7 @@
 			class="tiny-text"
 			type="number"
 			value="<?php echo absint( $duration_interval->h ); ?>"
+			min="0"
 			max="23"
 		/>
 		<?php esc_html_e( 'hours', 'wporg_learn' ); ?>
@@ -31,6 +44,7 @@
 			class="tiny-text"
 			type="number"
 			value="<?php echo absint( $duration_interval->i ); ?>"
+			min="0"
 			max="59"
 		/>
 		<?php esc_html_e( 'minutes', 'wporg_learn' ); ?>
@@ -42,6 +56,7 @@
 				class="tiny-text"
 				type="number"
 				value="<?php echo absint( $duration_interval->s ); ?>"
+				min="0"
 				max="59"
 		/>
 		<?php esc_html_e( 'seconds', 'wporg_learn' ); ?>
