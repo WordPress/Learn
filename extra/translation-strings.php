@@ -6,8 +6,6 @@
  *
  * ⚠️ This is a generated file. Do not edit manually. See bin/i18n.php.
  * ⚠️ Do not require or include this file anywhere.
- *
- * Last updated: 2021-04-02 17:49:10 +0000
  */
 
 _x( 'All', 'Audiences term name', 'wporg-learn' );
