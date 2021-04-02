@@ -1,0 +1,32 @@
+name: I18n
+
+on:
+  push:
+    branches: [ try/generate-i18n ]
+
+jobs:
+  translation-strings:
+    name: Translation strings
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set PHP version
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+          tools: composer:v2
+
+      - name: Install dependencies
+        run: composer install
+
+      - name: Run translation script
+        run: php ./bin/i18n.php
+
+      - name: Commit and push
+        uses: actions-js/push@v1.2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          message: Update translation strings
