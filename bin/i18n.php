@@ -78,29 +78,6 @@ function get_taxonomy_terms( $taxonomy ) {
 }
 
 /**
- * The header for the generated file.
- *
- * @return string
- */
-function get_file_header() {
-	$file_header = <<<HEADER
-<?php
-/**
- * Generated file for translation strings.
- *
- * Used to import additional strings into the learn-wordpress translation project.
- *
- * ⚠️ This is a generated file. Do not edit manually. See bin/i18n.php.
- * ⚠️ Do not require or include this file anywhere.
- */
-
-
-HEADER;
-
-	return $file_header;
-}
-
-/**
  * Run the script.
  */
 function main() {
