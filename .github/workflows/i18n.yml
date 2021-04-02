@@ -1,8 +1,8 @@
 name: I18n
 
 on:
-  push: # TODO change this to a schedule
-    branches: [ try/generate-i18n ]
+  schedule:
+    - cron: '0 6,18 * * *'
 
 jobs:
   translation-strings:
