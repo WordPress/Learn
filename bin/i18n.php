@@ -83,8 +83,6 @@ function get_taxonomy_terms( $taxonomy ) {
  * @return string
  */
 function get_file_header() {
-	$time = gmdate( 'Y-m-d H:i:s O' );
-
 	$file_header = <<<HEADER
 <?php
 /**
@@ -94,8 +92,6 @@ function get_file_header() {
  *
  * ⚠️ This is a generated file. Do not edit manually. See bin/i18n.php.
  * ⚠️ Do not require or include this file anywhere.
- *
- * Last updated: $time
  */
 
 
@@ -161,8 +157,20 @@ function main() {
 		mkdir( $path );
 	}
 
-	$file_header = get_file_header();
 	$file_name = 'translation-strings.php';
+	$file_header = <<<HEADER
+<?php
+/**
+ * Generated file for translation strings.
+ *
+ * Used to import additional strings into the learn-wordpress translation project.
+ *
+ * ⚠️ This is a generated file. Do not edit manually. See bin/i18n.php.
+ * ⚠️ Do not require or include this file anywhere.
+ */
+
+
+HEADER;
 
 	file_put_contents( $path . '/' . $file_name, $file_header . $file_content );
 
