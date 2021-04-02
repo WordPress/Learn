@@ -31,3 +31,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: try/generate-i18n # TODO change this to trunk
           message: Update translation strings
+# Test again if commit will still happen with no term changes
