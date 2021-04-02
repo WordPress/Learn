@@ -1,7 +1,7 @@
 name: I18n
 
 on:
-  push:
+  push: # TODO change this to a schedule
     branches: [ try/generate-i18n ]
 
 jobs:
@@ -29,4 +29,5 @@ jobs:
         uses: actions-js/push@v1.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: try/generate-i18n # TODO change this to trunk
           message: Update translation strings
