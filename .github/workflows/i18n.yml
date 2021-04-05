@@ -26,7 +26,8 @@ jobs:
         run: php ./bin/i18n.php
 
       - name: Commit and push
-        uses: actions-js/push@v1.2
+        # Using a specific hash here instead of a tagged version, for risk mitigation, since this action modifies our repo.
+        uses: actions-js/push@4decc2887d2770f29177082be3c8b04d342f5b64
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: try/generate-i18n # TODO change this to trunk
