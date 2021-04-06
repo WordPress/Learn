@@ -19,7 +19,7 @@ defined( 'WPINC' ) || die();
 			wp_kses_post(
 				/* translators: %s is a URL. */
 				__(
-					'The translation for this locale is incomplete. Help us get to 100 percent by <a href="%s">contributing a translation</a>.',
+					'⚠️ The translation for this locale is incomplete. Help us get to 100 percent by <a href="%s">contributing a translation</a>.',
 					'wporg-learn'
 				)
 			),
