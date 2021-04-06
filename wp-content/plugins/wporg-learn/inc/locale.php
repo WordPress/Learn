@@ -12,6 +12,7 @@ defined( 'WPINC' ) || die();
 add_action( 'plugins_loaded', __NAMESPACE__ . '\textdomain' );
 add_filter( 'wporg_learn_update_locale_data', __NAMESPACE__ . '\update_locale_data' );
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\register_assets' );
+add_filter( 'wporg_locale_switcher_options', __NAMESPACE__ . '\locale_switcher_options' );
 
 if ( ! wp_next_scheduled( 'wporg_learn_update_locale_data' ) ) {
 	wp_schedule_event( time(), 'hourly', 'wporg_learn_update_locale_data' );
@@ -101,4 +102,24 @@ function locale_notice() {
 
 		require get_views_path() . 'locale-notice.php';
 	}
+}
+
+/**
+ * Modify the locale switcher options.
+ *
+ * @param array $options
+ *
+ * @return array
+ */
+function locale_switcher_options( $options ) {
+	$options = array_map(
+		function( $locale ) {
+			$locale['label'] .= " [{$locale['value']}]";
+
+			return $locale;
+		},
+		$options
+	);
+
+	return $options;
 }

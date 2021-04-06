@@ -25,6 +25,36 @@ function maybe_load() {
 }
 
 /**
+ * Get the list of available locales in the locale switcher.
+ *
+ * @return array
+ */
+function get_locale_options() {
+	$locales = get_locales_with_native_names();
+	ksort( $locales );
+
+	$locale_options = array_reduce(
+		array_keys( $locales ),
+		function( $accumulator, $key ) use ( $locales ) {
+			$accumulator[] = array(
+				'label' => $locales[ $key ],
+				'value' => $key,
+			);
+
+			return $accumulator;
+		},
+		array()
+	);
+
+	/**
+	 * Filter: Modify the list of available locales in the locale switcher.
+	 *
+	 * @param array $locale_options Each locale is an associative array containing a `label` key and a `value` key.
+	 */
+	return apply_filters( 'wporg_locale_switcher_options', $locale_options );
+}
+
+/**
  * Add a Locale node to the admin bar on the front end.
  *
  * @param \WP_Admin_Bar $wp_admin_bar
@@ -81,25 +111,7 @@ function enqueue_assets() {
 		true
 	);
 
-	$locales = get_locales_with_native_names();
-	ksort( $locales );
-	$locale_options = array_reduce(
-		array_keys( $locales ),
-		function( $accumulator, $key ) use ( $locales ) {
-			$accumulator[] = array(
-				'label' => sprintf(
-					// translators: 1: Native name for locale. 2: WP code for locale, e.g. en_US.
-					__( '%1$s [%2$s]', 'wporg' ),
-					$locales[ $key ],
-					$key
-				),
-				'value' => $key,
-			);
-
-			return $accumulator;
-		},
-		array()
-	);
+	$locale_options = get_locale_options();
 
 	$locale_config = array(
 		'initialValue' => get_locale(),
