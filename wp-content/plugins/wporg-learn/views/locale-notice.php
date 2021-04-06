@@ -12,7 +12,7 @@ defined( 'WPINC' ) || die();
 /** @var string $contribute_url */
 ?>
 
-<div class="wporg-learn-locale-notice">
+<div class="wporg-learn-locale-notice notice notice-warning notice-alt is-dismissible">
 	<p>
 		<?php
 		printf(

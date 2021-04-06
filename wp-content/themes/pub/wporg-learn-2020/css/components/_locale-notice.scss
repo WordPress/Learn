@@ -1,30 +1,7 @@
-.wporg-learn-locale-notice {
-	background: #f7f7f7;
-	margin-bottom: 5px;
-	padding: 1px 38px 1px 12px;
+#content .wporg-learn-locale-notice {
+	margin-top: 0;
 	position: relative;
 	text-align: center;
-	border-left: 3px solid #dba617;
-}
-
-.wporg-learn-locale-notice p {
-	margin: 0.5em 0;
-	padding: 2px;
-}
-
-.wporg-learn-locale-notice-dismiss::before {
-	background: none;
-	color: #333;
-	content: "\f153";
-	display: block;
-	font: 400 16px/20px dashicons, sans-serif;
-	speak: none;
-	margin: 0.5em 0;
-	height: 20px;
-	text-align: center;
-	width: 20px;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
 }
 
 .wporg-learn-locale-notice-dismiss {
@@ -33,29 +10,37 @@
 	right: 1px;
 	border: none;
 	margin: 0;
-	padding: 7px;
 	background: none;
 	color: #333;
 	cursor: pointer;
-}
 
-.rtl .wporg-learn-locale-notice-dismiss {
-	left: 1px;
-	right: inherit;
-}
+	&::before {
+		background: none;
+		color: #555d66;
+		content: "\f153";
+		display: block;
+		font: 400 16px/20px dashicons, sans-serif;
+		speak: none;
+		margin: 0.5em 0;
+		height: 20px;
+		text-align: center;
+		width: 20px;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
 
-.wporg-learn-locale-notice-dismiss:hover,
-.wporg-learn-locale-notice-dismiss:active,
-.wporg-learn-locale-notice-dismiss:focus {
-	background: inherit;
-}
+	&:hover,
+	&:active,
+	&:focus {
+		background: inherit;
 
-.wporg-learn-locale-notice-dismiss:hover::before,
-.wporg-learn-locale-notice-dismiss:active::before,
-.wporg-learn-locale-notice-dismiss:focus::before {
-	color: #0073aa;
-}
+		&::before {
+			color: #0073aa;
+		}
+	}
 
-.wporg-learn-locale-notice-dismiss:focus {
-	outline: none;
+	.rtl & {
+		left: 1px;
+		right: inherit;
+	}
 }
