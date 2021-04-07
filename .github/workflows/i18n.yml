@@ -1,0 +1,34 @@
+name: I18n
+
+on:
+  schedule:
+    - cron: '0 6,18 * * *'
+
+jobs:
+  translation-strings:
+    name: Translation strings
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set PHP version
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+          tools: composer:v2
+
+      - name: Install dependencies
+        run: composer install
+
+      - name: Run translation script
+        run: php ./bin/i18n.php
+
+      - name: Commit and push
+        # Using a specific hash here instead of a tagged version, for risk mitigation, since this action modifies our repo.
+        uses: actions-js/push@4decc2887d2770f29177082be3c8b04d342f5b64
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: trunk
+          message: Update translation strings
