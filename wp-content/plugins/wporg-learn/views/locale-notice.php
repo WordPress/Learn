@@ -5,8 +5,6 @@
 
 namespace WPOrg_Learn\Locale;
 
-use function WordPressdotorg\Locales\{ get_locales_with_native_names };
-
 defined( 'WPINC' ) || die();
 
 /** @var string $contribute_url */
