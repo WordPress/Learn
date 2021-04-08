@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c189b8939918e54c9733d2234dda46e8",
+    "content-hash": "a3b2be4ff8170c3764698392b9b44533",
     "packages": [
         {
             "name": "composer/installers",
@@ -155,6 +155,16 @@
             "time": "2021-01-14T11:07:16+00:00"
         },
         {
+            "name": "wordpress-meta/locale-detection",
+            "version": "1",
+            "source": {
+                "type": "svn",
+                "url": "https://meta.svn.wordpress.org/sites/",
+                "reference": "trunk/wordpress.org/public_html/wp-content/plugins/locale-detection/"
+            },
+            "type": "wordpress-plugin"
+        },
+        {
             "name": "wordpress-meta/pub",
             "version": "1",
             "source": {
@@ -194,15 +204,15 @@
         },
         {
             "name": "wpackagist-plugin/jetpack",
-            "version": "9.5.2",
+            "version": "9.6",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/jetpack/",
-                "reference": "tags/9.5.2"
+                "reference": "tags/9.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/jetpack.9.5.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/jetpack.9.6.zip"
             },
             "require": {
                 "composer/installers": "~1.0"

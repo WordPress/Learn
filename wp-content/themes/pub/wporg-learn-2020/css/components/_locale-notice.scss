@@ -1,0 +1,46 @@
+#content .wporg-learn-locale-notice {
+	margin-top: 0;
+	position: relative;
+	text-align: center;
+}
+
+.wporg-learn-locale-notice-dismiss {
+	position: absolute;
+	top: 0;
+	right: 1px;
+	border: none;
+	margin: 0;
+	background: none;
+	color: #333;
+	cursor: pointer;
+
+	&::before {
+		background: none;
+		color: #555d66;
+		content: "\f153";
+		display: block;
+		font: 400 16px/20px dashicons, sans-serif;
+		speak: none;
+		margin: 0.5em 0;
+		height: 20px;
+		text-align: center;
+		width: 20px;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+
+	&:hover,
+	&:active,
+	&:focus {
+		background: inherit;
+
+		&::before {
+			color: #0073aa;
+		}
+	}
+
+	.rtl & {
+		left: 1px;
+		right: inherit;
+	}
+}

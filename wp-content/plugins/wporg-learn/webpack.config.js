@@ -9,6 +9,7 @@ config.entry = {
 	'workshop-details': './js/workshop-details/src/index.js',
 	'event': './js/event.js',
 	'form': './js/form.js',
+	'locale-notice': './js/locale-notice.js',
 }
 
 /**

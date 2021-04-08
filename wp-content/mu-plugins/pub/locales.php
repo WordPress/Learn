@@ -7,6 +7,7 @@
 
 namespace {
 	require_once __DIR__ . '/locales/locales.php';
+	require_once __DIR__ . '/locale-switcher/locale-switcher.php';
 }
 
 namespace WordPressdotorg\Locales {

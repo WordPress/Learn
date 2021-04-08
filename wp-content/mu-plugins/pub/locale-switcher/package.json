@@ -1,7 +1,7 @@
 {
-	"name": "wporg-learn-plugin",
+	"name": "wporg-locale-switcher",
 	"version": "1.0.0",
-	"description": "Plugin for learn.wordpress.org",
+	"description": "",
 	"author": "WordPress.org",
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",
@@ -9,14 +9,11 @@
 		"start": "wp-scripts start",
 		"build": "wp-scripts build --webpack--devtool",
 		"format:js": "wp-scripts format-js js",
-		"lint:css": "wp-scripts lint-style './**/*.{css,scss}' '!3rd-party'",
-		"lint:js": "wp-scripts lint-js js",
+		"lint:css": "wp-scripts lint-style './**/*.{css,scss}'",
+		"lint:js": "wp-scripts lint-js src",
 		"packages-update": "wp-scripts packages-update"
 	},
 	"devDependencies": {
 		"@wordpress/scripts": "12.1.1"
-	},
-	"stylelint": {
-		"extends": "../../../.stylelintrc"
 	}
 }

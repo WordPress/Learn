@@ -11,6 +11,8 @@
 
 namespace WordPressdotorg\Theme;
 
+use function WPOrg_Learn\Locale\{ locale_notice };
+
 global $wporg_global_header_options;
 if ( ! isset( $wporg_global_header_options['in_wrapper'] ) ) {
 	$wporg_global_header_options['in_wrapper'] = '';
@@ -83,3 +85,5 @@ $menu_items = array(
 
 			</div><!-- .site-branding -->
 		</header><!-- #masthead -->
+
+		<?php locale_notice(); ?>

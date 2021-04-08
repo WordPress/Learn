@@ -27,6 +27,16 @@
 			"type": "package",
 			"package": [
 				{
+					"name": "wordpress-meta/locale-detection",
+					"type": "wordpress-plugin",
+					"version": "1",
+					"source": {
+						"type": "svn",
+						"url": "https://meta.svn.wordpress.org/sites/",
+						"reference": "trunk/wordpress.org/public_html/wp-content/plugins/locale-detection/"
+					}
+				},
+				{
 					"name": "wordpress-meta/pub",
 					"type": "wordpress-muplugin",
 					"version": "1",
@@ -55,6 +65,7 @@
 		"wpackagist-plugin/jetpack": "*",
 		"wpackagist-plugin/sensei-lms": "*",
 		"wpackagist-plugin/wordpress-importer": "*",
+		"wordpress-meta/locale-detection": "1",
 		"wordpress-meta/pub": "1",
 		"wordpress-meta/wporg": "1"
 	},
