@@ -227,10 +227,10 @@ function get_available_workshop_locales( $meta_key, $label_language = 'english' 
 
 	$results = $wpdb->get_col( $wpdb->prepare(
 		"
-			SELECT DISTINCT meta_value
-			FROM $wpdb->postmeta
-			WHERE meta_key = %s
-			ORDER BY meta_value ASC
+			SELECT DISTINCT postmeta.meta_value
+			FROM {$wpdb->postmeta} postmeta
+				JOIN {$wpdb->posts} posts ON posts.ID = postmeta.post_id AND posts.post_status = 'publish'
+			WHERE postmeta.meta_key = %s
 		",
 		$meta_key
 	) );
