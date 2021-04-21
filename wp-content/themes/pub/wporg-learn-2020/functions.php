@@ -344,6 +344,23 @@ function wporg_archive_maybe_apply_query_filters( WP_Query &$query ) {
 	if ( is_array( $filters ) ) {
 		$filters = array_filter( $filters );
 
+		// If both language and captions filters are set, we assume an "OR" relationship.
+		if ( isset( $filters['captions'], $filters['language'] ) ) {
+			$meta_query[] = array(
+				'relation' => 'OR',
+				array(
+					'key'   => $entity_map['captions'],
+					'value' => $filters['captions'],
+				),
+				array(
+					'key'   => $entity_map['language'],
+					'value' => $filters['language'],
+				),
+			);
+
+			unset( $filters['captions'], $filters['language'] );
+		}
+
 		foreach ( $filters as $filter_name => $filter_value ) {
 			switch ( $filter_name ) {
 				case 'search':
