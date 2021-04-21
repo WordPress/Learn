@@ -56,7 +56,13 @@ $buckets = array(
 								value="<?php echo esc_attr( $item_value ); ?>"
 								<?php selected( $item_value, filter_input( INPUT_GET, $bucket['name'] ) ); ?>
 							>
-								<?php echo esc_html( $item_label ); ?>
+								<?php
+								printf(
+									'%s [%s]',
+									esc_html( $item_label ),
+									esc_html( $item_value ),
+								);
+								?>
 							</option>
 						<?php endforeach; ?>
 					</select>
