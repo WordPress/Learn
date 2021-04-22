@@ -291,6 +291,42 @@ function wporg_archive_modify_query( WP_Query $query ) {
 add_action( 'pre_get_posts', 'wporg_archive_modify_query' );
 
 /**
+ * Modify the workshop post type archive query to prioritize workshops in the user's locale.
+ *
+ * @param array    $clauses
+ * @param WP_Query $query
+ *
+ * @return array
+ */
+function wporg_archive_query_prioritize_locale( $clauses, $query ) {
+	if ( ! $query->is_post_type_archive( 'wporg_workshop' ) || is_admin() ) {
+		return $clauses;
+	}
+
+	global $wpdb;
+
+	$locale      = get_locale() ?: 'en_US';
+	$locale_root = preg_replace( '#^([a-z]{2,3}_?)[a-zA-Z_-]*#', '$1', $locale, -1, $count );
+
+	if ( $count ) {
+		$clauses['fields']  .= ", MAX( IF( {$wpdb->postmeta}.meta_key = 'video_language' AND {$wpdb->postmeta}.meta_value LIKE '{$locale_root}%', 1, 0 ) ) AS has_language";
+		$clauses['fields']  .= ", MAX( IF( {$wpdb->postmeta}.meta_key = 'video_caption_language' AND {$wpdb->postmeta}.meta_value LIKE '{$locale_root}%', 1, 0 ) ) AS has_caption";
+		$clauses['orderby'] = 'has_language DESC, has_caption DESC, ' . $clauses['orderby'];
+
+		if ( false === strpos( $clauses['join'], "INNER JOIN {$wpdb->postmeta}" ) ) {
+			$clauses['join'] .= " INNER JOIN {$wpdb->postmeta} ON ( {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id )";
+		}
+
+		if ( false === strpos( $clauses['groupby'], "{$wpdb->posts}.ID" ) ) {
+			$clauses['groupby'] = "{$wpdb->posts}.ID";
+		}
+	}
+
+	return $clauses;
+}
+add_filter( 'posts_clauses', 'wporg_archive_query_prioritize_locale', 10, 2 );
+
+/**
  * Update a query object if filter parameters are present.
  *
  * @param WP_Query $query Query object, passed by reference.
