@@ -244,7 +244,13 @@ $prefix = 'submission:';
 				<select id="language" name="language" class="do-select2" required>
 					<?php foreach ( get_locales_with_native_names() as $code => $name ) : ?>
 						<option value="<?php echo esc_attr( $code ); ?>" <?php selected( $code, $form['language'] ); ?>>
-							<?php echo esc_html( $name ); ?>
+							<?php
+							printf(
+								'%s [%s]',
+								esc_html( $name ),
+								esc_html( $code ),
+							);
+							?>
 						</option>
 					<?php endforeach; ?>
 				</select>
