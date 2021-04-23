@@ -2,7 +2,9 @@
 
 namespace WPOrg_Learn\Admin;
 
+use WP_Query;
 use function WordPressdotorg\Locales\get_locale_name_from_code;
+use function WPOrg_Learn\Post_Meta\get_available_workshop_locales;
 
 defined( 'WPINC' ) || die();
 
@@ -12,6 +14,8 @@ defined( 'WPINC' ) || die();
 add_action( 'admin_notices', __NAMESPACE__ . '\show_term_translation_notice' );
 add_filter( 'manage_wporg_workshop_posts_columns', __NAMESPACE__ . '\add_workshop_list_table_columns' );
 add_action( 'manage_wporg_workshop_posts_custom_column', __NAMESPACE__ . '\render_workshop_list_table_columns', 10, 2 );
+add_action( 'restrict_manage_posts', __NAMESPACE__ . '\add_workshop_list_table_filters', 10, 2 );
+add_action( 'pre_get_posts', __NAMESPACE__ . '\handle_workshop_list_table_filters' );
 
 /**
  * Show a notice on taxonomy term screens about terms being translatable.
@@ -69,9 +73,9 @@ function show_term_translation_notice() {
  */
 function add_workshop_list_table_columns( $columns ) {
 	$columns = array_slice( $columns, 0, -2, true )
-	           + array( 'video_language' => __( 'Language', 'wporg-learn' ) )
-	           + array( 'video_caption_language' => __( 'Captions', 'wporg-learn' ) )
-	           + array_slice( $columns, -2, 2, true );
+				+ array( 'video_language' => __( 'Language', 'wporg-learn' ) )
+				+ array( 'video_caption_language' => __( 'Captions', 'wporg-learn' ) )
+				+ array_slice( $columns, -2, 2, true );
 
 	return $columns;
 }
@@ -104,5 +108,76 @@ function render_workshop_list_table_columns( $column_name, $post_id ) {
 				)
 			) );
 			break;
+	}
+}
+
+/**
+ * Add filtering controls for the workshops list table.
+ *
+ * @param string $post_type
+ * @param string $which
+ *
+ * @return void
+ */
+function add_workshop_list_table_filters( $post_type, $which ) {
+	if ( 'wporg_workshop' !== $post_type || 'top' !== $which ) {
+		return;
+	}
+
+	$available_locales = get_available_workshop_locales( 'video_language', 'english', false );
+	$language          = filter_input( INPUT_GET, 'language', FILTER_SANITIZE_STRING );
+
+	?>
+	<label for="filter-by-language" class="screen-reader-text">
+		<?php esc_html_e( 'Filter by language', 'wporg-learn' ); ?>
+	</label>
+	<select id="filter-by-language" name="language">
+		<option value=""<?php selected( ! $language ); ?>><?php esc_html_e( 'Any language', 'wporg-learn' ); ?></option>
+		<?php foreach ( $available_locales as $code => $name ) : ?>
+			<option value="<?php echo esc_attr( $code ); ?>"<?php selected( $code, $language ); ?>>
+				<?php
+				printf(
+					'%s [%s]',
+					esc_html( $name ),
+					esc_html( $code )
+				);
+				?>
+			</option>
+		<?php endforeach; ?>
+	</select>
+	<?php
+}
+
+/**
+ * Alter the query to include workshop list table filters.
+ *
+ * @param WP_Query $query
+ *
+ * @return void
+ */
+function handle_workshop_list_table_filters( WP_Query $query ) {
+	if ( ! is_admin() ) {
+		return;
+	}
+
+	$current_screen = get_current_screen();
+
+	if ( 'edit-wporg_workshop' === $current_screen->id ) {
+		$language = filter_input( INPUT_GET, 'language', FILTER_SANITIZE_STRING );
+
+		if ( $language ) {
+			$meta_query = $query->get( 'meta_query', array() );
+
+			if ( ! empty( $meta_query ) ) {
+				$meta_query['relation'] = 'AND';
+			}
+
+			$meta_query[] = array(
+				'key'   => 'video_language',
+				'value' => $language,
+			);
+
+			$query->set( 'meta_query', $meta_query );
+		}
 	}
 }
