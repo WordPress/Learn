@@ -187,7 +187,10 @@ function handle_workshop_list_table_filters( WP_Query $query ) {
 			$meta_query = $query->get( 'meta_query', array() );
 
 			if ( ! empty( $meta_query ) ) {
-				$meta_query['relation'] = 'AND';
+				$meta_query = array(
+					'relation' => 'AND',
+					$meta_query,
+				);
 			}
 
 			$meta_query[] = array(
