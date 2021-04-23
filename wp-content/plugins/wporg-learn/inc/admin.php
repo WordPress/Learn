@@ -14,6 +14,7 @@ defined( 'WPINC' ) || die();
 add_action( 'admin_notices', __NAMESPACE__ . '\show_term_translation_notice' );
 add_filter( 'manage_wporg_workshop_posts_columns', __NAMESPACE__ . '\add_workshop_list_table_columns' );
 add_action( 'manage_wporg_workshop_posts_custom_column', __NAMESPACE__ . '\render_workshop_list_table_columns', 10, 2 );
+add_filter( 'manage_edit-wporg_workshop_sortable_columns', __NAMESPACE__ . '\add_workshop_list_table_sortable_columns' );
 add_action( 'restrict_manage_posts', __NAMESPACE__ . '\add_workshop_list_table_filters', 10, 2 );
 add_action( 'pre_get_posts', __NAMESPACE__ . '\handle_workshop_list_table_filters' );
 
@@ -93,7 +94,11 @@ function render_workshop_list_table_columns( $column_name, $post_id ) {
 
 	switch ( $column_name ) {
 		case 'video_language':
-			echo esc_html( get_locale_name_from_code( $post->video_language, 'english' ) );
+			printf(
+				'%s [%s]',
+				esc_html( get_locale_name_from_code( $post->video_language, 'english' ) ),
+				esc_html( $post->video_language )
+			);
 			break;
 		case 'video_caption_language':
 			$captions = get_post_meta( $post->ID, 'video_caption_language' );
@@ -109,6 +114,19 @@ function render_workshop_list_table_columns( $column_name, $post_id ) {
 			) );
 			break;
 	}
+}
+
+/**
+ * Make additional columns sortable.
+ *
+ * @param array $sortable_columns
+ *
+ * @return array
+ */
+function add_workshop_list_table_sortable_columns( $sortable_columns ) {
+	$sortable_columns['video_language'] = 'video_language';
+
+	return $sortable_columns;
 }
 
 /**
@@ -178,6 +196,11 @@ function handle_workshop_list_table_filters( WP_Query $query ) {
 			);
 
 			$query->set( 'meta_query', $meta_query );
+		}
+
+		if ( 'video_language' === $query->get( 'orderby' ) ) {
+			$query->set( 'meta_key', 'video_language' );
+			$query->set( 'orderby', 'meta_value' );
 		}
 	}
 }
