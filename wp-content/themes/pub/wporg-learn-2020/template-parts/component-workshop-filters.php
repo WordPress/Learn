@@ -56,7 +56,15 @@ $buckets = array(
 								value="<?php echo esc_attr( $item_value ); ?>"
 								<?php selected( $item_value, filter_input( INPUT_GET, $bucket['name'] ) ); ?>
 							>
-								<?php echo esc_html( $item_label ); ?>
+								<?php if ( in_array( $bucket['name'], array( 'language', 'captions' ) ) ) :
+									printf(
+										'%s [%s]',
+										esc_html( $item_label ),
+										esc_html( $item_value ),
+									);
+								else :
+									echo esc_html( $item_label );
+								endif; ?>
 							</option>
 						<?php endforeach; ?>
 					</select>
