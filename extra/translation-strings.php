@@ -82,5 +82,6 @@ _x( 'Security', 'Topics term name', 'wporg-learn' );
 _x( 'Translation', 'Topics term name', 'wporg-learn' );
 _x( 'Troubleshooting', 'Topics term name', 'wporg-learn' );
 _x( 'Sessions on WordPress Troubleshooting.', 'Topics term description', 'wporg-learn' );
+_x( 'TV Team', 'Topics term name', 'wporg-learn' );
 _x( 'UI', 'Topics term name', 'wporg-learn' );
 _x( 'WordPress', 'Topics term name', 'wporg-learn' );
