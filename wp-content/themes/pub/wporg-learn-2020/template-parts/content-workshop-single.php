@@ -25,7 +25,13 @@ global $wp_embed;
 
 				<div class="wp-block-column workshop-page_sidebar" style="flex-basis:33.333%">
 					<div>
-						<?php echo render_block( array( 'blockName' => 'wporg-learn/workshop-details' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+						<?php
+						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						echo render_block( array(
+							'blockName' => 'wporg-learn/workshop-details',
+							'attrs'     => array(),
+						) );
+						?>
 					</div>
 
 					<div class="wp-block-button is-style-secondary-full-width">

@@ -14,7 +14,9 @@
 
 ?>
 
-<?php echo $blurbs['description']; ?>
+<!-- wp:paragraph {"placeholder":"<?php esc_html_e( 'Describe what the workshop is about.', 'wporg-learn' ); ?>"} -->
+<p><?php echo $blurbs['description']; ?></p>
+<!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":"2"} -->
 <h2><?php esc_html_e( 'Learning outcomes', 'wporg-learn' ); ?></h2>
@@ -30,8 +32,16 @@
 <h2><?php esc_html_e( 'Comprehension questions', 'wporg-learn' ); ?></h2>
 <!-- /wp:heading -->
 
-<!-- wp:list {"className":"workshop-page_list"} -->
-<ul class="workshop-page_list">
+<!-- wp:list {"ordered":true,"className":"workshop-page_list"} -->
+<ol class="workshop-page_list">
 	<?php echo $blurbs['comprehension-questions']; ?>
-</ul>
+</ol>
 <!-- /wp:list -->
+
+<!-- wp:heading {"className":"transcript"} -->
+<h2 class="transcript" id="transcript"><?php esc_html_e( 'Transcript', 'wporg-learn' ); ?></h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"placeholder":"<?php esc_html_e( 'Copy the transcript from Otter. See handbook for instructions.', 'wporg-learn' ); ?>"} -->
+<p></p>
+<!-- /wp:paragraph -->

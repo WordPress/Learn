@@ -152,6 +152,7 @@ function register_workshop() {
  */
 function generate_workshop_template_structure() {
 	$template = array(
+		// Description
 		array(
 			'core/paragraph',
 			array(
@@ -187,6 +188,24 @@ function generate_workshop_template_structure() {
 			'core/list',
 			array(
 				'className' => 'workshop-page_list',
+				'ordered'   => true,
+			),
+		),
+
+		// Transcript
+		array(
+			'core/heading',
+			array(
+				'className' => 'transcript',
+				'anchor'    => 'transcript',
+				'level'     => '2',
+				'content'   => __( 'Transcript', 'wporg-learn' ),
+			),
+		),
+		array(
+			'core/paragraph',
+			array(
+				'placeholder' => __( 'Copy the transcript from Otter. See handbook for instructions.', 'wporg-learn' ),
 			),
 		),
 	);
