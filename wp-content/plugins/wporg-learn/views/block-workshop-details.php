@@ -26,9 +26,12 @@ $has_transcript = false !== strpos( $post->post_content, 'id="transcript"' );
 
 			<?php if ( $has_transcript ) : ?>
 				<li>
-					<a class="components-button is-secondary is-small" href="#transcript">
-						<?php esc_html_e( 'Jump to transcript', 'wporg-learn' ); ?>
-					</a>
+					<b><?php esc_html_e( 'Transcript', 'wporg-learn' ); ?></b>
+					<span>
+						<a class="components-button is-secondary is-small" href="#transcript">
+							<?php esc_html_e( 'View', 'wporg-learn' ); ?>
+						</a>
+					</span>
 				</li>
 			<?php endif; ?>
 		</ul>
