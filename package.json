@@ -19,7 +19,7 @@
 	"scripts": {
 		"install:env": "./bin/index.sh",
 		"install:githooks": "mv .git/hooks .git/hooks_orig && ln -s ../.githooks .git/hooks",
-		"create": "yarn workspaces run build && composer install && yarn run install:env",
+		"create": "composer install && yarn workspaces run build && yarn run install:env",
 		"wp-env": "wp-env",
 		"lint:php": "composer run lint",
 		"format:php": "composer run format"
