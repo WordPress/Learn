@@ -6,7 +6,7 @@
 	"license": "GPL-2.0-or-later",
 	"private": true,
 	"dependencies": {
-		"@wordpress/env": "^3.0.0"
+		"@wordpress/env": "^4.0.0"
 	},
 	"workspaces": {
 		"packages": [
@@ -14,7 +14,9 @@
 			"wp-content/plugins/wporg-learn",
 			"wp-content/themes/pub/wporg-learn-2020"
 		],
-		"nohoist": ["**/grunt-*"]
+		"nohoist": [
+			"**/grunt-*"
+		]
 	},
 	"scripts": {
 		"install:env": "./bin/index.sh",
