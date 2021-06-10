@@ -59,10 +59,10 @@ _x( 'En esta serio de tutoriales, o WorkShops, se abordan los conceptos básico,
 Partiendo de lo indispensable, iremos viendo sección tras sección, video tras video, cómo poder implementar nuestras propias ideas, necesidades, requerimientos, etc. de una manera simple y al alcance de todo el mundo.', 'Workshop Series term description', 'wporg-learn' );
 _x( 'Organizing WordPress Meetups', 'Workshop Series term name', 'wporg-learn' );
 _x( 'This series aimed at all WordPress Community members across the world that are interested in organizing WordPress meetups. You will learn how to organize a local WordPress Meetup, the important things to keep in mind while organizing a meetup, and how to keep your local meetup group active.', 'Workshop Series term description', 'wporg-learn' );
-_x( 'Seguridad en WordPress', 'Workshop Series term name', 'wporg-learn' );
+_x( 'WordPress Security', 'Workshop Series term name', 'wporg-learn' );
 _x( 'Using the Block Editor', 'Workshop Series term name', 'wporg-learn' );
 _x( 'Learn how to get the most out of the WordPress block editor when publishing your content.', 'Workshop Series term description', 'wporg-learn' );
-_x( 'WordPress の基本', 'Workshop Series term name', 'wporg-learn' );
+_x( 'WordPress Basics', 'Workshop Series term name', 'wporg-learn' );
 _x( 'WordPress for Kids', 'Workshop Series term name', 'wporg-learn' );
 _x( 'WordPress Troubleshooting', 'Workshop Series term name', 'wporg-learn' );
 _x( 'Learn how to troubleshoot WordPress issues.', 'Workshop Series term description', 'wporg-learn' );
