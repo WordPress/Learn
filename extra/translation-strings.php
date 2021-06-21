@@ -48,6 +48,7 @@ _x( 'Any', 'Experience Levels term name', 'wporg-learn' );
 _x( 'Beginner', 'Experience Levels term name', 'wporg-learn' );
 _x( 'Intermediate', 'Experience Levels term name', 'wporg-learn' );
 _x( 'Advanced site management', 'Workshop Series term name', 'wporg-learn' );
+_x( 'Cómo contribuir a WordPress', 'Workshop Series term name', 'wporg-learn' );
 _x( 'Contributing to WordPress', 'Workshop Series term name', 'wporg-learn' );
 _x( 'Get involved in contributing to WordPress - no matter you do with WordPress there\'s a way that you can be a part of building the project and community. You will need to <a href="https://learn.wordpress.org/workshop/set-up-a-wordpress-org-account">set up a WordPress.org profile</a> in order to contribute.', 'Workshop Series term description', 'wporg-learn' );
 _x( 'Developing for the Block Editor', 'Workshop Series term name', 'wporg-learn' );
