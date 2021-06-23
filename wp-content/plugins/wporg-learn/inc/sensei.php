@@ -12,9 +12,6 @@ defined( 'WPINC' ) || die();
  */
 add_filter( 'sensei_user_quiz_status', __NAMESPACE__ . '\quiz_status_message', 10, 2 );
 add_action( 'template_redirect', __NAMESPACE__ . '\course_autoenrollment_from_quiz' );
-add_action( 'sensei_single_quiz_content_inside_before', __NAMESPACE__ . '\prepend_lesson_content_to_quiz', 100 );
-add_action( 'sensei_pagination', __NAMESPACE__ . '\remove_various_pagination', 1 );
-add_action( 'template_redirect', __NAMESPACE__ . '\redirect_lesson_to_quiz' );
 add_action( 'sensei_single_course_content_inside_after', __NAMESPACE__ . '\remove_single_course_lessons_title', 1 );
 add_filter( 'sensei_load_default_supported_theme_wrappers', '__return_false' );
 add_action( 'sensei_before_main_content', __NAMESPACE__ . '\theme_wrapper_start' );
@@ -70,61 +67,6 @@ function course_autoenrollment_from_quiz() {
 			}
 
 			$manual_enrollment->enrol_learner( $user_id, $course_id );
-		}
-	}
-}
-
-/**
- * Add a quiz's lesson content to the top of the quiz page.
- *
- * @param int $quiz_id
- *
- * @return void
- */
-function prepend_lesson_content_to_quiz( $quiz_id ) {
-	$quiz = get_post( $quiz_id );
-	$lesson_id = $quiz->post_parent;
-
-	setup_postdata( $lesson_id );
-
-	echo '<section class="entry fix">';
-	if ( apply_filters( 'sensei_video_position', 'top', $lesson_id ) == 'top' ) {
-		do_action( 'sensei_lesson_video', $lesson_id );
-	}
-	the_content();
-	echo '</section>';
-
-	wp_reset_postdata();
-}
-
-/**
- * Remove the breadcrumb that leads back to the lesson from the footer of quiz pages.
- *
- * @return void
- */
-function remove_various_pagination() {
-	if ( is_single() && 'quiz' === get_post_type() ) {
-		remove_action( 'sensei_pagination', array( Sensei()->frontend, 'sensei_breadcrumb' ), 80 );
-	}
-
-	if ( is_single() ) {
-		remove_action( 'sensei_pagination', array( 'Sensei_Frontend', 'load_content_pagination' ), 30 );
-	}
-}
-
-/**
- * Redirect lessons to their quizzes if there are questions.
- *
- * @return void
- */
-function redirect_lesson_to_quiz() {
-	if ( is_single() && 'lesson' === get_post_type() ) {
-		$lesson_id = get_the_ID();
-
-		if ( Sensei_Lesson::lesson_quiz_has_questions( $lesson_id ) ) {
-			$quiz_id = Sensei()->lesson->lesson_quizzes( $lesson_id );
-			$quiz_permalink = get_permalink( $quiz_id );
-			wp_safe_redirect( $quiz_permalink );
 		}
 	}
 }
