@@ -1812,10 +1812,10 @@
     react "^16.9.0"
     react-dom "^16.9.0"
 
-"@wordpress/env@^4.0.0":
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/@wordpress/env/-/env-4.0.4.tgz#de6bd8c3e621a181e1c171fa206b75ae6ae8cf77"
-  integrity sha512-PmxtLrJfAOngEYWHDVbeT2wby6EiPjsCFP70CkmV4AgyjN/boM5fAH27ty4DIaW8t4CiNRCMmapLvLy6db9YGw==
+"@wordpress/env@^4.0.5":
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/@wordpress/env/-/env-4.0.5.tgz#5560c39fc2e453291ad370128807e9e1ec975f37"
+  integrity sha512-Z0ZHj2M0v7RMS59qIKdvfOkIGKKuNAcrQ6cCqY2IU4JVsDJEDjrjGV2uTj2oLuwwFKOb/cIDGZabDIsiBXw9AQ==
   dependencies:
     chalk "^4.0.0"
     copy-dir "^1.3.0"

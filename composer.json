@@ -62,6 +62,7 @@
 	"require": {
 		"composer/installers": "~1.0",
 		"wpackagist-plugin/edit-flow": "*",
+		"wpackagist-plugin/gutenberg": "*",
 		"wpackagist-plugin/jetpack": "*",
 		"wpackagist-plugin/sensei-lms": "*",
 		"wpackagist-plugin/wordpress-importer": "*",
