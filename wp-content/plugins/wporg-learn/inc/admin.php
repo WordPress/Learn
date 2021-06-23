@@ -174,7 +174,7 @@ function add_workshop_list_table_filters( $post_type, $which ) {
  * @return void
  */
 function handle_workshop_list_table_filters( WP_Query $query ) {
-	if ( ! is_admin() ) {
+	if ( ! is_admin() || ! function_exists( 'get_current_screen' ) ) {
 		return;
 	}
 
