@@ -12,7 +12,6 @@ defined( 'WPINC' ) || die();
  */
 add_filter( 'sensei_user_quiz_status', __NAMESPACE__ . '\quiz_status_message', 10, 2 );
 add_action( 'template_redirect', __NAMESPACE__ . '\course_autoenrollment_from_quiz' );
-add_action( 'sensei_pagination', __NAMESPACE__ . '\remove_various_pagination', 1 );
 add_action( 'sensei_single_course_content_inside_after', __NAMESPACE__ . '\remove_single_course_lessons_title', 1 );
 add_filter( 'sensei_load_default_supported_theme_wrappers', '__return_false' );
 add_action( 'sensei_before_main_content', __NAMESPACE__ . '\theme_wrapper_start' );
@@ -69,21 +68,6 @@ function course_autoenrollment_from_quiz() {
 
 			$manual_enrollment->enrol_learner( $user_id, $course_id );
 		}
-	}
-}
-
-/**
- * Remove the breadcrumb that leads back to the lesson from the footer of quiz pages.
- *
- * @return void
- */
-function remove_various_pagination() {
-	if ( is_single() && 'quiz' === get_post_type() ) {
-		remove_action( 'sensei_pagination', array( Sensei()->frontend, 'sensei_breadcrumb' ), 80 );
-	}
-
-	if ( is_single() ) {
-		remove_action( 'sensei_pagination', array( 'Sensei_Frontend', 'load_content_pagination' ), 30 );
 	}
 }
 
