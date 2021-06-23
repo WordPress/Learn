@@ -2,6 +2,7 @@
 /**/.DS_STORE
 /**/node_modules
 /vendor
+*.map
 
 .wp-env.override.json
 
