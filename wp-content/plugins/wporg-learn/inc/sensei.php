@@ -12,7 +12,6 @@ defined( 'WPINC' ) || die();
  */
 add_filter( 'sensei_user_quiz_status', __NAMESPACE__ . '\quiz_status_message', 10, 2 );
 add_action( 'template_redirect', __NAMESPACE__ . '\course_autoenrollment_from_quiz' );
-add_action( 'sensei_single_quiz_content_inside_before', __NAMESPACE__ . '\prepend_lesson_content_to_quiz', 100 );
 add_action( 'sensei_pagination', __NAMESPACE__ . '\remove_various_pagination', 1 );
 add_action( 'template_redirect', __NAMESPACE__ . '\redirect_lesson_to_quiz' );
 add_action( 'sensei_single_course_content_inside_after', __NAMESPACE__ . '\remove_single_course_lessons_title', 1 );
@@ -72,29 +71,6 @@ function course_autoenrollment_from_quiz() {
 			$manual_enrollment->enrol_learner( $user_id, $course_id );
 		}
 	}
-}
-
-/**
- * Add a quiz's lesson content to the top of the quiz page.
- *
- * @param int $quiz_id
- *
- * @return void
- */
-function prepend_lesson_content_to_quiz( $quiz_id ) {
-	$quiz = get_post( $quiz_id );
-	$lesson_id = $quiz->post_parent;
-
-	setup_postdata( $lesson_id );
-
-	echo '<section class="entry fix">';
-	if ( apply_filters( 'sensei_video_position', 'top', $lesson_id ) == 'top' ) {
-		do_action( 'sensei_lesson_video', $lesson_id );
-	}
-	the_content();
-	echo '</section>';
-
-	wp_reset_postdata();
 }
 
 /**
