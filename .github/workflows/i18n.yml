@@ -27,7 +27,7 @@ jobs:
 
       - name: Commit and push
         # Using a specific hash here instead of a tagged version, for risk mitigation, since this action modifies our repo.
-        uses: actions-js/push@4decc2887d2770f29177082be3c8b04d342f5b64
+        uses: actions-js/push@a52398fac807b0c1e5f1492c969b477c8560a0ba
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: trunk
