@@ -206,15 +206,15 @@
         },
         {
             "name": "wpackagist-plugin/gutenberg",
-            "version": "10.9.0",
+            "version": "11.3.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/gutenberg/",
-                "reference": "tags/10.9.0"
+                "reference": "tags/11.3.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/gutenberg.10.9.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/gutenberg.11.3.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -224,15 +224,15 @@
         },
         {
             "name": "wpackagist-plugin/jetpack",
-            "version": "9.8.1",
+            "version": "10.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/jetpack/",
-                "reference": "tags/9.8.1"
+                "reference": "tags/10.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/jetpack.9.8.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/jetpack.10.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -242,15 +242,15 @@
         },
         {
             "name": "wpackagist-plugin/sensei-lms",
-            "version": "3.11.0",
+            "version": "3.13.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/sensei-lms/",
-                "reference": "tags/3.11.0"
+                "reference": "tags/3.13.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/sensei-lms.3.11.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/sensei-lms.3.13.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -468,16 +468,16 @@
         },
         {
             "name": "phpcompatibility/phpcompatibility-wp",
-            "version": "2.1.1",
+            "version": "2.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCompatibility/PHPCompatibilityWP.git",
-                "reference": "b7dc0cd7a8f767ccac5e7637550ea1c50a67b09e"
+                "reference": "a792ab623069f0ce971b2417edef8d9632e32f75"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCompatibility/PHPCompatibilityWP/zipball/b7dc0cd7a8f767ccac5e7637550ea1c50a67b09e",
-                "reference": "b7dc0cd7a8f767ccac5e7637550ea1c50a67b09e",
+                "url": "https://api.github.com/repos/PHPCompatibility/PHPCompatibilityWP/zipball/a792ab623069f0ce971b2417edef8d9632e32f75",
+                "reference": "a792ab623069f0ce971b2417edef8d9632e32f75",
                 "shasum": ""
             },
             "require": {
@@ -518,7 +518,7 @@
                 "issues": "https://github.com/PHPCompatibility/PHPCompatibilityWP/issues",
                 "source": "https://github.com/PHPCompatibility/PHPCompatibilityWP"
             },
-            "time": "2021-02-15T12:58:46+00:00"
+            "time": "2021-07-21T11:09:57+00:00"
         },
         {
             "name": "rmccue/requests",
