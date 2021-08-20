@@ -4,7 +4,6 @@
 		"SCRIPT_DEBUG": true,
 		"WP_DEBUG_LOG": "/tmp/wp-errors.log",
 		"FS_METHOD": "direct",
-		"ALTERNATE_WP_CRON": true,
 		"WP_ENVIRONMENT_TYPE": "local"
 	},
 	"phpVersion": "7.4",
