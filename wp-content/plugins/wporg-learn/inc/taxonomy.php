@@ -21,6 +21,8 @@ function register() {
 	register_lesson_level();
 	register_workshop_series();
 	register_workshop_topic();
+	register_wp_version();
+	register_included_content();
 }
 
 /**
@@ -357,4 +359,88 @@ function register_workshop_topic() {
 	);
 
 	register_taxonomy( 'topic', array( 'wporg_workshop' ), $args );
+}
+
+/**
+ * Register the WordPress Versions taxonomy.
+ */
+function register_wp_version() {
+	$labels = array(
+		'name'                       => _x( 'WordPress Version', 'taxonomy general name', 'wporg-learn' ),
+		'singular_name'              => _x( 'WordPress Version', 'taxonomy singular name', 'wporg-learn' ),
+		'menu_name'                  => __( 'WP Version', 'wporg-learn' ),
+		'all_items'                  => __( 'All WordPress versions', 'wporg-learn' ),
+		'new_item_name'              => __( 'New WordPress version', 'wporg-learn' ),
+		'add_new_item'               => __( 'Add WordPress version', 'wporg-learn' ),
+		'edit_item'                  => __( 'Edit WordPress version', 'wporg-learn' ),
+		'update_item'                => __( 'Update WordPress version', 'wporg-learn' ),
+		'view_item'                  => __( 'View WordPress version', 'wporg-learn' ),
+		'separate_items_with_commas' => __( 'Separate WordPress versions with commas', 'wporg-learn' ),
+		'add_or_remove_items'        => __( 'Add or remove WordPress version', 'wporg-learn' ),
+		'choose_from_most_used'      => __( 'Choose from the most used', 'wporg-learn' ),
+		'popular_items'              => __( 'Popular WordPress versions', 'wporg-learn' ),
+		'search_items'               => __( 'Search WordPress versions', 'wporg-learn' ),
+		'not_found'                  => __( 'No WordPress version found', 'wporg-learn' ),
+		'no_terms'                   => __( 'No WordPress versions', 'wporg-learn' ),
+		'items_list'                 => __( 'WordPress version list', 'wporg-learn' ),
+		'items_list_navigation'      => __( 'WordPress version list navigation', 'wporg-learn' ),
+		'back_to_items'              => __( '&larr; Back to WordPress Versions', 'wporg-learn' ),
+	);
+
+	$args = array(
+		'labels'            => $labels,
+		'hierarchical'      => true,
+		'public'            => false,
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'show_in_nav_menus' => true,
+		'show_tagcloud'     => false,
+		'show_in_rest'      => true,
+	);
+
+	$post_types = array( 'lesson-plan', 'wporg_workshop', 'course', 'lesson' );
+
+	register_taxonomy( 'wporg_wp_version', $post_types, $args );
+}
+
+/**
+ * Register the Included Content taxonomy.
+ */
+function register_included_content() {
+	$labels = array(
+		'name'                       => _x( 'Included Content', 'taxonomy general name', 'wporg-learn' ),
+		'singular_name'              => _x( 'Included Content', 'taxonomy singular name', 'wporg-learn' ),
+		'menu_name'                  => __( 'Included Content', 'wporg-learn' ),
+		'all_items'                  => __( 'All included content', 'wporg-learn' ),
+		'new_item_name'              => __( 'New included content', 'wporg-learn' ),
+		'add_new_item'               => __( 'Add included content', 'wporg-learn' ),
+		'edit_item'                  => __( 'Edit included content', 'wporg-learn' ),
+		'update_item'                => __( 'Update included content', 'wporg-learn' ),
+		'view_item'                  => __( 'View included content', 'wporg-learn' ),
+		'separate_items_with_commas' => __( 'Separate included content items with commas', 'wporg-learn' ),
+		'add_or_remove_items'        => __( 'Add or remove included content', 'wporg-learn' ),
+		'choose_from_most_used'      => __( 'Choose from the most used', 'wporg-learn' ),
+		'popular_items'              => __( 'Popular included content items', 'wporg-learn' ),
+		'search_items'               => __( 'Search included content', 'wporg-learn' ),
+		'not_found'                  => __( 'No included content found', 'wporg-learn' ),
+		'no_terms'                   => __( 'No included content', 'wporg-learn' ),
+		'items_list'                 => __( 'Included content list', 'wporg-learn' ),
+		'items_list_navigation'      => __( 'Included content list navigation', 'wporg-learn' ),
+		'back_to_items'              => __( '&larr; Back to Included Content', 'wporg-learn' ),
+	);
+
+	$args = array(
+		'labels'            => $labels,
+		'hierarchical'      => true,
+		'public'            => false,
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'show_in_nav_menus' => true,
+		'show_tagcloud'     => false,
+		'show_in_rest'      => true,
+	);
+
+	$post_types = array( 'lesson-plan', 'wporg_workshop', 'course', 'lesson' );
+
+	register_taxonomy( 'wporg_included_content', $post_types, $args );
 }
