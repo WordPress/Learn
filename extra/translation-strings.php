@@ -33,6 +33,7 @@ _x( '15', 'Duration term name', 'wporg-learn' );
 _x( '30', 'Duration term name', 'wporg-learn' );
 _x( '45', 'Duration term name', 'wporg-learn' );
 _x( '60', 'Duration term name', 'wporg-learn' );
+_x( '90', 'Duration term name', 'wporg-learn' );
 _x( 'Get Started', 'Lesson Groups term name', 'wporg-learn' );
 _x( 'Polyglots Training', 'Lesson Groups term name', 'wporg-learn' );
 _x( 'Speaker Training', 'Lesson Groups term name', 'wporg-learn' );
