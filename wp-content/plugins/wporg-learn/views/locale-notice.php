@@ -15,9 +15,9 @@ defined( 'WPINC' ) || die();
 		<?php
 		printf(
 			wp_kses_post(
-				/* translators: %s is a URL. */
+				/* translators: %s is a URL. If you translate 'percent' to '%' please encode it as '%%' and discard the GlotPress warning. */
 				__(
-					'⚠️ The translation for this locale is incomplete. Help us get to 100%% by <a href="%s">contributing a translation</a>.',
+					'⚠️ The translation for this locale is incomplete. Help us get to 100 percent by <a href="%s">contributing a translation</a>.',
 					'wporg-learn'
 				)
 			),
