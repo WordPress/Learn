@@ -1,7 +1,12 @@
 /**
  * WordPress dependencies
  */
-import { Button, DateTimePicker, Dropdown, PanelRow } from '@wordpress/components';
+import {
+	Button,
+	DateTimePicker,
+	Dropdown,
+	PanelRow,
+} from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { format, __experimentalGetSettings } from '@wordpress/date';
 import { PluginPostStatusInfo } from '@wordpress/edit-post';
@@ -13,14 +18,17 @@ function ExpirationLabel( { date } ) {
 	const settings = __experimentalGetSettings();
 	return date
 		? format(
-			`${ settings.formats.date } ${ settings.formats.time }`,
-			date
-		)
+				`${ settings.formats.date } ${ settings.formats.time }`,
+				date
+		  )
 		: __( 'No expiration date', 'wporg-learn' );
 }
 
 const ExpirationDate = () => {
-	const postMetaData = useSelect( ( select ) => select( 'core/editor' ).getEditedPostAttribute( 'meta' ) || {} );
+	const postMetaData = useSelect(
+		( select ) =>
+			select( 'core/editor' ).getEditedPostAttribute( 'meta' ) || {}
+	);
 	const { editPost } = useDispatch( 'core/editor' );
 	const [ expDate, setExpDate ] = useState( postMetaData?.expiration_date );
 	const anchorRef = useRef();
@@ -49,8 +57,11 @@ const ExpirationDate = () => {
 					renderContent={ () => {
 						return (
 							<>
-								<p className="help-text" style={ { padding: '0 16px' } }>
-									{ __( 'A date when the content in this post might become obsolete.', 'wporg-learn' ) }
+								<p style={ { padding: '0 16px' } }>
+									{ __(
+										'A date when the content in this post might become obsolete.',
+										'wporg-learn'
+									) }
 								</p>
 								<DateTimePicker
 									ref={ pickerRef }
@@ -65,7 +76,9 @@ const ExpirationDate = () => {
 											},
 										} );
 
-										const { ownerDocument } = pickerRef.current;
+										const {
+											ownerDocument,
+										} = pickerRef.current;
 										ownerDocument.activeElement.blur();
 									} }
 								/>
