@@ -162,3 +162,6 @@ _x( 'tools', 'Included Content term name', 'wporg-learn' );
 _x( 'users', 'Included Content term name', 'wporg-learn' );
 _x( 'widgets', 'Included Content term name', 'wporg-learn' );
 _x( 'writing', 'Included Content term name', 'wporg-learn' );
+_x( 'Contributing', 'Course Categories term name', 'wporg-learn' );
+_x( 'Publishing', 'Course Categories term name', 'wporg-learn' );
+_x( 'Site Management', 'Course Categories term name', 'wporg-learn' );
