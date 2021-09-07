@@ -17,6 +17,11 @@ add_action( 'manage_wporg_workshop_posts_custom_column', __NAMESPACE__ . '\rende
 add_filter( 'manage_edit-wporg_workshop_sortable_columns', __NAMESPACE__ . '\add_workshop_list_table_sortable_columns' );
 add_action( 'restrict_manage_posts', __NAMESPACE__ . '\add_workshop_list_table_filters', 10, 2 );
 add_action( 'pre_get_posts', __NAMESPACE__ . '\handle_workshop_list_table_filters' );
+add_filter( 'display_post_states', __NAMESPACE__ . '\add_post_states', 10, 2 );
+foreach ( array( 'lesson-plan', 'wporg_workshop', 'course', 'lesson' ) as $pt ) {
+	add_filter( 'views_edit-' . $pt, __NAMESPACE__ . '\list_table_views' );
+}
+add_action( 'pre_get_posts', __NAMESPACE__ . '\handle_list_table_views' );
 
 /**
  * Show a notice on taxonomy term screens about terms being translatable.
@@ -204,6 +209,128 @@ function handle_workshop_list_table_filters( WP_Query $query ) {
 		if ( 'video_language' === $query->get( 'orderby' ) ) {
 			$query->set( 'meta_key', 'video_language' );
 			$query->set( 'orderby', 'meta_value' );
+		}
+	}
+}
+
+/**
+ * Custom post states for list tables.
+ *
+ * @param array    $post_states
+ * @param \WP_Post $post
+ *
+ * @return mixed
+ */
+function add_post_states( $post_states, $post ) {
+	$expiration_date = $post->expiration_date;
+
+	if ( $expiration_date ) {
+		$exp = strtotime( $expiration_date );
+		$now = strtotime( 'now' );
+
+		if ( $exp > $now ) {
+			$post_states[] = sprintf(
+				esc_html__( 'Expires in %s', 'wporg-learn' ),
+				esc_html( human_time_diff( $now, $exp ) )
+			);
+		} else {
+			$post_states[] = sprintf(
+				'<span style="color: #b32d2e;">%s</span>',
+				esc_html__( 'Expired', 'wporg-learn' )
+			);
+		}
+	}
+
+	return $post_states;
+}
+
+/**
+ * Add view links to the patterns list table.
+ *
+ * @param array $views
+ *
+ * @return array
+ */
+function list_table_views( $views ) {
+	global $typenow;
+
+	$wants_expired = filter_input( INPUT_GET, 'expired', FILTER_VALIDATE_BOOLEAN );
+
+	$url = add_query_arg(
+		array(
+			'post_type' => $typenow,
+			'expired' => 1,
+		),
+		admin_url( 'edit.php' )
+	);
+
+	$extra_attributes = '';
+	if ( $wants_expired ) {
+		$extra_attributes = ' class="current" aria-current="page"';
+	}
+
+	$expired_posts_query = new \WP_Query( array(
+		'post_type'   => $typenow,
+		'post_status' => 'any',
+		'numberposts' => 1,
+		'meta_query'  => array(
+			array(
+				'key'     => 'expiration_date',
+				'value'   => current_time( 'mysql' ),
+				'compare' => '<',
+			),
+		),
+	) );
+
+	$views['expired'] = sprintf(
+		'<a href="%s"%s>%s</a>',
+		esc_url( $url ),
+		$extra_attributes,
+		sprintf(
+			/* translators: %s: Number of posts. */
+			_n(
+				'Expired <span class="count">(%s)</span>',
+				'Expired <span class="count">(%s)</span>',
+				$expired_posts_query->found_posts,
+				'wporg-learn'
+			),
+			number_format_i18n( $expired_posts_query->found_posts )
+		)
+	);
+
+	return $views;
+}
+
+
+/**
+ * Modify the query that populates the patterns list table.
+ *
+ * @param WP_Query $query
+ *
+ * @return void
+ */
+function handle_list_table_views( WP_Query $query ) {
+	global $typenow;
+
+	$wants_expired = filter_input( INPUT_GET, 'expired', FILTER_VALIDATE_BOOLEAN );
+
+	if ( ! is_admin() || ! $query->is_main_query() ) {
+		return;
+	}
+
+	$current_screen = get_current_screen();
+
+	if ( 'edit-' . $typenow === $current_screen->id ) {
+		if ( $wants_expired ) {
+			$meta_query = $query->get( 'meta_query', array() );
+
+			$meta_query[] = array(
+				'key'     => 'expiration_date',
+				'value'   => current_time( 'mysql' ),
+				'compare' => '<',
+			);
+
+			$query->set( 'meta_query', $meta_query );
 		}
 	}
 }
