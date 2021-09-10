@@ -5,7 +5,7 @@ namespace WPOrg_Learn\Post_Meta;
 use DateTime, DateInterval;
 use WP_Post;
 use function WordPressdotorg\Locales\{ get_locales_with_english_names };
-use function WPOrg_Learn\get_views_path;
+use function WPOrg_Learn\{ get_build_path, get_build_url, get_views_path };
 use function WPOrg_Learn\Form\get_workshop_application_field_schema;
 
 defined( 'WPINC' ) || die();
@@ -18,6 +18,7 @@ add_action( 'add_meta_boxes', __NAMESPACE__ . '\add_lesson_plan_metaboxes' );
 add_action( 'add_meta_boxes', __NAMESPACE__ . '\add_workshop_metaboxes' );
 add_action( 'save_post_lesson-plan', __NAMESPACE__ . '\save_lesson_plan_metabox_fields' );
 add_action( 'save_post_wporg_workshop', __NAMESPACE__ . '\save_workshop_metabox_fields' );
+add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\enqueue_editor_assets' );
 
 /**
  * Register all post meta keys.
@@ -25,6 +26,7 @@ add_action( 'save_post_wporg_workshop', __NAMESPACE__ . '\save_workshop_metabox_
 function register() {
 	register_lesson_plan_meta();
 	register_workshop_meta();
+	register_misc_meta();
 }
 
 /**
@@ -138,6 +140,31 @@ function register_workshop_meta() {
 			'show_in_rest'      => true,
 		)
 	);
+}
+
+/**
+ * Register other post meta keys.
+ *
+ * For multiple post types, for example.
+ */
+function register_misc_meta() {
+	// Expiration field.
+	$post_types = array( 'lesson-plan', 'wporg_workshop', 'course', 'lesson' );
+	foreach ( $post_types as $post_type ) {
+		register_post_meta(
+			$post_type,
+			'expiration_date',
+			array(
+				'description'       => __( 'The date when the content of the post may be obsolete.', 'wporg_learn' ),
+				'type'              => 'string',
+				'single'            => true,
+				'sanitize_callback' => function( $value ) {
+					return filter_var( $value, FILTER_SANITIZE_STRING );
+				},
+				'show_in_rest'      => true,
+			)
+		);
+	}
 }
 
 /**
@@ -428,5 +455,31 @@ function save_workshop_metabox_fields( $post_id ) {
 		foreach ( $usernames as $username ) {
 			add_post_meta( $post_id, 'presenter_wporg_username', $username );
 		}
+	}
+}
+
+/**
+ * Enqueue scripts for the block editor.
+ */
+function enqueue_editor_assets() {
+	global $typenow;
+
+	$post_types_with_expiration = array( 'lesson-plan', 'wporg_workshop', 'course', 'lesson' );
+	if ( in_array( $typenow, $post_types_with_expiration, true ) ) {
+		$script_asset_path = get_build_path() . 'expiration-date.asset.php';
+		if ( ! file_exists( $script_asset_path ) ) {
+			wp_die( 'You need to run `yarn start` or `yarn build` to build the required assets.' );
+		}
+
+		$script_asset = require( $script_asset_path );
+		wp_enqueue_script(
+			'wporg-learn-expiration-date',
+			get_build_url() . 'expiration-date.js',
+			$script_asset['dependencies'],
+			$script_asset['version'],
+			true
+		);
+
+		wp_set_script_translations( 'wporg-learn-expiration-date', 'wporg-learn' );
 	}
 }
