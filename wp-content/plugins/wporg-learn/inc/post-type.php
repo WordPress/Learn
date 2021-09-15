@@ -115,11 +115,22 @@ function register_workshop() {
 		'filter_items_list'     => __( 'Filter workshops list', 'wporg_learn' ),
 	);
 
+	$supports = array(
+		'comments',
+		'custom-fields',
+		'editor',
+		'excerpt',
+		'revisions',
+		'thumbnail',
+		'title',
+		'wporg-internal-notes',
+	);
+
 	$args = array(
 		'label'               => __( 'Workshop', 'wporg_learn' ),
 		'description'         => __( 'WordPress.org Training Workshop', 'wporg_learn' ),
 		'labels'              => $labels,
-		'supports'            => array( 'title', 'editor', 'comments', 'revisions', 'custom-fields', 'thumbnail', 'excerpt' ),
+		'supports'            => $supports,
 		'taxonomies'          => array( 'topic' ),
 		'hierarchical'        => true,
 		'public'              => true,
