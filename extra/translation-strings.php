@@ -9,7 +9,7 @@
  */
 
 _x( 'All', 'Audiences term name', 'wporg-learn' );
-_x( 'Contributor', 'Audiences term name', 'wporg-learn' );
+_x( 'Contributors', 'Audiences term name', 'wporg-learn' );
 _x( 'Designers', 'Audiences term name', 'wporg-learn' );
 _x( 'Developers', 'Audiences term name', 'wporg-learn' );
 _x( 'Speakers', 'Audiences term name', 'wporg-learn' );
@@ -90,6 +90,8 @@ _x( 'TV Team', 'Topics term name', 'wporg-learn' );
 _x( 'UI', 'Topics term name', 'wporg-learn' );
 _x( 'WordPress', 'Topics term name', 'wporg-learn' );
 _x( '5.7', 'WordPress Version term name', 'wporg-learn' );
+_x( '5.8', 'WordPress Version term name', 'wporg-learn' );
+_x( '5.9', 'WordPress Version term name', 'wporg-learn' );
 _x( 'add new plugin', 'Included Content term name', 'wporg-learn' );
 _x( 'add new user', 'Included Content term name', 'wporg-learn' );
 _x( 'admin navigation', 'Included Content term name', 'wporg-learn' );
