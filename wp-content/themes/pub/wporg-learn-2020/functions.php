@@ -853,3 +853,18 @@ function wporg_learn_fix_code_entity_encoding( $content ) {
 	return str_replace( '&amp;gt;', '&gt;', $content );
 }
 add_filter( 'syntaxhighlighter_htmlresult', 'wporg_learn_fix_code_entity_encoding', 20 );
+
+/**
+ * Add basic opengraph tags to the WordPress install.
+ */
+function wporg_learn_add_opengraph_tags() {
+	$post_id = get_queried_object_id();
+	if ( ! has_post_thumbnail( $post_id ) ) :
+		?>
+		<meta property="og:image" content="<?php echo esc_url( get_stylesheet_directory_uri() . '/images/learn-fallback.png' ); ?>" />
+		<meta property="og:image:width" content="2400" />
+		<meta property="og:image:height" content="1260" />
+		<?php
+	endif;
+}
+add_action( 'wp_head', 'wporg_learn_add_opengraph_tags' );
