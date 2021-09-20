@@ -29,6 +29,9 @@
 				?>
 			</div>
 			<?php
+			/**
+			 * Read in passed context and render sidebar.
+			 */
 			if ( isset( $args['context'] ) ) {
 				switch ( $args['context'] ) {
 					case 'lesson-plan':
