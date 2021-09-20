@@ -266,7 +266,7 @@ function wporg_archive_modify_query( WP_Query $query ) {
 			'orderby',
 			array(
 				'post_date' => 'DESC',
-				'ID' => 'ASC',
+				'ID'        => 'ASC',
 			)
 		);
 	}
@@ -341,13 +341,13 @@ function wporg_archive_query_prioritize_locale( $clauses, $query ) {
 		 * given workshop are consolidated into one with the highest value in the calculated column. Without the
 		 * grouping, there would be a separate row for each postmeta value for each workshop post.
 		 */
-		$clauses['fields']  .= ",
+		$clauses['fields'] .= ",
 			MAX( IF( pmeta.meta_key = 'video_language' AND pmeta.meta_value LIKE '{$locale_root}%', 1, 0 ) ) AS has_language
 		";
-		$clauses['fields']  .= ",
+		$clauses['fields'] .= ",
 			MAX( IF( pmeta.meta_key = 'video_caption_language' AND pmeta.meta_value LIKE '{$locale_root}%', 1, 0 ) ) AS has_caption
 		";
-		$clauses['join']    .= " INNER JOIN {$wpdb->postmeta} pmeta ON ( {$wpdb->posts}.ID = pmeta.post_id )";
+		$clauses['join']   .= " INNER JOIN {$wpdb->postmeta} pmeta ON ( {$wpdb->posts}.ID = pmeta.post_id )";
 		// This orderby clause ensures that the workshops are sorted by the values in the calculated columns first.
 		$clauses['orderby'] = 'has_language DESC, has_caption DESC, ' . $clauses['orderby'];
 
@@ -407,8 +407,8 @@ function wporg_archive_maybe_apply_query_filters( WP_Query &$query ) {
 		'type'     => 'instruction_type',
 	);
 
-	$meta_query = array();
-	$tax_query = array();
+	$meta_query  = array();
+	$tax_query   = array();
 	$is_filtered = false;
 
 	if ( is_array( $filters ) ) {
@@ -489,10 +489,13 @@ function wporg_archive_maybe_apply_query_filters( WP_Query &$query ) {
  * @return WP_Query
  */
 function wporg_get_archive_query( $post_type, array $args = array() ) {
-	$args = wp_parse_args( $args, array(
-		'post_type'   => $post_type,
-		'post_status' => 'publish',
-	) );
+	$args = wp_parse_args(
+		$args,
+		array(
+			'post_type'   => $post_type,
+			'post_status' => 'publish',
+		)
+	);
 
 	return new WP_Query( $args );
 }
@@ -505,7 +508,7 @@ function wporg_get_archive_query( $post_type, array $args = array() ) {
  * @return array[]
  */
 function wporg_learn_get_card_template_args( $post_id ) {
-	$post = get_post( $post_id );
+	$post      = get_post( $post_id );
 	$post_type = get_post_type( $post );
 
 	$args = array(
@@ -526,7 +529,7 @@ function wporg_learn_get_card_template_args( $post_id ) {
 			);
 
 			if ( is_user_logged_in() ) {
-				$completed    = count( Sensei()->course->get_completed_lesson_ids( $post_id, get_current_user_id() ) );
+				$completed = count( Sensei()->course->get_completed_lesson_ids( $post_id, get_current_user_id() ) );
 
 				$args['meta'][] = array(
 					'icon'  => ( $lesson_count === $completed ) ? 'awards' : 'edit-large',
@@ -853,3 +856,32 @@ function wporg_learn_fix_code_entity_encoding( $content ) {
 	return str_replace( '&amp;gt;', '&gt;', $content );
 }
 add_filter( 'syntaxhighlighter_htmlresult', 'wporg_learn_fix_code_entity_encoding', 20 );
+
+/**
+ * Register theme sidebars.
+ */
+function wporg_learn_register_sidebars() {
+	// Register lesson plans sidebar.
+	register_sidebar(
+		array(
+			'name'          => __( 'Lesson Plans', 'wporg-learn' ),
+			'id'            => 'wporg-learn-lesson-plans',
+			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</aside>',
+			'before_title'  => '',
+			'after_title'   => '',
+		)
+	);
+	// Register courses sidebar.
+	register_sidebar(
+		array(
+			'name'          => __( 'Courses', 'wporg-learn' ),
+			'id'            => 'wporg-learn-courses',
+			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</aside>',
+			'before_title'  => '',
+			'after_title'   => '',
+		)
+	);
+}
+add_filter( 'widgets_init', 'wporg_learn_register_sidebars', 10 );
