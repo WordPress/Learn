@@ -631,16 +631,18 @@ function wporg_get_workshop_presenters( $workshop = null ) {
  * This relies on the availability of the `bpmain_bp_xprofile_data` table, so for local environments
  * it falls back on values in `usermeta`.
  *
- * @param WP_User $user
+ * @param WP_User $user The user to retrieve a bio for.
  *
  * @return string
  */
 function wporg_get_workshop_presenter_bio( WP_User $user ) {
 	global $wpdb;
 
-	$bio = '';
+	// Retrieve bio from user data.
+	$bio = $user->description;
 
-	if ( 'local' !== wp_get_environment_type() ) {
+	// If bio is empty, retrieve from .org.
+	if ( ! $bio && 'local' !== wp_get_environment_type() ) {
 		$xprofile_field_id = 3;
 
 		$sql = $wpdb->prepare(
@@ -655,10 +657,6 @@ function wporg_get_workshop_presenter_bio( WP_User $user ) {
 		);
 
 		$bio = $wpdb->get_var( $sql ) ?: ''; // phpcs:ignore WordPress.DB.PreparedSQL -- prepare called above.
-	}
-
-	if ( ! $bio ) {
-		$bio = $user->description;
 	}
 
 	return apply_filters( 'the_content', wp_unslash( $bio ) );
