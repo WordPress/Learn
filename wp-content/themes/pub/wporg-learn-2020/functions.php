@@ -626,10 +626,11 @@ function wporg_get_workshop_presenters( $workshop = null ) {
 }
 
 /**
- * Get the bio of a user, either from profiles.wordpress.org or usermeta.
+ * Get the bio of a user, first trying usermeta and then profiles.wordpress.org.
  *
- * This relies on the availability of the `bpmain_bp_xprofile_data` table, so for local environments
- * it falls back on values in `usermeta`.
+ * The `usermeta` bio (description) field will be pulled. If there is no bio, profiles.wordpress.org is tried.
+ * The bio at profiles.wordpress.org relies on the availability of the `bpmain_bp_xprofile_data` table.
+ * For local environments the bio will only pull from `usermeta`.
  *
  * @param WP_User $user The user to retrieve a bio for.
  *
