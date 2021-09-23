@@ -855,16 +855,16 @@ function wporg_learn_fix_code_entity_encoding( $content ) {
 add_filter( 'syntaxhighlighter_htmlresult', 'wporg_learn_fix_code_entity_encoding', 20 );
 
 /**
- * Add basic opengraph tags to the WordPress install.
+ * Add fallback image to Jetpack when no featured image exists.
+ *
+ * @param string $default_image The default image URL.
+ *
+ * @return string Image URL.
  */
-function wporg_learn_add_opengraph_tags() {
-	$post_id = get_queried_object_id();
-	if ( ! has_post_thumbnail( $post_id ) ) :
-		?>
-		<meta property="og:image" content="<?php echo esc_url( get_stylesheet_directory_uri() . '/images/learn-fallback.png' ); ?>" />
-		<meta property="og:image:width" content="2400" />
-		<meta property="og:image:height" content="1260" />
-		<?php
-	endif;
+function wporg_learn_return_default_image( $default_image ) {
+	return 'https://s.w.org/images/learn-thumbnail-fallback.jpg';
 }
-add_action( 'wp_head', 'wporg_learn_add_opengraph_tags' );
+add_action( 'jetpack_open_graph_image_default', 'wporg_learn_return_default_image', 15, 1 );
+
+// Enable Jetpack OpenGraph output.
+add_filter( 'jetpack_enable_open_graph', '__return_true' );
