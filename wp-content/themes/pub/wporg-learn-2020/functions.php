@@ -864,6 +864,3 @@ function wporg_learn_return_default_image( $default_image ) {
 	return 'https://s.w.org/images/learn-thumbnail-fallback.jpg';
 }
 add_action( 'jetpack_open_graph_image_default', 'wporg_learn_return_default_image', 15, 1 );
-
-// Enable Jetpack OpenGraph output.
-add_filter( 'jetpack_enable_open_graph', '__return_true' );
