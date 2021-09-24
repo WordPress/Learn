@@ -852,3 +852,18 @@ function wporg_learn_fix_code_entity_encoding( $content ) {
 	return str_replace( '&amp;gt;', '&gt;', $content );
 }
 add_filter( 'syntaxhighlighter_htmlresult', 'wporg_learn_fix_code_entity_encoding', 20 );
+
+/**
+ * Add fallback image to Jetpack when no featured image exists.
+ *
+ * @param string $default_image The default image URL.
+ *
+ * @return string Image URL.
+ */
+function wporg_learn_return_default_image( $default_image ) {
+	return 'https://s.w.org/images/learn-thumbnail-fallback.jpg';
+}
+add_action( 'jetpack_open_graph_image_default', 'wporg_learn_return_default_image', 15, 1 );
+
+// Enable Jetpack OpenGraph output.
+add_filter( 'jetpack_enable_open_graph', '__return_true' );
