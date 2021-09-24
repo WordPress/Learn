@@ -43,7 +43,7 @@ function wporg_learn_scripts() {
 	);
 	wp_enqueue_script(
 		'wporg-navigation',
-		get_template_directory_uri() . '/js/navigation.js',
+		get_theme_file_uri() . '/js/navigation.js',
 		array(),
 		filemtime( __DIR__ . '/js/navigation.js' ),
 		true
