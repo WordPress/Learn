@@ -185,6 +185,10 @@ function handle_workshop_list_table_filters( WP_Query $query ) {
 
 	$current_screen = get_current_screen();
 
+	if ( ! $current_screen ) {
+		return;
+	}
+
 	if ( 'edit-wporg_workshop' === $current_screen->id ) {
 		$language = filter_input( INPUT_GET, 'language', FILTER_SANITIZE_STRING );
 
