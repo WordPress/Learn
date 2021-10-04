@@ -74,7 +74,8 @@ function register_lesson_plan() {
 		'has_archive'         => 'lesson-plans',
 		'exclude_from_search' => false,
 		'publicly_queryable'  => true,
-		'capability_type'     => 'page',
+		'capability_type'     => array( 'lesson_plan', 'lesson_plans' ),
+		'map_meta_cap'        => true,
 		'show_in_rest'        => true,
 	);
 
@@ -144,7 +145,8 @@ function register_workshop() {
 		'can_export'          => true,
 		'exclude_from_search' => false,
 		'publicly_queryable'  => true,
-		'capability_type'     => 'page',
+		'capability_type'     => array( 'workshop', 'workshops' ),
+		'map_meta_cap'        => true,
 		'show_in_rest'        => true,
 		'rewrite'             => array( 'slug' => 'workshop' ),
 		'template'            => generate_workshop_template_structure(),
