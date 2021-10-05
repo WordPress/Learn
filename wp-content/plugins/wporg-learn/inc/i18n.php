@@ -74,7 +74,7 @@ function translate_term( $term, $taxonomy_slug ) {
  *
  * @return WP_Term[]
  */
-function translate_terms( array $terms, array $taxonomies ) {
+function translate_terms( array $terms, ?array $taxonomies ) {
 	if ( 'en_US' === get_locale() ) {
 		return $terms;
 	}
@@ -89,8 +89,8 @@ function translate_terms( array $terms, array $taxonomies ) {
 		return $terms;
 	}
 
-	// If the terms query has multiple taxonomies, we don't know which one a term will belong to.
-	if ( count( $taxonomies ) > 1 ) {
+	// If the terms query has multiple (or no) taxonomies, we don't know which one a term will belong to.
+	if ( ! $taxonomies || count( $taxonomies ) > 1 ) {
 		return $terms;
 	}
 
