@@ -8,6 +8,7 @@ defined( 'WPINC' ) || die();
  * Actions and filters.
  */
 add_filter( 'user_has_cap', __NAMESPACE__ . '\set_post_type_caps' );
+add_action( 'init', __NAMESPACE__ . '\add_or_update_lesson_plan_editor_role' );
 
 /**
  *
@@ -39,4 +40,71 @@ function set_post_type_caps( $user_caps ) {
 	}
 
 	return $user_caps;
+}
+
+/**
+ * Add the Lesson Plan Editor role if it doesn't exist yet, or ensure it has the correct capabilities.
+ *
+ * Once a role has been added, and is stored in the database, it can't be changed using `add_role` because it
+ * will return early.
+ *
+ * @return \WP_Role|null
+ */
+function add_or_update_lesson_plan_editor_role() {
+	$role_caps = get_lesson_plan_editor_role_caps();
+	$lpe_role  = get_role( 'lesson_plan_editor' );
+
+	if ( is_null( $lpe_role ) ) {
+		$lpe_role = add_role(
+			'lesson_plan_editor',
+			__( 'Lesson Plan Editor', 'wporg-learn' ),
+			$role_caps
+		);
+	} else {
+		$caps_to_remove = array_diff(
+			array_keys( $lpe_role->capabilities, true, true ),
+			array_keys( $role_caps, true, true )
+		);
+
+		foreach ( $caps_to_remove as $remove ) {
+			$lpe_role->remove_cap( $remove );
+		}
+
+		$caps_to_add = array_diff(
+			array_keys( $role_caps, true, true ),
+			array_keys( $lpe_role->capabilities, true, true )
+		);
+
+		foreach ( $caps_to_add as $add ) {
+			$lpe_role->add_cap( $add );
+		}
+	}
+
+	return $lpe_role;
+}
+
+/**
+ * Generate a list of capabilities for the Lesson Plan Editor role.
+ *
+ * @return array
+ */
+function get_lesson_plan_editor_role_caps() {
+	$cap_args = array(
+		'capability_type' => array( 'lesson_plan', 'lesson_plans' ),
+		'capabilities'    => array(),
+		'map_meta_cap'    => true,
+	);
+	$cap_map = (array) get_post_type_capabilities( (object) $cap_args );
+
+	$editor_caps = get_role( 'editor' )->capabilities;
+	$role_caps   = array();
+
+	// Same caps as the editor, but only for lesson plans, not posts.
+	foreach ( $cap_map as $primative_cap => $mapped_cap ) {
+		if ( isset( $editor_caps[ $primative_cap ] ) && $editor_caps[ $primative_cap ] ) {
+			$role_caps[ $mapped_cap ] = true;
+		}
+	}
+
+	return $role_caps;
 }
