@@ -8,6 +8,7 @@ defined( 'WPINC' ) || die();
  * Actions and filters.
  */
 add_filter( 'user_has_cap', __NAMESPACE__ . '\set_post_type_caps' );
+add_filter( 'map_meta_cap', __NAMESPACE__ . '\map_meta_caps', 10, 4 );
 add_action( 'init', __NAMESPACE__ . '\add_or_update_lesson_plan_editor_role' );
 
 /**
@@ -40,6 +41,37 @@ function set_post_type_caps( $user_caps ) {
 	}
 
 	return $user_caps;
+}
+
+/**
+ * Map primitive caps to our custom caps.
+ *
+ * @param array  $required_caps
+ * @param string $current_cap
+ * @param int    $user_id
+ * @param mixed  $args
+ *
+ * @return mixed
+ */
+function map_meta_caps( $required_caps, $current_cap, $user_id, $args ) {
+	switch ( $current_cap ) {
+		case 'edit_any_learn_content':
+			$required_caps       = array();
+			$learn_content_types = array( 'lesson-plan', 'wporg_workshop', 'course', 'lesson' );
+
+			foreach ( $learn_content_types as $post_type ) {
+				$object = get_post_type_object( $post_type );
+				if ( user_can( $user_id, $object->cap->edit_posts ) ) {
+					$required_caps[] = $object->cap->edit_posts;
+					break 2;
+				}
+			}
+
+			$required_caps[] = 'edit_posts';
+			break;
+	}
+
+	return $required_caps;
 }
 
 /**
