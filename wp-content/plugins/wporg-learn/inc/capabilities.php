@@ -8,14 +8,15 @@ defined( 'WPINC' ) || die();
  * Actions and filters.
  */
 add_filter( 'user_has_cap', __NAMESPACE__ . '\set_post_type_caps' );
-add_filter( 'map_meta_cap', __NAMESPACE__ . '\map_meta_caps', 10, 4 );
+add_filter( 'user_has_cap', __NAMESPACE__ . '\set_caps_for_internal_notes' );
+add_filter( 'map_meta_cap', __NAMESPACE__ . '\map_meta_caps', 20, 4 ); // Needs to fire after meta caps in wporg-internal-notes.
 add_action( 'init', __NAMESPACE__ . '\add_or_update_lesson_plan_editor_role' );
 add_action( 'init', __NAMESPACE__ . '\add_or_update_workshop_reviewer_role' );
 
 /**
+ * Assign custom post type caps to roles based on their equivalents for the 'post' post type.
  *
- *
- * @param array $user_caps A list of primitive caps (keys) and whether user has them (boolean values).
+ * @param bool[] $user_caps A list of primitive caps (keys) and whether user has them (boolean values).
  *
  * @return array
  */
@@ -39,6 +40,23 @@ function set_post_type_caps( $user_caps ) {
 				$user_caps[ $cap_map[ $cap ] ] = true;
 			}
 		}
+	}
+
+	return $user_caps;
+}
+
+/**
+ * Enable a cap for managing internal notes on workshop posts.
+ *
+ * @param bool[] $user_caps
+ *
+ * @return mixed
+ */
+function set_caps_for_internal_notes( $user_caps ) {
+	// The promote_users cap is shared by admin and workshop reviewer roles, which are the two roles
+	// that should have access to internal notes.
+	if ( isset( $user_caps['promote_users'] ) && true === $user_caps['promote_users'] ) {
+		$user_caps['manage_workshop_internal_notes'] = true;
 	}
 
 	return $user_caps;
@@ -69,6 +87,15 @@ function map_meta_caps( $required_caps, $current_cap, $user_id, $args ) {
 			}
 
 			$required_caps[] = 'edit_posts';
+			break;
+
+		case 'read-internal-notes':
+		case 'create-internal-note':
+		case 'delete-internal-note':
+			$parent = get_post( $args[0] ?? 'none' );
+			if ( $parent && 'wporg_workshop' === get_post_type( $parent ) ) {
+				$required_caps = array( 'manage_workshop_internal_notes' );
+			}
 			break;
 	}
 
