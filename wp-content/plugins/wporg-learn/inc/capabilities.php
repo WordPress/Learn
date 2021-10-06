@@ -10,6 +10,7 @@ defined( 'WPINC' ) || die();
 add_filter( 'user_has_cap', __NAMESPACE__ . '\set_post_type_caps' );
 add_filter( 'map_meta_cap', __NAMESPACE__ . '\map_meta_caps', 10, 4 );
 add_action( 'init', __NAMESPACE__ . '\add_or_update_lesson_plan_editor_role' );
+add_action( 'init', __NAMESPACE__ . '\add_or_update_workshop_reviewer_role' );
 
 /**
  *
@@ -118,7 +119,7 @@ function add_or_update_lesson_plan_editor_role() {
 /**
  * Generate a list of capabilities for the Lesson Plan Editor role.
  *
- * @return array
+ * @return bool[]
  */
 function get_lesson_plan_editor_role_caps() {
 	$cap_args = array(
@@ -137,6 +138,60 @@ function get_lesson_plan_editor_role_caps() {
 			$role_caps[ $mapped_cap ] = true;
 		}
 	}
+
+	return $role_caps;
+}
+
+/**
+ * Add the Workshop Reviewer role if it doesn't exist yet, or ensure it has the correct capabilities.
+ *
+ * Once a role has been added, and is stored in the database, it can't be changed using `add_role` because it
+ * will return early.
+ *
+ * @return \WP_Role|null
+ */
+function add_or_update_workshop_reviewer_role() {
+	$role_caps = get_workshop_reviewer_role_caps();
+	$wr_role  = get_role( 'workshop_reviewer' );
+
+	if ( is_null( $wr_role ) ) {
+		$wr_role = add_role(
+			'workshop_reviewer',
+			__( 'Workshop Reviewer', 'wporg-learn' ),
+			$role_caps
+		);
+	} else {
+		$caps_to_remove = array_diff(
+			array_keys( $wr_role->capabilities, true, true ),
+			array_keys( $role_caps, true, true )
+		);
+
+		foreach ( $caps_to_remove as $remove ) {
+			$wr_role->remove_cap( $remove );
+		}
+
+		$caps_to_add = array_diff(
+			array_keys( $role_caps, true, true ),
+			array_keys( $wr_role->capabilities, true, true )
+		);
+
+		foreach ( $caps_to_add as $add ) {
+			$wr_role->add_cap( $add );
+		}
+	}
+
+	return $wr_role;
+}
+
+/**
+ * Generate a list of capabilities for the Workshop Reviewer role.
+ *
+ * @return bool[]
+ */
+function get_workshop_reviewer_role_caps() {
+	$role_caps = get_role( 'editor' )->capabilities;
+
+	$role_caps['promote_users'] = true;
 
 	return $role_caps;
 }
