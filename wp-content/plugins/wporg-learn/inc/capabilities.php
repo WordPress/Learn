@@ -150,6 +150,9 @@ function add_or_update_lesson_plan_editor_role() {
 /**
  * Generate a list of capabilities for the Lesson Plan Editor role.
  *
+ * The Lesson Plan Editor should have full editing caps for the Lesson Plan post type, but no other post types.
+ * They can assign/unassign terms from the various taxonomies to lesson plans, but they can't add/edit/delete terms.
+ *
  * @return bool[]
  */
 function get_lesson_plan_editor_role_caps() {
@@ -217,6 +220,11 @@ function add_or_update_workshop_reviewer_role() {
 
 /**
  * Generate a list of capabilities for the Workshop Reviewer role.
+ *
+ * The Workshop Reviewer should have all the same caps as the Editor role, with the addition of `promote_users`
+ * (normally reserved for the Admin role), so that they can add workshop presenters as new users on the site.
+ *
+ * This also gives them the cap to manage internal notes on workshop posts. (See `set_caps_for_internal_notes` above.)
  *
  * @return bool[]
  */
