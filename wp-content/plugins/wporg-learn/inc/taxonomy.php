@@ -421,7 +421,7 @@ function register_wp_version() {
 		'show_tagcloud'     => false,
 		'show_in_rest'      => true,
 		'capabilities'      => array(
-			'assign_terms' => 'edit_any_learn_content',
+			'assign_terms' => 'edit_any_learn_content', // See \WPOrg_Learn\Capabilities\map_meta_caps.
 		),
 	);
 
@@ -466,7 +466,7 @@ function register_included_content() {
 		'show_tagcloud'     => false,
 		'show_in_rest'      => true,
 		'capabilities'      => array(
-			'assign_terms' => 'edit_any_learn_content',
+			'assign_terms' => 'edit_any_learn_content', // See \WPOrg_Learn\Capabilities\map_meta_caps.
 		),
 	);
 
