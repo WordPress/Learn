@@ -16,6 +16,9 @@ add_action( 'init', __NAMESPACE__ . '\add_or_update_workshop_reviewer_role' );
 /**
  * Assign custom post type caps to roles based on their equivalents for the 'post' post type.
  *
+ * Example: If a user has the `edit_others_posts` cap (from Editor role), this will also give them
+ * the equivalent `edit_others_lesson_plans` and `edit_others_workshops` caps.
+ *
  * @param bool[] $user_caps A list of primitive caps (keys) and whether user has them (boolean values).
  *
  * @return array
@@ -27,7 +30,7 @@ function set_post_type_caps( $user_caps ) {
 	);
 
 	foreach ( $capability_types as $capability_type ) {
-		// Set corresponding caps for all roles.
+		// Generate the caps for a capability type.
 		$cap_args = array(
 			'capability_type' => $capability_type,
 			'capabilities'    => array(),
@@ -48,13 +51,14 @@ function set_post_type_caps( $user_caps ) {
 /**
  * Enable a cap for managing internal notes on workshop posts.
  *
+ * The `promote_users` cap is shared by admin and workshop reviewer roles, which are the two roles
+ * that should also have access to internal notes.
+ *
  * @param bool[] $user_caps
  *
  * @return mixed
  */
 function set_caps_for_internal_notes( $user_caps ) {
-	// The promote_users cap is shared by admin and workshop reviewer roles, which are the two roles
-	// that should have access to internal notes.
 	if ( isset( $user_caps['promote_users'] ) && true === $user_caps['promote_users'] ) {
 		$user_caps['manage_workshop_internal_notes'] = true;
 	}
@@ -149,6 +153,7 @@ function add_or_update_lesson_plan_editor_role() {
  * @return bool[]
  */
 function get_lesson_plan_editor_role_caps() {
+	// Generate the caps for a capability type.
 	$cap_args = array(
 		'capability_type' => array( 'lesson_plan', 'lesson_plans' ),
 		'capabilities'    => array(),
