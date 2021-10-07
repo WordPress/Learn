@@ -91,7 +91,7 @@ function map_meta_caps( $required_caps, $current_cap, $user_id, $args ) {
 				}
 			}
 
-			$required_caps[] = 'edit_posts';
+			$required_caps[] = 'do_not_allow';
 			break;
 
 		case 'read-internal-notes':
