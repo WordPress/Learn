@@ -82,6 +82,7 @@ function map_meta_caps( $required_caps, $current_cap, $user_id, $args ) {
 			$required_caps       = array();
 			$learn_content_types = array( 'lesson-plan', 'wporg_workshop', 'course', 'lesson' );
 
+			// Grant `edit_any_learn_content` when the user has `edit_posts` for any of our custom post types.
 			foreach ( $learn_content_types as $post_type ) {
 				$object = get_post_type_object( $post_type );
 				if ( user_can( $user_id, $object->cap->edit_posts ) ) {
