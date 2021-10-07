@@ -62,6 +62,9 @@ function register_lesson_audience() {
 		'show_in_nav_menus' => true,
 		'show_tagcloud'     => false,
 		'show_in_rest'      => true,
+		'capabilities'      => array(
+			'assign_terms' => 'edit_lesson_plans',
+		),
 	);
 
 	register_taxonomy( 'audience', array( 'lesson-plan' ), $args );
@@ -104,6 +107,9 @@ function register_lesson_category() {
 		'show_in_nav_menus' => false,
 		'show_tagcloud'     => false,
 		'show_in_rest'      => true,
+		'capabilities'      => array(
+			'assign_terms' => 'edit_lesson_plans',
+		),
 	);
 
 	register_taxonomy( 'wporg_lesson_category', array( 'lesson-plan' ), $args );
@@ -146,6 +152,9 @@ function register_lesson_duration() {
 		'show_in_nav_menus' => false,
 		'show_tagcloud'     => false,
 		'show_in_rest'      => true,
+		'capabilities'      => array(
+			'assign_terms' => 'edit_lesson_plans',
+		),
 	);
 
 	register_taxonomy( 'duration', array( 'lesson-plan' ), $args );
@@ -187,6 +196,9 @@ function register_lesson_group() {
 		'show_in_nav_menus' => true,
 		'show_tagcloud'     => false,
 		'show_in_rest'      => true,
+		'capabilities'      => array(
+			'assign_terms' => 'edit_lesson_plans',
+		),
 	);
 
 	register_taxonomy( 'lesson_group', array( 'lesson-plan' ), $args );
@@ -229,6 +241,9 @@ function register_lesson_instruction_type() {
 		'show_in_nav_menus' => true,
 		'show_tagcloud'     => false,
 		'show_in_rest'      => true,
+		'capabilities'      => array(
+			'assign_terms' => 'edit_lesson_plans',
+		),
 	);
 
 	register_taxonomy( 'instruction_type', array( 'lesson-plan' ), $args );
@@ -271,6 +286,9 @@ function register_lesson_level() {
 		'show_in_nav_menus' => true,
 		'show_tagcloud'     => false,
 		'show_in_rest'      => true,
+		'capabilities'      => array(
+			'assign_terms' => 'edit_lesson_plans',
+		),
 	);
 
 	register_taxonomy( 'level', array( 'lesson-plan' ), $args );
@@ -314,6 +332,9 @@ function register_workshop_series() {
 		'show_in_nav_menus' => true,
 		'show_tagcloud'     => false,
 		'show_in_rest'      => true,
+		'capabilities'      => array(
+			'assign_terms' => 'edit_workshops',
+		),
 	);
 
 	register_taxonomy( 'wporg_workshop_series', array( 'wporg_workshop' ), $args );
@@ -356,6 +377,9 @@ function register_workshop_topic() {
 		'show_in_nav_menus' => true,
 		'show_tagcloud'     => false,
 		'show_in_rest'      => true,
+		'capabilities'      => array(
+			'assign_terms' => 'edit_workshops',
+		),
 	);
 
 	register_taxonomy( 'topic', array( 'wporg_workshop' ), $args );
@@ -396,6 +420,9 @@ function register_wp_version() {
 		'show_in_nav_menus' => true,
 		'show_tagcloud'     => false,
 		'show_in_rest'      => true,
+		'capabilities'      => array(
+			'assign_terms' => 'edit_any_learn_content', // See \WPOrg_Learn\Capabilities\map_meta_caps.
+		),
 	);
 
 	$post_types = array( 'lesson-plan', 'wporg_workshop', 'course', 'lesson' );
@@ -438,6 +465,9 @@ function register_included_content() {
 		'show_in_nav_menus' => true,
 		'show_tagcloud'     => false,
 		'show_in_rest'      => true,
+		'capabilities'      => array(
+			'assign_terms' => 'edit_any_learn_content', // See \WPOrg_Learn\Capabilities\map_meta_caps.
+		),
 	);
 
 	$post_types = array( 'lesson-plan', 'wporg_workshop', 'course', 'lesson' );

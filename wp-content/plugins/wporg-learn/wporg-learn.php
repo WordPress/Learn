@@ -66,6 +66,7 @@ function get_views_path() {
 function load_files() {
 	require_once get_includes_path() . 'admin.php';
 	require_once get_includes_path() . 'blocks.php';
+	require_once get_includes_path() . 'capabilities.php';
 	require_once get_includes_path() . 'class-markdown-import.php';
 	require_once get_includes_path() . 'events.php';
 	require_once get_includes_path() . 'form.php';
