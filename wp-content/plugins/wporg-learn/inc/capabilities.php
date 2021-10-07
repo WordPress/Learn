@@ -38,9 +38,9 @@ function set_post_type_caps( $user_caps ) {
 		);
 		$cap_map = (array) get_post_type_capabilities( (object) $cap_args );
 
-		foreach ( $user_caps as $cap => $bool ) {
-			if ( $bool && isset( $cap_map[ $cap ] ) ) {
-				$user_caps[ $cap_map[ $cap ] ] = true;
+		foreach ( $user_caps as $cap_slug => $granted ) {
+			if ( $granted && isset( $cap_map[ $cap_slug ] ) ) {
+				$user_caps[ $cap_map[ $cap_slug ] ] = true;
 			}
 		}
 	}
