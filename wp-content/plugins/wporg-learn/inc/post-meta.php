@@ -487,6 +487,15 @@ function save_workshop_metabox_fields( $post_id ) {
 			add_post_meta( $post_id, 'presenter_wporg_username', $username );
 		}
 	}
+
+	$other_contributor_wporg_username = filter_input( INPUT_POST, 'other-contributor-wporg-username' );
+	$other_contributor_usernames      = array_map( 'trim', explode( ',', $other_contributor_wporg_username ) );
+	delete_post_meta( $post_id, 'other_contributor_wporg_username' );
+	if ( is_array( $other_contributor_usernames ) ) {
+		foreach ( $other_contributor_usernames as $username ) {
+			add_post_meta( $post_id, 'other_contributor_wporg_username', $username );
+		}
+	}
 }
 
 /**
