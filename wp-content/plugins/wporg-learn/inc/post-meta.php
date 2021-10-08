@@ -449,10 +449,10 @@ function save_workshop_metabox_fields( $post_id ) {
 	update_post_meta( $post_id, 'linked_lesson_id', $lesson_id );
 
 	$presenter_wporg_username = filter_input( INPUT_POST, 'presenter-wporg-username' );
-	$usernames                = array_map( 'trim', explode( ',', $presenter_wporg_username ) );
+	$presenter_usernames      = array_map( 'trim', explode( ',', $presenter_wporg_username ) );
 	delete_post_meta( $post_id, 'presenter_wporg_username' );
-	if ( is_array( $usernames ) ) {
-		foreach ( $usernames as $username ) {
+	if ( is_array( $presenter_usernames ) ) {
+		foreach ( $presenter_usernames as $username ) {
 			add_post_meta( $post_id, 'presenter_wporg_username', $username );
 		}
 	}
