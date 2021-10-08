@@ -296,11 +296,13 @@ function register_lesson_level() {
 
 /**
  * Register the Workshop Series taxonomy.
+ *
+ * This taxonomy was originally only for workshops, and later was added to lesson plans as well.
  */
 function register_workshop_series() {
 	$labels = array(
-		'name'                       => _x( 'Workshop Series', 'taxonomy general name', 'wporg-learn' ),
-		'singular_name'              => _x( 'Workshop Series', 'taxonomy singular name', 'wporg-learn' ),
+		'name'                       => _x( 'Series', 'taxonomy general name', 'wporg-learn' ),
+		'singular_name'              => _x( 'Series', 'taxonomy singular name', 'wporg-learn' ),
 		'menu_name'                  => __( 'Series', 'wporg-learn' ),
 		'all_items'                  => __( 'All Series', 'wporg-learn' ),
 		'new_item_name'              => __( 'New Series Name', 'wporg-learn' ),
@@ -325,7 +327,7 @@ function register_workshop_series() {
 		'hierarchical'      => true,
 		'public'            => true,
 		'rewrite'           => array(
-			'slug' => 'workshops',
+			'slug' => 'series',
 		),
 		'show_ui'           => true,
 		'show_admin_column' => true,
@@ -337,7 +339,7 @@ function register_workshop_series() {
 		),
 	);
 
-	register_taxonomy( 'wporg_workshop_series', array( 'wporg_workshop' ), $args );
+	register_taxonomy( 'wporg_workshop_series', array( 'wporg_workshop', 'lesson-plan' ), $args );
 }
 
 /**
