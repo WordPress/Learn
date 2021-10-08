@@ -81,6 +81,28 @@ global $wp_embed;
 				</section>
 			<?php endforeach; ?>
 
+			<section class="row workshop-page_section"">
+				<div class="col-4">
+					<h2><?= __( 'Other Contributors', 'wporg_learn' ) ?></h2>
+				</div>
+			</section>
+
+			<?php foreach ( wporg_get_workshop_other_contributors() as $other_contributor ) : ?>
+				<section class="row workshop-page_section"">
+					<div class="col-4">
+						<?php
+						get_template_part(
+							'template-parts/component',
+							'workshop-other-contributor',
+							array(
+								'other_contributor' => $other_contributor,
+							)
+						);
+						?>
+					</div>
+				</section>
+			<?php endforeach; ?>
+
 		</div> <!-- end workshop-page -->
 	</section>
 </article>
