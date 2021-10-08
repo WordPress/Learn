@@ -83,7 +83,7 @@ global $wp_embed;
 
 			<section class="row workshop-page_section"">
 				<div class="col-4">
-					<h2><?= __( 'Other Contributors', 'wporg_learn' ) ?></h2>
+					<h2><?php esc_html_e( 'Other Contributors', 'wporg_learn' ); ?></h2>
 				</div>
 			</section>
 
