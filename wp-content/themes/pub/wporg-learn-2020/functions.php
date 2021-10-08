@@ -45,7 +45,7 @@ function wporg_learn_scripts() {
 		wp_enqueue_style(
 			'wporg-print-style',
 			get_theme_file_uri( '/css/print.css' ),
-			array( 'dashicons', 'open-sans' ),
+			array(),
 			filemtime( __DIR__ . '/css/print.css' ),
 			'print'
 		);
