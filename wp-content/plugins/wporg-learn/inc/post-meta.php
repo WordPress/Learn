@@ -106,6 +106,18 @@ function register_workshop_meta() {
 
 	register_post_meta(
 		$post_type,
+		'other_contributor_wporg_username',
+		array(
+			'description'       => __( 'The WordPress.org user name of "other contributor" for this workshop.', 'wporg_learn' ),
+			'type'              => 'string',
+			'single'            => false,
+			'sanitize_callback' => 'sanitize_user',
+			'show_in_rest'      => true,
+		)
+	);
+
+	register_post_meta(
+		$post_type,
 		'video_language',
 		array(
 			'description'       => __( 'The language that the workshop is presented in.', 'wporg_learn' ),
@@ -355,6 +367,14 @@ function add_workshop_metaboxes() {
 	);
 
 	add_meta_box(
+		'workshop-other-contributors',
+		__( 'Other Contributors', 'wporg_learn' ),
+		__NAMESPACE__ . '\render_metabox_workshop_other_contributors',
+		'wporg_workshop',
+		'side'
+	);
+
+	add_meta_box(
 		'workshop-application',
 		__( 'Original Application', 'wporg_learn' ),
 		__NAMESPACE__ . '\render_metabox_workshop_application',
@@ -392,6 +412,17 @@ function render_metabox_workshop_presenters( WP_Post $post ) {
 	$presenters = get_post_meta( $post->ID, 'presenter_wporg_username' ) ?: array();
 
 	require get_views_path() . 'metabox-workshop-presenters.php';
+}
+
+/**
+ * Render the Other Contributors meta box.
+ *
+ * @param WP_Post $post
+ */
+function render_metabox_workshop_other_contributors( WP_Post $post ) {
+	$other_contributors = get_post_meta( $post->ID, 'other_contributor_wporg_username' ) ?: array();
+
+	require get_views_path() . 'metabox-workshop-other-contributors.php';
 }
 
 /**
