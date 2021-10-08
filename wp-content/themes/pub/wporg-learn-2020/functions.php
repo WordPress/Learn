@@ -770,20 +770,20 @@ function wporg_modify_archive_title( $title ) {
 add_filter( 'get_the_archive_title', 'wporg_modify_archive_title' );
 
 /**
- * Get the series taxonomy term object for a workshop post.
+ * Get the series taxonomy term object for a post.
  *
- * @param int|WP_Post|null $workshop
+ * @param int|WP_Post|null $post
  *
  * @return WP_Term|bool
  */
-function wporg_workshop_series_get_term( $workshop = null ) {
-	$workshop = get_post( $workshop );
+function wporg_learn_series_get_term( $post = null ) {
+	$post = get_post( $post );
 
-	if ( ! $workshop instanceof WP_Post ) {
+	if ( ! $post instanceof WP_Post ) {
 		return false;
 	}
 
-	$terms = wp_get_post_terms( $workshop->ID, 'wporg_workshop_series' );
+	$terms = wp_get_post_terms( $post->ID, 'wporg_workshop_series' );
 
 	if ( empty( $terms ) ) {
 		return false;
@@ -793,21 +793,21 @@ function wporg_workshop_series_get_term( $workshop = null ) {
 }
 
 /**
- * Given a workshop post in a series, get all the workshop posts in the series.
+ * Given a post in a series, get all the posts in the series.
  *
- * @param int|WP_Post|null $workshop
+ * @param int|WP_Post|null $post
  *
  * @return WP_Post[]
  */
-function wporg_workshop_series_get_siblings( $workshop = null ) {
-	$term = wporg_workshop_series_get_term( $workshop );
+function wporg_learn_series_get_siblings( $post = null ) {
+	$term = wporg_learn_series_get_term( $post );
 
 	if ( ! $term ) {
 		return array();
 	}
 
 	$args = array(
-		'post_type'      => 'wporg_workshop',
+		'post_type'      => array( 'wporg_workshop', 'lesson-plan' ),
 		'post_status'    => 'publish',
 		'posts_per_page' => 999,
 		'order'          => 'asc',
@@ -823,21 +823,21 @@ function wporg_workshop_series_get_siblings( $workshop = null ) {
 }
 
 /**
- * Given a workshop post in a series, get an adjacent workshop post in the series.
+ * Given a post in a series, get an adjacent post in that series.
  *
  * @param string           $which    Which adjacent post to retrieve. 'previous' or 'next'.
- * @param int|WP_Post|null $workshop
+ * @param int|WP_Post|null $post
  *
  * @return WP_Post|bool
  */
-function wporg_workshop_series_get_adjacent( $which, $workshop = null ) {
-	if ( ! $workshop instanceof WP_Post ) {
-		$workshop = get_post( $workshop );
+function wporg_learn_series_get_adjacent( $which, $post = null ) {
+	if ( ! $post instanceof WP_Post ) {
+		$post = get_post( $post );
 	}
 
-	$siblings    = wporg_workshop_series_get_siblings( $workshop );
+	$siblings    = wporg_learn_series_get_siblings( $post );
 	$sibling_ids = wp_list_pluck( $siblings, 'ID' );
-	$index       = array_search( $workshop->ID, $sibling_ids, true );
+	$index       = array_search( $post->ID, $sibling_ids, true );
 
 	if ( false === $index ) {
 		return false;

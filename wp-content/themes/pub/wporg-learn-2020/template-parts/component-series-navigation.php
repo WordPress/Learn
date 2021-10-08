@@ -1,7 +1,7 @@
 <?php
-$series_term = wporg_workshop_series_get_term( $post );
-$previous    = wporg_workshop_series_get_adjacent( 'previous', $post );
-$next        = wporg_workshop_series_get_adjacent( 'next', $post );
+$series_term = wporg_learn_series_get_term( $post );
+$previous    = wporg_learn_series_get_adjacent( 'previous', $post );
+$next        = wporg_learn_series_get_adjacent( 'next', $post );
 ?>
 <nav class="workshop-series">
 	<h2>
