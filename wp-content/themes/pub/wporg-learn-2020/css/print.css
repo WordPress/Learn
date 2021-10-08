@@ -1,0 +1,103 @@
+@page {
+  margin: 1cm;
+}
+
+#wporg-header, #wporg-footer, #head-search, #wporg-header-menu, .site-header {
+  display: none;
+}
+
+img {
+  max-width: 100% !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  break-after: avoid;
+}
+
+h1, h2, h3, h4, h5, h6, ul, img {
+  break-inside: avoid;
+}
+
+p a {
+  word-wrap: break-word;
+}
+
+.bbp-breadcrumb:after {
+  content: "learn.wordpress.org";
+  float: right;
+}
+
+/**
+ * For Lesson archive page
+ */
+.post-type-archive-lesson-plan .search-form, .post-type-archive-lesson-plan .sidebar-filters {
+  display: none;
+}
+
+.post-type-archive-lesson-plan #main section {
+  padding: 0;
+}
+
+.post-type-archive-lesson-plan .gutters > .col-9 {
+  width: 100%;
+}
+
+.post-type-archive-lesson-plan .submit-idea-cta {
+  display: none;
+}
+
+.post-type-archive-lesson-plan .card {
+  border: dotted 2px #000;
+}
+
+.post-type-archive-lesson-plan .card-meta li {
+  float: left;
+  margin-right: 15px;
+}
+
+/**
+ * For Lesson single pages
+ */
+.single-lesson-plan #main-content section {
+  padding: 0;
+}
+
+.single-lesson-plan div.bbp-breadcrumb {
+  margin: 0 0 1rem;
+}
+
+.single-lesson-plan .card-grid .card {
+  break-inside: avoid-page;
+}
+
+/**
+ * For Workshops archive page
+ */
+.post-type-archive-wporg_workshop .search-form, .post-type-archive-wporg_workshop .submit-idea-cta, .post-type-archive-wporg_workshop .filter-buttons, .post-type-archive-wporg_workshop .filter-form {
+  display: none;
+}
+
+.post-type-archive-wporg_workshop #main section {
+  padding: 0;
+}
+
+/**
+ * For Workshops single pages
+ */
+.single-wporg_workshop .workshop-page_sidebar {
+  display: none;
+}
+
+.single-wporg_workshop article.wporg_workshop section {
+  padding: 0;
+}
+
+.single-wporg_workshop .wp-block-column {
+  flex-grow: 1;
+}
+
+.single-wporg_workshop .workshop-page_content {
+  margin-bottom: 32px;
+}
+
+/*# sourceMappingURL=print.css.map */

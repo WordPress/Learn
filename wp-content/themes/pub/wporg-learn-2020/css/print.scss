@@ -1,0 +1,111 @@
+// Set custom margin
+@page {
+    margin: 1cm;
+}
+// Hide stuff that's not relevant on print media
+#wporg-header, #wporg-footer, #head-search, #wporg-header-menu, .site-header  {
+    display: none;
+}
+// Prevent image from bleeding over the edge
+img {
+    max-width: 100% !important;
+}
+// Avoid page break right after heading
+h1, h2, h3, h4, h5, h6 {
+    break-after: avoid;
+}
+// Avoid page break in mid of elements
+h1, h2, h3, h4, h5, h6, ul, img {
+    break-inside: avoid;
+}
+// Handle super-long piece of text, like URLs that are too big to fit on a single line,
+// by breaking them instead of bleeding over the edge
+p a {
+    word-wrap: break-word;
+}    
+// Set the URL along with breadcrumbs, wherever available
+.bbp-breadcrumb:after {
+    content: "learn.wordpress.org";
+    float: right;
+}
+
+/**
+ * For Lesson archive page
+ */
+ .post-type-archive-lesson-plan {
+    .search-form, .sidebar-filters {
+        display: none;
+    }
+
+    #main section {
+        padding: 0;
+    }
+
+    .gutters > .col-9 {
+        width: 100%;
+    }
+
+    .submit-idea-cta {
+        display:none;
+    }
+
+    .card {
+        border: dotted 2px #000;
+    }
+
+    .card-meta li {
+        float: left;
+        margin-right: 15px;
+    }
+}
+
+/**
+ * For Lesson single pages
+ */
+.single-lesson-plan {
+    #main-content section {
+        padding: 0;
+    }
+
+    div.bbp-breadcrumb {
+        margin: 0 0 1rem;
+    }
+
+    // This doesn't work for first page, but works for other pages ¯\_(ツ)_/¯
+    .card-grid .card {
+        break-inside: avoid-page;
+    }
+}
+
+/**
+ * For Workshops archive page
+ */
+.post-type-archive-wporg_workshop {
+    .search-form, .submit-idea-cta, .filter-buttons, .filter-form {
+        display: none;
+    }
+
+    #main section {
+        padding: 0;
+    }
+}
+
+/**
+ * For Workshops single pages
+ */
+.single-wporg_workshop {
+    .workshop-page_sidebar {
+        display: none;
+    }
+    article.wporg_workshop section {
+        padding: 0;
+    }
+
+    .wp-block-column {
+        flex-grow: 1;
+    }
+
+    .workshop-page_content {
+        margin-bottom: 32px;
+    }
+}
