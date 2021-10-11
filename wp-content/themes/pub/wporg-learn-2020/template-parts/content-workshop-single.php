@@ -87,13 +87,13 @@ global $wp_embed;
 				</section>
 			<?php endforeach; ?>
 
-			<section class="row workshop-page_section">
-				<div class="col-4">
+			<?php $other_contributors = wporg_get_workshop_other_contributors(); ?>
+			<?php if ( ! empty( $other_contributors ) ) : ?>
+				<section class="row workshop-page_section">
 					<h2><?php esc_html_e( 'Other Contributors', 'wporg_learn' ); ?></h2>
-				</div>
-			</section>
-
-			<?php foreach ( wporg_get_workshop_other_contributors() as $other_contributor ) : ?>
+				</section>
+			<?php endif ?>
+			<?php foreach ( $other_contributors as $other_contributor ) : ?>
 				<section class="row workshop-page_section">
 					<div class="col-4">
 						<?php
