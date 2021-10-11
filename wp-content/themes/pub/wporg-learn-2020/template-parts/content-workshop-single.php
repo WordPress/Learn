@@ -61,7 +61,13 @@ global $wp_embed;
 				<hr class="wp-block-separator" />
 			<?php endif; ?>
 
-			<?php foreach ( wporg_get_workshop_presenters() as $presenter ) : ?>
+			<?php $presenters = wporg_get_workshop_presenters(); ?>
+			<?php if ( ! empty( $presenters ) ) : ?>
+				<section class="row workshop-page_section"">
+					<h2><?php esc_html_e( 'Presenters', 'wporg_learn' ); ?></h2>
+				</section>
+			<?php endif ?>
+			<?php foreach ( $presenters as $presenter ) : ?>
 				<section class="row workshop-page_section"">
 					<div class="col-4">
 						<?php
