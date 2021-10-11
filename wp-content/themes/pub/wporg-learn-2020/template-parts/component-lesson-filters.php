@@ -24,6 +24,12 @@ $taxonomies = array(
 		'name'    => 'type',
 		'current' => filter_input( INPUT_GET, 'type', FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY ) ?? array(),
 	),
+	array(
+		'label'   => get_taxonomy_labels( get_taxonomy( 'wporg_workshop_series' ) )->singular_name,
+		'terms'   => get_terms( array( 'taxonomy' => 'wporg_workshop_series' ) ),
+		'name'    => 'series',
+		'current' => filter_input( INPUT_GET, 'series', FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY ) ?? array(),
+	),
 );
 ?>
 
