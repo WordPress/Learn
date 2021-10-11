@@ -96,7 +96,7 @@ global $wp_embed;
 			<section class="row workshop-page_section">
 				<?php foreach ( $other_contributors as $key => $other_contributor ) : ?>
 					<a href="<?php printf( 'https://profiles.wordpress.org/%s/', esc_attr( $other_contributor->user_login ) ); ?>">
-						<?php esc_html_e( $other_contributor->display_name ); ?>
+						<?php echo esc_html( $other_contributor->display_name ); ?>
 					</a>
 					<?php if ( array_key_last( $other_contributors ) !== $key ) : ?>
 						,&nbsp;
