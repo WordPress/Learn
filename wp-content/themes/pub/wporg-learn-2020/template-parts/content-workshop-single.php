@@ -93,21 +93,16 @@ global $wp_embed;
 					<h2><?php esc_html_e( 'Other Contributors', 'wporg_learn' ); ?></h2>
 				</section>
 			<?php endif ?>
-			<?php foreach ( $other_contributors as $other_contributor ) : ?>
-				<section class="row workshop-page_section">
-					<div class="col-4">
-						<?php
-						get_template_part(
-							'template-parts/component',
-							'workshop-other-contributor',
-							array(
-								'other_contributor' => $other_contributor,
-							)
-						);
-						?>
-					</div>
-				</section>
-			<?php endforeach; ?>
+			<section class="row workshop-page_section">
+				<?php foreach ( $other_contributors as $key => $other_contributor ) : ?>
+					<a href="<?php printf( 'https://profiles.wordpress.org/%s/', esc_attr( $other_contributor->user_login ) ); ?>">
+						<?php esc_html_e( $other_contributor->display_name ); ?>
+					</a>
+					<?php if ( array_key_last( $other_contributors ) !== $key ) : ?>
+						,&nbsp;
+					<?php endif ?>
+				<?php endforeach; ?>
+			</section>
 
 		</div> <!-- end workshop-page -->
 	</section>
