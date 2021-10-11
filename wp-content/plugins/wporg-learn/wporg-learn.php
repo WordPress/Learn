@@ -74,6 +74,7 @@ function load_files() {
 	require_once get_includes_path() . 'locale.php';
 	require_once get_includes_path() . 'post-meta.php';
 	require_once get_includes_path() . 'post-type.php';
+	require_once get_includes_path() . 'profiles.php';
 	require_once get_includes_path() . 'sensei.php';
 	require_once get_includes_path() . 'taxonomy.php';
 }
