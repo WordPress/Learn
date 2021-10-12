@@ -17,6 +17,10 @@
 
 	&_section {
 		padding: 4rem 0 0;
+
+		.row + .row {
+			padding: 4rem 0 0;
+		}
 	}
 
 	&_biography {
