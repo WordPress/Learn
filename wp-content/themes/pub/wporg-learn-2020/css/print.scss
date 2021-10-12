@@ -1,15 +1,17 @@
 // Set custom margin
 @page {
-	margin: 1cm;
+	margin: 0.75cm;
 }
 // Hide stuff that's not relevant on print media
 #wporg-header,
 #wporg-footer,
 #head-search,
 #wporg-header-menu,
-.site-header,
 .workshop-page_video,
-.wporg-learn-locale-notice {
+.wporg-learn-locale-notice,
+.bbp-breadcrumb,
+.dashicons,
+.main-navigation {
 	display: none;
 }
 // Prevent image from bleeding over the edge
@@ -42,10 +44,39 @@ img {
 p a {
 	word-wrap: break-word;
 }
-// Set the URL along with breadcrumbs, wherever available
-.bbp-breadcrumb::after {
+// Tweak header to be printable
+.site-header {
+	padding-top: 0;
+	background: #fff;
+	color: #000;
+	font-size: 12px;
+
+	a {
+		background: #fff;
+		color: #000;
+		font-size: 12px;
+	}
+
+	.site-branding {
+		padding: 0 0 0 10px;
+	}
+}
+// Set title to block so that ::after content can be pushed to right
+.site-title {
+	display: block;
+}
+// Set the URL along with title
+.site-title::after {
 	content: "learn.wordpress.org";
+	display: block;
+	font-size: 12px;
 	float: right;
+	position: relative;
+	top: 15px;
+}
+
+.site-title--no-mobile {
+	display: inline !important;
 }
 
 /**
@@ -58,7 +89,8 @@ p a {
 		display: none;
 	}
 
-	#main section {
+	#main section,
+	.section-heading--with-space {
 		padding: 0;
 	}
 
@@ -76,6 +108,7 @@ p a {
 
 	.card-meta li {
 		float: left;
+		padding: 0 5px 5px 0;
 		margin-right: 15px;
 	}
 }
@@ -89,13 +122,14 @@ p a {
 		padding: 0;
 	}
 
-	div.bbp-breadcrumb {
-		margin: 0 0 1rem;
-	}
-
 	// This doesn't work for first page, but works for other pages ¯\_(ツ)_/¯
 	.card-grid .card {
 		break-inside: avoid-page;
+	}
+
+	.lp-content .lp-details ul li,
+	.lp-list .lp-details ul li {
+		padding: 0 10px 10px 0;
 	}
 }
 
