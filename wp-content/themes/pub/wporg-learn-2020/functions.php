@@ -626,6 +626,29 @@ function wporg_get_workshop_presenters( $workshop = null ) {
 }
 
 /**
+ * Returns the other contributors for the workshop.
+ *
+ * @param WP_Post|int $workshop
+ *
+ * @return WP_User[]|array
+ */
+function wporg_get_workshop_other_contributors( $workshop = null ) {
+	$post               = get_post( $workshop );
+	$other_contributors = get_post_meta( $post->ID, 'other_contributor_wporg_username' );
+	$wp_users           = array();
+
+	foreach ( $other_contributors as $other_contributor ) {
+		$wp_user = get_user_by( 'login', $other_contributor );
+
+		if ( $wp_user ) {
+			array_push( $wp_users, $wp_user );
+		}
+	}
+
+	return $wp_users;
+}
+
+/**
  * Get the bio of a user, first trying usermeta and then profiles.wordpress.org.
  *
  * The `usermeta` bio (description) field will be pulled. If there is no bio, profiles.wordpress.org is tried.
