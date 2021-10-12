@@ -41,6 +41,15 @@ function wporg_learn_scripts() {
 		array( 'dashicons', 'open-sans' ),
 		filemtime( __DIR__ . '/css/style.css' )
 	);
+	if ( is_post_type_archive( array( 'wporg_workshop', 'lesson-plan' ) ) || is_singular( array( 'wporg_workshop', 'lesson-plan' ) ) ) {
+		wp_enqueue_style(
+			'wporg-print-style',
+			get_theme_file_uri( '/css/print.css' ),
+			array(),
+			filemtime( __DIR__ . '/css/print.css' ),
+			'print'
+		);
+	}
 	wp_enqueue_script(
 		'wporg-navigation',
 		get_theme_file_uri() . '/js/navigation.js',
