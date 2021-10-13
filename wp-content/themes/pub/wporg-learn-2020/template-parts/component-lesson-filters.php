@@ -58,4 +58,29 @@ $taxonomies = array(
 			<?php endforeach; ?>
 		</ul>
 	<?php endforeach; ?>
+
+	<h4 class="h5">
+		<?php echo esc_html( get_taxonomy_labels( get_taxonomy( 'wporg_lesson_plan_series' ) )->singular_name ); ?>
+	</h4>
+	<ul>
+		<?php foreach ( get_terms( array( 'taxonomy' => 'wporg_lesson_plan_series' ) ) as $trm ) : ?>
+			<li>
+				<label for="<?php echo esc_attr( "{$trm->term_id}-{$trm->slug}" ); ?>">
+					<input
+						id="<?php echo esc_attr( "{$trm->term_id}-{$trm->slug}" ); ?>"
+						type="radio"
+						name="series"
+						value="<?php echo esc_attr( $trm->term_id ); ?>"
+						<?php
+						checked(
+							$trm->term_id,
+							filter_input( INPUT_GET, 'series', FILTER_VALIDATE_INT )
+						);
+						?>
+					/>
+					<?php echo esc_html( $trm->name ); ?>
+				</label>
+			</li>
+		<?php endforeach; ?>
+	</ul>
 </form>

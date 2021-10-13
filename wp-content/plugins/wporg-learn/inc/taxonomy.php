@@ -325,6 +325,9 @@ function register_lesson_plan_series() {
 		'labels'            => $labels,
 		'hierarchical'      => true,
 		'public'            => true,
+		'rewrite'           => array(
+			'slug' => 'lesson-plan-series',
+		),
 		'show_ui'           => true,
 		'show_admin_column' => true,
 		'show_in_nav_menus' => true,

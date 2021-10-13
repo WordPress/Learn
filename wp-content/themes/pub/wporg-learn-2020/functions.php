@@ -411,10 +411,14 @@ function wporg_archive_maybe_apply_query_filters( WP_Query &$query ) {
 		'audience' => 'audience',
 		'duration' => 'duration',
 		'level'    => 'level',
-		'series'   => 'wporg_workshop_series',
 		'topic'    => 'topic',
 		'type'     => 'instruction_type',
 	);
+
+	$series_slug = wporg_learn_get_series_taxonomy_slug( $query->get( 'post_type' ) );
+	if ( $series_slug ) {
+		$entity_map['series'] = $series_slug;
+	}
 
 	$meta_query = array();
 	$tax_query = array();
@@ -770,14 +774,13 @@ function wporg_modify_archive_title( $title ) {
 add_filter( 'get_the_archive_title', 'wporg_modify_archive_title' );
 
 /**
- * Get the slug for the series taxonomy for a given post.
+ * Get the slug for the series taxonomy for a given post type.
  *
- * @param \WP_Post $post
+ * @param string $post_type
  *
  * @return false|string
  */
-function wporg_learn_get_series_taxonomy_slug( $post ) {
-	$post_type = get_post_type( $post );
+function wporg_learn_get_series_taxonomy_slug( $post_type ) {
 	$tax_slug = false;
 
 	switch ( $post_type ) {
@@ -806,7 +809,7 @@ function wporg_learn_series_get_term( $post = null ) {
 		return false;
 	}
 
-	$tax_slug = wporg_learn_get_series_taxonomy_slug( $post );
+	$tax_slug = wporg_learn_get_series_taxonomy_slug( get_post_type( $post ) );
 	$terms = wp_get_post_terms( $post->ID, $tax_slug );
 
 	if ( empty( $terms ) ) {
@@ -824,6 +827,7 @@ function wporg_learn_series_get_term( $post = null ) {
  * @return WP_Post[]
  */
 function wporg_learn_series_get_siblings( $post = null ) {
+	$post_type = get_post_type( $post );
 	$term = wporg_learn_series_get_term( $post );
 
 	if ( ! $term ) {
@@ -831,13 +835,13 @@ function wporg_learn_series_get_siblings( $post = null ) {
 	}
 
 	$args = array(
-		'post_type'      => get_post_type( $post ),
+		'post_type'      => $post_type,
 		'post_status'    => 'publish',
 		'posts_per_page' => 999,
 		'order'          => 'asc',
 		'tax_query'      => array(
 			array(
-				'taxonomy' => wporg_learn_get_series_taxonomy_slug( $post ),
+				'taxonomy' => wporg_learn_get_series_taxonomy_slug( $post_type ),
 				'terms'    => $term->term_id,
 			),
 		),
