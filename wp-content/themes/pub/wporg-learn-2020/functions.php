@@ -770,6 +770,29 @@ function wporg_modify_archive_title( $title ) {
 add_filter( 'get_the_archive_title', 'wporg_modify_archive_title' );
 
 /**
+ * Get the slug for the series taxonomy for a given post.
+ *
+ * @param \WP_Post $post
+ *
+ * @return false|string
+ */
+function wporg_learn_get_series_taxonomy_slug( $post ) {
+	$post_type = get_post_type( $post );
+	$tax_slug = false;
+
+	switch ( $post_type ) {
+		case 'lesson-plan':
+			$tax_slug = 'wporg_lesson_plan_series';
+			break;
+		case 'wporg_workshop':
+			$tax_slug = 'wporg_workshop_series';
+			break;
+	}
+
+	return $tax_slug;
+}
+
+/**
  * Get the series taxonomy term object for a post.
  *
  * @param int|WP_Post|null $post
@@ -783,7 +806,8 @@ function wporg_learn_series_get_term( $post = null ) {
 		return false;
 	}
 
-	$terms = wp_get_post_terms( $post->ID, 'wporg_workshop_series' );
+	$tax_slug = wporg_learn_get_series_taxonomy_slug( $post );
+	$terms = wp_get_post_terms( $post->ID, $tax_slug );
 
 	if ( empty( $terms ) ) {
 		return false;
@@ -807,13 +831,13 @@ function wporg_learn_series_get_siblings( $post = null ) {
 	}
 
 	$args = array(
-		'post_type'      => array( 'wporg_workshop', 'lesson-plan' ),
+		'post_type'      => get_post_type( $post ),
 		'post_status'    => 'publish',
 		'posts_per_page' => 999,
 		'order'          => 'asc',
 		'tax_query'      => array(
 			array(
-				'taxonomy' => 'wporg_workshop_series',
+				'taxonomy' => wporg_learn_get_series_taxonomy_slug( $post ),
 				'terms'    => $term->term_id,
 			),
 		),
