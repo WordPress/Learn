@@ -73,6 +73,11 @@
 					</div>
 				</div>
 			</aside>
-			</div>
+		</div>
 	</section>
+
+	<?php if ( is_object_in_term( get_the_ID(), 'wporg_lesson_plan_series' ) ) : ?>
+		<hr class="wp-block-separator" />
+		<?php get_template_part( 'template-parts/component', 'series-navigation' ); ?>
+	<?php endif; ?>
 </article><!-- #post-## -->

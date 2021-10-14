@@ -411,10 +411,14 @@ function wporg_archive_maybe_apply_query_filters( WP_Query &$query ) {
 		'audience' => 'audience',
 		'duration' => 'duration',
 		'level'    => 'level',
-		'series'   => 'wporg_workshop_series',
 		'topic'    => 'topic',
 		'type'     => 'instruction_type',
 	);
+
+	$series_slug = wporg_learn_get_series_taxonomy_slug( $query->get( 'post_type' ) );
+	if ( $series_slug ) {
+		$entity_map['series'] = $series_slug;
+	}
 
 	$meta_query = array();
 	$tax_query = array();
@@ -770,20 +774,43 @@ function wporg_modify_archive_title( $title ) {
 add_filter( 'get_the_archive_title', 'wporg_modify_archive_title' );
 
 /**
- * Get the series taxonomy term object for a workshop post.
+ * Get the slug for the series taxonomy for a given post type.
  *
- * @param int|WP_Post|null $workshop
+ * @param string $post_type
+ *
+ * @return false|string
+ */
+function wporg_learn_get_series_taxonomy_slug( $post_type ) {
+	$tax_slug = false;
+
+	switch ( $post_type ) {
+		case 'lesson-plan':
+			$tax_slug = 'wporg_lesson_plan_series';
+			break;
+		case 'wporg_workshop':
+			$tax_slug = 'wporg_workshop_series';
+			break;
+	}
+
+	return $tax_slug;
+}
+
+/**
+ * Get the series taxonomy term object for a post.
+ *
+ * @param int|WP_Post|null $post
  *
  * @return WP_Term|bool
  */
-function wporg_workshop_series_get_term( $workshop = null ) {
-	$workshop = get_post( $workshop );
+function wporg_learn_series_get_term( $post = null ) {
+	$post = get_post( $post );
 
-	if ( ! $workshop instanceof WP_Post ) {
+	if ( ! $post instanceof WP_Post ) {
 		return false;
 	}
 
-	$terms = wp_get_post_terms( $workshop->ID, 'wporg_workshop_series' );
+	$tax_slug = wporg_learn_get_series_taxonomy_slug( get_post_type( $post ) );
+	$terms = wp_get_post_terms( $post->ID, $tax_slug );
 
 	if ( empty( $terms ) ) {
 		return false;
@@ -793,27 +820,28 @@ function wporg_workshop_series_get_term( $workshop = null ) {
 }
 
 /**
- * Given a workshop post in a series, get all the workshop posts in the series.
+ * Given a post in a series, get all the posts in the series.
  *
- * @param int|WP_Post|null $workshop
+ * @param int|WP_Post|null $post
  *
  * @return WP_Post[]
  */
-function wporg_workshop_series_get_siblings( $workshop = null ) {
-	$term = wporg_workshop_series_get_term( $workshop );
+function wporg_learn_series_get_siblings( $post = null ) {
+	$post_type = get_post_type( $post );
+	$term = wporg_learn_series_get_term( $post );
 
 	if ( ! $term ) {
 		return array();
 	}
 
 	$args = array(
-		'post_type'      => 'wporg_workshop',
+		'post_type'      => $post_type,
 		'post_status'    => 'publish',
 		'posts_per_page' => 999,
 		'order'          => 'asc',
 		'tax_query'      => array(
 			array(
-				'taxonomy' => 'wporg_workshop_series',
+				'taxonomy' => wporg_learn_get_series_taxonomy_slug( $post_type ),
 				'terms'    => $term->term_id,
 			),
 		),
@@ -823,21 +851,21 @@ function wporg_workshop_series_get_siblings( $workshop = null ) {
 }
 
 /**
- * Given a workshop post in a series, get an adjacent workshop post in the series.
+ * Given a post in a series, get an adjacent post in that series.
  *
  * @param string           $which    Which adjacent post to retrieve. 'previous' or 'next'.
- * @param int|WP_Post|null $workshop
+ * @param int|WP_Post|null $post
  *
  * @return WP_Post|bool
  */
-function wporg_workshop_series_get_adjacent( $which, $workshop = null ) {
-	if ( ! $workshop instanceof WP_Post ) {
-		$workshop = get_post( $workshop );
+function wporg_learn_series_get_adjacent( $which, $post = null ) {
+	if ( ! $post instanceof WP_Post ) {
+		$post = get_post( $post );
 	}
 
-	$siblings    = wporg_workshop_series_get_siblings( $workshop );
+	$siblings    = wporg_learn_series_get_siblings( $post );
 	$sibling_ids = wp_list_pluck( $siblings, 'ID' );
-	$index       = array_search( $workshop->ID, $sibling_ids, true );
+	$index       = array_search( $post->ID, $sibling_ids, true );
 
 	if ( false === $index ) {
 		return false;
