@@ -296,6 +296,15 @@ function wporg_archive_modify_query( WP_Query $query ) {
 			)
 		);
 	}
+
+	// Omit some post types from search results.
+	if ( $query->is_main_query() && $query->is_search() ) {
+		$public_post_types = array_keys( get_post_types( array( 'public' => true ) ) );
+		$omit_from_search = array( 'attachment', 'lesson', 'quiz', 'sensei_message' );
+		$searchable_post_types = array_diff( $public_post_types, $omit_from_search );
+
+		$query->set( 'post_type', $searchable_post_types );
+	}
 }
 add_action( 'pre_get_posts', 'wporg_archive_modify_query' );
 
