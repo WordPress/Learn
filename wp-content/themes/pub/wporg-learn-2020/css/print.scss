@@ -163,7 +163,8 @@ p a {
 		padding: 0;
 	}
 
-	.wp-block-column {
+	.wp-block-column,
+	.wp-block-columns:not(.is-not-stacked-on-mobile) > .wp-block-column[style*="flex-basis"] {
 		flex-grow: 1;
 	}
 
