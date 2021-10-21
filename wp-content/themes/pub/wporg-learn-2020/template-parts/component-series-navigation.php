@@ -39,14 +39,14 @@ $next        = wporg_learn_series_get_adjacent( 'next', $post );
 		<li class="col-6 video-grid_item previous-series-item">
 			<?php if ( $previous ) : ?>
 				<a class="video-grid_item_link" href="<?php echo esc_url( get_the_permalink( $previous ) ); ?>">
-					<?php echo wp_kses_post( 'Previous Workshop: ' . get_the_title( $previous ) ); ?>
+					<?php echo wp_kses_post( 'Previous: ' . get_the_title( $previous ) ); ?>
 				</a>
 			<?php endif; ?>
 		</li>
 		<li class="col-6 video-grid_item next-series-item">
 			<?php if ( $next ) : ?>
 				<a class="video-grid_item_link" href="<?php echo esc_url( get_the_permalink( $next ) ); ?>">
-					<?php echo wp_kses_post( 'Next Workshop: ' . get_the_title( $next ) ); ?>
+					<?php echo wp_kses_post( 'Next: ' . get_the_title( $next ) ); ?>
 				</a>
 			<?php endif; ?>
 		</li>
