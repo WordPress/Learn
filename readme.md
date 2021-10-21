@@ -20,6 +20,10 @@ run `yarn run wp-env stop`
 ## Removing Environment
 run `yarn run wp-env destroy`
 
+## Admin
+
+Since the local environment uses [wp-env](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/), it automatically comes with an admin user, with `admin`/`password` for the credentials.
+
 ## Development
 
 While working on the theme & plugin, you might need to rebuild the CSS or JavaScript.
