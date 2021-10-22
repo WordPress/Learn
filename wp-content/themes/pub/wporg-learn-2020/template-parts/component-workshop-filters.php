@@ -26,7 +26,7 @@ $buckets = array(
 		'items' => \WPOrg_Learn\Post_Meta\get_available_workshop_locales( 'video_language', 'native' ),
 	),
 	array(
-		'label' => __( 'Captions', 'wporg-learn' ),
+		'label' => __( 'Subtitles', 'wporg-learn' ),
 		'name'  => 'captions',
 		'items' => \WPOrg_Learn\Post_Meta\get_available_workshop_locales( 'video_caption_language', 'native' ),
 	),

@@ -133,7 +133,7 @@ function register_workshop_meta() {
 		$post_type,
 		'video_caption_language',
 		array(
-			'description'       => __( 'A language for which captions are available for the workshop video.', 'wporg_learn' ),
+			'description'       => __( 'A language for which subtitles are available for the workshop video.', 'wporg_learn' ),
 			'type'              => 'string',
 			'single'            => false,
 			'sanitize_callback' => __NAMESPACE__ . '\sanitize_locale',

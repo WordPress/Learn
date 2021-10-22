@@ -81,7 +81,7 @@ function workshop_details_render_callback( $attributes, $content ) {
 		__( 'Topic', 'wporg-learn' )    => implode( ', ', array_map( 'esc_html', $topics ) ),
 		__( 'Level', 'wporg-learn' )    => implode( ', ', array_map( 'esc_html', $level ) ),
 		__( 'Language', 'wporg-learn' ) => esc_html( get_locale_name_from_code( $post->video_language, 'native' ) ),
-		__( 'Captions', 'wporg-learn' ) => implode(
+		__( 'Subtitles', 'wporg-learn' ) => implode(
 			', ',
 			array_map(
 				function( $caption_lang ) {
