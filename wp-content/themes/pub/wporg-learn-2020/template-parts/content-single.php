@@ -64,7 +64,9 @@
 							</a>
 						</li> -->
 					</ul>
-
+					<div class="lp-print">
+						<a href="#" onclick="window.print();"><?php esc_html_e( 'Print view', 'wporg-learn' ); ?></a>
+					</div>
 					<div class="lp-suggestion">
 						<h2 class="lp-suggestion_title h4"><?php esc_html_e( 'Suggestions', 'wporg-learn' ); ?></h2>
 						<p><?php esc_html_e( 'Found a typo, grammar error,or outdated screenshot?', 'wporg-learn' ); ?></p>
