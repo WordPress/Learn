@@ -83,6 +83,7 @@ _x( 'Meetups', 'Topics term name', 'wporg-learn' );
 _x( 'Open-Source', 'Topics term name', 'wporg-learn' );
 _x( 'Publishing', 'Topics term name', 'wporg-learn' );
 _x( 'Security', 'Topics term name', 'wporg-learn' );
+_x( 'Training Team', 'Topics term name', 'wporg-learn' );
 _x( 'Translation', 'Topics term name', 'wporg-learn' );
 _x( 'Troubleshooting', 'Topics term name', 'wporg-learn' );
 _x( 'Sessions on WordPress Troubleshooting.', 'Topics term description', 'wporg-learn' );
