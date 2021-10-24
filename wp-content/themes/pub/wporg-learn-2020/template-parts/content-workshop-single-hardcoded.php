@@ -52,6 +52,7 @@ $other_contributors = array_map(
 							</div>
 
 							<div class="col-8 workshop-page_biography">
+                                <p><strong>Senior Technical Writer at Delicious Brains.</strong></p>
 								<?php echo wp_kses_post( wpautop( wporg_get_workshop_presenter_bio( $presenter ) ) ); ?>
 							</div>
 						</div>
