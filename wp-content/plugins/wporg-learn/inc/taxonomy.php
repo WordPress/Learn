@@ -446,7 +446,7 @@ function register_workshop_type() {
 		'edit_item'                  => __( 'Edit Type', 'wporg-learn' ),
 		'update_item'                => __( 'Update Type', 'wporg-learn' ),
 		'view_item'                  => __( 'View Type', 'wporg-learn' ),
-		'separate_items_with_commas' => __( 'Separate Type with commas', 'wporg-learn' ),
+		'separate_items_with_commas' => __( 'Separate Types with commas', 'wporg-learn' ),
 		'add_or_remove_items'        => __( 'Add or remove Type', 'wporg-learn' ),
 		'choose_from_most_used'      => __( 'Choose from the most used', 'wporg-learn' ),
 		'popular_items'              => __( 'Popular Types', 'wporg-learn' ),
