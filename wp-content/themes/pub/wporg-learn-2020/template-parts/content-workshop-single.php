@@ -52,10 +52,10 @@ $other_contributors = array_map(
 					<div class="wp-block-button is-style-secondary-full-width">
 						<a
 							class="wp-block-button__link"
-							href="https://www.meetup.com/learn-wordpress-discussions/events/"
+							href="https://learn.wordpress.org/social-learning/"
 							style="border-radius:5px"
 						>
-							<?php esc_html_e( 'Join a Group Discussion', 'wporg-learn' ); ?>
+							<?php esc_html_e( 'Join a Social Learning Space', 'wporg-learn' ); ?>
 						</a>
 					</div>
 
