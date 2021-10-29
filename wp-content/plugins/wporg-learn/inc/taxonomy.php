@@ -22,6 +22,7 @@ function register() {
 	register_lesson_plan_series();
 	register_workshop_series();
 	register_workshop_topic();
+	register_workshop_type();
 	register_wp_version();
 	register_included_content();
 }
@@ -427,6 +428,51 @@ function register_workshop_topic() {
 	);
 
 	register_taxonomy( 'topic', array( 'wporg_workshop' ), $args );
+}
+
+/**
+ * Register the Workshop Type taxonomy.
+ */
+function register_workshop_type() {
+	$labels = array(
+		'name'                       => _x( 'Types', 'taxonomy general name', 'wporg-learn' ),
+		'singular_name'              => _x( 'Type', 'taxonomy singular name', 'wporg-learn' ),
+		'menu_name'                  => __( 'Types', 'wporg-learn' ),
+		'all_items'                  => __( 'All types', 'wporg-learn' ),
+		'parent_item'                => __( 'Parent type', 'wporg-learn' ),
+		'parent_item_colon'          => __( 'Parent type:', 'wporg-learn' ),
+		'new_item_name'              => __( 'New Type Name', 'wporg-learn' ),
+		'add_new_item'               => __( 'Add Type', 'wporg-learn' ),
+		'edit_item'                  => __( 'Edit Type', 'wporg-learn' ),
+		'update_item'                => __( 'Update Type', 'wporg-learn' ),
+		'view_item'                  => __( 'View Type', 'wporg-learn' ),
+		'separate_items_with_commas' => __( 'Separate Types with commas', 'wporg-learn' ),
+		'add_or_remove_items'        => __( 'Add or remove Type', 'wporg-learn' ),
+		'choose_from_most_used'      => __( 'Choose from the most used', 'wporg-learn' ),
+		'popular_items'              => __( 'Popular Types', 'wporg-learn' ),
+		'search_items'               => __( 'Search Types', 'wporg-learn' ),
+		'not_found'                  => __( 'No Type Found', 'wporg-learn' ),
+		'no_terms'                   => __( 'No Type ', 'wporg-learn' ),
+		'items_list'                 => __( 'Type list', 'wporg-learn' ),
+		'items_list_navigation'      => __( 'Type list navigation', 'wporg-learn' ),
+	);
+
+	$args = array(
+		'labels'            => $labels,
+		'hierarchical'      => true,
+		'public'            => true,
+		'query_var'         => 'wporg_workshop_type', // Prevent collisions with query params in the archive filter.
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'show_in_nav_menus' => true,
+		'show_tagcloud'     => false,
+		'show_in_rest'      => true,
+		'capabilities'      => array(
+			'assign_terms' => 'edit_workshops',
+		),
+	);
+
+	register_taxonomy( 'wporg_workshop_type', array( 'wporg_workshop' ), $args );
 }
 
 /**
