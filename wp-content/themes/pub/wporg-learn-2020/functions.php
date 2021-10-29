@@ -671,41 +671,48 @@ function wporg_get_workshop_other_contributors( $workshop = null ) {
 }
 
 /**
- * Get the bio of a user, first trying usermeta and then profiles.wordpress.org.
+ * Get the data of a user, first trying usermeta and then profiles.wordpress.org.
  *
- * The `usermeta` bio (description) field will be pulled. If there is no bio, profiles.wordpress.org is tried.
- * The bio at profiles.wordpress.org relies on the availability of the `bpmain_bp_xprofile_data` table.
- * For local environments the bio will only pull from `usermeta`.
+ * The `usermeta` fields will be pulled. If there is no data for either bio, job_title or company, profiles.wordpress.org is tried.
+ * The data at profiles.wordpress.org relies on the availability of the `bpmain_bp_xprofile_data` table.
+ * For local environments the data will only pull from `usermeta`.
  *
  * @param WP_User $user The user to retrieve a bio for.
  *
  * @return string
  */
-function wporg_get_workshop_presenter_bio( WP_User $user ) {
+function wporg_get_workshop_presenter_details( WP_User $user ) {
 	global $wpdb;
 
 	// Retrieve bio from user data.
 	$bio = $user->description;
+	$job_title = $user->job_title; // this will need to be changed to match live
+	$company = $user->company; // this will need to be changed to match live
 
-	// If bio is empty, retrieve from .org.
-	if ( ! $bio && 'local' !== wp_get_environment_type() ) {
-		$xprofile_field_id = 3;
+	// If any of bio, job title, and company is empty, retrieve from .org.
+	if ( ! ( $bio && $job_title && $company ) && 'local' !== wp_get_environment_type() ) {
 
-		$sql = $wpdb->prepare(
-			'
+		$sql = $wpdb->prepare( '
 				SELECT value
 				FROM bpmain_bp_xprofile_data
 				WHERE user_id = %1$d
-				AND field_id = %2$d
-			',
-			$user->ID,
-			$xprofile_field_id
+				AND field_id in (%2$d, %3$d, %4$d) 
+			', $user->ID,
+			3, // bio id
+			4, // will need to be changed to match live
+			5  // will need to be changed to match live
 		);
 
-		$bio = $wpdb->get_var( $sql ) ?: ''; // phpcs:ignore WordPress.DB.PreparedSQL -- prepare called above.
+		$results = $wpdb->get_results($sql) ?: array(); // phpcs:ignore WordPress.DB.PreparedSQL -- prepare called above.
+
+		$bio = $bio ?: $results[0]->value;
+		$job_title = $job_title  ?: $results[1]->value;
+		$company = $company ?: $results[2]->value;
 	}
 
-	return apply_filters( 'the_content', wp_unslash( $bio ) );
+	$user_data = compact( 'bio', 'job_title', 'company' );
+
+	return apply_filters( 'the_content', wp_unslash( $user_data ) );
 }
 
 /**

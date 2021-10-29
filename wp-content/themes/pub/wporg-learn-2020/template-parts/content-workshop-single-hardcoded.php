@@ -52,8 +52,12 @@ $other_contributors = array_map(
 							</div>
 
 							<div class="col-8 workshop-page_biography">
-                                <p><strong>Senior Technical Writer at Delicious Brains.</strong></p>
-								<?php echo wp_kses_post( wpautop( wporg_get_workshop_presenter_bio( $presenter ) ) ); ?>
+                                <?php $user_data = wporg_get_workshop_presenter_details($presenter); ?>
+                                <p><strong>
+		                                <?php echo wp_kses_post( wpautop( $user_data['job_title'] ) ); ?>
+                                        at
+		                                <?php echo wp_kses_post( wpautop( $user_data['company'] ) ); ?>.</strong></p>
+								<?php echo wp_kses_post( wpautop( $user_data['bio'] ) ); ?>
 							</div>
 						</div>
 					<?php endforeach; ?>
