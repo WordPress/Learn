@@ -90,6 +90,8 @@ _x( 'Sessions on WordPress Troubleshooting.', 'Topics term description', 'wporg-
 _x( 'TV Team', 'Topics term name', 'wporg-learn' );
 _x( 'UI', 'Topics term name', 'wporg-learn' );
 _x( 'WordPress', 'Topics term name', 'wporg-learn' );
+_x( 'Community', 'Types term name', 'wporg-learn' );
+_x( 'Faculty', 'Types term name', 'wporg-learn' );
 _x( '5.7', 'WordPress Version term name', 'wporg-learn' );
 _x( '5.8', 'WordPress Version term name', 'wporg-learn' );
 _x( '5.9', 'WordPress Version term name', 'wporg-learn' );
