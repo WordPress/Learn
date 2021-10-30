@@ -1,4 +1,4 @@
-# WP - Learn
+# WordPress - Learn
 
 ## Prerequisites
 - Docker
