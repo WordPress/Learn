@@ -48,7 +48,7 @@ get_header(); ?>
 		<section>
 			<div class="row align-middle between section-heading">
 				<h2 class="h4 section-heading_title"><?php esc_html_e( 'Recent Workshops', 'wporg-learn' ); ?></h2>
-				<a class="section-heading_link" href="/workshops"><?php esc_html_e( 'View All »', 'wporg-learn' ); ?></a>
+				<a class="section-heading_link" href="/workshops"><span aria-hidden="true"><?php esc_html_e( 'View All »', 'wporg-learn' ); ?></span><span class="screen-reader-text"><?php esc_html_e( 'View All Workshops', 'wporg-learn' ); ?></span></a>
 			</div>
 
 			<?php

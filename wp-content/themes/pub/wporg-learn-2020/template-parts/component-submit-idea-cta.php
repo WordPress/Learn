@@ -13,8 +13,8 @@ $args = wp_parse_args( $args );
 
 <section class="submit-idea-cta">
 	<?php if ( isset( $args['icon'] ) ) : ?>
-		<div class="content-icon"><span class="dashicons dashicons-<?php echo esc_attr( $args['icon'] ); ?>"></span></div>
+		<div aria-hidden="true" class="content-icon"><span class="dashicons dashicons-<?php echo esc_attr( $args['icon'] ); ?>"></span></div>
 	<?php endif; ?>
 	<h2><?php esc_html_e( 'Have an Idea for a Workshop? Let us know!', 'wporg-learn' ); ?></h2>
-	<a class="button button-primary button-large" href="https://learn.wordpress.org/workshop-presenter-application/"><?php esc_html_e( 'Submit an Idea', 'wporg-learn' ); ?></a>
+	<a class="button button-primary button-large" href="https://learn.wordpress.org/workshop-presenter-application/"><span aria-hidden="true"><?php esc_html_e( 'Submit an Idea', 'wporg-learn' ); ?></span><span class="screen-reader-text"><?php esc_html_e( 'Submit Workshop Idea', 'wporg-learn' ); ?></span></a>
 </section>
