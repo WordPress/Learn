@@ -73,6 +73,18 @@
 						<p><?php esc_html_e( 'Used this lesson plan in your event and have some suggestions?', 'wporg-learn' ); ?></p>
 						<a href="https://learn.wordpress.org/report-content-errors/"><?php esc_html_e( 'Let us know!', 'wporg-learn' ); ?></a>
 					</div>
+					<div class="licence terms">
+						<br/>
+						<a
+							rel="license"
+							href="http://creativecommons.org/licenses/by-sa/4.0/"
+						>
+							<img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
+						</a><br />
+						<?php
+						printf( __( 'This work is licensed under a %sCreative Commons Attribution-ShareAlike 4.0 International License%s.', 'text_domain' ), '<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">', '</a>' );
+						?>
+					</div>
 				</div>
 			</aside>
 		</div>

@@ -59,12 +59,17 @@ $other_contributors = array_map(
 						</a>
 					</div>
 
-					<p class="terms">
-						<?php printf(
-							wp_kses_data( __( 'You must agree to our <a href="%s">Code of Conduct</a> in order to participate.', 'wporg-learn' ) ),
-							esc_url( get_permalink( get_page_by_path( 'code-of-conduct' ) ) )
-						); ?>
-					</p>
+					<div class="licence terms">
+						<a
+							rel="license"
+							href="http://creativecommons.org/licenses/by-sa/4.0/"
+						>
+							<img alt="Creative Commons License" style="border-width:0;" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
+						</a><br />
+						<?php
+						printf( __( 'This work is licensed under a %sCreative Commons Attribution-ShareAlike 4.0 International License%s.', 'text_domain' ), '<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">', '</a>' );
+						?>
+					</div>
 
 				</div> <!-- end sidebar column -->
 			</div> <!-- end columns -->
