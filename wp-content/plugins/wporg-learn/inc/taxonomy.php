@@ -19,8 +19,10 @@ function register() {
 	register_lesson_group();
 	register_lesson_instruction_type();
 	register_lesson_level();
+	register_lesson_plan_series();
 	register_workshop_series();
 	register_workshop_topic();
+	register_workshop_type();
 	register_wp_version();
 	register_included_content();
 }
@@ -62,6 +64,9 @@ function register_lesson_audience() {
 		'show_in_nav_menus' => true,
 		'show_tagcloud'     => false,
 		'show_in_rest'      => true,
+		'capabilities'      => array(
+			'assign_terms' => 'edit_lesson_plans',
+		),
 	);
 
 	register_taxonomy( 'audience', array( 'lesson-plan' ), $args );
@@ -104,6 +109,9 @@ function register_lesson_category() {
 		'show_in_nav_menus' => false,
 		'show_tagcloud'     => false,
 		'show_in_rest'      => true,
+		'capabilities'      => array(
+			'assign_terms' => 'edit_lesson_plans',
+		),
 	);
 
 	register_taxonomy( 'wporg_lesson_category', array( 'lesson-plan' ), $args );
@@ -146,6 +154,9 @@ function register_lesson_duration() {
 		'show_in_nav_menus' => false,
 		'show_tagcloud'     => false,
 		'show_in_rest'      => true,
+		'capabilities'      => array(
+			'assign_terms' => 'edit_lesson_plans',
+		),
 	);
 
 	register_taxonomy( 'duration', array( 'lesson-plan' ), $args );
@@ -187,6 +198,9 @@ function register_lesson_group() {
 		'show_in_nav_menus' => true,
 		'show_tagcloud'     => false,
 		'show_in_rest'      => true,
+		'capabilities'      => array(
+			'assign_terms' => 'edit_lesson_plans',
+		),
 	);
 
 	register_taxonomy( 'lesson_group', array( 'lesson-plan' ), $args );
@@ -229,6 +243,9 @@ function register_lesson_instruction_type() {
 		'show_in_nav_menus' => true,
 		'show_tagcloud'     => false,
 		'show_in_rest'      => true,
+		'capabilities'      => array(
+			'assign_terms' => 'edit_lesson_plans',
+		),
 	);
 
 	register_taxonomy( 'instruction_type', array( 'lesson-plan' ), $args );
@@ -271,9 +288,55 @@ function register_lesson_level() {
 		'show_in_nav_menus' => true,
 		'show_tagcloud'     => false,
 		'show_in_rest'      => true,
+		'capabilities'      => array(
+			'assign_terms' => 'edit_lesson_plans',
+		),
 	);
 
 	register_taxonomy( 'level', array( 'lesson-plan' ), $args );
+}
+
+/**
+ * Register the Workshop Series taxonomy.
+ */
+function register_lesson_plan_series() {
+	$labels = array(
+		'name'                       => _x( 'Lesson Plan Series', 'taxonomy general name', 'wporg-learn' ),
+		'singular_name'              => _x( 'Lesson Plan Series', 'taxonomy singular name', 'wporg-learn' ),
+		'menu_name'                  => __( 'Series', 'wporg-learn' ),
+		'all_items'                  => __( 'All Series', 'wporg-learn' ),
+		'new_item_name'              => __( 'New Series Name', 'wporg-learn' ),
+		'add_new_item'               => __( 'Add Series', 'wporg-learn' ),
+		'edit_item'                  => __( 'Edit Series', 'wporg-learn' ),
+		'update_item'                => __( 'Update Series', 'wporg-learn' ),
+		'view_item'                  => __( 'View Series', 'wporg-learn' ),
+		'separate_items_with_commas' => __( 'Separate series with commas', 'wporg-learn' ),
+		'add_or_remove_items'        => __( 'Add or remove series', 'wporg-learn' ),
+		'choose_from_most_used'      => __( 'Choose from the most used', 'wporg-learn' ),
+		'popular_items'              => __( 'Popular Series', 'wporg-learn' ),
+		'search_items'               => __( 'Search Series', 'wporg-learn' ),
+		'not_found'                  => __( 'No series found', 'wporg-learn' ),
+		'no_terms'                   => __( 'No series ', 'wporg-learn' ),
+		'items_list'                 => __( 'Series list', 'wporg-learn' ),
+		'items_list_navigation'      => __( 'Series list navigation', 'wporg-learn' ),
+		'back_to_items'              => __( '&larr; Back to Series', 'wporg-learn' ),
+	);
+
+	$args = array(
+		'labels'            => $labels,
+		'hierarchical'      => true,
+		'public'            => true,
+		'rewrite'           => array(
+			'slug' => 'lesson-plan-series',
+		),
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'show_in_nav_menus' => true,
+		'show_tagcloud'     => false,
+		'show_in_rest'      => true,
+	);
+
+	register_taxonomy( 'wporg_lesson_plan_series', array( 'lesson-plan' ), $args );
 }
 
 /**
@@ -314,6 +377,9 @@ function register_workshop_series() {
 		'show_in_nav_menus' => true,
 		'show_tagcloud'     => false,
 		'show_in_rest'      => true,
+		'capabilities'      => array(
+			'assign_terms' => 'edit_workshops',
+		),
 	);
 
 	register_taxonomy( 'wporg_workshop_series', array( 'wporg_workshop' ), $args );
@@ -356,9 +422,57 @@ function register_workshop_topic() {
 		'show_in_nav_menus' => true,
 		'show_tagcloud'     => false,
 		'show_in_rest'      => true,
+		'capabilities'      => array(
+			'assign_terms' => 'edit_workshops',
+		),
 	);
 
 	register_taxonomy( 'topic', array( 'wporg_workshop' ), $args );
+}
+
+/**
+ * Register the Workshop Type taxonomy.
+ */
+function register_workshop_type() {
+	$labels = array(
+		'name'                       => _x( 'Types', 'taxonomy general name', 'wporg-learn' ),
+		'singular_name'              => _x( 'Type', 'taxonomy singular name', 'wporg-learn' ),
+		'menu_name'                  => __( 'Types', 'wporg-learn' ),
+		'all_items'                  => __( 'All types', 'wporg-learn' ),
+		'parent_item'                => __( 'Parent type', 'wporg-learn' ),
+		'parent_item_colon'          => __( 'Parent type:', 'wporg-learn' ),
+		'new_item_name'              => __( 'New Type Name', 'wporg-learn' ),
+		'add_new_item'               => __( 'Add Type', 'wporg-learn' ),
+		'edit_item'                  => __( 'Edit Type', 'wporg-learn' ),
+		'update_item'                => __( 'Update Type', 'wporg-learn' ),
+		'view_item'                  => __( 'View Type', 'wporg-learn' ),
+		'separate_items_with_commas' => __( 'Separate Types with commas', 'wporg-learn' ),
+		'add_or_remove_items'        => __( 'Add or remove Type', 'wporg-learn' ),
+		'choose_from_most_used'      => __( 'Choose from the most used', 'wporg-learn' ),
+		'popular_items'              => __( 'Popular Types', 'wporg-learn' ),
+		'search_items'               => __( 'Search Types', 'wporg-learn' ),
+		'not_found'                  => __( 'No Type Found', 'wporg-learn' ),
+		'no_terms'                   => __( 'No Type ', 'wporg-learn' ),
+		'items_list'                 => __( 'Type list', 'wporg-learn' ),
+		'items_list_navigation'      => __( 'Type list navigation', 'wporg-learn' ),
+	);
+
+	$args = array(
+		'labels'            => $labels,
+		'hierarchical'      => true,
+		'public'            => true,
+		'query_var'         => 'wporg_workshop_type', // Prevent collisions with query params in the archive filter.
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'show_in_nav_menus' => true,
+		'show_tagcloud'     => false,
+		'show_in_rest'      => true,
+		'capabilities'      => array(
+			'assign_terms' => 'edit_workshops',
+		),
+	);
+
+	register_taxonomy( 'wporg_workshop_type', array( 'wporg_workshop' ), $args );
 }
 
 /**
@@ -396,6 +510,9 @@ function register_wp_version() {
 		'show_in_nav_menus' => true,
 		'show_tagcloud'     => false,
 		'show_in_rest'      => true,
+		'capabilities'      => array(
+			'assign_terms' => 'edit_any_learn_content', // See \WPOrg_Learn\Capabilities\map_meta_caps.
+		),
 	);
 
 	$post_types = array( 'lesson-plan', 'wporg_workshop', 'course', 'lesson' );
@@ -438,6 +555,9 @@ function register_included_content() {
 		'show_in_nav_menus' => true,
 		'show_tagcloud'     => false,
 		'show_in_rest'      => true,
+		'capabilities'      => array(
+			'assign_terms' => 'edit_any_learn_content', // See \WPOrg_Learn\Capabilities\map_meta_caps.
+		),
 	);
 
 	$post_types = array( 'lesson-plan', 'wporg_workshop', 'course', 'lesson' );

@@ -41,9 +41,18 @@ function wporg_learn_scripts() {
 		array( 'dashicons', 'open-sans' ),
 		filemtime( __DIR__ . '/css/style.css' )
 	);
+	if ( is_post_type_archive( array( 'wporg_workshop', 'lesson-plan' ) ) || is_singular( array( 'wporg_workshop', 'lesson-plan' ) ) ) {
+		wp_enqueue_style(
+			'wporg-print-style',
+			get_theme_file_uri( '/css/print.css' ),
+			array(),
+			filemtime( __DIR__ . '/css/print.css' ),
+			'print'
+		);
+	}
 	wp_enqueue_script(
 		'wporg-navigation',
-		get_template_directory_uri() . '/js/navigation.js',
+		get_theme_file_uri() . '/js/navigation.js',
 		array(),
 		filemtime( __DIR__ . '/js/navigation.js' ),
 		true
@@ -287,6 +296,15 @@ function wporg_archive_modify_query( WP_Query $query ) {
 			)
 		);
 	}
+
+	// Omit some post types from search results.
+	if ( $query->is_main_query() && $query->is_search() ) {
+		$public_post_types = array_keys( get_post_types( array( 'public' => true ) ) );
+		$omit_from_search = array( 'attachment', 'lesson', 'quiz', 'sensei_message' );
+		$searchable_post_types = array_diff( $public_post_types, $omit_from_search );
+
+		$query->set( 'post_type', $searchable_post_types );
+	}
 }
 add_action( 'pre_get_posts', 'wporg_archive_modify_query' );
 
@@ -402,13 +420,19 @@ function wporg_archive_maybe_apply_query_filters( WP_Query &$query ) {
 		'audience' => 'audience',
 		'duration' => 'duration',
 		'level'    => 'level',
-		'series'   => 'wporg_workshop_series',
 		'topic'    => 'topic',
 		'type'     => 'instruction_type',
 	);
 
-	$meta_query  = array();
-	$tax_query   = array();
+
+	$series_slug = wporg_learn_get_series_taxonomy_slug( $query->get( 'post_type' ) );
+	if ( $series_slug ) {
+		$entity_map['series'] = $series_slug;
+	}
+
+	$meta_query = array();
+	$tax_query = array();
+
 	$is_filtered = false;
 
 	if ( is_array( $filters ) ) {
@@ -629,21 +653,47 @@ function wporg_get_workshop_presenters( $workshop = null ) {
 }
 
 /**
- * Get the bio of a user, either from profiles.wordpress.org or usermeta.
+ * Returns the other contributors for the workshop.
  *
- * This relies on the availability of the `bpmain_bp_xprofile_data` table, so for local environments
- * it falls back on values in `usermeta`.
+ * @param WP_Post|int $workshop
  *
- * @param WP_User $user
+ * @return WP_User[]|array
+ */
+function wporg_get_workshop_other_contributors( $workshop = null ) {
+	$post               = get_post( $workshop );
+	$other_contributors = get_post_meta( $post->ID, 'other_contributor_wporg_username' );
+	$wp_users           = array();
+
+	foreach ( $other_contributors as $other_contributor ) {
+		$wp_user = get_user_by( 'login', $other_contributor );
+
+		if ( $wp_user ) {
+			array_push( $wp_users, $wp_user );
+		}
+	}
+
+	return $wp_users;
+}
+
+/**
+ * Get the bio of a user, first trying usermeta and then profiles.wordpress.org.
+ *
+ * The `usermeta` bio (description) field will be pulled. If there is no bio, profiles.wordpress.org is tried.
+ * The bio at profiles.wordpress.org relies on the availability of the `bpmain_bp_xprofile_data` table.
+ * For local environments the bio will only pull from `usermeta`.
+ *
+ * @param WP_User $user The user to retrieve a bio for.
  *
  * @return string
  */
 function wporg_get_workshop_presenter_bio( WP_User $user ) {
 	global $wpdb;
 
-	$bio = '';
+	// Retrieve bio from user data.
+	$bio = $user->description;
 
-	if ( 'local' !== wp_get_environment_type() ) {
+	// If bio is empty, retrieve from .org.
+	if ( ! $bio && 'local' !== wp_get_environment_type() ) {
 		$xprofile_field_id = 3;
 
 		$sql = $wpdb->prepare(
@@ -658,10 +708,6 @@ function wporg_get_workshop_presenter_bio( WP_User $user ) {
 		);
 
 		$bio = $wpdb->get_var( $sql ) ?: ''; // phpcs:ignore WordPress.DB.PreparedSQL -- prepare called above.
-	}
-
-	if ( ! $bio ) {
-		$bio = $user->description;
 	}
 
 	return apply_filters( 'the_content', wp_unslash( $bio ) );
@@ -742,20 +788,43 @@ function wporg_modify_archive_title( $title ) {
 add_filter( 'get_the_archive_title', 'wporg_modify_archive_title' );
 
 /**
- * Get the series taxonomy term object for a workshop post.
+ * Get the slug for the series taxonomy for a given post type.
  *
- * @param int|WP_Post|null $workshop
+ * @param string $post_type
+ *
+ * @return false|string
+ */
+function wporg_learn_get_series_taxonomy_slug( $post_type ) {
+	$tax_slug = false;
+
+	switch ( $post_type ) {
+		case 'lesson-plan':
+			$tax_slug = 'wporg_lesson_plan_series';
+			break;
+		case 'wporg_workshop':
+			$tax_slug = 'wporg_workshop_series';
+			break;
+	}
+
+	return $tax_slug;
+}
+
+/**
+ * Get the series taxonomy term object for a post.
+ *
+ * @param int|WP_Post|null $post
  *
  * @return WP_Term|bool
  */
-function wporg_workshop_series_get_term( $workshop = null ) {
-	$workshop = get_post( $workshop );
+function wporg_learn_series_get_term( $post = null ) {
+	$post = get_post( $post );
 
-	if ( ! $workshop instanceof WP_Post ) {
+	if ( ! $post instanceof WP_Post ) {
 		return false;
 	}
 
-	$terms = wp_get_post_terms( $workshop->ID, 'wporg_workshop_series' );
+	$tax_slug = wporg_learn_get_series_taxonomy_slug( get_post_type( $post ) );
+	$terms = wp_get_post_terms( $post->ID, $tax_slug );
 
 	if ( empty( $terms ) ) {
 		return false;
@@ -765,27 +834,28 @@ function wporg_workshop_series_get_term( $workshop = null ) {
 }
 
 /**
- * Given a workshop post in a series, get all the workshop posts in the series.
+ * Given a post in a series, get all the posts in the series.
  *
- * @param int|WP_Post|null $workshop
+ * @param int|WP_Post|null $post
  *
  * @return WP_Post[]
  */
-function wporg_workshop_series_get_siblings( $workshop = null ) {
-	$term = wporg_workshop_series_get_term( $workshop );
+function wporg_learn_series_get_siblings( $post = null ) {
+	$post_type = get_post_type( $post );
+	$term = wporg_learn_series_get_term( $post );
 
 	if ( ! $term ) {
 		return array();
 	}
 
 	$args = array(
-		'post_type'      => 'wporg_workshop',
+		'post_type'      => $post_type,
 		'post_status'    => 'publish',
 		'posts_per_page' => 999,
 		'order'          => 'asc',
 		'tax_query'      => array(
 			array(
-				'taxonomy' => 'wporg_workshop_series',
+				'taxonomy' => wporg_learn_get_series_taxonomy_slug( $post_type ),
 				'terms'    => $term->term_id,
 			),
 		),
@@ -795,21 +865,21 @@ function wporg_workshop_series_get_siblings( $workshop = null ) {
 }
 
 /**
- * Given a workshop post in a series, get an adjacent workshop post in the series.
+ * Given a post in a series, get an adjacent post in that series.
  *
  * @param string           $which    Which adjacent post to retrieve. 'previous' or 'next'.
- * @param int|WP_Post|null $workshop
+ * @param int|WP_Post|null $post
  *
  * @return WP_Post|bool
  */
-function wporg_workshop_series_get_adjacent( $which, $workshop = null ) {
-	if ( ! $workshop instanceof WP_Post ) {
-		$workshop = get_post( $workshop );
+function wporg_learn_series_get_adjacent( $which, $post = null ) {
+	if ( ! $post instanceof WP_Post ) {
+		$post = get_post( $post );
 	}
 
-	$siblings    = wporg_workshop_series_get_siblings( $workshop );
+	$siblings    = wporg_learn_series_get_siblings( $post );
 	$sibling_ids = wp_list_pluck( $siblings, 'ID' );
-	$index       = array_search( $workshop->ID, $sibling_ids, true );
+	$index       = array_search( $post->ID, $sibling_ids, true );
 
 	if ( false === $index ) {
 		return false;
@@ -885,3 +955,20 @@ function wporg_learn_register_sidebars() {
 	);
 }
 add_filter( 'widgets_init', 'wporg_learn_register_sidebars', 10 );
+
+/**
+ * Add fallback image to Jetpack when no featured image exists.
+ *
+ * @param string $default_image The default image URL.
+ *
+ * @return string Image URL.
+ */
+function wporg_learn_return_default_image( $default_image ) {
+	return 'https://s.w.org/images/learn-thumbnail-fallback.jpg';
+}
+add_action( 'jetpack_open_graph_image_default', 'wporg_learn_return_default_image', 15, 1 );
+
+/**
+ * Disable the News XML Sitemap generated by Jetpack
+ */
+add_filter( 'jetpack_news_sitemap_generate', '__return_false' );

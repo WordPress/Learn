@@ -80,7 +80,7 @@ function show_term_translation_notice() {
 function add_workshop_list_table_columns( $columns ) {
 	$columns = array_slice( $columns, 0, -2, true )
 				+ array( 'video_language' => __( 'Language', 'wporg-learn' ) )
-				+ array( 'video_caption_language' => __( 'Captions', 'wporg-learn' ) )
+				+ array( 'video_caption_language' => __( 'Subtitles', 'wporg-learn' ) )
 				+ array_slice( $columns, -2, 2, true );
 
 	return $columns;
@@ -184,6 +184,10 @@ function handle_workshop_list_table_filters( WP_Query $query ) {
 	}
 
 	$current_screen = get_current_screen();
+
+	if ( ! $current_screen ) {
+		return;
+	}
 
 	if ( 'edit-wporg_workshop' === $current_screen->id ) {
 		$language = filter_input( INPUT_GET, 'language', FILTER_SANITIZE_STRING );

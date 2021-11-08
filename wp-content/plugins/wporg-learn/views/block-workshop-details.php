@@ -34,6 +34,14 @@ $has_transcript = false !== strpos( $post->post_content, 'id="transcript"' );
 					</span>
 				</li>
 			<?php endif; ?>
+			<li>
+				<b><?php esc_html_e( 'Print View', 'wporg-learn' ); ?></b>
+				<span>
+						<a class="components-button is-secondary is-small" href="#" onclick="window.print();">
+							<?php esc_html_e( 'View', 'wporg-learn' ); ?>
+						</a>
+					</span>
+			</li>
 		</ul>
 	<?php endif; ?>
 

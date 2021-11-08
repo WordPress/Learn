@@ -77,7 +77,7 @@
 </p>
 
 <p>
-	<label for="workshop-video-caption-language"><?php esc_html_e( 'Captions', 'wporg_learn' ); ?></label>
+	<label for="workshop-video-caption-language"><?php esc_html_e( 'Subtitles', 'wporg_learn' ); ?></label>
 	<select id="workshop-video-caption-language" name="video-caption-language[]" style="width: 100%;" multiple>
 		<?php foreach ( $locales as $code => $label ) : ?>
 			<option value="<?php echo esc_attr( $code ); ?>" <?php selected( in_array( $code, $captions, true ) ); ?>>

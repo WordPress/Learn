@@ -106,6 +106,18 @@ function register_workshop_meta() {
 
 	register_post_meta(
 		$post_type,
+		'other_contributor_wporg_username',
+		array(
+			'description'       => __( 'The WordPress.org user name of "other contributor" for this workshop.', 'wporg_learn' ),
+			'type'              => 'string',
+			'single'            => false,
+			'sanitize_callback' => 'sanitize_user',
+			'show_in_rest'      => true,
+		)
+	);
+
+	register_post_meta(
+		$post_type,
 		'video_language',
 		array(
 			'description'       => __( 'The language that the workshop is presented in.', 'wporg_learn' ),
@@ -121,7 +133,7 @@ function register_workshop_meta() {
 		$post_type,
 		'video_caption_language',
 		array(
-			'description'       => __( 'A language for which captions are available for the workshop video.', 'wporg_learn' ),
+			'description'       => __( 'A language for which subtitles are available for the workshop video.', 'wporg_learn' ),
 			'type'              => 'string',
 			'single'            => false,
 			'sanitize_callback' => __NAMESPACE__ . '\sanitize_locale',
@@ -355,6 +367,14 @@ function add_workshop_metaboxes() {
 	);
 
 	add_meta_box(
+		'workshop-other-contributors',
+		__( 'Other Contributors', 'wporg_learn' ),
+		__NAMESPACE__ . '\render_metabox_workshop_other_contributors',
+		'wporg_workshop',
+		'side'
+	);
+
+	add_meta_box(
 		'workshop-application',
 		__( 'Original Application', 'wporg_learn' ),
 		__NAMESPACE__ . '\render_metabox_workshop_application',
@@ -392,6 +412,17 @@ function render_metabox_workshop_presenters( WP_Post $post ) {
 	$presenters = get_post_meta( $post->ID, 'presenter_wporg_username' ) ?: array();
 
 	require get_views_path() . 'metabox-workshop-presenters.php';
+}
+
+/**
+ * Render the Other Contributors meta box.
+ *
+ * @param WP_Post $post
+ */
+function render_metabox_workshop_other_contributors( WP_Post $post ) {
+	$other_contributors = get_post_meta( $post->ID, 'other_contributor_wporg_username' ) ?: array();
+
+	require get_views_path() . 'metabox-workshop-other-contributors.php';
 }
 
 /**
@@ -449,11 +480,20 @@ function save_workshop_metabox_fields( $post_id ) {
 	update_post_meta( $post_id, 'linked_lesson_id', $lesson_id );
 
 	$presenter_wporg_username = filter_input( INPUT_POST, 'presenter-wporg-username' );
-	$usernames                = array_map( 'trim', explode( ',', $presenter_wporg_username ) );
+	$presenter_usernames      = array_map( 'trim', explode( ',', $presenter_wporg_username ) );
 	delete_post_meta( $post_id, 'presenter_wporg_username' );
-	if ( is_array( $usernames ) ) {
-		foreach ( $usernames as $username ) {
+	if ( is_array( $presenter_usernames ) ) {
+		foreach ( $presenter_usernames as $username ) {
 			add_post_meta( $post_id, 'presenter_wporg_username', $username );
+		}
+	}
+
+	$other_contributor_wporg_username = filter_input( INPUT_POST, 'other-contributor-wporg-username' );
+	$other_contributor_usernames      = array_map( 'trim', explode( ',', $other_contributor_wporg_username ) );
+	delete_post_meta( $post_id, 'other_contributor_wporg_username' );
+	if ( is_array( $other_contributor_usernames ) ) {
+		foreach ( $other_contributor_usernames as $username ) {
+			add_post_meta( $post_id, 'other_contributor_wporg_username', $username );
 		}
 	}
 }
