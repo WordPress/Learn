@@ -11,11 +11,6 @@ namespace WordPressdotorg\Theme;
 
 ?>
 <aside class="lp-sidebar">
-	<?php
-	if ( is_active_sidebar( 'wporg-learn-lesson-plans' ) ) :
-		dynamic_sidebar( 'wporg-learn-lesson-plans' );
-	endif;
-	?>
 	<div class="lp-details">
 		<ul>
 			<?php
@@ -59,4 +54,10 @@ namespace WordPressdotorg\Theme;
 			<a href="https://learn.wordpress.org/report-content-errors/"><?php esc_html_e( 'Let us know!', 'wporg-learn' ); ?></a>
 		</div>
 	</div>
+	<br/>
+	<?php
+	if ( is_active_sidebar( 'wporg-learn-lesson-plans' ) ) :
+		dynamic_sidebar( 'wporg-learn-lesson-plans' );
+	endif;
+	?>
 </aside>
