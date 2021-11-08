@@ -424,7 +424,6 @@ function wporg_archive_maybe_apply_query_filters( WP_Query &$query ) {
 		'type'     => 'instruction_type',
 	);
 
-
 	$series_slug = wporg_learn_get_series_taxonomy_slug( $query->get( 'post_type' ) );
 	if ( $series_slug ) {
 		$entity_map['series'] = $series_slug;
