@@ -868,8 +868,8 @@ function wporg_learn_register_sidebars() {
 			'id'            => 'wporg-learn-lesson-plans',
 			'before_widget' => '<div id="%1$s" class="block-widgets %2$s">',
 			'after_widget'  => '</div>',
-			'before_title'  => '',
-			'after_title'   => '',
+			'before_title'  => '<h4 class="widget-title">',
+			'after_title'   => '<h4>',
 		)
 	);
 	// Register courses sidebar.
@@ -879,8 +879,8 @@ function wporg_learn_register_sidebars() {
 			'id'            => 'wporg-learn-courses',
 			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</aside>',
-			'before_title'  => '',
-			'after_title'   => '',
+			'before_title'  => '<h4 class="widget-title">',
+			'after_title'   => '</h4>',
 		)
 	);
 }
