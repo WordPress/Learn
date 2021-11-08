@@ -32,15 +32,13 @@
 			/**
 			 * Read in passed context and render sidebar.
 			 */
-			if ( isset( $args['context'] ) ) {
-				switch ( $args['context'] ) {
-					case 'lesson-plan':
-						get_sidebar( 'lesson-plan' );
-						break;
-					case 'course':
-						get_sidebar( 'course' );
-						break;
-				}
+			switch ( get_post_type() ) {
+				case 'lesson-plan':
+					get_sidebar( 'lesson-plan' );
+					break;
+				case 'course':
+					get_sidebar( 'course' );
+					break;
 			}
 			?>
 		</div>
