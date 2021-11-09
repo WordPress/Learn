@@ -1,6 +1,6 @@
 <?php
 /**
- * The sidebar containing the courses widget area.
+ * The sidebar containing the workshops widget area.
  *
  * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
  *
@@ -12,8 +12,8 @@ namespace WordPressdotorg\Theme;
 <aside class="lp-sidebar">
 	<div class="lp-details">
 		<?php
-		if ( is_active_sidebar( 'wporg-learn-courses' ) ) :
-			dynamic_sidebar( 'wporg-learn-courses' );
+		if ( is_active_sidebar( 'wporg-learn-workshops' ) ) :
+			dynamic_sidebar( 'wporg-learn-workshops' );
 		endif;
 		?>
 	</div>

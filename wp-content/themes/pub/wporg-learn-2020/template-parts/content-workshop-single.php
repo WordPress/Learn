@@ -59,12 +59,7 @@ $other_contributors = array_map(
 						</a>
 					</div>
 
-					<p class="terms">
-						<?php printf(
-							wp_kses_data( __( 'You must agree to our <a href="%s">Code of Conduct</a> in order to participate.', 'wporg-learn' ) ),
-							esc_url( get_permalink( get_page_by_path( 'code-of-conduct' ) ) )
-						); ?>
-					</p>
+					<?php get_sidebar( 'workshop' ); ?>
 
 				</div> <!-- end sidebar column -->
 			</div> <!-- end columns -->

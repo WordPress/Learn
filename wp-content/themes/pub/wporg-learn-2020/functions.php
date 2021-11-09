@@ -941,11 +941,24 @@ function wporg_learn_register_sidebars() {
 			'after_title'   => '<h4>',
 		)
 	);
+
 	// Register courses sidebar.
 	register_sidebar(
 		array(
 			'name'          => __( 'Courses', 'wporg-learn' ),
 			'id'            => 'wporg-learn-courses',
+			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</aside>',
+			'before_title'  => '<h4 class="widget-title">',
+			'after_title'   => '</h4>',
+		)
+	);
+
+	// Register workshops sidebar.
+	register_sidebar(
+		array(
+			'name'          => __( 'Workshops', 'wporg-learn' ),
+			'id'            => 'wporg-learn-workshops',
 			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</aside>',
 			'before_title'  => '<h4 class="widget-title">',
