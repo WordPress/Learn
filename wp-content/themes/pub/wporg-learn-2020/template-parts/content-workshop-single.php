@@ -49,22 +49,7 @@ $other_contributors = array_map(
 						?>
 					</div>
 
-					<div class="wp-block-button is-style-secondary-full-width">
-						<a
-							class="wp-block-button__link"
-							href="https://learn.wordpress.org/social-learning/"
-							style="border-radius:5px"
-						>
-							<?php esc_html_e( 'Join a Social Learning Space', 'wporg-learn' ); ?>
-						</a>
-					</div>
-
-					<p class="terms">
-						<?php printf(
-							wp_kses_data( __( 'You must agree to our <a href="%s">Code of Conduct</a> in order to participate.', 'wporg-learn' ) ),
-							esc_url( get_permalink( get_page_by_path( 'code-of-conduct' ) ) )
-						); ?>
-					</p>
+					<?php get_sidebar( 'workshop' ); ?>
 
 				</div> <!-- end sidebar column -->
 			</div> <!-- end columns -->

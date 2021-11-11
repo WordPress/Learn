@@ -52,4 +52,13 @@ $has_transcript = false !== strpos( $post->post_content, 'id="transcript"' );
 			</a>
 		</div>
 	<?php endif; ?>
+	<div class="wp-block-button is-style-secondary-full-width">
+		<a
+			class="wp-block-button__link"
+			href="https://learn.wordpress.org/social-learning/"
+			style="border-radius:5px"
+		>
+			<?php esc_html_e( 'Join a Social Learning Space', 'wporg-learn' ); ?>
+		</a>
+	</div>
 </div>

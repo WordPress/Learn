@@ -1,6 +1,6 @@
 <?php
 /**
- * The template for displaying all single post or CPT entry.
+ * The template for displaying all course post type single entry.
  *
  * @package WPBBP
  */
@@ -16,7 +16,7 @@ get_header(); ?>
 			while ( have_posts() ) :
 				the_post();
 
-				get_template_part( 'template-parts/content', 'single', array( 'context' => 'lesson-plan' ) );
+				get_template_part( 'template-parts/content', 'single', array( 'context' => 'course' ) );
 			endwhile; // End of the loop.
 			?>
 		</div>
