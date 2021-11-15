@@ -133,6 +133,7 @@ _x( 'export', 'Included Content term name', 'wporg-learn' );
 _x( 'full site editing', 'Included Content term name', 'wporg-learn' );
 _x( 'import', 'Included Content term name', 'wporg-learn' );
 _x( 'list view', 'Included Content term name', 'wporg-learn' );
+_x( 'login', 'Included Content term name', 'wporg-learn' );
 _x( 'media', 'Included Content term name', 'wporg-learn' );
 _x( 'media library', 'Included Content term name', 'wporg-learn' );
 _x( 'menu', 'Included Content term name', 'wporg-learn' );
