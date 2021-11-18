@@ -992,7 +992,7 @@ add_filter( 'jetpack_news_sitemap_generate', '__return_false' );
  */
 function wporg_learn_redirect_meetings () {
 
-	if( is_singular( 'meeting' ) ) {
+	if( is_singular( array( 'meeting' ) ) ) {
 
 		global $post;
 
