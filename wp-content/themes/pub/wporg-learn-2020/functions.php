@@ -990,7 +990,7 @@ add_filter( 'jetpack_news_sitemap_generate', '__return_false' );
  *
  * @return void
  */
-function wporg_learn_redirect_meetings () {
+function wporg_learn_redirect_meetings() {
 	global $post;
 
 	if ( is_singular( array( 'meeting' ) ) ) {
