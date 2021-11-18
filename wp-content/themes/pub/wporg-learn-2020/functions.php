@@ -991,16 +991,15 @@ add_filter( 'jetpack_news_sitemap_generate', '__return_false' );
  * @return void
  */
 function wporg_learn_redirect_meetings () {
+	global $post;
 
-	if( is_singular( array( 'meeting' ) ) ) {
+	if ( is_singular( array( 'meeting' ) ) ) {
 
-		global $post;
-
-		if( $post->ID ) {
+		if ( ! empty( $post->ID ) ) {
 
 			$redirect = wp_http_validate_url( get_post_meta( $post->ID, 'link', true ) );
 
-			if( $redirect && wp_redirect( $redirect ) ) {
+			if ( $redirect && wp_redirect( $redirect ) ) {
 				exit;
 			}
 		}
