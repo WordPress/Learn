@@ -22,7 +22,7 @@ $timestamp = strtotime( $args['date_utc'] ) - (int) $args['date_utc_offset'];
 	</div>
 	<div class="wp-block-button is-style-primary">
 		<a class="wp-block-button__link" href="<?php echo esc_attr( $args['url'] ); ?>" style="border-radius:5px">
-			<?php esc_html_e( 'Join the discussion', 'wporg-learn' ); ?>
+			<?php esc_html_e( 'Join this space', 'wporg-learn' ); ?>
 		</a>
 	</div>
 </li>

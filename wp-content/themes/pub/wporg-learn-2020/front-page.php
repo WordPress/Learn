@@ -85,8 +85,8 @@ get_header(); ?>
 				<p>
 					<?php
 					printf(
-						wp_kses_post( __( 'Want to facilitate a discussion group about a workshop? <a href="%s">Apply to become a facilitator.</a>', 'wporg-learn' ) ),
-						'https://learn.wordpress.org/discussion-groups/'
+						wp_kses_post( __( 'Want to facilitate a social learning space? <a href="%s">Apply to become a facilitator</a>.', 'wporg-learn' ) ),
+						'https://learn.wordpress.org/social-learning/'
 					);
 					?>
 				</p>
