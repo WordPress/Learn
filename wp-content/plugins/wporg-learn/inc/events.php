@@ -69,7 +69,7 @@ function get_discussion_events_from_db( DateTime $start_date, DateTime $end_date
 	$sql = "
 		SELECT *
 		FROM wporg_events
-		WHERE meetup_url = 'https://www.meetup.com/learn-wordpress-discussions/'
+		WHERE meetup_url = 'https://www.meetup.com/wordpress-social-learning/'
 		AND status = 'scheduled'
 		AND date_utc BETWEEN %s AND %s
 		ORDER BY date_utc

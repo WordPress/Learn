@@ -71,9 +71,9 @@ get_header(); ?>
 			<section class="wporg-learn-workshop-discussion-events">
 				<div class="row align-middle between section-heading">
 					<h2 class="h4 section-heading_title">
-						<?php esc_html_e( 'Upcoming Discussion Groups', 'wporg-learn' ); ?>
+						<?php esc_html_e( 'Upcoming Social Learning Spaces', 'wporg-learn' ); ?>
 					</h2>
-					<a class="section-heading_link" href="https://www.meetup.com/learn-wordpress-discussions/">
+					<a class="section-heading_link" href="/social-learning/">
 						<?php esc_html_e( 'View All »', 'wporg-learn' ); ?>
 					</a>
 				</div>
