@@ -48,7 +48,7 @@ get_header(); ?>
 							array(
 								array(
 									'key'   => '_course_featured',
-									'value' => 'featured'
+									'value' => 'featured',
 								),
 							),
 					),
