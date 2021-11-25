@@ -35,7 +35,7 @@ get_header(); ?>
 		<section>
 			<div class="row align-middle between section-heading">
 				<h2 class="h4 section-heading_title"><?php esc_html_e( 'Recent Courses', 'wporg-learn' ); ?></h2>
-				<a class="section-heading_link" href="/courses"><span aria-hidden="true"><?php esc_html_e( 'View All »', 'wporg-learn' ); ?></span><span class="screen-reader-text"><?php esc_html_e( 'View All Courses', 'wporg-learn' ); ?></span></a>
+				<a class="section-heading_link" href="/courses"><span aria-hidden="true"><?php esc_html_e( 'View All Courses', 'wporg-learn' ); ?></span><span class="screen-reader-text"><?php esc_html_e( 'View All Courses', 'wporg-learn' ); ?></span></a>
 			</div>
 
 			<?php
@@ -63,7 +63,7 @@ get_header(); ?>
 		<section>
 			<div class="row align-middle between section-heading">
 				<h2 class="h4 section-heading_title"><?php esc_html_e( 'Recent Workshops', 'wporg-learn' ); ?></h2>
-				<a class="section-heading_link" href="/workshops"><span aria-hidden="true"><?php esc_html_e( 'View All »', 'wporg-learn' ); ?></span><span class="screen-reader-text"><?php esc_html_e( 'View All Workshops', 'wporg-learn' ); ?></span></a>
+				<a class="section-heading_link" href="/workshops"><span aria-hidden="true"><?php esc_html_e( 'View All Workshops', 'wporg-learn' ); ?></span><span class="screen-reader-text"><?php esc_html_e( 'View All Workshops', 'wporg-learn' ); ?></span></a>
 			</div>
 
 			<?php
@@ -89,7 +89,7 @@ get_header(); ?>
 						<?php esc_html_e( 'Upcoming Social Learning Spaces', 'wporg-learn' ); ?>
 					</h2>
 					<a class="section-heading_link" href="/social-learning/">
-						<?php esc_html_e( 'View All »', 'wporg-learn' ); ?>
+						<?php esc_html_e( 'View All Social Learning Spaces', 'wporg-learn' ); ?>
 					</a>
 				</div>
 				<ul class="discussion-event-list">
