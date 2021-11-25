@@ -300,22 +300,22 @@ function wporg_archive_modify_query( WP_Query $query ) {
 	// Omit some post types from search results.
 	if ( $query->is_main_query() && $query->is_search() ) {
 		$public_post_types = array_keys( get_post_types( array( 'public' => true ) ) );
-		$omit_from_search = array( 'attachment','page', 'lesson', 'quiz', 'sensei_message', 'meeting' );
+		$omit_from_search = array( 'attachment', 'page', 'lesson', 'quiz', 'sensei_message', 'meeting' );
 		$searchable_post_types = array_diff( $public_post_types, $omit_from_search );
 
 		// Only show featured courses, but don't limit other post types
 		$query->set(
 			'meta_query',
-			array(
-				'relation' => 'OR',
 				array(
-					'key'   => '_course_featured',
-					'value' => 'featured',
+					'relation' => 'OR',
+					array(
+						'key'   => '_course_featured',
+						'value' => 'featured',
+					),
+					array(
+						'key'      => '_course_featured',
+						'compare'  => 'NOT EXISTS',
 				),
-				array(
-		          'key'      => '_course_featured',
-		          'compare'  => 'NOT EXISTS'
-		        ),
 			)
 		);
 
