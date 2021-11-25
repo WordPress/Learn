@@ -32,15 +32,30 @@ get_header(); ?>
 			</div>
 		</section>
 
-		<section class="about-training">
-			<div class="getin">
-				<div class="graphic"><span class="dashicons dashicons-welcome-learn-more"></span></div>
-				<div>
-					<h2 class="h3"><?php esc_html_e( 'Get Involved', 'wporg-learn' ); ?></h2>
-					<p><?php esc_html_e( 'Want to get involved in creating the content for Learn WordPress?', 'wporg-learn' ); ?></p>
-					<a href="//learn.wordpress.org/contribute"><?php esc_html_e( 'Learn how to contribute', 'wporg-learn' ); ?></a>
-				</div>
+		<section>
+			<div class="row align-middle between section-heading">
+				<h2 class="h4 section-heading_title"><?php esc_html_e( 'Recent Courses', 'wporg-learn' ); ?></h2>
+				<a class="section-heading_link" href="/courses/"><span aria-hidden="true"><?php esc_html_e( 'View All Courses', 'wporg-learn' ); ?></span><span class="screen-reader-text"><?php esc_html_e( 'View All Courses', 'wporg-learn' ); ?></span></a>
 			</div>
+
+			<?php
+			$args = array(
+				'query' => wporg_get_archive_query(
+					'course',
+					array(
+						'posts_per_page' => 2,
+						'meta_query' =>
+							array(
+								array(
+									'key'   => '_course_featured',
+									'value' => 'featured',
+								),
+							),
+					),
+				),
+			);
+			get_template_part( 'template-parts/component', 'course-grid', $args );
+			?>
 		</section>
 
 		<hr>
@@ -48,7 +63,7 @@ get_header(); ?>
 		<section>
 			<div class="row align-middle between section-heading">
 				<h2 class="h4 section-heading_title"><?php esc_html_e( 'Recent Workshops', 'wporg-learn' ); ?></h2>
-				<a class="section-heading_link" href="/workshops"><span aria-hidden="true"><?php esc_html_e( 'View All »', 'wporg-learn' ); ?></span><span class="screen-reader-text"><?php esc_html_e( 'View All Workshops', 'wporg-learn' ); ?></span></a>
+				<a class="section-heading_link" href="/workshops/"><span aria-hidden="true"><?php esc_html_e( 'View All Workshops', 'wporg-learn' ); ?></span><span class="screen-reader-text"><?php esc_html_e( 'View All Workshops', 'wporg-learn' ); ?></span></a>
 			</div>
 
 			<?php
@@ -74,7 +89,7 @@ get_header(); ?>
 						<?php esc_html_e( 'Upcoming Social Learning Spaces', 'wporg-learn' ); ?>
 					</h2>
 					<a class="section-heading_link" href="/social-learning/">
-						<?php esc_html_e( 'View All »', 'wporg-learn' ); ?>
+						<?php esc_html_e( 'View All Social Learning Spaces', 'wporg-learn' ); ?>
 					</a>
 				</div>
 				<ul class="discussion-event-list">
@@ -94,6 +109,19 @@ get_header(); ?>
 
 			<hr>
 		<?php endif; ?>
+
+		<section class="about-training">
+			<div class="getin">
+				<div class="graphic"><span class="dashicons dashicons-welcome-learn-more"></span></div>
+				<div>
+					<h2 class="h3"><?php esc_html_e( 'Get Involved', 'wporg-learn' ); ?></h2>
+					<p><?php esc_html_e( 'Want to get involved in creating the content for Learn WordPress?', 'wporg-learn' ); ?></p>
+					<a href="//learn.wordpress.org/contribute"><?php esc_html_e( 'Learn how to contribute', 'wporg-learn' ); ?></a>
+				</div>
+			</div>
+		</section>
+
+		<hr>
 
 		<?php get_template_part( 'template-parts/component', 'submit-idea-cta', array( 'icon' => 'lightbulb' ) ); ?>
 	</main>
