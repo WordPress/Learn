@@ -306,15 +306,15 @@ function wporg_archive_modify_query( WP_Query $query ) {
 		// Only show featured courses, but don't limit other post types
 		$query->set(
 			'meta_query',
+			array(
+				'relation' => 'OR',
 				array(
-					'relation' => 'OR',
-					array(
-						'key'   => '_course_featured',
-						'value' => 'featured',
-					),
-					array(
-						'key'      => '_course_featured',
-						'compare'  => 'NOT EXISTS',
+					'key'   => '_course_featured',
+					'value' => 'featured',
+				),
+				array(
+					'key'      => '_course_featured',
+					'compare'  => 'NOT EXISTS',
 				),
 			)
 		);
