@@ -49,8 +49,6 @@ $menu_items = array(
 				<div class="search-form--is-inline search-form--is-constrained search-form--is-centered">
 					<?php get_search_form(); ?>
 				</div>
-				<?php elseif ( is_page() ) : ?>
-				<h1 class="site-title"><a href="<?php echo esc_url( get_the_permalink() ); ?>" rel="home"><?php the_title(); ?></a></h1>
 				<?php else : ?>
 				<p class="site-title">
 					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
