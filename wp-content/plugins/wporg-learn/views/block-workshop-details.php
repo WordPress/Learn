@@ -20,26 +20,28 @@ $has_transcript = false !== strpos( $post->post_content, 'id="transcript"' );
 			<?php foreach ( $fields as $key => $field ) : ?>
 				<li>
 					<b><?php echo esc_html( $field['label'] ); ?></b>
-					<?php
-					$display = '';
-					foreach ( $field['value'] as $field_key => $value ) {
-						$url = '';
-						if ( ! empty( $field['param'] ) ) {
-							$url = trailingslashit( site_url() ) . 'workshops/?' . $key . '=' . $field['param'][ $field_key ];
-						}
+					<span>
+						<?php
+						$i = 0;
+						foreach ( $field['value'] as $field_key => $value ) {
+							$url = '';
+							if ( ! empty( $field['param'] ) ) {
+								$url = trailingslashit( site_url() ) . 'workshops/?' . $key . '=' . $field['param'][ $field_key ];
+							}
 
-						if ( $display ) {
-							$display .= ', ';
-						}
+							if ( 0 < $i ) {
+								echo ', ';
+							}
 
-						if ( $url ) {
-							$display .= '<a href=" ' . esc_url( $url ) . '">' . esc_html( $value ) . '</a>';
-						} else {
-							$display .= esc_html( $value );
+							if ( $url ) {
+								echo sprintf( '%1$s' . esc_url( $url ) . '%2$s' . esc_html( $value ) . '%3$s', '<a href="', '">', '</a>' );
+							} else {
+								echo esc_html( $value );
+							}
+							$i++;
 						}
-					}
-					?>
-					<span><?php echo $display; ?></span>
+						?>
+					</span>
 				</li>
 			<?php endforeach; ?>
 
