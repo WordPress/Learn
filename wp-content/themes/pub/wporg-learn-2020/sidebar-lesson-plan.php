@@ -14,7 +14,7 @@ namespace WordPressdotorg\Theme;
 	<div class="lp-details">
 		<ul>
 			<?php
-			foreach ( wporg_learn_get_lesson_plan_taxonomy_data( get_the_ID() ) as $detail ) {
+			foreach ( wporg_learn_get_lesson_plan_taxonomy_data( get_the_ID(), 'single' ) as $detail ) {
 				if ( ! empty( $detail['value'] ) ) {
 					include locate_template( 'template-parts/component-taxonomy-item.php' );
 				}
