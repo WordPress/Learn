@@ -22,7 +22,7 @@ $has_transcript = false !== strpos( $post->post_content, 'id="transcript"' );
 					<b><?php echo esc_html( $field['label'] ); ?></b>
 					<?php
 					$display = '';
-					foreach( $field['value'] as $field_key => $value ) {
+					foreach ( $field['value'] as $field_key => $value ) {
 						$url = '';
 						if ( ! empty( $field['param'] ) ) {
 							$url = trailingslashit( site_url() ) . 'workshops/?' . $key . '=' . $field['param'][ $field_key ];
@@ -32,7 +32,7 @@ $has_transcript = false !== strpos( $post->post_content, 'id="transcript"' );
 							$display .= ', ';
 						}
 
-						if( $url ) {
+						if ( $url ) {
 							$display .= '<a href=" ' . esc_url( $url ) . '">' . esc_html( $value ) . '</a>';
 						} else {
 							$display .= esc_html( $value );

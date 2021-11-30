@@ -77,7 +77,7 @@ function workshop_details_render_callback( $attributes, $content ) {
 	$captions  = get_post_meta( $post->ID, 'video_caption_language' );
 
 	$topic_names = array();
-	foreach( $topic_ids as $id ) {
+	foreach ( $topic_ids as $id ) {
 		$topic_names[] = get_term( $id )->name;
 	}
 
