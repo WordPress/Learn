@@ -165,7 +165,7 @@ function wporg_get_cat_or_default_slug() {
 }
 
 /**
- * Get the values associated to the page/post
+ * Get the values associated to the page/post formatted as a string
  *
  * @param string $post_id Id of the post.
  * @param string $tax_slug The slug for the custom taxonomy.
@@ -197,10 +197,22 @@ function wporg_learn_get_taxonomy_terms_array( $post_id, $tax_slug ) {
 	return $terms;
 }
 
+/**
+ * Get the values associated to the page/post according to the context
+ * @param  int    $post_id  ID of the post
+ * @param  string $tax_slug The slug for the custom taxonomy
+ * @param  string $context  The context for display
+ *
+ * @return array|string
+ */
 function wporg_learn_get_taxonomy_terms( $post_id, $tax_slug, $context ) {
 	switch ( $context ) {
-		case 'archive': return wporg_learn_get_taxonomy_terms_string( $post_id, $tax_slug ); break;
-		case 'single': return wporg_learn_get_taxonomy_terms_array( $post_id, $tax_slug ); break;
+		case 'archive':
+			return wporg_learn_get_taxonomy_terms_string( $post_id, $tax_slug );
+			break;
+		case 'single':
+			return wporg_learn_get_taxonomy_terms_array( $post_id, $tax_slug );
+			break;
 	}
 }
 

@@ -18,8 +18,8 @@
 
 			<?php
 			$i = 0;
-			foreach ( $detail['value'] as $id => $value ) {
-				$url = trailingslashit( site_url() ) . 'lesson-plans/?' . $detail['slug'] . '[]=' . $id;
+			foreach ( $detail['value'] as $key => $value ) {
+				$url = trailingslashit( site_url() ) . 'lesson-plans/?' . $detail['slug'] . '[]=' . $key;
 
 				if ( 0 < $i ) {
 					echo ', ';
