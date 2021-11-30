@@ -71,29 +71,53 @@ function register_workshop_details() {
  * @return string HTML output used by the block
  */
 function workshop_details_render_callback( $attributes, $content ) {
-	$post     = get_post();
-	$topics   = wp_get_post_terms( $post->ID, 'topic', array( 'fields' => 'names' ) );
-	$level    = wp_get_post_terms( $post->ID, 'level', array( 'fields' => 'names' ) );
-	$captions = get_post_meta( $post->ID, 'video_caption_language' );
+	$post      = get_post();
+	$topic_ids = wp_get_post_terms( $post->ID, 'topic', array( 'fields' => 'ids' ) );
+	$level     = wp_get_post_terms( $post->ID, 'level', array( 'fields' => 'names' ) );
+	$captions  = get_post_meta( $post->ID, 'video_caption_language' );
+
+	$topic_names = array();
+	foreach( $topic_ids as $id ) {
+		$topic_names[] = get_term( $id )->name;
+	}
 
 	$fields = array(
-		__( 'Length', 'wporg-learn' )   => get_workshop_duration( $post, 'string' ),
-		__( 'Topic', 'wporg-learn' )    => implode( ', ', array_map( 'esc_html', $topics ) ),
-		__( 'Level', 'wporg-learn' )    => implode( ', ', array_map( 'esc_html', $level ) ),
-		__( 'Language', 'wporg-learn' ) => esc_html( get_locale_name_from_code( $post->video_language, 'native' ) ),
-		__( 'Subtitles', 'wporg-learn' ) => implode(
-			', ',
-			array_map(
+		'length' => array(
+			'label' => __( 'Length', 'wporg-learn' ),
+			'param' => array(),
+			'value' => array( get_workshop_duration( $post, 'string' ) ),
+		),
+		'topic' => array(
+			'label' => __( 'Topic', 'wporg-learn' ),
+			'param' => $topic_ids,
+			'value' => $topic_names,
+		),
+		'level' => array(
+			'label' => __( 'Level', 'wporg-learn' ),
+			'param' => array(),
+			'value' => $level,
+		),
+		'language' => array(
+			'label' => __( 'Language', 'wporg-learn' ),
+			'param' => array( $post->video_language ),
+			'value' => array( esc_html( get_locale_name_from_code( $post->video_language, 'native' ) ) ),
+		),
+		'captions' => array(
+			'label' => __( 'Subtitles', 'wporg-learn' ),
+			'param' => $captions,
+			'value' => array_map(
 				function( $caption_lang ) {
 					return esc_html( get_locale_name_from_code( $caption_lang, 'native' ) );
 				},
 				$captions
-			)
+			),
 		),
 	);
 
-	// Remove empty fields.
-	$fields = array_filter( $fields );
+	// Remove fields with empty values.
+	$fields = array_filter( $fields, function( $data ) {
+		return $data['value'];
+	} );
 
 	$lesson_id = get_post_meta( $post->ID, 'linked_lesson_id', true );
 	$quiz_url = '';
