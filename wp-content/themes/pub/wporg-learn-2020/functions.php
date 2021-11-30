@@ -199,9 +199,10 @@ function wporg_learn_get_taxonomy_terms_array( $post_id, $tax_slug ) {
 
 /**
  * Get the values associated to the page/post according to the context
- * @param  int    $post_id  ID of the post
- * @param  string $tax_slug The slug for the custom taxonomy
- * @param  string $context  The context for display
+ *
+ * @param  int    $post_id  ID of the post.
+ * @param  string $tax_slug The slug for the custom taxonomy.
+ * @param  string $context  The context for display.
  *
  * @return array|string
  */
