@@ -17,10 +17,31 @@ $has_transcript = false !== strpos( $post->post_content, 'id="transcript"' );
 <div class="wp-block-wporg-learn-workshop-details">
 	<?php if ( ! empty( $fields ) ) : ?>
 		<ul class="workshop-details-list">
-			<?php foreach ( $fields as $key => $value ) : ?>
+			<?php foreach ( $fields as $key => $field ) : ?>
 				<li>
-					<b><?php echo esc_html( $key ); ?></b>
-					<span><?php echo esc_html( $value ); ?></span>
+					<b><?php echo esc_html( $field['label'] ); ?></b>
+					<span>
+						<?php
+						$i = 0;
+						foreach ( $field['value'] as $field_key => $value ) {
+							$url = '';
+							if ( ! empty( $field['param'] ) ) {
+								$url = trailingslashit( site_url() ) . 'workshops/?' . $key . '=' . $field['param'][ $field_key ];
+							}
+
+							if ( 0 < $i ) {
+								echo ', ';
+							}
+
+							if ( $url ) {
+								echo '<a href="' . esc_url( $url ) . '">' . esc_html( $value ) . '</a>';
+							} else {
+								echo esc_html( $value );
+							}
+							$i++;
+						}
+						?>
+					</span>
 				</li>
 			<?php endforeach; ?>
 

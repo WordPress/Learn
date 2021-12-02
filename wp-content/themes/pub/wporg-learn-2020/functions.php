@@ -165,7 +165,7 @@ function wporg_get_cat_or_default_slug() {
 }
 
 /**
- * Get the values associated to the page/post
+ * Get the values associated to the page/post formatted as a string
  *
  * @param string $post_id Id of the post.
  * @param string $tax_slug The slug for the custom taxonomy.
@@ -179,33 +179,76 @@ function wporg_learn_get_taxonomy_terms_string( $post_id, $tax_slug ) {
 }
 
 /**
+ * Get the values associated to the page/post formatted as an array
+ *
+ * @param string $post_id Id of the post.
+ * @param string $tax_slug The slug for the custom taxonomy.
+ *
+ * @return array
+ */
+function wporg_learn_get_taxonomy_terms_array( $post_id, $tax_slug ) {
+	$term_ids = wp_get_post_terms( $post_id, $tax_slug, array( 'fields' => 'ids' ) );
+
+	$terms = array();
+	foreach ( $term_ids as $id ) {
+		$terms[ $id ] = get_term( $id )->name;
+	}
+
+	return $terms;
+}
+
+/**
+ * Get the values associated to the page/post according to the context
+ *
+ * @param  int    $post_id  ID of the post.
+ * @param  string $tax_slug The slug for the custom taxonomy.
+ * @param  string $context  The context for display.
+ *
+ * @return array|string
+ */
+function wporg_learn_get_taxonomy_terms( $post_id, $tax_slug, $context ) {
+	switch ( $context ) {
+		case 'archive':
+			return wporg_learn_get_taxonomy_terms_string( $post_id, $tax_slug );
+			break;
+		case 'single':
+			return wporg_learn_get_taxonomy_terms_array( $post_id, $tax_slug );
+			break;
+	}
+}
+
+/**
  * Returns the taxonomies associated to a lesson or workshop
  *
  * @param int $post_id Id of the post.
  *
  * @return array
  */
-function wporg_learn_get_lesson_plan_taxonomy_data( $post_id ) {
+function wporg_learn_get_lesson_plan_taxonomy_data( $post_id, $context ) {
 	return array(
 		array(
 			'icon'  => 'clock',
+			'slug'  => 'duration',
 			'label' => wporg_label_with_colon( get_taxonomy_labels( get_taxonomy( 'duration' ) )->singular_name ),
-			'value' => wporg_learn_get_taxonomy_terms_string( $post_id, 'duration' ),
+			'value' => wporg_learn_get_taxonomy_terms( $post_id, 'duration', $context ),
 		),
 		array(
 			'icon'  => 'admin-users',
+			'slug'  => 'audience',
 			'label' => wporg_label_with_colon( get_taxonomy_labels( get_taxonomy( 'audience' ) )->singular_name ),
-			'value' => wporg_learn_get_taxonomy_terms_string( $post_id, 'audience' ),
+			'value' => wporg_learn_get_taxonomy_terms( $post_id, 'audience', $context ),
 		),
 		array(
 			'icon'  => 'dashboard',
+			'slug'  => 'level',
 			'label' => wporg_label_with_colon( get_taxonomy_labels( get_taxonomy( 'level' ) )->singular_name ),
-			'value' => wporg_learn_get_taxonomy_terms_string( $post_id, 'level' ),
+			'value' => wporg_learn_get_taxonomy_terms( $post_id, 'level', $context ),
 		),
 		array(
 			'icon'  => 'welcome-learn-more',
+			'slug'  => 'type',
 			'label' => wporg_label_with_colon( get_taxonomy_labels( get_taxonomy( 'instruction_type' ) )->singular_name ),
-			'value' => wporg_learn_get_taxonomy_terms_string( $post_id, 'instruction_type' ),
+			'value' => wporg_learn_get_taxonomy_terms( $post_id, 'instruction_type', $context ),
 		),
 	);
 }
@@ -579,7 +622,7 @@ function wporg_learn_get_card_template_args( $post_id ) {
 			break;
 
 		case 'lesson-plan':
-			$args['meta'] = wporg_learn_get_lesson_plan_taxonomy_data( $post_id );
+			$args['meta'] = wporg_learn_get_lesson_plan_taxonomy_data( $post_id, 'archive' );
 			break;
 
 		case 'wporg_workshop':
