@@ -25,7 +25,7 @@
 					echo ', ';
 				}
 
-				echo sprintf( '%1$s' . esc_attr( $url ) . '%2$s' . esc_html( $value ) . '%3$s', '<a href="', '">', '</a>' );
+				echo '<a href="' . esc_attr( $url ) . '">' . esc_html( $value ) . '</a>';
 				$i++;
 			}
 			?>

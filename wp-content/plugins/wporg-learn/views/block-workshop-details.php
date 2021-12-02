@@ -34,7 +34,7 @@ $has_transcript = false !== strpos( $post->post_content, 'id="transcript"' );
 							}
 
 							if ( $url ) {
-								echo sprintf( '%1$s' . esc_url( $url ) . '%2$s' . esc_html( $value ) . '%3$s', '<a href="', '">', '</a>' );
+								echo '<a href="' . esc_url( $url ) . '">' . esc_html( $value ) . '</a>';
 							} else {
 								echo esc_html( $value );
 							}
