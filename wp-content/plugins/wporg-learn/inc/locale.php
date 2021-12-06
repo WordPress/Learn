@@ -39,7 +39,12 @@ function textdomain() {
 function update_locale_data() {
 	$gp_api           = 'https://translate.wordpress.org';
 	$gp_project       = 'meta/learn-wordpress';
-	$set_response     = wp_remote_get( "$gp_api/api/projects/$gp_project" );
+	$set_response     = wp_remote_get(
+		"$gp_api/api/projects/$gp_project",
+		array(
+			'timeout' => 30
+		)
+	);
 	$body             = json_decode( wp_remote_retrieve_body( $set_response ) );
 	$translation_sets = isset( $body->translation_sets ) ? $body->translation_sets : false;
 
