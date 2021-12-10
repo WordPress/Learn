@@ -170,6 +170,7 @@ _x( 'static block', 'Included Content term name', 'wporg-learn' );
 _x( 'sticky posts', 'Included Content term name', 'wporg-learn' );
 _x( 'tags', 'Included Content term name', 'wporg-learn' );
 _x( 'template editing mode', 'Included Content term name', 'wporg-learn' );
+_x( 'theme editor', 'Included Content term name', 'wporg-learn' );
 _x( 'themes', 'Included Content term name', 'wporg-learn' );
 _x( 'tools', 'Included Content term name', 'wporg-learn' );
 _x( 'updates', 'Included Content term name', 'wporg-learn' );
