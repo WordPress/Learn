@@ -1066,3 +1066,16 @@ function wporg_learn_redirect_meetings() {
 
 }
 add_action( 'template_redirect', 'wporg_learn_redirect_meetings' );
+
+/**
+ * Add file MIME types for upload.
+ *
+ * @param  array $mime_types Default array of MIME types.
+ *
+ *  @return array Updated MIME type array.
+ */
+function wporg_learn_mime_types( $mime_types ) {
+	$mime_types['vtt'] = 'text/vtt';
+	return $mime_types;
+}
+add_filter( 'mime_types', 'wporg_learn_mime_types' );
