@@ -448,24 +448,28 @@ function wporg_archive_maybe_apply_query_filters( WP_Query &$query ) {
 	$filters = filter_input_array(
 		INPUT_GET,
 		array(
-			'search'   => FILTER_SANITIZE_STRING,
-			'captions' => FILTER_SANITIZE_STRING,
-			'language' => FILTER_SANITIZE_STRING,
-			'audience' => array(
+			'search'     => FILTER_SANITIZE_STRING,
+			'captions'   => FILTER_SANITIZE_STRING,
+			'language'   => FILTER_SANITIZE_STRING,
+			'audience'   => array(
 				'filter' => FILTER_VALIDATE_INT,
 				'flags'  => FILTER_REQUIRE_ARRAY,
 			),
-			'duration' => array(
+			'duration'   => array(
 				'filter' => FILTER_VALIDATE_INT,
 				'flags'  => FILTER_REQUIRE_ARRAY,
 			),
-			'level'    => array(
+			'level'      => array(
 				'filter' => FILTER_VALIDATE_INT,
 				'flags'  => FILTER_REQUIRE_ARRAY,
 			),
-			'series'   => FILTER_VALIDATE_INT,
-			'topic'    => FILTER_VALIDATE_INT,
-			'type'     => array(
+			'series'     => FILTER_VALIDATE_INT,
+			'topic'      => FILTER_VALIDATE_INT,
+			'type'       => array(
+				'filter' => FILTER_VALIDATE_INT,
+				'flags'  => FILTER_REQUIRE_ARRAY,
+			),
+			'wp_version' => array(
 				'filter' => FILTER_VALIDATE_INT,
 				'flags'  => FILTER_REQUIRE_ARRAY,
 			),
@@ -474,13 +478,14 @@ function wporg_archive_maybe_apply_query_filters( WP_Query &$query ) {
 	);
 
 	$entity_map = array(
-		'captions' => 'video_caption_language',
-		'language' => 'video_language',
-		'audience' => 'audience',
-		'duration' => 'duration',
-		'level'    => 'level',
-		'topic'    => 'topic',
-		'type'     => 'instruction_type',
+		'captions'   => 'video_caption_language',
+		'language'   => 'video_language',
+		'audience'   => 'audience',
+		'duration'   => 'duration',
+		'level'      => 'level',
+		'topic'      => 'topic',
+		'type'       => 'instruction_type',
+		'wp_version' => 'wporg_wp_version',
 	);
 
 	$series_slug = wporg_learn_get_series_taxonomy_slug( $query->get( 'post_type' ) );
@@ -535,6 +540,7 @@ function wporg_archive_maybe_apply_query_filters( WP_Query &$query ) {
 				case 'series':
 				case 'topic':
 				case 'type':
+				case 'wp_version':
 					if ( ! empty( $tax_query ) ) {
 						$tax_query['relation'] = 'AND';
 					}

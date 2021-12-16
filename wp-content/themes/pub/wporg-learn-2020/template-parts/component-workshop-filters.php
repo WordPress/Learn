@@ -30,6 +30,14 @@ $buckets = array(
 		'name'  => 'captions',
 		'items' => \WPOrg_Learn\Post_Meta\get_available_workshop_locales( 'video_caption_language', 'native' ),
 	),
+	array(
+		'label' => __( 'WordPress Version', 'wporg-learn' ),
+		'name'  => 'wp_version',
+		'items' => get_terms( array(
+			'taxonomy' => 'wporg_wp_version',
+			'fields'   => 'id=>name',
+		) ),
+	),
 );
 ?>
 
