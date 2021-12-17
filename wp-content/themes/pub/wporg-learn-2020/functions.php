@@ -225,7 +225,7 @@ function wporg_learn_get_taxonomy_terms( $post_id, $tax_slug, $context ) {
  * @return array
  */
 function wporg_learn_get_lesson_plan_taxonomy_data( $post_id, $context ) {
-	return array(
+	$data = array(
 		array(
 			'icon'  => 'clock',
 			'slug'  => 'duration',
@@ -250,13 +250,19 @@ function wporg_learn_get_lesson_plan_taxonomy_data( $post_id, $context ) {
 			'label' => wporg_label_with_colon( get_taxonomy_labels( get_taxonomy( 'instruction_type' ) )->singular_name ),
 			'value' => wporg_learn_get_taxonomy_terms( $post_id, 'instruction_type', $context ),
 		),
-		array(
+	);
+
+	$versions = wporg_learn_get_taxonomy_terms( $post_id, 'wporg_wp_version', $context );
+	if ( $versions ) {
+		$data[] = array(
 			'icon'  => 'wordpress',
 			'slug'  => 'wp_version',
 			'label' => wporg_label_with_colon( get_taxonomy_labels( get_taxonomy( 'wporg_wp_version' ) )->singular_name ),
-			'value' => wporg_learn_get_taxonomy_terms( $post_id, 'wporg_wp_version', $context ),
-		),
-	);
+			'value' => $versions,
+		);
+	}
+
+	return $data;
 }
 
 /**
