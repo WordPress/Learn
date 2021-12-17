@@ -477,7 +477,7 @@ function wporg_archive_maybe_apply_query_filters( WP_Query &$query ) {
 			),
 			'wp_version' => array(
 				'filter' => FILTER_VALIDATE_INT,
-				'flags'  => FILTER_REQUIRE_ARRAY,
+				'flags'  => FILTER_FORCE_ARRAY,
 			),
 		),
 		false
