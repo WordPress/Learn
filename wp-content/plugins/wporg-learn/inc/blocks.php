@@ -76,6 +76,9 @@ function workshop_details_render_callback( $attributes, $content ) {
 	$level     = wp_get_post_terms( $post->ID, 'level', array( 'fields' => 'names' ) );
 	$captions  = get_post_meta( $post->ID, 'video_caption_language' );
 
+	$version_ids    = wp_get_post_terms( $post->ID, 'wporg_wp_version', array( 'fields' => 'ids' ) );
+	$version_names  = wp_get_post_terms( $post->ID, 'wporg_wp_version', array( 'fields' => 'names' ) );
+
 	$topic_names = array();
 	foreach ( $topic_ids as $id ) {
 		$topic_names[] = get_term( $id )->name;
@@ -91,6 +94,11 @@ function workshop_details_render_callback( $attributes, $content ) {
 			'label' => __( 'Topic', 'wporg-learn' ),
 			'param' => $topic_ids,
 			'value' => $topic_names,
+		),
+		'wp_version' => array(
+			'label' => __( 'Related Version', 'wporg-learn' ),
+			'param' => $version_ids,
+			'value' => $version_names,
 		),
 		'level' => array(
 			'label' => __( 'Level', 'wporg-learn' ),
