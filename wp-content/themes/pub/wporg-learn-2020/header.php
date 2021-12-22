@@ -13,12 +13,16 @@ namespace WordPressdotorg\Theme;
 
 use function WPOrg_Learn\Locale\{ locale_notice };
 
-global $wporg_global_header_options;
-if ( ! isset( $wporg_global_header_options['in_wrapper'] ) ) {
-	$wporg_global_header_options['in_wrapper'] = '';
+if ( FEATURE_2021_GLOBAL_HEADER_FOOTER ) {
+	echo do_blocks( '<!-- wp:wporg/global-header /-->' );
+} else {
+	global $wporg_global_header_options;
+	if ( ! isset( $wporg_global_header_options['in_wrapper'] ) ) {
+		$wporg_global_header_options['in_wrapper'] = '';
+	}
+	$wporg_global_header_options['in_wrapper'] .= '<a class="skip-link screen-reader-text" href="#content">' . esc_html__( 'Skip to content', 'wporg-learn' ) . '</a>';
+	wporg_get_global_header();
 }
-$wporg_global_header_options['in_wrapper'] .= '<a class="skip-link screen-reader-text" href="#content">' . esc_html__( 'Skip to content', 'wporg-learn' ) . '</a>';
-wporg_get_global_header();
 
 $menu_items = array(
 	'/workshops/'    => __( 'Workshops', 'wporg-learn' ),
