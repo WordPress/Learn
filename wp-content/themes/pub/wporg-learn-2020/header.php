@@ -14,6 +14,7 @@ namespace WordPressdotorg\Theme;
 use function WPOrg_Learn\Locale\{ locale_notice };
 
 if ( FEATURE_2021_GLOBAL_HEADER_FOOTER ) {
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	echo do_blocks( '<!-- wp:wporg/global-header /-->' );
 } else {
 	global $wporg_global_header_options;
