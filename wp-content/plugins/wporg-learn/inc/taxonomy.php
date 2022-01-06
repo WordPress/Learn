@@ -515,7 +515,7 @@ function register_wp_version() {
 		),
 	);
 
-	$post_types = array( 'lesson-plan', 'wporg_workshop', 'course', 'lesson' );
+	$post_types = array( 'lesson-plan', 'wporg_workshop', 'course', 'lesson', 'meeting' );
 
 	register_taxonomy( 'wporg_wp_version', $post_types, $args );
 }
