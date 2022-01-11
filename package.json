@@ -26,5 +26,8 @@
 		"lint:php": "composer run lint",
 		"format:php": "composer run format"
 	},
-	"main": "index.js"
+	"main": "index.js",
+	"devDependencies": {
+		"@wordpress/scripts": "^19.2.2"
+	}
 }
