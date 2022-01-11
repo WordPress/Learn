@@ -15,6 +15,7 @@ $has_transcript = false !== strpos( $post->post_content, 'id="transcript"' );
 ?>
 
 <div class="wp-block-wporg-learn-workshop-details">
+	<h3 class="screen-reader-text">Workshop Details</h3>
 	<?php if ( ! empty( $fields ) ) : ?>
 		<ul class="workshop-details-list">
 			<?php foreach ( $fields as $key => $field ) : ?>
