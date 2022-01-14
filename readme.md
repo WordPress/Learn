@@ -1,10 +1,12 @@
 # WP - Learn
 
 ## Prerequisites
-- Docker
-- Node/NPM
-- Yarn
-- Composer
+- [Docker](https://docs.docker.com/get-docker/)
+- [Node/NPM](https://nodejs.org/en/download/)
+- [Yarn](https://www.npmjs.com/package/yarn)
+- [Composer](https://getcomposer.org/download/)
+- [SVN](https://subversion.apache.org/packages.html)
+- [NVM](https://github.com/nvm-sh/nvm) or [N](https://github.com/tj/n) (optional)
 
 ## Setup
 1. `yarn`
