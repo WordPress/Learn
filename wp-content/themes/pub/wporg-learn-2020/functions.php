@@ -511,6 +511,10 @@ function wporg_archive_maybe_apply_query_filters( WP_Query &$query ) {
 
 	if ( is_array( $filters ) ) {
 		$filters = array_filter( $filters );
+		// Strip out `wp_version` if it's empty (converted to `array( false )`, due to FILTER_FORCE_ARRAY).
+		if ( isset( $filters['wp_version'] ) && 0 === count( array_filter( $filters['wp_version'] ) ) ) {
+			unset( $filters['wp_version'] );
+		}
 
 		// If both language and captions filters are set, we assume an "OR" relationship.
 		if ( isset( $filters['captions'], $filters['language'] ) ) {
