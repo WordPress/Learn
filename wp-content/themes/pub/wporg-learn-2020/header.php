@@ -13,7 +13,10 @@ namespace WordPressdotorg\Theme;
 
 use function WPOrg_Learn\Locale\{ locale_notice };
 
-\WordPressdotorg\skip_to( '#main' );
+// Temporarily until https://github.com/WordPress/wporg-mu-plugins/ is added to the Learn repo.
+if ( function_exists( '\WordPressdotorg\skip_to' ) ) {
+	\WordPressdotorg\skip_to( '#main' );
+}
 
 if ( FEATURE_2021_GLOBAL_HEADER_FOOTER ) {
 	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
