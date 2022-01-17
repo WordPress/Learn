@@ -13,15 +13,12 @@ namespace WordPressdotorg\Theme;
 
 use function WPOrg_Learn\Locale\{ locale_notice };
 
+\WordPressdotorg\skip_to( '#main' );
+
 if ( FEATURE_2021_GLOBAL_HEADER_FOOTER ) {
 	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	echo do_blocks( '<!-- wp:wporg/global-header /-->' );
 } else {
-	global $wporg_global_header_options;
-	if ( ! isset( $wporg_global_header_options['in_wrapper'] ) ) {
-		$wporg_global_header_options['in_wrapper'] = '';
-	}
-	$wporg_global_header_options['in_wrapper'] .= '<a class="skip-link screen-reader-text" href="#content">' . esc_html__( 'Skip to content', 'wporg-learn' ) . '</a>';
 	wporg_get_global_header();
 }
 
@@ -36,8 +33,6 @@ $menu_items = array(
 ?>
 
 <div id="page" class="site">
-	<a class="skip-link screen-reader-text" href="#main"><?php esc_html_e( 'Skip to content', 'wporg-learn' ); ?></a>
-
 	<div id="content">
 		<header id="masthead" class="site-header <?php echo is_front_page() ? 'home' : ''; ?>" role="banner">
 			<div class="site-branding">
