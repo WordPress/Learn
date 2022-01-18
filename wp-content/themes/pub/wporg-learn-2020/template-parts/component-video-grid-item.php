@@ -15,6 +15,6 @@
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo wporg_get_post_thumbnail( $post, 'medium' );
 		?>
-		<?php the_title(); ?>
+		<h3><?php the_title(); ?></h3>
 	</a>
 </li>
