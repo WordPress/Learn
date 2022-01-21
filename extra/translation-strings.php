@@ -161,6 +161,7 @@ _x( 'page attributes', 'Included Content term name', 'wporg-learn' );
 _x( 'pages', 'Included Content term name', 'wporg-learn' );
 _x( 'performance', 'Included Content term name', 'wporg-learn' );
 _x( 'permalinks', 'Included Content term name', 'wporg-learn' );
+_x( 'plugin editor', 'Included Content term name', 'wporg-learn' );
 _x( 'plugins', 'Included Content term name', 'wporg-learn' );
 _x( 'polyglots', 'Included Content term name', 'wporg-learn' );
 _x( 'post editor', 'Included Content term name', 'wporg-learn' );
