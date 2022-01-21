@@ -140,6 +140,7 @@ _x( 'custom post type', 'Included Content term name', 'wporg-learn' );
 _x( 'Customizer', 'Included Content term name', 'wporg-learn' );
 _x( 'dashboard', 'Included Content term name', 'wporg-learn' );
 _x( 'discussion', 'Included Content term name', 'wporg-learn' );
+_x( 'duotone', 'Included Content term name', 'wporg-learn' );
 _x( 'dynamic block', 'Included Content term name', 'wporg-learn' );
 _x( 'edit media', 'Included Content term name', 'wporg-learn' );
 _x( 'export', 'Included Content term name', 'wporg-learn' );
