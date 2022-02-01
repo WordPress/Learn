@@ -17,7 +17,7 @@ $featured_workshop = reset( $featured_workshop );
 		$post = $featured_workshop; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		setup_postdata( $post );
 		?>
-			<div class="featured-workshop_video">
+			<div aria-hidden="true" tabindex="-1" class="featured-workshop_video">
 				<a href="<?php echo esc_url( get_the_permalink() ); ?>">
 					<?php
 					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -26,7 +26,10 @@ $featured_workshop = reset( $featured_workshop );
 				</a>
 			</div>
 			<div class="featured-workshop_content">
-				<a class="featured-workshop_title" href="<?php echo esc_url( get_the_permalink() ); ?>"><?php the_title(); ?></a>
+				<a class="featured-workshop_title" href="<?php echo esc_url( get_the_permalink() ); ?>">
+					<span aria-hidden="true"><?php the_title(); ?></span>
+					<h3 class="screen-reader-text"><?php the_title(); ?></h3>
+				</a>
 				<div class="row">
 					<div class="col-8">
 						<p><?php the_excerpt(); ?></p>
