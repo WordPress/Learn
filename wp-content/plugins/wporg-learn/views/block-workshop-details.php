@@ -50,9 +50,8 @@ $has_transcript = false !== strpos( $post->post_content, 'id="transcript"' );
 				<li>
 					<b><?php esc_html_e( 'Transcript', 'wporg-learn' ); ?></b>
 					<span>
-						<a class="components-button is-secondary is-small" href="#transcript">
-							<?php esc_html_e( 'View ', 'wporg-learn' ); ?>
-							<span class="screen-reader-text"><?php esc_html_e( 'Transcript', 'wporg-learn' ); ?></span>
+						<a class="components-button is-secondary is-small" href="#transcript" aria-label="<?php esc_attr_e( 'View Transcript', 'wporg-learn' ); ?>">
+							<?php esc_html_e( 'View', 'wporg-learn' ); ?>
 						</a>
 					</span>
 				</li>
@@ -60,8 +59,7 @@ $has_transcript = false !== strpos( $post->post_content, 'id="transcript"' );
 			<li>
 				<b><?php esc_html_e( 'Print View', 'wporg-learn' ); ?></b>
 				<span>
-						<a class="components-button is-secondary is-small" href="#" onclick="window.print();">
-							<span class="screen-reader-text"><?php esc_html_e( 'Print ', 'wporg-learn' ); ?></span>
+						<a class="components-button is-secondary is-small" href="#" onclick="window.print();" aria-label="<?php esc_attr_e( 'Print View', 'wporg-learn' ); ?>">
 							<?php esc_html_e( 'View', 'wporg-learn' ); ?>
 						</a>
 					</span>
