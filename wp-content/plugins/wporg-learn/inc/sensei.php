@@ -16,6 +16,27 @@ add_action( 'sensei_single_course_content_inside_after', __NAMESPACE__ . '\remov
 add_filter( 'sensei_load_default_supported_theme_wrappers', '__return_false' );
 add_action( 'sensei_before_main_content', __NAMESPACE__ . '\theme_wrapper_start' );
 add_action( 'sensei_after_main_content', __NAMESPACE__ . '\theme_wrapper_end' );
+add_action( 'init', __NAMESPACE__ . '\wporg_correct_sensei_slugs' );
+
+/**
+ * Slugs in Sensei are translatable, which won't work for our site and the language switcher.
+ *
+ * This resets all slugs to their default values, regardless of what the translation comes up with.
+ *
+ */
+function wporg_correct_sensei_slugs() {
+	add_filter( 'sensei_course_slug',				function ( $slug ) { return 'course'; } );
+	add_filter( 'sensei_lesson_slug',				function ( $slug ) { return 'lesson'; } );
+	add_filter( 'sensei_quiz_slug',					function ( $slug ) { return 'quiz'; } );
+	add_filter( 'sensei_question_slug',				function ( $slug ) { return 'question'; } );
+	add_filter( 'sensei_multiple_question_slug',	function ( $slug ) { return 'multiple_question'; } );
+	add_filter( 'sensei_messages_slug',				function ( $slug ) { return 'messages'; } );
+	add_filter( 'sensei_course_category_slug',		function ( $slug ) { return 'course-category'; } );
+	add_filter( 'sensei_quiz_type_slug',			function ( $slug ) { return 'quiz-type'; } );
+	add_filter( 'sensei_question_type_slug',		function ( $slug ) { return 'question-type'; } );
+	add_filter( 'sensei_question_category_slug',	function ( $slug ) { return 'question-category'; } );
+	add_filter( 'sensei_lesson_tag_slug',			function ( $slug ) { return 'lesson-tag'; } );
+}
 
 /**
  * Modify the status message so that logging in takes precedence over enrolling in the course.
