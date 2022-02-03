@@ -23,19 +23,42 @@ add_action( 'init', __NAMESPACE__ . '\wporg_correct_sensei_slugs' );
  *
  * This resets all slugs to their default values, regardless of what the translation comes up with.
  *
+ * @return void
  */
 function wporg_correct_sensei_slugs() {
-	add_filter( 'sensei_course_slug',				function ( $slug ) { return 'course'; } );
-	add_filter( 'sensei_lesson_slug',				function ( $slug ) { return 'lesson'; } );
-	add_filter( 'sensei_quiz_slug',					function ( $slug ) { return 'quiz'; } );
-	add_filter( 'sensei_question_slug',				function ( $slug ) { return 'question'; } );
-	add_filter( 'sensei_multiple_question_slug',	function ( $slug ) { return 'multiple_question'; } );
-	add_filter( 'sensei_messages_slug',				function ( $slug ) { return 'messages'; } );
-	add_filter( 'sensei_course_category_slug',		function ( $slug ) { return 'course-category'; } );
-	add_filter( 'sensei_quiz_type_slug',			function ( $slug ) { return 'quiz-type'; } );
-	add_filter( 'sensei_question_type_slug',		function ( $slug ) { return 'question-type'; } );
-	add_filter( 'sensei_question_category_slug',	function ( $slug ) { return 'question-category'; } );
-	add_filter( 'sensei_lesson_tag_slug',			function ( $slug ) { return 'lesson-tag'; } );
+	add_filter( 'sensei_course_slug', function () {
+		return 'course';
+	} );
+	add_filter( 'sensei_lesson_slug', function () {
+		return 'lesson';
+	} );
+	add_filter( 'sensei_quiz_slug', function () {
+		return 'quiz';
+	} );
+	add_filter( 'sensei_question_slug', function () {
+		return 'question';
+	} );
+	add_filter( 'sensei_multiple_question_slug', function () {
+		return 'multiple_question';
+	} );
+	add_filter( 'sensei_messages_slug', function () {
+		return 'messages';
+	} );
+	add_filter( 'sensei_course_category_slug', function () {
+		return 'course-category';
+	} );
+	add_filter( 'sensei_quiz_type_slug', function () {
+		return 'quiz-type';
+	} );
+	add_filter( 'sensei_question_type_slug', function () {
+		return 'question-type';
+	} );
+	add_filter( 'sensei_question_category_slug', function () {
+		return 'question-category';
+	} );
+	add_filter( 'sensei_lesson_tag_slug', function () {
+		return 'lesson-tag';
+	} );
 }
 
 /**
