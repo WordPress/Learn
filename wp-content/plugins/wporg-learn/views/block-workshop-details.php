@@ -50,7 +50,7 @@ $has_transcript = false !== strpos( $post->post_content, 'id="transcript"' );
 				<li>
 					<b><?php esc_html_e( 'Transcript', 'wporg-learn' ); ?></b>
 					<span>
-						<a class="components-button is-secondary is-small" href="#transcript">
+						<a class="components-button is-secondary is-small" href="#transcript" aria-label="<?php esc_attr_e( 'View Transcript', 'wporg-learn' ); ?>">
 							<?php esc_html_e( 'View', 'wporg-learn' ); ?>
 						</a>
 					</span>
@@ -59,7 +59,7 @@ $has_transcript = false !== strpos( $post->post_content, 'id="transcript"' );
 			<li>
 				<b><?php esc_html_e( 'Print View', 'wporg-learn' ); ?></b>
 				<span>
-						<a class="components-button is-secondary is-small" href="#" onclick="window.print();">
+						<a class="components-button is-secondary is-small" href="#" onclick="window.print();" aria-label="<?php esc_attr_e( 'Print View', 'wporg-learn' ); ?>">
 							<?php esc_html_e( 'View', 'wporg-learn' ); ?>
 						</a>
 					</span>
