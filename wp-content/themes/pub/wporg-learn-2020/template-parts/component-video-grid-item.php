@@ -15,7 +15,6 @@
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo wporg_get_post_thumbnail( $post, 'medium' );
 		?>
-		<span aria-hidden="true"><?php the_title(); ?></span>
-		<h3 class="screen-reader-text"><?php the_title(); ?></h3>
+		<?php the_title(); ?>
 	</a>
 </li>
