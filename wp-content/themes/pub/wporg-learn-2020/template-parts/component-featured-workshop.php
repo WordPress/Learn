@@ -26,7 +26,9 @@ $featured_workshop = reset( $featured_workshop );
 				</a>
 			</div>
 			<div class="featured-workshop_content">
-				<a class="featured-workshop_title" href="<?php echo esc_url( get_the_permalink() ); ?>"><?php the_title(); ?></a>
+				<h3 class="featured-workshop_title">
+					<a href="<?php echo esc_url( get_the_permalink() ); ?>"><?php the_title(); ?></a>
+				</h3>
 				<div class="row">
 					<div class="col-8">
 						<p><?php the_excerpt(); ?></p>

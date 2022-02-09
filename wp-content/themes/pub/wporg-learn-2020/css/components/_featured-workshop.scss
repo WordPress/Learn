@@ -30,6 +30,10 @@
 		font-weight: 600;
 		text-decoration: underline;
 		font-size: $gutter-default * 1.25;
+
+		a:hover {
+			color: #d54e21;
+		}
 	}
 
 	&_content {
