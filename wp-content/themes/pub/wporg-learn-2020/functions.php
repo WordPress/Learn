@@ -341,6 +341,14 @@ function wporg_archive_modify_query( WP_Query $query ) {
 	// Possibly temporary until more of the courses are filled out.
 	if ( $query->is_main_query() && $query->is_post_type_archive( 'course' ) ) {
 		$query->set(
+			'orderby',
+			array(
+				'post_date' => 'ASC',
+				'ID'        => 'DESC',
+			)
+		);
+
+		$query->set(
 			'meta_query',
 			array(
 				array(
