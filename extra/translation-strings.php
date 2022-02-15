@@ -207,5 +207,7 @@ _x( 'video block', 'Included Content term name', 'wporg-learn' );
 _x( 'widgets', 'Included Content term name', 'wporg-learn' );
 _x( 'writing', 'Included Content term name', 'wporg-learn' );
 _x( 'Contributing', 'Course Categories term name', 'wporg-learn' );
+_x( 'Full Site Editing', 'Course Categories term name', 'wporg-learn' );
+_x( 'Introduction to WordPress', 'Course Categories term name', 'wporg-learn' );
 _x( 'Publishing', 'Course Categories term name', 'wporg-learn' );
 _x( 'Site Management', 'Course Categories term name', 'wporg-learn' );
