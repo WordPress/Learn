@@ -34,11 +34,11 @@ svn st meta-*
 
 echo "svn diff /tmp/learn/meta-* to view diff."
 
-# pause
-echo "Press any key to commit"
-read
-
 COMMIT=`git log | head -1 | cut -d' ' -f2`
 MSG="Learn: Sync with git WordPress/learn@$COMMIT"
+
+# pause
+echo "Control+C to abort, or Press any key to commit as: '$MSG'"
+read
 
 svn ci meta-plugin meta-theme -m "$MSG"
