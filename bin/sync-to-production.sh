@@ -19,15 +19,11 @@ composer install
 yarn workspaces run build
 
 # Sync git to SVN
-rm -rf meta-theme/*
+rm -rf meta-theme/* meta-plugin/*
 cp -r wp-content/themes/pub/wporg-learn-2020/* meta-theme
-svn st meta-theme/ | grep ^? | cut -c2- | xargs -I% svn add %
-svn st meta-theme/ | grep ^! | cut -c2- | xargs -I% svn rm %
-
-rm -rf meta-plugin/*
 cp -r wp-content/plugins/wporg-learn/* meta-plugin
-svn st meta-plugin/ | grep ^? | cut -c2- | xargs -I% svn add %
-svn st meta-plugin/ | grep ^! | cut -c2- | xargs -I% svn rm %
+svn st meta-*/ | grep ^? | cut -c2- | xargs -I% svn add %
+svn st meta-*/ | grep ^! | cut -c2- | xargs -I% svn rm %
 
 # Print diff.
 svn st meta-*
