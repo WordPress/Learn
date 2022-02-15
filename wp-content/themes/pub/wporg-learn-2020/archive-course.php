@@ -30,16 +30,16 @@ get_header(); ?>
 
 					$display_category = false;
 					$categories = wp_get_post_terms( get_the_ID(), 'course-category', array( 'fields' => 'names' ) );
-					if( isset( $categories[0] ) ) {
+					if ( isset( $categories[0] ) ) {
 						$category = $categories[0];
-						if( $category != $prev_category ) {
+						if ( $category != $prev_category ) {
 							$display_category = true;
 							$prev_category = $category;
 						}
 					}
 
-					if( $display_category ) {
-						echo '<h2 class="h4 course-category-header">' . $category . '</h2>';
+					if ( $display_category ) {
+						echo '<h2 class="h4 course-category-header">' . esc_html( $category ) . '</h2>';
 					}
 
 					get_template_part(
