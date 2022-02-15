@@ -29,9 +29,9 @@ get_header(); ?>
 					the_post();
 
 					$display_category = false;
-					$categories = wp_get_post_terms( get_the_ID(), 'course-category', array( 'fields' => 'names' ) );
+					$categories = get_the_terms( get_the_ID(), 'course-category' );
 					if ( isset( $categories[0] ) ) {
-						$category = $categories[0];
+						$category = $categories[0]->name;
 						if ( $category != $prev_category ) {
 							$display_category = true;
 							$prev_category = $category;
