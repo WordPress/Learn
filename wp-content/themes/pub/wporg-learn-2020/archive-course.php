@@ -9,6 +9,9 @@
 
 namespace WordPressdotorg\Theme;
 
+$prev_category = '';
+$category = '';
+
 get_header(); ?>
 
 <main id="main" class="site-main">
@@ -24,6 +27,21 @@ get_header(); ?>
 			<?php if ( have_posts() ) : ?>
 				<?php while ( have_posts() ) :
 					the_post();
+
+					$display_category = false;
+					$categories = get_the_terms( get_the_ID(), 'course-category' );
+					if ( isset( $categories[0] ) ) {
+						$category = $categories[0]->name;
+						if ( $category != $prev_category ) {
+							$display_category = true;
+							$prev_category = $category;
+						}
+					}
+
+					if ( $display_category ) {
+						echo '<h2 class="h4 course-category-header">' . esc_html( $category ) . '</h2>';
+					}
+
 					get_template_part(
 						'template-parts/component',
 						'card',
