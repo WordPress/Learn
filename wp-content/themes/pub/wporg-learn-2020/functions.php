@@ -347,6 +347,14 @@ function wporg_archive_modify_query( WP_Query $query ) {
 					'key'   => '_course_featured',
 					'value' => 'featured',
 				),
+			),
+			'tax_query',
+			array(
+				array(
+					'taxonomy'  => 'course-category',
+					'field'     => 'id',
+					'terms'     => get_terms( 'course-category', array( 'fields' => 'ids' ) ),
+				),
 			)
 		);
 	}
@@ -377,6 +385,46 @@ function wporg_archive_modify_query( WP_Query $query ) {
 	}
 }
 add_action( 'pre_get_posts', 'wporg_archive_modify_query' );
+
+/**
+ * Join new tables onto query for advanced filtering
+ *
+ * @param  string $join
+ * @param  object $query
+ *
+ * @return string
+ */
+function wporg_archive_join( $join, $query ) {
+    global $wpdb;
+
+    // Join 'term_relationships' table for use in orderby clause
+    if ( $query->is_main_query() && $query->is_post_type_archive( 'course' ) ) {
+    	$join .= ' LEFT JOIN ' . $wpdb->term_relationships . ' ON (' . $wpdb->term_relationships . '.object_id = ' . $wpdb->posts . '.ID) ';
+	}
+
+	return $join;
+}
+add_filter( 'posts_join', 'wporg_archive_join', 10, 2 );
+
+/**
+ * Add ordering to query for advanced filtering
+ *
+ * @param  string $join
+ * @param  object $query
+ *
+ * @return string
+ */
+function wporg_archive_orderby( $orderby, $query ) {
+    global $wpdb;
+
+    // Group courses by their category
+    if ( $query->is_main_query() && $query->is_post_type_archive( 'course' ) ) {
+    	$orderby = $wpdb->term_relationships . '.term_taxonomy_id DESC, ' . $orderby;
+	}
+
+	return $orderby;
+}
+add_filter('posts_orderby', 'wporg_archive_orderby', 10, 2);
 
 /**
  * Modify the workshop post type archive query to prioritize workshops in the user's locale.
