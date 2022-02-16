@@ -9,14 +9,53 @@ svn co https://meta.svn.wordpress.org/sites/trunk/wordpress.org/public_html/wp-c
 
 cd /tmp/learn
 
-# Install
-yarn
+# Create a .wporg-deps folder for yarn & composer.
+mkdir .wporg-deps
+
+YARN=`which yarn`
+if [ -z "$YARN" ]; then
+	# Install yarn
+	echo "Installing Yarn..."
+
+	cd .wporg-deps
+
+	# Avoid installing the projects package.json.
+	echo '{}' > package.json
+
+	npm install --no-save yarn
+
+	YARN=`pwd`/node_modules/yarn/bin/yarn
+
+	cd ..
+fi;
+
+COMPOSER=`which composer`
+if [ -z "$COMPOSER" ]; then
+	cd .wporg-deps
+
+	echo "Installing Composer..."
+
+	curl -s https://getcomposer.org/installer | php -- --filename=composer
+
+	COMPOSER=`pwd`/composer
+
+	cd ..
+fi
+
+echo "Installing dependancies..."
+
+# Install from yarn
+$YARN
 
 # Install v2
-composer install
+$COMPOSER install
+
+echo "Building..."
 
 # Build
-yarn workspaces run build
+$YARN workspaces run build
+
+echo "Syncing to SVN..."
 
 # Sync git to SVN
 rm -rf meta-theme/* meta-plugin/*
@@ -26,6 +65,7 @@ svn st meta-*/ | grep ^? | cut -c2- | xargs -I% svn add %
 svn st meta-*/ | grep ^! | cut -c2- | xargs -I% svn rm %
 
 # Print diff.
+echo "Changes:"
 svn st meta-*
 
 echo "svn diff /tmp/learn/meta-* to view diff."
