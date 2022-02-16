@@ -408,6 +408,10 @@ add_action( 'pre_get_posts', 'wporg_archive_modify_query' );
 function wporg_archive_orderby( $orderby, $query ) {
 	global $wpdb;
 
+	if ( is_admin() ) {
+		return $orderby;
+	}
+
 	// Group courses by their category
 	if ( $query->is_main_query() && $query->is_post_type_archive( 'course' ) ) {
 		$orderby = $wpdb->term_relationships . '.term_taxonomy_id DESC, ' . $orderby;
