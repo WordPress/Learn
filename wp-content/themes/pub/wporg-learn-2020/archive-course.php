@@ -10,7 +10,8 @@
 namespace WordPressdotorg\Theme;
 
 $prev_category = '';
-$category = '';
+$category_title = '';
+$category_description = '';
 
 get_header(); ?>
 
@@ -28,18 +29,22 @@ get_header(); ?>
 				<?php while ( have_posts() ) :
 					the_post();
 
-					$display_category = false;
+					$display_category_header = false;
 					$categories = get_the_terms( get_the_ID(), 'course-category' );
 					if ( isset( $categories[0] ) ) {
-						$category = $categories[0]->name;
-						if ( $category != $prev_category ) {
-							$display_category = true;
-							$prev_category = $category;
+						$category_title = $categories[0]->name;
+						$category_description = $categories[0]->description;
+						if ( $category_title != $prev_category ) {
+							$display_category_header = true;
+							$prev_category = $category_title;
 						}
 					}
 
-					if ( $display_category ) {
-						echo '<h2 class="h4 course-category-header">' . esc_html( $category ) . '</h2>';
+					if ( $display_category_header ) {
+						echo '<h2 class="h4 course-category-header">' . esc_html( $category_title ) . '</h2>';
+						if ( $category_description ) {
+							echo '<div class="course-category-description">' . esc_html( $category_description ) . '</div>';
+						}
 					}
 
 					get_template_part(
