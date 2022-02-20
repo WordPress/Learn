@@ -146,3 +146,17 @@ function theme_wrapper_end() {
 	</main>
 	<?php
 }
+
+function wporg_fix_learning_mode_header_space() {
+	wp_register_style( 'learning-mode-header-fix', false );
+	wp_enqueue_style( 'learning-mode-header-fix' );
+
+	$custom_styles = "
+		html {
+			--wp-global-header-height: 0 !important;
+		}
+	";
+
+	wp_add_inline_style( 'learning-mode-header-fix', $custom_styles );
+}
+add_action( 'sensei_course_learning_mode_load_theme', __NAMESPACE__ . '\wporg_fix_learning_mode_header_space' );
