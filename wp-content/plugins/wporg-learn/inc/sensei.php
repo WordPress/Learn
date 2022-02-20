@@ -147,15 +147,18 @@ function theme_wrapper_end() {
 	<?php
 }
 
+/**
+ * Remove header spacing in Learning Mode UI
+ */
 function wporg_fix_learning_mode_header_space() {
-	wp_register_style( 'learning-mode-header-fix', false );
+	wp_register_style( 'learning-mode-header-fix', false, array(), '1.0' );
 	wp_enqueue_style( 'learning-mode-header-fix' );
 
-	$custom_styles = "
+	$custom_styles = '
 		html {
 			--wp-global-header-height: 0 !important;
 		}
-	";
+	';
 
 	wp_add_inline_style( 'learning-mode-header-fix', $custom_styles );
 }
