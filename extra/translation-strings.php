@@ -29,11 +29,11 @@ _x( 'How to get started writing lesson plans, templates for lessons, guidelines 
 _x( 'Theme', 'Lesson Categories term name', 'wporg-learn' );
 _x( 'Theme Dev', 'Lesson Categories term name', 'wporg-learn' );
 _x( 'User', 'Lesson Categories term name', 'wporg-learn' );
-_x( '15', 'Duration term name', 'wporg-learn' );
-_x( '30', 'Duration term name', 'wporg-learn' );
-_x( '45', 'Duration term name', 'wporg-learn' );
-_x( '60', 'Duration term name', 'wporg-learn' );
-_x( '90', 'Duration term name', 'wporg-learn' );
+_x( '15m', 'Duration term name', 'wporg-learn' );
+_x( '30m', 'Duration term name', 'wporg-learn' );
+_x( '45m', 'Duration term name', 'wporg-learn' );
+_x( '60m', 'Duration term name', 'wporg-learn' );
+_x( '90m', 'Duration term name', 'wporg-learn' );
 _x( 'Get Started', 'Lesson Groups term name', 'wporg-learn' );
 _x( 'Polyglots Training', 'Lesson Groups term name', 'wporg-learn' );
 _x( 'Speaker Training', 'Lesson Groups term name', 'wporg-learn' );
