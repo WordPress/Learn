@@ -205,6 +205,7 @@ _x( 'updates', 'Included Content term name', 'wporg-learn' );
 _x( 'users', 'Included Content term name', 'wporg-learn' );
 _x( 'video block', 'Included Content term name', 'wporg-learn' );
 _x( 'widgets', 'Included Content term name', 'wporg-learn' );
+_x( 'WordPress.org', 'Included Content term name', 'wporg-learn' );
 _x( 'writing', 'Included Content term name', 'wporg-learn' );
 _x( 'Contributing to WordPress', 'Course Categories term name', 'wporg-learn' );
 _x( 'Full Site Editing', 'Course Categories term name', 'wporg-learn' );
