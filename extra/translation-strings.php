@@ -209,6 +209,6 @@ _x( 'WordPress.org', 'Included Content term name', 'wporg-learn' );
 _x( 'writing', 'Included Content term name', 'wporg-learn' );
 _x( 'Contributing to WordPress', 'Course Categories term name', 'wporg-learn' );
 _x( 'Full Site Editing', 'Course Categories term name', 'wporg-learn' );
-_x( 'This series of courses explores how you can use the powerful full site editing features that first appeared in WordPress 5.9 - this includes features like the site editor, templates, template parts, theme blocks, and more.', 'Course Categories term description', 'wporg-learn' );
+_x( 'If you\'ve ever wanted to edit all parts of your site easily, full site editing (FSE) makes that possible. First launched in WordPress 5.9, FSE includes features like the site editor, templates, template parts, theme blocks, and more. The courses below will teach you all about full site editing and its features to help you build your perfect site.', 'Course Categories term description', 'wporg-learn' );
 _x( 'Introduction to WordPress', 'Course Categories term name', 'wporg-learn' );
-_x( 'These courses are perfect for those brand new to WordPress or wanting to find out how to set up a fresh WordPress site. The content covers domains and hosting, as well as how to install WordPress and get started with managing your website.', 'Course Categories term description', 'wporg-learn' );
+_x( 'WordPress is a powerful content management system with a range of innovative features. In the following courses, you\'ll get an introduction to WordPress and learn everything you need to know to get going with your website. So whether you\'re a novice or simply want to know how to set up a new site, we have you covered.', 'Course Categories term description', 'wporg-learn' );
