@@ -14,20 +14,30 @@ $crumbs = array(
 	),
 );
 
-// Get information about the post title.
-$cpt_object = get_post_type_object( get_post_type( get_queried_object() ) );
-
-if ( 'lesson-plan' === get_post_type() ) {
+if ( is_post_type_archive() ) {
 	array_push( $crumbs, array(
-		'label' => ucfirst( $cpt_object->labels->name ),
-		'url'   => home_url( $cpt_object->has_archive ),
-	) );
-}
+		'label' => post_type_archive_title( '', false ),
+		'url' => '',
+	));
+} elseif ( is_singular() ) {
+	if ( is_single() ) {
+		$cpt_object = get_post_type_object( get_post_type() );
 
-array_push( $crumbs, array(
-	'label' => get_the_title(),
-	'url'   => '',
-) );
+		array_push($crumbs, array(
+			'label' => $cpt_object->label,
+			'url'   => home_url( $cpt_object->has_archive ),
+		));
+	}
+	array_push( $crumbs, array(
+		'label' => get_the_title(),
+		'url'   => '',
+	) );
+} elseif ( is_search() ) {
+	array_push( $crumbs, array(
+		'label' => get_search_query(),
+		'url' => '',
+	));
+}
 ?>
 
 <div class="clearfix">
