@@ -40,7 +40,7 @@ if ( is_post_type_archive() ) {
 }
 ?>
 
-<div class="clearfix">
+<div role="navigation" aria-label="<?php esc_attr_e( 'Breadcrumbs', 'wporg-learn' ); ?>" class="clearfix">
 	<div class="bbp-breadcrumb">
 	<?php
 	$crumb_length = count( $crumbs );
