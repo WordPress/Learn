@@ -15,10 +15,10 @@
 namespace WordPressdotorg\Theme;
 
 get_header();
+get_template_part( 'template-parts/component', 'breadcrumbs' );
 ?>
 
 	<main id="main" class="site-main" role="main">
-		<?php get_template_part( 'template-parts/component', 'breadcrumbs' ); ?>
 
 		<div class="row align-middle between section-heading section-heading--with-space">
 			<?php the_title( '<h1 class="section-heading_title h2">', '</h1>' ); ?>

@@ -13,10 +13,11 @@ $prev_category = '';
 $category_title = '';
 $category_description = '';
 
-get_header(); ?>
+get_header();
+get_template_part( 'template-parts/component', 'breadcrumbs' );
+?>
 
 <main id="main" class="site-main">
-	<?php get_template_part( 'template-parts/component', 'breadcrumbs' ); ?>
 
 	<section>
 		<div class="row align-middle between section-heading section-heading--with-space">

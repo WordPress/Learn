@@ -5,10 +5,11 @@
  * @package WPBBP
  */
 
-get_header(); ?>
+get_header();
+get_template_part( 'template-parts/component', 'breadcrumbs' );
+?>
 
 	<main id="main" class="site-main type-page" role="main">
-		<?php get_template_part( 'template-parts/component', 'breadcrumbs' ); ?>
 
 		<div id="main-content">
 			<?php
