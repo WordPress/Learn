@@ -4,31 +4,31 @@ $taxonomies = array(
 		'label'   => get_taxonomy_labels( get_taxonomy( 'audience' ) )->singular_name,
 		'terms'   => get_terms( array( 'taxonomy' => 'audience' ) ),
 		'name'    => 'audience',
-		'current' => filter_input( INPUT_GET, 'audience', FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY ) ?? array(),
+		'current' => filter_input( INPUT_GET, 'audience', FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY ) ?: array(),
 	),
 	array(
 		'label'   => get_taxonomy_labels( get_taxonomy( 'duration' ) )->singular_name,
 		'terms'   => get_terms( array( 'taxonomy' => 'duration' ) ),
 		'name'    => 'duration',
-		'current' => filter_input( INPUT_GET, 'duration', FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY ) ?? array(),
+		'current' => filter_input( INPUT_GET, 'duration', FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY ) ?: array(),
 	),
 	array(
 		'label'   => get_taxonomy_labels( get_taxonomy( 'level' ) )->singular_name,
 		'terms'   => get_terms( array( 'taxonomy' => 'level' ) ),
 		'name'    => 'level',
-		'current' => filter_input( INPUT_GET, 'level', FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY ) ?? array(),
+		'current' => filter_input( INPUT_GET, 'level', FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY ) ?: array(),
 	),
 	array(
 		'label'   => get_taxonomy_labels( get_taxonomy( 'instruction_type' ) )->singular_name,
 		'terms'   => get_terms( array( 'taxonomy' => 'instruction_type' ) ),
 		'name'    => 'type',
-		'current' => filter_input( INPUT_GET, 'type', FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY ) ?? array(),
+		'current' => filter_input( INPUT_GET, 'type', FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY ) ?: array(),
 	),
 	array(
 		'label'   => get_taxonomy_labels( get_taxonomy( 'wporg_wp_version' ) )->singular_name,
 		'terms'   => get_terms( array( 'taxonomy' => 'wporg_wp_version' ) ),
 		'name'    => 'wp_version',
-		'current' => filter_input( INPUT_GET, 'wp_version', FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY ) ?? array(),
+		'current' => filter_input( INPUT_GET, 'wp_version', FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY ) ?: array(),
 	),
 );
 ?>
