@@ -8,7 +8,7 @@
 
 get_header(); ?>
 
-	<main id="main" class="site-main home-page" role="main">
+	<main id="main" class="site-main home-page">
 		<section class="quick-intro">
 			<div class="shapes">
 				<a class="parallelogram workshops" href="/workshops/">

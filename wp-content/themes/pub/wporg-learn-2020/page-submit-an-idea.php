@@ -9,7 +9,7 @@ get_header();
 get_template_part( 'template-parts/component', 'breadcrumbs' );
 ?>
 
-	<main id="main" class="site-main page-full-width" role="main">
+	<main id="main" class="site-main page-full-width">
 
 		<?php
 		while ( have_posts() ) :
