@@ -11,7 +11,7 @@ namespace WordPressdotorg\Theme;
 
 get_header(); ?>
 
-	<main id="main" class="site-main type-page" role="main">
+	<main id="main" class="site-main type-page">
 		<section>
 			<div class="row align-middle between section-heading section-heading--with-space">
 				<?php the_archive_title( '<h1 class="section-heading_title h2">', '</h1>' ); ?>
