@@ -30,7 +30,13 @@ h1, h2, h3, h4 { color: #555 !important; }
 	max-width: 650px;
 }
 
-.site-main {
+.site-breadcrumbs {
+	margin: 0 auto;
+	max-width: 960px;
+	padding: 0 10px;
+}
+
+.site-main{
 	margin: 0 auto;
 }
 
@@ -558,7 +564,7 @@ input.text {
 --------------------------------------------------------------*/
 
 div.bbp-breadcrumb {
-	margin: 0.75rem 0 1.5rem;
+	margin: 1.25rem 0 1rem;
 }
 
 p {
