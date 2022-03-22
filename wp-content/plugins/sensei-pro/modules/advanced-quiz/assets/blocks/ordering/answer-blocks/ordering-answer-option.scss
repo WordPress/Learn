@@ -1,0 +1,29 @@
+.editor-styles-wrapper .sensei-lms-question-answers-block {
+	.sensei-lms-question-block {
+		&__answer--ordering {
+			margin: 28px 0;
+			padding: 0;
+
+			li {
+				list-style: none;
+			}
+		}
+		&__answer--ordering {
+			.editor-styles-wrapper & li {
+				min-height: 35px;
+			}
+		}
+		&__ordering-answer-option {
+			position: relative;
+			border: 1px solid currentColor;
+			border-radius: 3px;
+			display: flex;
+			margin: 5px 0 5px 0;
+
+			&__input {
+				margin: 10px 40px;
+				flex-basis: auto;
+			}
+		}
+	}
+}

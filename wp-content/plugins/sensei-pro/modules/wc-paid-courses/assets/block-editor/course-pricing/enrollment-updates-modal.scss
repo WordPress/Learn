@@ -1,0 +1,24 @@
+.sensei-wcpc-enrollment-updates-modal {
+	&__table {
+		width: 100%;
+		border: solid 1px #cdccde;
+		margin-bottom: 40px;
+		font-size: 11px;
+
+		thead {
+			position: absolute;
+			left: -9999999px;
+		}
+
+		tbody td:not(&__action) {
+			padding-top: 12px;
+			padding-bottom: 12px;
+		}
+
+		&__product-name {
+			padding-left: 12px;
+			font-size: 13px;
+			font-weight: 600;
+		}
+	}
+}

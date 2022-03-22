@@ -1,0 +1,14 @@
+.sensei-wcpc-new-product-modal {
+	@media (min-width: 600px) {
+		&__fieldset {
+			display: flex;
+			flex-wrap: wrap;
+			margin-bottom: 25px;
+		}
+
+		&__field {
+			width: 50%;
+			padding: 0 26px 15px 0;
+		}
+	}
+}

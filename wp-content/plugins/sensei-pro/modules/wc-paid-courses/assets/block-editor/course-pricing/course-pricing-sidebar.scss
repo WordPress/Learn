@@ -1,0 +1,131 @@
+.sensei-wcpc-course-pricing {
+	&__loading {
+		width: 100%;
+		text-align: center;
+
+		.components-spinner {
+			position: relative;
+			top: 0;
+			right: 0;
+		}
+	}
+
+	&__selection-list-wrapper {
+		display: flex;
+		padding: 12px 7px 12px 12px;
+		max-height: 176px;
+		margin: 8px 0;
+		border: solid 1px #8c8f94;
+		border-radius: 2px;
+	}
+
+	&__selection-list {
+		overflow: auto;
+		margin: 0;
+
+		&__item {
+			padding: 4px 4px 1px;
+
+			&__name {
+				display: block;
+				margin-bottom: 4px;
+			}
+			&__details {
+				display: block;
+				font-size: 10px;
+			}
+			&__price {
+				display: inline;
+				margin-right: 12px;
+			}
+
+			.components-base-control__field {
+				display: flex;
+				margin-bottom: 0;
+			}
+			.components-checkbox-control__label {
+				flex: 1;
+			}
+			.woocommerce-Price-amount {
+				display: inline;
+			}
+			// Fix conflict that make checkbox not work in the meta box area.
+			.edit-post-meta-boxes-area .metabox-location-side & .components-checkbox-control__input[type="checkbox"]:checked {
+				background: var(--wp-admin-theme-color);
+				border-color: var(--wp-admin-theme-color);
+			}
+		}
+	}
+
+	&__selected-list {
+		margin: 0 0 12px;
+
+		&__item {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 0 0 0 10px;
+			margin-bottom: 5px;
+			border-radius: 2px;
+			background-color: #c3c4c7;
+		}
+
+		&__product-text {
+			padding: 4px 0;
+		}
+
+		&__price {
+			display: inline;
+		}
+
+		&__remove-button.has-icon {
+			padding: 0;
+			width: auto;
+			height: auto;
+		}
+	}
+
+	&__notice {
+		margin: 12px 0;
+
+		&.components-notice.is-dismissible {
+			padding-right: 12px;
+		}
+
+		.components-notice__action.components-button {
+			margin-left: 0;
+		}
+	}
+
+	&__new-product-fieldset {
+		padding: 10px 0;
+	}
+}
+
+.sensei-wcpc-new-product {
+	&__action-buttons {
+		display: flex;
+		margin: 0;
+		padding: 0;
+
+		> li {
+			margin: 0;
+			padding: 0;
+
+			&:not(:first-child) {
+				margin-left: 10px;
+			}
+		}
+	}
+
+	&__create-product-button {
+		.components-spinner {
+			margin-top: 0;
+			margin-right: 0;
+		}
+	}
+
+	&__error {
+		margin: 0 0 15px;
+	}
+}

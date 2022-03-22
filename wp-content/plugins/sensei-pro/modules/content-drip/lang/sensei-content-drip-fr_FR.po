@@ -1,0 +1,269 @@
+# Copyright (C) 2020 sensei-content-drip
+# This file is distributed under the same license as the sensei-content-drip package.
+msgid ""
+msgstr ""
+"Project-Id-Version: sensei-content-drip\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: https://www.transifex.com/woothemes/sensei-by-"
+"woothemes/\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;"
+"_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;"
+"esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"POT-Creation-Date: 2020-11-04 13:18+0000\n"
+"PO-Revision-Date: 2020-11-09 07:12-0500\n"
+"Last-Translator: Régis\n"
+"Language-Team: Français\n"
+"Language: fr_FR\n"
+"X-Generator: Poedit 2.4.1\n"
+"X-Loco-Version: 2.4.3; wp-5.4.4\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#. translators: %1$s is version of PHP that SCD requires; %2$s is the version of PHP WordPress is running on.
+#: includes/class-scd-ext-dependency-checker.php:91
+msgid ""
+"<strong>Sensei Content Drip</strong> requires a minimum PHP version of %1$s, "
+"but you are running %2$s."
+msgstr ""
+
+#: includes/class-scd-ext-dependency-checker.php:101
+msgid "Learn more about updating PHP"
+msgstr ""
+
+#. translators: accessibility text
+#: includes/class-scd-ext-dependency-checker.php:103
+msgid "(opens in a new tab)"
+msgstr ""
+
+#. translators: %1$s is the minimum version number of Sensei that is required.
+#: includes/class-scd-ext-dependency-checker.php:122
+msgid ""
+"<strong>Sensei Content Drip</strong> requires that the plugin "
+"<strong>Sensei</strong> (minimum version: <strong>%1$s</strong>) is "
+"installed and activated."
+msgstr ""
+
+#: includes/class-scd-ext-drip-email.php:267
+msgid "New Lessons Available"
+msgstr "Nouvelles leçons disponibles"
+
+#: includes/class-scd-ext-drip-email.php:306
+msgid "Lessons available today"
+msgstr "Leçons disponibles aujourd'hui"
+
+#: includes/class-scd-ext-drip-email.php:329
+msgid "Good Day"
+msgstr "Bonjour"
+
+#: includes/class-scd-ext-lesson-admin.php:75
+msgid "Sensei Content Drip"
+msgstr ""
+
+#: includes/class-scd-ext-lesson-admin.php:92
+msgctxt "column name"
+msgid "Drip Schedule"
+msgstr ""
+
+#: includes/class-scd-ext-lesson-admin.php:138
+msgid "Immediately"
+msgstr ""
+
+#: includes/class-scd-ext-lesson-admin.php:141
+msgid "On %s"
+msgstr ""
+
+#: includes/class-scd-ext-lesson-admin.php:155
+msgid "After %s"
+msgstr ""
+
+#: includes/class-scd-ext-lesson-admin.php:187
+msgid ""
+"In order to use the content drip settings, please select a course for this "
+"lesson."
+msgstr ""
+
+#: includes/class-scd-ext-lesson-admin.php:218
+msgid "When should this lesson become available?"
+msgstr "Quand cette leçon devrait-elle être disponible?"
+
+#: includes/class-scd-ext-lesson-admin.php:220
+msgid "As soon as the course is started"
+msgstr ""
+
+#: includes/class-scd-ext-lesson-admin.php:221
+msgid "On a specific date"
+msgstr ""
+
+#: includes/class-scd-ext-lesson-admin.php:226
+msgid "A specific interval after the course start date"
+msgstr ""
+
+#: includes/class-scd-ext-lesson-admin.php:230
+msgid ""
+"Select the date on which this lesson should become available (accepted date "
+"format is %s)"
+msgstr ""
+
+#: includes/class-scd-ext-lesson-admin.php:237
+msgid "Please select a course for this lesson in order to use this drip type."
+msgstr ""
+
+#: includes/class-scd-ext-lesson-admin.php:244
+msgid "Day(s)"
+msgstr ""
+
+#: includes/class-scd-ext-lesson-admin.php:245
+msgid "Week(s)"
+msgstr ""
+
+#: includes/class-scd-ext-lesson-admin.php:246
+msgid "Month(s)"
+msgstr ""
+
+#: includes/class-scd-ext-lesson-admin.php:251
+msgid "Send Test Email to %s"
+msgstr ""
+
+#: includes/class-scd-ext-lesson-admin.php:330
+msgid "Please choose a date under the  \"Absolute\" select box."
+msgstr ""
+
+#: includes/class-scd-ext-lesson-admin.php:351
+msgid ""
+"The date format you selected cannot be parsed (we expect dates to be "
+"formatted like \"%s\")"
+msgstr ""
+
+#: includes/class-scd-ext-lesson-admin.php:373
+msgid ""
+"Please select the correct units for your chosen option \"After previous "
+"lesson\" ."
+msgstr ""
+
+#: includes/class-scd-ext-lesson-admin.php:376
+msgid ""
+"Please enter a numberic unit number for your chosen option \"After previous "
+"lesson\" ."
+msgstr ""
+
+#: includes/class-scd-ext-lesson-admin.php:425
+msgid "The content drip type was reset to \"none\"."
+msgstr ""
+
+#: includes/class-scd-ext-lesson-admin.php:427
+msgctxt "type and message"
+msgid "Sensei Content Drip %s: %s"
+msgstr ""
+
+#: includes/class-scd-ext-manual-drip.php:99
+msgid "Manual Content Drip"
+msgstr ""
+
+#: includes/class-scd-ext-manual-drip.php:103
+msgid ""
+"Use this to give a learner access to any lesson (or remove existing access), "
+"overriding the content drip schedule."
+msgstr ""
+
+#: includes/class-scd-ext-manual-drip.php:107
+msgid "Select learner"
+msgstr ""
+
+#: includes/class-scd-ext-manual-drip.php:127
+msgid "Select a Lesson"
+msgstr ""
+
+#: includes/class-scd-ext-manual-drip.php:143,
+#: includes/class-scd-ext-manual-drip.php:226
+msgid "Give Access"
+msgstr ""
+
+#: includes/class-scd-ext-manual-drip.php:225
+msgid "Remove Access"
+msgstr ""
+
+#: includes/class-scd-ext-manual-drip.php:243
+msgid "Manual Drip Status Saved"
+msgstr ""
+
+#: includes/class-scd-ext-manual-drip.php:364,
+#: includes/class-scd-ext-settings.php:61
+msgid "Content Drip"
+msgstr "Contenu nouveau"
+
+#: includes/class-scd-ext-manual-drip.php:417
+msgid "The userID( %d ) is invalid, there is no user that matches this ID "
+msgstr ""
+
+#: includes/class-scd-ext-manual-drip.php:432
+msgid "The lessonId( %d ) is invalid, there is no lesson that matches this ID "
+msgstr ""
+
+#: includes/class-scd-ext-settings.php:62
+msgid "Optional settings for the Content Drip extension"
+msgstr ""
+
+#: includes/class-scd-ext-settings.php:78
+msgid "Drip Message"
+msgstr ""
+
+#: includes/class-scd-ext-settings.php:79
+msgid ""
+"The user will see this when the content is not yet available. The [date] "
+"shortcode will be replaced by the actual date"
+msgstr ""
+
+#: includes/class-scd-ext-settings.php:81
+msgid "This lesson will become available on [date]."
+msgstr "Cette leçon sera disponible le [date]."
+
+#: includes/class-scd-ext-settings.php:86
+msgid "Quiz Drip Message"
+msgstr ""
+
+#: includes/class-scd-ext-settings.php:87
+msgid ""
+"The user will see this on the lesson quiz when the lesson is not yet "
+"available. The [date] shortcode will be replaced by the actual date"
+msgstr ""
+
+#: includes/class-scd-ext-settings.php:89
+msgid "This quiz will become available on [date]."
+msgstr ""
+
+#: includes/class-scd-ext-settings.php:95
+msgid "Email Notifications"
+msgstr ""
+
+#: includes/class-scd-ext-settings.php:96
+msgid "Disable Email Notifications"
+msgstr ""
+
+#: includes/class-scd-ext-settings.php:103
+msgid "Email Before Lessons"
+msgstr ""
+
+#: includes/class-scd-ext-settings.php:104
+msgid "The text before the list of lessons dripping today."
+msgstr ""
+
+#: includes/class-scd-ext-settings.php:106
+msgid "The following lessons will become available today:"
+msgstr "Les leçons suivantes seront disponibles aujourd'hui :"
+
+#: includes/class-scd-ext-settings.php:111
+msgid "Email Footer"
+msgstr ""
+
+#: includes/class-scd-ext-settings.php:112
+msgid "The text below the list of lessons dripping today"
+msgstr ""
+
+#: includes/class-scd-ext-settings.php:114
+msgid "Visit the online course today to start taking the lessons: [home_url]"
+msgstr "Rendez-vous sur le site pour commencer vos leçons : [home_url]"

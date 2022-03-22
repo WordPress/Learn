@@ -1,0 +1,57 @@
+.sensei-pro-install-sensei {
+	margin: 60px auto 0;
+	width: 100%;
+	max-width: $content-width;
+
+	&__header {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+
+	&__title {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		margin: 0;
+	}
+
+	&__title-icon {
+		margin-right: 0.5rem;
+		fill: var(--wp-admin-theme-color);
+		&--warning {
+			fill: $alert-red;
+		}
+		&--installing {
+			animation: spin 1300ms linear infinite;
+		}
+	}
+
+	&__title-note {
+		margin-bottom: 0;
+	}
+
+	&__body {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	&__fail-link {
+		color: $alert-red;
+		&:active,
+		&:hover {
+			color: $alert-red;
+		}
+	}
+}
+
+@keyframes spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}

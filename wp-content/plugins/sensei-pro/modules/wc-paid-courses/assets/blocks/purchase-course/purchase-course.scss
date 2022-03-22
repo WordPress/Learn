@@ -1,0 +1,176 @@
+$primary: #43af99;
+
+@import "./product-association-modal.scss";
+@import "./new-product-modal.scss";
+@import "~sensei/assets/blocks/editor-components/toolbar-dropdown/toolbar-dropdown.scss";
+
+.wp-block-sensei-lms-purchase-course__products {
+	.wp-block-sensei-lms-purchase-course__products {
+		&__list {
+			display: flex;
+			flex-wrap: wrap;
+			list-style: none;
+			margin: -12px 0 12px -12px;
+			padding: 0;
+			font-family: inherit;
+		}
+
+		&__item {
+			display: flex;
+			align-items: stretch;
+			flex-grow: 1;
+			width: calc(100% / 3 - 12px);
+			margin: 12px 0 0 12px;
+			background-color: #f3f3f3;
+
+			label {
+				width: 100%;
+				margin-bottom: 0;
+			}
+		}
+
+		&__radio {
+			position: fixed;
+			left: -1000vw;
+		}
+
+		&__radio:checked + span {
+			box-shadow: inset 0 0 0 3px #1a1d20;
+		}
+
+		&__label {
+			display: block;
+			font-weight: normal;
+			flex: 1;
+			padding: 14px;
+			font-size: 16px;
+			width: 100%;
+			height: 100%;
+			box-sizing: border-box;
+		}
+
+		&__product-title {
+			display: block;
+			margin-bottom: 10px;
+		}
+
+		&__product-description {
+			display: block;
+			margin-top: 10px;
+			margin-bottom: 20px;
+			font-size: 14px;
+		}
+
+		&__price {
+			margin-top: 10px;
+			font-weight: bold;
+
+			ins {
+				text-decoration: none;
+			}
+
+			del {
+				margin-right: 5px;
+				opacity: 0.6;
+				text-decoration: line-through;
+				font-weight: normal;
+			}
+		}
+	}
+}
+
+.wp-block-sensei-lms-purchase-course__centered-spinner {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 66px;
+}
+
+.sensei-product-tour {
+	&.components-guide {
+		width: 325px;
+		height: 504px;
+	}
+
+	&__image-container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 252px;
+		overflow: hidden; // It crops 2px of the image. A border had appeared at the bottom due to the gif quality.
+		margin-bottom: 16px;
+		background-color: $primary;
+	}
+
+	&__image {
+		width: 100%;
+		height: 254px;
+	}
+
+	&__heading {
+		font-size: 20px;
+		font-weight: 400;
+		line-height: 1.4;
+		color: #1e1e1e;
+		margin: 16px 0 8px 0;
+		padding: 0 24px;
+	}
+
+	&__text {
+		font-size: 13px;
+		line-height: 1.4;
+		color: #757575;
+		margin: 0 0 24px 0;
+		padding: 0 24px;
+	}
+
+	.components-guide__page-control li[aria-current="step"] circle {
+		fill: $primary;
+	}
+
+	.components-guide__footer .components-button {
+		height: 36px;
+
+		&.components-guide {
+			&__forward-button,
+			&__finish-button {
+				display: inline-block;
+				width: 112px;
+				text-align: center;
+				font-weight: 400;
+				background-color: $primary;
+				border-color: $primary;
+				color: #000;
+
+				&:hover,
+				&:active {
+					background-color: lighten($primary, 5%);
+					border-color: lighten($primary, 5%);
+					text-decoration: none;
+				}
+
+				&:focus {
+					background-color: darken($primary, 5%);
+					border-color: darken($primary, 5%);
+					box-shadow: 0 0 0 1px #fff, 0 0 0 3px $primary;
+				}
+
+				&:hover,
+				&:active,
+				&:focus {
+					color: #000;
+				}
+			}
+
+			&__back-button {
+				&:hover {
+					color: $primary;
+				}
+
+				&:focus {
+					box-shadow: 0 0 0 1px $primary;
+				}
+			}
+		}
+	}
+}

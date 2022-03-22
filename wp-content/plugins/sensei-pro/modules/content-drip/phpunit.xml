@@ -1,0 +1,20 @@
+<phpunit
+	bootstrap="tests/bootstrap.php"
+	backupGlobals="false"
+	colors="true"
+	convertErrorsToExceptions="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
+	>
+	<php>
+		<server name='HTTP_HOST' value='http://localhost' />
+		<server name="SERVER_NAME" value="http://foo.bar"/>
+		<server name="SERVER_PORT" value="80"/>
+		<server name="REMOTE_ADDR" value="127.1.2.3"/>
+	</php>
+	<testsuites>
+		<testsuite>
+			<directory prefix="test-" suffix=".php">./tests/</directory>
+		</testsuite>
+	</testsuites>
+</phpunit>

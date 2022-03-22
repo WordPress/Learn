@@ -1,0 +1,17 @@
+.sensei-learners-main {
+	.access-expiration {
+		max-width: 120px;
+	}
+}
+
+.sensei-learners-wrap {
+	table .user_status {
+		.incomplete {
+			&::before {
+				margin-right: 5px;
+				content: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCAxMiAxMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KCTxjaXJjbGUgY3g9IjYiIGN5PSI2IiByPSI1IiBmaWxsPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2U9IiM1MDU3NUUiLz4KCTxsaW5lIHgxPSIzLjUiIHkxPSI2IiB4Mj0iOC41IiB5Mj0iNiIgc3Ryb2tlLXdpZHRoPSIxLjIiIHN0cm9rZT0iIzUwNTc1RSIvPgo8L3N2Zz4K);
+				vertical-align: middle;
+			}
+		}
+	}
+}

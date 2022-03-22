@@ -1,0 +1,34 @@
+/**
+* Admin Lesson new and edit screen css
+*/
+#content-drip-lesson.postbox {
+
+	input[type="number"]::-webkit-inner-spin-button,
+	input[type="number"]::-webkit-outer-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+
+	.dripTypeOptions {
+		margin: 1em 0;
+	}
+
+	input.unit-amount {
+		width: 4em;
+		font-size: 14px;
+	}
+
+	div.dynamic-dripping {
+		clear: both;
+		width: 100%;
+	}
+	select#dynamic-drip-related-lessons {
+		display: inline;
+		width: 60%;
+	}
+
+	#dynamic-dripping-1 {
+		clear: left;
+		display: inline;
+	}
+}
