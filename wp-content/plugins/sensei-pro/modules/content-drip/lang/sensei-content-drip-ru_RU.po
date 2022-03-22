@@ -1,0 +1,220 @@
+# Copyright (C) 2018 sensei-content-drip
+# This file is distributed under the same license as the sensei-content-drip package.
+msgid ""
+msgstr ""
+"Project-Id-Version: sensei-content-drip\n"
+"Report-Msgid-Bugs-To: https://www.transifex.com/woothemes/sensei-by-woothemes/\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2018-08-26 20:38+0500\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"POT-Creation-Date: \n"
+"Last-Translator: Airat Halitov <translate@airat.biz>\n"
+"Language-Team: Airat Halitov <translate@airat.biz>\n"
+"Language: ru_RU\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: includes/class-scd-ext-drip-email.php:266,
+#: includes/class-scd-ext-settings.php:61
+msgid "Content Drip"
+msgstr "Доставка контента"
+
+#: includes/class-scd-ext-drip-email.php:305
+msgid "Lessons dripping today"
+msgstr "Сегодня открываются уроки"
+
+#: includes/class-scd-ext-drip-email.php:334
+msgid "Good Day"
+msgstr "Добрый день"
+
+#: includes/class-scd-ext-lesson-admin.php:75
+msgid "Sensei Content Drip"
+msgstr "Доставка контента Sensei"
+
+#: includes/class-scd-ext-lesson-admin.php:92
+msgctxt "column name"
+msgid "Drip Schedule"
+msgstr "Расписание доставки"
+
+#: includes/class-scd-ext-lesson-admin.php:132
+msgid "Immediately"
+msgstr "Немедленно"
+
+#: includes/class-scd-ext-lesson-admin.php:135
+msgid "On %s"
+msgstr "%s"
+
+#: includes/class-scd-ext-lesson-admin.php:149
+msgid "After %s"
+msgstr "Через %s"
+
+#: includes/class-scd-ext-lesson-admin.php:181
+msgid "In order to use the content drip settings, please select a course for this lesson."
+msgstr "Чтобы использовать настройки доставки контента, выберите курс для этого урока."
+
+#: includes/class-scd-ext-lesson-admin.php:212
+msgid "When should this lesson become available?"
+msgstr "Когда этот урок станет доступным?"
+
+#: includes/class-scd-ext-lesson-admin.php:214
+msgid "As soon as the course is started"
+msgstr "Как только начнется курс"
+
+#: includes/class-scd-ext-lesson-admin.php:215
+msgid "On a specific date"
+msgstr "В определенную дату"
+
+#: includes/class-scd-ext-lesson-admin.php:220
+msgid "A specific interval after the course start date"
+msgstr "Определенный интервал после начала курса"
+
+#: includes/class-scd-ext-lesson-admin.php:224
+msgid "Select the date on which this lesson should become available (accepted date format is %s)"
+msgstr "Выберите дату, когда этот урок должен стать доступным (принятый формат даты: %s)"
+
+#: includes/class-scd-ext-lesson-admin.php:231
+msgid "Please select a course for this lesson in order to use this drip type."
+msgstr "Пожалуйста, выберите курс для этого урока, чтобы использовать этот тип доставки."
+
+#: includes/class-scd-ext-lesson-admin.php:238
+msgid "Day(s)"
+msgstr "День"
+
+#: includes/class-scd-ext-lesson-admin.php:239
+msgid "Week(s)"
+msgstr "Неделя"
+
+#: includes/class-scd-ext-lesson-admin.php:240
+msgid "Month(s)"
+msgstr "Месяц"
+
+#: includes/class-scd-ext-lesson-admin.php:245
+msgid "Send Test Email to %s"
+msgstr "Тестовый email на %s"
+
+#: includes/class-scd-ext-lesson-admin.php:324
+msgid "Please choose a date under the  \"Absolute\" select box."
+msgstr "Пожалуйста, выберите дату в поле выбора \"абсолютной\" даты."
+
+#: includes/class-scd-ext-lesson-admin.php:345
+msgid "The date format you selected cannot be parsed (we expect dates to be formatted like \"%s\")"
+msgstr "Выбранный формат даты не может быть распознан (мы ожидаем, что даты будут в формате \"%s\")"
+
+#: includes/class-scd-ext-lesson-admin.php:367
+msgid "Please select the correct units for your chosen option \"After previous lesson\" ."
+msgstr "Пожалуйста, выберите правильные единицы для выбранного вами варианта \"После предыдущего урока\"."
+
+#: includes/class-scd-ext-lesson-admin.php:370
+msgid "Please enter a numberic unit number for your chosen option \"After previous lesson\" ."
+msgstr "Пожалуйста, введите число для выбранного вами варианта \"После предыдущего урока\"."
+
+#: includes/class-scd-ext-lesson-admin.php:419
+msgid "The content drip type was reset to \"none\"."
+msgstr "Тип доставки контента был сброшен на \"никакой\"."
+
+#: includes/class-scd-ext-lesson-admin.php:421
+msgctxt "type and message"
+msgid "Sensei Content Drip %s: %s"
+msgstr "Доставка контента Sensei  %s: %s"
+
+#: includes/class-scd-ext-manual-drip.php:81
+msgid "Manual Content Drip"
+msgstr "Ручная доставка контента"
+
+#: includes/class-scd-ext-manual-drip.php:85
+msgid "Use this to give a learner access to any lesson (or remove existing access), overriding the content drip schedule."
+msgstr "Используйте это, чтобы предоставить ученику доступ к любому уроку (или удалить существующий доступ), переопределяя расписание доставки контента."
+
+#: includes/class-scd-ext-manual-drip.php:89
+msgid "Select learner"
+msgstr "Выбрать ученика"
+
+#: includes/class-scd-ext-manual-drip.php:109
+msgid "Select a Lesson"
+msgstr "Выбрать урок"
+
+#: includes/class-scd-ext-manual-drip.php:123
+msgid "Give Access"
+msgstr "Открыть доступ"
+
+#: includes/class-scd-ext-manual-drip.php:217
+msgid "Manual Drip Status Saved"
+msgstr "Статус ручной доставки контента сохранен"
+
+#: includes/class-scd-ext-manual-drip.php:373
+msgid "The userID( %d ) is invalid, there is no user that matches this ID "
+msgstr "userID( %d ) пользователя недействителен, нет пользователя, который соответствует этому идентификатору "
+
+#: includes/class-scd-ext-manual-drip.php:388
+msgid "The lessonId( %d ) is invalid, there is no lesson that matches this ID "
+msgstr "lessonID( %d ) урока недействителен, нет уроков, которые соответствуют этому идентификатору "
+
+#: includes/class-scd-ext-settings.php:62
+msgid "Optional settings for the Content Drip extension"
+msgstr "Дополнительные настройки для расширения по доставке контента"
+
+#: includes/class-scd-ext-settings.php:78
+msgid "Drip Message"
+msgstr "Сообщение о доставке"
+
+#: includes/class-scd-ext-settings.php:79
+msgid "The user will see this when the content is not yet available. The [date] shortcode will be replaced by the actual date"
+msgstr "Пользователь увидит это, когда контент еще не доступен. Шорткод [date] будет заменен фактической датой"
+
+#: includes/class-scd-ext-settings.php:81
+msgid "This lesson will become available on [date]."
+msgstr "Этот урок станет доступен [date]."
+
+#: includes/class-scd-ext-settings.php:86
+msgid "Quiz Drip Message"
+msgstr "Сообщение о доставке опроса"
+
+#: includes/class-scd-ext-settings.php:87
+msgid "The user will see this on the lesson quiz when the lesson is not yet available. The [date] shortcode will be replaced by the actual date"
+msgstr "Пользователь увидит это, когда опрос урока еще не доступен. Шорткод [date] будет заменен фактической датой"
+
+#: includes/class-scd-ext-settings.php:89
+msgid "This quiz will become available on [date]."
+msgstr "Этот опрос станет доступен [date]."
+
+#: includes/class-scd-ext-settings.php:95
+msgid "Email Notifications"
+msgstr "Email уведомления"
+
+#: includes/class-scd-ext-settings.php:96
+msgid "Disable Email Notifications"
+msgstr "Отключить уведомления по электронной почте"
+
+#: includes/class-scd-ext-settings.php:103
+msgid "Email Before Lessons"
+msgstr "Email перед уроками"
+
+#: includes/class-scd-ext-settings.php:104
+msgid "The text before the list of lessons dripping today."
+msgstr "Текст перед списком доступных сегодня уроков."
+
+#: includes/class-scd-ext-settings.php:106
+msgid "The following lessons will become available today:"
+msgstr "Сегодня будут доступны следующие уроки:"
+
+#: includes/class-scd-ext-settings.php:111
+msgid "Email Footer"
+msgstr "Подвал письма"
+
+#: includes/class-scd-ext-settings.php:112
+msgid "The text below the list of lessons dripping today"
+msgstr "Текст под списком доступных сегодня уроков."
+
+#: includes/class-scd-ext-settings.php:114
+msgid "Visit the online course today to start taking the lessons: [home_url]"
+msgstr "Посетите онлайн-курс сегодня, чтобы начать проходить уроки: [home_url]"
+
+#: includes/class-scd-ext-utilities.php:129
+msgid "$default_message"
+msgstr "$default_message"

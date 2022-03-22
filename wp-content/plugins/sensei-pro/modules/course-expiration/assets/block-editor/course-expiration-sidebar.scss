@@ -1,0 +1,23 @@
+.sensei-wcpc-course-expiration {
+	&__intro {
+		margin-bottom: 24px;
+	}
+
+	&__expires-after {
+		display: flex;
+		padding-top: 20px;
+
+		> * {
+			flex: 1;
+		}
+	}
+
+	&__expiration-length {
+		width: calc(50% - 10px);
+		margin-right: 10px;
+	}
+
+	&__help-text {
+		font-size: 12px;
+	}
+}

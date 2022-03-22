@@ -1,0 +1,25 @@
+.sensei-pro-setup-header {
+	background-color: $primary;
+
+	// Need to bleed out to cover whole content are
+	margin: 0 -20px;
+	padding: 40px 20px;
+	@media screen and (max-width: $break-medium) {
+		margin: 0 -10px;
+		padding: 20px 10px;
+	}
+
+	&__content {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		align-items: center;
+		margin: auto;
+		max-width: $content-width;
+	}
+
+	&__title {
+		margin: 0 0 0 20px;
+		color: $white;
+	}
+}

@@ -1,0 +1,77 @@
+.sensei-wcpc-product-association-modal {
+	&__actions {
+		display: flex;
+		align-items: center;
+		margin-bottom: 16px;
+	}
+
+	&__search {
+		position: relative;
+		width: 100%;
+		max-width: 300px;
+		margin-right: 20px;
+		background-color: #f3f4f5;
+		border-radius: 2px;
+
+		/* The search specification is only to override some styles. */
+		&__input[type="search"] {
+			width: 100%;
+			height: 40px;
+			padding: 0 50px 0 16px;
+			background-color: transparent;
+			border: none;
+		}
+
+		&__icon {
+			position: absolute;
+			right: 15px;
+			top: 8px;
+		}
+	}
+
+	&__loading {
+		text-align: center;
+	}
+
+	&__products {
+		margin-bottom: 40px;
+
+		@media (min-width: 600px) {
+			height: 190px;
+			overflow: auto;
+		}
+	}
+
+	&__products-table {
+		width: 100%;
+		font-size: 11px;
+
+		thead {
+			position: absolute;
+			left: -9999999px;
+		}
+
+		tbody td {
+			padding-top: 12px;
+			padding-bottom: 12px;
+		}
+
+		&__checkbox-column {
+			width: 1px;
+			padding-left: 2px;
+
+			.components-base-control__field,
+			.components-checkbox-control__input-container,
+			.components-checkbox-control__input {
+				margin: 0;
+			}
+		}
+
+		&__product-name {
+			display: block;
+			padding-left: 15px;
+			font-size: 13px;
+			font-weight: 600;
+		}
+	}
+}

@@ -1,0 +1,35 @@
+@import "../block-editor/course-pricing/course-pricing-sidebar.scss";
+@import "../block-editor/course-pricing/enrollment-updates-modal.scss";
+@import "../editor-components/wcpc-modal/wcpc-modal.scss";
+
+/**
+ * Recalculation confirmation modal. Used in classic editor
+ */
+.user-confirmation-modal__frame {
+	min-width: 360px;
+	max-width: 800px;
+	border-radius: 0;
+
+	hr {
+		margin: 0 -30px;
+	}
+
+	.user-confirmation-modal__button-container {
+		text-align: right;
+	}
+
+	.button {
+		margin: 12px 0 0;
+	}
+}
+
+.user-confirmation-modal__overlay {
+	z-index: 999999;
+}
+
+/**
+ * Override height coming from `components-button` class since WP 5.4.
+ */
+.sensei-course-products .components-button {
+	height: auto;
+}

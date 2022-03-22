@@ -1,0 +1,36 @@
+@import "~@wordpress/base-styles/variables";
+@import "~@wordpress/base-styles/breakpoints";
+
+@import "./styles/variables";
+@import "../js/Header/style";
+@import "../js/ActivateLicense/style";
+@import "../js/InstallSensei/style";
+
+body.sensei-pro-setup {
+	background-color: $gray-0;
+}
+
+.sensei-pro-setup__container {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: -20px;
+	height: calc(100vh - $admin-bar-height);
+	padding: 0 20px;
+	background-color: #f6f7f7;
+	@media screen and (max-width: $break-medium) {
+		left: -10px;
+		padding: 0 10px;
+		height: calc(100vh - $admin-bar-height-big);
+	}
+
+	@media screen and (max-width: $break-small) {
+		padding-top: $admin-bar-height-big;
+	}
+}
+
+.sensei-pro-setup__extensions-separator {
+	width: 100%;
+	height: 40px;
+}

@@ -1,0 +1,14 @@
+{
+  "name": "sensei-lms/quiz-timer",
+  "category": "sensei-lms",
+  "supports": {
+    "html": false,
+    "multiple": false
+  },
+  "attributes": {
+    "time": {
+      "type": "integer",
+      "default": null
+    }
+  }
+}

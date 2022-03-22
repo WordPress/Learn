@@ -1,0 +1,1601 @@
+# Copyright (C) 2022 Automattic
+# This file is distributed under the same license as the Sensei Pro plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Sensei Pro 1.0.2\n"
+"Report-Msgid-Bugs-To: https://woocommerce.com/support\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2022-03-08T17:41:34+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: sensei-pro\n"
+
+#: modules/advanced-quiz/assets/blocks/ordering/answer-blocks/ordering-answer-controls.js:24
+#: assets/dist/advanced-quiz/blocks/ordering-question-type.js:1
+msgid "Move up"
+msgstr ""
+
+#: modules/advanced-quiz/assets/blocks/ordering/answer-blocks/ordering-answer-controls.js:31
+#: assets/dist/advanced-quiz/blocks/ordering-question-type.js:1
+msgid "Move down"
+msgstr ""
+
+#: modules/advanced-quiz/assets/blocks/ordering/answer-blocks/ordering-answer-option.js:68
+#: assets/dist/advanced-quiz/blocks/ordering-question-type.js:1
+msgid "Add Answer"
+msgstr ""
+
+#: modules/advanced-quiz/assets/blocks/ordering/index.js:25
+#: modules/advanced-quiz/includes/advanced-questions/class-ordering-question-type.php:98
+#: assets/dist/advanced-quiz/blocks/ordering-question-type.js:1
+msgid "Ordering"
+msgstr ""
+
+#: modules/advanced-quiz/assets/blocks/ordering/index.js:26
+#: assets/dist/advanced-quiz/blocks/ordering-question-type.js:1
+msgid "Place the answers in the correct order."
+msgstr ""
+
+#: modules/advanced-quiz/assets/blocks/ordering/index.js:41
+#: assets/dist/advanced-quiz/blocks/ordering-question-type.js:1
+msgid "Add at least two answers"
+msgstr ""
+
+#: modules/advanced-quiz/assets/blocks/ordering/subtitle/ordering-subtitle.js:12
+#: assets/dist/advanced-quiz/blocks/ordering-question-type.js:1
+msgid "Answers will be randomly shuffled on the quiz."
+msgstr ""
+
+#: modules/advanced-quiz/assets/blocks/quiz-timer/quiz-timer.edit.js:34
+msgid "Quiz time limit"
+msgstr ""
+
+#: modules/advanced-quiz/assets/blocks/quiz-timer/quiz-timer.edit.js:39
+msgid "Remove quiz time timit"
+msgstr ""
+
+#: modules/advanced-quiz/assets/blocks/quiz-timer/quiz-timer.edit.js:45
+msgid "Remove"
+msgstr ""
+
+#: modules/advanced-quiz/assets/blocks/quiz-timer/quiz-timer.edit.js:53
+#: modules/advanced-quiz/assets/blocks/quiz-timer/with-quiz-timer-settings.js:94
+#: assets/dist/advanced-quiz/blocks/quiz-timer.js:1
+msgid "minutes"
+msgstr ""
+
+#: modules/advanced-quiz/assets/blocks/quiz-timer/quiz-timer.edit.js:76
+msgid "Add quiz time limit"
+msgstr ""
+
+#: modules/advanced-quiz/assets/blocks/quiz-timer/with-quiz-timer-settings.js:121
+#: assets/dist/advanced-quiz/blocks/quiz-timer.js:1
+msgid "Quiz Timer Settings"
+msgstr ""
+
+#: modules/advanced-quiz/assets/blocks/quiz-timer/with-quiz-timer-settings.js:80
+#: assets/dist/advanced-quiz/blocks/quiz-timer.js:1
+msgid "Quiz Timer"
+msgstr ""
+
+#: modules/advanced-quiz/assets/blocks/quiz-timer/with-quiz-timer-settings.js:96
+#: assets/dist/advanced-quiz/blocks/quiz-timer.js:1
+msgid "Clear"
+msgstr ""
+
+#: modules/advanced-quiz/assets/blocks/quiz-timer/with-quiz-timer-settings.js:97
+#: assets/dist/advanced-quiz/blocks/quiz-timer.js:1
+msgid "Specify how much time a student will have to complete the quiz."
+msgstr ""
+
+#: modules/advanced-quiz/assets/sensei/number-control/index.js:70
+#: assets/dist/advanced-quiz/blocks/quiz-timer.js:1
+msgid "Reset"
+msgstr ""
+
+#: modules/course-expiration/assets/block-editor/course-expiration-sidebar.js:109
+#: assets/dist/course-expiration/block-editor/course-expiration.js:1
+msgid "The learner access will expire at midnight on the day of enrollment."
+msgstr ""
+
+#: modules/course-expiration/assets/block-editor/course-expiration-sidebar.js:121
+#: assets/dist/course-expiration/block-editor/course-expiration.js:1
+msgid "Access Period"
+msgstr ""
+
+#: modules/course-expiration/assets/block-editor/course-expiration-sidebar.js:125
+#: assets/dist/course-expiration/block-editor/course-expiration.js:1
+msgid "Set how long learners will have access to this course."
+msgstr ""
+
+#: modules/course-expiration/assets/block-editor/course-expiration-sidebar.js:132
+#: assets/dist/course-expiration/block-editor/course-expiration.js:1
+msgid "Expiration"
+msgstr ""
+
+#: modules/course-expiration/assets/block-editor/course-expiration-sidebar.js:136
+#: assets/dist/course-expiration/block-editor/course-expiration.js:1
+msgid "No expiration"
+msgstr ""
+
+#: modules/course-expiration/assets/block-editor/course-expiration-sidebar.js:140
+#: assets/dist/course-expiration/block-editor/course-expiration.js:1
+msgid "Expires after"
+msgstr ""
+
+#: modules/course-expiration/assets/block-editor/course-expiration-sidebar.js:76
+#: assets/dist/course-expiration/block-editor/course-expiration.js:1
+msgid "Expiration Length"
+msgstr ""
+
+#: modules/course-expiration/assets/block-editor/course-expiration-sidebar.js:86
+#: assets/dist/course-expiration/block-editor/course-expiration.js:1
+msgid "Expiration Period"
+msgstr ""
+
+#: modules/course-expiration/assets/block-editor/course-expiration-sidebar.js:91
+#: modules/content-drip/includes/class-scd-ext-lesson-admin.php:262
+#: assets/dist/course-expiration/block-editor/course-expiration.js:1
+msgid "Month(s)"
+msgstr ""
+
+#: modules/course-expiration/assets/block-editor/course-expiration-sidebar.js:95
+#: modules/content-drip/includes/class-scd-ext-lesson-admin.php:261
+#: assets/dist/course-expiration/block-editor/course-expiration.js:1
+msgid "Week(s)"
+msgstr ""
+
+#: modules/course-expiration/assets/block-editor/course-expiration-sidebar.js:99
+#: modules/content-drip/includes/class-scd-ext-lesson-admin.php:260
+#: assets/dist/course-expiration/block-editor/course-expiration.js:1
+msgid "Day(s)"
+msgstr ""
+
+#: modules/sensei-pro-setup/assets/js/ActivateLicense/ActivationForm.js:46
+#: assets/dist/sensei-pro-setup/licensing_page.js:1
+#: assets/dist/sensei-pro-setup/extensions_page.js:1
+msgid "Activate Sensei Pro"
+msgstr ""
+
+#: modules/sensei-pro-setup/assets/js/ActivateLicense/ActivationForm.js:50
+#: assets/dist/sensei-pro-setup/licensing_page.js:1
+#: assets/dist/sensei-pro-setup/extensions_page.js:1
+msgid ""
+"You can find the key in by navigating to your purchases in your "
+"SenseiLMS.com {{link}}account{{/link}}."
+msgstr ""
+
+#: modules/sensei-pro-setup/assets/js/ActivateLicense/ActivationForm.js:67
+#: assets/dist/sensei-pro-setup/licensing_page.js:1
+#: assets/dist/sensei-pro-setup/extensions_page.js:1
+msgid "License key"
+msgstr ""
+
+#: modules/sensei-pro-setup/assets/js/ActivateLicense/ActivationForm.js:82
+#: assets/dist/sensei-pro-setup/licensing_page.js:1
+#: assets/dist/sensei-pro-setup/extensions_page.js:1
+msgid "Activate"
+msgstr ""
+
+#: modules/sensei-pro-setup/assets/js/ActivateLicense/ActivationSuccess.js:10
+#: assets/dist/sensei-pro-setup/licensing_page.js:1
+#: assets/dist/sensei-pro-setup/extensions_page.js:1
+msgid "Your Sensei Pro is activated!"
+msgstr ""
+
+#: modules/sensei-pro-setup/assets/js/ActivateLicense/ActivationSuccess.js:17
+#: assets/dist/sensei-pro-setup/licensing_page.js:1
+#: assets/dist/sensei-pro-setup/extensions_page.js:1
+msgid "License Key:"
+msgstr ""
+
+#: modules/sensei-pro-setup/assets/js/Header/index.js:17
+#: assets/dist/sensei-pro-setup/licensing_page.js:1
+#: assets/dist/sensei-pro-setup/extensions_page.js:1
+msgid "Now let's activate Sensei Pro"
+msgstr ""
+
+#: modules/sensei-pro-setup/assets/js/Header/index.js:21
+#: assets/dist/sensei-pro-setup/licensing_page.js:1
+#: assets/dist/sensei-pro-setup/extensions_page.js:1
+msgid "Sensei Pro Activated!"
+msgstr ""
+
+#: modules/sensei-pro-setup/assets/js/InstallSensei/InstallSenseiForm.js:57
+#: assets/dist/sensei-pro-setup/licensing_page.js:1
+#: assets/dist/sensei-pro-setup/extensions_page.js:1
+msgid ""
+"Looks like you don't have Sensei installed yet. Sensei Pro needs Sensei "
+"installed in order to be usable."
+msgstr ""
+
+#: modules/sensei-pro-setup/assets/js/InstallSensei/InstallSenseiForm.js:71
+#: assets/dist/sensei-pro-setup/licensing_page.js:1
+#: assets/dist/sensei-pro-setup/extensions_page.js:1
+msgid "Install Sensei"
+msgstr ""
+
+#: modules/sensei-pro-setup/assets/js/InstallSensei/InstallSenseiForm.js:75
+#: assets/dist/sensei-pro-setup/licensing_page.js:1
+#: assets/dist/sensei-pro-setup/extensions_page.js:1
+msgid "Installing… this may take a while."
+msgstr ""
+
+#: modules/sensei-pro-setup/assets/js/InstallSensei/InstallSenseiForm.js:85
+#: assets/dist/sensei-pro-setup/licensing_page.js:1
+#: assets/dist/sensei-pro-setup/extensions_page.js:1
+msgid ""
+"Sensei LMS installation failed. You can try to {{link}}install it "
+"manually{{/link}}."
+msgstr ""
+
+#: modules/sensei-pro-setup/assets/js/InstallSensei/InstallSenseiSuccess.js:20
+#: assets/dist/sensei-pro-setup/licensing_page.js:1
+#: assets/dist/sensei-pro-setup/extensions_page.js:1
+msgid "Sensei is installed!"
+msgstr ""
+
+#: modules/sensei-pro-setup/assets/js/InstallSensei/InstallSenseiSuccess.js:27
+#: assets/dist/sensei-pro-setup/licensing_page.js:1
+#: assets/dist/sensei-pro-setup/extensions_page.js:1
+msgid "Activate Sensei"
+msgstr ""
+
+#: modules/sensei-pro-setup/assets/js/data/constants.js:40
+#: assets/dist/sensei-pro-setup/licensing_page.js:1
+#: assets/dist/sensei-pro-setup/extensions_page.js:1
+msgid "Something went wrong. Please try again."
+msgstr ""
+
+#: modules/sensei-pro-setup/assets/js/data/reducer.js:19
+#: assets/dist/sensei-pro-setup/licensing_page.js:1
+#: assets/dist/sensei-pro-setup/extensions_page.js:1
+msgid "License activation failed. Please try again."
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/course-pricing-sidebar.js:102
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/enrollment-updates-modal.js:63
+#: modules/wc-paid-courses/assets/blocks/purchase-course/product-association-modal.js:174
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "No linked courses"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/course-pricing-sidebar.js:108
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/enrollment-updates-modal.js:66
+#: modules/wc-paid-courses/assets/blocks/purchase-course/product-association-modal.js:177
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+#. placeholder is number of linked courses.
+msgid "%d linked course"
+msgid_plural "%d linked courses"
+msgstr[0] ""
+msgstr[1] ""
+
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/course-pricing-sidebar.js:148
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Pricing"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/course-pricing-sidebar.js:151
+#: modules/wc-paid-courses/assets/blocks/purchase-course/product-association-modal.js:251
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid ""
+"To access this course, learners will need to purchase one of the assigned "
+"products."
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/course-pricing-sidebar.js:164
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Link one or more products to this course to set the price."
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/course-pricing-sidebar.js:168
+#: modules/wc-paid-courses/assets/blocks/purchase-course/product-association-modal.js:264
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Search for a product"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/course-pricing-sidebar.js:63
+#: modules/wc-paid-courses/assets/blocks/purchase-course/product-association-modal.js:119
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid ""
+"You don’t have any products yet. Get started by creating a new WooCommerce "
+"product."
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/course-pricing-sidebar.js:73
+#: modules/wc-paid-courses/assets/blocks/purchase-course/product-association-modal.js:129
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Create a product"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/course-pricing-sidebar.js:78
+#: modules/wc-paid-courses/assets/blocks/purchase-course/product-association-modal.js:134
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "No products found."
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/enrollment-updates-modal.js:109
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "< Back"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/enrollment-updates-modal.js:120
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Enrollment updates"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/enrollment-updates-modal.js:121
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Are you sure you want to make these enrollment updates?"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/enrollment-updates-modal.js:131
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Linking this product may enroll all learners who have already purchased it."
+msgid_plural ""
+"Linking these products may enroll all learners who have already purchased "
+"any of them."
+msgstr[0] ""
+msgstr[1] ""
+
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/enrollment-updates-modal.js:144
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/linked-products.js:45
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Remove product"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/enrollment-updates-modal.js:158
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid ""
+"Unlinking this product may unenroll all the learners who have already "
+"purchased it."
+msgid_plural ""
+"Unlinking these products may unenroll all the learners who have already "
+"purchased any of them."
+msgstr[0] ""
+msgstr[1] ""
+
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/enrollment-updates-modal.js:171
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Add product"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/enrollment-updates-modal.js:44
+#: modules/wc-paid-courses/assets/blocks/purchase-course/product-association-modal.js:141
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Product"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/enrollment-updates-modal.js:45
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/use-new-product-fieldset.js:73
+#: modules/wc-paid-courses/assets/blocks/purchase-course/product-association-modal.js:142
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Price"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/enrollment-updates-modal.js:46
+#: modules/wc-paid-courses/assets/blocks/purchase-course/product-association-modal.js:143
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Linked courses"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/enrollment-updates-modal.js:47
+#: modules/wc-paid-courses/assets/blocks/purchase-course/product-association-modal.js:144
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Purchases"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/enrollment-updates-modal.js:48
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Action"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/enrollment-updates-modal.js:78
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+#. placeholder is the total sales.
+msgid "%d purchase"
+msgid_plural "%d purchases"
+msgstr[0] ""
+msgstr[1] ""
+
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/enrollment-updates-modal.js:98
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Proceed with updates"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/enrollment-updates-notice.js:41
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Review"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/enrollment-updates-notice.js:47
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "You have some enrollment updates"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/new-product-sidebar.js:49
+#: modules/wc-paid-courses/assets/blocks/purchase-course/new-product-modal.js:43
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Create product"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/new-product-sidebar.js:59
+#: modules/wc-paid-courses/assets/blocks/purchase-course/new-product-modal.js:31
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Cancel"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/new-product-sidebar.js:70
+#: modules/wc-paid-courses/assets/blocks/purchase-course/new-product-modal.js:60
+#: modules/wc-paid-courses/assets/blocks/purchase-course/product-association-modal.js:279
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Create a new product"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/store.js:379
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+#. Error message.
+msgid "An error was encountered while fetching products: %s"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/store.js:449
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+#. Error message.
+msgid "An error was encountered while fetching assignable products: %s"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/store.js:504
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+#. Error message.
+msgid "An error was encountered while fetching membership products: %s"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/use-new-product-fieldset.js:107
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+#. Error message.
+msgid "An error was encountered while creating the product: %s"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/use-new-product-fieldset.js:65
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Name"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/course-pricing/use-new-product-fieldset.js:87
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Description (Optional)"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/product-tour/product-tour.js:103
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Image showing the toolbar."
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/product-tour/product-tour.js:115
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+#. User display name.
+msgid "Hi%s! Ready to sell your first course?"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/product-tour/product-tour.js:123
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid ""
+"Simply select “Paid” from the Take Course button toolbar, which will open "
+"an overlay."
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/product-tour/product-tour.js:137
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Image showing how to select a product."
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/product-tour/product-tour.js:147
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Next, select a product."
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/product-tour/product-tour.js:153
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "A product is used to sell the course at your desired price."
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/product-tour/product-tour.js:167
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Image showing how it will look like in the frontend."
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/product-tour/product-tour.js:177
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Nice work! You’re ready to start selling."
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/product-tour/product-tour.js:183
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid ""
+"Learners will have to purchase one of the assigned products to access your "
+"course."
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/product-tour/product-tour.js:91
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "How to sell courses."
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/product-tour/product-tour.js:92
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Done"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/woocommerce-prompt/sidebar.js:12
+#: assets/dist/wc-paid-courses/block-editor/woocommerce-prompt.js:1
+msgid "Pricing "
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/woocommerce-prompt/sidebar.js:15
+#: assets/dist/wc-paid-courses/block-editor/woocommerce-prompt.js:1
+msgid "WooCommerce is required in order to set pricing for a course."
+msgstr ""
+
+#: modules/wc-paid-courses/assets/block-editor/woocommerce-prompt/sidebar.js:26
+#: assets/dist/wc-paid-courses/block-editor/woocommerce-prompt.js:1
+msgid "Get WooCommerce"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/blocks/purchase-course/edit.js:39
+#: modules/wc-paid-courses/assets/blocks/purchase-course/frontend.js:72
+#: modules/wc-paid-courses/includes/blocks/class-block-purchase-course.php:247
+#: modules/wc-paid-courses/includes/blocks/class-block-purchase-course.php:266
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+#: assets/dist/wc-paid-courses/blocks/purchase-course/frontend.js:1
+msgid "Purchase Course"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/blocks/purchase-course/hook.js:27
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Purchase"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/blocks/purchase-course/hook.js:28
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Sell"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/blocks/purchase-course/new-product-modal.js:59
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Product creation"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/blocks/purchase-course/price-selection-toolbar.js:62
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Membership only"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/blocks/purchase-course/price-selection-toolbar.js:63
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:175
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Free"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/blocks/purchase-course/price-selection-toolbar.js:67
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:164
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Paid"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/blocks/purchase-course/price-selection-toolbar.js:76
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Course pricing"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/blocks/purchase-course/product-association-modal.js:140
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Select the product"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/blocks/purchase-course/product-association-modal.js:189
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Toggling this product may affect existing enrollments."
+msgstr ""
+
+#: modules/wc-paid-courses/assets/blocks/purchase-course/product-association-modal.js:195
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Has purchases"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/blocks/purchase-course/product-association-modal.js:202
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "No purchases"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/blocks/purchase-course/product-association-modal.js:217
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+#. placeholder is number of selected products.
+msgid "%d product selected"
+msgid_plural "%d products selected"
+msgstr[0] ""
+msgstr[1] ""
+
+#: modules/wc-paid-courses/assets/blocks/purchase-course/product-association-modal.js:230
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Link products"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/blocks/purchase-course/product-association-modal.js:231
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Update"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/blocks/purchase-course/product-association-modal.js:246
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Course products association"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/blocks/purchase-course/product-association-modal.js:247
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Add pricing by linking one or more products to this course"
+msgstr ""
+
+#: modules/wc-paid-courses/assets/editor-components/wcpc-modal/index.js:64
+#: assets/dist/wc-paid-courses/block-editor/course.js:1
+msgid "Close modal"
+msgstr ""
+
+#: build-assets/class-sensei-compat-conflicts-checker.php:108
+#: modules/sensei-pro-setup/class-sensei-pro-setup-context.php:22
+#: modules/senseilms-licensing/includes/class-license-notice.php:69
+#: modules/senseilms-licensing/includes/class-license-notice.php:85
+#. Plugin Name of the plugin
+msgid "Sensei Pro"
+msgstr ""
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+msgid "https://senseilms.com/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Whether you want to teach, tutor or train, we have you covered."
+msgstr ""
+
+#. Author of the plugin
+msgid "Automattic"
+msgstr ""
+
+#: build-assets/class-sensei-compat-conflicts-checker.php:120
+#. translators: %1$s is the name of the conflicting plugin.
+msgid ""
+"<strong>%1$s</strong> plugin already provides all the features that \n"
+"\t\t\t\t<strong>Sensei Pro (WooCommerce Paid Courses)</strong> has. If you\n"
+"\t\t\t\tstill want to activate the <strong>Sensei Pro (WooCommerce Paid "
+"Courses)</strong>\n"
+"\t\t\t\tthen deactivate the <strong>%1$s</strong> first."
+msgstr ""
+
+#: includes/class-sensei-pro-conflicts-checker.php:109
+msgid "Sensei with WooCommerce Paid Courses"
+msgstr ""
+
+#: includes/class-sensei-pro-conflicts-checker.php:121
+#. translators: %1$s is the name of the conflicting plugin.
+msgid ""
+"Please deactivate the <strong>%1$s</strong> plugin and try activating "
+"<strong>Sensei Pro</strong> again. \n"
+"\t\t\t\tAll the features in <strong>%1$s</strong> are included in "
+"<strong>Sensei Pro</strong>. \n"
+"\t\t\t\tYou don't need both plugins."
+msgstr ""
+
+#: includes/class-sensei-pro-dependency-checker.php:97
+#. translators: %1$s is version of PHP that this plugin requires; %2$s is the version of PHP WordPress is running on.
+msgid ""
+"<strong>Sensei Pro</strong> requires a minimum PHP version of %1$s, but you "
+"are running %2$s."
+msgstr ""
+
+#: includes/class-sensei-pro-dependency-checker.php:107
+msgid "Learn more about updating PHP"
+msgstr ""
+
+#: includes/class-sensei-pro-dependency-checker.php:109
+#. translators: accessibility text
+msgid "(opens in a new tab)"
+msgstr ""
+
+#: includes/class-sensei-pro-dependency-checker.php:128
+#. translators: %1$s is the minimum version number of Sensei that is required.
+msgid ""
+"<strong>Sensei Pro</strong> requires that the plugin <strong>Sensei "
+"LMS</strong> (minimum version: <strong>%1$s</strong>) is installed and "
+"activated."
+msgstr ""
+
+#: modules/advanced-quiz/includes/quiz-timer/class-quiz-timer.php:294
+#. translators: the number of questions.
+msgid "Quiz length: %d question"
+msgid_plural "Quiz length: %d questions"
+msgstr[0] ""
+msgstr[1] ""
+
+#: modules/advanced-quiz/includes/quiz-timer/class-quiz-timer.php:300
+#. translators: the time limit in minutes.
+msgid "Time limit: %s"
+msgstr ""
+
+#: modules/advanced-quiz/includes/quiz-timer/class-quiz-timer.php:304
+#. translators: the time limit in minutes.
+msgid "You will have %s available to finish this quiz."
+msgstr ""
+
+#: modules/advanced-quiz/includes/quiz-timer/class-quiz-timer.php:310
+msgid "Start Quiz"
+msgstr ""
+
+#: modules/advanced-quiz/includes/quiz-timer/class-quiz-timer.php:327
+#. translators: The number of minute(s).
+msgid "%s minute"
+msgid_plural "%s minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: modules/content-drip/includes/class-scd-ext-drip-email.php:278
+msgid "New Lessons Available"
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-drip-email.php:318
+msgid "Lessons available today"
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-drip-email.php:342
+msgid "Good Day"
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-lesson-admin.php:82
+msgid "Sensei Content Drip"
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-lesson-admin.php:149
+msgid "Immediately"
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-lesson-admin.php:153
+#. translators: %s is replaced with the date on which the lesson becomes available
+msgid "On %s"
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-lesson-admin.php:167
+#. translators: %s is replaced with the interval after which the lesson becomes available (e.g. 2 days)
+msgid "After %s"
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-lesson-admin.php:199
+msgid ""
+"In order to use the content drip settings, please select a course for this "
+"lesson."
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-lesson-admin.php:230
+msgid "When should this lesson become available?"
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-lesson-admin.php:233
+msgid "As soon as the course is started"
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-lesson-admin.php:234
+msgid "On a specific date"
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-lesson-admin.php:240
+msgid "A specific interval after the course start date"
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-lesson-admin.php:246
+#. translators: %s is replaced with Y-m-d
+msgid ""
+"Select the date on which this lesson should become available (accepted date "
+"format is %s)"
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-lesson-admin.php:253
+msgid "Please select a course for this lesson in order to use this drip type."
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-lesson-admin.php:270
+#. translators: %s is replaced with the current user's email address
+msgid "Send Test Email to %s"
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-lesson-admin.php:333
+msgid "Please choose a date under the  \"Absolute\" select box."
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-lesson-admin.php:354
+#. translators: %s is replaced with Y-m-d
+msgid ""
+"The date format you selected cannot be parsed (we expect dates to be "
+"formatted like \"%s\")"
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-lesson-admin.php:378
+msgid ""
+"Please select the correct units for your chosen option \"After previous "
+"lesson\" ."
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-lesson-admin.php:381
+msgid ""
+"Please enter a unit number for your chosen option \"After previous lesson\" "
+"."
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-lesson-admin.php:430
+msgid "The content drip type was reset to \"none\"."
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-manual-drip.php:106
+msgid "Manual Content Drip"
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-manual-drip.php:110
+msgid ""
+"Use this to give a learner access to any lesson (or remove existing "
+"access), overriding the content drip schedule."
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-manual-drip.php:114
+msgid "Select learner"
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-manual-drip.php:134
+msgid "Select a Lesson"
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-manual-drip.php:151
+#: modules/content-drip/includes/class-scd-ext-manual-drip.php:234
+msgid "Give Access"
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-manual-drip.php:233
+msgid "Remove Access"
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-manual-drip.php:251
+msgid "Manual Drip Status Saved"
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-manual-drip.php:374
+#: modules/content-drip/includes/class-scd-ext-settings.php:69
+msgid "Content Drip"
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-manual-drip.php:428
+#. translators: %d is replaced with the invalid user ID
+msgid "The userID( %d ) is invalid, there is no user that matches this ID "
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-manual-drip.php:444
+#. translators: %d is replaced with the invalid lesson ID
+msgid "The lessonId( %d ) is invalid, there is no lesson that matches this ID "
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-settings.php:70
+msgid "Optional settings for the Content Drip extension"
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-settings.php:86
+msgid "Drip Message"
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-settings.php:87
+msgid ""
+"The user will see this when the content is not yet available. The [date] "
+"shortcode will be replaced by the actual date"
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-settings.php:89
+msgid "This lesson will become available on [date]."
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-settings.php:94
+msgid "Quiz Drip Message"
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-settings.php:95
+msgid ""
+"The user will see this on the lesson quiz when the lesson is not yet "
+"available. The [date] shortcode will be replaced by the actual date"
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-settings.php:97
+msgid "This quiz will become available on [date]."
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-settings.php:103
+msgid "Email Notifications"
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-settings.php:104
+msgid "Disable Email Notifications"
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-settings.php:111
+msgid "Email Before Lessons"
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-settings.php:112
+msgid "The text before the list of lessons dripping today."
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-settings.php:114
+msgid "The following lessons will become available today:"
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-settings.php:119
+msgid "Email Footer"
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-settings.php:120
+msgid "The text below the list of lessons dripping today"
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-settings.php:122
+msgid "Visit the online course today to start taking the lessons: [home_url]"
+msgstr ""
+
+#: modules/content-drip/includes/class-sensei-content-drip-legacy-plugin-checker.php:52
+msgid "Found legacy Content Drip plugin"
+msgstr ""
+
+#: modules/content-drip/includes/class-sensei-content-drip-legacy-plugin-checker.php:53
+msgid ""
+"Content Drip is now part of the Sensei Pro plugin. Please deactivate the "
+"Content Drip plugin in order to use the latest features."
+msgstr ""
+
+#: modules/content-drip/includes/class-sensei-content-drip.php:254
+#: modules/content-drip/includes/class-sensei-content-drip.php:263
+msgid "Cheatin&#8217; huh?"
+msgstr ""
+
+#: modules/course-expiration/includes/class-course-expiration.php:332
+#: modules/course-expiration/includes/class-course-expiration.php:1022
+#. translators: Placeholder is the expiration date.
+msgid "Your access expired on %s."
+msgstr ""
+
+#: modules/course-expiration/includes/class-course-expiration.php:333
+#. translators: Placeholder is the expiration date.
+msgid "Your access expires today."
+msgstr ""
+
+#: modules/course-expiration/includes/class-course-expiration.php:335
+#. translators: Placeholder is the number of days.
+msgid "Your access expires in %d day."
+msgid_plural "Your access expires in %d days."
+msgstr[0] ""
+msgstr[1] ""
+
+#: modules/course-expiration/includes/class-course-expiration.php:361
+#: modules/course-expiration/includes/class-course-expiration.php:403
+msgid "M d, Y"
+msgstr ""
+
+#: modules/course-expiration/includes/class-course-expiration.php:751
+#: modules/course-expiration/includes/class-course-expiration.php:864
+msgid "Expired"
+msgstr ""
+
+#: modules/course-expiration/includes/class-course-expiration.php:810
+msgid "Access Expiration"
+msgstr ""
+
+#: modules/course-expiration/includes/class-course-expiration.php:839
+msgid "Incomplete"
+msgstr ""
+
+#: modules/course-expiration/includes/class-course-expiration.php:866
+msgid "Expires"
+msgstr ""
+
+#: modules/course-expiration/includes/class-course-expiration.php:962
+#. translators: Placeholder is the expiration date.
+msgid "Expired on %s"
+msgstr ""
+
+#: modules/course-expiration/includes/class-course-expiration.php:963
+#. translators: Placeholder is the expiration date.
+msgid "Expires today"
+msgstr ""
+
+#: modules/course-expiration/includes/class-course-expiration.php:965
+#. translators: Placeholder is the number of days.
+msgid "Expires in %d day"
+msgid_plural "Expires in %d days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: modules/course-expiration/includes/class-course-expiration.php:967
+#. translators: Placeholder is the date.
+msgid "Expires on %s"
+msgstr ""
+
+#: modules/course-expiration/includes/emails/class-course-expiration-email.php:51
+msgid "l, F d, Y"
+msgstr ""
+
+#: modules/course-expiration/includes/emails/class-course-expiration-email.php:64
+msgid "View course"
+msgstr ""
+
+#: modules/course-expiration/includes/emails/class-course-expiration-email.php:65
+msgid "Resume course"
+msgstr ""
+
+#: modules/course-expiration/includes/emails/class-course-expiration-email.php:71
+#. translators: Placeholder is the course title.
+msgid "Your access to %s expires today"
+msgstr ""
+
+#: modules/course-expiration/includes/emails/class-course-expiration-email.php:72
+#. translators: Placeholder is the course title.
+msgid ""
+"You can enjoy access to all the lesson materials and quizzes until midnight "
+"today."
+msgstr ""
+
+#: modules/course-expiration/includes/emails/class-course-expiration-email.php:82
+#. translators: Placeholder is the course title.
+msgid "Your access to %s expires in 3 days"
+msgstr ""
+
+#: modules/course-expiration/includes/emails/class-course-expiration-email.php:84
+#: modules/course-expiration/includes/emails/class-course-expiration-email.php:96
+#. translators: Placeholder is the expiration date.
+msgid ""
+"You can enjoy access to all the lesson materials and quizzes until midnight "
+"on %s."
+msgstr ""
+
+#: modules/course-expiration/includes/emails/class-course-expiration-email.php:94
+#. translators: Placeholder is the course title.
+msgid "Your access to %s expires in a week"
+msgstr ""
+
+#: modules/sensei-pro-setup/class-sensei-pro-setup-context.php:21
+msgid "Sensei Pro - Setup Wizard"
+msgstr ""
+
+#: modules/sensei-pro-setup/class-wizard.php:264
+msgid "Activate License"
+msgstr ""
+
+#: modules/senseilms-licensing/includes/class-license-notice.php:70
+msgid "Finish setting up Sensei Pro to continue receiving new features and updates."
+msgstr ""
+
+#: modules/senseilms-licensing/includes/class-license-notice.php:73
+msgid "Finish Setup"
+msgstr ""
+
+#: modules/senseilms-licensing/includes/class-license-notice.php:86
+msgid ""
+"We noticed a problem with your Sensei Pro license, which could prevent "
+"future updates."
+msgstr ""
+
+#: modules/senseilms-licensing/includes/class-license-notice.php:89
+msgid "Check License"
+msgstr ""
+
+#: modules/senseilms-licensing/includes/class-senseilms-plugin-updater.php:169
+msgid "The license is not valid so checking for updates is disabled."
+msgstr ""
+
+#: modules/senseilms-licensing/includes/class-senseilms-plugin-updater.php:205
+msgid "Remote answered with an error."
+msgstr ""
+
+#: modules/senseilms-licensing/includes/class-senseilms-plugin-updater.php:211
+msgid "Remote answered with an invalid response."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/admin/class-courses.php:62
+msgid "Products"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/admin/class-courses.php:241
+msgid "Variation #"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/admin/class-courses.php:282
+#: modules/wc-paid-courses/includes/admin/class-courses.php:291
+msgid "Add a Product"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/admin/class-courses.php:291
+#: modules/wc-paid-courses/includes/admin/class-courses.php:299
+msgid "No products exist yet."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/admin/class-courses.php:291
+msgid "Please add some first"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/admin/class-courses.php:405
+msgid ""
+"Please note that <strong>adding a new product</strong> will automatically "
+"<strong>enroll</strong> any users in the course who have previously "
+"purchased the product. For subscription products, only active subscribers "
+"will be enrolled.<br>"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/admin/class-courses.php:406
+msgid ""
+"Similarly, <strong>removing an existing product</strong> will automatically "
+"<strong>unenroll</strong> any users from the course who have previously "
+"purchased the product, unless they have purchased another product that is "
+"associated with the course.<br>"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/admin/class-courses.php:419
+msgid "Enrollment and Updating Products"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/admin/class-woocommerce-memberships-cancelled-orders-notice.php:100
+msgid "Active with Cancelled Orders"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/admin/class-woocommerce-memberships-cancelled-orders-notice.php:164
+msgid ""
+"Sensei Pro (WooCommerce Paid Courses) has detected active memberships "
+"associated with cancelled orders."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/admin/class-woocommerce-memberships-cancelled-orders-notice.php:173
+msgid ""
+"Prior to Sensei Pro (WooCommerce Paid Courses) 3.0, active memberships with "
+"cancelled orders\n"
+"\t\t\t\t\t\t<strong>did not</strong> provide learners with access to the "
+"membership's associated courses.\n"
+"\t\t\t\t\t\tAs of Sensei Pro (WooCommerce Paid Courses) 3.0, active "
+"memberships (regardless of order status)\n"
+"\t\t\t\t\t\t<strong>do</strong> provide learners with access to the "
+"membership's associated courses."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/admin/class-woocommerce-memberships-cancelled-orders-notice.php:186
+msgid ""
+"Please review and manually cancel any memberships where the learner should "
+"not have access to\n"
+"\t\t\t\t\tthe courses associated with that membership."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/admin/class-woocommerce-memberships-cancelled-orders-notice.php:195
+msgid "View Active Memberships with Cancelled Orders"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/admin/views/html-product-course-field.php:29
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:512
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:758
+msgid "Courses"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/admin/views/html-product-course-field.php:33
+msgid ""
+"Learners who purchase this product, or who previously purchased this "
+"product, will be enrolled in the selected courses. Removing a course will "
+"unenroll all learners who previously purchased this product."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/admin/views/html-product-course-field.php:35
+msgid "Search for a course&hellip;"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/blocks/class-block-purchase-course.php:186
+msgid "There are no products available to purchase."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/blocks/class-block-purchase-course.php:368
+msgid "added to cart"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/blocks/class-block-purchase-course.php:372
+#. translators: Placeholder is a link to the cart.
+msgid "Course %1s. Please complete the purchase to access the course."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/blocks/class-block-purchase-course.php:376
+msgid "Complete purchase"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/blocks/class-block-purchase-course.php:413
+#: modules/wc-paid-courses/includes/frontend/class-courses.php:106
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:1358
+#. translators: Placeholder is a link to log in.
+msgid "log in"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/blocks/class-block-purchase-course.php:418
+#. translators: Placeholder is a link to log in.
+msgid "Please %1$s to access your purchased courses."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/class-courses.php:595
+msgid "The products which are linked to the course memberships."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/class-sensei-wc-paid-courses.php:177
+msgid "Select a product"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/class-settings.php:54
+msgid "WooCommerce"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/class-settings.php:55
+msgid "Optional settings for WooCommerce functions."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/class-settings.php:60
+#: modules/wc-paid-courses/includes/course-enrolment-providers/class-woocommerce-memberships.php:164
+msgid "WooCommerce Memberships"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/class-settings.php:61
+msgid "Optional settings for WooCommerce Memberships functions."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/class-settings.php:78
+msgid "Enable Sensei WooCommerce Integration Debugging"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/class-settings.php:79
+msgid ""
+"Advanced: Log Sensei/WooCommerce integration events (Uses WC_Logger, logs "
+"events at `notice` level)"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/class-settings.php:94
+msgid "Restrict course video"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/class-settings.php:95
+msgid "Used when you don't want the course video to be viewable by non-members"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/class-settings.php:101
+msgid "Auto-enroll in courses belonging to a membership"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/class-settings.php:102
+msgid ""
+"Automatically enroll learners in courses provided by their WooCommerce "
+"Membership plan. If disabled, members can enroll themselves."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/class-widgets.php:59
+msgid "Free Courses"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/class-widgets.php:60
+msgid "Paid Courses"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/course-enrolment-providers/class-woocommerce-memberships.php:1240
+#. translators: %1$s is URL to edit/view the membership; #%2$s is the membership number.
+msgid ""
+"<a href=\"%1$s\">Membership #%2$s</a> has an active status and is providing "
+"access to enrollment."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/course-enrolment-providers/class-woocommerce-memberships.php:1247
+#. translators: %1$s is URL to edit/view the membership; #%2$s is the membership number.
+msgid ""
+"<a href=\"%1$s\">Membership #%2$s</a> would provide access to enrollment "
+"for this course but it does not have an active status."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/course-enrolment-providers/class-woocommerce-memberships.php:1255
+msgid ""
+"Learner does not have any memberships that would provide access to "
+"enrollment for this course."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/course-enrolment-providers/class-woocommerce-memberships.php:1260
+msgid "Learner has signed up for this course and has an active membership."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/course-enrolment-providers/class-woocommerce-memberships.php:1262
+msgid ""
+"Learner has signed up for this course but does not have an active "
+"membership."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/course-enrolment-providers/class-woocommerce-memberships.php:1266
+msgid ""
+"Learner has not signed up for this course but has an active membership so "
+"they should be able to sign up from the course page."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/course-enrolment-providers/class-woocommerce-memberships.php:1268
+msgid ""
+"Learner has not signed up for this course and is not able to without an "
+"active membership."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/course-enrolment-providers/class-woocommerce-simple.php:85
+msgid "WooCommerce Simple Products"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/course-enrolment-providers/class-woocommerce-simple.php:491
+#. translators: %1$s is URL to edit/view the order; #%2$s is the order number.
+msgid ""
+"<a href=\"%1$s\">Order #%2$s</a> has a paid status and is providing "
+"enrollment."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/course-enrolment-providers/class-woocommerce-simple.php:498
+#. translators: %1$s is URL to edit/view the order; #%2$s is the order number.
+msgid ""
+"<a href=\"%1$s\">Order #%2$s</a> contains a product that would provide "
+"enrollment for this course but it does not have a paid status."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/course-enrolment-providers/class-woocommerce-simple.php:506
+msgid ""
+"Learner does not have any orders for products that would provide enrollment "
+"for this course."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/course-enrolment-providers/class-woocommerce-subscriptions.php:101
+msgid "WooCommerce Subscriptions"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/course-enrolment-providers/class-woocommerce-subscriptions.php:545
+#. translators: %1$s is URL to edit/view the subscription; #%2$s is the subscription number.
+msgid ""
+"<a href=\"%1$s\">Subscription #%2$s</a> has an active status and is "
+"providing enrollment."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/course-enrolment-providers/class-woocommerce-subscriptions.php:552
+#. translators: %1$s is URL to edit/view the subscription; #%2$s is the subscription number.
+msgid ""
+"<a href=\"%1$s\">Subscription #%2$s</a> contains a product that would "
+"provide enrollment for this course but it does not have an active status."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/course-enrolment-providers/class-woocommerce-subscriptions.php:560
+msgid ""
+"Learner does not have any subscriptions for products that would provide "
+"enrollment for this course."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/frontend/class-courses.php:105
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:1398
+#. translators: Placeholder is a link to log in.
+msgid "Or %1$s to access your purchased courses"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/frontend/class-lessons.php:92
+msgid "Free Preview"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/frontend/class-lessons.php:131
+msgid "You don't have access to this lesson"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/frontend/class-lessons.php:144
+#: modules/wc-paid-courses/includes/frontend/class-lessons.php:177
+msgid "Purchase course"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/frontend/class-lessons.php:149
+msgid "Sign in"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/frontend/class-lessons.php:155
+msgid ""
+"Please purchase this course, or sign in if you're already enrolled, to "
+"access the course content."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/frontend/class-lessons.php:158
+msgid ""
+"Purchase this course, or sign in if you're already enrolled, to take this "
+"lesson."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/frontend/class-lessons.php:159
+#: modules/wc-paid-courses/includes/frontend/class-lessons.php:187
+msgid "This is a preview lesson"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/frontend/class-lessons.php:183
+msgid "Please purchase this course to access the content."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/frontend/class-lessons.php:186
+msgid "Purchase this course to take this lesson."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/frontend/shortcodes/class-unpurchased-courses.php:143
+#. translators: Placeholders are an opening and closing <a> tag linking to the login URL.
+msgid ""
+"You must be logged in to view the non-purchased courses. Click here to "
+"%1$slogin%2$s."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/rest-api/controllers/class-course-products.php:97
+msgid "Sorry, you cannot list this resource."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/rest-api/controllers/class-course-products.php:199
+msgid "ID of course for which to get assignable products"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/rest-api/controllers/class-course-products.php:209
+msgid "Show the linked products first"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/rest-api/controllers/class-course-products.php:231
+msgid "The product ID."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/rest-api/controllers/class-course-products.php:236
+msgid "The product name."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/rest-api/controllers/class-course-products.php:241
+msgid "The product description."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/rest-api/controllers/class-course-products.php:246
+msgid "The product price in HTML."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/rest-api/controllers/class-course-products.php:251
+msgid "The product's total sales."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/rest-api/controllers/class-course-products.php:256
+msgid "The linked course IDs."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc-memberships.php:701
+msgid ""
+"It appears that this membership plan contains a content restriction rule "
+"for a course that is already associated with the same product. This can "
+"result in undesirable behavior."
+msgid_plural ""
+"It appears that this membership plan contains a content restriction rule "
+"for some courses that are already associated with the same product. This "
+"can result in undesirable behavior."
+msgstr[0] ""
+msgstr[1] ""
+
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc-memberships.php:713
+msgid ""
+"Please remove the following product(s) from the Products field on the Edit "
+"Course page for the following course:"
+msgid_plural ""
+"Please remove the following product(s) from the Products field on the Edit "
+"Course page for the following courses:"
+msgstr[0] ""
+msgstr[1] ""
+
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc-memberships.php:835
+msgid ""
+"It appears that this course is associated with a product that is already "
+"part of a membership plan for the same course and product. This can result "
+"in undesirable behavior."
+msgid_plural ""
+"It appears that this course is associated with products that are already "
+"part of one or more membership plans for the same course and products. This "
+"can result in undesirable behavior."
+msgstr[0] ""
+msgstr[1] ""
+
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc-memberships.php:852
+msgid "Learn more about this issue and how to resolve it."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc-subscriptions.php:296
+msgid "No active subscription"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc-subscriptions.php:297
+msgid ""
+"Sorry, you do not have an access to this content without an active "
+"subscription."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:652
+msgid "complete purchase"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:653
+msgid "complete the purchase"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:656
+#. translators: Placeholder is a link to the cart.
+msgid ""
+"You have already added this Course to your cart. Please %1$s to access the "
+"course."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:1167
+msgid "Register for this Course"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:1169
+msgid "Purchase this Course"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:1373
+msgid "Checkout"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:1373
+msgid "checkout"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:1377
+#. translators: Placeholder is a link to the cart.
+msgid "This course is already in your cart, please proceed to %1$s, to gain access."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:1628
+msgid "Course details"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:1646
+#. translators: Placeholder is a link to the course.
+msgid "View course: %1$s"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:2293
+msgid "You are already taking all the courses associated with this product."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:2296
+msgid ""
+"The product you are buying contains a course where your access has expired. "
+"Buying it will not enroll you again to expired course."
+msgstr ""
+
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:2299
+msgid "The product you are buying contains a course you are already taking."
+msgstr ""
+
+#: modules/wc-paid-courses/templates/single-course/content-product.php:54
+msgid "Add to Cart"
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-lesson-admin.php:99
+msgctxt "column name"
+msgid "Drip Schedule"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/admin/class-courses.php:346
+msgctxt "column name"
+msgid "Products"
+msgstr ""
+
+#: modules/content-drip/includes/class-scd-ext-lesson-admin.php:433
+#. translators: %1$s is replaced with the notice type and %2$s is replaced with the message
+msgctxt "type and message"
+msgid "Sensei Content Drip %1$s: %2$s"
+msgstr ""
+
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:586
+msgctxt "Purchase thank you note on Checkout page. The course link(s) will be shown"
+msgid "You have purchased the following course:"
+msgid_plural "You have purchased the following courses:"
+msgstr[0] ""
+msgstr[1] ""

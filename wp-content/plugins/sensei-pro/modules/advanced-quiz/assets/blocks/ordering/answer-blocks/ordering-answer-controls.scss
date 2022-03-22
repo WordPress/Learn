@@ -1,0 +1,38 @@
+.editor-styles-wrapper .sensei-lms-question-answers-block {
+	.sensei-lms-question-block__ordering-answer-option__drag-placeholder {
+		position: absolute;
+		top: 0;
+		left: 10px;
+		bottom: 0;
+		display: flex;
+		align-items: center;
+	}
+	.sensei-lms-question-block__ordering-answer-option__control {
+		position: absolute;
+		top: 7px;
+		left: 0;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		margin: 0;
+
+		button {
+			height: 20px;
+			padding: 0;
+			margin: 0;
+			&:focus {
+				outline: none;
+				box-shadow: none;
+			}
+		}
+
+		span {
+			font-size: 16px;
+		}
+
+		.components-button:disabled:hover {
+			color: initial;
+		}
+	}
+}
+

@@ -1,0 +1,99 @@
+/** Product List **/
+.course-container {
+	.course-products {
+		line-height: 1.5;
+		margin: 5px 0 0;
+		padding: 0;
+	}
+
+	.course-product {
+		list-style-type: none;
+	}
+
+	.course-product-title {
+		font-weight: bold;
+	}
+
+	.course-product-price {
+		color: darken(#555, 20%);
+	}
+}
+
+/** Product Cards **/
+.course-meta {
+	.course-products {
+		background: #eee;
+		display: grid;
+		grid-auto-rows: 1fr;
+		grid-gap: 20px;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		padding: 20px;
+
+		.cart {
+			margin: 0;
+			padding: 0;
+			text-align: center;
+		}
+
+		.single_add_to_cart_button {
+			margin: 0;
+			top: 0;
+		}
+	}
+
+	.course-product {
+		background: #fff;
+		box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		padding: 1em;
+	}
+
+	.course-product-title,
+	.course-product-description,
+	.course-product-price {
+		line-height: 1.25;
+		margin: 0 0 10px;
+		padding: 0;
+	}
+
+	.course-product-description {
+		flex: 1 1 auto;
+	}
+
+	.course-product-price {
+		display: inline-block;
+		font-weight: bold;
+		text-align: right;
+		width: 100%;
+	}
+}
+
+#sensei-user-courses .course-container .course .course-expiration-message {
+	margin-top: 30px;
+	font-size: 0.9em;
+
+	&::before {
+		content: "\f017";
+		display: inline-block;
+		margin-right: 8px;
+		font-family: FontAwesomeSensei, FontAwesome, sans-serif;
+	}
+
+	&--expired {
+		color: #d63638;
+	}
+	&--today,
+	&--countdown {
+		color: #e68b28;
+	}
+	&--future {
+		color: #787c82;
+	}
+
+	& + .entry-actions {
+		padding-top: 20px;
+	}
+}
