@@ -115,8 +115,11 @@ function main() {
 		$label = addcslashes( $tax_label, "'" );
 
 		foreach ( $terms as $term ) {
+
 			$name = addcslashes( $term['name'], "'" );
-			$file_content .= "_x( '{$name}', '$label term name', 'wporg-learn' );\n";
+			$link = addcslashes( $term['link'], '*' );
+
+			$file_content .= "/* translators: {$link} */\n_x( '{$name}', '$label term name', 'wporg-learn' );\n";
 
 			if ( 'cli' === php_sapi_name() ) {
 				echo "$name\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -124,7 +127,7 @@ function main() {
 
 			if ( $term['description'] ) {
 				$description = addcslashes( $term['description'], "'" );
-				$file_content .= "_x( '{$description}', '$label term description', 'wporg-learn' );\n";
+				$file_content .= "/* translators: {$link} */\n_x( '{$description}', '$label term description', 'wporg-learn' );\n";
 			}
 		}
 	}
