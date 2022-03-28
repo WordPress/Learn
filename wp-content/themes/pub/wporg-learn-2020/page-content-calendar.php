@@ -47,10 +47,10 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 											<span aria-hidden="true"><?php esc_html_e( 'Title', 'wporg-learn' ); ?></span>
 										</th>
 										<th scope="col">
-											<span aria-hidden="true"><?php esc_html_e( 'Publish Date', 'wporg-learn' ); ?></span>
+											<span aria-hidden="true"><?php esc_html_e( 'Type', 'wporg-learn' ); ?></span>
 										</th>
 										<th scope="col">
-											<span aria-hidden="true"><?php esc_html_e( 'Type', 'wporg-learn' ); ?></span>
+											<span aria-hidden="true"><?php esc_html_e( 'Publish Date', 'wporg-learn' ); ?></span>
 										</th>
 									</tr>
 								</thead>
@@ -59,8 +59,8 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 									foreach ( $scheduled_content as $scheduled_post ) { ?>
 										<tr>
 											<td><?php echo esc_html( $scheduled_post->post_title ); ?></td>
-											<td><?php echo esc_html( wp_date( get_option( 'date_format' ), strtotime( $scheduled_post->post_date ) ) ); ?></td>
 											<td><?php echo esc_html( get_post_type_object( $scheduled_post->post_type )->labels->singular_name ); ?></td>
+											<td><?php echo esc_html( wp_date( 'j F Y @ G:i', strtotime( $scheduled_post->post_date ) ) ); ?> <?php esc_html_e( 'UTC', 'wporg-learn' ); ?></td>
 										</tr>
 										<?php
 									} ?>
@@ -71,14 +71,25 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 						<?php }
 						?>
 
-						<h2 aria-hidden="true"><?php esc_html_e( 'Drafts in Progress', 'wporg-learn' ); ?></h2>
+						<h2 aria-hidden="true"><?php esc_html_e( 'Content in Progress', 'wporg-learn' ); ?></h2>
 						<?php
+
+						$statuses = array(
+							'draft',
+							'needs-vetting',
+							'approved-for-video',
+							'more-info-requested',
+							'needs-grammar-review',
+							'needs-seo-review',
+							'needs-tech-review',
+							'needs-video-review',
+						);
 
 						$args = array(
 							'post_type'      => array( 'wporg_workshop', 'lesson-plan', 'course' ),
-							'post_status'    => array( 'draft' ),
-							'orderby'        => 'date modified title',
-							'order'          => 'ASC',
+							'post_status'    => $statuses,
+							'orderby'        => 'modified title',
+							'order'          => 'DESC',
 							'posts_per_page' => -1,
 						);
 
@@ -95,14 +106,23 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 										<th scope="col">
 											<span aria-hidden="true"><?php esc_html_e( 'Type', 'wporg-learn' ); ?></span>
 										</th>
+										<th scope="col">
+											<span aria-hidden="true"><?php esc_html_e( 'Status', 'wporg-learn' ); ?></span>
+										</th>
+										<th scope="col">
+											<span aria-hidden="true"><?php esc_html_e( 'Last Modified', 'wporg-learn' ); ?></span>
+										</th>
 									</tr>
 								</thead>
 								<tbody>
 									<?php
-									foreach ( $drafted_content as $drafted_post ) { ?>
+									foreach ( $drafted_content as $drafted_post ) {
+										?>
 										<tr>
 											<td><?php echo esc_html( $drafted_post->post_title ); ?></td>
 											<td><?php echo esc_html( get_post_type_object( $drafted_post->post_type )->labels->singular_name ); ?></td>
+											<td><?php echo esc_html( get_post_status_object( $drafted_post->post_status )->label ); ?></td>
+											<td><?php echo esc_html( wp_date( 'j F Y @ G:i', strtotime( $drafted_post->post_modified ) ) ); ?> <?php esc_html_e( 'UTC', 'wporg-learn' ); ?></td>
 										</tr>
 										<?php
 									} ?>
