@@ -136,6 +136,8 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 				</div>
 
 				<?php
+
+				get_template_part( 'template-parts/content', 'page' );
 			endwhile; // End of the loop.
 			?>
 		</div>
