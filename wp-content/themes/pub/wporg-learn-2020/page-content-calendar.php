@@ -117,12 +117,11 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 								<tbody>
 									<?php
 									foreach ( $drafted_content as $drafted_post ) {
-										$status = get_post_status_object( $drafted_post->post_status )->label;
 										?>
 										<tr>
 											<td><?php echo esc_html( $drafted_post->post_title ); ?></td>
 											<td><?php echo esc_html( get_post_type_object( $drafted_post->post_type )->labels->singular_name ); ?></td>
-											<td><?php echo esc_html( $status ); ?></td>
+											<td><?php echo esc_html( get_post_status_object( $drafted_post->post_status )->label ); ?></td>
 											<td><?php echo esc_html( wp_date( 'j F Y @ G:i', strtotime( $drafted_post->post_modified ) ) ); ?> <?php esc_html_e( 'UTC', 'wporg-learn' ); ?></td>
 										</tr>
 										<?php
