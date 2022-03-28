@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Content Calendar
+ * Template Name: Upcoming Content
  *
  * @package WPBBP
  */
@@ -44,15 +44,12 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 								<thead>
 									<tr>
 										<th scope="col">
-											<span class="screen-reader-text"><?php _e( 'Title', 'wporg-learn' ); ?></span>
 											<span aria-hidden="true"><?php _e( 'Title', 'wporg-learn' ); ?></span>
 										</th>
 										<th scope="col">
-											<span class="screen-reader-text"><?php _e( 'Publish Date', 'wporg-learn' ); ?></span>
 											<span aria-hidden="true"><?php _e( 'Publish Date', 'wporg-learn' ); ?></span>
 										</th>
 										<th scope="col">
-											<span class="screen-reader-text"><?php _e( 'Type', 'wporg-learn' ); ?></span>
 											<span aria-hidden="true"><?php _e( 'Type', 'wporg-learn' ); ?></span>
 										</th>
 									</tr>
@@ -93,11 +90,9 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 								<thead>
 									<tr>
 										<th scope="col">
-											<span class="screen-reader-text"><?php _e( 'Title', 'wporg-learn' ); ?></span>
 											<span aria-hidden="true"><?php _e( 'Title', 'wporg-learn' ); ?></span>
 										</th>
 										<th scope="col">
-											<span class="screen-reader-text"><?php _e( 'Type', 'wporg-learn' ); ?></span>
 											<span aria-hidden="true"><?php _e( 'Type', 'wporg-learn' ); ?></span>
 										</th>
 									</tr>
