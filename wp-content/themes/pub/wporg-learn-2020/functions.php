@@ -315,7 +315,7 @@ function wporg_archive_modify_query( WP_Query $query ) {
 
 			if ( ! empty( $featured ) ) {
 				$featured = reset( $featured );
-				if ( ! is_feed() ) {
+				if ( ! $query->is_feed() ) {
 					$query->set( 'post__not_in', array( $featured->ID ) );
 				}
 			}
