@@ -110,7 +110,7 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 											<span aria-hidden="true"><?php esc_html_e( 'Status', 'wporg-learn' ); ?></span>
 										</th>
 										<th scope="col">
-											<span aria-hidden="true"><?php esc_html_e( 'Last Modified', 'wporg-learn' ); ?></span>
+											<span aria-hidden="true"><?php esc_html_e( 'Last Updated', 'wporg-learn' ); ?></span>
 										</th>
 									</tr>
 								</thead>
