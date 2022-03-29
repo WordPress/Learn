@@ -91,6 +91,7 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 							'orderby'        => 'modified title',
 							'order'          => 'DESC',
 							'posts_per_page' => -1,
+							'post__not_in'   => array( 377, 378 ),
 						);
 
 						$drafted_content = get_posts( $args );
