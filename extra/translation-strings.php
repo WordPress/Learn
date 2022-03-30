@@ -60,6 +60,8 @@ _x( 'Editor de Bloques - Tutorial básico', 'Workshop Series term name', 'wporg-
 _x( 'En esta serio de tutoriales, o WorkShops, se abordan los conceptos básico, y no tanto, para poder adentrarnos en el fascinante mundo del desarrollo en el editor de bloques de WordPress, también conocido como Gutenberg.
 Partiendo de lo indispensable, iremos viendo sección tras sección, video tras video, cómo poder implementar nuestras propias ideas, necesidades, requerimientos, etc. de una manera simple y al alcance de todo el mundo.', 'Workshop Series term description', 'wporg-learn' );
 _x( 'Full Site Editing', 'Workshop Series term name', 'wporg-learn' );
+_x( 'Managing Settings', 'Workshop Series term name', 'wporg-learn' );
+_x( 'Guides on how to manage the various settings pages in your WordPress dashboard.', 'Workshop Series term description', 'wporg-learn' );
 _x( 'Organizing WordPress Meetups', 'Workshop Series term name', 'wporg-learn' );
 _x( 'This series aimed at all WordPress Community members across the world that are interested in organizing WordPress meetups. You will learn how to organize a local WordPress Meetup, the important things to keep in mind while organizing a meetup, and how to keep your local meetup group active.', 'Workshop Series term description', 'wporg-learn' );
 _x( 'Seguridad en WordPress', 'Workshop Series term name', 'wporg-learn' );
