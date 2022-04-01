@@ -16,20 +16,21 @@ Links to related content on Learn, HelpHub, DevHub, GitHub Gutenberg Issues, Dev
 
 # Guidelines
 Review the [team guidelines] (https://make.wordpress.org/training/handbook/guidelines/)
+
 # Development Checklist:
+- [ ] Gather links to Support and Developer Docs
+- [ ] Consider any MarComms (marketing communications) resources and link to those
+- [ ] Review any related material on Learn
+- [ ] Define several SEO keywords to use in the article and where they should be prominently used
+- [ ] Description and Objectives finalized
+- [ ] Create an outline of the example lesson walk-through
 - [ ] Draft lesson plan
 - [ ] Copy edit
 - [ ] Style guide review
 - [ ] Instructional Review
 - [ ] Final review
 - [ ] Publish
-- [ ] Description and Objectives finalized
-- [ ] Gather links to Support and Developer Docs
-- [ ] Define several SEO keywords to use in the article and where they should be prominently used
-- [ ] Consider any MarComms (marketing communications) resources and link to those
-- [ ] Review any related material on Learn
-- [ ] Create an outline of the example lesson walk-through
-- [ ] Announce to Training team
+- [ ] Announce to the Training team
 - [ ] Announce to lesson plan creator
 - [ ] Announce to marketing
 - [ ] Gather feedback from lesson plan users about the quality
