@@ -21,6 +21,12 @@ Review the [team guidelines] (https://make.wordpress.org/training/handbook/guide
 
 - [ ] Vetted by instructional designers for content idea
 - [ ] Provide feedback of the idea
+- [ ] Gather links to Support and Developer Docs
+- [ ] Consider any MarComms (marketing communications) resources and link to those
+- [ ] Review any related material on Learn
+- [ ] Define several SEO keywords to use in the article and where they should be prominently used
+- [ ] Description and Objectives finalized
+- [ ] Create an outline of the workshop
 - [ ] Workshop submitted to the team for Q/A review https://blog.wordpress.tv/submission-guidelines/ & https://make.wordpress.org/training/2021/08/17/proposal-brand-guidelines-for-learn-wordpress-content/
 - [ ] Workshop submitted to WPTV https://wordpress.tv/submit-video/
 - [ ] Workshop published on WPTV
