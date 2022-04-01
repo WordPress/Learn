@@ -109,6 +109,7 @@ _x( '5.6', 'WordPress Version term name', 'wporg-learn' );
 _x( '5.7', 'WordPress Version term name', 'wporg-learn' );
 _x( '5.8', 'WordPress Version term name', 'wporg-learn' );
 _x( '5.9', 'WordPress Version term name', 'wporg-learn' );
+_x( '6.0', 'WordPress Version term name', 'wporg-learn' );
 _x( 'accessibility', 'Included Content term name', 'wporg-learn' );
 _x( 'add new plugin', 'Included Content term name', 'wporg-learn' );
 _x( 'add new user', 'Included Content term name', 'wporg-learn' );
