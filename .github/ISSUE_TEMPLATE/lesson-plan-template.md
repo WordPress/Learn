@@ -2,7 +2,7 @@
 name: Lesson Plan template
 about: Lesson Plan Template
 title: Topic - Lesson Plan
-labels: "[Content Type] Lesson Plan"
+labels: Awaiting Triage, [Content Type] Lesson Plan
 assignees: ''
 
 ---

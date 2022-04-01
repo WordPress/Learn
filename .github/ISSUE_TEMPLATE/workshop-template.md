@@ -2,7 +2,7 @@
 name: Workshop Template
 about: Describe this issue template's purpose here.
 title: Topic - Workshop
-labels: "[Content Type] Workshop"
+labels: Awaiting Triage, [Content Type] Workshop
 assignees: ''
 
 ---
