@@ -1,8 +1,9 @@
 ---
 name: Monthly Sprint Template
-about: Use this template for planning, tracking and running the retrospective for the Training team monthly Sprints
+about: Use this template for planning, tracking and running the retrospective for
+  the Training team monthly Sprints
 title: ''
-labels: 'Sprint'
+labels: Sprint
 assignees: ''
 
 ---

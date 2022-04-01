@@ -1,11 +1,21 @@
 ---
 name: Workshop Template
 about: Describe this issue template's purpose here.
-title: ''
-labels: ''
+title: Topic - Workshop
+labels: "[Content Type] Workshop"
 assignees: ''
 
 ---
+
+# Topic Description
+Write a description of the topic here.
+
+# Related Resources
+Links to related content on Learn, HelpHub, DevHub, GitHub Gutenberg Issues, DevNotes, etc.
+- [ ]
+
+# Guidelines
+Review the [team guidelines] (https://make.wordpress.org/training/handbook/guidelines/)
 
 # Workshop Development Checklist
 

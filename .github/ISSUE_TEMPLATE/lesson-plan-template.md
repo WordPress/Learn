@@ -1,12 +1,21 @@
 ---
 name: Lesson Plan template
 about: Lesson Plan Template
-title: ''
-labels: ''
+title: Topic - Lesson Plan
+labels: "[Content Type] Lesson Plan"
 assignees: ''
 
 ---
 
+# Topic Description
+Write a description of the topic here.
+
+# Related Resources
+Links to related content on Learn, HelpHub, DevHub, GitHub Gutenberg Issues, DevNotes, etc.
+- [ ]
+
+# Guidelines
+Review the [team guidelines] (https://make.wordpress.org/training/handbook/guidelines/)
 # Development Checklist:
 - [ ] Draft lesson plan
 - [ ] Copy edit

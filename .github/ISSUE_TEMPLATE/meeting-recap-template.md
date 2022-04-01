@@ -2,10 +2,11 @@
 name: Training Team Meeting Recap Note Takers template
 about: Contributors recapping the Training team meetings
 title: ''
-labels: 'Meeting Recap'
+labels: Meeting Recap
 assignees: ''
 
 ---
+
 # Meeting Recap Notes
 Meeting recap notes are one of the best ways to get started contributing to the Training team. Please refer to this [guide](https://make.wordpress.org/training/handbook/guidelines/training-team-how-to-guides/how-to-write-a-meeting-agenda-or-recap/) to get started.
 
