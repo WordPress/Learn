@@ -80,6 +80,8 @@ _x( 'CSS', 'Topics term name', 'wporg-learn' );
 _x( 'Dashboard', 'Topics term name', 'wporg-learn' );
 _x( 'Diversity', 'Topics term name', 'wporg-learn' );
 _x( 'eCommerce', 'Topics term name', 'wporg-learn' );
+_x( 'Full Site Editing', 'Topics term name', 'wporg-learn' );
+_x( 'Getting Started', 'Topics term name', 'wporg-learn' );
 _x( 'Gutenberg', 'Topics term name', 'wporg-learn' );
 _x( 'Hosting', 'Topics term name', 'wporg-learn' );
 _x( 'Media', 'Topics term name', 'wporg-learn' );
