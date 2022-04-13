@@ -318,7 +318,7 @@ function handle_list_table_views( WP_Query $query ) {
 
 	$wants_expired = filter_input( INPUT_GET, 'expired', FILTER_VALIDATE_BOOLEAN );
 
-	if ( ! is_admin() || ! $query->is_main_query() ) {
+	if ( ! is_admin() || ! $query->is_main_query() || ! function_exists( 'get_current_screen' ) ) {
 		return;
 	}
 
