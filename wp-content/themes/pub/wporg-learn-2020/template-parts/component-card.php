@@ -17,9 +17,9 @@ $classes = implode( ' ', get_post_class( $args['class'] ) );
 
 	<div class="card-entry">
 		<header class="card-header">
-			<h2 class="card-title h4">
+			<h3 class="card-title h4">
 				<a href="<?php echo esc_url( get_permalink() ); ?>" rel="bookmark"><?php the_title(); ?></a>
-			</h2>
+			</h3>
 		</header>
 
 		<div class="card-excerpt">
