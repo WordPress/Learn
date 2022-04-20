@@ -42,7 +42,7 @@ function update_locale_data() {
 	$set_response     = wp_remote_get(
 		"$gp_api/api/projects/$gp_project",
 		array(
-			'timeout' => 30,
+			'timeout' => 90,
 		)
 	);
 	$body             = json_decode( wp_remote_retrieve_body( $set_response ) );
