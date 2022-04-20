@@ -370,6 +370,9 @@ function wporg_archive_modify_query( WP_Query $query ) {
 				),
 			)
 		);
+
+		// Since courses are displayed in category groups, we don't need pagination
+		$query->set( 'posts_per_page', '-1' );
 	}
 
 	// Omit some post types from search results.
