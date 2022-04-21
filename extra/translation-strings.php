@@ -88,6 +88,7 @@ _x( 'Hosting', 'Topics term name', 'wporg-learn' );
 _x( 'Media', 'Topics term name', 'wporg-learn' );
 _x( 'Meetups', 'Topics term name', 'wporg-learn' );
 _x( 'Open-Source', 'Topics term name', 'wporg-learn' );
+_x( 'Openverse', 'Topics term name', 'wporg-learn' );
 _x( 'Plugins', 'Topics term name', 'wporg-learn' );
 _x( 'Publishing', 'Topics term name', 'wporg-learn' );
 _x( 'RSS', 'Topics term name', 'wporg-learn' );
