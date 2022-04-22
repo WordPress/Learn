@@ -1075,8 +1075,8 @@ function wporg_learn_register_sidebars() {
 		array(
 			'name'          => __( 'Courses', 'wporg-learn' ),
 			'id'            => 'wporg-learn-courses',
-			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-			'after_widget'  => '</aside>',
+			'before_widget' => '<div id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</div>',
 			'before_title'  => '<h4 class="widget-title">',
 			'after_title'   => '</h4>',
 		)
