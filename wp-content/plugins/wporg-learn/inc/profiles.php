@@ -27,14 +27,21 @@ function add_course_completed_activity( string $status, int $user_id, int $cours
 		return;
 	}
 
+	$course_url = get_permalink( $course_id );
+
 	$request_body = array(
 		'action'       => 'wporg_handle_activity',
-		'source'       => 'learn',
-		'activity'     => 'course_complete',
-		'user'         => $user_id,
-		'url'          => get_permalink( $course_id ),
-		'course_id'    => $course_id,
-		'course_title' => get_the_title( $course_id ),
+		'component'    => 'learn',
+		'type'         => 'learn_course_complete',
+		'user_id'      => $user_id,
+		'primary_link' => $course_url,
+		'item_id'      => $course_id,
+
+		'message' => sprintf(
+			'Completed the course <em><a href="%s">%s</a></em> on learn.wordpress.org',
+			$course_url,
+			wp_kses_data( get_the_title( $course_id ) )
+		),
 	);
 
 	Profiles_API\api( $request_body );
