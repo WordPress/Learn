@@ -1,16 +1,14 @@
-name: Issue assignment
-
+name: "Auto card assign"
 on:
-    issues:
-        types: [opened, edited, moved]
+  project_card:
+    types: ["created", "moved", "converted"]
 
 jobs:
-    auto-assign:
-        runs-on: ubuntu-latest
-        steps:
-            - name: 'Auto-assign issue'
-              uses: pozil/auto-assign-issue@v1
-              with:
-                  assignees: azhiya,courtneyr-dev
-                  numOfAssignee: 2
-                  allowSelfAssign: false
+  card_assign:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: 1natsu172/github-action-auto-card-assign@v1
+        id: card_assign_action
+        with:
+          # github_token: "${{ secrets.GITHUB_TOKEN }}"
+          config: "project-card-assign.yml"
