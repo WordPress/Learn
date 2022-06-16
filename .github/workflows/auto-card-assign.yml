@@ -10,4 +10,5 @@ jobs:
       - uses: 1natsu172/github-action-auto-card-assign@v1
         id: card_assign_action
         with:
-          github_token: "${{ secrets.GITHUB_TOKEN }}"
+          github_token: "${{ secrets.CARD_ASSIGNER }}"
+          config: "project-card-assign.yml"        
