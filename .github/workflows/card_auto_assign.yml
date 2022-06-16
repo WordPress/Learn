@@ -11,4 +11,4 @@ jobs:
         id: card_assign_action
         with:
           github_token: "${{ secrets.CARD_ASSIGNER }}"
-          config: "workflows/test_actions.yml"
+          config: "workflows/projectboard/auto_assigning_copyeditors.yml"
