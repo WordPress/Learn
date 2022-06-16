@@ -38,10 +38,26 @@ Source: https://make.wordpress.org/training/handbook/guidelines/lesson-plan-styl
  - [ ] Use descriptive links instead of generic text, ensure the link text describes the resource you are pointing to, such as “you will be using the  [Twenty Nineteen](https://wordpress.org/themes/twentynineteen/)  theme” rather than “you will be the theme found  [here](https://wordpress.org/themes/twentynineteen/).”
 
 ## Multimedia
-See [Best Practices When Capturing Images](https://learn.wordpress.org/lesson-plan/best-practices-when-capturing-images/)
+See these lesson plans for further clarification:
+- [Best Practices When Capturing Images](https://learn.wordpress.org/lesson-plan/best-practices-when-capturing-images/)
+- [Anonymizing information in the browser](https://learn.wordpress.org/lesson-plan/anonymizing-information-in-the-browser/)
+- [How to add demo content in WordPress](https://learn.wordpress.org/lesson-plan/how-to-add-demo-content-in-wordpress/)
+___
+
+ - [ ]  All identifiable information is anonymized
+ - [ ]  Uses approved demo content in screenshots and videos
  - [ ] Make sure equivalent alternatives are available for audio/video content. This includes things such as captions for videos and `alt=""` descriptions for images.
  - [ ] All filenames should be descriptive, all lowercase, and contain no spaces, such as  `kitten-in-basket.jpg`.
  - [ ] Use descriptive  `alt=""`  text on all images, such as  `alt="page attributes section of edit page screen"`  and not  `alt=""`  or  `alt="screenshot"`  or other text which does not adequately describe the the content of the image.
  - [ ] All screenshots that show an operating system should state the operating system used. Please note that the editorial team might update those screenshots.
  - [ ] To take screenshots that look great, resize your browser window. By resizing down, you can take screenshots of the specific areas of the screen that you are referring to. All browser elements should be cropped out of the image. The exception to this guideline is if you need to show a code inspector in your screenshot.
  - [ ] All images and screenshots should be full size. Do not include thumbnails that readers have to click on to see
+ - [ ] All notations on images or screenshots using simple arrows and icons, and use red as the primary color for any annotations.
+
+## Code Inspectors
+ - [ ] Firefox’s or Chrome’s default code inspector is displayed when showing browser inspectors
+ - [ ] Uses the Syntax Highlighter block. Selects the code language and show the line numbers.
+
+## Taxonomy
+ - [ ] Appropriate categories and tags have been selected.
+ - [ ] Edit Flow (bottom of posts) taxonomy is selected.
