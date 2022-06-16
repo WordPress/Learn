@@ -7,7 +7,7 @@ jobs:
   card_assign:
     runs-on: ubuntu-latest
     steps:
-      - uses: 1natsu172/github-action-auto-card-assign@v1
+      - uses: 1natsu172/github-action-auto-card-assign
         id: card_assign_action
         with:
           # github_token: "${{ secrets.GITHUB_TOKEN }}"
