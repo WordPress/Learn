@@ -1,0 +1,6 @@
+Content Development: # Project name options can be found https://github.com/1natsu172/github-action-auto-card-assign/blob/master/README.md
+  test: # Column name
+    - "azhiya" # Login name(assignee name)
+  test1:
+    - "courtneyr-dev"
+  Done: []
