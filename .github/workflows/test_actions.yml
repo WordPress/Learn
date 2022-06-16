@@ -1,0 +1,12 @@
+kanban1: # Project name
+  To do: # Column name
+    - "memberName1" # Login name(assignee name)
+  In progress:
+    - "memberName2"
+  Review in progress:
+    - "memberName3"
+  Reviewer approved:
+    - "memberName1"
+    - "memberName2"
+    - "memberName3"
+  Done: []
