@@ -28,3 +28,6 @@ npm run wp-env run cli wp rewrite structure '/%postname%/'
 # Import tables
 npm run wp-env run cli wp db import wp-content/uploads/wporg_events.sql
 npm run wp-env run cli wp db import wp-content/uploads/wporg_locales.sql
+
+# Import content
+npm run wp-env run cli "php bin/import-test-content.php"
