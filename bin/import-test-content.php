@@ -21,6 +21,14 @@ $opts = getopt( '', array( 'post:', 'url:', 'abspath:', 'age:' ) );
 
 require dirname( dirname( __FILE__ ) ) . '/wp-load.php';
 
+// Refuse to run on a production site.
+$run_on_hosts = [
+	'localhost',
+	'127.0.0.1',
+];
+if ( !in_array( parse_url( get_site_url(), PHP_URL_HOST ), $run_on_hosts ) ) {
+	die( "Not safe to run on " . get_site_url() );
+}
 
 function sanitize_meta_input( $meta ) {
 	$meta = (array( $meta ) );
@@ -55,7 +63,7 @@ function import_rest_to_posts( $rest_url ) {
 			'post_status' => $post->status,
 			'post_type' => $post->type,
 			'post_title' => $post->title->rendered,
-			'post_content' => $post->content->rendered, // TODO: can we re-parse this with parse_plocks() / serialize_block() etc?
+			'post_content' => ( $post->content_raw ?? $post->content->rendered ),
 			'post_parent' => $post->parent,
 			'comment_status' => $post->comment_status,
 			'meta_input' => sanitize_meta_input( $post->meta ),
@@ -71,5 +79,5 @@ function import_rest_to_posts( $rest_url ) {
 	}
 }
 
-import_rest_to_posts( 'https://learn.wordpress.org/wp-json/wp/v2/wporg_workshop' );
-import_rest_to_posts( 'https://learn.wordpress.org/wp-json/wp/v2/lesson-plan' );
+import_rest_to_posts( 'https://learn.wordpress.org/wp-json/wp/v2/wporg_workshop?context=export&per_page=50' );
+import_rest_to_posts( 'https://learn.wordpress.org/wp-json/wp/v2/lesson-plan?context=export&per_page=50' );
