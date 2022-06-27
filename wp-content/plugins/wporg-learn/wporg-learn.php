@@ -77,6 +77,7 @@ function load_files() {
 	require_once get_includes_path() . 'profiles.php';
 	require_once get_includes_path() . 'sensei.php';
 	require_once get_includes_path() . 'taxonomy.php';
+	require_once get_includes_path() . 'export.php';
 }
 
 /**

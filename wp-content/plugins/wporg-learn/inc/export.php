@@ -23,13 +23,36 @@ function register_raw_content_for_post_type( $post_type ) {
 		$post_type,
 		'content_raw',
 		[
-			'get_callback' => 'show_post_content_raw',
+			'get_callback' => __NAMESPACE__.'\show_post_content_raw',
 			'schema'       => [
 				'type' => 'string',
 				'context' => [ 'export' ]
 			]
 		]
 	);
+
+	add_filter( "rest_{$post_type}_item_schema", __NAMESPACE__.'\add_export_context_to_schema' );
+}
+
+// Filter a CPT item schema and make it so that every item with 'view' context also has 'export' context.
+function add_export_context_to_schema( $schema ) {
+	update_schema_array_recursive( $schema );
+
+	return $schema;
+}
+
+// Find every item in the schema that has a 'view' context, and add an 'export' context to it.
+// Had to use a recursive function because array_walk_recursive only walks leaf nodes.
+function update_schema_array_recursive( &$schema ) {
+	foreach ( $schema as $key => &$value ) {
+		// Head recursion
+		if ( is_array( $value ) ) {
+			update_schema_array_recursive( $value );
+		}
+		if ( 'context' === $key && in_array( 'view', $value ) ) {
+			$value[] = 'export';
+		}
+	}
 }
 
 function get_all_block_names( $blocks ) {
@@ -58,11 +81,16 @@ function show_post_content_raw( $object, $field_name, $request ) {
 		'syntaxhighlighter/code',
 	];
 
-	$post = get_post( $object[ 'id' ] );
+	if ( !empty( $object[ 'id' ] ) ) {
+		$post = get_post( $object[ 'id' ] );
+	} else {
+		$post = get_post();
+	}
+
+	// Exit early if the post contains any blocks that are not explicitly allowed.
 	if ( $post && has_blocks( $post->post_content ) ) {
 		$blocks = parse_blocks( $post->post_content );
 		$block_names = get_all_block_names( $block_names );
-
 
 		foreach ( $block_names as $block_name ) {
 			// Allow all core blocks
