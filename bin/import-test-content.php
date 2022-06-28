@@ -21,12 +21,7 @@ $opts = getopt( '', array( 'post:', 'url:', 'abspath:', 'age:' ) );
 
 require dirname( dirname( __FILE__ ) ) . '/wp-load.php';
 
-// Refuse to run on a production site.
-$run_on_hosts = [
-	'localhost',
-	'127.0.0.1',
-];
-if ( !in_array( parse_url( get_site_url(), PHP_URL_HOST ), $run_on_hosts ) ) {
+if ( 'local' !== wp_get_environment_type() ) {
 	die( "Not safe to run on " . get_site_url() );
 }
 
