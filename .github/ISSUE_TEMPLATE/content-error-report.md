@@ -4,8 +4,8 @@ about: Learn WordPress Content Error Report template
 title: Learn WordPress Content Error Report: Ticket #
 labels: Help Scout, Error Report
 assignees: ''
----
 
+---
 <!--
 
 Thank you for taking the time to report a content error. Please include the title and the URL to the content in question in the Error Description, and a description of the error.
