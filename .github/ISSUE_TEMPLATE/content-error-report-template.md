@@ -1,5 +1,6 @@
 ---
 name: Content Error Report Template
+about: Learn WordPress Content Error Report template
 
 ---
 <!--
