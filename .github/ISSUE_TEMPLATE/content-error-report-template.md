@@ -1,7 +1,6 @@
 ---
 name: Content Error Report Template
 about: Learn WordPress Content Error Report template
-title: Content Error Report: Ticket 
 labels: Awaiting Triage, [Type] Bug, Content Error
 
 ---
