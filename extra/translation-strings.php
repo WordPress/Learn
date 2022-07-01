@@ -181,6 +181,8 @@ _x( 'RSS', 'Topics term name', 'wporg-learn' );
 _x( 'Security', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/topic/site-management/ */
 _x( 'Site Management', 'Topics term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/topic/theme-json/ */
+_x( 'theme.json', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/topic/training-team/ */
 _x( 'Training Team', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/topic/translation/ */
