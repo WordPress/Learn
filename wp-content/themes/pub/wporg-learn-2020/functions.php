@@ -915,6 +915,61 @@ function wporg_modify_archive_title( $title ) {
 add_filter( 'get_the_archive_title', 'wporg_modify_archive_title' );
 
 /**
+ * Append category name, pagination and site name to the lesson-plan archive page document title.
+ *
+ * @global WP_Query $wp_query
+ * @global int $paged
+ *
+ * @param string $title
+ *
+ * @return mixed
+ */
+function wporg_modify_archive_document_title($title)
+{
+	if(is_archive('lesson-plan')) {
+		global $wp_query, $paged;
+
+		$prefix = sprintf(
+			// translators: 1: Current category name.
+			__('WordPress Lesson Plans %1$s', 'wporg-learn'),
+			(single_cat_title('', false)) ? '&ndash; '. single_cat_title('', false) : ''
+		);
+
+		if ($paged > 1) {
+
+			$suffix = sprintf(
+				// traslators: 1&2 Pagination, e.g. - Page 2 of 4; 3: Site name.
+				__('&ndash; Page %1$s of %2$s &#124; %3$s', 'wporg-learn'),
+				absint($paged),
+				absint($wp_query->max_num_pages),
+				get_bloginfo('name')
+			);
+
+			$title = sprintf(
+				__('%1$s %2$s %3$s', 'wporg-learn'),
+				$prefix,
+				$title,
+				$suffix
+			);
+
+		} else {
+
+			$title = sprintf(
+				__('%1$s %2$s &#124; %3$s', 'wporg-learn'),
+				$prefix,
+				$title,
+				get_bloginfo('name')
+			);
+
+		}
+	}
+
+	return $title;
+}
+add_filter('pre_get_document_title', 'wporg_modify_archive_document_title');
+
+
+/**
  * Get the slug for the series taxonomy for a given post type.
  *
  * @param string $post_type
