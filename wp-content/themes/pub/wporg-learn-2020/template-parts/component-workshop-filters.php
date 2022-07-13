@@ -58,7 +58,7 @@ $buckets = array(
 						style="width: 100%;"
 						data-placeholder="<?php esc_attr_e( 'Select', 'wporg-learn' ); ?>"
 					>
-						<option value=""></option>
+						<option value="">Select</option>
 						<?php foreach ( $bucket['items'] as $item_value => $item_label ) : ?>
 							<option
 								value="<?php echo esc_attr( $item_value ); ?>"
