@@ -58,7 +58,10 @@ function wporg_learn_scripts() {
 		true
 	);
 
-	if ( is_post_type_archive( 'wporg_workshop' ) ) {
+	// Temporarily disabling the enhanced dropdowns for workshop filtering, see https://github.com/WordPress/Learn/issues/810
+
+	// phpcs:ignore
+	/* if ( is_post_type_archive( 'wporg_workshop' ) ) {
 		wp_enqueue_style( 'select2' );
 		wp_enqueue_script(
 			'wporg-filters',
@@ -68,6 +71,7 @@ function wporg_learn_scripts() {
 			true
 		);
 	}
+	*/
 
 	if ( is_post_type_archive( 'course' ) || is_search() ) {
 		wp_dequeue_style( 'sensei-frontend' );
