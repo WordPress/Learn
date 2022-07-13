@@ -1,6 +1,9 @@
 .wporg-learn-workshop-discussion-events {
 	:last-child {
 		margin-bottom: 0;
+		@media only screen and (max-width: $breakpoint-tablet) {
+			margin-top: 10px;
+		}
 	}
 
 	.discussion-event-list {
@@ -14,6 +17,10 @@
 		justify-content: space-between;
 		align-items: center;
 		margin-bottom: 1rem;
+
+		@media only screen and (max-width: $breakpoint-tablet) {
+			flex-wrap: wrap;
+		}
 
 		&:last-child {
 			margin-bottom: 0;
