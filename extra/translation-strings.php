@@ -117,8 +117,6 @@ _x( 'Editor de Bloques - Tutorial básico', 'Workshop Series term name', 'wporg-
 /* translators: https://learn.wordpress.org/workshops/editor-de-bloques-tutorial-basico/ */
 _x( 'En esta serio de tutoriales, o WorkShops, se abordan los conceptos básico, y no tanto, para poder adentrarnos en el fascinante mundo del desarrollo en el editor de bloques de WordPress, también conocido como Gutenberg.
 Partiendo de lo indispensable, iremos viendo sección tras sección, video tras video, cómo poder implementar nuestras propias ideas, necesidades, requerimientos, etc. de una manera simple y al alcance de todo el mundo.', 'Workshop Series term description', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/workshops/full-site-editing/ */
-_x( 'Full Site Editing', 'Workshop Series term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/workshops/managing-settings/ */
 _x( 'Managing Settings', 'Workshop Series term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/workshops/managing-settings/ */
