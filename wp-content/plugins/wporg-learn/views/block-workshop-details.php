@@ -77,10 +77,10 @@ $has_transcript = false !== strpos( $post->post_content, 'id="transcript"' );
 	<div class="wp-block-button is-style-secondary-full-width">
 		<a
 			class="wp-block-button__link"
-			href="https://learn.wordpress.org/social-learning/"
+			href="https://learn.wordpress.org/online-workshops/"
 			style="border-radius:5px"
 		>
-			<?php esc_html_e( 'Join a Social Learning Space', 'wporg-learn' ); ?>
+			<?php esc_html_e( 'Join a live Online Workshop', 'wporg-learn' ); ?>
 		</a>
 	</div>
 </div>
