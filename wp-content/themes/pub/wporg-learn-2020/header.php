@@ -26,10 +26,10 @@ if ( FEATURE_2021_GLOBAL_HEADER_FOOTER ) {
 }
 
 $menu_items = array(
-	'/workshops/'    => __( 'Workshops', 'wporg-learn' ),
+	'/tutorials/'    => __( 'Tutorials', 'wporg-learn' ),
+	'/online-workshops/' => __( 'Online Workshops', 'wporg-learn' ),
 	'/courses/'    => __( 'Courses', 'wporg-learn' ),
 	'/lesson-plans/' => __( 'Lesson Plans', 'wporg-learn' ),
-	'/social-learning/' => __( 'Social Learning', 'wporg-learn' ),
 	'/contribute/' => __( 'Contribute', 'wporg-learn' ),
 );
 

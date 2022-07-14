@@ -11,13 +11,13 @@ get_header(); ?>
 	<main id="main" class="site-main home-page">
 		<section class="quick-intro">
 			<div class="shapes">
-				<a class="parallelogram workshops" href="/workshops/">
+				<a class="parallelogram workshops" href="/tutorials/">
 					<p class="dashicons-before dashicons-desktop">
-						<strong><?php esc_html_e( 'Workshops', 'wporg-learn' ); ?></strong>
+						<strong><?php esc_html_e( 'Tutorials', 'wporg-learn' ); ?></strong>
 						<?php
-						esc_html_e( 'Workshops are a great way to get hands-on with WordPress. Here are some workshops for you to level up your WordPress skills.', 'wporg-learn' );
+						esc_html_e( 'Tutorials are a great way to get hands-on with WordPress. Here are some tutorials for you to level up your WordPress skills.', 'wporg-learn' );
 						?>
-						<u><?php esc_html_e( 'Browse Workshops', 'wporg-learn' ); ?></u>
+						<u><?php esc_html_e( 'Browse Tutorials', 'wporg-learn' ); ?></u>
 					</p>
 				</a>
 				<a class="parallelogram lesson-plans" href="/lesson-plans/">
@@ -62,8 +62,8 @@ get_header(); ?>
 
 		<section>
 			<div class="row align-middle between section-heading">
-				<h2 class="h4 section-heading_title"><?php esc_html_e( 'Recent Workshops', 'wporg-learn' ); ?></h2>
-				<a class="section-heading_link" href="/workshops/"><span aria-hidden="true"><?php esc_html_e( 'View All Workshops', 'wporg-learn' ); ?></span><span class="screen-reader-text"><?php esc_html_e( 'View All Workshops', 'wporg-learn' ); ?></span></a>
+				<h2 class="h4 section-heading_title"><?php esc_html_e( 'Recent Tutorials', 'wporg-learn' ); ?></h2>
+				<a class="section-heading_link" href="/tutorials/"><span aria-hidden="true"><?php esc_html_e( 'View All Tutorials', 'wporg-learn' ); ?></span><span class="screen-reader-text"><?php esc_html_e( 'View All Tutorials', 'wporg-learn' ); ?></span></a>
 			</div>
 
 			<?php
@@ -86,10 +86,10 @@ get_header(); ?>
 			<section class="wporg-learn-workshop-discussion-events">
 				<div class="row align-middle between section-heading">
 					<h2 class="h4 section-heading_title">
-						<?php esc_html_e( 'Upcoming Social Learning Spaces', 'wporg-learn' ); ?>
+						<?php esc_html_e( 'Upcoming Online Workshops', 'wporg-learn' ); ?>
 					</h2>
-					<a class="section-heading_link" href="/social-learning/">
-						<?php esc_html_e( 'View All Social Learning Spaces', 'wporg-learn' ); ?>
+					<a class="section-heading_link" href="/online-workshops/">
+						<?php esc_html_e( 'View All Online Workshops', 'wporg-learn' ); ?>
 					</a>
 				</div>
 				<ul class="discussion-event-list">
@@ -100,8 +100,8 @@ get_header(); ?>
 				<p>
 					<?php
 					printf(
-						wp_kses_post( __( 'Want to facilitate a social learning space? <a href="%s">Apply to become a facilitator</a>.', 'wporg-learn' ) ),
-						'https://learn.wordpress.org/social-learning/'
+						wp_kses_post( __( 'Want to facilitate an online workshop? <a href="%s">Apply to become a facilitator</a>.', 'wporg-learn' ) ),
+						'https://learn.wordpress.org/online-workshops/'
 					);
 					?>
 				</p>

@@ -83,37 +83,37 @@ function register_lesson_plan() {
 }
 
 /**
- * Register a Workshop post type.
+ * Register a Tutorial post type.
  */
 function register_workshop() {
 	$labels = array(
-		'name'                  => _x( 'Workshops', 'Post Type General Name', 'wporg_learn' ),
-		'singular_name'         => _x( 'Workshop', 'Post Type Singular Name', 'wporg_learn' ),
-		'menu_name'             => __( 'Workshops', 'wporg_learn' ),
-		'name_admin_bar'        => __( 'Workshop', 'wporg_learn' ),
-		'archives'              => __( 'Workshop Archives', 'wporg_learn' ),
-		'attributes'            => __( 'Workshop Attributes', 'wporg_learn' ),
-		'parent_item_colon'     => __( 'Parent Workshop:', 'wporg_learn' ),
-		'all_items'             => __( 'All Workshops', 'wporg_learn' ),
-		'add_new_item'          => __( 'Add New Workshop', 'wporg_learn' ),
+		'name'                  => _x( 'Tutorials', 'Post Type General Name', 'wporg_learn' ),
+		'singular_name'         => _x( 'Tutorial', 'Post Type Singular Name', 'wporg_learn' ),
+		'menu_name'             => __( 'Tutorials', 'wporg_learn' ),
+		'name_admin_bar'        => __( 'Tutorial', 'wporg_learn' ),
+		'archives'              => __( 'Tutorial Archives', 'wporg_learn' ),
+		'attributes'            => __( 'Tutorial Attributes', 'wporg_learn' ),
+		'parent_item_colon'     => __( 'Parent Tutorial:', 'wporg_learn' ),
+		'all_items'             => __( 'All Tutorials', 'wporg_learn' ),
+		'add_new_item'          => __( 'Add New Tutorial', 'wporg_learn' ),
 		'add_new'               => __( 'Add New', 'wporg_learn' ),
-		'new_item'              => __( 'New Workshop', 'wporg_learn' ),
-		'edit_item'             => __( 'Edit Workshop', 'wporg_learn' ),
-		'update_item'           => __( 'Update Workshop', 'wporg_learn' ),
-		'view_item'             => __( 'View Workshop', 'wporg_learn' ),
-		'view_items'            => __( 'View Workshops', 'wporg_learn' ),
-		'search_items'          => __( 'Search Workshops', 'wporg_learn' ),
-		'not_found'             => __( 'No workshops found.', 'wporg_learn' ),
-		'not_found_in_trash'    => __( 'No workshops found in Trash.', 'wporg_learn' ),
+		'new_item'              => __( 'New Tutorial', 'wporg_learn' ),
+		'edit_item'             => __( 'Edit Tutorial', 'wporg_learn' ),
+		'update_item'           => __( 'Update Tutorial', 'wporg_learn' ),
+		'view_item'             => __( 'View Tutorial', 'wporg_learn' ),
+		'view_items'            => __( 'View Tutorials', 'wporg_learn' ),
+		'search_items'          => __( 'Search Tutorials', 'wporg_learn' ),
+		'not_found'             => __( 'No tutorials found.', 'wporg_learn' ),
+		'not_found_in_trash'    => __( 'No tutorials found in Trash.', 'wporg_learn' ),
 		'featured_image'        => __( 'Featured image', 'wporg_learn' ),
 		'set_featured_image'    => __( 'Set featured image', 'wporg_learn' ),
 		'remove_featured_image' => __( 'Remove featured image', 'wporg_learn' ),
 		'use_featured_image'    => __( 'Use as featured image', 'wporg_learn' ),
-		'insert_into_item'      => __( 'Insert into workshop', 'wporg_learn' ),
-		'uploaded_to_this_item' => __( 'Uploaded to this workshop', 'wporg_learn' ),
-		'items_list'            => __( 'Workshops list', 'wporg_learn' ),
-		'items_list_navigation' => __( 'Workshops list navigation', 'wporg_learn' ),
-		'filter_items_list'     => __( 'Filter workshops list', 'wporg_learn' ),
+		'insert_into_item'      => __( 'Insert into tutorial', 'wporg_learn' ),
+		'uploaded_to_this_item' => __( 'Uploaded to this tutorial', 'wporg_learn' ),
+		'items_list'            => __( 'Tutorials list', 'wporg_learn' ),
+		'items_list_navigation' => __( 'Tutorials list navigation', 'wporg_learn' ),
+		'filter_items_list'     => __( 'Filter tutorials list', 'wporg_learn' ),
 	);
 
 	$supports = array(
@@ -128,8 +128,8 @@ function register_workshop() {
 	);
 
 	$args = array(
-		'label'               => __( 'Workshop', 'wporg_learn' ),
-		'description'         => __( 'WordPress.org Training Workshop', 'wporg_learn' ),
+		'label'               => __( 'Tutorial', 'wporg_learn' ),
+		'description'         => __( 'WordPress.org Training Tutorial', 'wporg_learn' ),
 		'labels'              => $labels,
 		'supports'            => $supports,
 		'taxonomies'          => array( 'topic' ),
@@ -137,7 +137,7 @@ function register_workshop() {
 		'public'              => true,
 		'show_ui'             => true,
 		'show_in_menu'        => true,
-		'has_archive'         => 'workshops',
+		'has_archive'         => 'tutorials',
 		'menu_position'       => 6,
 		'menu_icon'           => 'dashicons-desktop',
 		'show_in_admin_bar'   => true,
@@ -145,10 +145,10 @@ function register_workshop() {
 		'can_export'          => true,
 		'exclude_from_search' => false,
 		'publicly_queryable'  => true,
-		'capability_type'     => array( 'workshop', 'workshops' ),
+		'capability_type'     => array( 'tutorial', 'tutorials' ),
 		'map_meta_cap'        => true,
 		'show_in_rest'        => true,
-		'rewrite'             => array( 'slug' => 'workshop' ),
+		'rewrite'             => array( 'slug' => 'tutorial' ),
 		'template'            => generate_workshop_template_structure(),
 	);
 
@@ -169,7 +169,7 @@ function generate_workshop_template_structure() {
 		array(
 			'core/paragraph',
 			array(
-				'placeholder' => __( 'Describe what the workshop is about.', 'wporg-learn' ),
+				'placeholder' => __( 'Describe what the tutorial is about.', 'wporg-learn' ),
 			),
 		),
 

@@ -344,8 +344,8 @@ function register_lesson_plan_series() {
  */
 function register_workshop_series() {
 	$labels = array(
-		'name'                       => _x( 'Workshop Series', 'taxonomy general name', 'wporg-learn' ),
-		'singular_name'              => _x( 'Workshop Series', 'taxonomy singular name', 'wporg-learn' ),
+		'name'                       => _x( 'Tutorial Series', 'taxonomy general name', 'wporg-learn' ),
+		'singular_name'              => _x( 'Tutorial Series', 'taxonomy singular name', 'wporg-learn' ),
 		'menu_name'                  => __( 'Series', 'wporg-learn' ),
 		'all_items'                  => __( 'All Series', 'wporg-learn' ),
 		'new_item_name'              => __( 'New Series Name', 'wporg-learn' ),
@@ -370,7 +370,7 @@ function register_workshop_series() {
 		'hierarchical'      => true,
 		'public'            => true,
 		'rewrite'           => array(
-			'slug' => 'workshops',
+			'slug' => 'tutorials',
 		),
 		'show_ui'           => true,
 		'show_admin_column' => true,
@@ -390,7 +390,7 @@ function register_workshop_series() {
  */
 function register_workshop_topic() {
 	$labels = array(
-		'name'                       => _x( 'Topics', 'Topic Plans associated to workshop.', 'wporg-learn' ),
+		'name'                       => _x( 'Topics', 'Topic Plans associated to tutorial.', 'wporg-learn' ),
 		'singular_name'              => _x( 'Topic', 'Taxonomy Singular Name', 'wporg-learn' ),
 		'menu_name'                  => __( 'Topics', 'wporg-learn' ),
 		'all_items'                  => __( 'All topic', 'wporg-learn' ),

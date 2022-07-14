@@ -90,7 +90,7 @@ $prefix = 'submission:';
 		</fieldset>
 		<fieldset class="section">
 			<legend>
-				<?php esc_html_e( 'Workshop Details', 'wporg-learn' ); ?>
+				<?php esc_html_e( 'Tutorial Details', 'wporg-learn' ); ?>
 			</legend>
 			<?php
 			echo render_input_field( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
