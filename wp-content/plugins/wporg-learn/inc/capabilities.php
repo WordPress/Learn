@@ -26,7 +26,7 @@ add_action( 'init', __NAMESPACE__ . '\add_or_update_workshop_reviewer_role' );
 function set_post_type_caps( $user_caps ) {
 	$capability_types = array(
 		array( 'lesson_plan', 'lesson_plans' ),
-		array( 'workshop', 'workshops' ),
+		array( 'tutorial', 'tutorials' ),
 	);
 
 	foreach ( $capability_types as $capability_type ) {
@@ -194,7 +194,7 @@ function add_or_update_workshop_reviewer_role() {
 	if ( is_null( $wr_role ) ) {
 		$wr_role = add_role(
 			'workshop_reviewer',
-			__( 'Workshop Reviewer', 'wporg-learn' ),
+			__( 'Tutorial Reviewer', 'wporg-learn' ),
 			$role_caps
 		);
 	} else {
