@@ -27,7 +27,7 @@ $has_transcript = false !== strpos( $post->post_content, 'id="transcript"' );
 						foreach ( $field['value'] as $field_key => $value ) {
 							$url = '';
 							if ( ! empty( $field['param'] ) ) {
-								$url = trailingslashit( site_url() ) . 'workshops/?' . $key . '=' . $field['param'][ $field_key ];
+								$url = trailingslashit( site_url() ) . 'tutorials/?' . $key . '=' . $field['param'][ $field_key ];
 							}
 
 							if ( 0 < $i ) {
