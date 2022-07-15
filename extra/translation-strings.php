@@ -96,49 +96,49 @@ _x( 'Any', 'Experience Levels term name', 'wporg-learn' );
 _x( 'Beginner', 'Experience Levels term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/level/intermediate/ */
 _x( 'Intermediate', 'Experience Levels term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/workshops/como-contribuir-a-wordpress/ */
-_x( 'Cómo contribuir a WordPress', 'Workshop Series term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/workshops/como-usar-wordpress/ */
-_x( 'Cómo usar WordPress', 'Workshop Series term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/workshops/contributing-to-wordpress/ */
-_x( 'Contributing to WordPress', 'Workshop Series term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/workshops/contributing-to-wordpress/ */
-_x( 'Get involved in contributing to WordPress - no matter you do with WordPress there\'s a way that you can be a part of building the project and community. You will need to <a href="https://learn.wordpress.org/workshop/set-up-a-wordpress-org-account">set up a WordPress.org profile</a> in order to contribute.', 'Workshop Series term description', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/workshops/developing-for-block-editor/ */
-_x( 'Developing for the Block Editor', 'Workshop Series term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/workshops/developing-for-block-editor/ */
-_x( 'This series is aimed at WordPress developers interested in developing for the block editor.', 'Workshop Series term description', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/workshops/diverse-speaker-training/ */
-_x( 'Diverse Speaker Training', 'Workshop Series term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/workshops/diverse-speaker-training/ */
-_x( 'This series is for people from marginalized or underrepresented groups who are thinking about speaking at WordPress events. You do not need to have any experience in public speaking, and this series is for all levels of experience. Topics include finding a talk topic, writing a pitch, creating the talk, becoming a better speaker, creating great slides, handling tough questions, and more!', 'Workshop Series term description', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/workshops/editor-de-bloques-tutorial-basico/ */
-_x( 'Editor de Bloques - Tutorial básico', 'Workshop Series term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/workshops/editor-de-bloques-tutorial-basico/ */
+/* translators: https://learn.wordpress.org/tutorials/como-contribuir-a-wordpress/ */
+_x( 'Cómo contribuir a WordPress', 'Tutorial Series term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/tutorials/como-usar-wordpress/ */
+_x( 'Cómo usar WordPress', 'Tutorial Series term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/tutorials/contributing-to-wordpress/ */
+_x( 'Contributing to WordPress', 'Tutorial Series term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/tutorials/contributing-to-wordpress/ */
+_x( 'Get involved in contributing to WordPress - no matter you do with WordPress there\'s a way that you can be a part of building the project and community. You will need to <a href="https://learn.wordpress.org/workshop/set-up-a-wordpress-org-account">set up a WordPress.org profile</a> in order to contribute.', 'Tutorial Series term description', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/tutorials/developing-for-block-editor/ */
+_x( 'Developing for the Block Editor', 'Tutorial Series term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/tutorials/developing-for-block-editor/ */
+_x( 'This series is aimed at WordPress developers interested in developing for the block editor.', 'Tutorial Series term description', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/tutorials/diverse-speaker-training/ */
+_x( 'Diverse Speaker Training', 'Tutorial Series term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/tutorials/diverse-speaker-training/ */
+_x( 'This series is for people from marginalized or underrepresented groups who are thinking about speaking at WordPress events. You do not need to have any experience in public speaking, and this series is for all levels of experience. Topics include finding a talk topic, writing a pitch, creating the talk, becoming a better speaker, creating great slides, handling tough questions, and more!', 'Tutorial Series term description', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/tutorials/editor-de-bloques-tutorial-basico/ */
+_x( 'Editor de Bloques - Tutorial básico', 'Tutorial Series term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/tutorials/editor-de-bloques-tutorial-basico/ */
 _x( 'En esta serio de tutoriales, o WorkShops, se abordan los conceptos básico, y no tanto, para poder adentrarnos en el fascinante mundo del desarrollo en el editor de bloques de WordPress, también conocido como Gutenberg.
-Partiendo de lo indispensable, iremos viendo sección tras sección, video tras video, cómo poder implementar nuestras propias ideas, necesidades, requerimientos, etc. de una manera simple y al alcance de todo el mundo.', 'Workshop Series term description', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/workshops/managing-settings/ */
-_x( 'Managing Settings', 'Workshop Series term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/workshops/managing-settings/ */
-_x( 'Guides on how to manage the various settings pages in your WordPress dashboard.', 'Workshop Series term description', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/workshops/organizing-wordpress-meetups/ */
-_x( 'Organizing WordPress Meetups', 'Workshop Series term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/workshops/organizing-wordpress-meetups/ */
-_x( 'This series aimed at all WordPress Community members across the world that are interested in organizing WordPress meetups. You will learn how to organize a local WordPress Meetup, the important things to keep in mind while organizing a meetup, and how to keep your local meetup group active.', 'Workshop Series term description', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/workshops/seguridad-en-wordpress/ */
-_x( 'Seguridad en WordPress', 'Workshop Series term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/workshops/site-management/ */
-_x( 'Site Management', 'Workshop Series term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/workshops/using-the-block-editor/ */
-_x( 'Using the Block Editor', 'Workshop Series term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/workshops/using-the-block-editor/ */
-_x( 'Learn how to get the most out of the WordPress block editor when publishing your content.', 'Workshop Series term description', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/workshops/wordpress-%e3%81%ae%e5%9f%ba%e6%9c%ac/ */
-_x( 'WordPress の基本', 'Workshop Series term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/workshops/wp-troubleshooting/ */
-_x( 'WordPress Troubleshooting', 'Workshop Series term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/workshops/wp-troubleshooting/ */
-_x( 'Learn how to troubleshoot WordPress issues.', 'Workshop Series term description', 'wporg-learn' );
+Partiendo de lo indispensable, iremos viendo sección tras sección, video tras video, cómo poder implementar nuestras propias ideas, necesidades, requerimientos, etc. de una manera simple y al alcance de todo el mundo.', 'Tutorial Series term description', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/tutorials/managing-settings/ */
+_x( 'Managing Settings', 'Tutorial Series term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/tutorials/managing-settings/ */
+_x( 'Guides on how to manage the various settings pages in your WordPress dashboard.', 'Tutorial Series term description', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/tutorials/organizing-wordpress-meetups/ */
+_x( 'Organizing WordPress Meetups', 'Tutorial Series term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/tutorials/organizing-wordpress-meetups/ */
+_x( 'This series aimed at all WordPress Community members across the world that are interested in organizing WordPress meetups. You will learn how to organize a local WordPress Meetup, the important things to keep in mind while organizing a meetup, and how to keep your local meetup group active.', 'Tutorial Series term description', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/tutorials/seguridad-en-wordpress/ */
+_x( 'Seguridad en WordPress', 'Tutorial Series term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/tutorials/site-management/ */
+_x( 'Site Management', 'Tutorial Series term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/tutorials/using-the-block-editor/ */
+_x( 'Using the Block Editor', 'Tutorial Series term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/tutorials/using-the-block-editor/ */
+_x( 'Learn how to get the most out of the WordPress block editor when publishing your content.', 'Tutorial Series term description', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/tutorials/wordpress-%e3%81%ae%e5%9f%ba%e6%9c%ac/ */
+_x( 'WordPress の基本', 'Tutorial Series term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/tutorials/wp-troubleshooting/ */
+_x( 'WordPress Troubleshooting', 'Tutorial Series term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/tutorials/wp-troubleshooting/ */
+_x( 'Learn how to troubleshoot WordPress issues.', 'Tutorial Series term description', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/topic/block-development/ */
 _x( 'Block Development', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/topic/block-editor/ */
