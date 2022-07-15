@@ -315,25 +315,19 @@ p {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	
-	.lp-content-inner {
-		order: 2;
-	}
-	
-	.lp-sidebar {
-		order: 1;
-	}
-	
-	.lp-sidebar-print {
-		display: block;
-		margin-bottom: 1rem;
-		font-weight: 700;
-	}
-	
-	.lp-details .lp-links,
-	.lp-suggestion {
-		display: none;
-	}
+}
+
+.lp-content .lp-content-inner {
+	order: 2;
+}
+
+.lp-content .lp-sidebar {
+	order: 1;
+}
+
+.lp-content .lp-details .lp-links,
+.lp-suggestion {
+	display: none;
 }
 
 .lp-sidebar .lp-details ul:first-child li {

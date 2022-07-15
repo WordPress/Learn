@@ -12,9 +12,6 @@ namespace WordPressdotorg\Theme;
 ?>
 <aside class="lp-sidebar">
 	<div class="lp-details">
-		<a href="#" onclick="window.print()" class="lp-sidebar-print" aria-label="<?php esc_attr_e( 'Print View', 'wporg-learn' ); ?>">
-			<?php esc_html_e( 'Print Lesson Plan', 'wporg-learn' ); ?>
-		</a>
 		<ul>
 			<?php
 			foreach ( wporg_learn_get_lesson_plan_taxonomy_data( get_the_ID(), 'single' ) as $detail ) {
@@ -42,6 +39,12 @@ namespace WordPressdotorg\Theme;
 					</a>
 				</li>
 			<?php endif; ?>
+			<li>
+				<a href="#" onclick="window.print()" aria-label="<?php esc_attr_e( 'Print View', 'wporg-learn' ); ?>">
+					<span class="dashicons dashicons-printer"></span>
+					<?php esc_html_e( 'Print Lesson Plan', 'wporg-learn' ); ?>
+				</a>
+			</li>
 		</ul>
 	</div>
 	<div class="lp-sidebar-dynamic">
