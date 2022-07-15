@@ -10,7 +10,9 @@
 .wporg-learn-locale-notice,
 .bbp-breadcrumb,
 .dashicons,
-.main-navigation {
+.main-navigation,
+.lp-content .lp-sidebar-print,
+.lp-sidebar-dynamic {
   display: none;
 }
 
