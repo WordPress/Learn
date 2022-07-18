@@ -9,9 +9,9 @@ $timestamp = strtotime( $args['date_utc'] ) - (int) $args['date_utc_offset'];
 
 <li class="discussion-event">
 	<div>
-		<a class="discussion-event-link" href="<?php echo esc_attr( $args['url'] ); ?>">
-			<h3><?php echo esc_html( $args['title'] ); ?></h3>
-		</a>
+		<h3 class="discussion-event-link">
+			<a href="<?php echo esc_attr( $args['url'] ); ?>"><?php echo esc_html( $args['title'] ); ?></a>
+		</h3>
 		<abbr
 			class="discussion-event-date"
 			title="<?php echo esc_attr( gmdate( 'c', $timestamp ) ); ?>"
