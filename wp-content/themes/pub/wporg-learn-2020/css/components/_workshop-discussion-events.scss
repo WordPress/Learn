@@ -1,6 +1,7 @@
 .wporg-learn-workshop-discussion-events {
 	:last-child {
 		margin-bottom: 0;
+
 		@media only screen and (max-width: $breakpoint-tablet) {
 			margin-top: 10px;
 		}
