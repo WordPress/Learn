@@ -36,9 +36,9 @@ _x( 'General Admin', 'Lesson Categories term name', 'wporg-learn' );
 _x( 'Using admin settings, the dashboard, posts, pages,', 'Lesson Categories term description', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/lesson-plans/group-block/ */
 _x( 'group block', 'Lesson Categories term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/lesson-plans/%ce%b5%ce%bb%ce%bb%ce%b7%ce%bd%ce%b9%ce%ba%ce%ac/ */
+/* translators: https://learn.wordpress.org/lesson-plans/greek/ */
 _x( 'Ελληνικά', 'Lesson Categories term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/lesson-plans/%ce%b5%ce%bb%ce%bb%ce%b7%ce%bd%ce%b9%ce%ba%ce%ac/ */
+/* translators: https://learn.wordpress.org/lesson-plans/greek/ */
 _x( 'Greek content', 'Lesson Categories term description', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/lesson-plans/plugin/ */
 _x( 'Plugin', 'Lesson Categories term name', 'wporg-learn' );
