@@ -10,6 +10,16 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 ?>
 
 	<main id="main" class="site-main page-full-width">
+		<section>
+			<div class="row align-middle between section-heading section-heading--with-space">
+				<?php the_title( '<h1 class="section-heading_title h2">', '</h1>' ); ?>
+				<a href="<?php echo get_post_type_archive_link( 'lesson-plan' ); ?>" class="button button-large button-secondary">
+					<?php esc_html_e( 'Browse all lesson plans', 'wporg-learn' ); ?>
+				</a>
+			</div>
+
+			<hr>
+
 		<?php
 		while ( have_posts() ) :
 			the_post();
@@ -216,6 +226,7 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 			<?php
 		endwhile; // End of the loop.
 		?>
+	</section>
 
 	</main><!-- #main -->
 
