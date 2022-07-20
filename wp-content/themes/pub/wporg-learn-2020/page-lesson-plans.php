@@ -5,7 +5,9 @@
  * @package WPBBP
  */
 
-get_header(); ?>
+get_header();
+get_template_part( 'template-parts/component', 'breadcrumbs' );
+?>
 
 	<main id="main" class="site-main page-full-width">
 		<?php
