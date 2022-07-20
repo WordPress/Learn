@@ -20,6 +20,18 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 
 			<hr>
 
+			<div class="row align-middle between section-plan_description section-heading--with-space">
+				<div class="section-plan_text">
+					<?php the_content(); ?>
+				</div>
+				<?php
+				set_query_var('post_type', 'lesson-plan');
+				get_template_part( 'template-parts/component', 'archive-search' );
+				?>
+			</div>
+
+			<hr>
+
 		<?php
 		while ( have_posts() ) :
 			the_post();

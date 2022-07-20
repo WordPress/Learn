@@ -2,7 +2,7 @@
 $search_query = filter_input( INPUT_GET, 'search' );
 
 $pt = '';
-if ( is_post_type_archive() ) {
+if ( is_post_type_archive() || is_page_template( 'page-lesson-plans.php' ) ) {
 	$pt = get_query_var( 'post_type' );
 } else if ( is_tax() ) {
 	$current_tax = get_taxonomy( get_query_var( 'taxonomy' ) );
