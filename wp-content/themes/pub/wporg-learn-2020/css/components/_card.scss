@@ -103,6 +103,35 @@
 			font-size: 14px;
 		}
 	}
+
+	&.no-border {
+		border: 0;
+		border-radius: 0;
+		background-color: transparent;
+		padding: 0;
+		margin-bottom: 3rem;
+
+		.card-title {
+			font-weight: 400;
+		}
+
+		.card-excerpt {
+			p {
+				margin-bottom: 32px;
+			}
+		}
+
+		.card-meta {
+			li {
+				padding-bottom: 0.75rem;
+				padding-left: 1.75rem;
+
+				.dashicons {
+					color: #6C7781;
+				}
+			}
+		}
+	}
 }
 
 .card-grid {
