@@ -128,5 +128,13 @@
 				flex-basis: 48%;
 			}
 		}
+
+		&_4 {
+			> * {
+				flex-grow: 0;
+				flex-shrink: 0;
+				flex-basis: calc(25% - 16px);
+			}
+		}
 	}
 }

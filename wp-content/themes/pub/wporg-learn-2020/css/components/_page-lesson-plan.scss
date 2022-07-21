@@ -1,0 +1,35 @@
+.lesson-plan {
+	&-category {
+		&-header, &-description {
+			width: 100%;
+			flex-basis: 100%;
+		}
+
+		.card-grid  {
+			.card {
+				text-align: center;
+
+				a:hover {
+					text-decoration: none;
+				}
+
+				.dashicons {
+					width: 80px;
+					height: 80px;
+					font-size: 80px;
+					margin: 0 auto 32px;
+					color: #606A73;
+				}
+
+				.category-title {
+					margin-bottom: 0;
+
+					a {
+						color: #555D66;
+						text-decoration: none;
+					}
+				}
+			}
+		}
+	}
+}

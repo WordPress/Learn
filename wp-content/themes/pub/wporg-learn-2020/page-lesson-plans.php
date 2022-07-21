@@ -31,7 +31,29 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 			</div>
 
 			<hr>
-
+			<?php
+			$categories = get_terms( 'wporg_lesson_category', array(
+				'hide_empty' => false,
+				'orderby' => 'id',
+			) );
+			?>
+			<div class="row lesson-plan-category">
+				<div class="card-grid card-grid_4">
+					<h2 class="h4 lesson-plan-category-header"><?php echo esc_html__( 'Topic', 'wporg-learn' ); ?></h2>
+					<div class="lesson-plan-category-description"><?php echo esc_html__( 'Browse lesson plans by their high-level topic.', 'wporg-learn' ); ?></div>
+					<?php foreach ( $categories as $category) : ?>
+					<div class="card">
+						<div class="icon">
+							<?php
+							$category_icon = get_term_meta( $category->term_id, 'dashicon-class', true );
+							?>
+							<a href="<?php echo get_term_link( $category ); ?>"><span class="dashicons dashicons-<?php echo esc_attr( $category_icon ); ?>"></span></a>
+						</div>
+						<p class="category-title"><a href="<?php echo get_term_link( $category ); ?>"><?php echo esc_html( $category->name ); ?></a></p>
+					</div>
+					<?php endforeach; ?>
+				</div>
+			</div>
 		<?php
 		while ( have_posts() ) :
 			the_post();
