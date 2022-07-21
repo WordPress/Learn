@@ -109,7 +109,7 @@
 		border-radius: 0;
 		background-color: transparent;
 		padding: 0;
-		margin-bottom: 3rem;
+		margin-bottom: 2.5rem;
 
 		.card-title {
 			font-weight: 400;
@@ -168,6 +168,7 @@
 
 		&.gap-64 {
 			margin-top: 4rem;
+			margin-bottom: 0.25rem;
 		}
 	}
 }
