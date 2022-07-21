@@ -329,9 +329,40 @@ p {
 	display: none;
 }
 
-.lp-sidebar .lp-details ul:first-child li {
-	display: inline-block;
-	padding-right: 1rem;
+.lp-sidebar .lp-details {
+	.taxonomies-meta {
+		border-top: 1px solid #E2E4E7;
+
+		li {
+			border-bottom: 1px solid #E2E4E7;
+			padding-bottom: 0.5rem;
+			padding-top: 0.5rem;
+			padding-left: 1.75rem;
+			display: flex;
+			justify-content: space-between;
+
+			.dashicons {
+				padding-top: 0.5rem;
+				color: #555D66;
+			}
+
+			> span:nth-child(2) {
+				font-weight: 600;
+				font-size: 1rem;
+				line-height: 1.5;
+			}
+
+			strong {
+				text-align: right;
+				a {
+					font-weight: 400;
+					color: #555D66;
+					font-size: 1rem;
+					line-height: 1.3125rem;
+				}
+			}
+		}
+	}
 }
 
 @media only screen and (min-width: 768px) {
