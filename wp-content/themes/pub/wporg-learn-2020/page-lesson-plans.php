@@ -78,6 +78,44 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 					<?php endforeach; ?>
 				</div>
 			</div>
+
+			<div class="row lesson-plan-two-col between">
+				<div class="lesson-plan-level">
+					<h2 class="h4 lesson-plan-level-header"><?php echo esc_html__( 'Level', 'wporg-learn' ); ?></h2>
+					<div class="lesson-plan-level-description"><?php echo esc_html__( 'What experience partipants need.', 'wporg-learn' ); ?></div>
+					<ul class="list">
+						<?php
+						$levels = get_terms( 'level', array(
+							'hide_empty' => false,
+							'orderby' => 'id',
+						) );
+
+						foreach ($levels as $level) : ?>
+						<li><a href="<?php echo get_post_type_archive_link( 'lesson-plan' ) . '?level[]=' . $level->term_id; ?>"><?php echo esc_html( $level->name ); ?><span class="dashicons dashicons-arrow-right-alt2"></span></a></li>
+							<?php
+						endforeach;
+						?>
+					</ul>
+				</div>
+
+				<div class="lesson-plan-duration">
+					<h2 class="h4 lesson-plan-level-header"><?php echo esc_html__( 'Duration', 'wporg-learn' ); ?></h2>
+					<div class="lesson-plan-level-description"><?php echo esc_html__( 'How long a lesson is estimated to take.', 'wporg-learn' ); ?></div>
+					<ul class="list">
+						<?php
+						$durations = get_terms( 'duration', array(
+							'hide_empty' => false,
+							'orderby' => 'id',
+						) );
+
+						foreach ($durations as $duration) : ?>
+						<li><a href="<?php echo get_post_type_archive_link( 'lesson-plan' ) . '?duration[]=' . $duration->term_id; ?>"><?php echo esc_html( $duration->name ); ?><span class="dashicons dashicons-arrow-right-alt2"></span></a></li>
+							<?php
+						endforeach;
+						?>
+					</ul>
+				</div>
+			</div>
 		</section>
 
 	</main><!-- #main -->
