@@ -34,7 +34,7 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 			<?php
 			$categories = get_terms( 'wporg_lesson_category', array(
 				'hide_empty' => false,
-				'orderby' => 'id',
+				'orderby'    => 'id',
 			) );
 			?>
 			<div class="row lesson-plan-taxonomy">
@@ -58,7 +58,7 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 			<?php
 			$audiences = get_terms( 'audience', array(
 				'hide_empty' => false,
-				'orderby' => 'id',
+				'orderby'    => 'id',
 			) );
 			?>
 			<div class="row lesson-plan-taxonomy">
@@ -87,7 +87,7 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 						<?php
 						$levels = get_terms( 'level', array(
 							'hide_empty' => false,
-							'orderby' => 'id',
+							'orderby'    => 'id',
 						) );
 
 						foreach ($levels as $level) : ?>
@@ -105,7 +105,8 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 						<?php
 						$durations = get_terms( 'duration', array(
 							'hide_empty' => false,
-							'orderby' => 'id',
+							'orderby'    => 'name',
+							'order'      => 'ASC',
 						) );
 
 						foreach ($durations as $duration) : ?>
