@@ -44,6 +44,12 @@
 				}
 			}
 		}
+
+		&.last {
+			.card-grid {
+				margin-bottom: 4rem;
+			}
+		}
 	}
 
 	&-two-col {
@@ -59,6 +65,7 @@
 			list-style-type: none;
 			margin-left: 0;
 			margin-top: 2rem;
+			margin-bottom: 0;
 
 			li {
 				padding: 1.125em;
@@ -91,5 +98,10 @@
 				}
 			}
 		}
+	}
+
+	&-cta {
+		margin-top: 4rem;
+		margin-bottom: 7.5rem;
 	}
 }

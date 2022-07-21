@@ -123,7 +123,7 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 				'orderby' => 'id',
 			) );
 			?>
-			<div class="row lesson-plan-taxonomy">
+			<div class="row lesson-plan-taxonomy last">
 				<div class="card-grid card-grid_4">
 					<h2 class="h4 lesson-plan-taxonomy-header"><?php echo esc_html__( 'Format', 'wporg-learn' ); ?></h2>
 					<div class="lesson-plan-taxonomy-description"><?php echo esc_html__( 'Browse lesson plans based on their format.', 'wporg-learn' ); ?></div>
@@ -133,6 +133,14 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 					</div>
 					<?php endforeach; ?>
 				</div>
+			</div>
+
+			<hr>
+
+			<div class="row align-middle around lesson-plan-cta">
+				<a href="<?php echo get_post_type_archive_link( 'lesson-plan' ); ?>" class="button button-large button-secondary">
+					<?php esc_html_e( 'Browse all lesson plans', 'wporg-learn' ); ?>
+				</a>
 			</div>
 		</section>
 
