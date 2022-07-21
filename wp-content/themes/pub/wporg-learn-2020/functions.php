@@ -708,7 +708,6 @@ function wporg_learn_get_card_template_args( $post_id ) {
 
 		case 'lesson-plan':
 			$args['meta']  = wporg_learn_get_lesson_plan_taxonomy_data( $post_id, 'archive' );
-			$args['class'] = [ 'no-border' ];
 			break;
 
 		case 'wporg_workshop':
