@@ -23,4 +23,10 @@
 			position: static;
 		}
 	}
+
+	@media only screen and (min-width: $breakpoint-tablet) {
+		&.gap-64 {
+			margin-top: 4rem;
+		}
+	}
 }

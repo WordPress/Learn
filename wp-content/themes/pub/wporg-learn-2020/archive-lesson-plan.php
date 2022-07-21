@@ -24,7 +24,7 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 		<hr>
 
 		<div class="row gutters between">
-			<div class="card-grid col-9">
+			<div class="card-grid col-9 gap-64">
 				<?php if ( have_posts() ) : ?>
 					<?php while ( have_posts() ) :
 						the_post();
