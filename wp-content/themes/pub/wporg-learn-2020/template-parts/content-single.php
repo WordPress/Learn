@@ -13,10 +13,21 @@
 
 	<section>
 		<header class="row align-middle between section-heading section-heading--with-space">
-			<h1 class="section-heading_title h2"><?php the_title(); ?></h1>
+			<h1 class="section-heading_title bigger"><?php the_title(); ?></h1>
 		</header>
 
-		<div class="lp-content">
+		<hr>
+
+		<?php
+		$embed = get_media_embedded_in_content( apply_filters( 'the_content', get_the_content() ));
+
+		$content_class = '';
+		if ( $embed ) {
+			$content_class = ' hide-first-embed';
+			echo '<div class="slide-embed">' . $embed[0] . '</div>';
+		}
+		?>
+		<div class="lp-content<?php echo esc_html( $content_class ); ?>">
 			<div class="lp-content-inner github-markdown">
 				<?php
 				the_content();

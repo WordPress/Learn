@@ -311,6 +311,18 @@ p {
 
 /* ___ Single Lesson Plan ___ */
 
+.slide-embed {
+	margin-bottom: 2.5rem;
+	margin-top: 3rem;
+
+	@media only screen and (min-width: 768px) {
+		> * {
+			width: 100%;
+			height: 528px;
+		}
+	}
+}
+
 .lp-content {
 	display: flex;
 	flex-direction: column;
@@ -319,6 +331,10 @@ p {
 
 .lp-content .lp-content-inner {
 	order: 2;
+
+	.wp-block-embed:first-of-type {
+		display: none;
+	}
 }
 
 .lp-content .lp-sidebar {
