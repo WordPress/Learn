@@ -1,12 +1,23 @@
 .lesson-plan {
-	&-category {
-		&-header, &-description {
+	&-taxonomy {
+		&-header {
 			width: 100%;
 			flex-basis: 100%;
+			font-weight: 400;
+			color: #555D66;
+		}
+
+		&-description {
+			margin-bottom: 2rem;
+			width: 100%;
+			flex-basis: 100%;
+			color: #555D66;
 		}
 
 		.card-grid  {
 			margin: 2rem 0;
+			justify-content: flex-start;
+
 			.card {
 				text-align: center;
 
@@ -22,8 +33,9 @@
 					color: #606A73;
 				}
 
-				.category-title {
+				.taxonomy-title {
 					margin-bottom: 0;
+					font-weight: 700;
 
 					a {
 						color: #555D66;

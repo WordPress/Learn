@@ -37,10 +37,10 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 				'orderby' => 'id',
 			) );
 			?>
-			<div class="row lesson-plan-category">
+			<div class="row lesson-plan-taxonomy">
 				<div class="card-grid card-grid_4">
-					<h2 class="h4 lesson-plan-category-header"><?php echo esc_html__( 'Topic', 'wporg-learn' ); ?></h2>
-					<div class="lesson-plan-category-description"><?php echo esc_html__( 'Browse lesson plans by their high-level topic.', 'wporg-learn' ); ?></div>
+					<h2 class="h4 lesson-plan-taxonomy-header"><?php echo esc_html__( 'Topic', 'wporg-learn' ); ?></h2>
+					<div class="lesson-plan-taxonomy-description"><?php echo esc_html__( 'Browse lesson plans by their high-level topic.', 'wporg-learn' ); ?></div>
 					<?php foreach ( $categories as $category) : ?>
 					<div class="card">
 						<div class="icon">
@@ -49,7 +49,7 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 							?>
 							<a href="<?php echo get_term_link( $category ); ?>"><span class="dashicons dashicons-<?php echo esc_attr( $category_icon ); ?>"></span></a>
 						</div>
-						<p class="category-title"><a href="<?php echo get_term_link( $category ); ?>"><?php echo esc_html( $category->name ); ?></a></p>
+						<p class="taxonomy-title"><a href="<?php echo get_term_link( $category ); ?>"><?php echo esc_html( $category->name ); ?></a></p>
 					</div>
 					<?php endforeach; ?>
 				</div>
@@ -61,10 +61,10 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 				'orderby' => 'id',
 			) );
 			?>
-			<div class="row lesson-plan-category">
+			<div class="row lesson-plan-taxonomy">
 				<div class="card-grid card-grid_4">
-					<h2 class="h4 lesson-plan-category-header"><?php echo esc_html__( 'Audience', 'wporg-learn' ); ?></h2>
-					<div class="lesson-plan-category-description"><?php echo esc_html__( 'Browse lesson plans by the audience they\'re intended for.', 'wporg-learn' ); ?></div>
+					<h2 class="h4 lesson-plan-taxonomy-header"><?php echo esc_html__( 'Audience', 'wporg-learn' ); ?></h2>
+					<div class="lesson-plan-taxonomy-description"><?php echo esc_html__( 'Browse lesson plans by the audience they\'re intended for.', 'wporg-learn' ); ?></div>
 					<?php foreach ( $audiences as $audience) : ?>
 					<div class="card">
 						<div class="icon">
@@ -73,16 +73,16 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 							?>
 							<a href="<?php echo get_term_link( $audience ); ?>"><span class="dashicons dashicons-<?php echo esc_attr( $audience_icon ); ?>"></span></a>
 						</div>
-						<p class="category-title"><a href="<?php echo get_term_link( $audience ); ?>"><?php echo esc_html( $audience->name ); ?></a></p>
+						<p class="taxonomy-title"><a href="<?php echo get_term_link( $audience ); ?>"><?php echo esc_html( $audience->name ); ?></a></p>
 					</div>
 					<?php endforeach; ?>
 				</div>
 			</div>
 
 			<div class="row lesson-plan-two-col between">
-				<div class="lesson-plan-level">
-					<h2 class="h4 lesson-plan-level-header"><?php echo esc_html__( 'Level', 'wporg-learn' ); ?></h2>
-					<div class="lesson-plan-level-description"><?php echo esc_html__( 'What experience partipants need.', 'wporg-learn' ); ?></div>
+				<div class="lesson-plan-taxonomy">
+					<h2 class="h4 lesson-plan-taxonomy-header"><?php echo esc_html__( 'Level', 'wporg-learn' ); ?></h2>
+					<div class="lesson-plan-taxonomy-description"><?php echo esc_html__( 'What experience partipants need.', 'wporg-learn' ); ?></div>
 					<ul class="list">
 						<?php
 						$levels = get_terms( 'level', array(
@@ -99,8 +99,8 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 				</div>
 
 				<div class="lesson-plan-duration">
-					<h2 class="h4 lesson-plan-level-header"><?php echo esc_html__( 'Duration', 'wporg-learn' ); ?></h2>
-					<div class="lesson-plan-level-description"><?php echo esc_html__( 'How long a lesson is estimated to take.', 'wporg-learn' ); ?></div>
+					<h2 class="h4 lesson-plan-taxonomy-header"><?php echo esc_html__( 'Duration', 'wporg-learn' ); ?></h2>
+					<div class="lesson-plan-taxonomy-description"><?php echo esc_html__( 'How long a lesson is estimated to take.', 'wporg-learn' ); ?></div>
 					<ul class="list">
 						<?php
 						$durations = get_terms( 'duration', array(
@@ -114,6 +114,24 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 						endforeach;
 						?>
 					</ul>
+				</div>
+			</div>
+
+			<?php
+			$instruction_types = get_terms( 'instruction_type', array(
+				'hide_empty' => false,
+				'orderby' => 'id',
+			) );
+			?>
+			<div class="row lesson-plan-taxonomy">
+				<div class="card-grid card-grid_4">
+					<h2 class="h4 lesson-plan-taxonomy-header"><?php echo esc_html__( 'Format', 'wporg-learn' ); ?></h2>
+					<div class="lesson-plan-taxonomy-description"><?php echo esc_html__( 'Browse lesson plans based on their format.', 'wporg-learn' ); ?></div>
+					<?php foreach ( $instruction_types as $instruction_type) : ?>
+					<div class="card">
+						<p class="taxonomy-title"><a href="<?php echo get_post_type_archive_link( 'lesson-plan' ) . '?type[]=' . $instruction_type->term_id; ?>"><?php echo esc_html( $instruction_type->name ); ?></a></p>
+					</div>
+					<?php endforeach; ?>
 				</div>
 			</div>
 		</section>
