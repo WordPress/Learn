@@ -312,7 +312,6 @@ p {
 /* ___ Single Lesson Plan ___ */
 
 .slide-embed {
-	margin-bottom: 2.5rem;
 	margin-top: 3rem;
 
 	@media only screen and (min-width: 768px) {
@@ -327,6 +326,7 @@ p {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	margin-top: 2.5rem;
 }
 
 .lp-content .lp-content-inner {
@@ -354,19 +354,19 @@ p {
 			border-bottom: 1px solid #E2E4E7;
 			padding-bottom: 0.5rem;
 			padding-top: 0.5rem;
-			padding-left: 1.75rem;
+			padding-left: 0;
 			display: flex;
 			justify-content: space-between;
 
 			.dashicons {
-				padding-top: 0.5rem;
-				color: #555D66;
+				display: none;
 			}
 
 			> span:nth-child(2) {
 				font-weight: 600;
 				font-size: 1rem;
 				line-height: 1.5;
+				color: #555D66;
 			}
 
 			strong {
