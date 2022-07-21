@@ -54,6 +54,30 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 					<?php endforeach; ?>
 				</div>
 			</div>
+
+			<?php
+			$audiences = get_terms( 'audience', array(
+				'hide_empty' => false,
+				'orderby' => 'id',
+			) );
+			?>
+			<div class="row lesson-plan-category">
+				<div class="card-grid card-grid_4">
+					<h2 class="h4 lesson-plan-category-header"><?php echo esc_html__( 'Audience', 'wporg-learn' ); ?></h2>
+					<div class="lesson-plan-category-description"><?php echo esc_html__( 'Browse lesson plans by the audience they\'re intended for.', 'wporg-learn' ); ?></div>
+					<?php foreach ( $audiences as $audience) : ?>
+					<div class="card">
+						<div class="icon">
+							<?php
+							$audience_icon = get_term_meta( $audience->term_id, 'dashicon-class', true );
+							?>
+							<a href="<?php echo get_term_link( $audience ); ?>"><span class="dashicons dashicons-<?php echo esc_attr( $audience_icon ); ?>"></span></a>
+						</div>
+						<p class="category-title"><a href="<?php echo get_term_link( $audience ); ?>"><?php echo esc_html( $audience->name ); ?></a></p>
+					</div>
+					<?php endforeach; ?>
+				</div>
+			</div>
 		<?php
 		while ( have_posts() ) :
 			the_post();
