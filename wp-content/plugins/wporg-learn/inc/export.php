@@ -51,7 +51,7 @@ function update_schema_array_recursive( &$schema ) {
 			update_schema_array_recursive( $value );
 		}
 		if ( 'context' === $key && in_array( 'view', $value ) ) {
-			$value[] = 'export';
+			$value[] = 'wporg_export';
 		}
 	}
 }
@@ -97,18 +97,22 @@ function show_post_content_raw( $object, $field_name, $request ) {
 	}
 
 	// Exit early if the post contains any blocks that are not explicitly allowed.
-	if ( $post && has_blocks( $post->post_content ) ) {
+	if ( $post && has_blocks( $post->post_content ) || true ) {
+
+		$regexes = [];
+		foreach ( $allowed_blocks as $allowed_block_name ) {
+			$regexes[] = strtr( preg_quote( $allowed_block_name, '#' ), [ '\*' => '.*' ] );
+		}
+
+		$regex = '#^(' . implode( '|', $regexes ) . ')$#';
+
 		$blocks = parse_blocks( $post->post_content );
-		$block_names = get_all_block_names( $block_names );
+		$block_names = get_all_block_names( $blocks );
 
 		foreach ( $block_names as $block_name ) {
-			// Allow all core blocks
-			if ( 'core/' === substr( $block_name, 0, 5 ) ) {
-				continue;
-			}
 			// If it contains a disallowed block, then return no content.
 			// Better to raise an error instead?
-			if ( !in_array( $block_name, $allowed_blocks ) ) {
+			if ( !preg_match( $regex, $block_name ) ) {
 				return false;
 			}
 		}
