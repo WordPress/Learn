@@ -70,11 +70,11 @@ function import_rest_to_posts( $rest_url ) {
 
 		$new_post_id = wp_insert_post( $newpost, true );
 
-		if ( is_wp_error( $r ) ) {
-			die( $r->get_error_message() );
+		if ( is_wp_error( $new_post_id ) ) {
+			die( $new_post_id->get_error_message() );
 		}
 
-		echo "Inserted $post->type $post->id as $r\n";
+		echo "Inserted $post->type $post->id as $new_post_id\n";
 	}
 }
 
