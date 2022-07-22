@@ -13,7 +13,7 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 		<section>
 			<div class="row align-middle between section-heading section-heading--with-space">
 				<?php the_title( '<h1 class="section-heading_title h2">', '</h1>' ); ?>
-				<a href="<?php echo get_post_type_archive_link( 'lesson-plan' ); ?>" class="button button-large button-secondary">
+				<a href="<?php echo esc_url( get_post_type_archive_link( 'lesson-plan' ) ); ?>" class="button button-large button-secondary">
 					<?php esc_html_e( 'Browse all lesson plans', 'wporg-learn' ); ?>
 				</a>
 			</div>
@@ -50,9 +50,9 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 							<?php
 							$category_icon = get_term_meta( $category->term_id, 'dashicon-class', true );
 							?>
-							<a href="<?php echo get_term_link( $category ); ?>"><span class="dashicons dashicons-<?php echo esc_attr( $category_icon ); ?>"></span></a>
+							<a href="<?php echo esc_url( get_term_link( $category ) ); ?>"><span class="dashicons dashicons-<?php echo esc_attr( $category_icon ); ?>"></span></a>
 						</div>
-						<p class="taxonomy-title"><a href="<?php echo get_term_link( $category ); ?>"><?php echo esc_html( $category->name ); ?></a></p>
+						<p class="taxonomy-title"><a href="<?php echo esc_url( get_term_link( $category ) ); ?>"><?php echo esc_html( $category->name ); ?></a></p>
 					</div>
 							<?php
 						endif;
@@ -79,9 +79,9 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 							<?php
 							$audience_icon = get_term_meta( $audience->term_id, 'dashicon-class', true );
 							?>
-							<a href="<?php echo get_term_link( $audience ); ?>"><span class="dashicons dashicons-<?php echo esc_attr( $audience_icon ); ?>"></span></a>
+							<a href="<?php echo esc_url( get_term_link( $audience ) ); ?>"><span class="dashicons dashicons-<?php echo esc_attr( $audience_icon ); ?>"></span></a>
 						</div>
-						<p class="taxonomy-title"><a href="<?php echo get_term_link( $audience ); ?>"><?php echo esc_html( $audience->name ); ?></a></p>
+						<p class="taxonomy-title"><a href="<?php echo esc_url( get_term_link( $audience ) ); ?>"><?php echo esc_html( $audience->name ); ?></a></p>
 					</div>
 							<?php
 					endif;
@@ -101,7 +101,7 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 						) );
 
 						foreach ( $levels as $level ) : ?>
-						<li><a href="<?php echo get_post_type_archive_link( 'lesson-plan' ) . '?level[]=' . $level->term_id; ?>"><?php echo esc_html( $level->name ); ?><span class="dashicons dashicons-arrow-right-alt2"></span></a></li>
+						<li><a href="<?php echo esc_url( get_post_type_archive_link( 'lesson-plan' ) ) . '?level[]=' . esc_html( $level->term_id ); ?>"><?php echo esc_html( $level->name ); ?><span class="dashicons dashicons-arrow-right-alt2"></span></a></li>
 							<?php
 						endforeach;
 						?>
@@ -119,10 +119,25 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 							'order'      => 'ASC',
 						) );
 
-						foreach ( $durations as $duration ) : ?>
-						<li><a href="<?php echo get_post_type_archive_link( 'lesson-plan' ) . '?duration[]=' . $duration->term_id; ?>"><?php echo esc_html( $duration->name ); ?><span class="dashicons dashicons-arrow-right-alt2"></span></a></li>
-							<?php
+						$duration_index = 0;
+						$any_duration_arr = array();
+						foreach ( $durations as $duration ) :
+							if ( $duration_index < 3 ) :
+								?>
+						<li><a href="<?php echo esc_url( get_post_type_archive_link( 'lesson-plan' ) ) . '?duration[]=' . esc_html( $duration->term_id ); ?>"><?php echo esc_html( $duration->name ); ?><span class="dashicons dashicons-arrow-right-alt2"></span></a></li>
+								<?php
+							else :
+								$any_duration_arr[] = 'duration[]=' . $duration->term_id;
+							endif;
+							$duration_index++;
 						endforeach;
+
+						if ( $any_duration_arr ) :
+							$any_duration_html = implode( '&', $any_duration_arr );
+							?>
+							<li><a href="<?php echo esc_url( get_post_type_archive_link( 'lesson-plan' ) ) . '?' . esc_html( $any_duration_html ); ?>"><?php echo esc_html__( 'Any', 'wporg-learn' ); ?><span class="dashicons dashicons-arrow-right-alt2"></span></a></li>
+							<?php
+						endif;
 						?>
 					</ul>
 				</div>
@@ -140,7 +155,7 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 					<div class="lesson-plan-taxonomy-description"><?php echo esc_html__( 'Browse lesson plans based on their format.', 'wporg-learn' ); ?></div>
 					<?php foreach ( $instruction_types as $instruction_type ) : ?>
 					<div class="card">
-						<p class="taxonomy-title"><a href="<?php echo get_post_type_archive_link( 'lesson-plan' ) . '?type[]=' . $instruction_type->term_id; ?>"><?php echo esc_html( $instruction_type->name ); ?></a></p>
+						<p class="taxonomy-title"><a href="<?php echo esc_url( get_post_type_archive_link( 'lesson-plan' ) ) . '?type[]=' . esc_html( $instruction_type->term_id ); ?>"><?php echo esc_html( $instruction_type->name ); ?></a></p>
 					</div>
 					<?php endforeach; ?>
 				</div>
@@ -149,7 +164,7 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 			<hr>
 
 			<div class="row align-middle around lesson-plan-cta">
-				<a href="<?php echo get_post_type_archive_link( 'lesson-plan' ); ?>" class="button button-large button-secondary">
+				<a href="<?php echo esc_url( get_post_type_archive_link( 'lesson-plan' ) ); ?>" class="button button-large button-secondary">
 					<?php esc_html_e( 'Browse all lesson plans', 'wporg-learn' ); ?>
 				</a>
 			</div>

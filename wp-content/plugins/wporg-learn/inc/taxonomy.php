@@ -615,7 +615,7 @@ function tax_edit_term_fields( $term, $taxonomy ) {
 		<label for="sticky">Sticky topic</label>
 	</th>
 	<td>
-		<input name="sticky" id="sticky" type="checkbox" ' . $checked_html . ' />
+		<input name="sticky" id="sticky" type="checkbox" ' . esc_html( $checked_html ) . ' />
 		<p>Check to show on landing page</p>
 	</td>
 	</tr>
@@ -634,13 +634,13 @@ function tax_save_term_fields( $term_id ) {
 	update_term_meta(
 		$term_id,
 		'dashicon-class',
-		sanitize_text_field( $_POST['dashicon-class'] )
+		sanitize_text_field( $_POST['dashicon-class'] ) // phpcs:ignore.
 	);
 
 	update_term_meta(
 		$term_id,
 		'sticky',
-		sanitize_text_field( $_POST['sticky'] )
+		sanitize_text_field( $_POST['sticky'] ) // phpcs:ignore.
 	);
 }
 
