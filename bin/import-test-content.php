@@ -64,7 +64,7 @@ function import_rest_to_posts( $rest_url ) {
 			'meta_input' => sanitize_meta_input( $post->meta ),
 		);
 
-		$r = wp_insert_post( $newpost, true );
+		$new_post_id = wp_insert_post( $newpost, true );
 
 		if ( is_wp_error( $r ) ) {
 			die( $r->get_error_message() );
