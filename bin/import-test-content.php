@@ -38,8 +38,12 @@ function sanitize_meta_input( $meta ) {
 
 function import_rest_to_posts( $rest_url ) {
 	$response = wp_remote_get( $rest_url );
+	$status_code = wp_remote_retrieve_response_code( $response );
+
 	if ( is_wp_error( $response ) ) {
 		die( $response->get_error_message() );
+	} elseif ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
+		die( "HTTP Error $status_code \n" );
 	}
 
 	$body = wp_remote_retrieve_body( $response );
