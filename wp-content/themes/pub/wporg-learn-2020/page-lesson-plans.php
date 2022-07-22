@@ -135,7 +135,7 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 						if ( $any_duration_arr ) :
 							$any_duration_html = implode( '&', $any_duration_arr );
 							?>
-							<li><a href="<?php echo esc_url( get_post_type_archive_link( 'lesson-plan' ) ) . '?' . esc_html( $any_duration_html ); ?>"><?php echo esc_html__( 'Any', 'wporg-learn' ); ?><span class="dashicons dashicons-arrow-right-alt2"></span></a></li>
+							<li><a href="<?php echo esc_url( get_post_type_archive_link( 'lesson-plan' ) ) . '?' . esc_html( $any_duration_html ); ?>"><?php echo esc_html__( 'Any(over 60m)', 'wporg-learn' ); ?><span class="dashicons dashicons-arrow-right-alt2"></span></a></li>
 							<?php
 						endif;
 						?>
