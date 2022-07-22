@@ -3,6 +3,8 @@
 /**
  * Allow some raw data to be exposed in the REST API for certain post types, so that developers can import
  * a copy of production data for local testing.
+ *
+ * ⚠️ Be careful to only expose public data!
  */
 
 namespace WPOrg_Learn\Export;
@@ -25,7 +27,7 @@ function register_raw_content_for_post_type( $post_type ) {
 			'get_callback' => __NAMESPACE__.'\show_post_content_raw',
 			'schema'       => [
 				'type' => 'string',
-				'context' => [ 'export' ]
+				'context' => [ 'wporg_export' ]
 			]
 		]
 	);
@@ -56,7 +58,9 @@ function update_schema_array_recursive( &$schema ) {
 
 function get_all_block_names( $blocks ) {
 	$block_names = [];
-
+    if ( ! $blocks ) {
+        return array();
+    }
 	foreach ( $blocks as $block ) {
 		$block_names[] = $block[ 'blockName' ];
 		if ( $block[ 'innerBlocks' ] ) {
