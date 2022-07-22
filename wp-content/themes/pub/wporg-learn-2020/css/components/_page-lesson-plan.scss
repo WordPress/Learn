@@ -5,6 +5,9 @@
 			flex-basis: 100%;
 			font-weight: 400;
 			color: #555D66;
+			font-size: 1.375rem;
+			line-height: 1.36;
+			margin-bottom: 0.75rem;
 		}
 
 		&-description {
@@ -15,11 +18,13 @@
 		}
 
 		.card-grid  {
-			margin: 2rem 0;
+			margin: 2rem -0.5rem;
 			justify-content: flex-start;
 
 			.card {
 				text-align: center;
+				margin-top: 0;
+				margin-bottom: 1rem;
 
 				a:hover {
 					text-decoration: none;
@@ -45,15 +50,25 @@
 			}
 		}
 
-		&.last {
+		&.categories {
+			.card-grid  {
+				margin-top: 3rem;
+			}
+		}
+
+		&.last-grid {
 			.card-grid {
-				margin-bottom: 4rem;
+				margin-bottom: 3rem;
+				margin-top: 3.5rem;
 			}
 		}
 	}
 
 	&-two-col {
 		@media only screen and (min-width: $breakpoint-tablet) {
+			margin-left: -0.5rem;
+			margin-right: -0.5rem;
+
 			> * {
 				margin: 0.5rem;
 				width: calc(50% - 1rem);
@@ -68,7 +83,7 @@
 			margin-bottom: 0;
 
 			li {
-				padding: 1.125em;
+				padding: 1.0625em;
 				margin-bottom: 0.5rem;
 				background: #FBFBFC;
 				border: 1px solid #CCD0D4;
@@ -89,12 +104,12 @@
 
 				.dashicons {
 					vertical-align: middle;
-					font-size: 1.5rem;
-					width: 1.5rem;
-					height: 1.5rem;
+					font-size: 2rem;
+					width: 1.875rem;
+					height: 1.875rem;
 					position: absolute;
-					right: 1.125rem;
-					top: calc(50% - 0.75rem);
+					right: 0.75rem;
+					top: calc(50% - 1rem);
 				}
 			}
 		}
@@ -103,5 +118,19 @@
 	&-cta {
 		margin-top: 4rem;
 		margin-bottom: 7.5rem;
+
+		/* TODO: refactor if need to global for secondary button */
+		.button.button-large {
+			border: 1px solid #E2E4E7;
+			border-radius: 4px;
+			background-color: #F8F9F9;
+			padding-top: 12px;
+			padding-bottom: 12px;
+			height: 42px;
+			font-style: normal;
+			font-weight: 600;
+			font-size: 13px;
+			line-height: 18px;
+		}
 	}
 }

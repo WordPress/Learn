@@ -12,7 +12,16 @@
 	}
 
 	&_text {
-		max-width: 540px;
+		max-width: 618px;
+
+		p {
+			font-size: 1.125rem;
+			line-height: 1.6;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
 	}
 
 }

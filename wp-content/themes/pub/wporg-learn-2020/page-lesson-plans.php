@@ -11,8 +11,8 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 
 	<main id="main" class="site-main page-full-width">
 		<section>
-			<div class="row align-middle between section-heading section-heading--with-space">
-				<?php the_title( '<h1 class="section-heading_title h2">', '</h1>' ); ?>
+			<div class="row align-middle between section-heading section-heading--with-space large-space">
+				<?php the_title( '<h1 class="section-heading_title bigger">', '</h1>' ); ?>
 				<a href="<?php echo esc_url( get_post_type_archive_link( 'lesson-plan' ) ); ?>" class="button button-large button-secondary">
 					<?php esc_html_e( 'Browse all lesson plans', 'wporg-learn' ); ?>
 				</a>
@@ -20,7 +20,7 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 
 			<hr>
 
-			<div class="row align-middle between section-plan_description section-heading--with-space">
+			<div class="row align-middle between section-plan_description">
 				<div class="section-plan_text">
 					<?php the_content(); ?>
 				</div>
@@ -37,7 +37,7 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 				'orderby'    => 'id',
 			) );
 			?>
-			<div class="row lesson-plan-taxonomy">
+			<div class="row lesson-plan-taxonomy categories">
 				<div class="card-grid card-grid_4">
 					<h2 class="h4 lesson-plan-taxonomy-header"><?php echo esc_html__( 'Topic', 'wporg-learn' ); ?></h2>
 					<div class="lesson-plan-taxonomy-description"><?php echo esc_html__( 'Browse lesson plans by their high-level topic.', 'wporg-learn' ); ?></div>
@@ -149,7 +149,7 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 				'orderby' => 'id',
 			) );
 			?>
-			<div class="row lesson-plan-taxonomy last">
+			<div class="row lesson-plan-taxonomy last-grid">
 				<div class="card-grid card-grid_4">
 					<h2 class="h4 lesson-plan-taxonomy-header"><?php echo esc_html__( 'Format', 'wporg-learn' ); ?></h2>
 					<div class="lesson-plan-taxonomy-description"><?php echo esc_html__( 'Browse lesson plans based on their format.', 'wporg-learn' ); ?></div>
