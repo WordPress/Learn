@@ -25,7 +25,7 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 					<?php the_content(); ?>
 				</div>
 				<?php
-				set_query_var('post_type', 'lesson-plan');
+				set_query_var( 'post_type', 'lesson-plan' );
 				get_template_part( 'template-parts/component', 'archive-search' );
 				?>
 			</div>
@@ -41,7 +41,10 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 				<div class="card-grid card-grid_4">
 					<h2 class="h4 lesson-plan-taxonomy-header"><?php echo esc_html__( 'Topic', 'wporg-learn' ); ?></h2>
 					<div class="lesson-plan-taxonomy-description"><?php echo esc_html__( 'Browse lesson plans by their high-level topic.', 'wporg-learn' ); ?></div>
-					<?php foreach ( $categories as $category) : ?>
+					<?php foreach ( $categories as $category ) :
+						$is_sticky = get_term_meta( $category->term_id, 'sticky', true );
+						if ( $is_sticky ) :
+							?>
 					<div class="card">
 						<div class="icon">
 							<?php
@@ -51,7 +54,9 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 						</div>
 						<p class="taxonomy-title"><a href="<?php echo get_term_link( $category ); ?>"><?php echo esc_html( $category->name ); ?></a></p>
 					</div>
-					<?php endforeach; ?>
+							<?php
+						endif;
+					endforeach; ?>
 				</div>
 			</div>
 
@@ -65,7 +70,10 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 				<div class="card-grid card-grid_4">
 					<h2 class="h4 lesson-plan-taxonomy-header"><?php echo esc_html__( 'Audience', 'wporg-learn' ); ?></h2>
 					<div class="lesson-plan-taxonomy-description"><?php echo esc_html__( 'Browse lesson plans by the audience they\'re intended for.', 'wporg-learn' ); ?></div>
-					<?php foreach ( $audiences as $audience) : ?>
+					<?php foreach ( $audiences as $audience ) :
+						$is_sticky = get_term_meta( $audience->term_id, 'sticky', true );
+						if ( $is_sticky ) :
+							?>
 					<div class="card">
 						<div class="icon">
 							<?php
@@ -75,7 +83,9 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 						</div>
 						<p class="taxonomy-title"><a href="<?php echo get_term_link( $audience ); ?>"><?php echo esc_html( $audience->name ); ?></a></p>
 					</div>
-					<?php endforeach; ?>
+							<?php
+					endif;
+				endforeach; ?>
 				</div>
 			</div>
 
@@ -90,7 +100,7 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 							'orderby'    => 'id',
 						) );
 
-						foreach ($levels as $level) : ?>
+						foreach ( $levels as $level ) : ?>
 						<li><a href="<?php echo get_post_type_archive_link( 'lesson-plan' ) . '?level[]=' . $level->term_id; ?>"><?php echo esc_html( $level->name ); ?><span class="dashicons dashicons-arrow-right-alt2"></span></a></li>
 							<?php
 						endforeach;
@@ -109,7 +119,7 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 							'order'      => 'ASC',
 						) );
 
-						foreach ($durations as $duration) : ?>
+						foreach ( $durations as $duration ) : ?>
 						<li><a href="<?php echo get_post_type_archive_link( 'lesson-plan' ) . '?duration[]=' . $duration->term_id; ?>"><?php echo esc_html( $duration->name ); ?><span class="dashicons dashicons-arrow-right-alt2"></span></a></li>
 							<?php
 						endforeach;
@@ -128,7 +138,7 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 				<div class="card-grid card-grid_4">
 					<h2 class="h4 lesson-plan-taxonomy-header"><?php echo esc_html__( 'Format', 'wporg-learn' ); ?></h2>
 					<div class="lesson-plan-taxonomy-description"><?php echo esc_html__( 'Browse lesson plans based on their format.', 'wporg-learn' ); ?></div>
-					<?php foreach ( $instruction_types as $instruction_type) : ?>
+					<?php foreach ( $instruction_types as $instruction_type ) : ?>
 					<div class="card">
 						<p class="taxonomy-title"><a href="<?php echo get_post_type_archive_link( 'lesson-plan' ) . '?type[]=' . $instruction_type->term_id; ?>"><?php echo esc_html( $instruction_type->name ); ?></a></p>
 					</div>

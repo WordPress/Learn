@@ -568,16 +568,22 @@ function register_included_content() {
 /**
  * Add icon field for Category and Audience
  */
-function register_icon_field( $taxonomy ) {
+function register_custom_fields( $taxonomy ) {
 	echo '<div class="form-field">
 	<label for="dashicon-class">Dashicon ID</label>
 	<input type="text" name="dashicon-class" id="dashicon-class" />
 	<p>Pick icon and copy icon id to enter here. The icon can find at <a href="https://developer.wordpress.org/resource/dashicons/#wordpress">Here</a>. Example: <b>wordpress</b></p>
-	</div>';
+	</div>
+	<div class="form-field">
+	<label for="sticky">
+	<input type="checkbox" name="sticky" id="sticky" />Sticky topic</label>
+	<p>Check to show on landing page</p>
+	</div>
+	';
 }
 
-add_action( 'audience_add_form_fields', __NAMESPACE__ . '\register_icon_field' );
-add_action( 'wporg_lesson_category_add_form_fields', __NAMESPACE__ . '\register_icon_field' );
+add_action( 'audience_add_form_fields', __NAMESPACE__ . '\register_custom_fields' );
+add_action( 'wporg_lesson_category_add_form_fields', __NAMESPACE__ . '\register_custom_fields' );
 
 /**
  * Icon field on edit screen.
@@ -587,16 +593,33 @@ add_action( 'wporg_lesson_category_add_form_fields', __NAMESPACE__ . '\register_
  */
 function tax_edit_term_fields( $term, $taxonomy ) {
 	$value = get_term_meta( $term->term_id, 'dashicon-class', true );
+	$sticky = get_term_meta( $term->term_id, 'sticky', true );
+
+	$checked_html = '';
+
+	if ( $sticky ) {
+		$checked_html = ' checked';
+	}
 
 	echo '<tr class="form-field">
 	<th>
 		<label for="dashicon-class">Dashicon ID</label>
 	</th>
 	<td>
-		<input name="dashicon-class" id="dashicon-class" type="text" value="' . esc_attr( $value ) .'" />
+		<input name="dashicon-class" id="dashicon-class" type="text" value="' . esc_attr( $value ) . '" />
 		<p>Pick icon and copy icon id to enter here. The icon can find at <a href="https://developer.wordpress.org/resource/dashicons/#wordpress">Here</a>. Example: <b>wordpress</b></p>
 	</td>
-	</tr>';
+	</tr>
+	<tr class="form-field">
+	<th>
+		<label for="sticky">Sticky topic</label>
+	</th>
+	<td>
+		<input name="sticky" id="sticky" type="checkbox" ' . $checked_html . ' />
+		<p>Check to show on landing page</p>
+	</td>
+	</tr>
+	';
 }
 
 add_action( 'audience_edit_form_fields', __NAMESPACE__ . '\tax_edit_term_fields', 10, 2 );
@@ -611,7 +634,13 @@ function tax_save_term_fields( $term_id ) {
 	update_term_meta(
 		$term_id,
 		'dashicon-class',
-		sanitize_text_field( $_POST[ 'dashicon-class' ] )
+		sanitize_text_field( $_POST['dashicon-class'] )
+	);
+
+	update_term_meta(
+		$term_id,
+		'sticky',
+		sanitize_text_field( $_POST['sticky'] )
 	);
 }
 
