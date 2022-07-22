@@ -26,7 +26,7 @@ function register_raw_content_for_post_type( $post_type ) {
 			'get_callback' => __NAMESPACE__.'\show_post_content_raw',
 			'schema'       => [
 				'type' => 'string',
-				'context' => [ 'export' ]
+				'context' => [ 'wporg_export' ]
 			]
 		]
 	);
