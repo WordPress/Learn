@@ -57,7 +57,9 @@ function update_schema_array_recursive( &$schema ) {
 
 function get_all_block_names( $blocks ) {
 	$block_names = [];
-
+    if ( ! $blocks ) {
+        return array();
+    }
 	foreach ( $blocks as $block ) {
 		$block_names[] = $block[ 'blockName' ];
 		if ( $block[ 'innerBlocks' ] ) {
