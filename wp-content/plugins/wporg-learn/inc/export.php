@@ -16,7 +16,6 @@ add_action( 'rest_api_init', function() {
 } );
 
 
-
 function register_raw_content_for_post_type( $post_type ) {
 
 	register_rest_field(
@@ -70,16 +69,22 @@ function get_all_block_names( $blocks ) {
 }
 
 function show_post_content_raw( $object, $field_name, $request ) {
-	// Blocks that are allowed to be revealed via the export context.
-	// Posts that contain any other blocks will not expose raw content.
-	$allowed_blocks = [
-		// core/* assumed safe by default; is this a reasonable assumption?
+
+
+	/**
+	 * Filter: Modify the list of blocks permitted in posts available via the 'export' context.
+	 * Posts containing any other blocks will not be exported.
+	 *
+	 * @param array $allowed_blocks An array of allowed block names. Simple wildcards are permitted, like 'core/*'.
+	 */
+	$allowed_blocks = apply_filters( 'allow_raw_block_export', [
+		'core/*',
+		'wporg/*',
 		// other allowed blocks:
-		'wporg/callout',
 		'jetpack/image-compare',
 		'jetpack/tiled-gallery',
 		'syntaxhighlighter/code',
-	];
+	] );
 
 	if ( !empty( $object[ 'id' ] ) ) {
 		$post = get_post( $object[ 'id' ] );
