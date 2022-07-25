@@ -39,15 +39,23 @@ function register_raw_content_for_post_type( $post_type ) {
 	add_filter( "rest_{$post_type}_item_schema", __NAMESPACE__ . '\add_export_context_to_schema' );
 }
 
-// Filter a CPT item schema and make it so that every item with 'view' context also has 'export' context.
+/**
+ * Filter a CPT item schema and make it so that every item with 'view' context also has 'export' context.
+ *
+ * @param array $schema The schema object.
+ */
 function add_export_context_to_schema( $schema ) {
 	update_schema_array_recursive( $schema );
 
 	return $schema;
 }
 
-// Find every item in the schema that has a 'view' context, and add an 'export' context to it.
-// Had to use a recursive function because array_walk_recursive only walks leaf nodes.
+/**
+ * Find every item in the schema that has a 'view' context, and add an 'export' context to it.
+ * Had to use a recursive function because array_walk_recursive only walks leaf nodes.
+ *
+ * @param array $schema The schema object.
+ */
 function update_schema_array_recursive( &$schema ) {
 	foreach ( $schema as $key => &$value ) {
 		// Head recursion
@@ -60,6 +68,12 @@ function update_schema_array_recursive( &$schema ) {
 	}
 }
 
+/**
+ * Given an array of blocks, return an array of just the names of those blocks.
+ *
+ * @param array $blocks An array of blocks.
+ * @return array An array of block names.
+ */
 function get_all_block_names( $blocks ) {
 	$block_names = array();
 	if ( ! $blocks ) {
@@ -76,6 +90,15 @@ function get_all_block_names( $blocks ) {
 	return array_unique( $block_names );
 }
 
+/**
+ * Callback: If a post contains only allowed blocks, then return the raw block markup for the post.
+ *
+ * @param array  $object The post object relating to the REST request.
+ * @param string $field_name The field name.
+ * @param array  $request The request object.
+ *
+ * @return string The raw post content, if it contains only allowed blocks; a placeholder string otherwise.
+ */
 function show_post_content_raw( $object, $field_name, $request ) {
 
 	/**
