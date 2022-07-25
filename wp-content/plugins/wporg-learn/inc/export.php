@@ -27,16 +27,16 @@ function register_raw_content_for_post_type( $post_type ) {
 	register_rest_field(
 		$post_type,
 		'content_raw',
-		[
-			'get_callback' => __NAMESPACE__.'\show_post_content_raw',
-			'schema'       => [
+		array(
+			'get_callback' => __NAMESPACE__ . '\show_post_content_raw',
+			'schema'       => array(
 				'type' => 'string',
-				'context' => [ 'wporg_export' ]
-			]
-		]
+				'context' => array( 'wporg_export' ),
+			),
+		)
 	);
 
-	add_filter( "rest_{$post_type}_item_schema", __NAMESPACE__.'\add_export_context_to_schema' );
+	add_filter( "rest_{$post_type}_item_schema", __NAMESPACE__ . '\add_export_context_to_schema' );
 }
 
 // Filter a CPT item schema and make it so that every item with 'view' context also has 'export' context.
@@ -61,15 +61,15 @@ function update_schema_array_recursive( &$schema ) {
 }
 
 function get_all_block_names( $blocks ) {
-	$block_names = [];
-    if ( ! $blocks ) {
-        return array();
-    }
+	$block_names = array();
+	if ( ! $blocks ) {
+		return array();
+	}
 	foreach ( $blocks as $block ) {
-		$block_names[] = $block[ 'blockName' ];
-		if ( $block[ 'innerBlocks' ] ) {
+		$block_names[] = $block['blockName'];
+		if ( $block['innerBlocks'] ) {
 			// Recursive call to get inner blocks
-			$block_names = array_merge( $block_names, get_all_block_names( $block[ 'innerBlocks' ] ) );
+			$block_names = array_merge( $block_names, get_all_block_names( $block['innerBlocks'] ) );
 		}
 	}
 
@@ -78,24 +78,23 @@ function get_all_block_names( $blocks ) {
 
 function show_post_content_raw( $object, $field_name, $request ) {
 
-
 	/**
 	 * Filter: Modify the list of blocks permitted in posts available via the 'export' context.
 	 * Posts containing any other blocks will not be exported.
 	 *
 	 * @param array $allowed_blocks An array of allowed block names. Simple wildcards are permitted, like 'core/*'.
 	 */
-	$allowed_blocks = apply_filters( 'allow_raw_block_export', [
+	$allowed_blocks = apply_filters( 'allow_raw_block_export', array(
 		'core/*',
 		'wporg/*',
 		// other allowed blocks:
 		'jetpack/image-compare',
 		'jetpack/tiled-gallery',
 		'syntaxhighlighter/code',
-	] );
+	) );
 
-	if ( !empty( $object[ 'id' ] ) ) {
-		$post = get_post( $object[ 'id' ] );
+	if ( ! empty( $object['id'] ) ) {
+		$post = get_post( $object['id'] );
 	} else {
 		$post = get_post();
 	}
@@ -103,9 +102,9 @@ function show_post_content_raw( $object, $field_name, $request ) {
 	// Exit early if the post contains any blocks that are not explicitly allowed.
 	if ( $post && has_blocks( $post->post_content ) || true ) {
 
-		$regexes = [];
+		$regexes = array();
 		foreach ( $allowed_blocks as $allowed_block_name ) {
-			$regexes[] = strtr( preg_quote( $allowed_block_name, '#' ), [ '\*' => '.*' ] );
+			$regexes[] = strtr( preg_quote( $allowed_block_name, '#' ), array( '\*' => '.*' ) );
 		}
 
 		$regex = '#^(' . implode( '|', $regexes ) . ')$#';
@@ -116,7 +115,7 @@ function show_post_content_raw( $object, $field_name, $request ) {
 		foreach ( $block_names as $block_name ) {
 			// If it contains a disallowed block, then return no content.
 			// Better to raise an error instead?
-			if ( !preg_match( $regex, $block_name ) ) {
+			if ( ! preg_match( $regex, $block_name ) ) {
 				return '<p>Post contains a disallowed block ' . esc_html( $block_name ) . '</p>';
 			}
 		}
