@@ -80,10 +80,12 @@ function get_all_block_names( $blocks ) {
 		return array();
 	}
 	foreach ( $blocks as $block ) {
-		$block_names[] = $block['blockName'];
-		if ( $block['innerBlocks'] ) {
-			// Recursive call to get inner blocks
-			$block_names = array_merge( $block_names, get_all_block_names( $block['innerBlocks'] ) );
+		if ( null !== $block['blockName'] ) {
+			$block_names[] = $block['blockName'];
+			if ( $block['innerBlocks'] ) {
+				// Recursive call to get inner blocks
+				$block_names = array_merge( $block_names, get_all_block_names( $block['innerBlocks'] ) );
+			}
 		}
 	}
 
