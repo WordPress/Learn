@@ -345,6 +345,8 @@ _x( 'page attributes', 'Included Content term name', 'wporg-learn' );
 _x( 'pages', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/performance/ */
 _x( 'performance', 'Included Content term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/wporg_included_content/performance-settings/ */
+_x( 'performance', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/permalinks/ */
 _x( 'permalinks', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/plugin-editor/ */
@@ -425,8 +427,6 @@ _x( 'users', 'Included Content term name', 'wporg-learn' );
 _x( 'video block', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/widgets/ */
 _x( 'widgets', 'Included Content term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/wporg_included_content/wordpress-org/ */
-_x( 'WordPress.org', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/course-category/contributing-to-wordpress/ */
 _x( 'Contributing to WordPress', 'Course Categories term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/course-category/contributing-to-wordpress/ */
