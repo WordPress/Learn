@@ -17,7 +17,11 @@ add_action( 'rest_api_init', function() {
 	register_raw_content_for_post_type( 'wporg_workshop' );
 } );
 
-
+/**
+ * Register a `wporg_export` context for a given post type.
+ *
+ * @param string $post_type Post type to allow for export.
+ */
 function register_raw_content_for_post_type( $post_type ) {
 
 	register_rest_field(
@@ -113,7 +117,7 @@ function show_post_content_raw( $object, $field_name, $request ) {
 			// If it contains a disallowed block, then return no content.
 			// Better to raise an error instead?
 			if ( !preg_match( $regex, $block_name ) ) {
-				return false;
+				return '<p>Post contains a disallowed block ' . esc_html( $block_name ) . '</p>';
 			}
 		}
 	}
