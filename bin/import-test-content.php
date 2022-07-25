@@ -87,5 +87,5 @@ function import_rest_to_posts( $rest_url ) {
 	}
 }
 
-import_rest_to_posts( 'https://learn.wordpress.org/wp-json/wp/v2/wporg_workshop?context=export&per_page=50' );
-import_rest_to_posts( 'https://learn.wordpress.org/wp-json/wp/v2/lesson-plan?context=export&per_page=50' );
+import_rest_to_posts( 'https://learn.wordpress.org/wp-json/wp/v2/wporg_workshop?context=wporg_export&per_page=50' );
+import_rest_to_posts( 'https://learn.wordpress.org/wp-json/wp/v2/lesson-plan?context=wporg_export&per_page=50' );
