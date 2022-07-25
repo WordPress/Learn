@@ -15,6 +15,7 @@
 		"wp-content": "./wp-content",
 		"wp-content/mu-plugins/0-sandbox.php": "./.wp-env/0-sandbox.php",
 		"wp-content/uploads/wporg_events.sql": "./.wp-env/wporg_events.sql",
-		"wp-content/uploads/wporg_locales.sql": "./.wp-env/wporg_locales.sql"
+		"wp-content/uploads/wporg_locales.sql": "./.wp-env/wporg_locales.sql",
+		"bin": "./bin"
 	}
 }
