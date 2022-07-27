@@ -14,7 +14,7 @@ defined( 'WPINC' ) || die();
 add_filter( 'wporg_export_context_post_types', function( $post_types ) {
 	return array_merge( $post_types, array(
 		'lesson-plan',
-		'wporg_workshop'
+		'wporg_workshop',
 	) );
 } );
 
