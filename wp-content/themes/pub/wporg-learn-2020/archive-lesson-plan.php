@@ -28,12 +28,10 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 				<?php if ( have_posts() ) : ?>
 					<?php while ( have_posts() ) :
 						the_post();
-						$args          = wporg_learn_get_card_template_args( get_the_ID() );
-						$args['class'] = [ 'no-border' ];
 						get_template_part(
 							'template-parts/component',
 							'card',
-							$args
+							wporg_learn_get_card_template_args( get_the_ID() )
 						);
 					endwhile; ?>
 				<?php else : ?>
