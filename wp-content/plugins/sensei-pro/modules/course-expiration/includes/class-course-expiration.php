@@ -19,6 +19,7 @@ use Sensei_Course;
 use Sensei_Course_Enrolment;
 use Sensei_Learner;
 use WP_Query;
+use DateTime;
 
 /**
  * Course Expiration class.
@@ -32,6 +33,7 @@ class Course_Expiration {
 	const EXPIRATION_TYPE                         = '_course_expiration_type';
 	const EXPIRATION_LENGTH                       = '_course_expiration_length';
 	const EXPIRATION_PERIOD                       = '_course_expiration_period';
+	const EXPIRATION_DATE                         = '_course_expires_on_date';
 
 	/**
 	 * Instance of class.
@@ -211,6 +213,17 @@ class Course_Expiration {
 				'auth_callback' => [ $this, 'course_expiration_post_meta_auth_callback' ],
 			]
 		);
+
+		register_post_meta(
+			'course',
+			self::EXPIRATION_DATE,
+			[
+				'show_in_rest'  => true,
+				'single'        => true,
+				'type'          => 'string',
+				'auth_callback' => [ $this, 'course_expiration_post_meta_auth_callback' ],
+			]
+		);
 	}
 
 	/**
@@ -251,6 +264,17 @@ class Course_Expiration {
 		// The second case will probably not have the meta, but it's there for any special case.
 		if ( ! $is_enrolled || empty( $course_expiration_type ) || 'no-expiration' === $course_expiration_type ) {
 			delete_post_meta( $course_id, $expiration_post_meta );
+			return;
+		}
+
+		if ( 'expires-on' === $course_expiration_type ) {
+			$course_expiration_date = get_post_meta( $course_id, self::EXPIRATION_DATE, true );
+			$expiration_date        = new DateTime( $course_expiration_date );
+			update_post_meta(
+				$course_id,
+				$expiration_post_meta,
+				$expiration_date->getTimestamp()
+			);
 			return;
 		}
 

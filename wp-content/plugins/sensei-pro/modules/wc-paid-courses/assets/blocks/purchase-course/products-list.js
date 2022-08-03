@@ -1,3 +1,6 @@
+/**
+ * WordPress dependencies
+ */
 import { RawHTML } from '@wordpress/element';
 
 /**

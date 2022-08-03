@@ -1,0 +1,49 @@
+@import "~@wordpress/base-styles/colors";
+
+$primary: #007cba;
+$dark: #1e1e1e;
+$light: #ccc;
+
+.date-picker-with-reset {
+	&__wrapper {
+		background-color: $white;
+		width: fit-content;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		border: 1px solid $light;
+		border-radius: 2px;
+		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+	}
+
+	&__wrapper .DayPickerNavigation_button__default {
+		border: none;
+		color: $dark;
+
+		&:focus:not(:disabled) {
+			box-shadow: none;
+		}
+	}
+
+	&__wrapper .DayPickerNavigation_svg__horizontal {
+		fill: $dark;
+	}
+
+	&__wrapper .components-datetime__date .CalendarMonth_caption {
+		color: $dark;
+	}
+
+	&__wrapper .components-datetime__date {
+		border: none;
+	}
+
+	&__reset_button {
+		color: $primary;
+		margin-bottom: 10px;
+
+		&:focus:not(:disabled) {
+			box-shadow: none;
+			background-color: $white;
+		}
+	}
+}

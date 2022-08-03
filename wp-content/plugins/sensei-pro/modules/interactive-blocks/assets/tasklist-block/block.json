@@ -1,0 +1,16 @@
+{
+	"name": "sensei-pro/task-list",
+	"title": "Task List",
+	"category": "sensei-lms",
+	"apiVersion": 2,
+	"supports": {
+		"html": false,
+		"sensei": {
+			"blockId": true,
+			"frontend": true
+		}
+	},
+	"attributes": {
+	},
+	"textdomain": "sensei-pro"
+}

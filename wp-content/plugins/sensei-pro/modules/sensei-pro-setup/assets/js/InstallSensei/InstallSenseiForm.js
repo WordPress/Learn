@@ -5,7 +5,7 @@ import interpolateComponents from '@automattic/interpolate-components';
 import classnames from 'classnames';
 
 /**
- * WordPress dependencies.
+ * WordPress dependencies
  */
 import { useCallback } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
@@ -20,7 +20,7 @@ import { update, warning } from '@wordpress/icons';
 import { useDispatch } from '@wordpress/data';
 
 /**
- * Internal dependencies.
+ * Internal dependencies
  */
 import { DATA_STORE_NAME, UNKNOWN_ERROR_MESSAGE } from '../data/constants';
 import { Button } from '../components';

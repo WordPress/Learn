@@ -1428,7 +1428,7 @@ class Sensei_WC {
 			$product_id = Sensei_WC_Utils::get_product_id( $product );
 		}
 
-		$orders = self::get_user_product_orders( $user_id, $product_id );
+		$orders = self::get_user_product_orders( $user_id );
 
 		foreach ( $orders as $order_id ) {
 
@@ -2168,14 +2168,13 @@ class Sensei_WC {
 	}
 
 	/**
-	 * Get all the orders for a specific user and product combination
+	 * Get all the orders for a specific user.
 	 *
 	 * @param int $user_id The user id.
-	 * @param int $product_id The product id.
 	 *
 	 * @return array $orders
 	 */
-	public static function get_user_product_orders( $user_id = 0, $product_id ) {
+	public static function get_user_product_orders( $user_id = 0 ) {
 
 		if ( empty( $user_id ) ) {
 			return [];

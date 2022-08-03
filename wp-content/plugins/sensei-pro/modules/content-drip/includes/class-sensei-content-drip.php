@@ -211,7 +211,7 @@ class Sensei_Content_Drip {
 
 		// Load the learner management functionality script.
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Used for comparison
-		if ( 'sensei-lms_page_sensei_learners' === $hook && isset( $_GET['course_id'] ) && isset( $_GET['view'] ) && 'learners' === $_GET['view'] ) {
+		if ( 'course_page_sensei_learners' === $hook && isset( $_GET['course_id'] ) && isset( $_GET['view'] ) && 'learners' === $_GET['view'] ) {
 			wp_register_script(
 				$this->token . '-admin-manual-drip-script',
 				esc_url( $this->assets_url ) . 'js/admin-manual-drip.js',

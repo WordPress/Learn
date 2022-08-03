@@ -1,0 +1,42 @@
+
+.sensei-block-visibility-group-select__container {
+	.sensei-block-visibility-group-select {
+		&__control {
+			min-height: 30px;
+			border-color: inherit;
+			border-radius: 3px;
+		}
+		&__value-container {
+			padding: 0 8px;
+		}
+		&__placeholder {
+			color: inherit;
+		}
+		&__multi-value__label {
+			padding-top: 2px;
+			padding-bottom: 2px;
+		}
+		&__input-container {
+			margin: 0;
+		}
+		&__input[type="text"] {
+			min-height: 24px;
+			&:focus {
+				box-shadow: none;
+			}
+		}
+		&__indicator-separator {
+			display: none;
+		}
+		&__indicator {
+			padding: 0 3px;
+		}
+		&__multi-value__remove {
+			&:hover {
+				background-color: $gray-400;
+				color: $black;
+				cursor: pointer;
+			}
+		}
+	}
+}

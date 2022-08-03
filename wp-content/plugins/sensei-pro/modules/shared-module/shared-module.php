@@ -15,9 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-require_once dirname( __FILE__ ) . '/includes/class-shared-module.php';
+require_once __DIR__ . '/includes/class-shared-module.php';
+
+/**
+ * Initialises the the shared module.
+ */
+function sensei_pro_shared_module_init() {
+	Shared_Module::init( \Sensei_Pro\Modules\assets_loader( Shared_Module::MODULE_NAME ), SENSEI_PRO_PLUGIN_DIR_PATH . 'vendor/' );
+}
 
 // Load the plugin after all the other plugins have loaded.
-add_action( 'plugins_loaded', [ Shared_Module::class, 'init' ], 5 );
-
-Shared_Module::instance();
+add_action( 'plugins_loaded', 'sensei_pro_shared_module_init', 5 );

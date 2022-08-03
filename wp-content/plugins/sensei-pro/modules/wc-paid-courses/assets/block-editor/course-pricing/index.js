@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies.
+ * WordPress dependencies
  */
 import { registerPlugin } from '@wordpress/plugins';
 import { select, dispatch } from '@wordpress/data';
 
 /**
- * Internal dependencies.
+ * Internal dependencies
  */
 import CoursePricingSidebar from './course-pricing-sidebar';
 

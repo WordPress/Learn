@@ -1,0 +1,4 @@
+*** Sensei Interactive Blocks Changelog ***
+
+2022.05.11 - version 1.0.0
+ * First release.

@@ -30,19 +30,35 @@ class Rest_Api extends \WP_REST_Controller {
 	protected $rest_base = 'sensei-pro-setup';
 
 	/**
-	 * Setup context.
+	 * An instance of this class.
 	 *
-	 * @var Setup_Context;
+	 * @var self;
 	 */
-	protected $setup_context;
+	private static $instance;
 
 	/**
 	 * The constructor.
-	 *
-	 * @param Setup_Context $setup_context
 	 */
-	public function __construct( Setup_Context $setup_context ) {
-		$this->setup_context = $setup_context;
+	private function __construct() {
+	}
+
+	/**
+	 * Initializes this class.
+	 */
+	public function init() {
+		self::instance();
+	}
+
+	/**
+	 * Retrieves the instance of this class.
+	 *
+	 * @return self
+	 */
+	public static function instance() {
+		if ( ! self::$instance ) {
+			self::$instance = new self();
+		}
+		return self::$instance;
 	}
 
 	/**
@@ -59,6 +75,10 @@ class Rest_Api extends \WP_REST_Controller {
 					'permission_callback' => [ $this, 'check_user_can_install_plugins' ],
 					'args'                => [
 						'license_key' => [
+							'type'     => 'string',
+							'required' => true,
+						],
+						'plugin_slug' => [
 							'type'     => 'string',
 							'required' => true,
 						],
@@ -86,8 +106,9 @@ class Rest_Api extends \WP_REST_Controller {
 	 */
 	public function activate_license( $request ) {
 		$license_key  = $request->get_param( 'license_key' );
+		$plugin_slug  = $request->get_param( 'plugin_slug' );
 		$api_response = License_Manager::activate_license(
-			$this->setup_context->plugin_slug,
+			$plugin_slug,
 			$license_key
 		);
 

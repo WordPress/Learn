@@ -1,0 +1,41 @@
+@import "~@wordpress/base-styles/variables";
+@import "./flip";
+
+.sensei-lms-flashcards {
+
+	padding: 32px 0;
+
+	&__card-wrapper {
+		position: relative;
+
+		.sensei-lms-flip--flipped-front ~ .sensei-lms-flashcards__card__label--back,
+		.sensei-lms-flip--flipped-back ~ .sensei-lms-flashcards__card__label--front {
+			display: none;
+		}
+
+		.wp-block-cover {
+			max-width: none !important;
+			width: 100%;
+			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15), 0 3px 9px rgba(0, 0, 0, 0.12);
+		}
+	}
+
+	&__card {
+		&__label {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			padding: 1px;
+			font-size: $default-font-size;
+			font-family: $default-font;
+			line-height: $default-line-height;
+			opacity: 0.6;
+		}
+	}
+
+	&__completed-status {
+		position: absolute;
+		left: -32px;
+		top: calc(50% - 30px);
+	}
+}

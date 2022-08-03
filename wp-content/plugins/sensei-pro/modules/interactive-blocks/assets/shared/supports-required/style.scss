@@ -1,0 +1,140 @@
+@mixin iconColor($color) {
+	svg {
+		path {
+			stroke: $color;
+		}
+	}
+}
+
+.sensei-supports-required {
+	&__required-button {
+		width: 48px;
+		height: 48px;
+		padding: 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: transparent;
+		border: none;
+		border-radius: 0;
+		cursor: pointer;
+	}
+
+	&__required-icon {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 2px;
+		@include iconColor(#000);
+		&:hover {
+			@include iconColor(#3858e9);
+		}
+
+		&--is-pressed {
+			background-color: #000;
+			@include iconColor(#fff);
+			&:hover {
+				@include iconColor(#fff);
+			}
+		}
+	}
+
+	&__completed-status {
+		width: 20px;
+		height: 20px;
+		border-radius: 50%;
+		border: 1.5px solid #c3c4c7;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		&--completed {
+			background-color: #000;
+			border: 1.5px solid #000;
+		}
+
+		svg {
+			path {
+				stroke: #fff;
+				fill: #fff;
+			}
+		}
+
+		.components-popover.components-tooltip {
+			transition: all 0ms ease-out;
+			z-index: 1000;
+		}
+	}
+
+	&__video-block {
+		position: relative;
+	}
+
+	&__video-block-completed-status {
+		position: absolute;
+		left: -32px;
+		top: calc(50% - 10px);
+	}
+
+	&__complete-lesson-form {
+		position: relative;
+	}
+
+	&__complete-lesson-overlay {
+		position: absolute;
+		top: 0;
+		right: 0;
+		left: 0;
+		height: 100%;
+		z-index: 100000;
+		&--completed {
+			height: 0;
+		}
+
+		.components-popover.components-tooltip {
+			transition: all 0ms ease-out;
+		}
+	}
+}
+
+.complete-lesson-tooltip {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	padding: 8px;
+
+	&__title {
+		font-weight: 600;
+		font-size: 16px;
+		color: #fff;
+		margin-bottom: 8px;
+	}
+
+	&__summary {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+	}
+
+	&__labels {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items: flex-end;
+	}
+
+	&__counters {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items: flex-start;
+		padding-left: 16px;
+	}
+
+	&__label,
+	&__counter {
+		margin-bottom: 4px;
+	}
+}

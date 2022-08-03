@@ -162,7 +162,7 @@ class WooCommerce_Memberships_Cancelled_Orders_Notice {
 			<p>
 				<?php
 				esc_html_e(
-					'Sensei Pro (WooCommerce Paid Courses) has detected active memberships associated with cancelled orders.',
+					'Sensei Pro (WC Paid Courses) has detected active memberships associated with cancelled orders.',
 					'sensei-pro'
 				);
 				?>
@@ -171,9 +171,9 @@ class WooCommerce_Memberships_Cancelled_Orders_Notice {
 				<?php
 				echo wp_kses(
 					__(
-						'Prior to Sensei Pro (WooCommerce Paid Courses) 3.0, active memberships with cancelled orders
+						'Prior to Sensei Pro (WC Paid Courses) 3.0, active memberships with cancelled orders
 						<strong>did not</strong> provide learners with access to the membership\'s associated courses.
-						As of Sensei Pro (WooCommerce Paid Courses) 3.0, active memberships (regardless of order status)
+						As of Sensei Pro (WC Paid Courses) 3.0, active memberships (regardless of order status)
 						<strong>do</strong> provide learners with access to the membership\'s associated courses.',
 						'sensei-pro'
 					),
@@ -289,7 +289,7 @@ class WooCommerce_Memberships_Cancelled_Orders_Notice {
 			'edit-wc_user_membership',
 			'edit-wc_membership_plan',
 			'edit-shop_order',
-			'sensei-lms_page_sensei_learners',
+			'course_page_sensei_learners',
 		];
 		$screen        = \get_current_screen();
 

@@ -1,0 +1,40 @@
+{
+  "apiVersion": 2,
+  "name": "sensei-pro/question",
+  "category": "sensei-lms",
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "default": "multiple-choice"
+    },
+    "answer": {
+      "type": "object"
+    }
+  },
+  "supports": {
+    "align": true,
+    "color": true,
+    "sensei": {
+      "blockId": true,
+      "frontend": true,
+      "required": true
+    },
+    "spacing": {
+      "margin": true,
+      "padding": true
+    },
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true
+    },
+    "__experimentalBorder": {
+      "color": true,
+      "radius": true,
+      "style": true,
+      "width": true
+    }
+  }
+}

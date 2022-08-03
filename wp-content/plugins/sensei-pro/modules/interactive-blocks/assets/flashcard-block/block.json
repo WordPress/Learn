@@ -1,0 +1,17 @@
+{
+	"name": "sensei-pro/flashcard",
+	"title": "Flashcard",
+	"category": "sensei-lms",
+	"apiVersion": 2,
+	"supports": {
+		"html": false,
+		"sensei": {
+			"blockId": true,
+			"frontend": true,
+			"required": true
+		}
+	},
+	"attributes": {
+	},
+	"textdomain": "sensei-pro"
+}

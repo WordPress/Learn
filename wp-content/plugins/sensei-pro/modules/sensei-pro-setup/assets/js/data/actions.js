@@ -1,5 +1,5 @@
 /**
- * Internal dependencies.
+ * Internal dependencies
  */
 import {
 	FETCH_FROM_API,
@@ -24,7 +24,10 @@ export function* activateLicense( payload = {} ) {
 			request: {
 				path: '/activate-license',
 				method: 'POST',
-				data: { license_key: payload?.licenseKey || '' },
+				data: {
+					license_key: payload?.licenseKey || '',
+					plugin_slug: window.senseiProSetup?.plugin_slug || '',
+				},
 			},
 		} );
 		if ( res?.success === true ) {

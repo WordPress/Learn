@@ -1,0 +1,10 @@
+.column-actions {
+	width: 2.2rem;
+}
+.groups-action-menu {
+	.components-dropdown-menu__menu {
+		button:last-child {
+			color: #f00;
+		}
+	}
+}

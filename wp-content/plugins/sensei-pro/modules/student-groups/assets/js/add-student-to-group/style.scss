@@ -1,0 +1,29 @@
+.add-student-to-group {
+
+	&__wrapper {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+
+	&__content {
+		width: 391px;
+		min-height: 190px;
+	}
+
+	.student-selector {
+		&__selected-option {
+			min-height: 100px;
+			max-height: 200px;
+			overflow-y: auto;
+		}
+	}
+	&__notice {
+		margin: 0;
+	}
+	&__actions {
+		display: flex;
+		justify-content: flex-end;
+		margin-bottom: 18px;
+	}
+}

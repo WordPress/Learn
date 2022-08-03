@@ -1,3 +1,6 @@
+/**
+ * WordPress dependencies
+ */
 import { __ } from '@wordpress/i18n';
 import { PluginDocumentSettingPanel } from '@wordpress/edit-post';
 import { ExternalLink } from '@wordpress/components';
@@ -5,7 +8,6 @@ import { ExternalLink } from '@wordpress/components';
 /**
  * WooCommerce Prompt Sidebar component.
  */
-
 const Sidebar = () => (
 	<PluginDocumentSettingPanel
 		name="sensei-pro-woocommerce-prompt"

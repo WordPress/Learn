@@ -1,7 +1,13 @@
+/**
+ * External dependencies
+ */
+import Question from 'shared-module/ordering-question/frontend/Question';
+
+/**
+ * WordPress dependencies
+ */
 import { render } from '@wordpress/element';
 import domReady from '@wordpress/dom-ready';
-
-import Question from './Question';
 
 domReady( () => {
 	const questions = window.sensei_ordering_questions;

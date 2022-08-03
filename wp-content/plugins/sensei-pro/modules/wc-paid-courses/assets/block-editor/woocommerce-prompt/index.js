@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies.
+ * WordPress dependencies
  */
 import { registerPlugin } from '@wordpress/plugins';
 
 /**
- * Internal dependencies.
+ * Internal dependencies
  */
 import Sidebar from './sidebar';
 

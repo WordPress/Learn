@@ -1,3 +1,5 @@
+$primary: #007cba;
+
 .sensei-wcpc-course-expiration {
 	&__intro {
 		margin-bottom: 24px;
@@ -19,5 +21,22 @@
 
 	&__help-text {
 		font-size: 12px;
+	}
+
+	tbody td:not(.sensei-wcpc-enrollment-updates-modal__table__action) {
+		padding: 0;
+	}
+
+	.components-datetime__date {
+		border-top: none;
+	}
+
+	.datepicker {
+		color: $primary;
+		padding-left: 0;
+
+		&:focus:not(:disabled) {
+			box-shadow: none;
+		}
 	}
 }

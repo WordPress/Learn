@@ -4,7 +4,7 @@
 import interpolateComponents from '@automattic/interpolate-components';
 
 /**
- * WordPress dependencies.
+ * WordPress dependencies
  */
 import { useCallback, useState } from '@wordpress/element';
 import {
@@ -18,7 +18,7 @@ import {
 import { __ } from '@wordpress/i18n';
 
 /**
- * Internal dependencies.
+ * Internal dependencies
  */
 import { DATA_STORE_NAME } from '../data/constants';
 import { Button } from '../components';
@@ -34,6 +34,12 @@ export const ActivationForm = ( { inProgress, error } ) => {
 		},
 		[ licenseKey, activateLicense ]
 	);
+
+	const locales = window.senseiProSetup.locales || {};
+	const activateTitle =
+		locales.license_activation?.title?.not_activated ||
+		__( 'Activate the plugin', 'sensei-pro' );
+
 	return (
 		<Card
 			className="sensei-pro-activate"
@@ -43,7 +49,7 @@ export const ActivationForm = ( { inProgress, error } ) => {
 			<CardHeader isShady>
 				<div className="sensei-pro-activate__header">
 					<h2 className="sensei-pro-activate__title">
-						{ __( 'Activate Sensei Pro', 'sensei-pro' ) }
+						{ activateTitle }
 					</h2>
 					<p className="sensei-pro-activate__title-note">
 						{ interpolateComponents( {

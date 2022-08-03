@@ -12,7 +12,7 @@ namespace Sensei_Pro\Modules;
  *
  * @param string $module_name The name of the module.
  *
- * @return string The URL.
+ * @return \Sensei_Pro\Assets Assets instance.
  */
 function assets_loader( $module_name ) {
 	return new \Sensei_Pro\Assets( $module_name );
