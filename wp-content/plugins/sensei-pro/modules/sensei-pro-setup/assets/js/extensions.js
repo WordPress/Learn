@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies.
+ * WordPress dependencies
  */
 import { addFilter } from '@wordpress/hooks';
 
 /**
- * Internal dependencies.
+ * Internal dependencies
  */
 import { Setup } from './Setup';
 

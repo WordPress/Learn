@@ -1,1 +1,4 @@
+/**
+ * Internal dependencies
+ */
 import './hook';

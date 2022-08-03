@@ -1,0 +1,25 @@
+.sensei-block-visibility {
+	&__schedule {
+		width: 100%;
+
+		.components-dropdown {
+			width: 100%;
+		}
+	}
+
+	&__schedule-title {
+		font-size: 13px;
+		line-height: 16px;
+		margin-bottom: 0;
+	}
+
+	&__schedule-date {
+		width: 100%;
+		border: 1px solid $black;
+		border-radius: 2px;
+	}
+
+	&__schedule-date-end {
+		margin-top: 9px;
+	}
+}

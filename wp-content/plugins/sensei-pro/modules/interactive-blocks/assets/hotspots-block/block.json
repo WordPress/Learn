@@ -1,0 +1,17 @@
+{
+	"name": "sensei-pro/image-hotspots",
+	"title": "Image Hotspots",
+	"category": "sensei-lms",
+	"apiVersion": 2,
+	"supports": {
+		"html": false,
+        "sensei": {
+          "blockId": true,
+          "frontend": true
+        },
+      "align": [ "wide", "full" ]
+	},
+	"attributes": {
+	},
+	"textdomain": "sensei-pro"
+}

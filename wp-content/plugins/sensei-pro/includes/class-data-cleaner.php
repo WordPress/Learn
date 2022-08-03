@@ -8,6 +8,8 @@
 
 namespace Sensei_Pro;
 
+use Sensei_Pro_Installer\Installer;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -35,6 +37,7 @@ class Data_Cleaner {
 	 */
 	private $options = [
 		'sensei-wc-paid-courses-memberships-cancelled-orders',
+		'sensei_pro_version',
 	];
 
 	/**
@@ -54,6 +57,7 @@ class Data_Cleaner {
 	private $transients = [
 		'sensei-wc-paid-courses-translations-.*',
 		'sensei_language_packs_.*',
+		'sensei_pro_installing',
 	];
 
 	/**
@@ -108,6 +112,7 @@ class Data_Cleaner {
 		$this->delete_options();
 		$this->delete_user_meta();
 		$this->delete_transients();
+		$this->drop_tables();
 	}
 
 	/**
@@ -247,5 +252,17 @@ class Data_Cleaner {
 				);
 			}
 		}
+	}
+
+	/**
+	 * Cleanup the custom tables from the database.
+	 */
+	private function drop_tables() {
+		global $wpdb;
+
+		$tables = Installer::instance()->get_schema()->get_tables();
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL,WordPress.DB.DirectDatabaseQuery.SchemaChange
+		$wpdb->query( 'DROP TABLE IF EXISTS ' . implode( ',', $tables ) );
 	}
 }

@@ -28,16 +28,11 @@ class Wizard {
 	const SENSEI_PLUGIN_SLUG = 'sensei-lms';
 
 	/**
-	 * Setup wizard page slug.
-	 */
-	const SETUP_WIZARD_PAGE_SLUG = 'sensei_pro_setup_wizard';
-
-	/**
-	 * Instance of class.
+	 * Instances of this class.
 	 *
-	 * @var self
+	 * @var self[]
 	 */
-	private static $instance;
+	private static $instances = [];
 
 	/**
 	 * Plugin context in which the Wizard operates.
@@ -53,17 +48,18 @@ class Wizard {
 	}
 
 	/**
-	 * Fetches an instance of the class.
+	 * Fetches an instance of the class that is bound to a context.
 	 *
 	 * @param Setup_Context $setup_context The plugin context under which the setup wizard operates.
 	 * @return self
 	 */
 	public static function instance( Setup_Context $setup_context ) {
-		if ( ! self::$instance ) {
-			self::$instance                = new self();
-			self::$instance->setup_context = $setup_context;
+		if ( ! isset( self::$instances[ $setup_context->get_plugin_slug() ] ) ) {
+			$instance                = new self();
+			$instance->setup_context = $setup_context;
+			self::$instances[ $setup_context->get_plugin_slug() ] = $instance;
 		}
-		return self::$instance;
+		return self::$instances[ $setup_context->get_plugin_slug() ];
 	}
 
 	/**
@@ -79,8 +75,8 @@ class Wizard {
 	 * Set the activation redirect transient when plugin is activated.
 	 */
 	public function set_activation_redirect() {
-		if ( ! get_transient( self::SETUP_WIZARD_PAGE_SLUG . '_activation_redirect' ) ) {
-			set_transient( self::SETUP_WIZARD_PAGE_SLUG . '_activation_redirect', 1 );
+		if ( ! get_transient( self::get_licensing_page_slug( $this->setup_context->get_plugin_slug() ) . '_activation_redirect' ) ) {
+			set_transient( self::get_licensing_page_slug( $this->setup_context->get_plugin_slug() ) . '_activation_redirect', 1 );
 		}
 	}
 
@@ -88,8 +84,8 @@ class Wizard {
 	 * Redirects if the activation transient is set.
 	 */
 	public function handle_activation_redirect() {
-		if ( get_transient( self::SETUP_WIZARD_PAGE_SLUG . '_activation_redirect' ) ) {
-			delete_transient( self::SETUP_WIZARD_PAGE_SLUG . '_activation_redirect' );
+		if ( get_transient( self::get_licensing_page_slug( $this->setup_context->get_plugin_slug() ) . '_activation_redirect' ) ) {
+			delete_transient( self::get_licensing_page_slug( $this->setup_context->get_plugin_slug() ) . '_activation_redirect' );
 			$this->redirect_to_setup_wizard();
 		}
 	}
@@ -98,7 +94,7 @@ class Wizard {
 	 * Fires up all the necessary hooks.
 	 */
 	public function initiate_setup() {
-		$plugin_file = self::get_plugin_file( $this->setup_context->plugin_slug );
+		$plugin_file = self::get_plugin_file( $this->setup_context->get_plugin_slug() );
 		add_filter( "plugin_action_links_{$plugin_file}", [ $this, 'add_activate_license_action' ], 10, 4 );
 		add_action( 'admin_menu', [ $this, 'register_wizard_page' ] );
 		add_action( 'rest_api_init', [ $this, 'register_rest_api' ] );
@@ -114,7 +110,9 @@ class Wizard {
 			add_action( 'admin_print_scripts', [ $this, 'enqueue_extensions_page_scripts' ] );
 		}
 
-		add_action( 'admin_print_styles', [ $this, 'enqueue_styles' ] );
+		if ( $this->is_sensei_licensing_page() || $this->is_sensei_extensions_page() ) {
+			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_styles' ] );
+		}
 	}
 
 	/**
@@ -124,7 +122,7 @@ class Wizard {
 	 */
 	public function is_sensei_licensing_page(): bool {
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Arguments used for comparison.
-		if ( isset( $_GET['page'] ) && self::SETUP_WIZARD_PAGE_SLUG === $_GET['page'] ) {
+		if ( isset( $_GET['page'] ) && self::get_licensing_page_slug( $this->setup_context->get_plugin_slug() ) === $_GET['page'] ) {
 			return true;
 		}
 		return false;
@@ -145,26 +143,35 @@ class Wizard {
 
 	/**
 	 * Returns the plugin setup url.
+	 *
+	 * @param string $plugin_slug
 	 */
-	public static function get_setup_url(): string {
-		return admin_url( 'admin.php?page=' . self::SETUP_WIZARD_PAGE_SLUG );
+	public static function get_setup_url( string $plugin_slug ): string {
+		return admin_url( 'admin.php?page=' . self::get_licensing_page_slug( $plugin_slug ) );
 	}
 
 	/**
 	 * Redirect to setup wizard.
 	 */
 	protected function redirect_to_setup_wizard() {
-		wp_safe_redirect( self::get_setup_url() );
+		wp_safe_redirect( self::get_setup_url( $this->setup_context->get_plugin_slug() ) );
 		exit;
 	}
+
+	/**
+	 * Remember if we already added the sensei menu page.
+	 *
+	 * @var bool
+	 */
+	private static $added_menu_page = false;
 
 	/**
 	 * Register the Setup Wizard admin page via a hidden submenu.
 	 */
 	public function register_wizard_page() {
-		if ( ! self::is_sensei_activated() ) {
+		if ( ! self::is_sensei_activated() && ! self::$added_menu_page ) {
 			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Not using for remote file.
-			$sensei_svg = file_get_contents( dirname( __FILE__ ) . '/assets/images/sensei.svg' );
+			$sensei_svg = file_get_contents( $this->setup_context->get_plugin_dir() . '/assets/dist/sensei-pro-setup/images/sensei.svg' );
 			add_menu_page(
 				'Sensei',
 				'Sensei',
@@ -175,14 +182,16 @@ class Wizard {
 				'data:image/svg+xml;base64,' . base64_encode( $sensei_svg ),
 				'50'
 			);
+			self::$added_menu_page = true;
 		}
 
+		$locales = $this->setup_context->get_locales();
 		add_submenu_page(
 			'sensei-pro',
-			$this->setup_context->locales['page_title'],
-			$this->setup_context->locales['menu_title'],
+			$locales['page_title'],
+			$locales['menu_title'],
 			'administrator',
-			self::SETUP_WIZARD_PAGE_SLUG,
+			self::get_licensing_page_slug( $this->setup_context->get_plugin_slug() ),
 			[ $this, 'render_wizard_page' ]
 		);
 	}
@@ -259,10 +268,10 @@ class Wizard {
 	 * @return array Return back the actions array with additional Activate License link.
 	 */
 	public function add_activate_license_action( array $actions ) {
-		$license_status = License_Manager::get_license_status( $this->setup_context->plugin_slug );
+		$license_status = License_Manager::get_license_status( $this->setup_context->get_plugin_slug() );
 		if ( ! $license_status['is_valid'] ) {
 			$title                       = __( 'Activate License', 'sensei-pro' );
-			$url                         = self::get_setup_url();
+			$url                         = self::get_setup_url( $this->setup_context->get_plugin_slug() );
 			$actions['activate_license'] = "<a href='{$url}' aria-label='{$title}' style='color: red;'>{$title}</a>";
 		}
 		return $actions;
@@ -275,10 +284,10 @@ class Wizard {
 	 */
 	public function enqueue_script( string $script_name ) {
 		wp_enqueue_script(
-			self::SETUP_WIZARD_PAGE_SLUG,
-			"{$this->setup_context->plugin_url}/assets/dist/sensei-pro-setup/{$script_name}.js",
+			self::get_licensing_page_slug( $this->setup_context->get_plugin_slug() ),
+			"{$this->setup_context->get_setup_assets_url()}/{$script_name}.js",
 			[ 'wp-components', 'wp-api-fetch' ],
-			$this->setup_context->plugin_version,
+			$this->setup_context->get_plugin_version(),
 			true
 		);
 	}
@@ -304,7 +313,7 @@ class Wizard {
 	 * Enqueue initial state script.
 	 */
 	public function enqueue_initial_state_script() {
-		$license_data = License_Manager::get_license_status( $this->setup_context->plugin_slug );
+		$license_data = License_Manager::get_license_status( $this->setup_context->get_plugin_slug() );
 		$inline_data  = [
 			'senseiInstalled'   => self::is_sensei_installed(),
 			'senseiActivated'   => self::is_sensei_activated(),
@@ -312,9 +321,12 @@ class Wizard {
 			'licenseKey'        => $license_data['license_key'],
 			'licenseDomain'     => $license_data['domain'],
 			'licenseActivated'  => (bool) $license_data['is_valid'],
+			'locales'           => $this->setup_context->get_locales(),
+			'requires_sensei'   => $this->setup_context->get_requires_sensei(),
+			'plugin_slug'       => $this->setup_context->get_plugin_slug(),
 		];
 		wp_add_inline_script(
-			self::SETUP_WIZARD_PAGE_SLUG,
+			self::get_licensing_page_slug( $this->setup_context->get_plugin_slug() ),
 			'window.senseiProSetup=' . wp_json_encode(
 				$inline_data
 			) . ';',
@@ -327,10 +339,10 @@ class Wizard {
 	 */
 	public function enqueue_styles() {
 		wp_enqueue_style(
-			self::SETUP_WIZARD_PAGE_SLUG,
-			"{$this->setup_context->plugin_url}/assets/dist/sensei-pro-setup/style.css",
+			self::get_licensing_page_slug( $this->setup_context->get_plugin_slug() ),
+			"{$this->setup_context->get_setup_assets_url()}/style.css",
 			[ 'wp-components' ],
-			$this->setup_context->plugin_version
+			$this->setup_context->get_plugin_version()
 		);
 	}
 
@@ -351,7 +363,15 @@ class Wizard {
 	 * Registers the REST API.
 	 */
 	public function register_rest_api() {
-		$controller = new Rest_Api( $this->setup_context );
-		$controller->register_routes();
+		Rest_Api::instance()->register_routes();
+	}
+
+	/**
+	 * Given the plugin slug, returns the licensing page slug for that plugin.
+	 *
+	 * @param string $plugin_slug
+	 */
+	public static function get_licensing_page_slug( string $plugin_slug ): string {
+		return "licensing-page-{$plugin_slug}";
 	}
 }

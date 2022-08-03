@@ -1,0 +1,102 @@
+@import "~@wordpress/base-styles/variables";
+
+$checkbox-color: #0267ff;
+
+.wp-block-post-content .sensei-pro-task-list,
+.editor-styles-wrapper .sensei-pro-task-list,
+.sensei-pro-task-list {
+	box-sizing: border-box;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	padding: 24px 0 0;
+	margin: 0 auto;
+
+	&__task {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		align-items: center;
+		padding: 14px 0;
+
+		&:not(:last-child) {
+			border-bottom: 1px solid $gray-100;
+		}
+	}
+
+	&__task-checkbox {
+		position: relative;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 22px;
+		height: 22px;
+		margin: 0 14px 0 0;
+		cursor: pointer;
+
+		input {
+			opacity: 0;
+		}
+
+		svg {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 22px;
+			height: 22px;
+			stroke-width: 2px;
+			border: 2px solid var(--checkbox-color, currentColor);
+			border-radius: 50%;
+			path {
+				fill: transparent;
+			}
+		}
+
+		input:focus-visible ~ a svg {
+			outline-offset: 2px;
+			outline: 2px dotted var(--checkbox-color, currentColor);
+		}
+
+		input:checked ~ a svg {
+			background-color: var(--checkbox-color, currentColor);
+			path {
+				fill: $white;
+			}
+		}
+	}
+
+	.block-editor-block-list__block {
+		color: inherit;
+	}
+
+	p.sensei-pro-task-list__task-text {
+		margin: 0;
+		flex: 1;
+		color: inherit;
+	}
+
+	&.is-example {
+		.sensei-pro-task-list {
+			&__task-checkbox {
+				svg {
+					border: 2px solid var(--wp--preset--color--accent, $checkbox-color);
+				}
+				input:checked ~ a svg {
+					background-color: var(--wp--preset--color--accent, $checkbox-color);
+					path {
+						fill: $white;
+					}
+				}
+			}
+		}
+	}
+
+	&__required {
+		color: #646970;
+		font-size: 10px;
+		line-height: 15px;
+		font-style: italic;
+		margin: 0;
+		padding-bottom: 16px;
+	}
+}

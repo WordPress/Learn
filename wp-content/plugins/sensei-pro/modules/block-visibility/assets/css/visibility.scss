@@ -1,0 +1,54 @@
+@import "~@wordpress/base-styles/variables";
+@import "./user-status";
+@import "./groups";
+@import "./schedule";
+
+:root {
+	--sensei-visibility-badge-color: #f0c33c;
+}
+
+.interface-complementary-area .sensei-block-visibility,
+.sensei-block-visibility {
+	&__hidden {
+		position: relative;
+		&:not(:focus, .is-highlighted)::after {
+			border: 1px solid var(--sensei-visibility-badge-color);
+			box-shadow: none;
+			border-radius: 2px;
+		}
+
+		&::before {
+			position: absolute;
+			top: auto;
+			right: 4px;
+			bottom: 4px;
+			left: auto;
+			border-radius: 2px;
+			padding: 3px 6px;
+			font-size: 11px;
+			line-height: 16px;
+			background-color: var(--sensei-visibility-badge-color);
+			color: #1e1e1e;
+			z-index: 10;
+			font-family: $default-font;
+		}
+	}
+	&__text-bold {
+		font-weight: bold;
+	}
+
+	&__option {
+		margin-bottom: 20px;
+	}
+
+	&__option-title {
+		margin-bottom: 8px;
+	}
+
+	&__option-description {
+		font-size: 11px;
+		line-height: 16px;
+		margin-top: 8px;
+		color: $gray-700;
+	}
+}

@@ -1,4 +1,9 @@
 /**
+ * External dependencies
+ */
+import ToolbarDropdown from 'sensei/assets/blocks/editor-components/toolbar-dropdown';
+
+/**
  * WordPress dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
@@ -10,7 +15,6 @@ import { __ } from '@wordpress/i18n';
  */
 import ProductAssociationModal from './product-association-modal';
 import EnrollmentUpdatesModal from '../../block-editor/course-pricing/enrollment-updates-modal';
-import ToolbarDropdown from 'sensei/assets/blocks/editor-components/toolbar-dropdown';
 import { COURSE_PRODUCTS_STORE } from '../../block-editor/course-pricing/store';
 
 /**

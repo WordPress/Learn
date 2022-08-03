@@ -55,29 +55,25 @@ class Scd_Ext_Access_Control {
 	}
 
 	/**
-	 * Check if  the lesson can be made available to the the user at this point
+	 * Check if the lesson can be made available to the the user at this point
 	 * according to the drip meta data
 	 *
 	 * @since  1.0.0
-	 * @param  int $lesson_id
+	 * @param  int       $lesson_id The ID of the Lesson to be checked.
+	 * @param  int|false $course_id The Course ID of the Lesson specified by Lesson ID. This parameter is optional and
+	 *                              is part of an optimization to avoid getting the course ID for cases where we already
+	 *                              know the course ID of a given lesson.
 	 * @return bool $content_access_blocked
 	 */
-	public function is_lesson_access_blocked( $lesson_id ) {
+	public function is_lesson_access_blocked( $lesson_id, $course_id = false ) {
 		$content_access_blocked = false;
-		$lesson_course_id       = Sensei()->lesson->get_course_id( $lesson_id );
+		$lesson_course_id       = false === $course_id ? Sensei()->lesson->get_course_id( $lesson_id ) : $course_id;
 		$is_course_teacher      = $this->is_course_teacher( $lesson_course_id );
 
 		// Return drip not active for the following conditions.
-		if ( $this->is_super_admin() || $is_course_teacher || empty( $lesson_id ) || 'lesson' !== get_post_type( $lesson_id )
+		if ( $this->is_super_admin() || $is_course_teacher || empty( $lesson_id ) || false === $lesson_course_id
 			|| Sensei_Utils::user_completed_lesson( $lesson_id, get_current_user_id() ) ) {
 			return false;
-		}
-
-		// Check if user has started the course.
-		if ( Sensei_Content_Drip::instance()->is_legacy_enrolment() ) {
-			$user_started_course = Sensei_Utils::user_started_course( $lesson_course_id, get_current_user_id() );
-		} else {
-			$user_started_course = Sensei_Course::is_user_enrolled( $lesson_course_id );
 		}
 
 		// get the lessons drip data if any.
@@ -89,6 +85,12 @@ class Scd_Ext_Access_Control {
 		} elseif ( 'absolute' === $drip_type ) {
 			$content_access_blocked = $this->is_absolute_drip_type_content_blocked( $lesson_id );
 		} elseif ( 'dynamic' === $drip_type ) {
+			// Check if user has started the course.
+			if ( Sensei_Content_Drip::instance()->is_legacy_enrolment() ) {
+				$user_started_course = Sensei_Utils::user_started_course( $lesson_course_id, get_current_user_id() );
+			} else {
+				$user_started_course = Sensei_Course::is_user_enrolled( $lesson_course_id );
+			}
 			// If the user is not taking the course, block it.
 			if ( $user_started_course ) {
 				$content_access_blocked = $this->is_dynamic_drip_type_content_blocked( $lesson_id );

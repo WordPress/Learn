@@ -1,0 +1,79 @@
+#access-period-page {
+	margin-top: 10px;
+	.add-courses-to-group {
+		padding: 26px;
+
+		&__content {
+			max-width: 565px;
+		}
+
+		.components-notice {
+			margin-left: 0;
+			margin-right: 0;
+			margin-bottom: 10px;
+		}
+
+		> * h2 {
+			margin: 0;
+			padding: 0;
+			padding: 0;
+			display: inline-flex;
+			align-items: center;
+			min-height: 28px;
+		}
+
+		.courses-selector {
+			&__selected-option {
+				min-height: 490px;
+			}
+			&__notice {
+				margin: 0;
+			}
+			&__actions {
+				display: flex;
+				justify-content: flex-end;
+			}
+
+		}
+		&__expired {
+			h3 {
+				margin-bottom: 2px;
+			}
+
+			.selected-options {
+				margin-top: 2px;
+			}
+
+			.access-period-selector {
+				button {
+					color: #787c82;
+				}
+			}
+		}
+
+		.selected-options {
+			> li {
+				display: flex;
+				align-items: baseline;
+				justify-content: space-between;
+				margin-bottom: 0;
+			}
+		}
+	}
+
+	// For an unknown reason, the build process is not loading the css file from the search-autocomplete component. It requires further investigation.
+	.search-autocomplete {
+		position: relative;
+		&__icon {
+			position: absolute;
+			z-index: 2;
+			top: 10px;
+			left: 13px;
+			float: left;
+			vertical-align: baseline;
+		}
+		input:focus {
+			box-shadow: none;
+		}
+	}
+}

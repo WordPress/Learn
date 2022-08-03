@@ -2,9 +2,20 @@
  * WordPress dependencies
  */
 import { PluginDocumentSettingPanel } from '@wordpress/edit-post';
-import { __ } from '@wordpress/i18n';
-import { SelectControl, TextControl } from '@wordpress/components';
+import { __, sprintf } from '@wordpress/i18n';
+import {
+	Button,
+	DatePicker,
+	SelectControl,
+	TextControl,
+} from '@wordpress/components';
 import { useEntityProp } from '@wordpress/core-data';
+import { useState } from '@wordpress/element';
+
+/**
+ * External dependencies
+ */
+import moment from 'moment';
 
 /**
  * Internal dependencies
@@ -13,12 +24,21 @@ import {
 	EXPIRATION_TYPE,
 	EXPIRATION_LENGTH,
 	EXPIRATION_PERIOD,
+	EXPIRATION_DATE,
 	NO_EXPIRATION,
 	EXPIRES_AFTER,
+	EXPIRES_ON,
 	MONTH,
 	WEEK,
 	DAY,
 } from './constants';
+
+const endCourseAccessPeriodLabel = __(
+	'Set Course Expiration Date',
+	'sensei-pro'
+);
+
+const format = ( date ) => moment( date ).format( moment.HTML5_FMT.DATE );
 
 /**
  * A hook that provides a value from course meta and a setter for that value.
@@ -44,13 +64,24 @@ const CourseExpirationSidebar = () => {
 		EXPIRATION_TYPE
 	);
 
+	const [ showEndDatePicker, setShowEndDatePicker ] = useState( false );
+
 	const [ expirationLength, setExpirationLength ] = useCourseMeta(
 		EXPIRATION_LENGTH
+	);
+
+	const [ expirationDate, setExpirationDate ] = useCourseMeta(
+		EXPIRATION_DATE
 	);
 
 	const [ expirationPeriod, setExpirationPeriod ] = useCourseMeta(
 		EXPIRATION_PERIOD
 	);
+
+	const pickExpirationDate = ( newDate ) => {
+		setExpirationDate( newDate );
+		setShowEndDatePicker( false );
+	};
 
 	const onExpirationLengthChange = ( value ) => {
 		// Sanitize it to a number greater than or equal 1.
@@ -129,22 +160,51 @@ const CourseExpirationSidebar = () => {
 			</p>
 
 			<SelectControl
-				label={ __( 'Expiration', 'sensei-pro' ) }
+				label={ __( 'Course Access Ends', 'sensei-pro' ) }
 				value={ expirationType }
 				options={ [
 					{
-						label: __( 'No expiration', 'sensei-pro' ),
+						label: __( 'Never', 'sensei-pro' ),
 						value: NO_EXPIRATION,
 					},
 					{
-						label: __( 'Expires after', 'sensei-pro' ),
+						label: __( 'After a set period', 'sensei-pro' ),
 						value: EXPIRES_AFTER,
+					},
+					{
+						label: __( 'On a specific date', 'sensei-pro' ),
+						value: EXPIRES_ON,
 					},
 				] }
 				onChange={ setExpirationType }
 			/>
 
 			{ EXPIRES_AFTER === expirationType && expiresAfterForm }
+			{ EXPIRES_ON === expirationType && (
+				<div>
+					<Button
+						onClick={ () => {
+							setShowEndDatePicker( true );
+						} }
+						className="datepicker"
+						data-testid={ 'start-date-button' }
+					>
+						{ expirationDate
+							? sprintf(
+									/* translators: %s is replaced with start date string in format YYYY-MM-DD */
+									__( 'Expires on %s', 'sensei-pro' ),
+									format( expirationDate )
+							  )
+							: endCourseAccessPeriodLabel }
+					</Button>
+					{ showEndDatePicker && (
+						<DatePicker
+							currentDate={ expirationDate }
+							onChange={ pickExpirationDate }
+						/>
+					) }
+				</div>
+			) }
 		</PluginDocumentSettingPanel>
 	);
 };

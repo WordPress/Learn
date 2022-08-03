@@ -32,46 +32,11 @@ class Assets extends \Sensei_Assets {
 	 */
 	public function __construct( $module_name = '' ) {
 		$plugin_url = SENSEI_PRO_PLUGIN_DIR_URL;
-		$plugin_dir = dirname( dirname( __FILE__ ) );
+		$plugin_dir = dirname( __FILE__, 2 );
 		$version    = SENSEI_PRO_VERSION;
-		parent::__construct( $plugin_url, $plugin_dir, $version );
+		parent::__construct( $plugin_url, $plugin_dir, $version, 'sensei-pro' );
 
 		$this->module_name = $module_name;
-	}
-
-	/**
-	 * Get the asset config for enqueuing.
-	 *
-	 * @param string $filename     The file name to enqueue.
-	 * @param string $dependencies The asset dependencies.
-	 * @param string $args         Other args for the WP enqueue function.
-	 *
-	 * @return array The asset config.
-	 */
-	public function asset_config( $filename, $dependencies = [], $args = null ) {
-		$is_js             = preg_match( '/\.js$/', $filename );
-		$basename          = preg_replace( '/\.\w+$/', '', $filename );
-		$url               = $this->asset_url( $filename );
-		$version           = $this->version;
-		$asset_config_path = $this->dist_path( $basename . '.asset.php' );
-
-		if ( file_exists( $asset_config_path ) ) {
-			$asset_config = require $asset_config_path;
-
-			// Only add generated dependencies for scripts.
-			if ( $is_js ) {
-				$dependencies = array_unique( array_merge( $dependencies, $asset_config['dependencies'] ) );
-			}
-			$version = $asset_config['version'];
-		}
-
-		return [
-			'url'          => $url,
-			'dependencies' => $dependencies,
-			'version'      => $version,
-			'type'         => $is_js ? 'script' : 'style',
-			'args'         => null !== $args ? $args : ( $is_js ? false : 'all' ), // defaults for wp_enqueue_script or wp_enqueue_style.
-		];
 	}
 
 	/**

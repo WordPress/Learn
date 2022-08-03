@@ -58,7 +58,6 @@ final class Sensei_Pro {
 		$instance->include_dependencies();
 
 		// Initialize classes.
-		Language_Packs::instance()->init();
 		Upsells::instance()->init();
 
 		$instance->load_modules();
@@ -87,6 +86,10 @@ final class Sensei_Pro {
 			'content-drip',
 			'advanced-quiz',
 			'course-expiration',
+			'interactive-blocks',
+			'student-groups',
+			'premium-patterns',
+			'block-visibility',
 		];
 	}
 
@@ -118,7 +121,6 @@ final class Sensei_Pro {
 	private function include_dependencies() {
 		include_once $this->plugin_dir . '/modules/module-functions.php';
 		include_once $this->plugin_dir . '/includes/class-assets.php';
-		include_once $this->plugin_dir . '/includes/class-language-packs.php';
 		include_once $this->plugin_dir . '/includes/class-upsells.php';
 	}
 }

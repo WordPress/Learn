@@ -75,9 +75,23 @@ class Scd_Ext_Lesson_Frontend {
 			return $lessons;
 		}
 
+		$lesson_ids = wp_list_pluck( $lessons, 'ID' );
+
+		/**
+		 * TODO: This check verifies the existence of a method added in https://github.com/Automattic/sensei/pull/5294
+		 *  We should check if the oldest Sensei version supported by Sensei, already has that method, so we can remove
+		 *  the check (but not the call to get_course_ids)
+		 */
+		if ( method_exists( Sensei()->lesson, 'get_course_ids' ) ) {
+			$course_by_lesson_id = Sensei()->lesson->get_course_ids( $lesson_ids );
+		} else {
+			$course_by_lesson_id = array_fill_keys( $lesson_ids, false );
+		}
+
 		// Loop through each post and replace the content.
 		foreach ( $lessons as $index => $lesson ) {
-			if ( Sensei_Content_Drip()->access_control->is_lesson_access_blocked( $lesson->ID ) ) {
+			$course_id = $course_by_lesson_id[ $lesson->ID ];
+			if ( Sensei_Content_Drip()->access_control->is_lesson_access_blocked( $lesson->ID, $course_id ) ) {
 				// Change the lesson content accordingly.
 				$lessons[ $index ] = $this->get_lesson_with_updated_content( $lesson );
 

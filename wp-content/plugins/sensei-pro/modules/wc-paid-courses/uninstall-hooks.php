@@ -1,6 +1,6 @@
 <?php
 /**
- * Sensei WooCommerce Paid Courses Uninstall Hooks
+ * Sensei Pro Courses Uninstall Hooks
  *
  * Adds the associated data to be deleted when uninstalled.
  * This includes options, post_meta, user_meta, transients and custom database tables.

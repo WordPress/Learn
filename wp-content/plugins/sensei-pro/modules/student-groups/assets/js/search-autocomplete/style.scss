@@ -1,0 +1,14 @@
+.search-autocomplete {
+	position: relative;
+	&__icon {
+		position: absolute;
+		z-index: 2;
+		top: 10px;
+		left: 13px;
+		float: left;
+		vertical-align: baseline;
+	}
+	input:focus {
+		box-shadow: none;
+	}
+}

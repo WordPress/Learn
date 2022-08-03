@@ -1,0 +1,20 @@
+/**
+ * WordPress dependencies
+ */
+@import "~@wordpress/base-styles/variables";
+
+/**
+ * Sensei dependencies.
+ */
+@import "~sensei/assets/blocks/shared-style-editor";
+@import "~sensei/assets/blocks/editor-components/editor-components-style";
+
+/**
+ * Internal dependencies
+ */
+@import "./question/question-block/question";
+@import "./flashcard-block/flashcards";
+@import "./hotspots-block/image-hotspots";
+@import "./tasklist-block/task-list";
+@import "./shared/supports-colors.scss";
+@import "./shared/supports-required/style.scss";

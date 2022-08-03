@@ -1,0 +1,205 @@
+*** Sensei Pro Changelog ***
+
+## 1.5.0 - 2022-07-25
+### Added
+- "Logged out users", "Completed lesson" and "Not completed lesson" options.
+- Add block visibility labels to list view
+- Add block visibility option descriptions.
+- Add block visibility sidebar options.
+- Add extra description text when lesson post type to enrolment options.
+- Add group filter to students report
+- Add support for groups select paging.
+- Add support for relative scheduling for block visibility option.
+- Add visibility borders to blocks when hidden.
+- Comment: Add a pre-publish notice about hidden content
+- Hide blocks on the frontend for groups visibility type.
+- Hide content based on blocks' scheduled visibility settings.
+- Implement block visiblity schedule option.
+- Implement content hiding on the frontend for Block Visibility.
+- Implement groups visibility type.
+
+### Changed
+- Split block visibility options for more granular control.
+
+## 1.4.1 - 2022-07-14
+### Added
+- Enable to optionally remove enrollments when a student is removed from a group
+- Enable to optionally remove enrollments when a course is removed from a group
+- Enable to restore the removed course on the group's settings
+- Enable moving a group to the trash instead of instant deletion
+- Show detailed errors when there is an error to add a student to a group
+
+### Changed
+- Update the destructive actions buttons to use the Gutenberg destructive button pattern
+
+### Fixed
+- Fixed a performance issue on Content Drip on websites with thousands of lessons
+
+## 1.4.0 - 2022-07-11
+
+* New! Create groups and cohorts of students
+    - Action menu with generic modal with action item to remove a student from a group
+    - Track usage of Student Groups functionality
+    - Add an endpoint to add students to a group
+    - Add a group courses column in the group list table to show the number of courses in the group
+    - Add a last activity column in group students table with ability to sort
+    - Add a modal to create new student group
+    - Add a students column in the group list table to show number of assigned students
+    - Add endpoint to edit the access period of a course in a group
+    - Add endpoint to get courses by group ID
+    - Add endpoint to remove a student from a group
+    - Add endpoint to remove students in batch from a group
+    - Add endpoint to update group name
+    - Add endpoint to remove group and all related data
+    - Add enrolled courses column in group students table
+    - Add filter by course functionality in group students page
+    - Add group list page action to remove group and a modal for confirming
+    - Add modal to update the name of a group in the action menu
+    - Add rest endpoint for adding student group
+    - Add enrolment provider and enroll students into courses
+    - Add group settings page
+    - Add modal to assign students to the selected group.
+    - Add endpoint to add a course to a group
+    - Enable to remove multiple students from the selected group
+    - Enable to update access periods
+    - Improve the groups access period interface.
+    - Redirect user to group students page when students are added via action menu
+    - Use action hook to render groups menu item on proper place in the sensei lms menu
+    - Increased PHP requirement from 7.0 to 7.2
+
+## 1.3.1 - 2022-06-20
+### Fixed
+- Add filter to remove upsells from course and lesson wizard.
+
+## 1.3.0 - 2022-06-15
+### Added
+- Add premium patterns for Lessons and Courses.
+
+### Fixed
+- Fix flashcard styles on some themes
+- Fix incompatibility with Gutenberg breaking the popovers in the editor.
+
+## 1.2.0 - 2022-05-31
+
+* New: Add support for Required Blocks.
+* New: Add a new sensei notice for version checks.
+* Tweak: Bump minimum PHP version supported to 7.2
+* Fix: Task List block autofocus fix.
+* Fix: The styles enqueue that was causing a conflict with Setup Wizard style
+* Fix: Translations for sidebar color settings in task list block.
+
+## 1.1.1 - 2022-05-04
+
+* New: Register `sensei-pro` text domain in `woothemes-sensei` [#1163](https://github.com/Automattic/sensei-pro/pull/1163)
+* Fix: Color supports api and Task List checked attribute [#1165](https://github.com/Automattic/sensei-pro/pull/1165)
+* Fix: Hotspot image size in Twenty Twenty Two [#1161](https://github.com/Automattic/sensei-pro/pull/1161)
+
+2022.04.26 - version 1.1.0
+* New: Add Flash Cards block
+    * Add block [#945](https://github.com/Automattic/sensei-pro/pull/945)
+    * Add flipping [#954](https://github.com/Automattic/sensei-pro/pull/954)
+    * Refine block [#967](https://github.com/Automattic/sensei-pro/pull/967)
+    * Add `blockId` attribute [#1048](https://github.com/Automattic/sensei-pro/pull/1048)
+    * Limit content [#1076](https://github.com/Automattic/sensei-pro/pull/1076)
+* New: Add Image Hotspots block
+    * Add block [#958](https://github.com/Automattic/sensei-pro/pull/958)
+    * Open/close hotspot by clicking [#968](https://github.com/Automattic/sensei-pro/pull/968)
+    * Save markers for frontend and position tooltips [#976](https://github.com/Automattic/sensei-pro/pull/976)
+    * Add frontend script [#978](https://github.com/Automattic/sensei-pro/pull/978)
+    * Add toolbar button [#982](https://github.com/Automattic/sensei-pro/pull/982)
+    * Add image controls [#1019](https://github.com/Automattic/sensei-pro/pull/1019)
+    * Support dragging to change position [#1045](https://github.com/Automattic/sensei-pro/pull/1045)
+    * Limit tooltip content [#1079](https://github.com/Automattic/sensei-pro/pull/1079)
+    * Track opened tooltip [#1088](https://github.com/Automattic/sensei-pro/pull/1088)
+* New: Add Task List block
+    * Add blocks [#963](https://github.com/Automattic/sensei-pro/pull/963)
+    * Add rick text [#970](https://github.com/Automattic/sensei-pro/pull/970)
+    * Implement checkboxes [#989](https://github.com/Automattic/sensei-pro/pull/989)
+    * New task on enter [#997](https://github.com/Automattic/sensei-pro/pull/997)
+    * Add storage [#1002](https://github.com/Automattic/sensei-pro/pull/1002)
+    * Add color customisation [#1006](https://github.com/Automattic/sensei-pro/pull/1006)
+* New: Add Question block
+    * Initial multi-choice implementation [#960](https://github.com/Automattic/sensei-pro/pull/960)
+    * Add block details [#983](https://github.com/Automattic/sensei-pro/pull/983)
+    * Add Multiple Choice frontend [#974](https://github.com/Automattic/sensei-pro/pull/974)
+    * Add Boolean frontend [#981](https://github.com/Automattic/sensei-pro/pull/981)
+    * Add Fill the Gap frontend [#990](https://github.com/Automattic/sensei-pro/pull/990)
+    * Add Ordering frontend [#1043](https://github.com/Automattic/sensei-pro/pull/1043)
+    * Add Single Line frontend [#1084](https://github.com/Automattic/sensei-pro/pull/1084)
+    * Add feedbacks frontend [#991](https://github.com/Automattic/sensei-pro/pull/991)
+    * Prevent Question blocks to be added in Question blocks [#1028](https://github.com/Automattic/sensei-pro/pull/1028)
+    * Review accessibility [#1010](https://github.com/Automattic/sensei-pro/pull/1010) [#1049](https://github.com/Automattic/sensei-pro/pull/1049)
+    * Adding local storage persistence [#1044](https://github.com/Automattic/sensei-pro/pull/1044)
+    * Style and simplify radio and checkbox buttons [#1068](https://github.com/Automattic/sensei-pro/pull/1068)
+    * Remove empty answers from questions on save [#1073](https://github.com/Automattic/sensei-pro/pull/1073)
+    * Clear state on question type change [#1134](https://github.com/Automattic/sensei-pro/pull/1134)
+* New: Add generic block running library [#987](https://github.com/Automattic/sensei-pro/pull/987)
+* New: Add default Loco translate configuration for `woothemes-sensei` [#1146](https://github.com/Automattic/sensei-pro/pull/1146)
+* Tweak: Update references to WCPCP [#887](https://github.com/Automattic/sensei-pro/pull/887)
+* Tweak: Run Frontend Lint workflow when SCSS changes [#1103](https://github.com/Automattic/sensei-pro/pull/1103)
+* Tweak: Activate dependency group eslint rule [#1082](https://github.com/Automattic/sensei-pro/pull/1082)
+* Fix: Translations in modules [#1051](https://github.com/Automattic/sensei-pro/pull/1061)
+* Fix: Translations in `woothemes-sensei` [#1069](https://github.com/Automattic/sensei-pro/pull/1069)
+
+
+2022.03.08 - version 1.0.2
+* New: Subscriptions with WooCommerce Payments compatibility [#863](https://github.com/Automattic/sensei-pro/pull/863)
+* New: Add/action scheduler [#859](https://github.com/Automattic/sensei-pro/pull/859)
+* Tweak: Revert job names back to WCPC naming for now [#873](https://github.com/Automattic/sensei-pro/pull/873)
+* Tweak: Update legacy content drip message to be displayed in the plugins page [#870](https://github.com/Automattic/sensei-pro/pull/870)
+* Tweak: Set correct background job schedular import path. [#865](https://github.com/Automattic/sensei-pro/pull/865)
+* Tweak: Course Expiration Module v2 [#851](https://github.com/Automattic/sensei-pro/pull/851)
+
+2022.03.02 - version 1.0.1
+* New: Add clarification for ordering question type under the question title. [#847](https://github.com/Automattic/sensei-pro/pull/847)
+* New: Add a Shared Module [#846](https://github.com/Automattic/sensei-pro/pull/846)
+* Tweak: Simplifying plugin updater response processing. [#854](https://github.com/Automattic/sensei-pro/pull/854)
+* Tweak: Occupy all the admin body content when on licensing page. [#855](https://github.com/Automattic/sensei-pro/pull/855)
+* Fix: multi-choice to ordering question switch bug [#848](https://github.com/Automattic/sensei-pro/pull/848)
+* Fix: drag&drop for ordering question type on mobile [#833](https://github.com/Automattic/sensei-pro/pull/833)
+* Fix: quiz timer mobile view [#844](https://github.com/Automattic/sensei-pro/pull/844)
+
+2022.02.23 - version 1.0.0
+* New: Pull in functionality from WooCommerce Paid Courses
+    * Convert WCPC repo to Sensei Pro [#729](https://github.com/Automattic/sensei-pro/pull/729)
+    * Change text domain to sensei-pro [#739](https://github.com/Automattic/sensei-pro/pull/739)
+    * Fix product tour asset loading [#779](https://github.com/Automattic/sensei-pro/pull/779)
+* New: Pull in functionality from Sensei Content Drip
+    * Add content drip module [#755](https://github.com/Automattic/sensei-pro/pull/755)
+    * Change content drip textdomain [#759](https://github.com/Automattic/sensei-pro/pull/759)
+    * Add Content Drip plugin check [#784](https://github.com/Automattic/sensei-pro/pull/784)
+    * Change: Enabling content-drip tests. [#822](https://github.com/Automattic/sensei-pro/pull/822)
+* New: Advanced quizzes
+    * Advanced quiz features [#783](https://github.com/Automattic/sensei-pro/pull/783)
+    * Add hint to Ordering question answer placeholder [#815](https://github.com/Automattic/sensei-pro/pull/815)
+    * Fix quiz start page [#827](https://github.com/Automattic/sensei-pro/pull/827)
+    * move quiz timer settings to side panel [#800](https://github.com/Automattic/sensei-pro/pull/800)
+    * Add fallback display Quiz Timer Settings [#826](https://github.com/Automattic/sensei-pro/pull/826)
+    * Quiz Timer: Show 'Start Quiz' page in learning mode [#825](https://github.com/Automattic/sensei-pro/pull/825)
+    * Fix quiz timer submit [#806](https://github.com/Automattic/sensei-pro/pull/806)
+* New: Create module structure
+    * Set up asset build and load to work with modules [#754](https://github.com/Automattic/sensei-pro/pull/754)
+    * Set up uninstall and data cleaning in modules [#765](https://github.com/Automattic/sensei-pro/pull/765)
+    * Hooking into uninstall process for senseilms module. [#787](https://github.com/Automattic/sensei-pro/pull/787)
+    * Make sure Sensei_Pro_Setup always has dependencies met. [#791](https://github.com/Automattic/sensei-pro/pull/791)
+* New: Sensei Pro Licensing
+    * Licensing: Add initial proposal for Plugin Updater. [#725](https://github.com/Automattic/sensei-pro/pull/725)
+    * Activate license page [#756](https://github.com/Automattic/sensei-pro/pull/756)
+    * Tweak license activation errors [#785](https://github.com/Automattic/sensei-pro/pull/785)
+    * Skipping plugin update call when no valid license is present. [#750](https://github.com/Automattic/sensei-pro/pull/750)
+    * Adding Invalid License notice in the admin panel. [#742](https://github.com/Automattic/sensei-pro/pull/742)
+    * Consuming Licensing operations API. [#730](https://github.com/Automattic/sensei-pro/pull/730)
+* New: Set up build script for Sensei Pro [#780](https://github.com/Automattic/sensei-pro/pull/780)
+* New: Do not activate sensei-pro if woothemes-sensei is present. [#813](https://github.com/Automattic/sensei-pro/pull/813)
+* New: Updating Language_Packs to use new translation project. [#781](https://github.com/Automattic/sensei-pro/pull/781)
+* Tweak: Replace Sensei Pro upsell with licensing ui on extensions page. [#821](https://github.com/Automattic/sensei-pro/pull/821)
+* Tweak: Update WooCommerce Requirement [#817](https://github.com/Automattic/sensei-pro/pull/817)
+* Tweak: Bump minimum supported Sensei version to 4.0.0 [#803](https://github.com/Automattic/sensei-pro/pull/803)
+* Tweak: Remove upsells when Sensei Pro is installed [#812](https://github.com/Automattic/sensei-pro/pull/812)
+* Fix: Fix sensei pro initializing twice in the unit tests [#823](https://github.com/Automattic/sensei-pro/pull/823)
+* Fix: Fix translations for Sensei Pro [#773](https://github.com/Automattic/sensei-pro/pull/773)
+* Fix: Fix PHP warnings [#801](https://github.com/Automattic/sensei-pro/pull/801)
+* Fix: woothemes-sensei build [#798](https://github.com/Automattic/sensei-pro/pull/798)
+* Fix: woothemes sensei compatibility [#794](https://github.com/Automattic/sensei-pro/pull/794)
+* Fix: Missing dependency in uninstall process for Licensing. [#793](https://github.com/Automattic/sensei-pro/pull/793)
+* Fix: Check for Sensei LMS and WooCommerce depencies. [#769](https://github.com/Automattic/sensei-pro/pull/769)

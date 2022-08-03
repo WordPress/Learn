@@ -1,3 +1,6 @@
+/**
+ * WordPress dependencies
+ */
 import { addFilter } from '@wordpress/hooks';
 
 function addQuizTimerSettings( settings, name ) {

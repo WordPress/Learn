@@ -125,7 +125,7 @@ final class Lessons {
 			return;
 		}
 
-		$course_url   = get_permalink( $course_id );
+		$purchase_url = $this->get_purchase_course_url( $course_id );
 		$notices      = Sensei_Context_Notices::instance( 'course_theme_locked_lesson' );
 		$notice_key   = 'locked_lesson';
 		$notice_title = __( 'You don\'t have access to this lesson', 'sensei-pro' );
@@ -142,7 +142,7 @@ final class Lessons {
 			$actions = [
 				[
 					'label' => __( 'Purchase course', 'sensei-pro' ),
-					'url'   => $course_url,
+					'url'   => $purchase_url,
 					'style' => 'primary',
 				],
 				[
@@ -175,7 +175,7 @@ final class Lessons {
 		$actions = [
 			[
 				'label' => __( 'Purchase course', 'sensei-pro' ),
-				'url'   => $course_url,
+				'url'   => $purchase_url,
 				'style' => 'primary',
 			],
 		];
@@ -194,6 +194,32 @@ final class Lessons {
 			$notice_title,
 			$actions,
 			$notice_icon
+		);
+	}
+
+	/**
+	 * Get purchase course URL.
+	 *
+	 * @param int $course_id Course ID.
+	 *
+	 * @return string Purchase course URL
+	 */
+	private function get_purchase_course_url( $course_id ) {
+		/**
+		 * Filter the purchase course URL.
+		 *
+		 * @since 1.2.0
+		 * @hook sensei_pro_learning_mode_purchase_course_url
+		 *
+		 * @param {string} $purchase_course_url Purchase course URL.
+		 * @param {int}    $course_id           Course ID.
+		 *
+		 * @return {string} Returns filtered purchase course URL.
+		 */
+		return apply_filters(
+			'sensei_pro_learning_mode_purchase_course_url',
+			get_permalink( $course_id ),
+			$course_id
 		);
 	}
 

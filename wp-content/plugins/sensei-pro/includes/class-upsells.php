@@ -68,6 +68,7 @@ final class Upsells {
 		add_filter( 'sensei_settings_content_drip_hide', '__return_true' );
 		add_filter( 'sensei_lesson_content_drip_hide', '__return_true' );
 		add_filter( 'sensei_quiz_ordering_question_type_hide', '__return_true' );
+		add_filter( 'sensei_student_groups_hide', '__return_true' );
 	}
 
 	/**

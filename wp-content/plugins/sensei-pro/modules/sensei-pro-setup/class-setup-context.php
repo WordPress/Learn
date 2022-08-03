@@ -13,55 +13,9 @@ namespace Sensei_Pro_Setup;
  */
 abstract class Setup_Context {
 	/**
-	 * The setup wizard page slug.
-	 *
-	 * @var string
-	 */
-	public $plugin_slug = '';
-
-	/**
-	 * Setup locales.
-	 *
-	 * @var array
-	 */
-	public $locales = [];
-
-	/**
-	 * Plugin url
-	 *
-	 * @var string
-	 */
-	public $plugin_url = '';
-
-	/**
-	 * Plugin dir
-	 *
-	 * @var string
-	 */
-	public $plugin_dir = '';
-
-	/**
-	 * Plugin version
-	 *
-	 * @var string
-	 */
-	public $plugin_version = '';
-
-	/**
-	 * Constructor for Setup_Context
-	 */
-	public function __construct() {
-		$this->locales        = $this->get_setup_locales();
-		$this->plugin_slug    = $this->get_plugin_slug();
-		$this->plugin_url     = $this->get_plugin_url();
-		$this->plugin_dir     = $this->get_plugin_dir();
-		$this->plugin_version = $this->get_plugin_version();
-	}
-
-	/**
 	 * Returns a map of locales that is used for the setup wizard.
 	 */
-	abstract public function get_setup_locales(): array;
+	abstract public function get_locales(): array;
 
 	/**
 	 * Returns the plugin slug.
@@ -69,9 +23,9 @@ abstract class Setup_Context {
 	abstract public function get_plugin_slug(): string;
 
 	/**
-	 * Returns the plugin url.
+	 * Returns the production assets url for the sensei-pro-setup module.
 	 */
-	abstract public function get_plugin_url(): string;
+	abstract public function get_setup_assets_url(): string;
 
 	/**
 	 * Returns the plugin dir.
@@ -87,4 +41,9 @@ abstract class Setup_Context {
 	 * Returns the main plugin filename.
 	 */
 	abstract public function get_plugin_main_filename(): string;
+
+	/**
+	 * Tells if Sensei LMS plugin needs to be installed.
+	 */
+	abstract public function get_requires_sensei(): bool;
 }

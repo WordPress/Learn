@@ -69,8 +69,6 @@ final class Sensei_WC_Paid_Courses {
 	public static function init( $init_all = false ) {
 		$instance = self::instance();
 
-		add_action( 'init', [ $instance, 'load_plugin_textdomain' ], 0 );
-
 		$instance->assets = \Sensei_Pro\Modules\assets_loader( self::MODULE_NAME );
 
 		$skip_plugin_deps_check = defined( 'SENSEI_WC_PAID_COURSES_SKIP_DEPS_CHECK' ) && SENSEI_WC_PAID_COURSES_SKIP_DEPS_CHECK;
@@ -342,20 +340,6 @@ final class Sensei_WC_Paid_Courses {
 			include_once $this->wcpc_dir . '/includes/frontend/class-lessons.php';
 			include_once $this->wcpc_dir . '/includes/frontend/class-shortcodes.php';
 		}
-	}
-
-	/**
-	 * Loads textdomain for plugin.
-	 */
-	public function load_plugin_textdomain() {
-		$domain = 'sensei-wc-paid-courses';
-		$locale = is_admin() && function_exists( 'get_user_locale' ) ? get_user_locale() : get_locale();
-		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Using commonly used core hook to fetch locales.
-		$locale = apply_filters( 'plugin_locale', $locale, $domain );
-
-		unload_textdomain( $domain );
-		load_textdomain( $domain, WP_LANG_DIR . '/' . $domain . '/' . $domain . '-' . $locale . '.mo' );
-		load_plugin_textdomain( $domain, false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 	}
 
 	/**

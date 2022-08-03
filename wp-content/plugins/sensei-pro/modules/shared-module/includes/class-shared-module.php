@@ -31,18 +31,24 @@ class Shared_Module {
 	private $module_dir;
 
 	/**
+	 * Vendor directory.
+	 *
+	 * @var string
+	 */
+	private $vendor_path;
+
+	/**
 	 * Script and stylesheet loading.
 	 *
-	 * @var \Sensei_Assets
+	 * @var \Sensei_Assets|\Sensei_Pro_Interactive_Blocks\Assets_Provider
 	 */
-	public $assets;
+	private $asset_provider;
 
 	/**
 	 * Shared_Module constructor.
 	 */
 	private function __construct() {
 		$this->module_dir = dirname( __DIR__ );
-		$this->assets     = \Sensei_Pro\Modules\assets_loader( self::MODULE_NAME );
 	}
 
 	/**
@@ -59,10 +65,19 @@ class Shared_Module {
 
 	/**
 	 * Initializes the class and adds all filters and actions.
+	 *
+	 * @param \Sensei_Assets|\Sensei_Pro_Interactive_Blocks\Assets_Provider $asset_provider The class which loads the assets.
+	 * @param string                                                        $vendor_path    The path to the vendor directory.
 	 */
-	public static function init() {
-		$instance = self::instance();
+	public static function init( $asset_provider, string $vendor_path ) {
+		$instance                 = self::instance();
+		$instance->asset_provider = $asset_provider;
+		$instance->vendor_path    = $vendor_path;
 		$instance->include_dependencies();
+		Language_Packs::instance()->init( [ 'sensei-pro' => SENSEI_PRO_VERSION ] );
+
+		add_action( 'admin_enqueue_scripts', [ $instance, 'register_assets' ], 5 );
+		add_action( 'wp_enqueue_scripts', [ $instance, 'register_assets' ], 5 );
 	}
 
 	/**
@@ -78,9 +93,9 @@ class Shared_Module {
 			|| ! function_exists( 'as_next_scheduled_action' )
 			|| ! function_exists( 'as_schedule_single_action' )
 		) {
-			$as_plugin_file = dirname( __FILE__, 4 ) . '/vendor/woocommerce/action-scheduler/action-scheduler.php';
+			$as_plugin_file = $this->vendor_path . 'woocommerce/action-scheduler/action-scheduler.php';
 			require_once $as_plugin_file;
-			require_once dirname( __FILE__, 4 ) . '/vendor/woocommerce/action-scheduler/classes/abstracts/ActionScheduler.php';
+			require_once $this->vendor_path . 'woocommerce/action-scheduler/classes/abstracts/ActionScheduler.php';
 			\ActionScheduler::init( $as_plugin_file );
 		}
 		// Background jobs.
@@ -88,5 +103,15 @@ class Shared_Module {
 		include_once $this->module_dir . '/includes/background-jobs/class-cron-job.php';
 		include_once $this->module_dir . '/includes/background-jobs/class-completable-job.php';
 		include_once $this->module_dir . '/includes/background-jobs/class-scheduler.php';
+		include_once $this->module_dir . '/includes/class-language-packs.php';
+	}
+
+	/**
+	 * Register shared assets.
+	 *
+	 * @access private
+	 */
+	public function register_assets() {
+		$this->asset_provider->register( 'sensei-pro-shared-module-sensei-fontawesome', 'sensei-fontawesome.css' );
 	}
 }

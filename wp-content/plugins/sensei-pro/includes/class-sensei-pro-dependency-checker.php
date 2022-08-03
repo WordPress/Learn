@@ -16,8 +16,57 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 1.0.0
  */
 class Sensei_Pro_Dependency_Checker {
-	const MINIMUM_PHP_VERSION    = '7.0';
-	const MINIMUM_SENSEI_VERSION = '4.0.0';
+	/**
+	 * Minimum PHP version.
+	 *
+	 * @var string
+	 */
+	private $minimum_php_version;
+
+	/**
+	 * Minimum Sensei version.
+	 *
+	 * @var string
+	 */
+	private $minimum_sensei_version;
+
+	/**
+	 * Singleton instance.
+	 *
+	 * @var Sensei_Pro_Dependency_Checker
+	 */
+	private static $instance;
+
+	/**
+	 * Get singleton.
+	 *
+	 * @return Sensei_Pro_Dependency_Checker
+	 */
+	private static function get_instance() {
+
+		if ( null === self::$instance ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
+	}
+
+	/**
+	 * Sensei_Pro_Dependency_Checker constructor.
+	 */
+	private function __construct() {
+		$plugin_data = \get_file_data(
+			SENSEI_PRO_PLUGIN_FILE,
+			[
+				'minimum_sensei_version' => 'Sensei requires at least',
+				'minimum_php_version'    => 'Requires PHP',
+			]
+		);
+
+		$this->minimum_sensei_version = $plugin_data['minimum_sensei_version'];
+		$this->minimum_php_version    = $plugin_data['minimum_php_version'];
+	}
+
 
 	/**
 	 * Checks if system dependencies are met.
@@ -25,13 +74,15 @@ class Sensei_Pro_Dependency_Checker {
 	 * @return bool
 	 */
 	public static function are_system_dependencies_met() {
-		$are_met = true;
-		if ( ! self::check_php() ) {
-			add_action( 'admin_notices', array( __CLASS__, 'add_php_notice' ) );
+		$are_met  = true;
+		$instance = self::get_instance();
+
+		if ( ! $instance->check_php() ) {
+			add_action( 'admin_notices', [ __CLASS__, 'add_php_notice' ] );
 			$are_met = false;
 		}
 		if ( ! $are_met ) {
-			add_action( 'admin_init', array( __CLASS__, 'deactivate_self' ) );
+			add_action( 'admin_init', [ __CLASS__, 'deactivate_self' ] );
 		}
 
 		return $are_met;
@@ -43,12 +94,25 @@ class Sensei_Pro_Dependency_Checker {
 	 * @return bool
 	 */
 	public static function are_plugin_dependencies_met() {
-		$are_met = true;
-		if ( ! self::check_sensei() ) {
-			add_action( 'admin_notices', array( __CLASS__, 'add_sensei_notice' ) );
-			$are_met = false;
+		$instance = self::get_instance();
+
+		if ( ! class_exists( 'Sensei_Main' ) ) {
+			if ( is_admin() ) {
+				add_action( 'admin_notices', [ $instance, 'add_sensei_missing_notice' ] );
+			}
+
+			return false;
 		}
-		return $are_met;
+
+		if ( version_compare( $instance->minimum_sensei_version, Sensei()->version, '>' ) ) {
+			if ( is_admin() ) {
+				add_filter( 'sensei_admin_notices', [ $instance, 'add_sensei_version_notice' ] );
+			}
+
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
@@ -56,28 +120,17 @@ class Sensei_Pro_Dependency_Checker {
 	 *
 	 * @return bool
 	 */
-	private static function check_php() {
-		return version_compare( phpversion(), self::MINIMUM_PHP_VERSION, '>=' );
+	private function check_php() {
+		return version_compare( phpversion(), $this->minimum_php_version, '>=' );
 	}
 
 	/**
 	 * Deactivate self.
+	 *
+	 * @access private
 	 */
 	public static function deactivate_self() {
 		deactivate_plugins( SENSEI_PRO_PLUGIN_BASENAME );
-	}
-
-	/**
-	 * Checks for our Sensei dependency.
-	 *
-	 * @return bool
-	 */
-	private static function check_sensei() {
-		if ( ! class_exists( 'Sensei_Main' ) ) {
-			return false;
-		}
-
-		return version_compare( self::MINIMUM_SENSEI_VERSION, get_option( 'sensei-version' ), '<=' );
 	}
 
 	/**
@@ -87,16 +140,18 @@ class Sensei_Pro_Dependency_Checker {
 	 */
 	public static function add_php_notice() {
 		$screen        = get_current_screen();
-		$valid_screens = array( 'dashboard', 'plugins', 'plugins-network' );
+		$valid_screens = [ 'dashboard', 'plugins', 'plugins-network' ];
 
 		if ( ! current_user_can( 'activate_plugins' ) || ! in_array( $screen->id, $valid_screens, true ) ) {
 			return;
 		}
 
+		$instance = self::get_instance();
+
 		// translators: %1$s is version of PHP that this plugin requires; %2$s is the version of PHP WordPress is running on.
-		$message = sprintf( __( '<strong>Sensei Pro</strong> requires a minimum PHP version of %1$s, but you are running %2$s.', 'sensei-pro' ), self::MINIMUM_PHP_VERSION, phpversion() );
+		$message = sprintf( __( '<strong>Sensei Pro</strong> requires a minimum PHP version of %1$s, but you are running %2$s.', 'sensei-pro' ), $instance->minimum_php_version, phpversion() );
 		echo '<div class="error"><p>';
-		echo wp_kses( $message, array( 'strong' => array() ) );
+		echo wp_kses( $message, [ 'strong' => [] ] );
 		$php_update_url = 'https://wordpress.org/support/update-php/';
 		if ( function_exists( 'wp_get_update_php_url' ) ) {
 			$php_update_url = wp_get_update_php_url();
@@ -116,18 +171,48 @@ class Sensei_Pro_Dependency_Checker {
 	 *
 	 * @access private
 	 */
-	public static function add_sensei_notice() {
+	public function add_sensei_missing_notice() {
 		$screen        = get_current_screen();
-		$valid_screens = array( 'dashboard', 'plugins', 'plugins-network' );
+		$valid_screens = [ 'dashboard', 'plugins', 'plugins-network' ];
 
 		if ( ! current_user_can( 'activate_plugins' ) || ! in_array( $screen->id, $valid_screens, true ) ) {
 			return;
 		}
 
 		// translators: %1$s is the minimum version number of Sensei that is required.
-		$message = sprintf( __( '<strong>Sensei Pro</strong> requires that the plugin <strong>Sensei LMS</strong> (minimum version: <strong>%1$s</strong>) is installed and activated.', 'sensei-pro' ), self::MINIMUM_SENSEI_VERSION );
+		$message = sprintf( __( '<strong>Sensei Pro</strong> requires that the plugin <strong>Sensei LMS</strong> (minimum version: <strong>%1$s</strong>) is installed and activated.', 'sensei-pro' ), $this->minimum_sensei_version );
 		echo '<div class="error"><p>';
-		echo wp_kses( $message, array( 'strong' => array() ) );
+		echo wp_kses( $message, [ 'strong' => [] ] );
 		echo '</p></div>';
+	}
+
+	/**
+	 * Adds the notice in WP Admin that Sensei needs an update.
+	 *
+	 * @access private
+	 *
+	 * @param array $notices The filtered sensei notices.
+	 */
+	public function add_sensei_version_notice( $notices ) {
+		$notices['senseipro-old-sensei-version'] = [
+			'type'       => 'user',
+			'icon'       => 'sensei',
+			'style'      => 'error',
+			'heading'    => 'Sensei Pro',
+			// translators: %1$s is the minimum version number of Sensei that is required, %2$s is the detected version.
+			'message'    => sprintf( __( '<strong>Sensei Pro</strong> requires that the plugin <strong>Sensei LMS, version %1$s</strong> is installed and activated. Version detected: <strong>%2$s</strong>.', 'sensei-pro' ), $this->minimum_sensei_version, Sensei()->version ),
+			'conditions' => [
+				[
+					'type'    => 'screens',
+					'screens' => [ 'sensei*', 'plugins', 'plugins-network', 'dashboard' ],
+				],
+				[
+					'type'         => 'user_cap',
+					'capabilities' => [ 'activate_plugins' ],
+				],
+			],
+		];
+
+		return $notices;
 	}
 }

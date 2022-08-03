@@ -1,0 +1,11 @@
+.bulk-action-selector {
+	display: flex;
+	gap: 6px;
+	select.components-select-control__input {
+		height: 34px;
+	}
+
+	> button {
+		height: 30px;
+	}
+}

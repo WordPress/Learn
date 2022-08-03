@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies.
+ * WordPress dependencies
  */
 import apiFetch from '@wordpress/api-fetch';
 
 /**
- * Internal dependencies.
+ * Internal dependencies
  */
 import { REST_API_BASE_PATH, FETCH_FROM_API } from './constants';
 

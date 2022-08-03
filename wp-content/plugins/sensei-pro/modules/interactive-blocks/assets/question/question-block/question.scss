@@ -1,0 +1,157 @@
+/**
+ * External dependencies
+ */
+@import "~sensei/assets/blocks/quiz/question-block/question-block.editor";
+@import "~sensei/assets/blocks/quiz/question-block/question";
+@import "~shared-module/ordering-question/frontend/styles";
+
+.sensei-lms-interactive-block-question {
+	&__title {
+		position: relative;
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		// Transparent background for title input in editor.
+		.editor-styles-wrapper & > textarea {
+			background-color: transparent;
+		}
+	}
+
+	&__completed-status {
+		position: absolute;
+		left: -32px;
+	}
+
+	&__description {
+		margin: 24px 0;
+	}
+
+	&__multiple-choice {
+		& &-list {
+			padding-left: 0;
+			margin-left: 0;
+		}
+
+		& &-option {
+			list-style-type: none;
+			margin-top: 16px;
+			margin-left: 0;
+
+			label {
+				cursor: pointer;
+				padding-left: 16px;
+				margin-bottom: 0;
+				display: inline-block;
+			}
+		}
+	}
+
+	&__gap-fill {
+		& &-list {
+			// Layout.
+			display: inline;
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			// Font.
+			font-size: 18px;
+
+			> li {
+				display: inline;
+				margin-left: 0;
+			}
+		}
+
+		& &-input {
+			// Alignment.
+			display: inline-block;
+			vertical-align: middle;
+			width: 260px;
+			// Box.
+			border: 2px solid #757575;
+			box-sizing: border-box;
+			border-radius: 4px;
+			height: 40px;
+			padding: 8px;
+			margin: 0 8px;
+			background-color: rgba(255, 255, 255, 0.5);
+		}
+	}
+
+	&__single-line {
+		& &-input-placeholder {
+			border: 2px solid currentColor;
+			border-radius: 2px;
+			padding: 5px;
+			min-height: 52px;
+			display: flex;
+		}
+		& &-input {
+			width: 100%;
+			border: 0;
+			background-color: rgba(255, 255, 255, 0.5);
+
+			&:focus {
+				outline: none;
+				box-shadow: none;
+			}
+		}
+	}
+
+	&__submit-button {
+		// Button
+		display: flex;
+		flex-direction: row;
+		margin-top: 32px;
+
+		.editor-styles-wrapper & button {
+			cursor: not-allowed;
+		}
+	}
+}
+
+.sensei-lms-question-block {
+	&:not(.show-answer-feedback) {
+		.wp-block[data-type="sensei-pro/question-answer-feedback-correct"],
+		.wp-block[data-type="sensei-pro/question-answer-feedback-incorrect"] {
+			display: none;
+		}
+	}
+}
+
+// Applies both to frontend and editor.
+.wp-block-sensei-pro-question {
+	// Customisations when background color is set:
+	&.has-background {
+		// Adding default padding.
+		padding: 15px;
+	}
+	// Customisations when border is set:
+	&.has-border-color {
+		// Adding default padding.
+		padding: 15px;
+	}
+	& fieldset {
+		padding: 0;
+		margin: 0;
+		border: none;
+	}
+	// Setting white background for feedbacks.
+	& .sensei-lms-question__answer-feedback {
+		background-color: #fff;
+		color: #000;
+
+		&__content {
+			> *:last-child {
+				margin-bottom: 0;
+			}
+			&:empty {
+				display: none;
+			}
+		}
+	}
+}
+
+:where(button.wp-block-button__link) {
+	border: none;
+}

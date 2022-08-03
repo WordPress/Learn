@@ -23,11 +23,19 @@ class License_Notice {
 	private $plugin_slug;
 
 	/**
+	 * The plugin file.
+	 *
+	 * @var string
+	 */
+	private $plugin_file;
+
+	/**
 	 * Private constructor.
 	 *
 	 * @param string $main_plugin_file The main plugin file.
 	 */
 	private function __construct( $main_plugin_file ) {
+		$this->plugin_file = $main_plugin_file;
 		$this->plugin_slug = basename( $main_plugin_file, '.php' );
 	}
 
@@ -59,35 +67,41 @@ class License_Notice {
 			return $notices;
 		}
 
+		require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		$plugin_data = get_plugin_data( $this->plugin_file );
+		$plugin_name = $plugin_data['Name'];
+
 		$status = License_Manager::get_license_status( $this->plugin_slug );
 		if ( empty( $status['license_key'] ) ) {
 			// License is not set yet.
-			$notices['senseilms-no-license'] = [
+			$notices[ "senseilms-no-license-{$this->plugin_slug}" ] = [
 				'type'    => 'user',
 				'icon'    => 'sensei',
 				'style'   => 'error',
-				'heading' => __( 'Sensei Pro', 'sensei-pro' ),
-				'message' => __( 'Finish setting up Sensei Pro to continue receiving new features and updates.', 'sensei-pro' ),
+				'heading' => $plugin_name,
+				// translators: Placeholder is the plugin name.
+				'message' => sprintf( __( 'Finish setting up %s to continue receiving new features and updates.', 'sensei-pro' ), $plugin_name ),
 				'actions' => [
 					[
 						'label' => __( 'Finish Setup', 'sensei-pro' ),
-						'url'   => admin_url( 'admin.php?page=sensei_pro_setup_wizard' ),
+						'url'   => \Sensei_Pro_Setup\Wizard::get_setup_url( $this->plugin_slug ),
 					],
 				],
 			];
 		} else {
 			if ( isset( $status['is_valid'] ) && ! $status['is_valid'] ) {
 				// License is set but invalid.
-				$notices['senseilms-invalid-license'] = [
+				$notices[ "senseilms-invalid-license-{$this->plugin_slug}" ] = [
 					'type'    => 'user',
 					'icon'    => 'sensei',
 					'style'   => 'error',
-					'heading' => __( 'Sensei Pro', 'sensei-pro' ),
-					'message' => __( 'We noticed a problem with your Sensei Pro license, which could prevent future updates.', 'sensei-pro' ),
+					'heading' => $plugin_name,
+					// translators: Placeholder is the plugin name.
+					'message' => sprintf( __( 'We noticed a problem with your %s license, which could prevent future updates.', 'sensei-pro' ), $plugin_name ),
 					'actions' => [
 						[
 							'label' => __( 'Check License', 'sensei-pro' ),
-							'url'   => admin_url( 'admin.php?page=sensei_pro_setup_wizard' ),
+							'url'   => \Sensei_Pro_Setup\Wizard::get_setup_url( $this->plugin_slug ),
 						],
 					],
 				];

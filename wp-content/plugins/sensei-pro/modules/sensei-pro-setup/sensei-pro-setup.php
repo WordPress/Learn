@@ -10,17 +10,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( defined( 'SENSEI_COMPAT_PLUGIN' ) && SENSEI_COMPAT_PLUGIN ) {
-	return;
+/**
+ * Initializes plugin licensing.
+ *
+ * @param Sensei_Pro_Setup\Setup_Context $context The setup context class.
+ */
+function sensei_pro_setup_init( $context ) {
+	if ( defined( 'SENSEI_COMPAT_PLUGIN' ) && SENSEI_COMPAT_PLUGIN ) {
+		return;
+	}
+
+	require_once dirname( __DIR__ ) . '/senseilms-licensing/senseilms-licensing.php';
+	SenseiLMS_Licensing\License_Manager::init( $context->get_plugin_main_filename(), $context->get_plugin_version() );
+
+	// Plugin activation.
+	require_once dirname( __FILE__ ) . '/class-wizard.php';
+	require_once dirname( __FILE__ ) . '/class-rest-api.php';
+	\Sensei_Pro_Setup\Wizard::instance( $context )->init();
 }
-
-// License Manager.
-require_once dirname( __DIR__ ) . '/senseilms-licensing/senseilms-licensing.php';
-
-// Plugin activation.
-require_once dirname( __FILE__ ) . '/class-wizard.php';
-require_once dirname( __FILE__ ) . '/class-setup-context.php';
-require_once dirname( __FILE__ ) . '/class-sensei-pro-setup-context.php';
-require_once dirname( __FILE__ ) . '/class-rest-api.php';
-
-\Sensei_Pro_Setup\Wizard::instance( new \Sensei_Pro_Setup\Sensei_Pro_Setup_Context() )->init();

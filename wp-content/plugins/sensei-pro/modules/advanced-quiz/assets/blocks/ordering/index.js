@@ -1,9 +1,17 @@
 /**
+ * External dependencies
+ */
+import orderingQuestionType from 'shared-module/ordering-question/ordering-question-type';
+
+/**
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
 import { addFilter } from '@wordpress/hooks';
-import OrderingAnswer from './answer-blocks/ordering';
+
+/**
+ * Internal dependencies
+ */
 import OrderingSubtitle from './subtitle/ordering-subtitle';
 
 /**
@@ -13,22 +21,16 @@ import OrderingSubtitle from './subtitle/ordering-subtitle';
  * @property {string}   description Question type description.
  * @property {Function} edit        Editor component.
  * @property {Function} validate    Validation callback.
- * @property {Object}   messages    Message string.s
+ * @property {Object}   messages    Message strings.
  */
 /**
  * Question type definitions.
  *
  * @type {Object.<string, QuestionType>}
  */
-const questionTypes = {
+export const orderingQuestionTypes = {
 	ordering: {
-		title: __( 'Ordering', 'sensei-pro' ),
-		description: __(
-			'Place the answers in the correct order.',
-			'sensei-pro'
-		),
-		edit: OrderingAnswer,
-		view: OrderingAnswer.view,
+		...orderingQuestionType,
 		subtitle: OrderingSubtitle,
 		settings: [],
 		feedback: true,
@@ -46,7 +48,7 @@ const questionTypes = {
 function addOrderingQuestionType( existingQuestionTypes ) {
 	return {
 		...existingQuestionTypes,
-		...questionTypes,
+		...orderingQuestionTypes,
 	};
 }
 

@@ -1,0 +1,73 @@
+@import "~@wordpress/base-styles/variables";
+
+body:not(.no-sidebar) .entry-content .sensei-lms-flip,
+.entry-content .sensei-lms-flip,
+.editor-styles-wrapper .sensei-lms-flip,
+.sensei-lms-flip {
+	text-align: center;
+	transform-style: preserve-3d;
+	position: relative;
+
+	> .wp-block-cover,
+	> .wp-block {
+		margin: 0 !important;
+		transition: transform 300ms ease-in-out;
+		transform: rotateY(180deg);
+		-webkit-backface-visibility: hidden;
+		backface-visibility: hidden;
+		position: absolute !important;
+		top: 0;
+		left: 0;
+		right: 0;
+		width: 100%;
+
+		.wp-block-cover__inner-container {
+			p.rich-text {
+				color: inherit;
+			}
+		}
+	}
+
+	&--flipped-front > *:nth-child(1),
+	&--flipped-back > *:nth-child(2) {
+		position: relative !important;
+		transform: rotateY(0);
+	}
+
+	& &__button {
+		all: unset;
+		font-size: $mobile-text-min-font-size;
+		font-family: $default-font;
+		line-height: $default-line-height;
+		font-weight: bold;
+		user-select: none;
+		cursor: pointer;
+		margin: 0;
+		padding: 0;
+		background-color: transparent;
+		&:hover,
+		a:focus {
+			background-color: transparent;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+		&:focus-visible a {
+			outline: 1px dotted currentColor;
+			outline-offset: 3px;
+		}
+	}
+}
+
+// Fix text color for cover block with light theme for twenty twenty-one
+body.theme-twentytwentyone .editor-styles-wrapper .sensei-lms-flip {
+	> .wp-block .wp-block-cover {
+		&.is-light {
+			.wp-block-cover__inner-container {
+				p.rich-text {
+					color: var(--wp--preset--color--black, #000);
+				}
+			}
+		}
+	}
+}

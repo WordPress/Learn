@@ -40,5 +40,6 @@ foreach ( $sensei_pro_all_sub_dir as $sensei_pro_dir ) {
 }
 
 require dirname( __FILE__ ) . '/includes/class-data-cleaner.php';
+require dirname( __FILE__ ) . '/modules/installer/installer.php';
 
 ( new Sensei_Pro\Data_Cleaner() )->uninstall( $plugin );

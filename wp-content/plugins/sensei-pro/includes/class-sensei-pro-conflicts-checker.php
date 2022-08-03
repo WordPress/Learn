@@ -106,7 +106,7 @@ class Sensei_Pro_Conflicts_Checker {
 		$screen      = get_current_screen();
 		$plugin_file = self::get_plugin_file( 'woothemes-sensei' );
 		$plugin_file = $plugin_file ? realpath( WP_PLUGIN_DIR . "/$plugin_file" ) : '';
-		$plugin_name = __( 'Sensei with WooCommerce Paid Courses', 'sensei-pro' );
+		$plugin_name = __( 'Sensei with WC Paid Courses', 'sensei-pro' );
 		if ( $plugin_file ) {
 			$plugin_data = get_plugin_data( $plugin_file );
 			$plugin_name = $plugin_data['Name'];
@@ -119,8 +119,8 @@ class Sensei_Pro_Conflicts_Checker {
 		$message = sprintf(
 			// translators: %1$s is the name of the conflicting plugin.
 			__(
-				'Please deactivate the <strong>%1$s</strong> plugin and try activating <strong>Sensei Pro</strong> again. 
-				All the features in <strong>%1$s</strong> are included in <strong>Sensei Pro</strong>. 
+				'Please deactivate the <strong>%1$s</strong> plugin and try activating <strong>Sensei Pro</strong> again.
+				All the features in <strong>%1$s</strong> are included in <strong>Sensei Pro</strong>.
 				You don\'t need both plugins.',
 				'sensei-pro'
 			),

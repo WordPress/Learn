@@ -1,0 +1,49 @@
+@import "~@wordpress/base-styles/breakpoints";
+
+.sensei-supports-colors {
+	&__dropdown {
+		display: block;
+	}
+
+	&__color {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		align-items: center;
+		gap: 1rem;
+		cursor: pointer;
+		padding: 16px;
+		&:hover {
+			color: var(--wp-admin-theme-color, #00669b);
+		}
+	}
+
+	&__color-indicator {
+		width: 25px;
+		height: 16px;
+		border: 1px solid #dadada;
+
+		&--empty {
+			background: linear-gradient(-45deg, transparent 48%, #ddd 0, #ddd 52%, transparent 0);
+		}
+	}
+}
+
+@media (min-width: $break-medium) {
+	.sensei-supports-colors__color-palette-container {
+		.components-popover__content {
+			margin-right: #{calc($sidebar-width / 2) + $grid-unit-20} !important;
+			> div {
+				width: $sidebar-width;
+			}
+		}
+
+		&.is-from-top .components-popover__content {
+			margin-top: #{- ($grid-unit-60 + $grid-unit-15)} !important;
+		}
+
+		&.is-from-bottom .components-popover__content {
+			margin-bottom: #{- ($grid-unit-60 + $grid-unit-15)} !important;
+		}
+	}
+}

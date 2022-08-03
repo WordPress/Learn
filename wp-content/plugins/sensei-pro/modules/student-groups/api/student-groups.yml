@@ -1,0 +1,405 @@
+openapi: 3.0.3
+info:
+  title: Student Groups API endpoints
+  description: This is the API endpoints for Student Groups.
+  version: 0.1.0
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+        message:
+          description: Error message
+          type: string
+    StudentGroup:
+      type: object
+      properties:
+        id:
+          description: The ID of the student group.
+          type: integer
+        name:
+          description: The name of the student group.
+          type: string
+    Student:
+      type: object
+      properties:
+        id:
+          description: Student ID.
+          type: integer
+        name:
+          description: Student name.
+          type: string
+    Course:
+      type: object
+      properties:
+        id:
+          description: Course ID.
+          type: integer
+        title:
+          description: Course name.
+          type: string
+        accessPeriod:
+          type: object
+          properties:
+            startDate:
+              description: Access period start date.
+              type: string
+              format: date-time
+              example: "2021-01-30T08:30:00Z"
+              nullable: true
+            endDate:
+              description: Access period end date.
+              type: string
+              format: date-time
+              example: "2021-01-30T08:30:00Z"
+              nullable: true
+            status:
+              description: Access period status (active, expired).
+              type: string
+paths:
+  /groups:
+    post:
+      summary: Create a new student group
+      description: Create a new student group
+      requestBody:
+        description: Student group data
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+      responses:
+        201:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentGroup'
+        400:
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        409:
+          description: Student group already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /groups/{groupId}/students:
+    post:
+      summary: Add students to a student group
+      description: Add students to a student group
+      parameters:
+        - in: path
+          name: groupId
+          schema:
+            type: integer
+          required: true
+          description: The ID of the student group
+      requestBody:
+        description: Request contains student IDs to add to the group
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                studentId:
+                  type: array
+                  items:
+                    type: integer
+      responses:
+        201:
+          description: Successful operation or student already exists
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Student'
+                description: Array of added students
+        400:
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: Student group not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Remove students from a student group
+      description: Remove students from a student group
+      parameters:
+        - in: path
+          name: groupId
+          schema:
+            type: integer
+          required: true
+          description: The ID of the student group
+      requestBody:
+        description: Request contains student IDs to remove from the group
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                student_ids:
+                  type: array
+                  items:
+                    type: integer
+      responses:
+        200:
+          description: Successful operation or student already not in group
+        400:
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: Student group not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /groups/{groupId}/students/{studentId}:
+    delete:
+      summary: Remove a student from a student group
+      description: Remove a student from a student group
+      parameters:
+        - in: path
+          name: groupId
+          schema:
+            type: integer
+          required: true
+          description: The ID of the student group
+        - in: path
+          name: studentId
+          schema:
+            type: integer
+          required: true
+          description: The ID of the student to remove from the group
+        - in: query
+          name: remove_enrolments
+          schema:
+           type: boolean
+           default: false
+          required: false
+          description: Whether to remove all enrollments for the student
+      responses:
+        200:
+          description: Successful operation, returns removed student in response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+        404:
+          description: Student group not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /groups/{groupId}/courses:
+    get:
+      summary: Get all access periods to courses for a student group
+      description: Get all access periods to courses for a student group
+      parameters:
+        - in: path
+          name: groupId
+          schema:
+            type: integer
+          required: true
+          description: The ID of the student group
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Course'
+        404:
+          description: Student group not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Add a course access period to a student group
+      description: Add a course access period to a student group
+      parameters:
+        - in: path
+          name: groupId
+          schema:
+            type: integer
+          required: true
+          description: The ID of the student group
+      requestBody:
+        description: Course with access period object
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                courseId:
+                  description: The ID of the course to add
+                  type: integer
+                startDate:
+                  description: The start date of the access period
+                  type: string
+                  format: date-time
+                  example: "2021-01-30T08:30:00Z"
+                endDate:
+                  description: The end date of the access period
+                  type: string
+                  format: date-time
+                  example: "2021-01-30T08:30:00Z"
+      responses:
+        201:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Course'
+                description: Array of added courses
+        400:
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: Student group not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /groups/{groupId}/courses/{courseId}:
+    delete:
+      summary: Remove a course from a student group
+      description: Remove a course from a student group
+      parameters:
+        - in: path
+          name: groupId
+          schema:
+            type: integer
+          required: true
+          description: The ID of the student group
+        - in: path
+          name: courseId
+          schema:
+            type: integer
+          required: true
+          description: The ID of the course to remove from the group
+        - in: query
+          name: remove_enrolments
+          schema:
+            type: boolean
+            default: false
+          required: false
+          description: Whether to remove all enrollments for the course
+      responses:
+        200:
+          description: Successful operation, returns removed course in response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+        404:
+          description: Student group not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update a course access period for a student group
+      description: Update a course access period for a student group
+      parameters:
+        - in: path
+          name: groupId
+          schema:
+            type: integer
+          required: true
+          description: The ID of the student group
+        - in: path
+          name: courseId
+          schema:
+            type: integer
+          required: true
+          description: The ID of the course to update
+      requestBody:
+        description: Course with access period object
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                startDate:
+                  description: The start date of the access periodd
+                  type: string
+                  format: date-time
+                  example: "2021-01-30T08:30:00Z"
+                endDate:
+                  description: The end date of the access period
+                  type: string
+                  format: date-time
+                  example: "2021-01-30T08:30:00Z"
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    description: Course ID.
+                    type: integer
+                  title:
+                    description: Course name.
+                    type: string
+                  startDate:
+                    description: Access period start date.
+                    type: string
+                    format: date-time
+                    example: "2021-01-30T08:30:00Z"
+                    nullable: true
+                  endDate:
+                    description: Access period end date.
+                    type: string
+                    format: date-time
+                    example: "2021-01-30T08:30:00Z"
+                    nullable: true
+                  status:
+                    description: Access period status (active, expired).
+                    type: string
+        400:
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: Student group or course not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'

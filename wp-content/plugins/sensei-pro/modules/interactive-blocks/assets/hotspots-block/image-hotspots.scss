@@ -1,0 +1,235 @@
+.sensei-lms-image-hotspots {
+	--marker-size: 18px;
+	position: relative;
+
+	&__image,
+	figure {
+		margin: 0;
+		img {
+			display: block;
+			width: 100%;
+			max-width: 100%;
+		}
+	}
+
+	&__markers-overlay {
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+
+		&.adding-marker {
+			cursor: crosshair;
+		}
+	}
+
+	.block-editor-block-list__layout {
+		position: static !important;
+	}
+
+	&__hotspot-tooltip {
+		--background: #fff;
+		--border-color: #ccc;
+		--border-size: 1px;
+		--arrow-size: 18px;
+		--width-percent: 0.6;
+		--width: calc(100% * var(--width-percent));
+		--percent-modifier: calc(1 / var(--width-percent));
+		--left-base: calc(var(--x) - var(--width) / 2);
+		--left: clamp(-5%, var(--left-base), 105% - var(--width));
+		--marker-tooltip-spacing: var(--arrow-size) + var(--marker-size) / 2 + 6px;
+		--top-offset: 30px;
+		margin: 0 auto !important;
+		position: absolute !important;
+		width: var(--width);
+		left: var(--left);
+		top: calc(var(--y) + var(--marker-tooltip-spacing));
+		z-index: 10;
+		display: none;
+
+		background: var(--background);
+		border: var(--border-size) solid var(--border-color);
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15), 0 3px 9px rgba(0, 0, 0, 0.12);
+		border-radius: 4px;
+		min-height: 60px;
+
+		> * {
+			margin: 15px;
+		}
+
+		.alignfull,
+		.wp-block[data-align="full"] {
+			margin: 0;
+		}
+
+		&.is-selected,
+		&.has-child-selected {
+			display: block;
+		}
+
+		&-arrow {
+			--arrow-offset: calc(-1 * (var(--arrow-size) / 2 + var(--border-size)));
+			width: var(--arrow-size);
+			height: var(--arrow-size);
+			border-left: var(--border-size) solid var(--border-color);
+			border-top: var(--border-size) solid var(--border-color);
+			transform: rotate(45deg);
+			background: inherit;
+			position: absolute;
+			top: var(--arrow-offset);
+			left: clamp(var(--arrow-size) / 2, 50% + (var(--left-base) - var(--left)) * var(--percent-modifier), 100% - var(--arrow-size) / 2);
+			margin: 0;
+			margin-left: calc(var(--arrow-size) / -2);
+			z-index: 2;
+		}
+		.block-editor-block-list__layout &:not([contenteditable]):focus::after {
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			border-radius: 4px;
+		}
+		&:focus &-arrow {
+			--border-size: calc(var(--wp-admin-border-width-focus));
+			--border-color: var(--wp-admin-theme-color);
+			top: calc(var(--arrow-offset) + 0.5px);
+		}
+		@media screen and (min-width: (783px)) {
+			&.left {
+				left: calc(var(--x) + var(--marker-tooltip-spacing));
+				top: calc(var(--y) - var(--top-offset));
+			}
+
+			&.left &-arrow {
+				margin-left: 0;
+				transform: rotate(-45deg);
+				top: calc(var(--top-offset) - (var(--arrow-size) / 2));
+				left: var(--arrow-offset);
+			}
+
+			&.left:focus &-arrow {
+				top: calc(var(--top-offset) - (var(--arrow-size) / 2));
+				left: calc(var(--arrow-offset) + 0.5px);
+			}
+
+			&.right {
+				left: unset;
+				right: calc(100% - var(--x) + var(--marker-tooltip-spacing));
+				top: calc(var(--y) - var(--top-offset));
+			}
+
+			&.right &-arrow {
+				margin-left: 0;
+				transform: rotate(135deg);
+				top: calc(var(--top-offset) - (var(--arrow-size) / 2));
+				left: unset;
+				right: var(--arrow-offset);
+			}
+
+			&.right:focus &-arrow {
+				top: calc(var(--top-offset) - (var(--arrow-size) / 2));
+				left: unset;
+				right: calc(var(--arrow-offset) + 0.5px);
+			}
+		}
+
+		@media screen and (max-width: (782px)) {
+			--width-percent: 1.1;
+		}
+	}
+
+	&__hotspot-marker {
+		all: unset;
+		position: absolute;
+		margin-left: calc(-1 * var(--marker-size) / 2);
+		margin-top: calc(-1 * var(--marker-size) / 2);
+		border-radius: 50%;
+		box-shadow: 0 0 0 2px #fff, 0 0 0 6px rgba(#fff, 0.5);
+		a {
+			display: block;
+			width: var(--marker-size);
+			height: var(--marker-size);
+			background: var(--marker-color, currentColor);
+			border-radius: 50%;
+			cursor: pointer;
+			padding: 1px;
+		}
+		transition: transform 300ms, box-shadow 500ms, animation 500ms;
+		&:hover,
+		&.is-active {
+			animation: none;
+			transform: scale(1.2);
+		}
+		&:focus-visible {
+			a {
+				outline: 1.5px dotted currentColor;
+				outline-offset: 3px;
+			}
+			box-shadow: 0 0 0 8px #fff, 0 0 0 2px rgba(#fff, 0);
+		}
+		&.is-draft {
+			display: none;
+		}
+		&.is-editor-draft a {
+			color: #a9a9a9;
+			background: #a9a9a9;
+		}
+		&.is-visited a {
+			width: calc(var(--marker-size) / 1.1);
+			height: calc(var(--marker-size) / 1.1);
+			box-shadow: 0 0 0 4px #fff, 0 0 0 6px rgba(#fff, 0.5);
+		}
+		&.is-opened a {
+			width: calc(var(--marker-size) * 1.3);
+			height: calc(var(--marker-size) * 1.3);
+		}
+	}
+
+	&:hover &__hotspot-marker {
+		animation: 600ms infinite alternate-reverse hotspot-marker-pulse;
+		&:hover,
+		&.is-active,
+		&:focus-visible {
+			animation: none;
+		}
+	}
+
+	&__hotspot-tooltip-navigation {
+		display: flex;
+		justify-content: space-between;
+
+		.tooltip-nav-button {
+			padding: 0;
+			color: currentColor;
+			text-decoration: underline;
+			&:hover {
+				text-decoration: none;
+			}
+		}
+	}
+
+	&.is-example &__hotspot-tooltip:last-child {
+		display: block;
+		--width-percent: 0.5;
+	}
+
+	&.is-example a {
+		color: #43af99;
+	}
+
+	&__completed-status {
+		position: absolute;
+		left: -32px;
+		top: 50%;
+	}
+}
+
+@keyframes hotspot-marker-pulse {
+	0% {
+		box-shadow: 0 0 0 2px #fff, 0 0 0 2px rgba(#fff, 0);
+	}
+	100% {
+		box-shadow: 0 0 0 2px #fff, 0 0 0 6px rgba(#fff, 0.5);
+	}
+}

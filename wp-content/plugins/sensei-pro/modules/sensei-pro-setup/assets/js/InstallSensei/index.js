@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies.
+ * WordPress dependencies
  */
 import { useSelect } from '@wordpress/data';
 
 /**
- * Internal dependencies.
+ * Internal dependencies
  */
 import { DATA_STORE_NAME } from '../data/constants';
 import { InstallSenseiSuccess } from './InstallSenseiSuccess';
