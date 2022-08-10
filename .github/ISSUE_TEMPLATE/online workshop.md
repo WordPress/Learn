@@ -1,3 +1,5 @@
+<!--  The steps to creating an Online Workshop can be found in this [Online Workshop Hhandbook page](https://make.wordpress.org/training/handbook/online-workshops/). -->
+
 # Event Details
 - Title: 
 - Description: 
