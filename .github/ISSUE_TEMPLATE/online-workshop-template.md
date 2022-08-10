@@ -1,3 +1,12 @@
+---
+name: Online Workshop Template
+about: Online Workshop template
+title: Online Workshop - WORKSHOP TITLE
+labels: Online Workshop, Needs Co-host
+assignees: ''
+
+---
+
 <!--  The steps to creating an Online Workshop can be found in this [Online Workshop Hhandbook page](https://make.wordpress.org/training/handbook/online-workshops/). -->
 
 # Event Details
