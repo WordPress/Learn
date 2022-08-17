@@ -634,13 +634,13 @@ function tax_save_term_fields( $term_id ) {
 	update_term_meta(
 		$term_id,
 		'dashicon-class',
-		sanitize_text_field( $_POST['dashicon-class'] ) // phpcs:ignore.
+		sanitize_text_field( $_POST['dashicon-class'] )
 	);
 
 	update_term_meta(
 		$term_id,
 		'sticky',
-		sanitize_text_field( $_POST['sticky'] ) // phpcs:ignore.
+		sanitize_text_field( $_POST['sticky'] )
 	);
 }
 
