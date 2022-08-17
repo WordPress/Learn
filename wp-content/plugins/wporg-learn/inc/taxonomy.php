@@ -572,7 +572,7 @@ function register_custom_fields( $taxonomy ) {
 	echo '<div class="form-field">
 	<label for="dashicon-class">Dashicon ID</label>
 	<input type="text" name="dashicon-class" id="dashicon-class" />
-	<p>Pick icon and copy icon id to enter here. The icon can find at <a href="https://developer.wordpress.org/resource/dashicons/#wordpress">Here</a>. Example: <b>wordpress</b></p>
+	<p>Enter the id of a <a href="https://developer.wordpress.org/resource/dashicons/#wordpress" target="_blank">Dashicon</a>. Example: <code>wordpress</code></p>
 	</div>
 	<div class="form-field">
 	<label for="sticky">
@@ -607,7 +607,7 @@ function tax_edit_term_fields( $term, $taxonomy ) {
 	</th>
 	<td>
 		<input name="dashicon-class" id="dashicon-class" type="text" value="' . esc_attr( $value ) . '" />
-		<p>Pick icon and copy icon id to enter here. The icon can find at <a href="https://developer.wordpress.org/resource/dashicons/#wordpress">Here</a>. Example: <b>wordpress</b></p>
+		<p>Enter the id of a <a href="https://developer.wordpress.org/resource/dashicons/#wordpress" target="_blank">Dashicon</a>. Example: <code>wordpress</code></p>
 	</td>
 	</tr>
 	<tr class="form-field">
