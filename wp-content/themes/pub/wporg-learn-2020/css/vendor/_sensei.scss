@@ -1,5 +1,5 @@
 .sensei {
-	&:not(.post-type-archive-course) {
+	&:not(.post-type-archive-course):not(.tax-course-category) {
 		section {
 			padding: 0;
 		}
