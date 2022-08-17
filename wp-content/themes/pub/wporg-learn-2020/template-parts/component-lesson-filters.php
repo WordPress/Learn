@@ -33,7 +33,7 @@ $taxonomies = array(
 );
 ?>
 
-<form class="sidebar-filters col-3 gap-64" method="get" action="<?php echo esc_url( get_post_type_archive_link( 'lesson-plan' ) ); ?>">
+<form class="sidebar-filters col-3" method="get" action="<?php echo esc_url( get_post_type_archive_link( 'lesson-plan' ) ); ?>">
 	<h3 class="h4"><?php esc_html_e( 'Filter Lesson Plans', 'wporg-learn' ); ?></h3>
 
 	<div class="filter-buttons">

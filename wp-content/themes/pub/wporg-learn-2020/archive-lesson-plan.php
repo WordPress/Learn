@@ -19,9 +19,9 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive() ) :
 	?>
 	<section>
-		<div class="row align-middle between section-heading section-heading--with-space large-space">
-			<h1 class="section-heading_title bigger"><?php esc_html_e( 'Lesson Plans', 'wporg-learn' );?></h1>
-			<a href="<?php echo esc_url( get_post_type_archive_link( 'lesson-plan' ) . '?_view=all' ); ?>" class="button button-large button-secondary">
+		<div class="row align-middle between section-heading section-heading--with-space">
+			<h1 class="section-heading_title h2"><?php esc_html_e( 'Lesson Plans', 'wporg-learn' );?></h1>
+			<a href="<?php echo esc_url( get_post_type_archive_link( 'lesson-plan' ) . '?_view=all' ); ?>" class="button button-xlarge button-secondary">
 				<?php esc_html_e( 'Browse all lesson plans', 'wporg-learn' ); ?>
 			</a>
 		</div>
@@ -29,9 +29,9 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 		<hr>
 
 		<div class="row align-middle between section-lp_description">
-			<div class="section-lp_text">
+			<p class="section-lp_text">
 				<?php esc_html_e( 'Want to help others learn about WordPress? Read through, use, and remix these lesson plans.', 'wporg-learn' );?>
-			</div>
+			</p>
 			<?php
 			set_query_var( 'post_type', 'lesson-plan' );
 			get_template_part( 'template-parts/component', 'archive-search' );
@@ -105,7 +105,7 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 			<div class="lp-taxonomy">
 				<h2 class="h4 lp-taxonomy-header"><?php echo esc_html__( 'Level', 'wporg-learn' ); ?></h2>
 				<div class="lp-taxonomy-description"><?php echo esc_html__( 'What experience partipants need.', 'wporg-learn' ); ?></div>
-				<ul class="list">
+				<ul class="lp-two-col-list">
 					<?php
 					$levels = get_terms( 'level', array(
 						'hide_empty' => false,
@@ -123,7 +123,7 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 			<div class="lp-duration">
 				<h2 class="h4 lp-taxonomy-header"><?php echo esc_html__( 'Duration', 'wporg-learn' ); ?></h2>
 				<div class="lp-taxonomy-description"><?php echo esc_html__( 'How long a lesson is estimated to take.', 'wporg-learn' ); ?></div>
-				<ul class="list">
+				<ul class="lp-two-col-list">
 					<?php
 					$durations = get_terms( 'duration', array(
 						'hide_empty' => false,
@@ -161,7 +161,7 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 			'orderby' => 'id',
 		) );
 		?>
-		<div class="row lp-taxonomy last-grid">
+		<div class="row lp-taxonomy">
 			<div class="card-grid card-grid_4">
 				<h2 class="h4 lp-taxonomy-header"><?php echo esc_html__( 'Format', 'wporg-learn' ); ?></h2>
 				<div class="lp-taxonomy-description"><?php echo esc_html__( 'Browse lesson plans based on their format.', 'wporg-learn' ); ?></div>
@@ -176,7 +176,7 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 		<hr>
 
 		<div class="row align-middle around lp-cta">
-			<a href="<?php echo esc_url( get_post_type_archive_link( 'lesson-plan' ) . '?_view=all' ); ?>" class="button button-large button-secondary">
+			<a href="<?php echo esc_url( get_post_type_archive_link( 'lesson-plan' ) . '?_view=all' ); ?>" class="button button-xlarge button-secondary">
 				<?php esc_html_e( 'Browse all lesson plans', 'wporg-learn' ); ?>
 			</a>
 		</div>
@@ -185,14 +185,14 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 <?php else : ?>
 	<section>
 		<div class="row align-middle between section-heading section-heading--with-space">
-			<?php the_archive_title( '<h1 class="section-heading_title bigger">', '</h1>' ); ?>
+			<?php the_archive_title( '<h1 class="section-heading_title h2">', '</h1>' ); ?>
 			<?php get_template_part( 'template-parts/component', 'archive-search' ); ?>
 		</div>
 
 		<hr>
 
-		<div class="row gutters between">
-			<div class="card-grid col-8 gap-64">
+		<div class="lp-container row gutters between">
+			<div class="card-grid col-8">
 				<?php if ( have_posts() ) : ?>
 					<?php while ( have_posts() ) :
 						the_post();
