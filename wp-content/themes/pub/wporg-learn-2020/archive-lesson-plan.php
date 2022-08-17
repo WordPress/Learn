@@ -54,13 +54,15 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 					if ( $is_sticky ) :
 						?>
 				<div class="card">
-					<div class="icon">
+					<a href="<?php echo esc_url( get_term_link( $category ) ); ?>">
 						<?php
 						$category_icon = get_term_meta( $category->term_id, 'dashicon-class', true ) ? get_term_meta( $category->term_id, 'dashicon-class', true ) : 'wordpress-alt';
 						?>
-						<a href="<?php echo esc_url( get_term_link( $category ) ); ?>"><span class="dashicons dashicons-<?php echo esc_attr( $category_icon ); ?>"></span></a>
-					</div>
-					<p class="taxonomy-title"><a href="<?php echo esc_url( get_term_link( $category ) ); ?>"><?php echo esc_html( $category->name ); ?></a></p>
+						<div class="icon">
+							<span class="dashicons dashicons-<?php echo esc_attr( $category_icon ); ?>"></span>
+						</div>
+						<p class="taxonomy-title"><?php echo esc_html( $category->name ); ?></p>
+					</a>
 				</div>
 						<?php
 					endif;
@@ -83,13 +85,15 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 					if ( $is_sticky ) :
 						?>
 				<div class="card">
-					<div class="icon">
-						<?php
-						$audience_icon = get_term_meta( $audience->term_id, 'dashicon-class', true ) ? get_term_meta( $audience->term_id, 'dashicon-class', true ) : 'wordpress-alt';
-						?>
-						<a href="<?php echo esc_url( get_term_link( $audience ) ); ?>"><span class="dashicons dashicons-<?php echo esc_attr( $audience_icon ); ?>"></span></a>
-					</div>
-					<p class="taxonomy-title"><a href="<?php echo esc_url( get_term_link( $audience ) ); ?>"><?php echo esc_html( $audience->name ); ?></a></p>
+					<a href="<?php echo esc_url( get_term_link( $audience ) ); ?>">
+						<div class="icon">
+							<?php
+							$audience_icon = get_term_meta( $audience->term_id, 'dashicon-class', true ) ? get_term_meta( $audience->term_id, 'dashicon-class', true ) : 'wordpress-alt';
+							?>
+							<span class="dashicons dashicons-<?php echo esc_attr( $audience_icon ); ?>"></span>
+						</div>
+						<p class="taxonomy-title"><?php echo esc_html( $audience->name ); ?></p>
+					</a>
 				</div>
 						<?php
 				endif;
