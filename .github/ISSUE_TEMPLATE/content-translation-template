@@ -1,0 +1,23 @@
+---
+name: Content Translation Template
+about: Content Translation template
+title: LANGUAGE translation for CONTENT TYPE "CONTENT TITLE" 
+labels: Translation, Awaiting Triage
+assignees: ''
+
+---
+
+<!-- The steps to translating content on Learn WordPress can be found in this [Online Workshop Hhandbook page](MISSING-LINK). -->
+
+<!-- Remember to update the title of this issue. Example: "Greek translation for Lesson Plan "Introduction To Common Plugins" -->
+
+# Details
+- Link to original content:
+- Language you'll be translating to: 
+- Have you arranged for someone to review this translation?: Yes or No
+- If you have, please list their GitHub username:
+- Other info: 
+
+# Translated Resource
+- If you have translated a Lesson Plan or a Tutorial, please link your translation here:
+- If you have translated an Online Workshop's caption file, please attach the translated file to this GitHub issue.
