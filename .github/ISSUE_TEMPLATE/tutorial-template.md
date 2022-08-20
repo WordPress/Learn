@@ -30,7 +30,7 @@ Review the [team guidelines] (https://make.wordpress.org/training/handbook/guide
 - [ ] Tutorial submitted to the team for Q/A review https://blog.wordpress.tv/submission-guidelines/ & https://make.wordpress.org/training/2021/08/17/proposal-brand-guidelines-for-learn-wordpress-content/
 - [ ] Tutorial submitted to WPTV https://wordpress.tv/submit-video/
 - [ ] Tutorial published on WPTV
-- [ ] Tutorial is captioned https://make.wordpress.org/training/handbook/workshops/workshop-subtitles-and-transcripts/
+- [ ] Tutorial is captioned https://make.wordpress.org/training/handbook/tutorials/tutorial-subtitles-and-transcripts/
 - [ ] Tutorial created on Learn.WordPress.org
 - [ ] Tutorial post is reviewed for grammar, spelling, etc.
 - [ ] Tutorial published on Learn.WordPress.org
