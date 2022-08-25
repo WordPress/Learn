@@ -27,7 +27,7 @@
 			echo '<div class="slide-embed">' . $embed[0] . '</div>';
 		}
 		?>
-		<div class="lp-content<?php echo esc_html( $content_class ); ?>">
+		<div class="lp-content<?php echo esc_attr( $content_class ); ?>">
 			<div class="lp-content-inner github-markdown">
 				<?php
 				the_content();

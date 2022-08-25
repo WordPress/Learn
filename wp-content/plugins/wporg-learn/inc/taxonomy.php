@@ -595,12 +595,6 @@ function tax_edit_term_fields( $term, $taxonomy ) {
 	$value = get_term_meta( $term->term_id, 'dashicon-class', true );
 	$sticky = get_term_meta( $term->term_id, 'sticky', true );
 
-	$checked_html = '';
-
-	if ( $sticky ) {
-		$checked_html = ' checked';
-	}
-
 	echo '<tr class="form-field">
 	<th>
 		<label for="dashicon-class">Dashicon ID</label>
@@ -615,7 +609,7 @@ function tax_edit_term_fields( $term, $taxonomy ) {
 		<label for="sticky">Sticky topic</label>
 	</th>
 	<td>
-		<input name="sticky" id="sticky" type="checkbox" ' . esc_html( $checked_html ) . ' />
+		<input name="sticky" id="sticky" type="checkbox" ' . esc_html( $sticky ? ' checked' : '' ) . ' />
 		<p>Check to show on landing page</p>
 	</td>
 	</tr>
@@ -640,7 +634,7 @@ function tax_save_term_fields( $term_id ) {
 	update_term_meta(
 		$term_id,
 		'sticky',
-		sanitize_text_field( $_POST['sticky'] )
+		$_POST['sticky'] ?? 0
 	);
 }
 

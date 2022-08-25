@@ -56,7 +56,7 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 				<div class="card">
 					<a href="<?php echo esc_url( get_term_link( $category ) ); ?>">
 						<?php
-						$category_icon = get_term_meta( $category->term_id, 'dashicon-class', true ) ? get_term_meta( $category->term_id, 'dashicon-class', true ) : 'wordpress-alt';
+						$category_icon = get_term_meta( $category->term_id, 'dashicon-class', true ) ?? 'wordpress-alt';
 						?>
 						<div class="icon">
 							<span class="dashicons dashicons-<?php echo esc_attr( $category_icon ); ?>"></span>
@@ -79,7 +79,7 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 		<div class="row lp-taxonomy">
 			<div class="card-grid card-grid_4">
 				<h2 class="h4 lp-taxonomy-header"><?php echo esc_html__( 'Audience', 'wporg-learn' ); ?></h2>
-				<div class="lp-taxonomy-description"><?php echo esc_html__( 'Browse lesson plans by the audience they\'re intended for.', 'wporg-learn' ); ?></div>
+				<div class="lp-taxonomy-description"><?php echo esc_html__( "Browse lesson plans by the audience they're intended for.", 'wporg-learn' ); ?></div>
 				<?php foreach ( $audiences as $audience ) :
 					$is_sticky = get_term_meta( $audience->term_id, 'sticky', true );
 					if ( $is_sticky ) :
@@ -88,7 +88,7 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 					<a href="<?php echo esc_url( get_term_link( $audience ) ); ?>">
 						<div class="icon">
 							<?php
-							$audience_icon = get_term_meta( $audience->term_id, 'dashicon-class', true ) ? get_term_meta( $audience->term_id, 'dashicon-class', true ) : 'wordpress-alt';
+							$audience_icon = get_term_meta( $audience->term_id, 'dashicon-class', true ) ?? 'wordpress-alt';
 							?>
 							<span class="dashicons dashicons-<?php echo esc_attr( $audience_icon ); ?>"></span>
 						</div>
@@ -133,21 +133,21 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 
 					$duration_index = 0;
 					$any_duration_arr = array();
+					$lp_archive_url = get_post_type_archive_link( 'lesson-plan' );
 					foreach ( $durations as $duration ) :
 						if ( $duration_index < 3 ) :
 							?>
-					<li><a href="<?php echo esc_url( get_post_type_archive_link( 'lesson-plan' ) ) . '?duration[]=' . esc_html( $duration->term_id ); ?>"><?php echo esc_html( $duration->name ); ?><span class="dashicons dashicons-arrow-right-alt2"></span></a></li>
+					<li><a href="<?php echo ( add_query_arg( [ 'duration[]' => $duration->term_id ], $lp_archive_url ) ); ?>"><?php echo esc_html( $duration->name ); ?><span class="dashicons dashicons-arrow-right-alt2"></span></a></li>
 							<?php
 						else :
-							$any_duration_arr[] = 'duration[]=' . $duration->term_id;
+							$any_duration_arr['duration'][] = $duration->term_id;
 						endif;
 						$duration_index++;
 					endforeach;
 
-					if ( $any_duration_arr ) :
-						$any_duration_html = implode( '&', $any_duration_arr );
+					if ( $any_duration_arr['duration'] ) :
 						?>
-						<li><a href="<?php echo esc_url( get_post_type_archive_link( 'lesson-plan' ) ) . '?' . esc_html( $any_duration_html ); ?>"><?php echo esc_html__( 'Any(over 60m)', 'wporg-learn' ); ?><span class="dashicons dashicons-arrow-right-alt2"></span></a></li>
+						<li><a href="<?php echo esc_url( add_query_arg( $any_duration_arr, $lp_archive_url ) ); ?>"><?php echo esc_html__( 'Any(over 60m)', 'wporg-learn' ); ?><span class="dashicons dashicons-arrow-right-alt2"></span></a></li>
 						<?php
 					endif;
 					?>
@@ -191,7 +191,7 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 
 		<hr>
 
-		<div class="lp-container row gutters between">
+		<div class="lp-archive-items row gutters between">
 			<div class="card-grid col-8">
 				<?php if ( have_posts() ) : ?>
 					<?php while ( have_posts() ) :
