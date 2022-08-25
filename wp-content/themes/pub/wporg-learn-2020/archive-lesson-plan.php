@@ -192,7 +192,7 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 		<hr>
 
 		<div class="lp-archive-items row gutters between">
-			<div class="card-grid col-8">
+			<div class="card-grid col-9">
 				<?php if ( have_posts() ) : ?>
 					<?php while ( have_posts() ) :
 						the_post();

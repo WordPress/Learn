@@ -1,7 +1,9 @@
 .section-heading {
 	&_title,
 	&_link {
-		margin-bottom: 0;
+		@media only screen and (min-width: $breakpoint-tablet) {
+			margin-bottom: 0;
+		}
 	}
 
 	&_title {
