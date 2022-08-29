@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-<!--  The steps to creating an Online Workshop can be found in this [Online Workshop Handbook page](https://make.wordpress.org/training/handbook/online-workshops/). Fill out the details you can below and publish. You can always come back to add additional information once it's decided. -->
+<!--  The steps to creating an Online Workshop can be found in this [Online Workshop Handbook page](https://make.wordpress.org/training/handbook/online-workshops/). Fill out the details you can below and publish. You can always come back to add additional information once it's ready. -->
 
 # Event Details
 - Title: 
