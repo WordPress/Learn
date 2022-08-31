@@ -19,12 +19,12 @@
 		<hr>
 
 		<?php
-		$embed = get_media_embedded_in_content( apply_filters( 'the_content', get_the_content() ));
+		$embed = get_media_embedded_in_content( apply_filters( 'the_content', get_the_content() ) );
 
 		$content_class = '';
 		if ( $embed ) {
 			$content_class = ' hide-first-embed';
-			echo '<div class="slide-embed">' . $embed[0] . '</div>';
+			echo '<div class="slide-embed">' . $embed[0] . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 		?>
 		<div class="lp-content<?php echo esc_attr( $content_class ); ?>">

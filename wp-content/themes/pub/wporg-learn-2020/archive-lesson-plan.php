@@ -20,7 +20,7 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 	?>
 	<section>
 		<div class="row align-middle between section-heading section-heading--with-space">
-			<h1 class="section-heading_title h2"><?php esc_html_e( 'Lesson Plans', 'wporg-learn' );?></h1>
+			<h1 class="section-heading_title h2"><?php esc_html_e( 'Lesson Plans', 'wporg-learn' ); ?></h1>
 			<a href="<?php echo esc_url( get_post_type_archive_link( 'lesson-plan' ) . '?_view=all' ); ?>" class="button button-xlarge button-secondary">
 				<?php esc_html_e( 'Browse all lesson plans', 'wporg-learn' ); ?>
 			</a>
@@ -30,7 +30,7 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 
 		<div class="row align-middle between section-lp_description">
 			<p class="section-lp_text">
-				<?php esc_html_e( 'Want to help others learn about WordPress? Read through, use, and remix these lesson plans.', 'wporg-learn' );?>
+				<?php esc_html_e( 'Want to help others learn about WordPress? Read through, use, and remix these lesson plans.', 'wporg-learn' ); ?>
 			</p>
 			<?php
 			set_query_var( 'post_type', 'lesson-plan' );
@@ -137,7 +137,7 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 					foreach ( $durations as $duration ) :
 						if ( $duration_index < 3 ) :
 							?>
-					<li><a href="<?php echo ( add_query_arg( [ 'duration[]' => $duration->term_id ], $lp_archive_url ) ); ?>"><?php echo esc_html( $duration->name ); ?><span class="dashicons dashicons-arrow-right-alt2"></span></a></li>
+					<li><a href="<?php echo esc_url( add_query_arg( array( 'duration[]' => $duration->term_id ), $lp_archive_url ) ); ?>"><?php echo esc_html( $duration->name ); ?><span class="dashicons dashicons-arrow-right-alt2"></span></a></li>
 							<?php
 						else :
 							$any_duration_arr['duration'][] = $duration->term_id;

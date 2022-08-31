@@ -634,7 +634,7 @@ function tax_save_term_fields( $term_id ) {
 	update_term_meta(
 		$term_id,
 		'sticky',
-		$_POST['sticky'] ?? 0
+		rest_sanitize_boolean( $_POST['sticky'] ) ?? 0
 	);
 }
 
