@@ -631,11 +631,13 @@ function tax_save_term_fields( $term_id ) {
 		sanitize_text_field( $_POST['dashicon-class'] )
 	);
 
-	update_term_meta(
-		$term_id,
-		'sticky',
-		rest_sanitize_boolean( $_POST['sticky'] ) ?? 0
-	);
+	if ( isset( $_POST['sticky'] ) ) {
+		update_term_meta(
+			$term_id,
+			'sticky',
+			rest_sanitize_boolean( $_POST['sticky'] ) ?? 0
+		);
+	}
 }
 
 add_action( 'created_audience', __NAMESPACE__ . '\tax_save_term_fields' );

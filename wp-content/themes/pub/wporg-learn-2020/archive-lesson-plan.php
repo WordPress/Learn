@@ -137,7 +137,11 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 					foreach ( $durations as $duration ) :
 						if ( $duration_index < 3 ) :
 							?>
-					<li><a href="<?php echo esc_url( add_query_arg( array( 'duration[]' => $duration->term_id ), $lp_archive_url ) ); ?>"><?php echo esc_html( $duration->name ); ?><span class="dashicons dashicons-arrow-right-alt2"></span></a></li>
+					<li>
+						<a href="<?php echo esc_url( add_query_arg( array( 'duration[]' => $duration->term_id ), $lp_archive_url ) ); ?>">
+							<?php echo esc_html( $duration->name ); ?><span class="dashicons dashicons-arrow-right-alt2"></span>
+						</a>
+					</li>
 							<?php
 						else :
 							$any_duration_arr['duration'][] = $duration->term_id;
@@ -147,7 +151,11 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 
 					if ( $any_duration_arr['duration'] ) :
 						?>
-						<li><a href="<?php echo esc_url( add_query_arg( $any_duration_arr, $lp_archive_url ) ); ?>"><?php echo esc_html__( 'Any(over 60m)', 'wporg-learn' ); ?><span class="dashicons dashicons-arrow-right-alt2"></span></a></li>
+						<li>
+							<a href="<?php echo esc_url( add_query_arg( $any_duration_arr, $lp_archive_url ) ); ?>">
+								<?php echo esc_html__( 'Any (over 60m)', 'wporg-learn' ); ?><span class="dashicons dashicons-arrow-right-alt2"></span>
+							</a>
+						</li>
 						<?php
 					endif;
 					?>
