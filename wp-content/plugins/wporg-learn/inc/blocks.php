@@ -24,8 +24,60 @@ add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_block_style_assets' 
  * @return void
  */
 function register_types() {
+	register_lesson_plan_details();
 	register_workshop_details();
 	register_workshop_application_form();
+}
+
+/**
+ * Register Lesson Plan Details block type and related assets.
+ *
+ * @throws Error If the build files are not found.
+ */
+function register_lesson_plan_details() {
+	$script_asset_path = get_build_path() . 'lesson-plan-details.asset.php';
+	if ( ! is_readable( $script_asset_path ) ) {
+		throw new Error(
+			'You need to run `npm start` or `npm run build` for the "wporg-learn/lesson-plan-details" block first.'
+		);
+	}
+
+	$script_asset = require $script_asset_path;
+	wp_register_script(
+		'lesson-plan-details-editor-script',
+		get_build_url() . 'lesson-plan-details.js',
+		$script_asset['dependencies'],
+		$script_asset['version']
+	);
+
+	wp_register_style(
+		'lesson-plan-details-style',
+		get_build_url() . 'style-lesson-plan-details.css',
+		array(),
+		filemtime( get_build_path() . 'style-lesson-plan-details.css' )
+	);
+
+	register_block_type( 'wporg-learn/lesson-plan-details', array(
+		'editor_script'   => 'lesson-plan-details-editor-script',
+		'style'           => 'lesson-plan-details-style',
+		'render_callback' => __NAMESPACE__ . '\lesson_plan_details_render_callback',
+	) );
+}
+
+/**
+ * Render the block content (html) on the frontend of the site.
+ *
+ * @param array  $attributes
+ * @param string $content
+ * @return string HTML output used by the block
+ */
+function lesson_plan_details_render_callback( $attributes, $content ) {
+	$post      = get_post();
+
+	ob_start();
+	require get_views_path() . 'block-lesson-plan-details.php';
+
+	return ob_get_clean();
 }
 
 /**

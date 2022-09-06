@@ -11,6 +11,7 @@ config.entry = {
 	'event': './js/event.js',
 	'form': './js/form.js',
 	'locale-notice': './js/locale-notice.js',
+	'lesson-plan-details': './js/lesson-plan-details/src/index.js',
 }
 
 /**
