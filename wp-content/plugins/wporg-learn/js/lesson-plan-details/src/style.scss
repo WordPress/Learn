@@ -5,11 +5,9 @@
  * Replace them with your own styles or remove the file completely.
  */
 
-.wp-block-wporg-learn-lesson-plan-details > ul {
+.wp-block-wporg-learn-lesson-plan-details {
 	border-top: 1px solid #E2E4E7;
-}
 
-.wp-block-wporg-learn-lesson-plan-meta {
 	> li {
 		border-bottom: 1px solid #E2E4E7;
 		padding-bottom: 0.5rem;
@@ -42,67 +40,13 @@
 	}
 }
 
-.wp-block-wporg-learn-lesson-plan-actions {
-	display: none;
-	margin: 2rem 0;
-
-	> li {
-		margin: 0 0 1rem;
-	}
-
-	@media only screen and (min-width: 768px) {
-		display: block;
-	}
-}
-
-.wp-block-wporg-learn-lesson-plan-action {
-	background-color: #f8f8f8;
-	border: 1px #ccc solid;
-	border-radius: 3px;
-	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
-	color: #666;
-	display: inline-block;
-	font-size: 14px;
-	width: 100%;
-	max-width: 220px;
-	padding: 5px 10px;
-	text-decoration: none;
-	text-align: center;
-
-	&:hover {
-		background-color: #f8f8f8;
-		border-color: #999;
-		color: #777;
-	}
-
-	&:focus-visible {
-		outline: thin dotted;
-		outline-offset: 1px;
-	}
-	
-	.dashicons {
-		color: #9A9EA3;
-		font-size: 16px;
-		position: relative;
-		top: 3px;
-	}
-
-	&:last-child {
-		margin-bottom: 0;
-	}
-}
-
 @media only print {
 	.wp-block-wporg-learn-lesson-plan-details {
 		display: block !important;
-	}
-
-	.wp-block-wporg-learn-lesson-plan-meta {
-		display: block;
-	}
-
-	.wp-block-wporg-learn-lesson-plan-meta > li {
-		display: inline-block;
-		padding: 0 10px 10px 0;
+		
+		> li {
+			display: inline-block;
+			padding: 0 10px 10px 0;
+		}
 	}
 }

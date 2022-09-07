@@ -24,9 +24,61 @@ add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_block_style_assets' 
  * @return void
  */
 function register_types() {
+	register_lesson_plan_actions();
 	register_lesson_plan_details();
 	register_workshop_details();
 	register_workshop_application_form();
+}
+
+/**
+ * Register Lesson Plan Actions block type and related assets.
+ *
+ * @throws Error If the build files are not found.
+ */
+function register_lesson_plan_actions() {
+	$script_asset_path = get_build_path() . 'lesson-plan-actions.asset.php';
+	if ( ! is_readable( $script_asset_path ) ) {
+		throw new Error(
+			'You need to run `npm start` or `npm run build` for the "wporg-learn/lesson-plan-actions" block first.'
+		);
+	}
+
+	$script_asset = require $script_asset_path;
+	wp_register_script(
+		'lesson-plan-actions-editor-script',
+		get_build_url() . 'lesson-plan-actions.js',
+		$script_asset['dependencies'],
+		$script_asset['version']
+	);
+
+	wp_register_style(
+		'lesson-plan-actions-style',
+		get_build_url() . 'style-lesson-plan-actions.css',
+		array(),
+		filemtime( get_build_path() . 'style-lesson-plan-actions.css' )
+	);
+
+	register_block_type( 'wporg-learn/lesson-plan-actions', array(
+		'editor_script'   => 'lesson-plan-actions-editor-script',
+		'style'           => 'lesson-plan-actions-style',
+		'render_callback' => __NAMESPACE__ . '\lesson_plan_actions_render_callback',
+	) );
+}
+
+/**
+ * Render the block content (html) on the frontend of the site.
+ *
+ * @param array  $attributes
+ * @param string $content
+ * @return string HTML output used by the block
+ */
+function lesson_plan_actions_render_callback( $attributes, $content ) {
+	$post    = get_post();
+
+	ob_start();
+	require get_views_path() . 'block-lesson-plan-actions.php';
+
+	return ob_get_clean();
 }
 
 /**
