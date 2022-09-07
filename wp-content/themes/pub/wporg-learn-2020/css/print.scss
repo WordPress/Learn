@@ -11,8 +11,7 @@
 .wporg-learn-locale-notice,
 .bbp-breadcrumb,
 .dashicons,
-.main-navigation,
-.lp-sidebar-dynamic {
+.main-navigation {
 	display: none;
 }
 // Prevent image from bleeding over the edge
@@ -128,9 +127,12 @@ p a {
 		break-inside: avoid-page;
 	}
 
-	.lp-content .lp-details ul li,
 	.lp-list .lp-details ul li {
 		padding: 0 10px 10px 0;
+	}
+
+	.lp-sidebar > .widget_block > * {
+		display: none;
 	}
 }
 
