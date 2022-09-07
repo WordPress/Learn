@@ -30,18 +30,18 @@
 		padding: 5px 10px;
 		text-decoration: none;
 		text-align: center;
-	
+
 		&:hover {
 			background-color: #f8f8f8;
 			border-color: #999;
 			color: #777;
 		}
-	
+
 		&:focus-visible {
 			outline: thin dotted;
 			outline-offset: 1px;
 		}
-	
+
 		&:last-child {
 			margin-bottom: 0;
 		}

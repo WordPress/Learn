@@ -24,11 +24,11 @@ defined( 'WPINC' ) || die();
 						$i = 0;
 						foreach ( $detail['value'] as $key => $value ) {
 							$url = trailingslashit( site_url() ) . 'lesson-plans/?' . $detail['slug'] . '[]=' . $key;
-							
+
 							if ( 0 < $i ) {
 								echo ', ';
 							}
-							
+
 							echo '<a href="' . esc_attr( $url ) . '">' . esc_html( $value ) . '</a>';
 							$i++;
 						}
