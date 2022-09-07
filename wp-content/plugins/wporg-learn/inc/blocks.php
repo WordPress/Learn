@@ -72,7 +72,8 @@ function register_lesson_plan_details() {
  * @return string HTML output used by the block
  */
 function lesson_plan_details_render_callback( $attributes, $content ) {
-	$post      = get_post();
+	$post    = get_post();
+	$details = wporg_learn_get_lesson_plan_taxonomy_data( get_the_ID(), 'single' );
 
 	ob_start();
 	require get_views_path() . 'block-lesson-plan-details.php';
