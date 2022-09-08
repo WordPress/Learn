@@ -18,12 +18,8 @@ if ( function_exists( '\WordPressdotorg\skip_to' ) ) {
 	\WordPressdotorg\skip_to( '#main' );
 }
 
-if ( FEATURE_2021_GLOBAL_HEADER_FOOTER ) {
-	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-	echo do_blocks( '<!-- wp:wporg/global-header /-->' );
-} else {
-	wporg_get_global_header();
-}
+// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+echo do_blocks( '<!-- wp:wporg/global-header /-->' );
 
 $menu_items = array(
 	'/tutorials/'    => __( 'Tutorials', 'wporg-learn' ),

@@ -61,6 +61,10 @@
 					}
 				}
 			]
+		},
+		{
+			"type": "vcs",
+			"url": "git@github.com:WordPress/wporg-mu-plugins.git"
 		}
 	],
 	"require-dev": {
@@ -76,7 +80,8 @@
 		"dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
 		"wp-coding-standards/wpcs": "2.*",
 		"phpcompatibility/phpcompatibility-wp": "*",
-		"rmccue/requests": "^1.7"
+		"rmccue/requests": "^1.7",
+		"wporg/wporg-mu-plugins": "dev-build"
 	},
 	"scripts": {
 		"format": "phpcbf -p",

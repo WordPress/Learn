@@ -84,15 +84,6 @@ function wporg_learn_scripts() {
 add_action( 'wp_enqueue_scripts', 'wporg_learn_scripts' );
 
 /**
- * The Header for our theme.
- *
- * @package WPBBP
- */
-function wporg_get_global_header() {
-	require WPORGPATH . 'header.php';
-}
-
-/**
  * Get the taxonomies associated to workshop
  *
  * @package WPBBP
