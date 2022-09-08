@@ -63,7 +63,7 @@
 			]
 		}
 	],
-	"require": {
+	"require-dev": {
 		"composer/installers": "~1.0",
 		"wpackagist-plugin/edit-flow": "*",
 		"wpackagist-plugin/gutenberg": "*",
@@ -72,9 +72,7 @@
 		"wpackagist-plugin/wordpress-importer": "*",
 		"wordpress-meta/locale-detection": "1",
 		"wordpress-meta/pub": "1",
-		"wordpress-meta/wporg": "1"
-	},
-	"require-dev": {
+		"wordpress-meta/wporg": "1",
 		"dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
 		"wp-coding-standards/wpcs": "2.*",
 		"phpcompatibility/phpcompatibility-wp": "*",
