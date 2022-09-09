@@ -341,7 +341,7 @@ p {
 	order: 1;
 }
 
-.lp-content .lp-details .lp-links,
+.lp-content .lp-details .lp-actions,
 .lp-suggestion {
 	display: none;
 }
@@ -397,25 +397,26 @@ p {
 		order: 2;
 	}
 
-	.lp-content .lp-details .lp-links,
+	.lp-content .lp-details .lp-actions,
 	.lp-suggestion {
 		display: block;
 	}
 }
 
-.lp-content .lp-details .lp-links {
+.lp-content .lp-details .lp-actions {
 	margin: 2rem 0;
 }
 
-.lp-content .lp-details .lp-links li {
+.lp-content .lp-details .lp-actions li {
 	padding: 0 0 1rem 0;
 }
 
-.lp-content .lp-details .lp-links li:last-child {
+.lp-content .lp-details .lp-actions li:last-child {
 	padding-bottom: 0;
 }
 
-.lp-content .lp-details .lp-links li a {
+.lp-content .lp-details .lp-actions li a,
+.lp-content .lp-details .lp-actions li button {
 	background-color: #f8f8f8;
 	border: 1px #ccc solid;
 	border-radius: 3px;
@@ -429,14 +430,16 @@ p {
 	text-align: center;
 }
 
-.lp-details .lp-links li a .dashicons {
+.lp-details .lp-actions li button .dashicons,
+.lp-details .lp-actions li a .dashicons {
 	color: #9A9EA3;
 	font-size: 16px;
 	position: relative;
 	top: 3px;
 }
 
-.lp-content .lp-details .lp-links li a:hover {
+.lp-content .lp-details .lp-actions li button:hover,
+.lp-content .lp-details .lp-actions li a:hover {
 	background-color: #f8f8f8;
 	border-color: #999;
 	color: #777777;
