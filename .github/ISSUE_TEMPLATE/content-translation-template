@@ -7,17 +7,16 @@ assignees: ''
 
 ---
 
-<!-- The steps to translating content on Learn WordPress can be found in this [Online Workshop Hhandbook page](MISSING-LINK). -->
+<!-- The steps to translating content on Learn WordPress can be found in the handbook: [Content Localization](https://make.wordpress.org/training/handbook/content-localization/). -->
 
-<!-- Remember to update the title of this issue. Example: "Greek translation for Lesson Plan "Introduction To Common Plugins" -->
+<!-- Remember to update the title of this issue. Example: Greek translation for Lesson Plan "Introduction To Common Plugins" -->
 
 # Details
 - Link to original content:
 - Language you'll be translating to: 
 - Have you arranged for someone to review this translation?: Yes or No
-- If you have, please list their GitHub username:
+- Reviewer's GitHub username:
 - Other info: 
 
-# Translated Resource
-- If you have translated a Lesson Plan or a Tutorial, please link your translation here:
-- If you have translated an Online Workshop's caption file, please attach the translated file to this GitHub issue.
+# Next Steps
+Once translated, please link or upload your translated files in a comment on this issue, and request a [translation review](https://make.wordpress.org/training/handbook/content-localization/#translation-review).
