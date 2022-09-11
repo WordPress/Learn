@@ -253,7 +253,8 @@ function register_lesson_instruction_type() {
 }
 
 /**
- * Register the Lesson Language taxonomy.
+ * Register the Lesson 
+ uage taxonomy.
  */
 function register_lesson_language() {
 	$labels = array(
@@ -294,7 +295,7 @@ function register_lesson_language() {
 		),
 	);
 	
-	$post_types = array( 'course', 'meeting' );
+	$post_types = array( 'course', 'lesson-plan', 'meeting' );
 
 	register_taxonomy( 'language', $post_types, $args );
 }
