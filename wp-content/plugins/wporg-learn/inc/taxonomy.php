@@ -18,6 +18,7 @@ function register() {
 	register_lesson_duration();
 	register_lesson_group();
 	register_lesson_instruction_type();
+	register_lesson_language();
 	register_lesson_level();
 	register_lesson_plan_series();
 	register_workshop_series();
@@ -249,6 +250,53 @@ function register_lesson_instruction_type() {
 	);
 
 	register_taxonomy( 'instruction_type', array( 'lesson-plan' ), $args );
+}
+
+/**
+ * Register the Lesson Language taxonomy.
+ */
+function register_lesson_language() {
+	$labels = array(
+		'name'                       => _x( 'Languages', 'Taxonomy General Name', 'wporg-learn' ),
+		'singular_name'              => _x( 'Language', 'Taxonomy Singular Name', 'wporg-learn' ),
+		'menu_name'                  => __( 'Language', 'wporg-learn' ),
+		'all_items'                  => __( 'All Languages', 'wporg-learn' ),
+		'parent_item'                => __( 'Parent Language', 'wporg-learn' ),
+		'parent_item_colon'          => __( 'Parent Language:', 'wporg-learn' ),
+		'new_item_name'              => __( 'New Language Name', 'wporg-learn' ),
+		'add_new_item'               => __( 'Add Language', 'wporg-learn' ),
+		'edit_item'                  => __( 'Edit Language', 'wporg-learn' ),
+		'update_item'                => __( 'Update Language', 'wporg-learn' ),
+		'view_item'                  => __( 'View Language', 'wporg-learn' ),
+		'separate_items_with_commas' => __( 'Separate Languages with commas', 'wporg-learn' ),
+		'add_or_remove_items'        => __( 'Add or remove Languages', 'wporg-learn' ),
+		'choose_from_most_used'      => __( 'Choose from the most used', 'wporg-learn' ),
+		'popular_items'              => __( 'Popular Languages', 'wporg-learn' ),
+		'search_items'               => __( 'Search Languages', 'wporg-learn' ),
+		'not_found'                  => __( 'Not Found', 'wporg-learn' ),
+		'no_terms'                   => __( 'No Languages', 'wporg-learn' ),
+		'items_list'                 => __( 'Languages list', 'wporg-learn' ),
+		'items_list_navigation'      => __( 'Languages list navigation', 'wporg-learn' ),
+	);
+
+	$args   = array(
+		'labels'            => $labels,
+		'hierarchical'      => true,
+		'public'            => true,
+		'query_var'         => 'wporg_lesson_language', // Prevent collisions with query params in the archive filter.
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'show_in_nav_menus' => true,
+		'show_tagcloud'     => false,
+		'show_in_rest'      => true,
+		'capabilities'      => array(
+			'assign_terms' => 'edit_lesson_plans',
+		),
+	);
+	
+	$post_types = array( 'course', 'meeting' );
+
+	register_taxonomy( 'language', $post_types, $args );
 }
 
 /**
