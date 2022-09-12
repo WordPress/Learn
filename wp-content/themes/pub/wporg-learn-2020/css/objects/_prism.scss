@@ -8,12 +8,13 @@
  * https://github.com/PrismJS/prism/blob/gh-pages/themes/prism-okaidia.css
  */
 
+/* stylelint-disable value-keyword-case */
 $code-font:
 	Hack, "Fira Code", Consolas, Menlo, Monaco, "Andale Mono",
 	"Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono",
 	"Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L",
 	"Courier New", Courier, monospace;
-
+/* stylelint-enable value-keyword-case */
 code[class*="language-"],
 pre[class*="language-"] {
 	color: get-color(gray-100);
@@ -246,6 +247,7 @@ pre.line-numbers > code {
 /*
  * Learn customizations
  */
+
 .github-markdown pre.wp-block-code {
 	margin-top: 0;
 }

@@ -70,6 +70,7 @@ $colors: (
 // Simple function to retrieve colors in the $colors map.
 // e.g. `background-color: color(gray-50);`
 @function get-color($key) {
+
 	@if map-has-key($colors, $key) {
 
 		@return map-get($colors, $key);
