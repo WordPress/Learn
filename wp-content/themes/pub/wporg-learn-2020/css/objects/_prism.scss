@@ -217,7 +217,7 @@ pre.line-numbers > code {
 .wp-code-block-button-container {
 	display: flex;
 	justify-content: right;
-	padding: 1rem;
+	padding: 0.5rem;
 	background: $color-white;
 	border-width: 1px 1px 0;
 	border-style: solid;
@@ -226,7 +226,7 @@ pre.line-numbers > code {
 	border-top-right-radius: 0.3em;
 
 	button {
-		font-size: 1.2rem !important;
+		font-size: 0.8rem !important;
 	}
 
 	button + button {
@@ -235,6 +235,7 @@ pre.line-numbers > code {
 
 	+ pre {
 		margin-top: 0;
+		padding: 1em;
 		border-width: 0 1px 1px;
 		border-style: solid;
 		border-color: get-color(gray-5);
