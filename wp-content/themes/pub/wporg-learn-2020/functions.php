@@ -72,10 +72,10 @@ function wporg_learn_scripts() {
 		'wporg-developer-function-reference',
 		'wporgFunctionReferenceI18n',
 		array(
-			'copy'   => __( 'Copy', 'wporg' ),
-			'copied' => __( 'Code copied', 'wporg' ),
-			'expand'   => __( 'Expand code', 'wporg' ),
-			'collapse' => __( 'Collapse code', 'wporg' ),
+			'copy'   => __( 'Copy', 'wporg-learn' ),
+			'copied' => __( 'Code copied', 'wporg-learn' ),
+			'expand'   => __( 'Expand code', 'wporg-learn' ),
+			'collapse' => __( 'Collapse code', 'wporg-learn' ),
 		)
 	);
 
