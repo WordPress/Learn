@@ -17,7 +17,7 @@
 		</header>
 
 		<div class="lp-content">
-			<div class="lp-content-inner github-markdown">
+			<div class="lp-content-inner">
 				<?php
 				the_content();
 				wp_link_pages(
