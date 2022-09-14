@@ -631,13 +631,12 @@ function tax_save_term_fields( $term_id ) {
 		sanitize_text_field( $_POST['dashicon-class'] ) // phpcs:ignore WordPress.Security.NonceVerification.Missing
 	);
 
-	if ( isset( $_POST['sticky'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
-		update_term_meta(
-			$term_id,
-			'sticky',
-			rest_sanitize_boolean( $_POST['sticky'] ) ?? 0 // phpcs:ignore WordPress.Security.NonceVerification.Missing
-		);
-	}
+	$is_sticky = $_POST['sticky'] ?? 0; // phpcs:ignore WordPress.Security.NonceVerification.Missing
+	update_term_meta(
+		$term_id,
+		'sticky',
+		rest_sanitize_boolean( $is_sticky )
+	);
 }
 
 add_action( 'created_audience', __NAMESPACE__ . '\tax_save_term_fields' );
