@@ -625,13 +625,21 @@ add_action( 'wporg_lesson_category_edit_form_fields', __NAMESPACE__ . '\tax_edit
  * @param int $term_id the term id to update.
  */
 function tax_save_term_fields( $term_id ) {
+	$wp_list_table = _get_list_table( 'WP_Terms_List_Table' );
+
+	if ( 'add-tag' === $wp_list_table->current_action() ) {
+		check_admin_referer( 'add-tag', '_wpnonce_add-tag' );
+	} else {
+		check_admin_referer( 'update-tag_' . $term_id );
+	}
+
 	update_term_meta(
 		$term_id,
 		'dashicon-class',
-		sanitize_text_field( $_POST['dashicon-class'] ) // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		sanitize_text_field( $_POST['dashicon-class'] )
 	);
 
-	$is_sticky = $_POST['sticky'] ?? 0; // phpcs:ignore WordPress.Security.NonceVerification.Missing
+	$is_sticky = $_POST['sticky'] ?? 0;
 	update_term_meta(
 		$term_id,
 		'sticky',
