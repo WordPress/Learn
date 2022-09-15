@@ -250,6 +250,7 @@ pre.line-numbers > code {
  * Learn customizations
  */
 
+/* stylelint-disable no-duplicate-selectors -- These are intentionally kept separate, see start of file. */
 .github-markdown pre.wp-block-code {
 	margin-top: 0;
 }
