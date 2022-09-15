@@ -244,25 +244,25 @@ function wporg_learn_get_lesson_plan_taxonomy_data( $post_id, $context ) {
 		array(
 			'icon'  => 'clock',
 			'slug'  => 'duration',
-			'label' => wporg_label_with_colon( get_taxonomy_labels( get_taxonomy( 'duration' ) )->singular_name ),
+			'label' => get_taxonomy_labels( get_taxonomy( 'duration' ) )->singular_name,
 			'value' => wporg_learn_get_taxonomy_terms( $post_id, 'duration', $context ),
 		),
 		array(
 			'icon'  => 'admin-users',
 			'slug'  => 'audience',
-			'label' => wporg_label_with_colon( get_taxonomy_labels( get_taxonomy( 'audience' ) )->singular_name ),
+			'label' => get_taxonomy_labels( get_taxonomy( 'audience' ) )->singular_name,
 			'value' => wporg_learn_get_taxonomy_terms( $post_id, 'audience', $context ),
 		),
 		array(
 			'icon'  => 'dashboard',
 			'slug'  => 'level',
-			'label' => wporg_label_with_colon( get_taxonomy_labels( get_taxonomy( 'level' ) )->singular_name ),
+			'label' => get_taxonomy_labels( get_taxonomy( 'level' ) )->singular_name,
 			'value' => wporg_learn_get_taxonomy_terms( $post_id, 'level', $context ),
 		),
 		array(
 			'icon'  => 'welcome-learn-more',
 			'slug'  => 'type',
-			'label' => wporg_label_with_colon( get_taxonomy_labels( get_taxonomy( 'instruction_type' ) )->singular_name ),
+			'label' => get_taxonomy_labels( get_taxonomy( 'instruction_type' ) )->singular_name,
 			'value' => wporg_learn_get_taxonomy_terms( $post_id, 'instruction_type', $context ),
 		),
 	);
@@ -707,7 +707,7 @@ function wporg_learn_get_card_template_args( $post_id ) {
 			break;
 
 		case 'lesson-plan':
-			$args['meta'] = wporg_learn_get_lesson_plan_taxonomy_data( $post_id, 'archive' );
+			$args['meta']  = wporg_learn_get_lesson_plan_taxonomy_data( $post_id, 'archive' );
 			break;
 
 		case 'wporg_workshop':

@@ -259,6 +259,7 @@ p {
 
 .lp-details {
 	font-size: 14px;
+	overflow: hidden;
 }
 
 .lp-list .lp-details .items {
@@ -310,14 +311,30 @@ p {
 
 /* ___ Single Lesson Plan ___ */
 
+.slide-embed {
+	margin-top: 3rem;
+
+	@media only screen and (min-width: 768px) {
+		> * {
+			width: 100%;
+			height: 528px;
+		}
+	}
+}
+
 .lp-content {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	margin-top: 2.5rem;
 }
 
 .lp-content .lp-content-inner {
 	order: 2;
+
+	.wp-block-embed:first-of-type {
+		display: none;
+	}
 }
 
 .lp-content .lp-sidebar {
@@ -329,9 +346,40 @@ p {
 	display: none;
 }
 
-.lp-sidebar .lp-details ul:first-child li {
-	display: inline-block;
-	padding-right: 1rem;
+.lp-sidebar .lp-details {
+	.lp-details-meta {
+		border-top: 1px solid #E2E4E7;
+
+		li {
+			border-bottom: 1px solid #E2E4E7;
+			padding-bottom: 0.5rem;
+			padding-top: 0.5rem;
+			padding-left: 0;
+			display: flex;
+			justify-content: space-between;
+
+			.dashicons {
+				display: none;
+			}
+
+			> span:nth-child(2) {
+				font-weight: 600;
+				font-size: 1rem;
+				line-height: 1.5;
+				color: #555D66;
+			}
+
+			strong {
+				text-align: right;
+				a {
+					font-weight: 400;
+					color: #555D66;
+					font-size: 1rem;
+					line-height: 1.3125rem;
+				}
+			}
+		}
+	}
 }
 
 @media only screen and (min-width: 768px) {
@@ -356,48 +404,45 @@ p {
 }
 
 .lp-content .lp-details .lp-actions {
-	margin: 1.25rem 0;
+	margin: 2rem 0;
 }
 
-.lp-content .lp-details .lp-actions > li {
+.lp-content .lp-details .lp-actions li {
 	padding: 0 0 1rem 0;
-
-	&:last-child {
-		padding-bottom: 0;
-	}
 }
 
-.lp-content .lp-details .lp-actions .lp-action {
+.lp-content .lp-details .lp-actions li:last-child {
+	padding-bottom: 0;
+}
+
+.lp-content .lp-details .lp-actions li a,
+.lp-content .lp-details .lp-actions li button {
 	background-color: #f8f8f8;
 	border: 1px #ccc solid;
 	border-radius: 3px;
 	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
-	color: #666;
+	color: #666666;
 	display: inline-block;
-	font-size: 14px;
+	font-size: 13px;
 	width: 100%;
-	max-width: 220px;
-	padding: 5px 10px;
+	padding: 10px;
 	text-decoration: none;
-	text-align: left;
+	text-align: center;
+}
 
-	&:hover {
-		background-color: #f8f8f8;
-		border-color: #999;
-		color: #777;
-	}
+.lp-details .lp-actions li button .dashicons,
+.lp-details .lp-actions li a .dashicons {
+	color: #9A9EA3;
+	font-size: 16px;
+	position: relative;
+	top: 3px;
+}
 
-	&:focus-visible {
-		outline: thin dotted;
-		outline-offset: 1px;
-	}
-	
-	.dashicons {
-		color: #9A9EA3;
-		font-size: 16px;
-		position: relative;
-		top: 3px;
-	}
+.lp-content .lp-details .lp-actions li button:hover,
+.lp-content .lp-details .lp-actions li a:hover {
+	background-color: #f8f8f8;
+	border-color: #999;
+	color: #777777;
 }
 
 /* ___ Page ___ */

@@ -1,7 +1,10 @@
 .section-heading {
 	&_title,
 	&_link {
-		margin-bottom: 0;
+
+		@media only screen and (min-width: $breakpoint-tablet) {
+			margin-bottom: 0;
+		}
 	}
 
 	&_title {
@@ -10,6 +13,11 @@
 		.archive-title-prefix {
 			display: block;
 			font-size: 1rem;
+		}
+
+		&.h2 {
+			font-size: 2.75rem;
+			line-height: 1.36;
 		}
 	}
 
@@ -32,6 +40,6 @@
 	}
 
 	&--with-space {
-		padding-bottom: 16px;
+		padding-bottom: 28px;
 	}
 }

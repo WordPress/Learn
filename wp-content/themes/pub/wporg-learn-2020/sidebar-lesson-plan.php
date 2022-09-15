@@ -12,7 +12,7 @@ namespace WordPressdotorg\Theme;
 ?>
 <aside class="lp-sidebar">
 	<div class="lp-details">
-		<ul>
+		<ul class="lp-details-meta">
 			<?php
 			foreach ( wporg_learn_get_lesson_plan_taxonomy_data( get_the_ID(), 'single' ) as $detail ) {
 				if ( ! empty( $detail['value'] ) ) {

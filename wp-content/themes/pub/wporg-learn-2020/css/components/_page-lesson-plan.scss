@@ -1,0 +1,122 @@
+.lp {
+	&-taxonomy {
+		&-header {
+			width: 100%;
+			flex-basis: 100%;
+			font-weight: 400;
+			color: #555d66;
+			font-size: 1.375rem;
+			line-height: 1.36;
+			margin-bottom: 0.75rem;
+		}
+
+		&-description {
+			margin-bottom: 2rem;
+			width: 100%;
+			flex-basis: 100%;
+			color: #555d66;
+		}
+
+		.card-grid {
+			justify-content: flex-start;
+
+			.card {
+				text-align: center;
+				margin-top: 0;
+				margin-bottom: 1rem;
+
+				a:hover,
+				a:focus {
+					text-decoration: none;
+					display: block;
+				}
+
+				.dashicons {
+					width: 80px;
+					height: 80px;
+					font-size: 80px;
+					margin: 0 auto 32px;
+					color: #606a73;
+				}
+
+				.taxonomy-title {
+					margin-bottom: 0;
+					font-weight: 700;
+
+					a {
+						color: #555d66;
+						text-decoration: none;
+					}
+				}
+			}
+
+			@media only screen and (min-width: $breakpoint-tablet) {
+				margin: 1.5rem -0.5rem;
+			}
+		}
+	}
+
+	&-two-col {
+		> * {
+			margin: 1.5rem 0 2.5rem;
+		}
+
+		@media only screen and (min-width: $breakpoint-tablet) {
+			margin-left: -0.5rem;
+			margin-right: -0.5rem;
+			flex-direction: row;
+
+			> * {
+				width: calc(50% - 1rem);
+				flex-basis: calc(50% - 1rem);
+				margin-left: 0.5rem;
+				margin-right: 0.5rem;
+			}
+		}
+
+		&-list {
+			list-style-type: none;
+			margin-left: 0;
+			margin-right: 0;
+			margin-top: 2rem;
+			margin-bottom: 0;
+
+			li {
+				padding: 1.0625rem;
+				margin-bottom: 0.5rem;
+				background: #fbfbfc;
+				border: 1px solid #ccd0d4;
+				border-radius: 3px;
+				position: relative;
+
+				&:last-child {
+					margin-bottom: 0;
+				}
+
+				a {
+					text-decoration: none;
+					font-weight: 700;
+					color: #555d66;
+					display: flex;
+					flex: 1;
+					justify-content: space-between;
+					line-height: 24px;
+				}
+
+				.dashicons {
+					font-size: 1.5rem;
+				}
+			}
+		}
+	}
+
+	&-cta {
+		margin-top: 4rem;
+		margin-bottom: 7.5rem;
+	}
+
+	&-archive-items {
+		padding-top: 4rem;
+		padding-bottom: 0.25rem;
+	}
+}

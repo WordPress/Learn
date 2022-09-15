@@ -128,5 +128,18 @@
 				flex-basis: 48%;
 			}
 		}
+
+		&_4 {
+			> * {
+				flex-grow: 0;
+				flex-shrink: 0;
+				flex-basis: calc(25% - 1rem);
+			}
+		}
+
+		&.gap-64 {
+			margin-top: 4rem;
+			margin-bottom: 0.25rem;
+		}
 	}
 }

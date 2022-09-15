@@ -564,3 +564,90 @@ function register_included_content() {
 
 	register_taxonomy( 'wporg_included_content', $post_types, $args );
 }
+
+/**
+ * Add icon field for Category and Audience
+ */
+function register_custom_fields( $taxonomy ) {
+	echo '<div class="form-field">
+	<label for="dashicon-class">Dashicon ID</label>
+	<input type="text" name="dashicon-class" id="dashicon-class" />
+	<p>Enter the id of a <a href="https://developer.wordpress.org/resource/dashicons/#wordpress" target="_blank">Dashicon</a>. Example: <code>wordpress</code></p>
+	</div>
+	<div class="form-field">
+	<label for="sticky">
+	<input type="checkbox" name="sticky" id="sticky" />Sticky topic</label>
+	<p>Check to show on landing page</p>
+	</div>
+	';
+}
+
+add_action( 'audience_add_form_fields', __NAMESPACE__ . '\register_custom_fields' );
+add_action( 'wporg_lesson_category_add_form_fields', __NAMESPACE__ . '\register_custom_fields' );
+
+/**
+ * Icon field on edit screen.
+ *
+ * @param object $term the term data.
+ * @param array  $taxonomy the taxonomy array.
+ */
+function tax_edit_term_fields( $term, $taxonomy ) {
+	$value = get_term_meta( $term->term_id, 'dashicon-class', true );
+	$sticky = get_term_meta( $term->term_id, 'sticky', true );
+
+	echo '<tr class="form-field">
+	<th>
+		<label for="dashicon-class">Dashicon ID</label>
+	</th>
+	<td>
+		<input name="dashicon-class" id="dashicon-class" type="text" value="' . esc_attr( $value ) . '" />
+		<p>Enter the id of a <a href="https://developer.wordpress.org/resource/dashicons/#wordpress" target="_blank">Dashicon</a>. Example: <code>wordpress</code></p>
+	</td>
+	</tr>
+	<tr class="form-field">
+	<th>
+		<label for="sticky">Sticky topic</label>
+	</th>
+	<td>
+		<input name="sticky" id="sticky" type="checkbox" ' . esc_html( $sticky ? ' checked' : '' ) . ' />
+		<p>Check to show on landing page</p>
+	</td>
+	</tr>
+	';
+}
+
+add_action( 'audience_edit_form_fields', __NAMESPACE__ . '\tax_edit_term_fields', 10, 2 );
+add_action( 'wporg_lesson_category_edit_form_fields', __NAMESPACE__ . '\tax_edit_term_fields', 10, 2 );
+
+/**
+ * Save icon field.
+ *
+ * @param int $term_id the term id to update.
+ */
+function tax_save_term_fields( $term_id ) {
+	$wp_list_table = _get_list_table( 'WP_Terms_List_Table' );
+
+	if ( 'add-tag' === $wp_list_table->current_action() ) {
+		check_admin_referer( 'add-tag', '_wpnonce_add-tag' );
+	} else {
+		check_admin_referer( 'update-tag_' . $term_id );
+	}
+
+	update_term_meta(
+		$term_id,
+		'dashicon-class',
+		sanitize_text_field( $_POST['dashicon-class'] )
+	);
+
+	$is_sticky = $_POST['sticky'] ?? 0;
+	update_term_meta(
+		$term_id,
+		'sticky',
+		rest_sanitize_boolean( $is_sticky )
+	);
+}
+
+add_action( 'created_audience', __NAMESPACE__ . '\tax_save_term_fields' );
+add_action( 'edited_audience', __NAMESPACE__ . '\tax_save_term_fields' );
+add_action( 'created_wporg_lesson_category', __NAMESPACE__ . '\tax_save_term_fields' );
+add_action( 'edited_wporg_lesson_category', __NAMESPACE__ . '\tax_save_term_fields' );

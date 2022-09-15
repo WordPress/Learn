@@ -1,0 +1,24 @@
+.section-lp {
+	&_description {
+		margin: 4rem 0;
+
+		.search-form {
+			width: 100%;
+		}
+
+		.search-form--is-inline {
+			min-width: 300px;
+		}
+	}
+
+	&_text {
+		max-width: 618px;
+		font-size: 1.125rem;
+		line-height: 1.6;
+
+		@media only screen and (min-width: $breakpoint-desktop) {
+			margin-bottom: 0;
+		}
+	}
+
+}
