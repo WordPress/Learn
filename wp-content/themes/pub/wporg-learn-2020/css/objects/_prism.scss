@@ -253,3 +253,15 @@ pre.line-numbers > code {
 .github-markdown pre.wp-block-code {
 	margin-top: 0;
 }
+
+.wp-code-block-button-container {
+	padding: 0.5rem;
+
+	button {
+		font-size: 0.8rem !important;
+	}
+
+	+ pre {
+		padding: 1em;
+	}
+}
