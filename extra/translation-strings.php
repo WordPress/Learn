@@ -30,9 +30,9 @@ _x( 'General', 'Lesson Categories term name', 'wporg-learn' );
 _x( 'History of WordPress, About the Community, Open Source, or other broad overview lessons', 'Lesson Categories term description', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/lesson-plans/plugin-development/ */
 _x( 'Plugin Development', 'Lesson Categories term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/lesson-plans/site-administration/ */
-_x( 'Site Administration', 'Lesson Categories term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/lesson-plans/site-administration/ */
+/* translators: https://learn.wordpress.org/lesson-plans/site-management/ */
+_x( 'Site Management', 'Lesson Categories term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/lesson-plans/site-management/ */
 _x( 'Using admin settings, the dashboard, posts, pages,', 'Lesson Categories term description', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/lesson-plans/speaking-at-events/ */
 _x( 'Speaking at Events', 'Lesson Categories term name', 'wporg-learn' );
@@ -333,9 +333,9 @@ _x( 'Navigation Block Menu', 'Included Content term name', 'wporg-learn' );
 _x( 'page attributes', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/pages/ */
 _x( 'pages', 'Included Content term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/wporg_included_content/performance-settings/ */
-_x( 'performance', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/performance/ */
+_x( 'performance', 'Included Content term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/wporg_included_content/performance-settings/ */
 _x( 'performance', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/permalinks/ */
 _x( 'permalinks', 'Included Content term name', 'wporg-learn' );
