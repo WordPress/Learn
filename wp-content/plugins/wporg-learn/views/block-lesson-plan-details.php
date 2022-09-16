@@ -16,25 +16,22 @@ defined( 'WPINC' ) || die();
 	foreach ( $details as $detail ) {
 		if ( ! empty( $detail['value'] ) ) { ?>
 			<li>
-				<span class="dashicons dashicons-<?php echo esc_attr( $detail['icon'] ); ?>"></span>
-				<span><?php echo esc_html( $detail['label'] ); ?></span>
-				<strong>
-					<span>
-						<?php
-						$i = 0;
-						foreach ( $detail['value'] as $key => $value ) {
-							$url = trailingslashit( site_url() ) . 'lesson-plans/?' . $detail['slug'] . '[]=' . $key;
+				<strong><?php echo esc_html( $detail['label'] ); ?></strong>
+				<span>
+					<?php
+					$i = 0;
+					foreach ( $detail['value'] as $key => $value ) {
+						$url = trailingslashit( site_url() ) . 'lesson-plans/?' . $detail['slug'] . '[]=' . $key;
 
-							if ( 0 < $i ) {
-								echo ', ';
-							}
-
-							echo '<a href="' . esc_attr( $url ) . '">' . esc_html( $value ) . '</a>';
-							$i++;
+						if ( 0 < $i ) {
+							echo ', ';
 						}
-						?>
-					</span>
-				</strong>
+
+						echo '<a href="' . esc_attr( $url ) . '">' . esc_html( $value ) . '</a>';
+						$i++;
+					}
+					?>
+				</span>
 			</li>
 			<?php
 		}
