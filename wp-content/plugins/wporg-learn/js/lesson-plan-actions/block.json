@@ -1,8 +1,10 @@
 {
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
 	"name": "wporg-learn/lesson-plan-actions",
 	"title": "Lesson Plan Actions",
 	"category": "widgets",
-	"icon": "smiley",
+	"icon": "button",
 	"description": "",
 	"textdomain": "wporg-learn",
 	"supports": {
