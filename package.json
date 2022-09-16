@@ -26,7 +26,9 @@
 		"lint:php": "composer run lint",
 		"format:php": "composer run format",
 		"lint:css": "yarn workspace wporg-learn-plugin lint:css && yarn workspace wporg-learn-theme lint:css",
-		"lint:js": "yarn workspace wporg-learn-plugin lint:js"
+		"lint:js": "yarn workspace wporg-learn-plugin lint:js",
+		"watch:theme": "yarn workspace wporg-learn-theme start",
+		"watch:plugin": "yarn workspace wporg-learn-plugin start"
 	},
 	"main": "index.js",
 	"devDependencies": {
