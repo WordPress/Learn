@@ -421,6 +421,10 @@ _x( 'widgets', 'Included Content term name', 'wporg-learn' );
 _x( 'Contributing to WordPress', 'Course Categories term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/course-category/contributing-to-wordpress/ */
 _x( 'WordPress is built and managed by a wide community of individuals from all over the world. These courses will help you find your feet in the project and help you get involved in the mission to democratize publishing.', 'Course Categories term description', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/course-category/developing-with-wordpress/ */
+_x( 'Developing with WordPress', 'Course Categories term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/course-category/developing-with-wordpress/ */
+_x( 'WordPress is a highly versatile platform that can be extended in multiple ways. These courses will show you how you can use code to build on top of WordPress and create new features that are customized to your needs.', 'Course Categories term description', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/course-category/full-site-editing/ */
 _x( 'Full Site Editing', 'Course Categories term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/course-category/full-site-editing/ */
