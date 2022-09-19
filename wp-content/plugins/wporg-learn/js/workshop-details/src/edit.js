@@ -13,6 +13,12 @@ export default function Edit() {
 					'wporg-learn'
 				) }
 			</p>
+			<p>
+				{ __(
+					'Please note that it will not be displayed in the sidebar for other content types.',
+					'wporg-learn'
+				) }
+			</p>
 		</Placeholder>
 	);
 }

@@ -48,7 +48,8 @@ function register_lesson_plan_actions() {
 		'lesson-plan-actions-editor-script',
 		get_build_url() . 'lesson-plan-actions.js',
 		$script_asset['dependencies'],
-		$script_asset['version']
+		$script_asset['version'],
+		true
 	);
 
 	wp_register_style(
@@ -73,7 +74,11 @@ function register_lesson_plan_actions() {
  * @return string HTML output used by the block
  */
 function lesson_plan_actions_render_callback( $attributes, $content ) {
-	$post    = get_post();
+	if ( get_post_type() !== 'lesson-plan' ) {
+		return;
+	}
+
+	$post = get_post();
 
 	ob_start();
 	require get_views_path() . 'block-lesson-plan-actions.php';
@@ -99,7 +104,8 @@ function register_lesson_plan_details() {
 		'lesson-plan-details-editor-script',
 		get_build_url() . 'lesson-plan-details.js',
 		$script_asset['dependencies'],
-		$script_asset['version']
+		$script_asset['version'],
+		true,
 	);
 
 	wp_register_style(
@@ -124,7 +130,10 @@ function register_lesson_plan_details() {
  * @return string HTML output used by the block
  */
 function lesson_plan_details_render_callback( $attributes, $content ) {
-	$post    = get_post();
+	if ( get_post_type() !== 'lesson-plan' ) {
+		return;
+	}
+
 	$details = wporg_learn_get_lesson_plan_taxonomy_data( get_the_ID(), 'single' );
 
 	ob_start();
@@ -151,7 +160,8 @@ function register_workshop_details() {
 		'workshop-details-editor-script',
 		get_build_url() . 'workshop-details.js',
 		$script_asset['dependencies'],
-		$script_asset['version']
+		$script_asset['version'],
+		true,
 	);
 
 	wp_register_style(
@@ -176,6 +186,10 @@ function register_workshop_details() {
  * @return string HTML output used by the block
  */
 function workshop_details_render_callback( $attributes, $content ) {
+	if ( get_post_type() !== 'wporg_workshop' ) {
+		return;
+	}
+
 	$post      = get_post();
 	$topic_ids = wp_get_post_terms( $post->ID, 'topic', array( 'fields' => 'ids' ) );
 	$level     = wp_get_post_terms( $post->ID, 'level', array( 'fields' => 'names' ) );
