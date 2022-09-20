@@ -4,21 +4,25 @@
 import { __ } from '@wordpress/i18n';
 import { Placeholder } from '@wordpress/components';
 
-export default function Edit() {
+import { useIsBlockCompatibleWithSidebar } from '../../hooks';
+import { errors } from '../../constants';
+
+export default function Edit( { attributes } ) {
+	const isBlockCompatibleWithSidebar = useIsBlockCompatibleWithSidebar(
+		attributes,
+		'wporg-learn-workshops'
+	);
+
+	const message = isBlockCompatibleWithSidebar
+		? __(
+				'This will be dynamically populated based on settings in the Workshop Details meta box.',
+				'wporg-learn'
+		  )
+		: errors.SIDEBAR_BLOCK_INCOMPATIBLE;
+
 	return (
 		<Placeholder label={ __( 'Workshop Details', 'wporg-learn' ) }>
-			<p>
-				{ __(
-					'This will be dynamically populated based on settings in the Workshop Details meta box.',
-					'wporg-learn'
-				) }
-			</p>
-			<p>
-				{ __(
-					'Please note that it will not be displayed in the sidebar for other content types.',
-					'wporg-learn'
-				) }
-			</p>
+			<p>{ message }</p>
 		</Placeholder>
 	);
 }
