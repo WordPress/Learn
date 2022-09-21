@@ -15,9 +15,6 @@ $form_action = get_post_type_archive_link( $pt );
 ?>
 <div class="search-form--is-inline search-form--is-muted search-form--has-border search-form--has-medium-text">
 	<form role="search" method="get" class="search-form" action="<?php echo esc_attr( $form_action ); ?>">
-		<label for="archive-search" class="screen-reader-text">
-			<?php echo esc_html( _x( 'Search for:', 'label', 'wporg-learn' ) ); ?>
-		</label>
 		<input
 			type="search"
 			id="archive-search"
