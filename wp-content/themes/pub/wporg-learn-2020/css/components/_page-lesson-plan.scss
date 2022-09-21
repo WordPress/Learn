@@ -25,11 +25,18 @@
 				text-align: center;
 				margin-top: 0;
 				margin-bottom: 1rem;
+				padding: 0;
 
-				a:hover,
-				a:focus {
-					text-decoration: none;
+				> a {
 					display: block;
+					padding: 1.75rem;
+					font-weight: 700;
+					color: #555d66;
+
+					&:hover,
+					&:focus {
+						text-decoration: none;
+					}
 				}
 
 				.dashicons {
@@ -38,16 +45,6 @@
 					font-size: 80px;
 					margin: 0 auto 32px;
 					color: #606a73;
-				}
-
-				.taxonomy-title {
-					margin-bottom: 0;
-					font-weight: 700;
-
-					a {
-						color: #555d66;
-						text-decoration: none;
-					}
 				}
 			}
 
@@ -83,7 +80,6 @@
 			margin-bottom: 0;
 
 			li {
-				padding: 1.0625rem;
 				margin-bottom: 0.5rem;
 				background: #fbfbfc;
 				border: 1px solid #ccd0d4;
@@ -94,7 +90,7 @@
 					margin-bottom: 0;
 				}
 
-				a {
+				> a {
 					text-decoration: none;
 					font-weight: 700;
 					color: #555d66;
@@ -102,6 +98,7 @@
 					flex: 1;
 					justify-content: space-between;
 					line-height: 24px;
+					padding: 1rem;
 				}
 
 				.dashicons {

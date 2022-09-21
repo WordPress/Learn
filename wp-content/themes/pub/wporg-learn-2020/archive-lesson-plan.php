@@ -60,10 +60,10 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 						<?php
 						$category_icon = get_term_meta( $category->term_id, 'dashicon-class', true ) ?? 'wordpress-alt';
 						?>
-						<div class="icon">
+						<div>
 							<span aria-hidden="true" class="dashicons dashicons-<?php echo esc_attr( $category_icon ); ?>"></span>
 						</div>
-						<p class="taxonomy-title"><?php echo esc_html( $category->name ); ?></p>
+						<?php echo esc_html( $category->name ); ?>
 					</a>
 				</div>
 						<?php
@@ -88,13 +88,13 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 						?>
 				<div class="card">
 					<a href="<?php echo esc_url( get_term_link( $audience ) ); ?>">
-						<div class="icon">
+						<div>
 							<?php
 							$audience_icon = get_term_meta( $audience->term_id, 'dashicon-class', true ) ?? 'wordpress-alt';
 							?>
 							<span aria-hidden="true" class="dashicons dashicons-<?php echo esc_attr( $audience_icon ); ?>"></span>
 						</div>
-						<p class="taxonomy-title"><?php echo esc_html( $audience->name ); ?></p>
+						<?php echo esc_html( $audience->name ); ?>
 					</a>
 				</div>
 						<?php
@@ -177,7 +177,9 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 				<div class="lp-taxonomy-description"><?php echo esc_html__( 'Browse lesson plans based on their format.', 'wporg-learn' ); ?></div>
 				<?php foreach ( $instruction_types as $instruction_type ) : ?>
 				<div class="card">
-					<p class="taxonomy-title"><a href="<?php echo esc_url( get_post_type_archive_link( 'lesson-plan' ) ) . '?type[]=' . esc_html( $instruction_type->term_id ); ?>"><?php echo esc_html( $instruction_type->name ); ?></a></p>
+					<a href="<?php echo esc_url( get_post_type_archive_link( 'lesson-plan' ) ) . '?type[]=' . esc_html( $instruction_type->term_id ); ?>">
+						<?php echo esc_html( $instruction_type->name ); ?>
+					</a>
 				</div>
 				<?php endforeach; ?>
 			</div>
