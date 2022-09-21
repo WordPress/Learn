@@ -3,25 +3,18 @@
  */
 import { useSelect } from '@wordpress/data';
 
-export const useIsBlockCompatibleWithSidebar = ( attributes, sidebarName ) => {
-	let widgets = {};
-
-	useSelect( ( select ) => {
-		widgets = select( 'core/edit-widgets' ).getWidgets();
+export const useIsBlockInSidebar = ( clientId, sidebarName ) => {
+	return useSelect( ( select ) => {
+		const { getBlockAttributes, getBlockName, getBlockParents } = select(
+			'core/block-editor'
+		);
+		const parents = getBlockParents( clientId );
+		return parents.some( ( parent ) => {
+			if ( 'core/widget-area' !== getBlockName( parent ) ) {
+				return false;
+			}
+			const { id } = getBlockAttributes( parent );
+			return id === sidebarName;
+		} );
 	} );
-
-	const widgetId = attributes.__internalWidgetId;
-
-	// __internalWidgetId is not stable.
-	// If it is undefined we can't look up the widget sidebar type to check compatibility
-	// so we have to return true and let the backend validation handle the incompatible type.
-	if ( widgetId === undefined ) {
-		return true;
-	}
-
-	const widget = Object.values( widgets ).find(
-		( { id } ) => id === widgetId
-	);
-
-	return widget?.sidebar === sidebarName;
 };
