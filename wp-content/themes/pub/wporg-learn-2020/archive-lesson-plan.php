@@ -61,7 +61,7 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 						$category_icon = get_term_meta( $category->term_id, 'dashicon-class', true ) ?? 'wordpress-alt';
 						?>
 						<div class="icon">
-							<span class="dashicons dashicons-<?php echo esc_attr( $category_icon ); ?>"></span>
+							<span aria-hidden="true" class="dashicons dashicons-<?php echo esc_attr( $category_icon ); ?>"></span>
 						</div>
 						<p class="taxonomy-title"><?php echo esc_html( $category->name ); ?></p>
 					</a>
@@ -92,7 +92,7 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 							<?php
 							$audience_icon = get_term_meta( $audience->term_id, 'dashicon-class', true ) ?? 'wordpress-alt';
 							?>
-							<span class="dashicons dashicons-<?php echo esc_attr( $audience_icon ); ?>"></span>
+							<span aria-hidden="true" class="dashicons dashicons-<?php echo esc_attr( $audience_icon ); ?>"></span>
 						</div>
 						<p class="taxonomy-title"><?php echo esc_html( $audience->name ); ?></p>
 					</a>
@@ -155,7 +155,7 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 						?>
 						<li>
 							<a href="<?php echo esc_url( add_query_arg( $any_duration_arr, $lp_archive_url ) ); ?>">
-								<?php echo esc_html__( 'Any (over 60m)', 'wporg-learn' ); ?><span class="dashicons dashicons-arrow-right-alt2"></span>
+								<?php echo esc_html__( '60 mins or longer', 'wporg-learn' ); ?><span class="dashicons dashicons-arrow-right-alt2"></span>
 							</a>
 						</li>
 						<?php
