@@ -333,9 +333,9 @@ _x( 'Navigation Block Menu', 'Included Content term name', 'wporg-learn' );
 _x( 'page attributes', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/pages/ */
 _x( 'pages', 'Included Content term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/wporg_included_content/performance-settings/ */
-_x( 'performance', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/performance/ */
+_x( 'performance', 'Included Content term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/wporg_included_content/performance-settings/ */
 _x( 'performance', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/permalinks/ */
 _x( 'permalinks', 'Included Content term name', 'wporg-learn' );
@@ -424,7 +424,7 @@ _x( 'WordPress is built and managed by a wide community of individuals from all 
 /* translators: https://learn.wordpress.org/course-category/developing-with-wordpress/ */
 _x( 'Developing with WordPress', 'Course Categories term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/course-category/developing-with-wordpress/ */
-_x( 'WordPress is a highly versatile platform that can be extended in multiple ways. These courses will show you how you can use code to build on top of WordPress and create new features that are customized to your needs.', 'Course Categories term description', 'wporg-learn' );
+_x( 'WordPress opens up opportunities for developers to modify, extend, and experiment beyond its publishing capabilities. These courses will teach you the more technical aspects of working with WordPress, from theme development to building plugins and more.', 'Course Categories term description', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/course-category/full-site-editing/ */
 _x( 'Full Site Editing', 'Course Categories term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/course-category/full-site-editing/ */
