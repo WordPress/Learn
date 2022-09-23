@@ -1,4 +1,5 @@
-.card {
+.card,
+.card.button {
 	background-color: #fbfbfc;
 	border: 1px solid #ccd0d4;
 	border-radius: 3px;
@@ -105,41 +106,83 @@
 	}
 }
 
-.card-grid {
-	margin: 1.5rem 0;
+@mixin card-grid_1 {
 
-	@media only screen and (min-width: $breakpoint-tablet) {
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		align-content: flex-start;
-		justify-content: space-between;
-		margin-left: -0.5rem; /* Offset the padding in the grid */
-		margin-right: -0.5rem; /* Offset the padding in the grid */
-
-		> * {
-			margin: 0.5rem;
+	/* Fix over-specific rule in the parent theme. */
+	body .site-main & {
+		.card,
+		.card.post.course,
+		.card-grid-header {
+			flex-basis: 100%;
+			max-width: calc(100% - 1rem);
 		}
+	}
+}
 
-		&_2 {
-			> * {
-				flex-grow: 0;
-				flex-shrink: 0;
-				flex-basis: 48%;
+@mixin card-grid_2 {
+
+	/* Fix over-specific rule in the parent theme. */
+	body .site-main & {
+		justify-content: space-between;
+
+		.card,
+		.card.post.course {
+			flex-basis: 50%;
+			max-width: calc(50% - 1rem);
+			margin-bottom: 1rem;
+		}
+	}
+}
+
+.card-grid {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-content: flex-start;
+	justify-content: flex-start;
+	margin: 1.5rem -0.5rem 0;
+
+	@include card-grid_1();
+
+	.card-grid-header,
+	.card {
+		flex-grow: 0;
+		flex-shrink: 0;
+		margin: 0 0.5rem 1rem;
+	}
+
+	&_2 {
+
+		@include card-grid_2();
+	}
+
+	&_4 {
+
+		/* Fix over-specific rule in the parent theme. */
+		body .site-main & {
+			.card {
+				flex-basis: 25%;
+				max-width: calc(25% - 1rem);
 			}
+		}
+	}
+
+	@media only screen and (max-width: $breakpoint-tablet) {
+		&_2 {
+
+			@include card-grid_1();
 		}
 
 		&_4 {
-			> * {
-				flex-grow: 0;
-				flex-shrink: 0;
-				flex-basis: calc(25% - 1rem);
-			}
-		}
 
-		&.gap-64 {
-			margin-top: 4rem;
-			margin-bottom: 0.25rem;
+			@include card-grid_2();
+		}
+	}
+
+	@media only screen and (max-width: $breakpoint-mobile) {
+		&_4 {
+
+			@include card-grid_1();
 		}
 	}
 }

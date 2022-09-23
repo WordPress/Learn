@@ -44,10 +44,16 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 					}
 
 					if ( $display_category_header ) {
+						?>
+			<header class="card-grid-header">
+						<?php
 						echo '<h2 class="h4 course-category-header">' . esc_html( $category_title ) . '</h2>';
 						if ( $category_description ) {
 							echo '<div class="course-category-description">' . esc_html( $category_description ) . '</div>';
 						}
+						?>
+			</header>
+						<?php
 					}
 
 					get_template_part(
