@@ -48,11 +48,9 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 		) );
 		?>
 		<div class="lp-taxonomy">
+			<h2 class="h4 lp-taxonomy-header"><?php echo esc_html__( 'Topic', 'wporg-learn' ); ?></h2>
+			<div class="lp-taxonomy-description"><?php echo esc_html__( 'Browse lesson plans by their high-level topic.', 'wporg-learn' ); ?></div>
 			<div class="card-grid card-grid_4">
-				<header class="card-grid-header">
-					<h2 class="h4 lp-taxonomy-header"><?php echo esc_html__( 'Topic', 'wporg-learn' ); ?></h2>
-					<div class="lp-taxonomy-description"><?php echo esc_html__( 'Browse lesson plans by their high-level topic.', 'wporg-learn' ); ?></div>
-				</header>
 				<?php foreach ( $categories as $category ) :
 					$is_sticky = get_term_meta( $category->term_id, 'sticky', true );
 					if ( $is_sticky ) :
@@ -77,11 +75,9 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 		) );
 		?>
 		<div class="lp-taxonomy">
+			<h2 class="h4 lp-taxonomy-header"><?php echo esc_html__( 'Audience', 'wporg-learn' ); ?></h2>
+			<div class="lp-taxonomy-description"><?php echo esc_html__( "Browse lesson plans by the audience they're intended for.", 'wporg-learn' ); ?></div>
 			<div class="card-grid card-grid_4">
-				<header class="card-grid-header">
-					<h2 class="h4 lp-taxonomy-header"><?php echo esc_html__( 'Audience', 'wporg-learn' ); ?></h2>
-					<div class="lp-taxonomy-description"><?php echo esc_html__( "Browse lesson plans by the audience they're intended for.", 'wporg-learn' ); ?></div>
-				</header>
 				<?php foreach ( $audiences as $audience ) :
 					$is_sticky = get_term_meta( $audience->term_id, 'sticky', true );
 					if ( $is_sticky ) :
@@ -174,11 +170,9 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 		) );
 		?>
 		<div class="lp-taxonomy">
+			<h2 class="h4 lp-taxonomy-header"><?php echo esc_html__( 'Format', 'wporg-learn' ); ?></h2>
+			<div class="lp-taxonomy-description"><?php echo esc_html__( 'Browse lesson plans based on their format.', 'wporg-learn' ); ?></div>
 			<div class="card-grid card-grid_4">
-				<header class="card-grid-header">
-					<h2 class="h4 lp-taxonomy-header"><?php echo esc_html__( 'Format', 'wporg-learn' ); ?></h2>
-					<div class="lp-taxonomy-description"><?php echo esc_html__( 'Browse lesson plans based on their format.', 'wporg-learn' ); ?></div>
-				</header>
 				<?php foreach ( $instruction_types as $instruction_type ) : ?>
 				<a class="card button" href="<?php echo esc_url( get_post_type_archive_link( 'lesson-plan' ) ) . '?type[]=' . esc_html( $instruction_type->term_id ); ?>">
 					<?php echo esc_html( $instruction_type->name ); ?>

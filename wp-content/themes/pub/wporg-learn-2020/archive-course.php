@@ -27,33 +27,35 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 
 		<hr>
 
-		<div class="card-grid card-grid_2">
 			<?php if ( have_posts() ) : ?>
 				<?php while ( have_posts() ) :
 					the_post();
 
-					$display_category_header = false;
-					$categories = get_the_terms( get_the_ID(), 'course-category' );
+					$prev_category;
+					$begin_new_category = false;
+					$categories         = get_the_terms( get_the_ID(), 'course-category' );
+
 					if ( isset( $categories[0] ) ) {
-						$category_title = $categories[0]->name;
+						$category_title       = $categories[0]->name;
 						$category_description = $categories[0]->description;
-						if ( $category_title != $prev_category ) {
-							$display_category_header = true;
-							$prev_category = $category_title;
-						}
+						$begin_new_category   = $category_title !== $prev_category;
 					}
 
-					if ( $display_category_header ) {
+					if ( $begin_new_category ) {
+						// Close the previous card-grid if there was a previous category
+						if ( ! empty( $prev_category ) ) {
+							echo '</div>';
+						}
 						?>
-			<header class="card-grid-header">
+		<h2 class="h4 course-category-header"><?php echo esc_html( $category_title ); ?></h2>
 						<?php
-						echo '<h2 class="h4 course-category-header">' . esc_html( $category_title ) . '</h2>';
 						if ( $category_description ) {
 							echo '<div class="course-category-description">' . esc_html( $category_description ) . '</div>';
 						}
 						?>
-			</header>
+		<div class="card-grid card-grid_2">
 						<?php
+						$prev_category = $category_title;
 					}
 
 					get_template_part(
@@ -62,10 +64,10 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 						wporg_learn_get_card_template_args( get_the_ID() )
 					);
 				endwhile; ?>
+		</div>
 			<?php else : ?>
 				<?php get_template_part( 'template-parts/content', 'none' ); ?>
 			<?php endif; ?>
-		</div>
 
 		<?php the_posts_pagination(); ?>
 	</section>
