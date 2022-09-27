@@ -4,21 +4,19 @@
 import { __ } from '@wordpress/i18n';
 import { Placeholder } from '@wordpress/components';
 
-import { useIsBlockInSidebar } from '../../hooks';
-import { errors } from '../../constants';
+import { useIsBlockInSidebar, useGetCurrentPostType } from '../../hooks';
+import { getBlockPlaceholderMessage } from '../../utils';
 
 export default function Edit( { clientId } ) {
-	const isBlockInWorkshops = useIsBlockInSidebar(
-		clientId,
-		'wporg-learn-workshops'
+	const message = getBlockPlaceholderMessage(
+		'wporg_workshop',
+		useGetCurrentPostType(),
+		useIsBlockInSidebar( clientId, 'wporg-learn-workshops' ),
+		__(
+			'This will be dynamically populated based on settings in the Workshop Details meta box.',
+			'wporg-learn'
+		)
 	);
-
-	const message = isBlockInWorkshops
-		? __(
-				'This will be dynamically populated based on settings in the Workshop Details meta box.',
-				'wporg-learn'
-		  )
-		: errors.SIDEBAR_BLOCK_INCOMPATIBLE;
 
 	return (
 		<Placeholder label={ __( 'Workshop Details', 'wporg-learn' ) }>
