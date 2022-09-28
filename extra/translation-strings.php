@@ -333,9 +333,9 @@ _x( 'Navigation Block Menu', 'Included Content term name', 'wporg-learn' );
 _x( 'page attributes', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/pages/ */
 _x( 'pages', 'Included Content term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/wporg_included_content/performance/ */
-_x( 'performance', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/performance-settings/ */
+_x( 'performance', 'Included Content term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/wporg_included_content/performance/ */
 _x( 'performance', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/permalinks/ */
 _x( 'permalinks', 'Included Content term name', 'wporg-learn' );
@@ -425,14 +425,14 @@ _x( 'WordPress is built and managed by a wide community of individuals from all 
 _x( 'Developing with WordPress', 'Course Categories term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/course-category/developing-with-wordpress/ */
 _x( 'WordPress opens up opportunities for developers to modify, extend, and experiment beyond its publishing capabilities. These courses will teach you the more technical aspects of working with WordPress, from theme development to building plugins and more.', 'Course Categories term description', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/course-category/full-site-editing/ */
-_x( 'Full Site Editing', 'Course Categories term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/course-category/full-site-editing/ */
-_x( 'If you\'ve ever wanted to edit all parts of your site easily, full site editing (FSE) makes that possible. First launched in WordPress 5.9, FSE includes features like the site editor, templates, template parts, theme blocks, and more. The courses below will teach you all about full site editing and its features to help you build your perfect site.', 'Course Categories term description', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/course-category/introduction-to-wordpress/ */
 _x( 'Introduction to WordPress', 'Course Categories term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/course-category/introduction-to-wordpress/ */
 _x( 'WordPress is a powerful content management system with a range of innovative features. In the following courses, you\'ll get an introduction to WordPress and learn everything you need to know to get going with your website. So whether you\'re a novice or simply want to know how to set up a new site, we have you covered.', 'Course Categories term description', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/course-category/using-the-site-editor/ */
+_x( 'Using the Site Editor', 'Course Categories term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/course-category/using-the-site-editor/ */
+_x( 'If you\'ve ever wanted to edit all parts of your site easily, the Site Editor makes that possible. First launched in WordPress 5.9, the Site Editor includes features like templates, template parts, theme blocks, and more. The courses below will teach you all about using the Site Editor and its features to help you build your perfect site.', 'Course Categories term description', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/lesson-tag/deputies/ */
 _x( 'deputies', 'Lesson Tags term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/lesson-tag/gpl/ */
