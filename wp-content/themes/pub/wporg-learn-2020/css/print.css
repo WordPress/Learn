@@ -10,8 +10,7 @@
 .wporg-learn-locale-notice,
 .bbp-breadcrumb,
 .dashicons,
-.main-navigation,
-.lp-sidebar-dynamic {
+.main-navigation {
   display: none;
 }
 
@@ -120,9 +119,12 @@ p a {
   break-inside: avoid-page;
 }
 
-.single-lesson-plan .lp-content .lp-details ul li,
 .single-lesson-plan .lp-list .lp-details ul li {
   padding: 0 10px 10px 0;
+}
+
+.single-lesson-plan .lp-sidebar > .widget_block > * {
+  display: none;
 }
 
 /**
@@ -158,5 +160,3 @@ p a {
 .single-wporg_workshop .workshop-page_content {
   margin-bottom: 32px;
 }
-
-/*# sourceMappingURL=print.css.map */

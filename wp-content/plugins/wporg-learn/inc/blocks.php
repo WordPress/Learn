@@ -24,8 +24,122 @@ add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_block_style_assets' 
  * @return void
  */
 function register_types() {
+	register_lesson_plan_actions();
+	register_lesson_plan_details();
 	register_workshop_details();
 	register_workshop_application_form();
+}
+
+/**
+ * Register Lesson Plan Actions block type and related assets.
+ *
+ * @throws Error If the build files are not found.
+ */
+function register_lesson_plan_actions() {
+	$script_asset_path = get_build_path() . 'lesson-plan-actions.asset.php';
+	if ( ! is_readable( $script_asset_path ) ) {
+		throw new Error(
+			'You need to run `npm start` or `npm run build` for the "wporg-learn/lesson-plan-actions" block first.'
+		);
+	}
+
+	$script_asset = require $script_asset_path;
+	wp_register_script(
+		'lesson-plan-actions-editor-script',
+		get_build_url() . 'lesson-plan-actions.js',
+		$script_asset['dependencies'],
+		$script_asset['version'],
+		true
+	);
+
+	wp_register_style(
+		'lesson-plan-actions-style',
+		get_build_url() . 'style-lesson-plan-actions.css',
+		array(),
+		filemtime( get_build_path() . 'style-lesson-plan-actions.css' )
+	);
+
+	register_block_type( 'wporg-learn/lesson-plan-actions', array(
+		'editor_script'   => 'lesson-plan-actions-editor-script',
+		'style'           => 'lesson-plan-actions-style',
+		'render_callback' => __NAMESPACE__ . '\lesson_plan_actions_render_callback',
+	) );
+}
+
+/**
+ * Render the block content (html) on the frontend of the site.
+ *
+ * @param array  $attributes
+ * @param string $content
+ * @return string HTML output used by the block
+ */
+function lesson_plan_actions_render_callback( $attributes, $content ) {
+	if ( get_post_type() !== 'lesson-plan' ) {
+		return;
+	}
+
+	$post = get_post();
+
+	ob_start();
+	require get_views_path() . 'block-lesson-plan-actions.php';
+
+	return ob_get_clean();
+}
+
+/**
+ * Register Lesson Plan Details block type and related assets.
+ *
+ * @throws Error If the build files are not found.
+ */
+function register_lesson_plan_details() {
+	$script_asset_path = get_build_path() . 'lesson-plan-details.asset.php';
+	if ( ! is_readable( $script_asset_path ) ) {
+		throw new Error(
+			'You need to run `npm start` or `npm run build` for the "wporg-learn/lesson-plan-details" block first.'
+		);
+	}
+
+	$script_asset = require $script_asset_path;
+	wp_register_script(
+		'lesson-plan-details-editor-script',
+		get_build_url() . 'lesson-plan-details.js',
+		$script_asset['dependencies'],
+		$script_asset['version'],
+		true,
+	);
+
+	wp_register_style(
+		'lesson-plan-details-style',
+		get_build_url() . 'style-lesson-plan-details.css',
+		array(),
+		filemtime( get_build_path() . 'style-lesson-plan-details.css' )
+	);
+
+	register_block_type( 'wporg-learn/lesson-plan-details', array(
+		'editor_script'   => 'lesson-plan-details-editor-script',
+		'style'           => 'lesson-plan-details-style',
+		'render_callback' => __NAMESPACE__ . '\lesson_plan_details_render_callback',
+	) );
+}
+
+/**
+ * Render the block content (html) on the frontend of the site.
+ *
+ * @param array  $attributes
+ * @param string $content
+ * @return string HTML output used by the block
+ */
+function lesson_plan_details_render_callback( $attributes, $content ) {
+	if ( get_post_type() !== 'lesson-plan' ) {
+		return;
+	}
+
+	$details = wporg_learn_get_lesson_plan_taxonomy_data( get_the_ID(), 'single' );
+
+	ob_start();
+	require get_views_path() . 'block-lesson-plan-details.php';
+
+	return ob_get_clean();
 }
 
 /**
@@ -46,7 +160,8 @@ function register_workshop_details() {
 		'workshop-details-editor-script',
 		get_build_url() . 'workshop-details.js',
 		$script_asset['dependencies'],
-		$script_asset['version']
+		$script_asset['version'],
+		true,
 	);
 
 	wp_register_style(
@@ -71,6 +186,10 @@ function register_workshop_details() {
  * @return string HTML output used by the block
  */
 function workshop_details_render_callback( $attributes, $content ) {
+	if ( get_post_type() !== 'wporg_workshop' ) {
+		return;
+	}
+
 	$post      = get_post();
 	$topic_ids = wp_get_post_terms( $post->ID, 'topic', array( 'fields' => 'ids' ) );
 	$level     = wp_get_post_terms( $post->ID, 'level', array( 'fields' => 'names' ) );

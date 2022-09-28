@@ -1,0 +1,16 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "wporg-learn/lesson-plan-details",
+	"title": "Lesson Plan Details",
+	"category": "widgets",
+	"icon": "info-outline",
+	"description": "",
+	"textdomain": "wporg-learn",
+	"supports": {
+		"html": false
+	},
+	"editorScript": "file:../../build/lesson-plan-details.js",
+	"editorStyle": "file:../../build/lesson-plan-details.css",
+	"style": "file:../../build/style-lesson-plan-details.css"
+}

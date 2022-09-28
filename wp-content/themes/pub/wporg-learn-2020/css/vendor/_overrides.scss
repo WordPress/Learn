@@ -292,18 +292,6 @@ p {
 	position: relative;
 }
 
-.lp-list .lp-details .dashicons,
-.lp-content .lp-details .dashicons {
-	color: #0073aa;
-	left: 0;
-	position: absolute;
-	top: 0.15rem;
-}
-
-.lp-content .lp-details strong {
-	padding-left: 0.25rem;
-}
-
 .lp-suggestion_title {
 	margin-bottom: 0;
 	font-size: 0.85rem;
@@ -341,45 +329,8 @@ p {
 	order: 1;
 }
 
-.lp-content .lp-details .lp-actions,
 .lp-suggestion {
 	display: none;
-}
-
-.lp-sidebar .lp-details {
-	.lp-details-meta {
-		border-top: 1px solid #E2E4E7;
-
-		li {
-			border-bottom: 1px solid #E2E4E7;
-			padding-bottom: 0.5rem;
-			padding-top: 0.5rem;
-			padding-left: 0;
-			display: flex;
-			justify-content: space-between;
-
-			.dashicons {
-				display: none;
-			}
-
-			> span:nth-child(2) {
-				font-weight: 600;
-				font-size: 1rem;
-				line-height: 1.5;
-				color: #555D66;
-			}
-
-			strong {
-				text-align: right;
-				a {
-					font-weight: 400;
-					color: #555D66;
-					font-size: 1rem;
-					line-height: 1.3125rem;
-				}
-			}
-		}
-	}
 }
 
 @media only screen and (min-width: 768px) {
@@ -397,52 +348,9 @@ p {
 		order: 2;
 	}
 
-	.lp-content .lp-details .lp-actions,
 	.lp-suggestion {
 		display: block;
 	}
-}
-
-.lp-content .lp-details .lp-actions {
-	margin: 2rem 0;
-}
-
-.lp-content .lp-details .lp-actions li {
-	padding: 0 0 1rem 0;
-}
-
-.lp-content .lp-details .lp-actions li:last-child {
-	padding-bottom: 0;
-}
-
-.lp-content .lp-details .lp-actions li a,
-.lp-content .lp-details .lp-actions li button {
-	background-color: #f8f8f8;
-	border: 1px #ccc solid;
-	border-radius: 3px;
-	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
-	color: #666666;
-	display: inline-block;
-	font-size: 13px;
-	width: 100%;
-	padding: 10px;
-	text-decoration: none;
-	text-align: center;
-}
-
-.lp-details .lp-actions li button .dashicons,
-.lp-details .lp-actions li a .dashicons {
-	color: #9A9EA3;
-	font-size: 16px;
-	position: relative;
-	top: 3px;
-}
-
-.lp-content .lp-details .lp-actions li button:hover,
-.lp-content .lp-details .lp-actions li a:hover {
-	background-color: #f8f8f8;
-	border-color: #999;
-	color: #777777;
 }
 
 /* ___ Page ___ */

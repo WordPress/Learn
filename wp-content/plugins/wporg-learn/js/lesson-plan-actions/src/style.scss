@@ -1,0 +1,26 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+.wp-block-wporg-learn-lesson-plan-actions {
+	display: none;
+	list-style: none;
+	margin: 0 0 2rem 0;
+
+	> li {
+		margin: 0 0 1rem;
+
+		.button {
+			display: block;
+			width: 100%;
+			text-align: center;
+		}
+	}
+
+	@media only screen and (min-width: 768px) {
+		display: block;
+	}
+}

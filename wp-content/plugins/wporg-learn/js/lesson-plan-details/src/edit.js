@@ -9,17 +9,17 @@ import { getBlockPlaceholderMessage } from '../../utils';
 
 export default function Edit( { clientId } ) {
 	const message = getBlockPlaceholderMessage(
-		'wporg_workshop',
+		'lesson-plan',
 		useGetCurrentPostType(),
-		useIsBlockInSidebar( clientId, 'wporg-learn-workshops' ),
+		useIsBlockInSidebar( clientId, 'wporg-learn-lesson-plans' ),
 		__(
-			'This will be dynamically populated based on settings in the Workshop Details meta box.',
+			'This will be dynamically populated based on settings in the Lesson Plan Details meta box.',
 			'wporg-learn'
 		)
 	);
 
 	return (
-		<Placeholder label={ __( 'Workshop Details', 'wporg-learn' ) }>
+		<Placeholder label={ __( 'Lesson Plan Details', 'wporg-learn' ) }>
 			<p>{ message }</p>
 		</Placeholder>
 	);
