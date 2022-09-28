@@ -113,7 +113,7 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 					foreach ( $levels as $level ) : ?>
 					<li>
 						<a class="button" href="<?php echo esc_url( get_post_type_archive_link( 'lesson-plan' ) ) . '?level[]=' . esc_html( $level->term_id ); ?>">
-							<?php echo esc_html( $level->name ); ?><span class="dashicons dashicons-arrow-right-alt2"></span>
+							<?php echo esc_html( $level->name ); ?><span aria-hidden="true" class="dashicons dashicons-arrow-right-alt2"></span>
 						</a>
 					</li>
 						<?php
@@ -141,7 +141,7 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 							?>
 					<li>
 						<a class="button" href="<?php echo esc_url( add_query_arg( array( 'duration[]' => $duration->term_id ), $lp_archive_url ) ); ?>">
-							<?php echo esc_html( $duration->name ); ?><span class="dashicons dashicons-arrow-right-alt2"></span>
+							<?php echo esc_html( $duration->name ); ?><span aria-hidden="true" class="dashicons dashicons-arrow-right-alt2"></span>
 						</a>
 					</li>
 							<?php
@@ -155,7 +155,7 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 						?>
 						<li>
 							<a class="button" href="<?php echo esc_url( add_query_arg( $any_duration_arr, $lp_archive_url ) ); ?>">
-								<?php echo esc_html__( '60 mins or longer', 'wporg-learn' ); ?><span class="dashicons dashicons-arrow-right-alt2"></span>
+								<?php echo esc_html__( '60 mins or longer', 'wporg-learn' ); ?><span aria-hidden="true" class="dashicons dashicons-arrow-right-alt2"></span>
 							</a>
 						</li>
 						<?php
