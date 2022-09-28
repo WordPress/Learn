@@ -40,9 +40,11 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 
 		<hr>
 		<?php
-		$categories = get_terms( 'wporg_lesson_category', array(
+		$categories = get_terms( array(
+			'taxonomy'   => 'wporg_lesson_category',
 			'hide_empty' => false,
 			'orderby'    => 'id',
+			'order'      => 'DESC',
 		) );
 		?>
 		<div class="row lp-taxonomy categories">
