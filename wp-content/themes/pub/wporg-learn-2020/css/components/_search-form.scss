@@ -35,12 +35,16 @@
 
 			background: #fff;
 
+			@media only screen and (max-width: $breakpoint-tablet) {
+				margin-top: 2rem;
+			}
+
 			> label {
-				flex: 1;
+				position: absolute;
+				transform: translateY(-2rem);
 			}
 
 			input {
-
 				padding: 0.5rem;
 				background: transparent;
 				border: none;

@@ -1,15 +1,16 @@
-.card {
+.card,
+.card.button {
 	background-color: #fbfbfc;
 	border: 1px solid #ccd0d4;
 	border-radius: 3px;
 	color: #555d66;
-	margin-bottom: 0.5rem;
 	padding: 1.75rem;
 	position: relative;
 
 	/* Fix over-specific rule in the parent theme. */
 	body:not(.single):not(.search) .site-main &.post {
-		margin-bottom: 0.5rem;
+		margin-bottom: 0;
+		max-width: initial;
 	}
 
 	.card-entry {
@@ -105,41 +106,47 @@
 	}
 }
 
+@mixin card-grid_1 {
+	grid-template-columns: 1fr;
+}
+
+@mixin card-grid_2 {
+	grid-template-columns: 1fr 1fr;
+}
+
 .card-grid {
 	margin: 1.5rem 0;
+	display: grid;
+	gap: 1rem;
+	grid-auto-rows: min-content;
 
-	@media only screen and (min-width: $breakpoint-tablet) {
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		align-content: flex-start;
-		justify-content: space-between;
-		margin-left: -0.5rem; /* Offset the padding in the grid */
-		margin-right: -0.5rem; /* Offset the padding in the grid */
+	@include card-grid_1();
 
-		> * {
-			margin: 0.5rem;
-		}
+	&_2 {
 
+		@include card-grid_2();
+	}
+
+	&_4 {
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+	}
+
+	@media only screen and (max-width: $breakpoint-tablet-below) {
 		&_2 {
-			> * {
-				flex-grow: 0;
-				flex-shrink: 0;
-				flex-basis: 48%;
-			}
+
+			@include card-grid_1();
 		}
 
 		&_4 {
-			> * {
-				flex-grow: 0;
-				flex-shrink: 0;
-				flex-basis: calc(25% - 1rem);
-			}
-		}
 
-		&.gap-64 {
-			margin-top: 4rem;
-			margin-bottom: 0.25rem;
+			@include card-grid_2();
+		}
+	}
+
+	@media only screen and (max-width: $breakpoint-mobile) {
+		&_4 {
+
+			@include card-grid_1();
 		}
 	}
 }

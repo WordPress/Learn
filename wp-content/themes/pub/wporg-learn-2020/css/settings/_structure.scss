@@ -1,4 +1,8 @@
-$breakpoint-tablet: 768px !default;
+$breakpoint-tablet-width: 768px;
+$breakpoint-tablet-below-width: $breakpoint-tablet-width - 1;
+
+$breakpoint-tablet-below: $breakpoint-tablet-below-width !default;
+$breakpoint-tablet: $breakpoint-tablet-width !default;
 $breakpoint-desktop: 960px !default;
 $breakpoint-desktop-large: 1200px !default;
 
