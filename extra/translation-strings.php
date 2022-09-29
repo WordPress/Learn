@@ -49,15 +49,15 @@ _x( 'Using Themes', 'Lesson Categories term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/lesson-plans/using-wordpress/ */
 _x( 'Using WordPress', 'Lesson Categories term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/duration/15/ */
-_x( '15m', 'Duration term name', 'wporg-learn' );
+_x( '15 mins', 'Duration term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/duration/30/ */
-_x( '30m', 'Duration term name', 'wporg-learn' );
+_x( '30 mins', 'Duration term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/duration/45/ */
-_x( '45m', 'Duration term name', 'wporg-learn' );
+_x( '45 mins', 'Duration term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/duration/60/ */
-_x( '60m', 'Duration term name', 'wporg-learn' );
+_x( '60 mins', 'Duration term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/duration/90/ */
-_x( '90m', 'Duration term name', 'wporg-learn' );
+_x( '90 mins', 'Duration term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/lesson_group/get-started/ */
 _x( 'Get Started', 'Lesson Groups term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/lesson_group/polyglots-training/ */
