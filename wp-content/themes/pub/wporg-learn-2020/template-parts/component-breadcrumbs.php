@@ -55,7 +55,7 @@ if ( is_post_type_archive() ) {
 		}
 
 		if ( $x < $crumb_length - 1 ) {
-			echo ' <span class="bbp-breadcrumb-sep">»</span> ';
+			echo '<span class="screen-reader-text">, </span><span aria-hidden="true" class="bbp-breadcrumb-sep"> » </span>';
 		}
 	}
 	?>
