@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Title: English Lesson Plan Content
  * Slug: wporg-learn-2020/lesson-plan
@@ -8,6 +7,7 @@
  * Categories: featured, text
  */
 ?>
+
 <!-- wp:quote -->
 <blockquote class="wp-block-quote">
 	<!-- wp:paragraph -->
