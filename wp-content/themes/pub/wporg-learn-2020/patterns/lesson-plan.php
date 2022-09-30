@@ -6,7 +6,9 @@
  * Post Types: lesson-plan
  * Categories: featured, text
  */
+
 ?>
+
 <!-- wp:quote -->
 <blockquote class="wp-block-quote">
 <!-- wp:paragraph -->
