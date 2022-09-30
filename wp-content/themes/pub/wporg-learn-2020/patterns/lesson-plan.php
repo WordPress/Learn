@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Title: English Lesson Plan Content
  * Slug: wporg-learn-2020/lesson-plan
@@ -387,8 +386,3 @@
 <!-- wp:paragraph -->
 <p>[tip] 💡 Follow with the <a href="#Exercises">Exercises</a> and <a href="#Assessment">Assessment</a> outlined above.[/tip]</p>
 <!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p></p>
-<!-- /wp:paragraph -->
-<p></p> 
