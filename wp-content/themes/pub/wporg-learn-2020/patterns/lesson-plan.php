@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Title: English Lesson Plan Content
  * Slug: wporg-learn-2020/lesson-plan
