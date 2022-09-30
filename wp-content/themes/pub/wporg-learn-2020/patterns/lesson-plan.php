@@ -6,6 +6,7 @@
  * Post Types: lesson-plan
  * Categories: featured, text
  */
+
 ?>
 
 <!-- wp:quote -->
