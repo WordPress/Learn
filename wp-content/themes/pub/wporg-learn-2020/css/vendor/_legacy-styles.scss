@@ -2755,7 +2755,7 @@ body, #pagebody {
 	}
 }
 
-@media screen and (min-width: 737px) {
+@media screen and (min-width: 968px) {
 	.site-header:not(.home) .site-branding {
 		display: flex;
 		align-items: center;
@@ -2927,8 +2927,14 @@ body, #pagebody {
 .toggled .menu-toggle.dashicons::before {
 	content: "\f343";
 }
+.main-navigation ul li {
+	display: block;
+	border-top: 1px solid hsla(0,0%,100%,.2);
+	padding: 1rem;
+}
 
 @media screen and (min-width: 968px) {
+	
 	.menu-toggle.dashicons {
 		display: none;
 	}
