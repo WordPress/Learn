@@ -2921,13 +2921,14 @@ body, #pagebody {
 	top: -58px;
 	width: 3.5rem;
 	-webkit-appearance: none;
+	display: initial;
 }
 
 .toggled .menu-toggle.dashicons::before {
 	content: "\f343";
 }
 
-@media screen and (min-width: 737px) {
+@media screen and (min-width: 968px) {
 	.menu-toggle.dashicons {
 		display: none;
 	}
