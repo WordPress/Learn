@@ -1,0 +1,159 @@
+thead th {
+	color: #555d66;
+}
+
+.card,
+body:not(.single):not(.search) .site-main .card.post.course {
+	padding: 1.75rem;
+}
+
+/* Details summary block START */
+details {
+	border: 1px solid #e7e7e7;
+	padding: 0 .9em;
+	background: #f7f7f7;
+	margin: 1em 0;
+	display: flex;
+}
+
+details summary::before {
+	content: "\025B8";
+	margin-right: .5em;
+	font-size: 200%;
+	display: inline;
+	vertical-align: bottom;
+	line-height: 1.4;
+}
+
+details[open] summary::before {
+	content: "\025BE";
+}
+
+details summary {
+	display: inline-block;
+	font-weight: bold;
+	cursor: pointer;
+	line-height: 2.8;
+}
+
+/* Details summary block END */
+/* Course/lesson START */
+.sensei.course:not(.post-type-archive-course) article.course:first-child,
+.sensei.lesson #main-content {
+	padding: 4rem 0;
+}
+
+.sensei.course article.course header,
+.sensei.lesson #main-content header {
+	border-bottom: 1px solid #eee;
+	margin-bottom: 1rem;
+}
+
+.sensei.lesson .bbp-breadcrumb {
+	display: none;
+}
+
+.sensei.lesson #main-content header {
+	padding-bottom: 1rem;
+}
+
+.sensei.course article.course p,
+.sensei.course article.course li,
+.sensei.lesson #main-content table {
+	font-size: 16px;
+}
+
+.sensei.course article.course .wp-block-image,
+.sensei.lesson #main-content .wp-block-image,
+.sensei.course article.course .wp-block-media-text,
+.sensei.lesson #main-content .wp-block-media-text {
+	margin: 2rem 0;
+}
+
+.sensei.course article.course hr,
+.sensei.lesson #main-content hr {
+	margin: 2rem 0;
+}
+
+h2.wp-block-sensei-lms-course-outline-module__title {
+	color: #fff !important;
+}
+
+.wp-block-sensei-lms-lesson-properties {
+	padding: 1rem;
+	border: 1px solid #e7e7e7;
+	display: inline-block;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 1rem;
+}
+
+.sensei.lesson #main-content nav.post-entries {
+	width: 100%;
+}
+
+.sensei.lesson #main-content nav.post-entries div,
+.sensei.quiz #main-content nav.post-entries div {
+	display: block;
+	width: 45% !important;
+	padding: 1rem;
+	margin: 1rem 0;
+	font-style: italic;
+}
+
+.sensei.lesson #main-content nav.post-entries div.fl,
+.sensei.quiz #main-content nav.post-entries div.fl {
+	padding-left: 0;
+}
+
+.sensei.lesson #main-content nav.post-entries div.fr,
+.sensei.quiz #main-content nav.post-entries div.fr {
+	padding-right: 0;
+	text-align: right;
+}
+
+.sensei.lesson #main-content .sensei-breadcrumb,
+.sensei.quiz #main-content .sensei-breadcrumb {
+	padding: 1rem;
+}
+
+ol#sensei-quiz-list {
+	padding-left: 2rem;
+}
+
+.sensei-quiz-action .button {
+	height: auto !important;
+}
+
+/* Course/lesson END */
+/* Meetings plugin START */
+.wporg-meeting-calendar__list-event-copy {
+	display: none;
+}
+
+.wporg-meeting-calendar__modal .components-modal__content p:nth-of-type(2) {
+	display: none;
+}
+
+.wporg-meeting-calendar__modal .components-modal__content p:nth-of-type(3) a {
+	visibility: hidden;
+}
+
+.wporg-meeting-calendar__modal .components-modal__content p:nth-of-type(3) a:before {
+	content: "Register for event";
+	visibility: visible;
+}
+
+.wporg-meeting-calendar__cell {
+	height: 100px;
+}
+
+.wporg-meeting-calendar__cell-event-title {
+	white-space: normal;
+}
+
+.sls-apply-button a {
+	text-decoration: none !important;
+}
+
+/* Meetings plugin END */
