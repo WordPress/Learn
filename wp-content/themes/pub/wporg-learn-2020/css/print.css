@@ -1,7 +1,6 @@
 @page {
   margin: 0.75cm;
 }
-
 #wporg-header,
 #wporg-footer,
 #head-search,
@@ -49,13 +48,11 @@ p a {
   color: #000;
   font-size: 12px;
 }
-
 .site-header a {
   background: #fff;
   color: #000;
   font-size: 12px;
 }
-
 .site-header .site-branding {
   padding: 0 0 0 10px;
 }
@@ -84,24 +81,19 @@ p a {
 .post-type-archive-lesson-plan .sidebar-filters {
   display: none;
 }
-
 .post-type-archive-lesson-plan #main section,
 .post-type-archive-lesson-plan .section-heading--with-space {
   padding: 0;
 }
-
 .post-type-archive-lesson-plan .gutters > .col-9 {
   width: 100%;
 }
-
 .post-type-archive-lesson-plan .submit-idea-cta {
   display: none;
 }
-
 .post-type-archive-lesson-plan .card {
   border: dotted 2px #000;
 }
-
 .post-type-archive-lesson-plan .card-meta li {
   float: left;
   padding: 0 5px 5px 0;
@@ -114,15 +106,12 @@ p a {
 .single-lesson-plan #main-content section {
   padding: 0;
 }
-
 .single-lesson-plan .card-grid .card {
   break-inside: avoid-page;
 }
-
 .single-lesson-plan .lp-list .lp-details ul li {
   padding: 0 10px 10px 0;
 }
-
 .single-lesson-plan .lp-sidebar > .widget_block > * {
   display: none;
 }
@@ -136,7 +125,6 @@ p a {
 .post-type-archive-wporg_workshop .filter-form {
   display: none;
 }
-
 .post-type-archive-wporg_workshop #main section {
   padding: 0;
 }
@@ -147,16 +135,13 @@ p a {
 .single-wporg_workshop .workshop-page_sidebar {
   display: none;
 }
-
 .single-wporg_workshop article.wporg_workshop section {
   padding: 0;
 }
-
 .single-wporg_workshop .wp-block-column,
-.single-wporg_workshop .wp-block-columns:not(.is-not-stacked-on-mobile) > .wp-block-column[style*="flex-basis"] {
+.single-wporg_workshop .wp-block-columns:not(.is-not-stacked-on-mobile) > .wp-block-column[style*=flex-basis] {
   flex-grow: 1;
 }
-
 .single-wporg_workshop .workshop-page_content {
   margin-bottom: 32px;
 }
