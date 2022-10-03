@@ -14,7 +14,7 @@
 		"packages-update": "wp-scripts packages-update"
 	},
 	"devDependencies": {
-		"@wordpress/scripts": "12.1.1"
+		"@wordpress/scripts": "^19.2.2"
 	},
 	"stylelint": {
 		"extends": "../../../.stylelintrc"
