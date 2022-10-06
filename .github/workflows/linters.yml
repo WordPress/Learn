@@ -13,32 +13,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Fetch wporg parent theme css
       run: |
         mkdir wp-content/themes/pub/wporg
         svn export https://meta.svn.wordpress.org/sites/trunk/wordpress.org/public_html/wp-content/themes/pub/wporg/css wp-content/themes/pub/wporg/css
 
-    - name: Get yarn cache directory path
-      id: yarn-cache-dir-path
-      run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
-
-    - name: Cache node modules
-      uses: actions/cache@v2
-      id: yarn-cache
-
+    - name: Install NodeJS
+      uses: actions/setup-node@v3
       with:
-        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-        
-        restore-keys: |
-          ${{ runner.os }}-yarn-
-
-    - name: Use Node.js 14.x
-      uses: actions/setup-node@v1
-      with:
-        node-version: 14.x
+        node-version-file: '.nvmrc'
+        cache: 'yarn'
 
     - name: yarn install and build
       run: |
