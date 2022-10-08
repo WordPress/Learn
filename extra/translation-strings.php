@@ -333,9 +333,9 @@ _x( 'Navigation Block Menu', 'Included Content term name', 'wporg-learn' );
 _x( 'page attributes', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/pages/ */
 _x( 'pages', 'Included Content term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/wporg_included_content/performance-settings/ */
-_x( 'performance', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/performance/ */
+_x( 'performance', 'Included Content term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/wporg_included_content/performance-settings/ */
 _x( 'performance', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/permalinks/ */
 _x( 'permalinks', 'Included Content term name', 'wporg-learn' );
@@ -437,5 +437,7 @@ _x( 'If you\'ve ever wanted to edit all parts of your site easily, the Site Edit
 _x( 'deputies', 'Lesson Tags term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/lesson-tag/gpl/ */
 _x( 'GPL', 'Lesson Tags term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/lesson-tag/homepage/ */
+_x( 'homepage', 'Lesson Tags term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/lesson-tag/licensing/ */
 _x( 'licensing', 'Lesson Tags term name', 'wporg-learn' );
