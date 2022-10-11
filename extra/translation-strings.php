@@ -117,6 +117,8 @@ _x( 'Organizing WordPress Meetups', 'Tutorial Series term name', 'wporg-learn' )
 _x( 'This series aimed at all WordPress Community members across the world that are interested in organizing WordPress meetups. You will learn how to organize a local WordPress Meetup, the important things to keep in mind while organizing a meetup, and how to keep your local meetup group active.', 'Tutorial Series term description', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/tutorials/seguridad-en-wordpress/ */
 _x( 'Seguridad en WordPress', 'Tutorial Series term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/tutorials/shortcode-to-block/ */
+_x( 'Shortcode to Block', 'Tutorial Series term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/tutorials/site-management/ */
 _x( 'Site Management', 'Tutorial Series term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/tutorials/using-the-block-editor/ */
@@ -333,9 +335,9 @@ _x( 'Navigation Block Menu', 'Included Content term name', 'wporg-learn' );
 _x( 'page attributes', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/pages/ */
 _x( 'pages', 'Included Content term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/wporg_included_content/performance-settings/ */
-_x( 'performance', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/performance/ */
+_x( 'performance', 'Included Content term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/wporg_included_content/performance-settings/ */
 _x( 'performance', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/permalinks/ */
 _x( 'permalinks', 'Included Content term name', 'wporg-learn' );
