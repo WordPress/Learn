@@ -8,6 +8,7 @@ import {
 	PanelRow,
 } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
+// eslint-disable-next-line @wordpress/no-unsafe-wp-apis -- Experimental is OK.
 import { format, __experimentalGetSettings } from '@wordpress/date';
 import { PluginPostStatusInfo } from '@wordpress/edit-post';
 import { useState, useRef } from '@wordpress/element';

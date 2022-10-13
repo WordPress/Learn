@@ -13,9 +13,6 @@
 2. `yarn run create`
 3. Visit site at `localhost:8888`
 
-⚠️ [`node-sass` is very picky about node versions](https://www.npmjs.com/package/node-sass). If you get errors, [make sure your node version is supported](https://stackoverflow.com/questions/60394291/error-node-modules-node-sass-command-failed) by the version of `node-sass` in `package.json`. e.g., `nvm use lts/fermium`.
-
-
 ## Stopping Environment
 run `yarn run wp-env stop`
 
