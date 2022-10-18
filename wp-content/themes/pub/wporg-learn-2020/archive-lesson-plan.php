@@ -102,7 +102,7 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 		<div class="row lp-two-col between">
 			<div class="lp-level">
 				<h2 class="h4 lp-taxonomy-header"><?php echo esc_html__( 'Level', 'wporg-learn' ); ?></h2>
-				<div class="lp-taxonomy-description"><?php echo esc_html__( 'What experience partipants need.', 'wporg-learn' ); ?></div>
+				<div class="lp-taxonomy-description"><?php echo esc_html__( 'What experience participants need.', 'wporg-learn' ); ?></div>
 				<ul class="lp-two-col-list">
 					<?php
 					$levels = get_terms( 'level', array(
