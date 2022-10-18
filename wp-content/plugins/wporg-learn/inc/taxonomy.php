@@ -233,7 +233,7 @@ function register_lesson_instruction_type() {
 		'items_list_navigation'      => __( 'Instruction Types list navigation', 'wporg-learn' ),
 	);
 
-	$args   = array(
+	$args = array(
 		'labels'            => $labels,
 		'hierarchical'      => true,
 		'public'            => true,
@@ -297,7 +297,7 @@ function register_lesson_level() {
 }
 
 /**
- * Register the Workshop Series taxonomy.
+ * Register the Lesson Plan Series taxonomy.
  */
 function register_lesson_plan_series() {
 	$labels = array(
