@@ -4,8 +4,8 @@ You can use this file to create a pull request (PR) to be included for Hacktober
 
 Contributors:
 
-Use the table below and add your GitHub username and the ID to the ticket your working on for Hacktoberfest as part of the pull request.
+Use the table below and add your GitHub username and the URL to the ticket your working on for Hacktoberfest as part of the pull request.
 
-| Github Username | Ticket ID |
+| Github Username | Ticket URL|
 |-----------------|-----------|
-| @psykro         | #1028     |
+| @psykro         | https://github.com/WordPress/Learn/issues/#1028 |
