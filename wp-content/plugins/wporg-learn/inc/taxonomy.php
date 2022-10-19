@@ -21,11 +21,11 @@ function register() {
 	register_lesson_level();
 	register_lesson_plan_series();
 	register_workshop_series();
-	register_workshop_topic();
 	register_workshop_type();
 	register_wp_version();
 	register_included_content();
 	register_language();
+	register_topic();
 }
 
 /**
@@ -389,11 +389,11 @@ function register_workshop_series() {
 }
 
 /**
- * Register the Workshop Topic taxonomy.
+ * Register the Topic taxonomy.
  */
-function register_workshop_topic() {
+function register_topic() {
 	$labels = array(
-		'name'                       => _x( 'Topics', 'Topic Plans associated to tutorial.', 'wporg-learn' ),
+		'name'                       => _x( 'Topic', 'Topics associated with the content.', 'wporg-learn' ),
 		'singular_name'              => _x( 'Topic', 'Taxonomy Singular Name', 'wporg-learn' ),
 		'menu_name'                  => __( 'Topics', 'wporg-learn' ),
 		'all_items'                  => __( 'All topic', 'wporg-learn' ),
@@ -413,6 +413,7 @@ function register_workshop_topic() {
 		'no_terms'                   => __( 'No Topic ', 'wporg-learn' ),
 		'items_list'                 => __( 'Topic list', 'wporg-learn' ),
 		'items_list_navigation'      => __( 'Topic list navigation', 'wporg-learn' ),
+		'back_to_items'              => __( '&larr; Back to topics', 'wporg-learn' ),
 	);
 
 	$args = array(
@@ -426,11 +427,11 @@ function register_workshop_topic() {
 		'show_tagcloud'     => false,
 		'show_in_rest'      => true,
 		'capabilities'      => array(
-			'assign_terms' => 'edit_workshops',
+			'assign_terms' => 'edit_any_learn_content', // See \WPOrg_Learn\Capabilities\map_meta_caps.
 		),
 	);
 
-	register_taxonomy( 'topic', array( 'wporg_workshop' ), $args );
+	register_taxonomy( 'topic', array( 'lesson-plan', 'wporg_workshop', 'course', 'lesson', 'meeting' ), $args );
 }
 
 /**
