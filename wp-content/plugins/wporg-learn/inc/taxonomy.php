@@ -74,30 +74,28 @@ function register_lesson_audience() {
 }
 
 /**
- * Register the Lesson Topic taxonomy.
+ * Register the Lesson Category taxonomy.
  */
 function register_lesson_category() {
 	$labels = array(
-		'name'                       => _x( 'Topics', 'Taxonomy General Name', 'wporg-learn' ),
-		'singular_name'              => _x( 'Topic', 'Taxonomy Singular Name', 'wporg-learn' ),
-		'menu_name'                  => __( 'Topics', 'wporg-learn' ),
-		'all_items'                  => __( 'All Topics', 'wporg-learn' ),
-		'new_item_name'              => __( 'New Topic', 'wporg-learn' ),
-		'add_new_item'               => __( 'Add new Topic', 'wporg-learn' ),
-		'parent_item'                => __( 'Parent topic', 'wporg-learn' ),
-		'parent_item_colon'          => __( 'Parent topic:', 'wporg-learn' ),
-		'edit_item'                  => __( 'Edit Topic', 'wporg-learn' ),
-		'update_item'                => __( 'Update Topic', 'wporg-learn' ),
-		'view_item'                  => __( 'View Topic', 'wporg-learn' ),
-		'separate_items_with_commas' => __( 'Separate Topics with commas', 'wporg-learn' ),
-		'add_or_remove_items'        => __( 'Add or remove Topics', 'wporg-learn' ),
+		'name'                       => _x( 'Lesson Categories', 'Taxonomy General Name', 'wporg-learn' ),
+		'singular_name'              => _x( 'Lesson Category', 'Taxonomy Singular Name', 'wporg-learn' ),
+		'menu_name'                  => __( 'Categories', 'wporg-learn' ),
+		'all_items'                  => __( 'All Lesson Categories', 'wporg-learn' ),
+		'new_item_name'              => __( 'New Lesson Category', 'wporg-learn' ),
+		'add_new_item'               => __( 'Add New Lesson Category', 'wporg-learn' ),
+		'edit_item'                  => __( 'Edit Lesson Category', 'wporg-learn' ),
+		'update_item'                => __( 'Update Lesson Category', 'wporg-learn' ),
+		'view_item'                  => __( 'View Lesson Category', 'wporg-learn' ),
+		'separate_items_with_commas' => __( 'Separate lesson categories with commas', 'wporg-learn' ),
+		'add_or_remove_items'        => __( 'Add or remove lesson categories', 'wporg-learn' ),
 		'choose_from_most_used'      => __( 'Choose from the most used', 'wporg-learn' ),
-		'popular_items'              => __( 'Popular Topics', 'wporg-learn' ),
-		'search_items'               => __( 'Search Topics', 'wporg-learn' ),
+		'popular_items'              => __( 'Popular lesson categories', 'wporg-learn' ),
+		'search_items'               => __( 'Search lesson categories', 'wporg-learn' ),
 		'not_found'                  => __( 'Not Found', 'wporg-learn' ),
-		'no_terms'                   => __( 'No Topics', 'wporg-learn' ),
-		'items_list'                 => __( 'Topics list', 'wporg-learn' ),
-		'items_list_navigation'      => __( 'Topics list navigation', 'wporg-learn' ),
+		'no_terms'                   => __( 'No lesson categories', 'wporg-learn' ),
+		'items_list'                 => __( 'Lesson Categories list', 'wporg-learn' ),
+		'items_list_navigation'      => __( 'Lesson Categories list navigation', 'wporg-learn' ),
 	);
 
 	$args = array(
