@@ -4,34 +4,8 @@
       padding: 0;
     }
   }
-}
 
-.single-course {
-  .course-lessons {
-    .lesson {
-      border-bottom: none;
-      margin-bottom: 0;
-    }
-
-    .lesson-title {
-      h2 {
-        font-size: 1rem;
-        font-weight: 400;
-      }
-    }
-
-    .lesson-meta {
-      margin-bottom: 0;
-    }
-
-    .entry {
-      display: none;
-    }
-  }
-}
-
-.sensei {
-  .course {
+    .course {
     &:not(.post-type-archive-course) {
       article.course {
         &:first-child {
@@ -149,6 +123,30 @@
       .sensei-breadcrumb {
         padding: 1rem;
       }
+    }
+  }
+}
+
+.single-course {
+  .course-lessons {
+    .lesson {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    .lesson-title {
+      h2 {
+        font-size: 1rem;
+        font-weight: 400;
+      }
+    }
+
+    .lesson-meta {
+      margin-bottom: 0;
+    }
+
+    .entry {
+      display: none;
     }
   }
 }
