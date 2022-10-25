@@ -5,5 +5,9 @@
 			font-style: italic;
 			text-align: center;
 		}
+
+		&.bordered-image {
+			border: 1px solid #ddd;
+		}
 	}
 }
