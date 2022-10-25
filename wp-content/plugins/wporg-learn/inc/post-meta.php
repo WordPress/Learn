@@ -177,6 +177,23 @@ function register_misc_meta() {
 			)
 		);
 	}
+
+	// Language field.
+	$post_types = array( 'lesson-plan', 'meeting', 'course', 'lesson' );
+	foreach ( $post_types as $post_type ) {
+		register_post_meta(
+			$post_type,
+			'language',
+			array(
+				'description'       => __( 'The language for the content.', 'wporg_learn' ),
+				'type'              => 'string',
+				'single'            => true,
+				'default'           => 'en_US',
+				'sanitize_callback' => __NAMESPACE__ . '\sanitize_locale',
+				'show_in_rest'      => true,
+			)
+		);
+	}
 }
 
 /**
