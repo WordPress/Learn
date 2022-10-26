@@ -31,5 +31,5 @@ jobs:
         uses: actions-js/push@a52398fac807b0c1e5f1492c969b477c8560a0ba
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: trunk
+          branch: fix/update-translation-strings
           message: Update translation strings
