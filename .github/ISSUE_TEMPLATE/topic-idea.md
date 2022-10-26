@@ -16,8 +16,10 @@ Remember to update the title of this issue. Example: Greek translation for Lesso
 <!-- Please describe what this content topic is about-->
 - Topic title: 
 - Topic description: 
+- Objective: 
 - Content type: 
 - WordPress version: 
+- Will you be creating this content?: Yes/No
 
 # Related Resources
 Links to related content on Learn, HelpHub, DevHub, GitHub Gutenberg Issues, DevNotes, etc.
