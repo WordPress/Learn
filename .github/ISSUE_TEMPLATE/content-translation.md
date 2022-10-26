@@ -2,7 +2,7 @@
 name: Content Translation Template
 about: Tracking content translation for the learn.wordpress.org website
 title: LANGUAGE translation for CONTENT TYPE "CONTENT TITLE" 
-labels: Awaiting Triage, Translation
+labels: Awaiting Triage, Translation, Needs Translation Reviewer
 assignees: ''
 ---
 
