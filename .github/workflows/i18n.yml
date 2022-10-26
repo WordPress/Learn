@@ -13,6 +13,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: fix/update-translation-strings
 
       - name: Set PHP version
         uses: shivammathur/setup-php@v2
