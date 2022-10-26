@@ -33,4 +33,3 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: trunk
           message: Update translation strings
-          directory: ./extra
