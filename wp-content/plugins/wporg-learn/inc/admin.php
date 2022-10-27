@@ -13,9 +13,13 @@ defined( 'WPINC' ) || die();
  */
 add_action( 'admin_notices', __NAMESPACE__ . '\show_term_translation_notice' );
 add_filter( 'manage_wporg_workshop_posts_columns', __NAMESPACE__ . '\add_workshop_list_table_columns' );
-add_filter( 'manage_lesson-plan_posts_columns', __NAMESPACE__ . '\add_lesson_plan_list_table_columns' );
+add_filter( 'manage_lesson-plan_posts_columns', __NAMESPACE__ . '\add_list_table_language_column' );
+add_filter( 'manage_course_posts_columns', __NAMESPACE__ . '\add_list_table_language_column' );
+add_filter( 'manage_meeting_posts_columns', __NAMESPACE__ . '\add_list_table_language_column' );
 add_action( 'manage_wporg_workshop_posts_custom_column', __NAMESPACE__ . '\render_workshop_list_table_columns', 10, 2 );
-add_action( 'manage_lesson-plan_posts_custom_column', __NAMESPACE__ . '\render_lesson_plan_list_table_columns', 10, 2 );
+add_action( 'manage_lesson-plan_posts_custom_column', __NAMESPACE__ . '\render_list_table_language_column', 10, 2 );
+add_action( 'manage_course_posts_custom_column', __NAMESPACE__ . '\render_list_table_language_column', 10, 2 );
+add_action( 'manage_meeting_posts_custom_column', __NAMESPACE__ . '\render_list_table_language_column', 10, 2 );
 add_filter( 'manage_edit-wporg_workshop_sortable_columns', __NAMESPACE__ . '\add_workshop_list_table_sortable_columns' );
 add_action( 'restrict_manage_posts', __NAMESPACE__ . '\add_workshop_list_table_filters', 10, 2 );
 add_action( 'pre_get_posts', __NAMESPACE__ . '\handle_workshop_list_table_filters' );
@@ -89,13 +93,13 @@ function add_workshop_list_table_columns( $columns ) {
 }
 
 /**
- * Add additional columns to the post list table for lesson plans.
+ * Add a language column to the post list table.
  *
  * @param array $columns
  *
  * @return array
  */
-function add_lesson_plan_list_table_columns( $columns ) {
+function add_list_table_language_column( $columns ) {
 	$columns = array_slice( $columns, 0, -1, true )
 				+ array( 'language' => __( 'Language', 'wporg-learn' ) )
 				+ array_slice( $columns, -1, 1, true );
@@ -139,24 +143,22 @@ function render_workshop_list_table_columns( $column_name, $post_id ) {
 }
 
 /**
- * Render the cell contents for the additional columns in the post list table for lesson plans.
+ * Render the cell contents for the additional language columns in the post list table.
  *
  * @param string $column_name
  * @param int    $post_id
  *
  * @return void
  */
-function render_lesson_plan_list_table_columns( $column_name, $post_id ) {
+function render_list_table_language_column( $column_name, $post_id ) {
 	$language = get_post_meta( get_the_ID(), 'language', true );
 
-	switch ( $column_name ) {
-		case 'language':
-			printf(
-				'%s [%s]',
-				esc_html( get_locale_name_from_code( $language, 'english' ) ),
-				esc_html( $language )
-			);
-			break;
+	if ( 'language' === $column_name ) {
+		printf(
+			'%s [%s]',
+			esc_html( get_locale_name_from_code( $language, 'english' ) ),
+			esc_html( $language )
+		);
 	}
 }
 
