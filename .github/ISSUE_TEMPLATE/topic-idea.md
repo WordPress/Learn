@@ -25,9 +25,12 @@ Links to related content on Learn, HelpHub, DevHub, GitHub Gutenberg Issues, Dev
 - [ ]
 
 # Triage Checklist
+Please follow this [Vetting content topic ideas handbook page]() guide.
+
 - [ ] SME assigned
-- [ ] Content Cateogy applied
-- [ ] Topic idea has passed vetting checks (See handbook page on how to vet topic ideas)
+- [ ] Content Category applied
+- [ ] Topic idea has passed vetting checks
+- [ ] Content type label applied
 - [ ] Priority set
 - [ ] Content Type Checklist applied
 - [ ] Ticket moved to Ready to Create 
