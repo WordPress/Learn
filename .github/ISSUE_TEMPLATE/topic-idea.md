@@ -1,9 +1,8 @@
 ---
 name: Topic Idea Template
 about: Tracking content topic ideas for the learn.wordpress.org website
-title: Topic Idea: TOPIC TITLE
+title: "Topic Idea: TOPIC TITLE"
 labels: Awaiting Triage
-assignees: ''
 ---
 
 <!--
