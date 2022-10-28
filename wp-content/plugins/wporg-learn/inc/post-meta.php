@@ -180,7 +180,7 @@ function register_misc_meta() {
 	}
 
 	// Language field.
-	$post_types = array( 'lesson-plan', 'meeting', 'course', 'lesson' );
+	$post_types = array( 'lesson-plan', 'wporg_workshop', 'meeting', 'course', 'lesson' );
 	foreach ( $post_types as $post_type ) {
 		register_post_meta(
 			$post_type,
@@ -518,7 +518,7 @@ function save_workshop_metabox_fields( $post_id ) {
 function render_locales_list() {
 	global $typenow;
 
-	$post_types_with_language = array( 'lesson-plan', 'meeting', 'course', 'lesson' );
+	$post_types_with_language = array( 'lesson-plan', 'wporg_workshop', 'meeting', 'course', 'lesson' );
 	if ( in_array( $typenow, $post_types_with_language, true ) ) {
 		$locales = get_locales_with_english_names();
 
@@ -567,7 +567,7 @@ function enqueue_expiration_date_assets() {
 function enqueue_language_meta_assets() {
 	global $typenow;
 
-	$post_types_with_language = array( 'lesson-plan', 'meeting', 'course', 'lesson' );
+	$post_types_with_language = array( 'lesson-plan', 'wporg_workshop', 'meeting', 'course', 'lesson' );
 	if ( in_array( $typenow, $post_types_with_language, true ) ) {
 		$script_asset_path = get_build_path() . 'language-meta.asset.php';
 		if ( ! file_exists( $script_asset_path ) ) {

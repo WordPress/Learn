@@ -66,7 +66,7 @@
 <?php wp_nonce_field( 'workshop-metaboxes', 'workshop-metabox-nonce' ); ?>
 
 <p>
-	<label for="workshop-video-language"><?php esc_html_e( 'Language', 'wporg_learn' ); ?></label>
+	<label for="workshop-video-language"><?php esc_html_e( 'Video Language', 'wporg_learn' ); ?></label>
 	<select id="workshop-video-language" name="video-language" style="width: 100%;">
 		<?php foreach ( $locales as $code => $label ) : ?>
 			<option value="<?php echo esc_attr( $code ); ?>" <?php selected( $code, $post->video_language ); ?>>

@@ -87,8 +87,9 @@ function show_term_translation_notice() {
  */
 function add_workshop_list_table_columns( $columns ) {
 	$columns = array_slice( $columns, 0, -2, true )
-				+ array( 'video_language' => __( 'Language', 'wporg-learn' ) )
+				+ array( 'video_language' => __( 'Video Language', 'wporg-learn' ) )
 				+ array( 'video_caption_language' => __( 'Subtitles', 'wporg-learn' ) )
+				+ array( 'language' => __( 'Language', 'wporg-learn' ) )
 				+ array_slice( $columns, -2, 2, true );
 
 	return $columns;
@@ -102,9 +103,9 @@ function add_workshop_list_table_columns( $columns ) {
  * @return array
  */
 function add_list_table_language_column( $columns ) {
-	$columns = array_slice( $columns, 0, -1, true )
+	$columns = array_slice( $columns, 0, -2, true )
 				+ array( 'language' => __( 'Language', 'wporg-learn' ) )
-				+ array_slice( $columns, -1, 1, true );
+				+ array_slice( $columns, -2, 2, true );
 
 	return $columns;
 }
@@ -121,6 +122,15 @@ function render_workshop_list_table_columns( $column_name, $post_id ) {
 	$post = get_post( $post_id );
 
 	switch ( $column_name ) {
+		case 'language':
+			$language = get_post_meta( get_the_ID(), 'language', true );
+
+			printf(
+				'%s [%s]',
+				esc_html( get_locale_name_from_code( $language, 'english' ) ),
+				esc_html( $language )
+			);
+			break;
 		case 'video_language':
 			printf(
 				'%s [%s]',
@@ -198,7 +208,7 @@ function add_workshop_list_table_filters( $post_type, $which ) {
 		<?php esc_html_e( 'Filter by language', 'wporg-learn' ); ?>
 	</label>
 	<select id="filter-by-language" name="language">
-		<option value=""<?php selected( ! $language ); ?>><?php esc_html_e( 'Any language', 'wporg-learn' ); ?></option>
+		<option value=""<?php selected( ! $language ); ?>><?php esc_html_e( 'Any video language', 'wporg-learn' ); ?></option>
 		<?php foreach ( $available_locales as $code => $name ) : ?>
 			<option value="<?php echo esc_attr( $code ); ?>"<?php selected( $code, $language ); ?>>
 				<?php
