@@ -18,6 +18,7 @@ add_action( 'add_meta_boxes', __NAMESPACE__ . '\add_lesson_plan_metaboxes' );
 add_action( 'add_meta_boxes', __NAMESPACE__ . '\add_workshop_metaboxes' );
 add_action( 'save_post_lesson-plan', __NAMESPACE__ . '\save_lesson_plan_metabox_fields' );
 add_action( 'save_post_wporg_workshop', __NAMESPACE__ . '\save_workshop_metabox_fields' );
+add_action( 'admin_footer', __NAMESPACE__ . '\render_locales_list' );
 add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\enqueue_editor_assets' );
 
 /**
@@ -508,6 +509,20 @@ function save_workshop_metabox_fields( $post_id ) {
 		foreach ( $other_contributor_usernames as $username ) {
 			add_post_meta( $post_id, 'other_contributor_wporg_username', $username );
 		}
+	}
+}
+
+/**
+ * Render the locales list for the language meta block.
+ */
+function render_locales_list() {
+	global $typenow;
+
+	$post_types_with_language = array( 'lesson-plan', 'meeting', 'course', 'lesson' );
+	if ( in_array( $typenow, $post_types_with_language, true ) ) {
+		$locales = get_locales_with_english_names();
+
+		require get_views_path() . 'locales-list.php';
 	}
 }
 
