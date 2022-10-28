@@ -390,7 +390,7 @@ function register_workshop_series() {
  */
 function register_topic() {
 	$labels = array(
-		'name'                       => _x( 'Topic', 'Topics associated with the content.', 'wporg-learn' ),
+		'name'                       => _x( 'Topics', 'Topics associated with the content.', 'wporg-learn' ),
 		'singular_name'              => _x( 'Topic', 'Taxonomy Singular Name', 'wporg-learn' ),
 		'menu_name'                  => __( 'Topics', 'wporg-learn' ),
 		'all_items'                  => __( 'All topic', 'wporg-learn' ),
