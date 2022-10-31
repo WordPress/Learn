@@ -217,6 +217,8 @@ _x( '5.8', 'WordPress Version term name', 'wporg-learn' );
 _x( '5.9', 'WordPress Version term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_wp_version/6-0/ */
 _x( '6.0', 'WordPress Version term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/wporg_wp_version/6-1/ */
+_x( '6.1', 'WordPress Version term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/accessibility/ */
 _x( 'accessibility', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/add-new-plugin/ */
@@ -335,9 +337,9 @@ _x( 'Navigation Block Menu', 'Included Content term name', 'wporg-learn' );
 _x( 'page attributes', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/pages/ */
 _x( 'pages', 'Included Content term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/wporg_included_content/performance-settings/ */
-_x( 'performance', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/performance/ */
+_x( 'performance', 'Included Content term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/wporg_included_content/performance-settings/ */
 _x( 'performance', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/permalinks/ */
 _x( 'permalinks', 'Included Content term name', 'wporg-learn' );
