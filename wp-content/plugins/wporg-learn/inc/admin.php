@@ -3,6 +3,7 @@
 namespace WPOrg_Learn\Admin;
 
 use WP_Query;
+use function WordPressdotorg\Locales\get_locales_with_english_names;
 use function WordPressdotorg\Locales\get_locale_name_from_code;
 use function WPOrg_Learn\Post_Meta\get_available_workshop_locales;
 
@@ -30,6 +31,8 @@ foreach ( array( 'lesson-plan', 'wporg_workshop', 'course', 'lesson' ) as $pt ) 
 	add_filter( 'views_edit-' . $pt, __NAMESPACE__ . '\list_table_views' );
 }
 add_action( 'pre_get_posts', __NAMESPACE__ . '\handle_list_table_views' );
+add_action( 'bulk_edit_custom_box', __NAMESPACE__ . '\add_language_bulk_edit_field', 10, 2 );
+add_action( 'save_post', __NAMESPACE__ . '\language_bulk_edit_save' );
 
 /**
  * Show a notice on taxonomy term screens about terms being translatable.
@@ -390,4 +393,51 @@ function handle_list_table_views( WP_Query $query ) {
 			$query->set( 'meta_query', $meta_query );
 		}
 	}
+}
+
+/**
+ * Render a field for the additional language meta field on the bulk edit screen.
+ *
+ * @param string $column_name
+ * @param string $post_type
+ *
+ * @return void
+ */
+function add_language_bulk_edit_field( $column_name, $post_type ) {
+	$post_types_with_language = array( 'lesson-plan', 'wporg_workshop', 'meeting', 'course', 'lesson' );
+	if ( in_array( $post_type, $post_types_with_language, true ) && 'language' === $column_name ) {
+		$locales = get_locales_with_english_names();
+		?>
+			<fieldset class="inline-edit-col-right">
+				<div class="inline-edit-group wp-clearfix">
+					<label class="inline-edit-status alignleft">
+						<span class="title">Language</span>
+						<select name="language">
+							<option value="0" selected>— No Change —</option>
+						<?php foreach ( $locales as $code => $label ) : ?>
+							<option value="<?php echo esc_attr( $code ); ?>">
+								<?php echo esc_html( $label ); ?>
+							</option>
+						<?php endforeach; ?>
+						</select>
+					</label>
+				</div>
+			</fieldset>
+		<?php
+	}
+}
+
+/**
+ * Update the language meta field when bulk editing.
+ *
+ * @param int $post_id
+ *
+ * @return void
+ */
+function language_bulk_edit_save( $post_id ) {
+	if ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'bulk-posts' ) || empty( $_REQUEST['language'] ) ) {
+		return;
+	}
+
+	update_post_meta( $post_id, 'language', $_REQUEST['language'] );
 }
