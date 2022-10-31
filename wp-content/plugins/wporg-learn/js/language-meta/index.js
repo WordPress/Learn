@@ -1,3 +1,6 @@
+/* global wporgLearnLocales */
+// see render_locales_list() in wp-content/plugins/wporg-learn/inc/post-meta.php
+
 /**
  * WordPress dependencies
  */
@@ -8,8 +11,6 @@ import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { registerPlugin } from '@wordpress/plugins';
 
-// Global wporgLearnLocales, see render_locales_list() in wp-content/plugins/wporg-learn/inc/post-meta.php
-// eslint-disable-next-line no-undef
 const locales = wporgLearnLocales;
 
 const LanguageMeta = () => {

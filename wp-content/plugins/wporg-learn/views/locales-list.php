@@ -8,12 +8,12 @@ defined( 'WPINC' ) || die();
 ?>
 
 <script type="text/javascript" id="wporg-learn-locales">
-	var wporgLearnLocales = [
+	const wporgLearnLocales = [
 		<?php foreach ( $locales as $code => $label ) : ?>
 			{
 				label: "<?php echo esc_html( $label ); ?>",
 				value: "<?php echo esc_attr( $code ); ?>",
 			},
 		<?php endforeach; ?>
-	]
+	];
 </script>
