@@ -14,15 +14,13 @@ defined( 'WPINC' ) || die();
  */
 add_action( 'admin_notices', __NAMESPACE__ . '\show_term_translation_notice' );
 add_filter( 'manage_wporg_workshop_posts_columns', __NAMESPACE__ . '\add_workshop_list_table_columns' );
-add_filter( 'manage_lesson-plan_posts_columns', __NAMESPACE__ . '\add_list_table_language_column' );
-add_filter( 'manage_course_posts_columns', __NAMESPACE__ . '\add_list_table_language_column' );
-add_filter( 'manage_lesson_posts_columns', __NAMESPACE__ . '\add_list_table_language_column' );
-add_filter( 'manage_meeting_posts_columns', __NAMESPACE__ . '\add_list_table_language_column' );
+foreach ( array( 'lesson-plan', 'meeting', 'course', 'lesson' ) as $pt ) {
+	add_filter( 'manage_' . $pt . '_posts_columns', __NAMESPACE__ . '\add_list_table_language_column' );
+}
 add_action( 'manage_wporg_workshop_posts_custom_column', __NAMESPACE__ . '\render_workshop_list_table_columns', 10, 2 );
-add_action( 'manage_lesson-plan_posts_custom_column', __NAMESPACE__ . '\render_list_table_language_column', 10, 2 );
-add_action( 'manage_course_posts_custom_column', __NAMESPACE__ . '\render_list_table_language_column', 10, 2 );
-add_action( 'manage_lesson_posts_custom_column', __NAMESPACE__ . '\render_list_table_language_column', 10, 2 );
-add_action( 'manage_meeting_posts_custom_column', __NAMESPACE__ . '\render_list_table_language_column', 10, 2 );
+foreach ( array( 'lesson-plan', 'meeting', 'course', 'lesson' ) as $pt ) {
+	add_filter( 'manage_' . $pt . '_posts_custom_column', __NAMESPACE__ . '\render_list_table_language_column', 10, 2 );
+}
 add_filter( 'manage_edit-wporg_workshop_sortable_columns', __NAMESPACE__ . '\add_workshop_list_table_sortable_columns' );
 add_action( 'restrict_manage_posts', __NAMESPACE__ . '\add_workshop_list_table_filters', 10, 2 );
 add_action( 'pre_get_posts', __NAMESPACE__ . '\handle_workshop_list_table_filters' );
