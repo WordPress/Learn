@@ -226,8 +226,8 @@ function workshop_details_render_callback( $attributes, $content ) {
 		),
 		'language' => array(
 			'label' => __( 'Language', 'wporg-learn' ),
-			'param' => array( $post->video_language ),
-			'value' => array( esc_html( get_locale_name_from_code( $post->video_language, 'native' ) ) ),
+			'param' => array( $post->language ),
+			'value' => array( esc_html( get_locale_name_from_code( $post->language, 'native' ) ) ),
 		),
 		'captions' => array(
 			'label' => __( 'Subtitles', 'wporg-learn' ),
