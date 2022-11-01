@@ -108,3 +108,31 @@ ol#sensei-quiz-list {
     height: auto !important;
   }
 }
+
+details {
+  border: 1px solid #e7e7e7;
+  padding: 0 .9em;
+  background: #f7f7f7;
+  margin: 1em 0;
+  display: flex;
+
+  summary::before {
+    content: "\025B8";
+    margin-right: .5em;
+    font-size: 200%;
+    display: inline;
+    vertical-align: bottom;
+    line-height: 1.4;
+  }
+
+  &[open] summary::before {
+    content: "\025BE";
+  }
+
+  summary {
+    display: inline-block;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 2.8;
+  }
+}
