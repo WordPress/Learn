@@ -1,130 +1,67 @@
-.sensei {
-  &:not(.post-type-archive-course):not(.tax-course-category) {
-    section {
-      padding: 0;
-    }
-  }
+.course:not(.post-type-archive-course) article.course:first-child,
+.lesson #main-content {
+  padding: 4rem 0;
+}
 
-    .course {
-    &:not(.post-type-archive-course) {
-      article.course {
-        &:first-child {
-          padding: 4rem 0;
-        }
-      }
-    }
+.course article.course header,
+.lesson #main-content header {
+  border-bottom: 1px solid #eee;
+  margin-bottom: 1rem;
+}
 
-    article.course {
-      header {
-        border-bottom: 1px solid #eee;
-        margin-bottom: 1rem;
-      }
+.lesson .bbp-breadcrumb {
+  display: none;
+}
 
-      p {
-        font-size: 16px;
-      }
+.lesson #main-content header {
+  padding-bottom: 1rem;
+}
 
-      li {
-        font-size: 16px;
-      }
+.course article.course p,
+.course article.course li,
+.lesson #main-content table {
+  font-size: 16px;
+}
 
-      .wp-block-image {
-        margin: 2rem 0;
-      }
+.course article.course .wp-block-image,
+.lesson #main-content .wp-block-image,
+.course article.course .wp-block-media-text,
+.lesson #main-content .wp-block-media-text {
+  margin: 2rem 0;
+}
 
-      .wp-block-media-text {
-        margin: 2rem 0;
-      }
+.course article.course hr,
+.lesson #main-content hr {
+  margin: 2rem 0;
+}
 
-      hr {
-        margin: 2rem 0;
-      }
-    }
-  }
+.lesson #main-content nav.post-entries {
+  width: 100%;
+}
 
-  .lesson {
-    #main-content {
-      padding: 4rem 0;
+.lesson #main-content nav.post-entries div,
+.quiz #main-content nav.post-entries div {
+  display: block;
+  width: 45% !important;
+  padding: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+}
 
-      header {
-        border-bottom: 1px solid #eee;
-        margin-bottom: 1rem;
-        padding-bottom: 1rem;
-      }
+.lesson #main-content nav.post-entries div.fl,
+.quiz #main-content nav.post-entries div.fl {
+  padding-left: 0;
+}
 
-      table {
-        font-size: 16px;
-      }
+.lesson #main-content nav.post-entries div.fr,
+.quiz #main-content nav.post-entries div.fr {
+  padding-right: 0;
+  text-align: right;
+}
 
-      .wp-block-image {
-        margin: 2rem 0;
-      }
-
-      .wp-block-media-text {
-        margin: 2rem 0;
-      }
-
-      hr {
-        margin: 2rem 0;
-      }
-
-      nav.post-entries {
-        width: 100%;
-
-        div {
-          display: block;
-          width: 45% !important;
-          padding: 1rem;
-          margin: 1rem 0;
-          font-style: italic;
-        }
-
-        div.fl {
-          padding-left: 0;
-        }
-
-        div.fr {
-          padding-right: 0;
-          text-align: right;
-        }
-      }
-
-      .sensei-breadcrumb {
-        padding: 1rem;
-      }
-    }
-
-    .bbp-breadcrumb {
-      display: none;
-    }
-  }
-
-  .quiz {
-    #main-content {
-      nav.post-entries {
-        div {
-          display: block;
-          width: 45% !important;
-          padding: 1rem;
-          margin: 1rem 0;
-          font-style: italic;
-        }
-
-        div.fl {
-          padding-left: 0;
-        }
-
-        div.fr {
-          padding-right: 0;
-          text-align: right;
-        }
-      }
-
-      .sensei-breadcrumb {
-        padding: 1rem;
-      }
-    }
-  }
+.lesson #main-content .sensei-breadcrumb,
+.quiz #main-content .sensei-breadcrumb {
+  padding: 1rem;
 }
 
 .single-course {
