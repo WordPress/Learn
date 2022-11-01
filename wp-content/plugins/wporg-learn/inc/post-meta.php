@@ -18,6 +18,7 @@ add_action( 'add_meta_boxes', __NAMESPACE__ . '\add_lesson_plan_metaboxes' );
 add_action( 'add_meta_boxes', __NAMESPACE__ . '\add_workshop_metaboxes' );
 add_action( 'save_post_lesson-plan', __NAMESPACE__ . '\save_lesson_plan_metabox_fields' );
 add_action( 'save_post_wporg_workshop', __NAMESPACE__ . '\save_workshop_metabox_fields' );
+add_action( 'admin_footer', __NAMESPACE__ . '\render_locales_list' );
 add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\enqueue_editor_assets' );
 
 /**
@@ -177,6 +178,23 @@ function register_misc_meta() {
 			)
 		);
 	}
+
+	// Language field.
+	$post_types = array( 'lesson-plan', 'wporg_workshop', 'meeting', 'course', 'lesson' );
+	foreach ( $post_types as $post_type ) {
+		register_post_meta(
+			$post_type,
+			'language',
+			array(
+				'description'       => __( 'The language for the content.', 'wporg_learn' ),
+				'type'              => 'string',
+				'single'            => true,
+				'default'           => 'en_US',
+				'sanitize_callback' => __NAMESPACE__ . '\sanitize_locale',
+				'show_in_rest'      => true,
+			)
+		);
+	}
 }
 
 /**
@@ -190,10 +208,6 @@ function register_misc_meta() {
  * @return string
  */
 function sanitize_locale( $meta_value, $meta_key, $object_type, $object_subtype ) {
-	if ( 'wporg_workshop' !== $object_subtype ) {
-		return $meta_value;
-	}
-
 	$meta_value = trim( $meta_value );
 	$locales = array_keys( get_locales_with_english_names() );
 
@@ -499,9 +513,31 @@ function save_workshop_metabox_fields( $post_id ) {
 }
 
 /**
+ * Render the locales list for the language meta block.
+ */
+function render_locales_list() {
+	global $typenow;
+
+	$post_types_with_language = array( 'lesson-plan', 'wporg_workshop', 'meeting', 'course', 'lesson' );
+	if ( in_array( $typenow, $post_types_with_language, true ) ) {
+		$locales = get_locales_with_english_names();
+
+		require get_views_path() . 'locales-list.php';
+	}
+}
+
+/**
  * Enqueue scripts for the block editor.
  */
 function enqueue_editor_assets() {
+	enqueue_expiration_date_assets();
+	enqueue_language_meta_assets();
+}
+
+/**
+ * Enqueue scripts for the expiration data block.
+ */
+function enqueue_expiration_date_assets() {
 	global $typenow;
 
 	$post_types_with_expiration = array( 'lesson-plan', 'wporg_workshop', 'course', 'lesson' );
@@ -521,5 +557,32 @@ function enqueue_editor_assets() {
 		);
 
 		wp_set_script_translations( 'wporg-learn-expiration-date', 'wporg-learn' );
+	}
+}
+
+
+/**
+ * Enqueue scripts for the language meta block.
+ */
+function enqueue_language_meta_assets() {
+	global $typenow;
+
+	$post_types_with_language = array( 'lesson-plan', 'wporg_workshop', 'meeting', 'course', 'lesson' );
+	if ( in_array( $typenow, $post_types_with_language, true ) ) {
+		$script_asset_path = get_build_path() . 'language-meta.asset.php';
+		if ( ! file_exists( $script_asset_path ) ) {
+			wp_die( 'You need to run `yarn start` or `yarn build` to build the required assets.' );
+		}
+
+		$script_asset = require( $script_asset_path );
+		wp_enqueue_script(
+			'wporg-learn-language-meta',
+			get_build_url() . 'language-meta.js',
+			$script_asset['dependencies'],
+			$script_asset['version'],
+			true
+		);
+
+		wp_set_script_translations( 'wporg-learn-language-meta', 'wporg-learn' );
 	}
 }
