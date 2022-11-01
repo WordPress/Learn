@@ -536,33 +536,3 @@ p {
 hr {
 	height: 1px;
 }
-
-
-/* Details summary block START */
-details {
-	border: 1px solid #e7e7e7;
-	padding: 0 .9em;
-	background: #f7f7f7;
-	margin: 1em 0;
-	display: flex;
-}
-
-details summary::before {
-	content: "\025B8";
-	margin-right: .5em;
-	font-size: 200%;
-	display: inline;
-	vertical-align: bottom;
-	line-height: 1.4;
-}
-
-details[open] summary::before {
-	content: "\025BE";
-}
-
-details summary {
-	display: inline-block;
-	font-weight: bold;
-	cursor: pointer;
-	line-height: 2.8;
-}
