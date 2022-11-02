@@ -119,19 +119,6 @@ function register_workshop_meta() {
 
 	register_post_meta(
 		$post_type,
-		'video_language',
-		array(
-			'description'       => __( 'The language that the workshop is presented in.', 'wporg_learn' ),
-			'type'              => 'string',
-			'single'            => true,
-			'default'           => 'en_US',
-			'sanitize_callback' => __NAMESPACE__ . '\sanitize_locale',
-			'show_in_rest'      => true,
-		)
-	);
-
-	register_post_meta(
-		$post_type,
 		'video_caption_language',
 		array(
 			'description'       => __( 'A language for which subtitles are available for the workshop video.', 'wporg_learn' ),
