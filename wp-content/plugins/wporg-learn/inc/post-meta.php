@@ -479,9 +479,6 @@ function save_workshop_metabox_fields( $post_id ) {
 		update_post_meta( $post_id, 'duration', $duration );
 	}
 
-	$video_language = filter_input( INPUT_POST, 'video-language' );
-	update_post_meta( $post_id, 'video_language', $video_language );
-
 	$captions = filter_input( INPUT_POST, 'video-caption-language', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 	delete_post_meta( $post_id, 'video_caption_language' );
 	if ( is_array( $captions ) ) {
