@@ -1,0 +1,38 @@
+.wporg-meeting-calendar__list-event-copy {
+	display: none;
+}
+
+.wporg-meeting-calendar__modal {
+	.components-modal__content {
+		p {
+			&:nth-of-type(2) {
+				display: none;
+			}
+
+			&:nth-of-type(3) {
+				a {
+					visibility: hidden;
+
+					&::before {
+						content: "Register for event";
+						visibility: visible;
+					}
+				}
+			}
+		}
+	}
+}
+
+.wporg-meeting-calendar__cell {
+	height: 100px;
+}
+
+.wporg-meeting-calendar__cell-event-title {
+	white-space: normal;
+}
+
+.sls-apply-button {
+	a {
+		text-decoration: none !important;
+	}
+}

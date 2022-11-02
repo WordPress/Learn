@@ -4,6 +4,72 @@
 			padding: 0;
 		}
 	}
+
+	&.course:not(.post-type-archive-course) article.course:first-child,
+	&.lesson #main-content {
+		padding: 4rem 0;
+	}
+
+	&.course article.course header,
+	&.lesson #main-content header {
+		border-bottom: 1px solid #eee;
+		margin-bottom: 1rem;
+	}
+
+	&.lesson .bbp-breadcrumb {
+		display: none;
+	}
+
+	&.lesson #main-content header {
+		padding-bottom: 1rem;
+	}
+
+	&.course article.course p,
+	&.course article.course li,
+	&.lesson #main-content table {
+		font-size: 16px;
+	}
+
+	&.course article.course .wp-block-image,
+	&.lesson #main-content .wp-block-image,
+	&.course article.course .wp-block-media-text,
+	&.lesson #main-content .wp-block-media-text {
+		margin: 2rem 0;
+	}
+
+	&.course article.course hr,
+	&.lesson #main-content hr {
+		margin: 2rem 0;
+	}
+
+	&.lesson #main-content nav.post-entries {
+		width: 100%;
+	}
+
+	&.lesson #main-content nav.post-entries div,
+	&.quiz #main-content nav.post-entries div {
+		display: block;
+		width: 45% !important;
+		padding: 1rem;
+		margin: 1rem 0;
+		font-style: italic;
+	}
+
+	&.lesson #main-content nav.post-entries div.fl,
+	&.quiz #main-content nav.post-entries div.fl {
+		padding-left: 0;
+	}
+
+	&.lesson #main-content nav.post-entries div.fr,
+	&.quiz #main-content nav.post-entries div.fr {
+		padding-right: 0;
+		text-align: right;
+	}
+
+	&.lesson #main-content .sensei-breadcrumb,
+	&.quiz #main-content .sensei-breadcrumb {
+		padding: 1rem;
+	}
 }
 
 .single-course {
@@ -27,5 +93,56 @@
 		.entry {
 			display: none;
 		}
+	}
+}
+
+h2.wp-block-sensei-lms-course-outline-module__title {
+	color: #fff !important;
+}
+
+.wp-block-sensei-lms-lesson-properties {
+	padding: 1rem;
+	border: 1px solid #e7e7e7;
+	display: inline-block;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 1rem;
+}
+
+ol#sensei-quiz-list {
+	padding-left: 2rem;
+}
+
+.sensei-quiz-action {
+	.button {
+		height: auto !important;
+	}
+}
+
+details {
+	border: 1px solid #e7e7e7;
+	padding: 0 .9em;
+	background: #f7f7f7;
+	margin: 1em 0;
+	display: flex;
+
+	summary::before {
+		content: "\025B8";
+		margin-right: .5em;
+		font-size: 200%;
+		display: inline;
+		vertical-align: bottom;
+		line-height: 1.4;
+	}
+
+	&[open] summary::before {
+		content: "\025BE";
+	}
+
+	summary {
+		display: inline-block;
+		font-weight: bold;
+		cursor: pointer;
+		line-height: 2.8;
 	}
 }

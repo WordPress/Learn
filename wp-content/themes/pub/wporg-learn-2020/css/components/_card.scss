@@ -1,3 +1,8 @@
+/* Override Sensei course styles for cards on home page */
+body:not(.single):not(.search) .site-main .card.post.course {
+	padding: 1.75rem;
+}
+
 .card,
 .card.button {
 	background-color: #fbfbfc;
