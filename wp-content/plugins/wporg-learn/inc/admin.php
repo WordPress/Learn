@@ -433,7 +433,7 @@ function add_language_bulk_edit_field( $column_name, $post_type ) {
  * @return void
  */
 function language_bulk_edit_save( $post_id ) {
-	if ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'bulk-posts' ) || empty( $_REQUEST['language'] ) ) {
+	if ( empty( $_REQUEST['language'] ) || empty( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'bulk-posts' ) ) {
 		return;
 	}
 
