@@ -28,9 +28,14 @@ Links to related content on Learn, HelpHub, DevHub, GitHub Gutenberg Issues, Dev
 Please follow this [Vetting content topic ideas handbook page]() guide.
 
 - [ ] SME assigned
-- [ ] Content Category applied
+- [ ] Content Category applied (Ex. PHP, Gutenberg, Block Theme)
 - [ ] Topic idea has passed vetting checks
 - [ ] Content type label applied
 - [ ] Priority set
 - [ ] Content Type Checklist applied
+- [ ] Content type
+- [ ] Audience set
+- [ ] Experience Level set
+- [ ] Product type (theme, plugin)
+- [ ] WordPress Version applied through Milestone (Ex. milestone 5.9)
 - [ ] Ticket moved to Ready to Create 
