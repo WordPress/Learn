@@ -2,7 +2,7 @@
 name: Topic Idea Template
 about: Tracking content topic ideas for the learn.wordpress.org website
 title: "Topic Idea: TOPIC TITLE"
-labels: Awaiting Triage
+labels: Awaiting Triage, Needs Subject Matter Expert
 ---
 
 <!--
@@ -28,6 +28,7 @@ Links to related content on Learn, HelpHub, DevHub, GitHub Gutenberg Issues, Dev
 Please follow this [Vetting content topic ideas handbook page]() guide.
 
 - [ ] SME assigned
+- [ ] Remove Needs Subject Matter Expert label
 - [ ] Content Category applied (Ex. PHP, Gutenberg, Block Theme)
 - [ ] Topic idea has passed vetting checks
 - [ ] Content type label applied
@@ -38,4 +39,5 @@ Please follow this [Vetting content topic ideas handbook page]() guide.
 - [ ] Experience Level set
 - [ ] Product type (theme, plugin)
 - [ ] WordPress Version applied through Milestone (Ex. milestone 5.9)
+- [ ] If the Topic Idea reporter has not opted to create the content, apply Needs Content Creator label
 - [ ] Ticket moved to Ready to Create 
