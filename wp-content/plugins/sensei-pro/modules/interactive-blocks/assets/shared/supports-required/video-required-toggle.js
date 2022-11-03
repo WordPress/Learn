@@ -101,6 +101,9 @@ export const withVideoRequiredSupport = createHigherOrderComponent(
 			// turnded on.
 			const senseiCourseVideoRequired = useSelect( ( select ) => {
 				const currentPost = select( 'core/editor' ).getCurrentPost();
+				if ( 'lesson' !== currentPost.type ) {
+					return false;
+				}
 				const currentPostCourse = select( 'core' ).getEntityRecord(
 					'postType',
 					'course',
@@ -202,7 +205,7 @@ export function addVideoSaveProps( extraProps, blockType, attributes ) {
 if ( window.sensei?.supportsRequired ) {
 	addFilter(
 		'blocks.registerBlockType',
-		'sensei/extend-supports/requried/addVideoRequiredSupport',
+		'sensei/extend-supports/required/addVideoRequiredSupport',
 		addVideoRequiredSupport
 	);
 

@@ -27,7 +27,7 @@ class No_One extends Type {
 	 * Label
 	 */
 	public function label(): string {
-		return __( 'Hide block for everyone', 'sensei-pro' );
+		return __( 'Hide for everyone', 'sensei-pro' );
 	}
 
 	/**
@@ -41,7 +41,7 @@ class No_One extends Type {
 	 * Retrieves the description.
 	 */
 	public function description(): string {
-		return __( 'Block is hidden from everyone.', 'sensei-pro' );
+		return __( 'Block is not shown to any user — useful for drafts and changes.', 'sensei-pro' );
 	}
 
 	/**

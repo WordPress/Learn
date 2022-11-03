@@ -20,19 +20,10 @@ class Setup_Context extends \Sensei_Pro_Setup\Setup_Context {
 	 */
 	public function get_locales(): array {
 		return [
-			'page_title'         => __( 'Sensei Pro - Setup Wizard', 'sensei-pro' ),
-			'menu_title'         => __( 'Sensei Pro', 'sensei-pro' ),
-			'header'             => [
-				'title' => [
-					'not_activated' => __( "Now let's activate Sensei Pro", 'sensei-pro' ),
-					'activated'     => __( 'Sensei Pro Activated!', 'sensei-pro' ),
-				],
-			],
-			'license_activation' => [
-				'title' => [
-					'not_activated' => __( 'Activate Sensei Pro', 'sensei-pro' ),
-					'activated'     => __( 'Your Sensei Pro is activated!', 'sensei-pro' ),
-				],
+			'page_title' => __( 'Sensei Pro', 'sensei-pro' ),
+			'menu_title' => __( 'Sensei Pro', 'sensei-pro' ),
+			'header'     => [
+				'title' => __( 'Sensei Pro', 'sensei-pro' ),
 			],
 		];
 	}

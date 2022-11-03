@@ -6,7 +6,7 @@ import classnames from 'classnames';
 /**
  * WordPress dependencies
  */
-import { useCallback, useEffect } from '@wordpress/element';
+import { useCallback, useEffect, useRef } from '@wordpress/element';
 import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
@@ -55,12 +55,17 @@ export const HotspotBlock = {
 	edit: function EditHotspot( { clientId, attributes, setAttributes } ) {
 		const blockProps = useBlockProps();
 		const { selectBlock } = useDispatch( 'core/block-editor' );
-		const onPositionChange = useCallback( ( { x, y } ) => {
-			setAttributes( { x, y } );
-		}, [] );
+		const onPositionChange = useCallback(
+			( { x, y } ) => {
+				setAttributes( { x, y } );
+			},
+			[ setAttributes ]
+		);
 
-		const { dragCoords, onMouseDown } = useHotspotDragging( {
+		const hotspotRef = useRef();
+		const { dragCoords, draggableProps } = useHotspotDragging( {
 			clientId,
+			hotspotRef,
 			onPositionChange,
 		} );
 		const coordinates = {
@@ -100,8 +105,9 @@ export const HotspotBlock = {
 				<HotspotMarker
 					{ ...coordinates }
 					onClick={ () => selectBlock( clientId ) }
-					onMouseDown={ onMouseDown }
 					className={ draftClass }
+					ref={ hotspotRef }
+					{ ...draggableProps }
 				/>
 				<HotSpotTooltip { ...blockProps } attributes={ attributes }>
 					<InnerBlocks

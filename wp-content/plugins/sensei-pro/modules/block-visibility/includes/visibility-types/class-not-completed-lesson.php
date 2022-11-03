@@ -29,7 +29,7 @@ class Not_Completed_Lesson extends Type {
 	 * Label
 	 */
 	public function label(): string {
-		return __( 'Users that did not complete lesson', 'sensei-pro' );
+		return __( 'Not-completed lesson', 'sensei-pro' );
 	}
 
 	/**
@@ -43,7 +43,7 @@ class Not_Completed_Lesson extends Type {
 	 * Retrieves the description.
 	 */
 	public function description(): string {
-		return __( 'Block is visible to enrolled users that have not completed the lesson.', 'sensei-pro' );
+		return __( "Block is only visible to enrolled students that haven't yet completed this lesson.", 'sensei-pro' );
 	}
 
 	/**

@@ -13,6 +13,7 @@ import {
 	getFrontendBlockType,
 	getFrontendBlockTypes,
 } from './registry';
+import { BLOCK_ID_ATTRIBUTE } from '../supports-block-id';
 
 export const INNER_BLOCKS_DELIMITER = 'sensei:inner-blocks';
 
@@ -29,6 +30,8 @@ export const BLOCK_NAME_ATTRIBUTE = 'data-block-name';
  * @property {FrontendBlockType} blockType   Block type configuration
  * @property {Element}           element     DOM Element
  * @property {string}            clientId    Block ID.
+ * @property {string}            blockId     Persisted block ID.
+ * @property {string}            parent      Parent block ID.
  * @property {Object}            attributes  Block attributes.
  * @property {Object}            blockProps  Block wrapper props.
  * @property {FrontendBlock[]}   innerBlocks Inner block elements.
@@ -68,13 +71,14 @@ export function parseBlocks( root = document ) {
 /**
  * Parse a block from a DOM element, including its inner blocks.
  *
- * @param {Object}            props
- * @param {Element}           props.element
- * @param {FrontendBlockType} [props.blockType]
+ * @param {Object}            settings             Settings of the block being processed.
+ * @param {Element}           settings.element     The HTML element being processed.
+ * @param {FrontendBlockType} [settings.blockType] The block type registered using registerBlockFrontend.
+ * @param {string}            settings.parent      The Block ID of the Parent Block.
  *
  * @return {FrontendBlock} Block data.
  */
-const parseBlock = ( { element, blockType } ) => {
+const parseBlock = ( { element, blockType, parent = null } ) => {
 	const clientId = uuid();
 	if ( ! blockType ) {
 		blockType = getFrontendBlockType(
@@ -92,18 +96,25 @@ const parseBlock = ( { element, blockType } ) => {
 
 		let innerBlocks = [];
 
+		const blockId =
+			attributes.blockId || blockProps[ BLOCK_ID_ATTRIBUTE ] || clientId;
+
 		if ( blockType ) {
-			innerBlocks = getInnerBlockElements(
-				element
-			).map( ( innerBlockElement ) =>
-				parseBlock( { element: innerBlockElement } )
+			innerBlocks = getInnerBlockElements( element ).map(
+				( innerBlockElement ) =>
+					parseBlock( {
+						element: innerBlockElement,
+						parent: blockId,
+					} )
 			);
 		}
 
 		return {
 			type: blockType ? 'runnable' : 'static',
+			blockId,
 			clientId,
 			blockType,
+			parent,
 			attributes,
 			element,
 			blockProps,

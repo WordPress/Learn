@@ -35,18 +35,11 @@ export const calculateRelativeClickPosition = ( event ) => {
 	let x = clientX - box.left;
 	let y = clientY - box.top;
 
-	if ( x > box.width + MAX_OUT_OF_BOX_THRESHOLD ) {
-		x = box.width + MAX_OUT_OF_BOX_THRESHOLD;
-	}
-	if ( y > box.height + MAX_OUT_OF_BOX_THRESHOLD ) {
-		y = box.height + MAX_OUT_OF_BOX_THRESHOLD;
-	}
-	if ( x < -MAX_OUT_OF_BOX_THRESHOLD ) {
-		x = -MAX_OUT_OF_BOX_THRESHOLD;
-	}
-	if ( y < -MAX_OUT_OF_BOX_THRESHOLD ) {
-		y = -MAX_OUT_OF_BOX_THRESHOLD;
-	}
+	x = Math.min( x, box.width + MAX_OUT_OF_BOX_THRESHOLD );
+	y = Math.min( y, box.height + MAX_OUT_OF_BOX_THRESHOLD );
+
+	x = Math.max( x, -MAX_OUT_OF_BOX_THRESHOLD );
+	y = Math.max( y, -MAX_OUT_OF_BOX_THRESHOLD );
 
 	return {
 		x: ( x / box.width ) * 100,

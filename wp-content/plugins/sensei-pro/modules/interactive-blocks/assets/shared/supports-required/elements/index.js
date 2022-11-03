@@ -1,9 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { Tooltip } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { Fragment } from '@wordpress/element';
 
 /**
  * External dependencies
@@ -14,6 +12,7 @@ import classnames from 'classnames';
  * Internal dependencies
  */
 import { ReactComponent as IconCheck } from 'sensei/assets/icons/checked.svg';
+import { Tooltip } from '../../components/tooltip';
 
 /**
  * Renders the required checkmark.
@@ -33,20 +32,21 @@ export const CompletedStatus = ( {
 		'sensei-pro'
 	),
 } ) => {
-	const TooltipComponent = showTooltip && ! completed ? Tooltip : Fragment;
 	return (
-		<TooltipComponent position="bottom right" text={ message }>
-			<div
-				className={ classnames(
-					'sensei-supports-required__completed-status',
-					{
-						'sensei-supports-required__completed-status--completed': completed,
-					},
-					className
-				) }
-			>
-				{ completed && <IconCheck /> }
-			</div>
-		</TooltipComponent>
+		<Tooltip
+			as="div"
+			position="bottom-start"
+			disabled={ completed || ! showTooltip }
+			message={ message }
+			className={ classnames(
+				'sensei-supports-required__completed-status',
+				{
+					'sensei-supports-required__completed-status--completed': completed,
+				},
+				className
+			) }
+		>
+			{ completed && <IconCheck /> }
+		</Tooltip>
 	);
 };

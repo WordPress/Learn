@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Hotspots_Block {
 	/**
-	 * Question_Block constructor.
+	 * Hotspots_Block constructor.
 	 */
 	public function __construct() {
 		register_block_type_from_metadata(

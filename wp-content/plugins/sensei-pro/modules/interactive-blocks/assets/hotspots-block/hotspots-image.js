@@ -14,6 +14,11 @@ import {
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
+/**
+ * Internal dependencies
+ */
+import { ImageHotspots } from './elements';
+
 const ALLOWED_MEDIA_TYPES = [ 'image' ];
 
 /**
@@ -43,7 +48,7 @@ export const HotspotsImage = ( { attributes, setAttributes } ) => {
 					labels={ { title: __( 'Image Hotspots', 'sensei-pro' ) } }
 				/>
 			) }
-			{ url && <HotspotsImage.Image { ...attributes.image } /> }
+			{ url && <ImageHotspots.Image { ...attributes.image } /> }
 			<BlockControls group="other">
 				<MediaReplaceFlow
 					mediaId={ id }
@@ -79,22 +84,3 @@ export const HotspotsImage = ( { attributes, setAttributes } ) => {
 		</>
 	);
 };
-
-/**
- * Image renderer.
- *
- * @param {Object} props
- * @param {string} props.url Image URL.
- * @param {string} props.alt Image Alt text.
- */
-HotspotsImage.Image = ( { url, alt } ) => (
-	<>
-		<figure>
-			<img
-				alt={ alt }
-				className="sensei-lms-image-hotspots__image"
-				src={ url }
-			/>
-		</figure>
-	</>
-);

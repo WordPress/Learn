@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( class_exists( '\Sensei_Pro\Conflicts_Checker' ) ) {
+if ( class_exists( 'Sensei_Pro\Conflicts_Checker' ) ) {
 	return;
 }
 

@@ -7,9 +7,12 @@ import classnames from 'classnames';
 /**
  * WordPress dependencies
  */
-import { render, Fragment } from '@wordpress/element';
-import { Tooltip } from '@wordpress/components';
+import { render } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+/**
+ * Internal dependencies
+ */
+import { Tooltip } from '../shared/components/tooltip';
 
 /**
  * Internal dependencies
@@ -61,18 +64,9 @@ export function updateCompleteLessonButtons(
 
 function CompleteLessonTooltip() {
 	const allBlocksAreComplete = useSelector( ( state ) => {
-		const requriedBlockIds = selectors.getRequiredBlockIds( state );
+		const requiredBlockIds = selectors.getRequiredBlockIds( state );
 
-		// If there are no required blocks then we're good.
-		if ( ! requriedBlockIds.length ) {
-			return true;
-		}
-
-		const completedBlocksCount = selectors
-			.areBlocksCompleted( state, requriedBlockIds )
-			.filter( ( completed ) => completed ).length;
-
-		return requriedBlockIds.length <= completedBlocksCount;
+		return selectors.areRequiredBlocksCompleted( state, requiredBlockIds );
 	} );
 
 	const uncompleteBlocksCount = useSelector( ( state ) => {
@@ -120,11 +114,18 @@ function CompleteLessonTooltip() {
 		return requiredBlocksCount;
 	} );
 
-	const TooltipComponent = allBlocksAreComplete ? Fragment : Tooltip;
 	return (
-		<TooltipComponent
-			position="bottom left"
-			text={
+		<Tooltip
+			as="div"
+			className={ classnames(
+				'sensei-supports-required__complete-lesson-overlay',
+				{
+					'sensei-supports-required__complete-lesson-overlay--completed': allBlocksAreComplete,
+				}
+			) }
+			placement="bottom-start"
+			disabled={ allBlocksAreComplete }
+			message={
 				<div className="complete-lesson-tooltip">
 					<div className="complete-lesson-tooltip__title">
 						{ __(
@@ -158,16 +159,7 @@ function CompleteLessonTooltip() {
 					</div>
 				</div>
 			}
-		>
-			<div
-				className={ classnames(
-					'sensei-supports-required__complete-lesson-overlay',
-					{
-						'sensei-supports-required__complete-lesson-overlay--completed': allBlocksAreComplete,
-					}
-				) }
-			></div>
-		</TooltipComponent>
+		/>
 	);
 }
 

@@ -1,0 +1,20 @@
+.block-editor-block-toolbar .sensei-pro-break-point-edit-time {
+	display: flex;
+	align-self: center;
+
+	&__label {
+		margin: 0 10px;
+		align-self: center;
+	}
+
+	&__input-container {
+		align-self: center;
+		margin-right: 10px;
+	}
+
+	&__input {
+		width: 45px;
+		padding: 0;
+		text-align: center;
+	}
+}

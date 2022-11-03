@@ -103,7 +103,10 @@ class Shared_Module {
 		include_once $this->module_dir . '/includes/background-jobs/class-cron-job.php';
 		include_once $this->module_dir . '/includes/background-jobs/class-completable-job.php';
 		include_once $this->module_dir . '/includes/background-jobs/class-scheduler.php';
+		// Other shared classes.
 		include_once $this->module_dir . '/includes/class-language-packs.php';
+		include_once $this->module_dir . '/includes/class-course-helper.php';
+		include_once $this->module_dir . '/includes/class-screen-id-helper.php';
 	}
 
 	/**

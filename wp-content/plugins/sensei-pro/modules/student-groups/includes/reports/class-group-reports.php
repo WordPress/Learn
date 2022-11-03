@@ -48,6 +48,13 @@ class Group_Reports {
 	 * @since 1.5.0
 	 */
 	public function init() {
+		// Skip if we can't query relating users table with other tables.
+		if ( class_exists( 'Sensei_No_Users_Table_Relationship' ) ) {
+			if ( ! \Sensei_No_Users_Table_Relationship::instance()->can_use_users_relationship() ) {
+				return;
+			}
+		}
+
 		add_action( 'sensei_reports_overview_after_top_filters', [ $this, 'output_group_filter_for_students' ] );
 		add_action( 'sensei_reports_overview_students_data_provider_pre_user_query', [ $this, 'filter_students_by_group' ] );
 		add_filter( 'sensei_reports_overview_export_button_url', [ $this, 'add_group_filter_to_export_button_url' ] );
@@ -67,7 +74,7 @@ class Group_Reports {
 		}
 
 		?>
-		<label for="sensei-group-filter">
+		<label for="sensei-group-filter" class="screen-reader-text">
 			<?php esc_html_e( 'Group', 'sensei-pro' ); ?>:
 		</label>
 

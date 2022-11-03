@@ -41,7 +41,7 @@ class Everyone extends Type {
 	 * Retrieves the description.
 	 */
 	public function description(): string {
-		return __( 'Block is visible to everyone.', 'sensei-pro' );
+		return __( 'Block is visible to all users.', 'sensei-pro' );
 	}
 
 	/**

@@ -15,6 +15,7 @@ import {
 	prepareCompleteLessonButtons,
 	addVideoCompletedStatus,
 } from './dom';
+import { BLOCK_ID_ATTRIBUTE } from '../shared/supports-block-id';
 
 /**
  * Handles the blocks state change.
@@ -96,6 +97,15 @@ function initRequiredBlocks() {
 				},
 				...selectors.getBlockAttributes( persistedState, url ),
 			} );
+			const parentBlock = blockElement.closest(
+				`[${ BLOCK_ID_ATTRIBUTE }]`
+			);
+			if ( parentBlock ) {
+				const parentId = parentBlock.getAttribute( BLOCK_ID_ATTRIBUTE );
+				if ( parentId ) {
+					blocksStore.setParent( url, parentId );
+				}
+			}
 			addVideoCompletedStatus( url, blockElement );
 		}
 	);

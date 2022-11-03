@@ -12,3 +12,20 @@ export const ImageHotspots = createBemComponent( {
 ImageHotspots.Overlay = createBemComponent( {
 	className: 'sensei-lms-image-hotspots__markers-overlay',
 } );
+
+/**
+ * Image renderer.
+ *
+ * @param {Object} props
+ * @param {string} props.url Image URL.
+ * @param {string} props.alt Image Alt text.
+ */
+ImageHotspots.Image = ( { url, alt } ) => (
+	<figure>
+		<img
+			alt={ alt }
+			className="sensei-lms-image-hotspots__image"
+			src={ url }
+		/>
+	</figure>
+);

@@ -7,6 +7,9 @@
 
 namespace Sensei_Pro_Interactive_Blocks;
 
+use Sensei_Interactive_Blocks_Sensei_Home\Sensei_Home;
+use Sensei_Interactive_Blocks_Sensei_Home\Sensei_LMS_Home;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -68,6 +71,33 @@ class Interactive_Blocks {
 		} else {
 			add_filter( 'block_categories', [ $instance, 'sensei_block_categories' ], 10, 2 );
 		}
+
+		add_action( 'plugins_loaded', [ $instance, 'load_sensei_home' ], 100 );
+	}
+
+	/**
+	 * Load Sensei Home.
+	 *
+	 * @internal
+	 */
+	public function load_sensei_home() {
+		if ( class_exists( 'Sensei_Home' ) && class_exists( 'Sensei_Interactive_Blocks_Sensei_Home\Sensei_LMS_Home' ) ) {
+			// Sensei LMS is active. We just need to integrate with it.
+			Sensei_LMS_Home::instance()->init();
+
+			return;
+		}
+
+		if ( ! class_exists( 'Sensei_Home' ) && class_exists( 'Sensei_Interactive_Blocks_Sensei_Home\Sensei_Home' ) ) {
+			$assets_provider = new Assets_Provider(
+				SENSEI_IB_PLUGIN_DIR_URL,
+				SENSEI_IB_PLUGIN_DIR_PATH,
+				SENSEI_IB_VERSION,
+				'sensei-pro',
+				Sensei_Home::MODULE_NAME
+			);
+			( new Sensei_Home( $assets_provider ) )->init();
+		}
 	}
 
 	/**
@@ -78,6 +108,7 @@ class Interactive_Blocks {
 		new Flashcard_Block();
 		new Hotspots_Block();
 		new TaskList_Block();
+		new Interactive_Video_Block();
 	}
 
 	/**
@@ -85,7 +116,13 @@ class Interactive_Blocks {
 	 */
 	public function register_assets() {
 		$this->assets_provider->register( 'sensei-interactive-blocks-editor-script', 'interactive-blocks-editor.js' );
-		$this->assets_provider->register( 'sensei-interactive-blocks-frontend-script', 'interactive-blocks-frontend.js' );
+
+		$this->maybe_register_video_apis();
+
+		// YouTube and Vimeo APIs are used only by Interactive Video Block. When we support array
+		// in the `view_script` while registering the block, we can migrate these dependencies to
+		// there.
+		$this->assets_provider->register( 'sensei-interactive-blocks-frontend-script', 'interactive-blocks-frontend.js', [ 'sensei-youtube-iframe-api', 'sensei-vimeo-iframe-api' ], true );
 		$this->assets_provider->register(
 			'sensei-interactive-blocks-styles',
 			'interactive-blocks-styles.css',
@@ -95,12 +132,38 @@ class Interactive_Blocks {
 	}
 
 	/**
+	 * It registers the video API scripts, in case it wasn't registered yet - Sensei LMS registers
+	 * it, but it might not be activated if the user is using only Sensei Blocks.
+	 */
+	private function maybe_register_video_apis() {
+		if ( ! wp_script_is( 'sensei-youtube-iframe-api', 'registered' ) || ! wp_script_is( 'sensei-vimeo-iframe-api', 'registered' ) ) {
+			wp_register_script( 'sensei-youtube-iframe-api', 'https://www.youtube.com/iframe_api', [], 'unversioned', false );
+			wp_register_script( 'sensei-vimeo-iframe-api', 'https://player.vimeo.com/api/player.js', [], 'unversioned', false );
+
+			wp_add_inline_script(
+				'sensei-youtube-iframe-api',
+				'window.senseiYouTubeIframeAPIReady = new Promise( ( resolve ) => {
+					const previousYouTubeIframeAPIReady =
+						window.onYouTubeIframeAPIReady !== undefined
+							? window.onYouTubeIframeAPIReady
+							: () => {};
+					window.onYouTubeIframeAPIReady = () => {
+						resolve();
+						previousYouTubeIframeAPIReady();
+					};
+				} )',
+				'before'
+			);
+		}
+	}
+
+	/**
 	 * Enqueue frontend assets - It's enqueued by default as part of the `view_script` arg
 	 * when registering the blocks. It's a workaround for WP 5.7.
 	 */
 	public function enqueue_frontend_assets() {
 
-		$blocks        = [ 'sensei-pro/question', 'sensei-pro/flashcard', 'sensei-pro/hotspots', 'sensei-pro/task-list', 'core/video', 'core/embed' ];
+		$blocks        = [ 'sensei-pro/question', 'sensei-pro/flashcard', 'sensei-pro/hotspots', 'sensei-pro/task-list', 'sensei-pro/interactive-video', 'core/video', 'core/embed' ];
 		$has_any_block = false;
 		$post          = get_post();
 
@@ -147,6 +210,7 @@ class Interactive_Blocks {
 		include_once __DIR__ . '/blocks/class-flashcard-block.php';
 		include_once __DIR__ . '/blocks/class-hotspots-block.php';
 		include_once __DIR__ . '/blocks/class-tasklist-block.php';
+		include_once __DIR__ . '/blocks/class-interactive-video-block.php';
 	}
 
 	/**

@@ -10,6 +10,7 @@ namespace Sensei_Pro_Student_Groups;
 
 use Exception;
 use Sensei_Course_Enrolment;
+use Sensei_Pro\Course_Helper;
 use Sensei_Pro_Student_Groups\Enrolment\Groups_Provider;
 use Sensei_Pro_Student_Groups\Models\Access_Period;
 use Sensei_Pro_Student_Groups\Models\Group_Course;
@@ -68,7 +69,7 @@ class Access_Control {
 		}
 
 		$user_id   = get_current_user_id();
-		$course_id = $this->get_course_id_by_current_page();
+		$course_id = Course_Helper::get_course_id_for_current_page();
 
 		if (
 			! $course_id
@@ -96,34 +97,6 @@ class Access_Control {
 				'clock'
 			);
 		}
-	}
-
-	/**
-	 * Get the course id based on the current page.
-	 *
-	 * @return int
-	 */
-	private function get_course_id_by_current_page(): int {
-		if ( is_singular( 'course' ) ) {
-			return (int) get_the_ID();
-		}
-
-		if ( is_singular( 'lesson' ) ) {
-			return (int) Sensei()->lesson->get_course_id( get_the_ID() );
-		}
-
-		if ( is_singular( 'quiz' ) ) {
-			$lesson_id = Sensei()->quiz->get_lesson_id( get_the_ID() );
-
-			return (int) Sensei()->lesson->get_course_id( $lesson_id );
-		}
-
-		if ( is_tax( 'module' ) ) {
-			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Safe handling of the course ID.
-			return (int) $_GET['course_id'] ?? 0;
-		}
-
-		return 0;
 	}
 
 	/**

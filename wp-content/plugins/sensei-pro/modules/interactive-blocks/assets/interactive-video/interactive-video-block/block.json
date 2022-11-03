@@ -1,0 +1,34 @@
+{
+	"name": "sensei-pro/interactive-video",
+	"title": "Interactive Video",
+	"description": "Interactive Video Block.",
+	"keywords": [
+		"sensei",
+		"video",
+		"interactive",
+		"videopress",
+		"youtube",
+		"vimeo",
+		"timeline"
+	],
+	"category": "sensei-lms",
+	"apiVersion": 2,
+	"supports": {
+		"html": false,
+		"sensei": {
+			"blockId": true,
+			"frontend": true
+		},
+		"align": [ "wide", "full" ]
+	},
+	"attributes": {
+		"videoType": {
+			"type": "string",
+			"default": "video-file"
+		},
+		"hiddenTimeline": {
+			"type": "boolean"
+		}
+	},
+	"textdomain": "sensei-pro"
+}
