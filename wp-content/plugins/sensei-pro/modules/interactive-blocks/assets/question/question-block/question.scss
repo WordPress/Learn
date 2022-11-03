@@ -11,6 +11,8 @@
 		display: flex;
 		justify-content: flex-start;
 		align-items: center;
+		margin-top: 0;
+
 		// Transparent background for title input in editor.
 		.editor-styles-wrapper & > textarea {
 			background-color: transparent;

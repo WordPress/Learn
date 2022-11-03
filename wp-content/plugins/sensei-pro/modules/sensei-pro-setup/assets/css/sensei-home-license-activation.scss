@@ -1,0 +1,109 @@
+@import "sensei/assets/shared/styles/wp-components";
+
+.sensei-pro-sensei-home-license-activation {
+
+	// Style
+	background-color: #fff;
+	margin: 9px;
+	margin-bottom: 20px;
+	padding: 14px 12px;
+	border: 1px solid #ccc;
+
+	// Layout
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 12px;
+
+	&__title {
+		// Layout
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 4px;
+
+		// Text
+		font-weight: 600;
+		font-size: 14px;
+		line-height: 20px;
+		color: #1e1e1e;
+
+		// Icon
+		svg {
+			width: 20px;
+			height: 20px;
+			color: #43af99;
+			fill: currentColor;
+		}
+	}
+
+	&__content {
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 20px;
+		color: #3c434a;
+		text-align: center;
+
+		a {
+			text-decoration: none;
+
+			svg {
+				width: 16px;
+				height: 16px;
+				fill: currentColor;
+				vertical-align: middle;
+			}
+		}
+	}
+
+	&__form {
+		display: flex;
+		flex-direction: row;
+		width: 100%;
+		gap: 12px;
+		justify-content: center;
+
+		&-input {
+			// Box
+			flex-grow: 1;
+			max-width: 499px;
+			padding: 12px;
+			border: 1px solid #757575;
+			border-radius: 2px;
+			background: #fff;
+
+			// Text
+			font-weight: 600;
+			font-size: 11px;
+			line-height: 16px;
+			text-transform: uppercase;
+
+			&::placeholder {
+				color: #757575;
+			}
+		}
+
+		& &-button {
+			&.components-button {
+				line-height: 20px;
+				font-size: 14px;
+				padding: 10px 24px;
+				background-color: #43af99;
+				height: unset;
+				min-width: 120px;
+
+				svg {
+					margin: 0;
+				}
+			}
+		}
+	}
+
+	&__error {
+		font-size: 14px;
+		line-height: 20px;
+		color: #f00;
+	}
+
+}

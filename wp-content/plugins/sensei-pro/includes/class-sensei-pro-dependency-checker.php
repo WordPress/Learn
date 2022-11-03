@@ -24,11 +24,18 @@ class Sensei_Pro_Dependency_Checker {
 	private $minimum_php_version;
 
 	/**
-	 * Minimum Sensei version.
+	 * Soft minimum Sensei version (plugin still loads with warning).
 	 *
 	 * @var string
 	 */
-	private $minimum_sensei_version;
+	private $soft_minimum_sensei_version;
+
+	/**
+	 * Hard minimum Sensei version (plugin does NOT load).
+	 *
+	 * @var string
+	 */
+	private $hard_minimum_sensei_version;
 
 	/**
 	 * Singleton instance.
@@ -63,8 +70,9 @@ class Sensei_Pro_Dependency_Checker {
 			]
 		);
 
-		$this->minimum_sensei_version = $plugin_data['minimum_sensei_version'];
-		$this->minimum_php_version    = $plugin_data['minimum_php_version'];
+		$this->minimum_php_version         = $plugin_data['minimum_php_version'];
+		$this->soft_minimum_sensei_version = $plugin_data['minimum_sensei_version'];
+		$this->hard_minimum_sensei_version = defined( 'SENSEI_PRO_HARD_MIN_SENSEI_VERSION' ) ? SENSEI_PRO_HARD_MIN_SENSEI_VERSION : $plugin_data['minimum_sensei_version'];
 	}
 
 
@@ -104,12 +112,13 @@ class Sensei_Pro_Dependency_Checker {
 			return false;
 		}
 
-		if ( version_compare( $instance->minimum_sensei_version, Sensei()->version, '>' ) ) {
-			if ( is_admin() ) {
-				add_filter( 'sensei_admin_notices', [ $instance, 'add_sensei_version_notice' ] );
-			}
+		$sensei_version = Sensei()->version;
+		if ( version_compare( $instance->soft_minimum_sensei_version, $sensei_version, '>' ) ) {
+			add_filter( 'sensei_admin_notices', [ $instance, 'add_sensei_version_notice' ] );
 
-			return false;
+			if ( version_compare( $instance->hard_minimum_sensei_version, $sensei_version, '>' ) ) {
+				return false;
+			}
 		}
 
 		return true;
@@ -180,7 +189,7 @@ class Sensei_Pro_Dependency_Checker {
 		}
 
 		// translators: %1$s is the minimum version number of Sensei that is required.
-		$message = sprintf( __( '<strong>Sensei Pro</strong> requires that the plugin <strong>Sensei LMS</strong> (minimum version: <strong>%1$s</strong>) is installed and activated.', 'sensei-pro' ), $this->minimum_sensei_version );
+		$message = sprintf( __( '<strong>Sensei Pro</strong> requires that the plugin <strong>Sensei LMS</strong> (minimum version: <strong>%1$s</strong>) is installed and activated.', 'sensei-pro' ), $this->soft_minimum_sensei_version );
 		echo '<div class="error"><p>';
 		echo wp_kses( $message, [ 'strong' => [] ] );
 		echo '</p></div>';
@@ -194,14 +203,22 @@ class Sensei_Pro_Dependency_Checker {
 	 * @param array $notices The filtered sensei notices.
 	 */
 	public function add_sensei_version_notice( $notices ) {
-		$notices['senseipro-old-sensei-version'] = [
-			'type'       => 'user',
-			'icon'       => 'sensei',
-			'style'      => 'error',
-			'heading'    => 'Sensei Pro',
-			// translators: %1$s is the minimum version number of Sensei that is required, %2$s is the detected version.
-			'message'    => sprintf( __( '<strong>Sensei Pro</strong> requires that the plugin <strong>Sensei LMS, version %1$s</strong> is installed and activated. Version detected: <strong>%2$s</strong>.', 'sensei-pro' ), $this->minimum_sensei_version, Sensei()->version ),
-			'conditions' => [
+		$plugin_not_loaded = version_compare( $this->hard_minimum_sensei_version, Sensei()->version, '>' );
+
+		// translators: %1$s is the minimum version number of Sensei that is required, %2$s is the detected version.
+		$message = sprintf( __( '<strong>Sensei Pro</strong> requires that the plugin <strong>Sensei LMS, version %1$s</strong> is installed and activated. Version detected: <strong>%2$s</strong>.', 'sensei-pro' ), $this->soft_minimum_sensei_version, Sensei()->version );
+		if ( $plugin_not_loaded ) {
+			$message .= ' <strong>' . __( 'All features provided by Sensei Pro, including paid courses, will not work until Sensei LMS is updated.', 'sensei-pro' ) . '</strong>';
+		}
+
+		$notices[ 'sensei-pro-old-sensei-version-' . $this->soft_minimum_sensei_version ] = [
+			'type'        => 'site-wide',
+			'icon'        => 'sensei',
+			'style'       => 'error',
+			'heading'     => __( 'Sensei Pro', 'sensei-pro' ),
+			'message'     => $message,
+			'dismissible' => false,
+			'conditions'  => [
 				[
 					'type'    => 'screens',
 					'screens' => [ 'sensei*', 'plugins', 'plugins-network', 'dashboard' ],

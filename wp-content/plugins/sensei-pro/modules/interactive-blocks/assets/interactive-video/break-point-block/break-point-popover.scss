@@ -1,0 +1,64 @@
+.sensei-break-point-popover {
+	// Sizing
+	width: 1000px;
+	min-height: 565px;
+	max-width: 100vw;
+	// Styling
+	margin: 0;
+	padding: 0;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	// Structure
+	flex-direction: column;
+	// Positioning
+	position: absolute;
+	top: -585px;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 3;
+	// Display
+	display: flex;
+
+	&__header {
+		flex: none;
+		padding: 18px 30px;
+		box-sizing: content-box;
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-end;
+	}
+
+	&__close-button {
+		width: 24px;
+		height: 24px;
+		border: 0;
+		background: none;
+		cursor: pointer;
+		padding: 0;
+		margin: 0;
+		outline: unset;
+	}
+
+	&__content {
+		flex: auto;
+		margin: 48px 84px;
+		position: relative;
+
+		> .block-editor-inner-blocks > .block-editor-block-list__layout > *:first-child {
+			margin-top: 0;
+		}
+	}
+
+	&__footer {
+		flex: none;
+		align-self: self-end;
+		display: flex;
+		justify-content: flex-end;
+		width: 100%;
+		& button {
+			height: 36px;
+			margin: 18px;
+		}
+	}
+}

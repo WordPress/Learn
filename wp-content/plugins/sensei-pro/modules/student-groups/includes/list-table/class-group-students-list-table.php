@@ -311,12 +311,11 @@ class Group_Students_List_Table extends \Sensei_List_Table {
 		foreach ( $courses as $course ) {
 			$course_management_url = add_query_arg(
 				[
-					'post_type' => 'course',
 					'page'      => 'sensei_learners',
 					'course_id' => absint( $course->ID ),
 					'view'      => 'learners',
 				],
-				admin_url( 'edit.php' )
+				admin_url( 'admin.php' )
 			);
 
 			$html_items[] = '<a href="' . esc_url( $course_management_url ) .

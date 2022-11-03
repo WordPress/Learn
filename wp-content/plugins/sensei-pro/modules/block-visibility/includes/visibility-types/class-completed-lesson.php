@@ -29,7 +29,7 @@ class Completed_Lesson extends Type {
 	 * Label
 	 */
 	public function label(): string {
-		return __( 'Users that completed lesson', 'sensei-pro' );
+		return __( 'Completed lesson', 'sensei-pro' );
 	}
 
 	/**
@@ -43,7 +43,7 @@ class Completed_Lesson extends Type {
 	 * Retrieves the description.
 	 */
 	public function description(): string {
-		return __( 'Block is visible to users that completed the lesson.', 'sensei-pro' );
+		return __( 'Block is only visible to users that have completed this lesson.', 'sensei-pro' );
 	}
 
 	/**

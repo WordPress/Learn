@@ -3,7 +3,7 @@
  * Sensei Block Visibility class.
  *
  * @package sensei-pro
- * @since 1.5.0
+ * @since   1.5.0
  */
 
 namespace Sensei_Pro_Block_Visibility;
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use WP_Block_Type_Registry;
+use Sensei_Pro\Assets;
 
 /**
  * Sensei Block Visibility class.
@@ -26,9 +26,16 @@ class Block_Visibility {
 	private static $instance;
 
 	/**
+	 * Assets helper.
+	 *
+	 * @var Assets
+	 */
+	private $assets;
+
+	/**
 	 * Block visibility instance.
 	 */
-	public static function instance() : Block_Visibility {
+	public static function instance(): Block_Visibility {
 		if ( ! self::$instance ) {
 			self::$instance = new self();
 		}
@@ -39,7 +46,9 @@ class Block_Visibility {
 	/**
 	 * Initialize the class singleton.
 	 */
-	private function __construct() {}
+	private function __construct() {
+		$this->assets = new Assets();
+	}
 
 	/**
 	 * Initializes the class and adds all filters and actions.
@@ -47,7 +56,7 @@ class Block_Visibility {
 	public static function init() {
 		$instance = self::instance();
 
-		add_action( 'init', [ $instance, 'enqueue_assets' ] );
+		add_action( 'enqueue_block_editor_assets', [ $instance, 'enqueue_assets' ] );
 
 		$instance->init_dependencies();
 
@@ -57,9 +66,17 @@ class Block_Visibility {
 	 * Enqueue assets.
 	 */
 	public function enqueue_assets() {
-		$assets_url = SENSEI_PRO_PLUGIN_DIR_URL . 'assets/dist/block-visibility';
-		wp_enqueue_script( 'sensei-block-visibility-script', "{$assets_url}/script.js", [ 'wp-components', 'wp-block-editor', 'wp-plugins', 'wp-edit-post' ], SENSEI_PRO_VERSION, false );
-		wp_enqueue_style( 'sensei-block-visibility-style', "{$assets_url}/style.css", [ 'wp-components', 'wp-block-editor' ], SENSEI_PRO_VERSION, false );
+		$screen    = get_current_screen();
+		$post_type = $screen->id;
+
+		if ( ! in_array( $post_type, [ 'course', 'lesson' ], true ) ) {
+			return;
+		}
+
+		$this->assets->enqueue( 'sensei-block-visibility-script', 'block-visibility/script.js' );
+		$this->assets->enqueue( 'sensei-block-visibility-style', 'block-visibility/style.css' );
+
+		Visibility_Options::instance()->enqueue_inline_scripts();
 	}
 
 	/**

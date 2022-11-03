@@ -30,7 +30,7 @@ class Not_Completed_Course extends Type {
 	 * Label
 	 */
 	public function label(): string {
-		return __( 'Users that did not complete course', 'sensei-pro' );
+		return __( 'Not-completed course', 'sensei-pro' );
 	}
 
 	/**
@@ -44,7 +44,7 @@ class Not_Completed_Course extends Type {
 	 * Retrieves the description.
 	 */
 	public function description(): string {
-		return __( 'Block is visible to enrolled users that have not completed the course.', 'sensei-pro' );
+		return __( "Block is only visible to students enrolled in this course but haven't yet completed it.", 'sensei-pro' );
 	}
 
 	/**

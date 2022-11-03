@@ -22,6 +22,13 @@ import {
 	answerFeedbackCorrectBlock,
 	answerFeedbackIncorrectBlock,
 } from './question/answer-feedback-block';
+
+import interactiveVideoBlock, {
+	addTransformButtonToVideoBlocks,
+} from './interactive-video/interactive-video-block';
+import breakPointBlock from './interactive-video/break-point-block';
+import timelineBlock from './interactive-video/timeline-block';
+
 import './flashcard-block';
 import './hotspots-block';
 import './tasklist-block';
@@ -41,3 +48,8 @@ registerBlockType(
 	answerFeedbackIncorrectBlock.name,
 	answerFeedbackIncorrectBlock
 );
+
+registerBlockType( interactiveVideoBlock.name, interactiveVideoBlock );
+registerBlockType( breakPointBlock.name, breakPointBlock );
+registerBlockType( timelineBlock.name, timelineBlock );
+addTransformButtonToVideoBlocks();

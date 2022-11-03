@@ -29,7 +29,7 @@ class Enrolled_To_Course extends Type {
 	 * Label
 	 */
 	public function label(): string {
-		return __( 'Users enrolled in this course', 'sensei-pro' );
+		return __( 'Enrolled students', 'sensei-pro' );
 	}
 
 	/**
@@ -43,20 +43,7 @@ class Enrolled_To_Course extends Type {
 	 * Retrieves the description.
 	 */
 	public function description(): string {
-		global $pagenow;
-		$lesson_notice = '';
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		if ( 'post.php' === $pagenow && isset( $_GET['post'] ) ) {
-			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			if ( get_post_type( sanitize_text_field( wp_unslash( $_GET['post'] ) ) ) === 'lesson' ) {
-				$lesson_notice = __( ' (Only applies to preview lessons)', 'sensei-pro' );
-			}
-		}
-		return sprintf(
-		/* translators: %s: A notice that this option can only be used in preview lessons */
-			__( 'Block is visible to users that are enrolled to the course%s.', 'sensei-pro' ),
-			$lesson_notice
-		);
+		return __( 'If this lesson can be previewed, this block is visible only to enrolled students in this course.', 'sensei-pro' );
 	}
 
 	/**

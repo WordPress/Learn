@@ -94,16 +94,19 @@ class Wizard {
 	 * Fires up all the necessary hooks.
 	 */
 	public function initiate_setup() {
-		$plugin_file = self::get_plugin_file( $this->setup_context->get_plugin_slug() );
-		add_filter( "plugin_action_links_{$plugin_file}", [ $this, 'add_activate_license_action' ], 10, 4 );
-		add_action( 'admin_menu', [ $this, 'register_wizard_page' ] );
 		add_action( 'rest_api_init', [ $this, 'register_rest_api' ] );
 
-		if ( ! is_admin() ) {
+		$plugin_file = self::get_plugin_file( $this->setup_context->get_plugin_slug() );
+		add_filter( "plugin_action_links_{$plugin_file}", [ $this, 'add_activate_license_action' ], 10, 4 );
+
+		if ( ! is_admin() || ! $this->is_sensei_pro() ) {
 			return;
 		}
 
+		add_action( 'admin_menu', [ $this, 'register_wizard_page' ] );
+
 		if ( $this->is_sensei_licensing_page() ) {
+			self::check_sensei_home_redirected();
 			add_action( 'admin_print_scripts', [ $this, 'enqueue_licensing_page_scripts' ] );
 			add_action( 'admin_body_class', [ $this, 'filter_body_class' ] );
 		} elseif ( $this->is_sensei_extensions_page() ) {
@@ -125,11 +128,12 @@ class Wizard {
 		if ( isset( $_GET['page'] ) && self::get_licensing_page_slug( $this->setup_context->get_plugin_slug() ) === $_GET['page'] ) {
 			return true;
 		}
+
 		return false;
 	}
 
 	/**
-	 * Tells if the current page is the Sensei extensions page.
+	 * Tells if the current page is the Sensei extensions page on older versions of Sensei.
 	 *
 	 * @return bool
 	 */
@@ -138,7 +142,17 @@ class Wizard {
 		if ( isset( $_GET['page'] ) && 'sensei-extensions' === $_GET['page'] ) {
 			return true;
 		}
+
 		return false;
+	}
+
+	/**
+	 * Check if the current context is for Sensei Pro.
+	 *
+	 * @return bool
+	 */
+	private function is_sensei_pro(): bool {
+		return 'sensei-pro' === $this->setup_context->get_plugin_slug();
 	}
 
 	/**
@@ -147,7 +161,19 @@ class Wizard {
 	 * @param string $plugin_slug
 	 */
 	public static function get_setup_url( string $plugin_slug ): string {
-		return admin_url( 'admin.php?page=' . self::get_licensing_page_slug( $plugin_slug ) );
+		$setup_url = admin_url( 'admin.php?page=' . self::get_licensing_page_slug( $plugin_slug ) );
+
+		/**
+		 * Filter the setup URL to allow for customizing the setup page.
+		 *
+		 * @hook sensei_pro_wizard_setup_url
+		 * @since 1.8.0
+		 *
+		 * @param {string} $setup_url The setup URL.
+		 *
+		 * @return {string} The setup URL.
+		 */
+		return apply_filters( 'sensei_pro_wizard_setup_url', $setup_url );
 	}
 
 	/**
@@ -307,6 +333,16 @@ class Wizard {
 	public function enqueue_extensions_page_scripts() {
 		$this->enqueue_script( 'extensions_page' );
 		$this->enqueue_initial_state_script();
+	}
+
+	/**
+	 * Redirect the user to Sensei Home if Sensei is already activated.
+	 */
+	protected static function check_sensei_home_redirected() {
+		if ( self::is_sensei_activated() ) {
+			// If Sensei is already activated, redirect to Sensei Home.
+			wp_safe_redirect( admin_url( 'admin.php?page=sensei' ) );
+		}
 	}
 
 	/**

@@ -521,12 +521,11 @@ class Student_Groups {
 	private function get_edit_group_students_url( $post_id ) {
 		return add_query_arg(
 			[
-				'post_type' => 'course',
-				'view'      => 'group_students',
-				'page'      => 'student_groups',
-				'group_id'  => $post_id,
+				'view'     => 'group_students',
+				'page'     => 'student_groups',
+				'group_id' => $post_id,
 			],
-			admin_url( 'edit.php' )
+			admin_url( 'admin.php' )
 		);
 	}
 
@@ -542,12 +541,11 @@ class Student_Groups {
 	private function get_group_settings_url( $post_id ) {
 		return add_query_arg(
 			[
-				'post_type' => 'course',
-				'view'      => 'group_access_period',
-				'page'      => 'student_groups',
-				'group_id'  => $post_id,
+				'view'     => 'group_access_period',
+				'page'     => 'student_groups',
+				'group_id' => $post_id,
 			],
-			admin_url( 'edit.php' )
+			admin_url( 'admin.php' )
 		);
 	}
 
@@ -629,7 +627,7 @@ class Student_Groups {
 			$this->assets->enqueue_component( 'group-action-menu', [], [] );
 		}
 
-		if ( in_array( $screen->id, [ 'course_page_student_groups' ], true ) ) {
+		if ( in_array( $screen->id, [ 'sensei-lms_page_student_groups' ], true ) ) {
 			$this->assets->enqueue_component( 'group-action-menu', [], [] );
 			$this->assets->enqueue_component( 'group-student-action-menu', [ 'wp-components' ], [ 'wp-components' ] );
 			$this->assets->enqueue_component( 'add-student-to-group-button', [ 'wp-components' ], [ 'wp-components' ] );
@@ -704,7 +702,7 @@ class Student_Groups {
 		// Adding the group-students submenu with parent slug will make the menu
 		// item visible on the navbar. So once we're done registering it, we remove it
 		// in the code below, so we get the parent highlighting, but no menu item.
-		remove_submenu_page( 'edit.php?post_type=course', $this->page_slug );
+		remove_submenu_page( 'sensei', $this->page_slug );
 	}
 
 	/**
@@ -723,7 +721,7 @@ class Student_Groups {
 		// the parent slug makes sure when this page is rendered, the parent menu item
 		// will be highlighted.
 		add_submenu_page(
-			'edit.php?post_type=course',
+			'sensei',
 			'Group Students',
 			'Group Students',
 			'edit_courses',
@@ -742,7 +740,7 @@ class Student_Groups {
 	 */
 	public function add_groups_submenu_page() {
 		add_submenu_page(
-			'edit.php?post_type=course',
+			'sensei',
 			__( 'Groups', 'sensei-pro' ),
 			__( 'Groups', 'sensei-pro' ),
 			'edit_courses',
@@ -769,7 +767,7 @@ class Student_Groups {
 
 		$screen = get_current_screen();
 
-		if ( $screen && in_array( $screen->id, [ 'course_page_student_groups' ], true ) ) {
+		if ( $screen && in_array( $screen->id, [ 'sensei-lms_page_student_groups' ], true ) ) {
 			// phpcs:disable WordPress.WP.GlobalVariablesOverride.Prohibited
 			return 'edit.php?post_type=group';
 			// phpcs:enable WordPress.WP.GlobalVariablesOverride.Prohibited

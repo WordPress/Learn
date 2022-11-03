@@ -3,13 +3,13 @@
  * Plugin Name: Sensei Blocks
  * Plugin URI: https://senseilms.com/
  * Description: A collection of interactive blocks for making your content and lessons more engaging.
- * Version: 1.0.0
+ * Version: 1.2.0
  * License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
- * Requires at least: 5.7
- * Tested up to: 5.9
+ * Requires at least: 5.9
+ * Tested up to: 6.1
  * Requires PHP: 7.2
  * Author: Automattic
- * Author URI: https://senseilms.com/
+ * Author URI: https://automattic.com/
  * Text Domain: sensei-pro
  * Domain Path: /lang
  *
@@ -26,8 +26,8 @@ if ( sensei_interactive_blocks_has_conflicts() ) {
 }
 
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound
-define( 'SENSEI_PRO_VERSION', '1.5.0' ); // Note: this is the current sensei-pro version this plugin was built from, needed so the correct language packs are loaded (in shared module).
-define( 'SENSEI_IB_VERSION', '1.0.0' );
+define( 'SENSEI_PRO_VERSION', '1.8.0' ); // Note: this is the current sensei-pro version this plugin was built from, needed so the correct language packs are loaded (in shared module).
+define( 'SENSEI_IB_VERSION', '1.2.0' );
 define( 'SENSEI_IB_PLUGIN_FILE', __FILE__ );
 define( 'SENSEI_IB_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 define( 'SENSEI_IB_PLUGIN_DIR_URL', plugin_dir_url( __FILE__ ) );
@@ -46,6 +46,7 @@ function sensei_interactive_blocks_setup_plugin() { // phpcs:ignore WordPress.Na
 	require_once __DIR__ . '/includes/class-interactive-blocks.php';
 	require_once __DIR__ . '/includes/class-assets-provider.php';
 	require_once __DIR__ . '/shared-module/includes/class-shared-module.php';
+	require_once __DIR__ . '/sensei-blocks-home/sensei-blocks-home.php';
 
 	$shared_module_assets_provider = new Sensei_Pro_Interactive_Blocks\Assets_Provider(
 		SENSEI_IB_PLUGIN_DIR_URL,

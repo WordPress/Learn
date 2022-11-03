@@ -1,5 +1,67 @@
 *** Sensei Pro Changelog ***
 
+## 1.8.0 - 2022-10-27
+### Added
+- Added task "Sell your Course with WooCommerce" to the Sensei Home tasks
+
+### Changed
+- Change admin menu references to be compatible with the latest changes in Sensei LMS
+- Moved Activation Form from Setup Wizard to Sensei Home
+
+## 1.7.2 - 2022-10-24
+### Fixed
+- Fix columns vertical alignment on WP 6.0
+- Fix cron update check.
+
+## 1.7.1 - 2022-10-24
+### Fixed
+- Fix issue with WooCommerce partial refunds
+- Fix alignment in Modern template
+- Fix block visibility settings panel
+- Fix cron scheduling performance issue
+
+## 1.7.0 - 2022-10-11
+### Added
+- Adjust learning mode templates
+- Introduce premium-templates module.
+- Make block visibility panel closed by default.
+
+## 1.6.2 - 2022-09-08
+### Fixed
+- Fix infinite loop opening a break point in Interactive Video block.
+- Fix Interactive Video block with Jetpack VideoPress.
+- Fix issue with Content Drip's daily event firing multiple times per day.
+- Skip groups report hooks in specific environments, where users table relationship is not possible.
+
+## 1.6.1 - 2022-08-29
+### Added
+- Add a setting to show or not the Interactive Video timeline on the frontend.
+
+### Fixed
+- Detect required videos inside interactive video blocks properly.
+- Fix issue with CTRL+Z loop when creating interactive video block based on an unsupported video provider.
+- Fix default color of the break point required icon.
+
+## 1.6.0 - 2022-08-18
+### Added
+- Add Interactive Video block.
+- Add access period begins settings into course access period settings.
+
+### Changed
+- Bump supported Sensei LMS version to 4.6.0.
+- Update purchase course block button text.
+
+## 1.5.1 - 2022-08-09
+### Fixed
+- Fix flashcard content disappearing.
+- Improve hotspot marker styles.
+- Block Visibility Text Improvements.
+- Optimize frontend bundle sizes.
+- Adjust Image Hotspots block's marker animations.
+- Block Visibility - Handle a cases when there are no Groups.
+- Fix the deprecation warning about Toolbar custom component.
+- Show no student groups available instead of hiding the Groups option.
+
 ## 1.5.0 - 2022-07-25
 ### Added
 - "Logged out users", "Completed lesson" and "Not completed lesson" options.
@@ -7,7 +69,7 @@
 - Add block visibility option descriptions.
 - Add block visibility sidebar options.
 - Add extra description text when lesson post type to enrolment options.
-- Add group filter to students report
+- Add group filter to students report.
 - Add support for groups select paging.
 - Add support for relative scheduling for block visibility option.
 - Add visibility borders to blocks when hidden.
@@ -23,17 +85,17 @@
 
 ## 1.4.1 - 2022-07-14
 ### Added
-- Enable to optionally remove enrollments when a student is removed from a group
-- Enable to optionally remove enrollments when a course is removed from a group
-- Enable to restore the removed course on the group's settings
-- Enable moving a group to the trash instead of instant deletion
-- Show detailed errors when there is an error to add a student to a group
+- Enable to optionally remove enrollments when a student is removed from a group.
+- Enable to optionally remove enrollments when a course is removed from a group.
+- Enable to restore the removed course on the group's settings.
+- Enable moving a group to the trash instead of instant deletion.
+- Show detailed errors when there is an error to add a student to a group.
 
 ### Changed
-- Update the destructive actions buttons to use the Gutenberg destructive button pattern
+- Update the destructive actions buttons to use the Gutenberg destructive button pattern.
 
 ### Fixed
-- Fixed a performance issue on Content Drip on websites with thousands of lessons
+- Fixed a performance issue on Content Drip on websites with thousands of lessons.
 
 ## 1.4.0 - 2022-07-11
 

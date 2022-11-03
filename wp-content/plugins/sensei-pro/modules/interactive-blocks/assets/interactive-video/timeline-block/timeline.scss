@@ -1,0 +1,61 @@
+.wp-block-sensei-pro-timeline {
+	display: flex;
+	align-items: center;
+	padding: 0 18px;
+	box-sizing: border-box;
+	height: 40px;
+	border: solid 1px #000;
+	border-radius: 2px;
+
+	&__progress-bar {
+		position: relative;
+		width: 100%;
+		height: 2px;
+		background-color: #ccc;
+	}
+
+	&__progress-bar-filled,
+	&__progress-bar-blocked {
+		position: absolute;
+		height: 2px;
+		transition: width 0.2s linear;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+
+	&__progress-bar-filled {
+		background-color: #000;
+
+		&::after {
+			content: "";
+			position: absolute;
+			top: 50%;
+			right: 0;
+			display: block;
+			width: 4px;
+			height: 28px;
+			border-radius: 2px;
+			background-color: inherit;
+			transform: translate(50%, -50%);
+		}
+	}
+
+	&__progress-bar-blocked {
+		background-color: #757575;
+		right: 0;
+	}
+
+	.block-editor-block-list__layout {
+		position: static;
+
+		.block-editor-block-list__block:not([contenteditable]):focus::after {
+			box-shadow: none;
+		}
+	}
+
+	@at-root {
+		.editor-styles-wrapper & .wp-block-sensei-pro-break-point {
+			margin: 0;
+		}
+	}
+}

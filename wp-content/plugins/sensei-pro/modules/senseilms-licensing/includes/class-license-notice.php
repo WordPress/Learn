@@ -37,6 +37,8 @@ class License_Notice {
 	private function __construct( $main_plugin_file ) {
 		$this->plugin_file = $main_plugin_file;
 		$this->plugin_slug = basename( $main_plugin_file, '.php' );
+
+		add_filter( 'sensei_home_is_plugin_licensed_' . $this->plugin_slug, [ $this, 'is_plugin_licensed' ] );
 	}
 
 	/**
@@ -54,6 +56,23 @@ class License_Notice {
 	}
 
 	/**
+	 * Check if the plugin is licensed.
+	 *
+	 * @internal
+	 *
+	 * @return bool
+	 */
+	public function is_plugin_licensed() {
+		$status = License_Manager::get_license_status( $this->plugin_slug );
+
+		if ( empty( $status['license_key'] ) || ! $status['is_valid'] ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
 	 * Check license status and add the corresponding Sensei admin notice.
 	 *
 	 * @param array $notices The current Sensei notices that will be shown.
@@ -63,7 +82,7 @@ class License_Notice {
 	 * @return mixed
 	 */
 	public function maybe_add_sensei_admin_notice_due_license_status( $notices ) {
-		if ( $this->is_sensei_extensions_page() ) {
+		if ( $this->is_sensei_extensions_page() || $this->is_sensei_home_page() ) {
 			return $notices;
 		}
 
@@ -122,5 +141,19 @@ class License_Notice {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * Tells if the current page is the Sensei Home.
+	 *
+	 * @return bool
+	 */
+	public function is_sensei_home_page(): bool {
+		// Require `Screen_ID_Helper` manually because `senseilms-licensing` module is loaded in a special way.
+		include_once __DIR__ . '/../../shared-module/includes/class-screen-id-helper.php';
+		$home_screen_id = \Sensei_Pro\Screen_ID_Helper::get_sensei_home_screen_id();
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Arguments used for comparison.
+		$screen = get_current_screen();
+		return ! is_null( $screen ) && ! is_null( $home_screen_id ) && $home_screen_id === $screen->id;
 	}
 }

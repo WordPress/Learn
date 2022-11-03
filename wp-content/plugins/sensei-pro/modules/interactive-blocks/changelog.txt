@@ -1,4 +1,20 @@
 *** Sensei Interactive Blocks Changelog ***
 
+2022-10-27 - version 1.2.0
+* New: Sensei Home - New page with links to support and latest news;
+
+2022-09-08 - version 1.1.2
+* Fix infinite loop opening a break point in Interactive Video block.
+* Fix Interactive Video block with Jetpack VideoPress.
+
+2022.08.29 - version 1.1.1
+* Add a setting to show or not the Interactive Video timeline on the frontend.
+* Detect required videos inside interactive video blocks properly.
+* Fix issue with CTRL+Z loop when creating interactive video block based on an unsupported video provider.
+* Fix default color of the break point required icon.
+
+2022.08.22 - version 1.1.0
+* Add Interactive Video block.
+
 2022.05.11 - version 1.0.0
- * First release.
+* First release.

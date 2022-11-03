@@ -211,7 +211,7 @@ class Sensei_Content_Drip {
 
 		// Load the learner management functionality script.
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Used for comparison
-		if ( 'course_page_sensei_learners' === $hook && isset( $_GET['course_id'] ) && isset( $_GET['view'] ) && 'learners' === $_GET['view'] ) {
+		if ( 'sensei-lms_page_sensei_learners' === $hook && isset( $_GET['course_id'] ) && isset( $_GET['view'] ) && 'learners' === $_GET['view'] ) {
 			wp_register_script(
 				$this->token . '-admin-manual-drip-script',
 				esc_url( $this->assets_url ) . 'js/admin-manual-drip.js',
@@ -270,8 +270,13 @@ class Sensei_Content_Drip {
 		$today_start         = strtotime( date_i18n( 'Y-m-d' ) );
 		$tomorrow_start      = $today_start + 24 * HOUR_IN_SECONDS;
 		$scheduled_time      = $tomorrow_start + 30 * MINUTE_IN_SECONDS;
-		$scheduled_time_unix = $scheduled_time - get_option( 'gmt_offset' ) * HOUR_IN_SECONDS;
-		wp_schedule_event( $scheduled_time_unix, 'daily', $this->cron_hook );
+		$gmt_offset          = (float) get_option( 'gmt_offset' );
+		$scheduled_time_unix = $scheduled_time - $gmt_offset * HOUR_IN_SECONDS;
+
+		if ( wp_next_scheduled( $this->cron_hook ) !== absint( $scheduled_time_unix ) ) {
+			wp_clear_scheduled_hook( $this->cron_hook );
+			wp_schedule_event( $scheduled_time_unix, 'daily', $this->cron_hook );
+		}
 	}
 
 	/**
@@ -283,12 +288,6 @@ class Sensei_Content_Drip {
 	 */
 	public function activate() {
 		$this->log_version_number();
-
-		if ( false !== wp_next_scheduled( $this->cron_hook ) ) {
-			wp_clear_scheduled_hook( $this->cron_hook );
-		}
-
-		$this->maybe_setup_cron();
 	}
 
 	/**

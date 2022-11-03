@@ -8,6 +8,7 @@
  */
 @import "~sensei/assets/blocks/shared-style-editor";
 @import "~sensei/assets/blocks/editor-components/editor-components-style";
+@import "~sensei/assets/shared/components/modal/style";
 
 /**
  * Internal dependencies
@@ -16,5 +17,6 @@
 @import "./flashcard-block/flashcards";
 @import "./hotspots-block/image-hotspots";
 @import "./tasklist-block/task-list";
+@import "./interactive-video/interactive-video";
 @import "./shared/supports-colors.scss";
 @import "./shared/supports-required/style.scss";

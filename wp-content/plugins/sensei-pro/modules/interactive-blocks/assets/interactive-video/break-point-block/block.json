@@ -1,0 +1,27 @@
+{
+  "name": "sensei-pro/break-point",
+  "title": "Break Point",
+  "description": "Break Point for the Interactive Video Block.",
+  "keywords": ["sensei", "video", "interactive", "videopress", "youtube", "vimeo", "break", "point", "timeline"],
+  "category": "sensei-lms",
+  "parent": [
+    "sensei-pro/timeline"
+  ],
+  "attributes": {
+    "time": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "apiVersion": 2,
+  "supports": {
+    "html": false,
+    "inserter": false,
+    "reusable": false,
+    "sensei": {
+      "blockId": true,
+      "frontend": true
+    }
+  },
+  "textdomain": "sensei-pro"
+}

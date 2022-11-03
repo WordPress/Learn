@@ -244,7 +244,7 @@ class Block_Purchase_Course {
 	private function render_single_product_form() {
 		$product     = $this->products[0];
 		$price       = $product->get_price_html();
-		$button_text = $price . ' - ' . esc_html__( 'Purchase Course', 'sensei-pro' );
+		$button_text = esc_html__( 'Buy', 'sensei-pro' ) . ' - ' . $price;
 		$button_text = apply_filters( 'sensei_wc_paid_courses_add_to_cart_button_text', $button_text );
 		$button      = $this->render_button( $button_text );
 
@@ -263,7 +263,7 @@ class Block_Purchase_Course {
 	 * @return string Multiple products form HTML.
 	 */
 	private function render_multiple_products_form() {
-		$button = $this->render_button( esc_html__( 'Purchase Course', 'sensei-pro' ) );
+		$button = $this->render_button( esc_html__( 'Buy Course', 'sensei-pro' ) );
 
 		return '
 			<form method="post" enctype="multipart/form-data" class="multiple-products-form">

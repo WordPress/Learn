@@ -90,6 +90,8 @@ final class Sensei_Pro {
 			'student-groups',
 			'premium-patterns',
 			'block-visibility',
+			'premium-templates',
+			'sensei-pro-home',
 		];
 	}
 

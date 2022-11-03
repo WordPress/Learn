@@ -15,13 +15,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class for removing Sensei upsell nudges.
  *
- * @class Sensei_Pro
+ * @class Upsells
  */
 final class Upsells {
 	/**
 	 * Instance of class.
 	 *
-	 * @var Sensei_Pro
+	 * @var Upsells
 	 */
 	private static $instance;
 
@@ -69,6 +69,10 @@ final class Upsells {
 		add_filter( 'sensei_lesson_content_drip_hide', '__return_true' );
 		add_filter( 'sensei_quiz_ordering_question_type_hide', '__return_true' );
 		add_filter( 'sensei_student_groups_hide', '__return_true' );
+		// Sensei Home: Disable promotional banner.
+		add_filter( 'sensei_home_promo_banner_show', '__return_false' );
+		// Sensei Home: Disable upsell CTA for "Create support ticket" in help section.
+		add_filter( 'sensei_home_support_ticket_creation_upsell_show', '__return_false' );
 	}
 
 	/**

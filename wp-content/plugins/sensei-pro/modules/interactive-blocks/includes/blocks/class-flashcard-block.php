@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Flashcard_Block {
 	/**
-	 * Question_Block constructor.
+	 * Flashcard_Block constructor.
 	 */
 	public function __construct() {
 		register_block_type_from_metadata(

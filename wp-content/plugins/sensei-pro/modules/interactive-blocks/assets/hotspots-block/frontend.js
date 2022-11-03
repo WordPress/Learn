@@ -22,7 +22,6 @@ import domReady from '@wordpress/dom-ready';
  */
 import { registerBlockFrontend } from '../shared/block-frontend';
 import { ImageHotspots } from './elements';
-import { HotspotsImage } from './hotspots-image';
 import { HotspotMarker } from './hotspot-marker';
 import { HotSpotTooltip, Tooltip } from './hotspot-tooltip';
 import { CompletedStatus } from '../shared/supports-required/elements';
@@ -76,7 +75,7 @@ const ImageHotspotsRun = ( {
 			<ImageHotspotsContext.Provider
 				value={ { selected, setSelected, imageHotspotsId: blockId } }
 			>
-				<HotspotsImage.Image { ...attributes.image } />
+				<ImageHotspots.Image { ...attributes.image } />
 				{ children }
 			</ImageHotspotsContext.Provider>
 			{ attributes.required && (
@@ -160,7 +159,7 @@ registerBlockFrontend( {
 domReady( () => {
 	document
 		.querySelectorAll(
-			'.sensei-lms-image-hotspots__hotspot-tooltip .sensei-course-video-container video'
+			'.sensei-lms-image-hotspots__hotspot-tooltip .wp-block-video video'
 		)
 		.forEach( ( el ) => {
 			if ( el.style.width === '0px' ) {

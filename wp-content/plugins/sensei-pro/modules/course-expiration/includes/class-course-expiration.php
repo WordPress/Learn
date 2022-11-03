@@ -8,6 +8,8 @@
 
 namespace Sensei_Pro_Course_Expiration;
 
+use Exception;
+use Sensei_Pro\Course_Helper;
 use Sensei_Pro_Course_Expiration\Background_Jobs\Course_Expiration_Job;
 use Sensei_Pro_Course_Expiration\Background_Jobs\Course_Expiration_Recurring_Job;
 use Sensei_Pro_Course_Expiration\Background_Jobs\Course_Expiration_Notification_Job;
@@ -27,13 +29,21 @@ use DateTime;
  * @since 1.0.1
  */
 class Course_Expiration {
-	const MODULE_NAME                             = 'course-expiration';
+	const MODULE_NAME = 'course-expiration';
+
 	const EXPIRATION_TIMESTAMP_COURSE_META_PREFIX = '_sensei_course_expiration_';
-	const EXPIRED_TIMESTAMP_COURSE_META_PREFIX    = '_sensei_course_expired_';
-	const EXPIRATION_TYPE                         = '_course_expiration_type';
-	const EXPIRATION_LENGTH                       = '_course_expiration_length';
-	const EXPIRATION_PERIOD                       = '_course_expiration_period';
-	const EXPIRATION_DATE                         = '_course_expires_on_date';
+	const START_TIMESTAMP_COURSE_META_PREFIX      = '_sensei_course_start_';
+
+	const EXPIRED_TIMESTAMP_COURSE_META_PREFIX = '_sensei_course_expired_';
+
+	const EXPIRATION_TYPE = '_course_expiration_type';
+	const START_TYPE      = '_course_start_type';
+
+	const EXPIRATION_LENGTH = '_course_expiration_length';
+	const EXPIRATION_PERIOD = '_course_expiration_period';
+
+	const EXPIRATION_DATE = '_course_expires_on_date';
+	const START_DATE      = '_course_starts_on_date';
 
 	/**
 	 * Instance of class.
@@ -87,18 +97,22 @@ class Course_Expiration {
 		add_filter( 'sensei_default_feature_flag_settings', [ $instance, 'add_feature_flags' ] );
 
 		add_action( 'init', [ $instance, 'register_course_expiration_post_meta' ] );
+		add_action( 'init', [ $instance, 'register_course_start_post_meta' ] );
+
 		add_action( 'sensei_course_enrolment_status_changed', [ $instance, 'set_expiration_date' ], 10, 3 );
+		add_action( 'sensei_course_enrolment_status_changed', [ $instance, 'set_access_period_start_date' ], 10, 3 );
+
 		add_filter( 'sensei_is_enrolled', [ $instance, 'check_expiration' ], 10, 3 );
 		add_filter( 'sensei_can_user_manually_enrol', [ $instance, 'can_user_enroll' ], 10, 2 );
 
 		// Expand learner management.
 		add_action( 'sensei_admin_enrol_user', [ $instance, 'handle_manual_enrolment' ], 10, 2 );
 		add_filter( 'sensei_learners_default_columns', [ $instance, 'add_learner_management_expiration_columns' ], 10, 2 );
+		add_filter( 'sensei_learners_default_columns', [ $instance, 'add_learner_management_starts_access_columns' ], 10, 2 );
 		add_filter( 'sensei_learners_main_column_data', [ $instance, 'enrich_learner_management_data' ], 10, 4 );
 
-		if ( Sensei()->feature_flags->is_enabled( 'editable_course_expiration' ) ) {
-			add_filter( 'sensei_learners_learner_updated', [ $instance, 'update_learner_expiry_date' ], 10, 3 );
-		}
+		add_filter( 'sensei_learners_learner_updated', [ $instance, 'update_learner_expiry_date' ], 10, 3 );
+		add_filter( 'sensei_learners_learner_updated', [ $instance, 'update_learner_start_date' ], 10, 3 );
 
 		// Show buttons for expired users.
 		add_filter( 'sensei_render_view_results_block', [ $instance, 'maybe_render_view_results_block' ], 10, 3 );
@@ -107,12 +121,19 @@ class Course_Expiration {
 		// Extend user courses page.
 		add_filter( 'sensei_user_courses_query', [ $instance, 'extend_user_courses_query' ], 10, 4 );
 		add_filter( 'sensei_user_courses_filter_options', [ $instance, 'extend_user_courses_filter_options' ] );
+
 		add_action( 'sensei_course_content_inside_after', [ $instance, 'add_learner_course_expiration_message' ], 25 );
+		add_action( 'sensei_course_content_inside_after', [ $instance, 'add_learner_course_not_started_message' ], 25 );
 
 		// Update notifications.
 		add_filter( 'sensei_lesson_show_course_signup_notice', [ $instance, 'hide_signup_notice' ], 10, 2 );
 		add_filter( 'sensei_module_show_course_signup_notice', [ $instance, 'hide_signup_notice' ], 10, 2 );
-		add_action( 'template_redirect', [ $instance, 'add_expiry_notification' ], 5 );
+
+		// Add notification if the user is logged in.
+		if ( is_user_logged_in() ) {
+			add_action( 'template_redirect', [ $instance, 'add_expiry_notification' ], 5 );
+			add_action( 'template_redirect', [ $instance, 'add_not_started_notification' ], 5 );
+		}
 		add_filter( 'sensei_user_quiz_status', [ $instance, 'update_quiz_signup_notice' ], 10, 3 );
 
 		// Init expiration background jobs.
@@ -164,8 +185,6 @@ class Course_Expiration {
 	 * @return array Default feature flags.
 	 */
 	public function add_feature_flags( $default_feature_flag_settings ) {
-		$default_feature_flag_settings['editable_course_expiration'] = false;
-
 		return $default_feature_flag_settings;
 	}
 
@@ -227,6 +246,37 @@ class Course_Expiration {
 	}
 
 	/**
+	 * Register post meta needed for course start access period.
+	 *
+	 * @since 1.6.0
+	 * @access private
+	 */
+	public function register_course_start_post_meta() {
+		register_post_meta(
+			'course',
+			self::START_TYPE,
+			[
+				'show_in_rest'  => true,
+				'single'        => true,
+				'type'          => 'string',
+				'default'       => 'immediately',
+				'auth_callback' => [ $this, 'course_expiration_post_meta_auth_callback' ],
+			]
+		);
+
+		register_post_meta(
+			'course',
+			self::START_DATE,
+			[
+				'show_in_rest'  => true,
+				'single'        => true,
+				'type'          => 'string',
+				'auth_callback' => [ $this, 'course_expiration_post_meta_auth_callback' ],
+			]
+		);
+	}
+
+	/**
 	 * Post meta auth callback.
 	 *
 	 * @access private
@@ -251,6 +301,7 @@ class Course_Expiration {
 	 * @param bool $is_enrolled New enrolment status.
 	 */
 	public function set_expiration_date( $user_id, $course_id, $is_enrolled ) {
+
 		$course_expiration_type = get_post_meta( $course_id, self::EXPIRATION_TYPE, true );
 		$expiration_post_meta   = self::EXPIRATION_TIMESTAMP_COURSE_META_PREFIX . $user_id;
 		$expired_course_meta    = self::EXPIRED_TIMESTAMP_COURSE_META_PREFIX . $user_id;
@@ -285,6 +336,39 @@ class Course_Expiration {
 		);
 	}
 
+
+	/**
+	 * Set access period start date.
+	 *
+	 * @since 1.6.0
+	 * @access private
+	 *
+	 * @param int  $user_id User ID.
+	 * @param int  $course_id Course post ID.
+	 * @param bool $is_enrolled New enrolment status.
+	 * @throws Exception Exception.
+	 */
+	public function set_access_period_start_date( $user_id, $course_id, $is_enrolled ) {
+		$course_start_type = get_post_meta( $course_id, self::START_TYPE, true );
+		$start_post_meta   = self::START_TIMESTAMP_COURSE_META_PREFIX . $user_id;
+
+		// Remove start access period if learner was removed or if it's being enrolled with no start date.
+		if ( ! $is_enrolled || empty( $course_start_type ) || 'immediately' === $course_start_type ) {
+			delete_post_meta( $course_id, $start_post_meta );
+			return;
+		}
+
+		if ( 'starts-on' === $course_start_type ) {
+			$course_start_date = get_post_meta( $course_id, self::START_DATE, true );
+			$start_date        = new DateTime( $course_start_date );
+
+			update_post_meta(
+				$course_id,
+				$start_post_meta,
+				$start_date->getTimestamp()
+			);
+		}
+	}
 	/**
 	 * Get the interval until course expiry to be used in notifications.
 	 *
@@ -326,27 +410,21 @@ class Course_Expiration {
 	 * @access private
 	 */
 	public function add_expiry_notification() {
-		if ( ! is_user_logged_in() ) {
+
+		$course_id = Course_Helper::get_course_id_for_current_page();
+
+		if ( ! $course_id ) {
 			return;
 		}
 
-		if ( is_singular( 'course' ) ) {
-			$course_id = get_the_ID();
-		} elseif ( is_singular( 'lesson' ) ) {
-			$course_id = Sensei()->lesson->get_course_id( get_the_ID() );
-		} elseif ( is_tax( 'module' ) ) {
-			// phpcs:disable WordPress.Security.NonceVerification.Recommended -- No form is submitted and argument is validated to be a number.
-			if ( ! empty( $_GET['course_id'] ) && is_numeric( (int) $_GET['course_id'] ) ) {
-				$course_id = (int) $_GET['course_id'];
-			} else {
-				return;
-			}
-			// phpcs:enable
-		} else {
+		$user_id = get_current_user_id();
+
+		// Don't show access period expired message if not needed.
+		$display_access_expired_message = $this->should_display_expiration_message( $course_id, $user_id );
+		if ( ! $display_access_expired_message ) {
 			return;
 		}
 
-		$user_id        = get_current_user_id();
 		$days_remaining = $this->get_days_remaining( $user_id, $course_id ) ?? 0;
 
 		list( $message ) = $this->get_expiration_message(
@@ -357,6 +435,39 @@ class Course_Expiration {
 			__( 'Your access expires today.', 'sensei-pro' ),
 			// translators: Placeholder is the number of days.
 			_n( 'Your access expires in %d day.', 'Your access expires in %d days.', $days_remaining, 'sensei-pro' )
+		);
+
+		if ( $message ) {
+			Sensei()->notices->add_notice( $message, 'clock', 'sensei-course-expiry-interval' );
+		}
+	}
+
+	/**
+	 * Adds the course not started notification.
+	 *
+	 * @access private
+	 */
+	public function add_not_started_notification() {
+
+		$course_id = Course_Helper::get_course_id_for_current_page();
+
+		if ( ! $course_id ) {
+			return;
+		}
+
+		$user_id = get_current_user_id();
+
+		// Don't show start access period message if it shouldn't be displayed.
+		$display_access_period_start_message = $this->should_display_start_access_message( $course_id, $user_id );
+		if ( ! $display_access_period_start_message ) {
+			return;
+		}
+
+		list( $message ) = $this->get_not_started_message(
+			$user_id,
+			$course_id,
+			// translators: Placeholder is the expiration date.
+			__( 'Your access will start on %s.', 'sensei-pro' )
 		);
 
 		if ( $message ) {
@@ -428,6 +539,22 @@ class Course_Expiration {
 	}
 
 	/**
+	 * Get not started message using format strings. If a format is not sent, it will return
+	 * `null` if the result matches that.
+	 *
+	 * @param int    $user_id            User ID.
+	 * @param int    $course_id          Course ID.
+	 * @param string $message           Not started message string.
+	 *
+	 * @return array|null Tuple containing the expiration message and the type.
+	 */
+	private function get_not_started_message( int $user_id, int $course_id, string $message ) {
+		$start_date = $this->get_user_start_datetime( $user_id, $course_id );
+
+		return $start_date ? [ sprintf( $message, $start_date->format( __( 'M d, Y', 'sensei-pro' ) ) ), 'expired' ] : null;
+	}
+
+	/**
 	 * Get expiration date timestamp calculated based on the course settings or base on the length and period arguments.
 	 *
 	 * @param int               $user_id           User ID.
@@ -489,14 +616,32 @@ class Course_Expiration {
 	 * @param int       $user_id     User ID.
 	 * @param int       $course_id   Course post ID.
 	 *
-	 * @return false|null False if it's expired. Original `$is_enrolled` if not expired.
+	 * @return false|null False if it's expired or not started. Original `$is_enrolled` if not expired.
 	 */
 	public function check_expiration( $is_enrolled, int $user_id, int $course_id ) {
-		if ( $this->is_access_expired( $user_id, $course_id ) ) {
+
+		if ( $this->is_access_expired_or_not_started( $user_id, $course_id ) ) {
 			return false;
 		}
 
 		return $is_enrolled;
+	}
+
+	/**
+	 * Check whether learner access is expired or not started.
+	 *
+	 * @access public
+	 * @since 1.6.0
+	 *
+	 * @param int $user_id     User ID.
+	 * @param int $course_id   Course post ID.
+	 *
+	 * @return bool Whether the access has expired or not started.
+	 */
+	public function is_access_expired_or_not_started( int $user_id, int $course_id ) : bool {
+		$is_expired     = $this->is_access_expired( $user_id, $course_id );
+		$is_not_started = $this->is_access_not_started( $user_id, $course_id );
+		return $is_expired || $is_not_started;
 	}
 
 	/**
@@ -509,8 +654,23 @@ class Course_Expiration {
 	 */
 	public function is_access_expired( int $user_id, int $course_id ) : bool {
 		$expiration_timestamp = $this->get_user_expiration_timestamp( $user_id, $course_id );
-
 		return null !== $expiration_timestamp && current_datetime()->getTimestamp() >= $expiration_timestamp;
+
+	}
+
+	/**
+	 * Check whether learner access is not started.
+	 *
+	 * @acces private.
+	 *
+	 * @param int $user_id     User ID.
+	 * @param int $course_id   Course post ID.
+	 *
+	 * @return bool Whether the access is not started.
+	 */
+	public function is_access_not_started( int $user_id, int $course_id ): bool {
+		$start_timestamp = $this->get_user_start_timestamp( $user_id, $course_id );
+		return null !== $start_timestamp && current_datetime()->getTimestamp() <= $start_timestamp;
 	}
 
 	/**
@@ -536,6 +696,21 @@ class Course_Expiration {
 	}
 
 	/**
+	 * Get the user start timestamp for a course.
+	 *
+	 * @param int $user_id   The user id.
+	 * @param int $course_id The course id.
+	 *
+	 * @return int|null The start timestamp.
+	 */
+	private function get_user_start_timestamp( int $user_id, int $course_id ) {
+		$start_post_meta = self::START_TIMESTAMP_COURSE_META_PREFIX . $user_id;
+		$start_timestamp = get_post_meta( $course_id, $start_post_meta, true );
+
+		return empty( $start_timestamp ) ? null : $start_timestamp;
+	}
+
+	/**
 	 * Get the user expiration datetime for a course.
 	 *
 	 * @param int $user_id   The user id.
@@ -555,6 +730,24 @@ class Course_Expiration {
 	}
 
 	/**
+	 * Get the user expiration datetime for a course.
+	 *
+	 * @param int $user_id   The user id.
+	 * @param int $course_id The course id.
+	 *
+	 * @return DateTimeImmutable|null The expiration datetime.
+	 */
+	private function get_user_start_datetime( int $user_id, int $course_id ) {
+		$start_timestamp = $this->get_user_start_timestamp( $user_id, $course_id );
+
+		if ( null !== $start_timestamp ) {
+			return current_datetime()->setTimestamp( $start_timestamp );
+		}
+
+		return null;
+	}
+
+	/**
 	 * Handler method for sensei_can_user_manually_enrol filter. Responsible for blocking a new enrolment for users that
 	 * their enrolment expired.
 	 *
@@ -566,7 +759,7 @@ class Course_Expiration {
 	 * @return bool False if it's expired. Original `$can_user_manually_enrol` if not expired.
 	 */
 	public function can_user_enroll( bool $can_user_manually_enrol, int $course_id ) : bool {
-		if ( $this->is_access_expired( get_current_user_id(), $course_id ) ) {
+		if ( $this->is_access_expired_or_not_started( get_current_user_id(), $course_id ) ) {
 			return false;
 		}
 
@@ -608,7 +801,7 @@ class Course_Expiration {
 
 		$course_id = $course->ID;
 
-		if ( $this->is_access_expired( $user_id, $course_id ) ) {
+		if ( $this->is_access_expired_or_not_started( $user_id, $course_id ) ) {
 			return true;
 		}
 
@@ -630,7 +823,7 @@ class Course_Expiration {
 			return $display_actions;
 		}
 
-		if ( $completed_course && $this->is_access_expired( $user_id, $course_id ) ) {
+		if ( $completed_course && $this->is_access_expired_or_not_started( $user_id, $course_id ) ) {
 			return true;
 		}
 
@@ -649,7 +842,7 @@ class Course_Expiration {
 	 *
 	 * @return WP_Query The query.
 	 */
-	public function extend_user_courses_query( $query, $user_id, $status, $base_query_args ) {
+	public function extend_user_courses_query( $query, int $user_id, string $status, array $base_query_args ) {
 		$learner_manager = Sensei_Learner::instance();
 
 		if ( 'all' === $status || 'complete' === $status ) {
@@ -793,6 +986,19 @@ class Course_Expiration {
 		return $deleted_expiration || $deleted_expiry;
 	}
 
+
+	/**
+	 * Removes the users course started.
+	 *
+	 * @param int $course_id Course post ID.
+	 * @param int $user_id   User which was manually enrolled.
+	 *
+	 * @return bool If removal was successful.
+	 */
+	private function remove_user_started( int $course_id, int $user_id ) : bool {
+		return delete_post_meta( $course_id, self::START_TIMESTAMP_COURSE_META_PREFIX . $user_id );
+	}
+
 	/**
 	 * Handle manual enrolment of learner.
 	 *
@@ -810,6 +1016,7 @@ class Course_Expiration {
 		$course_enrolment->save_enrolment( $user_id, $is_enrolled );
 
 		$this->remove_user_expiry( $course_id, $user_id );
+		$this->remove_user_started( $course_id, $user_id );
 	}
 
 	/**
@@ -837,6 +1044,30 @@ class Course_Expiration {
 	}
 
 	/**
+	 * Adds the 'Start Access' column in student management.
+	 *
+	 * @access private
+	 *
+	 * @param array                 $columns           The default columns.
+	 * @param \Sensei_Learners_Main $learners_instance The learners instance.
+	 *
+	 * @returns array The modified columns.
+	 */
+	public function add_learner_management_starts_access_columns( array $columns, $learners_instance ) : array {
+		if ( 'learners' !== $learners_instance->get_view() ) {
+			return $columns;
+		}
+
+		Sensei_WC_Paid_Courses::instance()->assets->enqueue_style( Sensei_WC_Paid_Courses::STYLE_LEARNER_MANAGEMENT );
+
+		$first_two_columns = array_slice( $columns, 0, 2, true );
+		$rest_of_columns   = array_slice( $columns, 2, null, true );
+		$start             = [ 'start_access_date' => __( 'Start Access', 'sensei-pro' ) ];
+
+		return array_merge_recursive( $first_two_columns, $start, $rest_of_columns );
+	}
+
+	/**
 	 * Generates the data for the 'Access Expiration' column in learner management.
 	 *
 	 * @access private
@@ -854,7 +1085,8 @@ class Course_Expiration {
 		$course_id           = 'course' === $post_type ? $post_id : Sensei()->lesson->get_course_id( $post_id );
 		$expiration_datetime = $this->get_user_expiration_datetime( $comment->user_id, $course_id );
 		$expiry_date         = null === $expiration_datetime ? '' : $expiration_datetime->format( 'Y-m-d' );
-		$is_expired          = $this->is_access_expired( $comment->user_id, $course_id );
+
+		$is_expired = $this->is_access_expired( $comment->user_id, $course_id );
 
 		$columns['expiry_date'] = $this->get_expiry_date_column( $expiry_date, $is_expired );
 
@@ -863,6 +1095,9 @@ class Course_Expiration {
 				$columns['user_status'] = '<span class="incomplete">' . esc_html__( 'Incomplete', 'sensei-pro' ) . '</span>';
 			}
 		}
+		$start_datetime               = $this->get_user_start_datetime( $comment->user_id, $course_id );
+		$start_date                   = null === $start_datetime ? '' : $start_datetime->format( 'Y-m-d' );
+		$columns['start_access_date'] = $this->get_start_date_column( $start_date );
 
 		return $columns;
 	}
@@ -871,26 +1106,22 @@ class Course_Expiration {
 	 * Get the contents of the Access Expiration column.
 	 *
 	 * @param string $expiry_date The expiry date.
-	 * @param bool   $is_expired  True if the access is expired.
 	 *
 	 * @return string
 	 */
-	private function get_expiry_date_column( string $expiry_date, bool $is_expired ) : string {
-		if ( Sensei()->feature_flags->is_enabled( 'editable_course_expiration' ) ) {
-			return '<input class="edit-date-date-picker access-expiration" data-name="expiration-date" type="text" value="' . esc_attr( $expiry_date ) . '">';
-		}
+	private function get_expiry_date_column( string $expiry_date ) : string {
+		return '<input class="edit-date-date-picker access-expiration" data-name="expiration-date" type="text" value="' . esc_attr( $expiry_date ) . '">';
+	}
 
-		if ( empty( $expiry_date ) ) {
-			return '';
-		}
-
-		if ( $is_expired ) {
-			$access_string = __( 'Expired', 'sensei-pro' );
-		} else {
-			$access_string = __( 'Expires', 'sensei-pro' );
-		}
-
-		return $access_string . ' ' . $expiry_date;
+	/**
+	 * Get the contents of the Access Start column.
+	 *
+	 * @param string $start_date The start date.
+	 *
+	 * @return string
+	 */
+	private function get_start_date_column( string $start_date ) : string {
+		return '<input class="edit-date-date-picker access-expiration" data-name="start-access-date" type="text" value="' . esc_attr( $start_date ) . '">';
 	}
 
 	/**
@@ -905,6 +1136,8 @@ class Course_Expiration {
 	 * @return bool Whether an update happened or not.
 	 */
 	public function update_learner_expiry_date( bool $updated, int $post_id, int $comment_id ) : bool {
+		$comment = get_comment( $comment_id );
+
 		$post_type = get_post_type( $post_id );
 
 		if ( 'course' === $post_type ) {
@@ -912,8 +1145,6 @@ class Course_Expiration {
 		} else {
 			$course_id = Sensei()->lesson->get_course_id( $post_id );
 		}
-
-		$comment = get_comment( $comment_id );
 
 		if ( false === $course_id || empty( $comment ) ) {
 			return $updated;
@@ -923,21 +1154,27 @@ class Course_Expiration {
 		if ( ! empty( $_POST['data']['new_dates']['expiration-date'] ) ) {
 			$date_string = sanitize_text_field( wp_unslash( $_POST['data']['new_dates']['expiration-date'] ) );
 		}
-		// phpcs:enable
 
+		// phpcs:enable
 		if ( empty( $date_string ) ) {
 			$result = $this->remove_user_expiry( $course_id, $comment->user_id );
-
 			return true === $result ? true : $updated;
 		}
 
 		$date = DateTimeImmutable::createFromFormat( 'Y-m-d', $date_string, wp_timezone() );
 
+		$input_expiration = $date->setTime( 23, 59, 59 )->getTimestamp();
+
+		// If the expiration date didn't change don't update it.
+		$current_expiration = $this->get_user_expiration_timestamp( $comment->user_id, $course_id );
+		if ( $current_expiration === $input_expiration ) {
+			return $updated;
+		}
+
 		if ( false === $date ) {
 			return $updated;
 		}
 
-		$input_expiration   = $date->setTime( 23, 59, 59 )->getTimestamp();
 		$current_expiration = $this->get_user_expiration_timestamp( $comment->user_id, $course_id );
 
 		if ( $input_expiration === $current_expiration ) {
@@ -959,12 +1196,69 @@ class Course_Expiration {
 			$input_expiration
 		);
 
-		// Updating the expiry might cause a change in the learner's enrolment so we need to recalculate it in order
-		// store it in the enrolment term.
-		$course_enrolment = Sensei_Course_Enrolment::get_course_instance( $course_id );
-		$is_enrolled      = $course_enrolment->is_enrolled( $comment->user_id, false );
-		$course_enrolment->save_enrolment( $comment->user_id, $is_enrolled );
+		return true;
+	}
 
+	/**
+	 * Updates the student access period start date from the input in 'Access Start' column in student management.
+	 *
+	 * @access private
+	 *
+	 * @param bool $updated    Initial value from the filter.
+	 * @param int  $post_id    The lesson or course id.
+	 * @param int  $comment_id The comment id of the lesson or course progress.
+	 *
+	 * @return bool Whether an update happened or not.
+	 */
+	public function update_learner_start_date( bool $updated, int $post_id, int $comment_id ) : bool {
+		$post_type = get_post_type( $post_id );
+
+		if ( 'course' === $post_type ) {
+			$course_id = $post_id;
+		} else {
+			$course_id = Sensei()->lesson->get_course_id( $post_id );
+		}
+
+		$comment = get_comment( $comment_id );
+
+		if ( false === $course_id || empty( $comment ) ) {
+			return $updated;
+		}
+
+		// phpcs:disable WordPress.Security.NonceVerification.Missing -- Nonce is checked in main Sensei.
+		if ( ! empty( $_POST['data']['new_dates']['start-access-date'] ) ) {
+			$date_string = sanitize_text_field( wp_unslash( $_POST['data']['new_dates']['start-access-date'] ) );
+		}
+
+		// phpcs:enable
+		if ( empty( $date_string ) ) {
+			$result = $this->remove_user_started( $course_id, $comment->user_id );
+
+			return $result ? true : $updated;
+		}
+
+		$date = DateTimeImmutable::createFromFormat( 'Y-m-d', $date_string, wp_timezone() );
+
+		if ( false === $date ) {
+			return $updated;
+		}
+
+		$input_start_date   = $date->setTime( 23, 59, 59 )->getTimestamp();
+		$current_start_date = $this->get_user_start_timestamp( $comment->user_id, $course_id );
+
+		if ( $input_start_date === $current_start_date ) {
+			return $updated;
+		}
+
+		$this->remove_user_started( $course_id, $comment->user_id );
+
+		$start_post_meta = self::START_TIMESTAMP_COURSE_META_PREFIX . $comment->user_id;
+
+		update_post_meta(
+			$course_id,
+			$start_post_meta,
+			$input_start_date
+		);
 		return true;
 	}
 
@@ -976,7 +1270,14 @@ class Course_Expiration {
 	 * @param int $course_id Course ID.
 	 */
 	public function add_learner_course_expiration_message( $course_id ) {
-		$user_id        = get_current_user_id();
+		$user_id = get_current_user_id();
+
+		// Don't show access period expired message if not needed.
+		$display_access_expired_message = $this->should_display_expiration_message( $course_id, $user_id );
+		if ( ! $display_access_expired_message ) {
+			return;
+		}
+
 		$days_remaining = $this->get_days_remaining( $user_id, $course_id ) ?? 0;
 
 		list( $message, $type ) = $this->get_expiration_message(
@@ -997,6 +1298,94 @@ class Course_Expiration {
 	}
 
 	/**
+	 * Adds the not started message in the student courses list.
+	 *
+	 * @access private
+	 *
+	 * @param int $course_id Course ID.
+	 */
+	public function add_learner_course_not_started_message( $course_id ) {
+		$user_id = get_current_user_id();
+
+		// Don't display start access period message if it shouldn't be displayed.
+		$display_access_period_start_message = $this->should_display_start_access_message( $course_id, $user_id );
+		if ( ! $display_access_period_start_message ) {
+			return;
+		}
+
+		list( $message, $type ) = $this->get_not_started_message(
+			$user_id,
+			$course_id,
+			// translators: Placeholder is the expiration date.
+			__( 'Starts on %s', 'sensei-pro' )
+		);
+
+		if ( $message ) {
+			echo wp_kses_post( "<div class=\"course-expiration-message course-expiration-message--{$type}\">{$message}</div>" );
+		}
+	}
+
+	/**
+	 * Get if the access period expired message should be shown to the user.
+	 *
+	 * @access private
+	 *
+	 * @param int $course_id Course ID.
+	 * @param int $user_id User id.
+	 * @return bool
+	 */
+	private function should_display_expiration_message( $course_id, $user_id ) {
+
+		// If the start access period has not started and the expiration is NOT older than start access period, don't show the message.
+		$is_access_not_started = $this->is_access_not_started( $user_id, (int) $course_id );
+		if ( $is_access_not_started && ! $this->is_expiration_older_than_start_date( $course_id, $user_id ) ) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Get if the access period not started message should be shown to the user.
+	 *
+	 * @access private
+	 *
+	 * @param int $course_id Course ID.
+	 * @param int $user_id User id.
+	 * @return bool
+	 */
+	private function should_display_start_access_message( $course_id, $user_id ) {
+		$is_access_not_started = $this->is_access_not_started( $user_id, (int) $course_id );
+
+		// If access has started don't show access period not started message.
+		if ( ! $is_access_not_started ) {
+			return false;
+		}
+
+		// If access expired and expired date is older than start access date, don't show start access not started message.
+		$is_access_expired = $this->is_access_expired( $user_id, $course_id );
+		if ( $is_access_expired && $this->is_expiration_older_than_start_date( $course_id, $user_id ) ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Check if the expiration timestamp is older than start date timestamp.
+	 *
+	 * @access private
+	 *
+	 * @param int $course_id Course ID.
+	 * @param int $user_id User id.
+	 * @return bool
+	 */
+	private function is_expiration_older_than_start_date( $course_id, $user_id ): bool {
+		$start_date_timestamp = $this->get_user_start_timestamp( $user_id, $course_id );
+		$expired_timestamp    = $this->get_user_expiration_timestamp( $user_id, $course_id );
+		return $expired_timestamp < $start_date_timestamp;
+	}
+
+	/**
 	 * Hides the signup notices when access is expired.
 	 *
 	 * @access private
@@ -1012,8 +1401,7 @@ class Course_Expiration {
 		if ( 0 === $user_id ) {
 			return $default_value;
 		}
-
-		if ( $this->is_access_expired( $user_id, (int) $course_id ) ) {
+		if ( $this->is_access_expired_or_not_started( $user_id, (int) $course_id ) ) {
 			return false;
 		}
 
@@ -1033,7 +1421,6 @@ class Course_Expiration {
 	 */
 	public function update_quiz_signup_notice( $quiz_message_args, $lesson_id, $user_id ) : array {
 		$course_id = Sensei()->lesson->get_course_id( $lesson_id );
-
 		if ( empty( $course_id ) || empty( $user_id ) ) {
 			return $quiz_message_args;
 		}
@@ -1045,7 +1432,6 @@ class Course_Expiration {
 				// translators: Placeholder is the expiration date.
 				__( 'Your access expired on %s.', 'sensei-pro' )
 			);
-
 			$quiz_message_args['message']   = $message;
 			$quiz_message_args['box_class'] = 'clock';
 		}

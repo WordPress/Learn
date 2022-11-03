@@ -100,7 +100,7 @@ export const CardBlock = {
 						),
 					} ),
 				],
-				templateLock: 'all',
+				templateLock: 'insert',
 			}
 		);
 

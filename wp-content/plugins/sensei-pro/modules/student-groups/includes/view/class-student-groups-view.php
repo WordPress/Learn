@@ -116,21 +116,19 @@ class Student_Groups_View {
 
 		$group_students_url      = add_query_arg(
 			[
-				'post_type' => 'course',
-				'view'      => 'group_students',
-				'page'      => 'student_groups',
-				'group_id'  => $this->group_id,
+				'view'     => 'group_students',
+				'page'     => 'student_groups',
+				'group_id' => $this->group_id,
 			],
-			admin_url( 'edit.php' )
+			admin_url( 'admin.php' )
 		);
 		$group_access_period_url = add_query_arg(
 			[
-				'post_type' => 'course',
-				'view'      => 'group_access_period',
-				'page'      => 'student_groups',
-				'group_id'  => $this->group_id,
+				'view'     => 'group_access_period',
+				'page'     => 'student_groups',
+				'group_id' => $this->group_id,
 			],
-			admin_url( 'edit.php' )
+			admin_url( 'admin.php' )
 		);
 
 		$group_students_class      = '';

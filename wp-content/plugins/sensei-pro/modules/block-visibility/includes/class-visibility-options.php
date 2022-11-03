@@ -113,7 +113,6 @@ class Visibility_Options {
 	 */
 	public static function init() {
 		$instance = self::instance();
-		add_action( 'init', [ $instance, 'enqueue_inline_scripts' ] );
 		return $instance;
 	}
 

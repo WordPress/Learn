@@ -72,7 +72,7 @@ import { __ } from '@wordpress/i18n';
 
 			this.form.setAttribute( 'action', data.action );
 			this.button.innerHTML =
-				priceHTML + ' - ' + __( 'Purchase Course', 'sensei-pro' );
+				__( 'Buy', 'sensei-pro' ) + ' - ' + priceHTML;
 
 			this.clearData();
 

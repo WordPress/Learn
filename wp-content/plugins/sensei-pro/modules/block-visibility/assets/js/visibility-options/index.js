@@ -138,6 +138,7 @@ const withVisibilitySupport = createHigherOrderComponent(
 						<InspectorControls key="sensei-visibility">
 							<PanelBody
 								title={ __( 'Block Visibility', 'sensei-pro' ) }
+								initialOpen={ false }
 							>
 								<UserStatus
 									{ ...props }

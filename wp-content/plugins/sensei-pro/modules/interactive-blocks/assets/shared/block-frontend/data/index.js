@@ -5,15 +5,17 @@ import { createStore } from './createStore';
 import { reducer } from './reducer';
 import { persistState } from './persistState';
 import { bindActions, bindSelectors } from './reduxHelpers';
-import { actions as attributesActions } from './attributes/actions';
-import { selectors as attributesSelectors } from './attributes/selectors';
+import * as attributes from './attributes';
+import * as parents from './parents';
 
 export const blocksStore = createStore( reducer );
 
 persistState( blocksStore );
 
-bindActions( blocksStore, attributesActions );
-bindSelectors( blocksStore, attributesSelectors );
+bindActions( blocksStore, attributes.actions );
+bindActions( blocksStore, parents.actions );
+bindSelectors( blocksStore, attributes.selectors );
+bindSelectors( blocksStore, parents.selectors );
 
 if ( ! window.sensei ) {
 	window.sensei = {};

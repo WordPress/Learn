@@ -138,3 +138,22 @@
 		margin-bottom: 4px;
 	}
 }
+
+.sensei-lms-tooltip {
+	position: fixed;
+	z-index: 1000002;
+	font-size: 12px;
+	transition: opacity 150ms 150ms !important;
+	background: rgba(0, 0, 0, 0.8);
+	border-radius: 2px;
+	box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04);
+	color: #fff;
+	padding: 4px 8px;
+	opacity: 0;
+	&[data-enter] {
+		opacity: 1;
+	}
+	&[data-leave] {
+		opacity: 0;
+	}
+}

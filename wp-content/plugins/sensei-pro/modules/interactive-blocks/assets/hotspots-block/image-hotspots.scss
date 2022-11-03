@@ -139,6 +139,18 @@
 		}
 	}
 
+	&:hover &__hotspot-marker {
+		animation: 600ms infinite alternate-reverse hotspot-marker-pulse;
+		&:hover,
+		&.is-active,
+		&.is-opened,
+		&.is-visited,
+		&:focus,
+		&:focus-visible {
+			animation: none;
+		}
+	}
+
 	&__hotspot-marker {
 		all: unset;
 		position: absolute;
@@ -146,6 +158,7 @@
 		margin-top: calc(-1 * var(--marker-size) / 2);
 		border-radius: 50%;
 		box-shadow: 0 0 0 2px #fff, 0 0 0 6px rgba(#fff, 0.5);
+		transform-origin: center center;
 		a {
 			display: block;
 			width: var(--marker-size);
@@ -156,11 +169,7 @@
 			padding: 1px;
 		}
 		transition: transform 300ms, box-shadow 500ms, animation 500ms;
-		&:hover,
-		&.is-active {
-			animation: none;
-			transform: scale(1.2);
-		}
+
 		&:focus-visible {
 			a {
 				outline: 1.5px dotted currentColor;
@@ -175,23 +184,15 @@
 			color: #a9a9a9;
 			background: #a9a9a9;
 		}
-		&.is-visited a {
-			width: calc(var(--marker-size) / 1.1);
-			height: calc(var(--marker-size) / 1.1);
-			box-shadow: 0 0 0 4px #fff, 0 0 0 6px rgba(#fff, 0.5);
+		&.is-visited {
+			transform: scale(0.8);
+			opacity: 0.9;
 		}
-		&.is-opened a {
-			width: calc(var(--marker-size) * 1.3);
-			height: calc(var(--marker-size) * 1.3);
-		}
-	}
-
-	&:hover &__hotspot-marker {
-		animation: 600ms infinite alternate-reverse hotspot-marker-pulse;
 		&:hover,
 		&.is-active,
-		&:focus-visible {
-			animation: none;
+		&.is-opened {
+			opacity: 1;
+			transform: scale(1.2);
 		}
 	}
 

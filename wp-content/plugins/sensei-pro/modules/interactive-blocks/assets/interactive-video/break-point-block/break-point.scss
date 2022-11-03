@@ -1,0 +1,100 @@
+@import "./edit-time";
+@import "break-point-popover";
+
+body,
+body .editor-styles-wrapper { // Just for specificity purpose.
+	.wp-block-sensei-pro-timeline .wp-block-sensei-pro-break-point {
+		position: static;
+		margin-top: -10px !important; // A compensation to move the toolbar up.
+
+		&.is-selected {
+			z-index: 31;
+		}
+
+		&__button {
+			cursor: pointer;
+			display: block;
+			box-sizing: border-box;
+			border-radius: 50%;
+			width: 20px;
+			height: 20px;
+			border: 0;
+			margin: 0;
+			padding: 0;
+			transform: translate(-50%, -50%);
+			top: 50%;
+			position: absolute;
+			transition: left 0.5s;
+			// Trick: Using `currentColor` to use theme's main color.
+			background-color: currentColor;
+
+			&--is-selected {
+				border: 2px solid #fff;
+			}
+
+			&--is-dragging {
+				transition: none;
+			}
+
+			&--is-empty {
+				background-color: #fff;
+				border: 2px solid #000;
+
+				&.wp-block-sensei-pro-break-point__button--is-selected {
+					border-color: currentColor;
+				}
+			}
+
+			&--is-required {
+				width: 32px;
+				height: 32px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+
+			> svg {
+				color: #000;
+			}
+
+			&--white-icon > svg {
+				color: #fff;
+			}
+
+			&--is-blocked {
+				background-color: #757575;
+
+				&.wp-block-sensei-pro-break-point__button--is-required {
+					cursor: not-allowed;
+				}
+			}
+		}
+	}
+
+}
+
+body .editor-styles-wrapper .wp-block-sensei-pro-timeline .wp-block-sensei-pro-break-point__button {
+	cursor: move;
+}
+
+.wp-block-sensei-pro-break-point__modal {
+
+	&__hidden-content {
+		display: none;
+	}
+
+	.sensei-modal__content,
+	.sensei-modal__footer {
+		padding-left: 50px;
+		padding-right: 50px;
+	}
+
+	&-footer {
+		display: flex;
+		justify-content: right;
+	}
+
+	.sensei-modal__content > .entry-content > *:first-child {
+		margin-top: 0;
+	}
+}

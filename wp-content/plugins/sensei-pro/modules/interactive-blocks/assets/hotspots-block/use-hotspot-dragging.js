@@ -1,12 +1,13 @@
 /**
  * WordPress dependencies
  */
-import { useCallback, useEffect, useState, useRef } from '@wordpress/element';
+import { useCallback, useState, useRef } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 
 /**
  * Internal dependencies
  */
+import useDragging from '../use-dragging';
 import { calculateRelativeClickPosition } from './hotspots-appender';
 import { IMAGE_HOTSPOST_CLASS_NAME } from './elements';
 
@@ -18,9 +19,12 @@ import { IMAGE_HOTSPOST_CLASS_NAME } from './elements';
  */
 const POSITION_CHANGE_THRESHOLD = 3;
 
-export const useHotspotDragging = ( { clientId, onPositionChange } ) => {
-	const [ dragging, setDragging ] = useState( false );
-	const [ initialPosition, setInitialPosition ] = useState( {} );
+export const useHotspotDragging = ( {
+	clientId,
+	hotspotRef,
+	onPositionChange,
+} ) => {
+	const [ draggedDiff, setDraggedDiff ] = useState( {} );
 	const [ dragCoords, setDragCoords ] = useState( {} );
 	const imageHotspotsRef = useRef( null );
 	const [ imageHotspotsBlockId ] = useSelect( ( select ) => {
@@ -43,61 +47,45 @@ export const useHotspotDragging = ( { clientId, onPositionChange } ) => {
 		[ imageHotspotsBlockId ]
 	);
 
-	const onMouseDown = useCallback( ( ev ) => {
-		ev.preventDefault();
-		imageHotspotsRef.current = ev.target.closest(
+	const onDragStart = useCallback( () => {
+		imageHotspotsRef.current = hotspotRef.current.closest(
 			`.${ IMAGE_HOTSPOST_CLASS_NAME }`
 		);
-		setDragging( true );
-		setInitialPosition( {
-			x: ev.clientX,
-			y: ev.clientY,
-		} );
-	}, [] );
+	}, [ hotspotRef ] );
 
-	const onMouseUp = useCallback(
-		( ev ) => {
-			if ( ! dragging ) {
-				return;
-			}
+	const onDragEnd = useCallback( () => {
+		const changedPosition =
+			Math.abs( draggedDiff.x ) > POSITION_CHANGE_THRESHOLD ||
+			Math.abs( draggedDiff.y ) > POSITION_CHANGE_THRESHOLD;
 
-			ev.preventDefault();
-			setDragging( false );
-			const changedPosition =
-				Math.abs( initialPosition.x - ev.clientX ) >
-					POSITION_CHANGE_THRESHOLD ||
-				Math.abs( initialPosition.y - ev.clientY ) >
-					POSITION_CHANGE_THRESHOLD;
-			if ( changedPosition ) {
-				onPositionChange( calculateCoords( ev ) );
-			} else {
-				setDragCoords( {} );
-			}
+		if ( changedPosition ) {
+			onPositionChange( dragCoords );
+		} else {
+			setDragCoords( {} );
+		}
+	}, [ onPositionChange, draggedDiff, dragCoords ] );
+
+	const onDrag = useCallback(
+		( position ) => {
+			setDraggedDiff( { x: position.diffX, y: position.diffY } );
+			setDragCoords(
+				calculateCoords( {
+					clientX: position.clientX,
+					clientY: position.clientY,
+				} )
+			);
 		},
-		[ dragging, calculateCoords, initialPosition ]
+		[ calculateCoords ]
 	);
 
-	const onMouseMove = useCallback(
-		( ev ) => {
-			if ( dragging ) {
-				setDragCoords( calculateCoords( ev ) );
-			}
-		},
-		[ dragging, calculateCoords ]
-	);
-
-	useEffect( () => {
-		document.addEventListener( 'mouseup', onMouseUp );
-		document.addEventListener( 'mousemove', onMouseMove );
-		return () => {
-			document.removeEventListener( 'mouseup', onMouseUp );
-			document.removeEventListener( 'mousemove', onMouseMove );
-		};
-	}, [ onMouseUp, onMouseMove ] );
+	const { draggableProps } = useDragging( {
+		onDrag,
+		onDragStart,
+		onDragEnd,
+	} );
 
 	return {
-		onMouseDown,
+		draggableProps,
 		dragCoords,
-		dragging,
 	};
 };

@@ -26,9 +26,16 @@ import { CompletedStatus } from '../../shared/supports-required/elements';
  * @param {Object} props.clientId      Unique identifier re-generated on every page reload.
  * @param {Object} props.attributes    Question attributes.
  * @param {Object} props.setAttributes Updates the question attributes.
+ * @param {Object} props.blockProps    Block props.
  * @param {Object} props.innerBlocks   Inner blocks.
  */
-const Question = ( { clientId, attributes, innerBlocks, setAttributes } ) => {
+const Question = ( {
+	clientId,
+	attributes,
+	setAttributes,
+	blockProps,
+	innerBlocks,
+} ) => {
 	const blockId = attributes.blockId;
 	const type = attributes.type;
 	const answer = attributes.answer;
@@ -104,68 +111,70 @@ const Question = ( { clientId, attributes, innerBlocks, setAttributes } ) => {
 
 	return (
 		<BlockSlot.Provider value={ innerBlocks }>
-			<form onSubmit={ onSubmit }>
-				<fieldset>
-					<legend
-						id={ 'sensei-question-title-' + clientId }
-						className="screen-reader-text"
-					>
-						{ attributes.title }
-					</legend>
-					<h3
-						className="sensei-lms-interactive-block-question__title"
-						aria-hidden={ true }
-					>
-						{ attributes.required && (
-							<CompletedStatus
-								message={ __(
-									'Required - Answer this question correctly to complete.',
-									'sensei-pro'
-								) }
-								className="sensei-lms-interactive-block-question__completed-status"
-								completed={ attributes.completed }
-							/>
-						) }
-						{ attributes.title }
-					</h3>
-					<div className="sensei-lms-interactive-block-question__description">
-						<BlockSlot name="description" />
-					</div>
-					<div>
-						{ stateLoaded && (
-							<QuestionType.component
-								id={ clientId }
-								answer={ answer }
-								readOnly={ submitted }
-								state={ questionState }
-								setState={ setQuestionState }
-							/>
-						) }
-						{ ! submitted && (
-							<QuestionSubmit
-								questionTitle={ attributes.title }
-							/>
-						) }
-					</div>
-					<div role="alert">
-						{ submitted && (
-							<>
-								<BlockSlot
-									name={
-										success
-											? 'feedback_correct'
-											: 'feedback_incorrect'
-									}
+			<div { ...blockProps }>
+				<form onSubmit={ onSubmit }>
+					<fieldset>
+						<legend
+							id={ 'sensei-question-title-' + clientId }
+							className="screen-reader-text"
+						>
+							{ attributes.title }
+						</legend>
+						<h3
+							className="sensei-lms-interactive-block-question__title"
+							aria-hidden={ true }
+						>
+							{ attributes.required && (
+								<CompletedStatus
+									message={ __(
+										'Required - Answer this question correctly to complete.',
+										'sensei-pro'
+									) }
+									className="sensei-lms-interactive-block-question__completed-status"
+									completed={ attributes.completed }
 								/>
-								<QuestionReset
+							) }
+							{ attributes.title }
+						</h3>
+						<div className="sensei-lms-interactive-block-question__description">
+							<BlockSlot name="description" />
+						</div>
+						<div>
+							{ stateLoaded && (
+								<QuestionType.component
+									id={ clientId }
+									answer={ answer }
+									readOnly={ submitted }
+									state={ questionState }
+									setState={ setQuestionState }
+								/>
+							) }
+							{ ! submitted && (
+								<QuestionSubmit
 									questionTitle={ attributes.title }
-									reset={ reset }
 								/>
-							</>
-						) }
-					</div>
-				</fieldset>
-			</form>
+							) }
+						</div>
+						<div role="alert">
+							{ submitted && (
+								<>
+									<BlockSlot
+										name={
+											success
+												? 'feedback_correct'
+												: 'feedback_incorrect'
+										}
+									/>
+									<QuestionReset
+										questionTitle={ attributes.title }
+										reset={ reset }
+									/>
+								</>
+							) }
+						</div>
+					</fieldset>
+				</form>
+			</div>
 		</BlockSlot.Provider>
 	);
 };

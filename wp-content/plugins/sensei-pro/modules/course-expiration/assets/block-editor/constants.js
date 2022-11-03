@@ -19,3 +19,15 @@ export const EXPIRES_ON = 'expires-on';
 export const MONTH = 'month';
 export const WEEK = 'week';
 export const DAY = 'day';
+
+/**
+ * Start types.
+ */
+export const IMMEDIATELY = 'immediately';
+export const STARTS_ON = 'starts-on';
+
+/**
+ * Start meta fields.
+ */
+export const START_TYPE = '_course_start_type';
+export const START_DATE = '_course_starts_on_date';

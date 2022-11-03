@@ -118,7 +118,7 @@ export const ImageHotspotsBlock = {
 	save: ( { attributes, children, blockProps } ) => {
 		return (
 			<ImageHotspots { ...blockProps }>
-				<HotspotsImage.Image { ...attributes.image } />
+				<ImageHotspots.Image { ...attributes.image } />
 				{ children }
 			</ImageHotspots>
 		);

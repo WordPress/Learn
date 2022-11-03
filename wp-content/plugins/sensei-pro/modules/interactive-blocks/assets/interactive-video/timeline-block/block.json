@@ -1,0 +1,34 @@
+{
+  "name": "sensei-pro/timeline",
+  "title": "Interactive Video - Timeline",
+  "description": "Timeline for the Interactive Video Block.",
+  "keywords": [
+    "sensei",
+    "video",
+    "interactive",
+    "videopress",
+    "youtube",
+    "vimeo",
+    "timeline"
+  ],
+  "category": "sensei-lms",
+  "parent": [ "sensei-pro/interactive-video" ],
+  "attributes": {
+    "breakPointsCount": {
+      "default": 0,
+      "type": "number"
+    }
+  },
+  "apiVersion": 2,
+  "supports": {
+    "html": false,
+    "lock": false,
+    "inserter": false,
+    "reusable": false,
+    "sensei": {
+      "blockId": true,
+      "frontend": true
+    }
+  },
+  "textdomain": "sensei-pro"
+}

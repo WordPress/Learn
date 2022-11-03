@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once __DIR__ . '/includes/class-shared-module.php';
 
 /**
- * Initialises the the shared module.
+ * Initialises the shared module.
  */
 function sensei_pro_shared_module_init() {
 	Shared_Module::init( \Sensei_Pro\Modules\assets_loader( Shared_Module::MODULE_NAME ), SENSEI_PRO_PLUGIN_DIR_PATH . 'vendor/' );

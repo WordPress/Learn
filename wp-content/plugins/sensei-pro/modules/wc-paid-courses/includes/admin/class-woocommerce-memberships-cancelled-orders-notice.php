@@ -289,7 +289,7 @@ class WooCommerce_Memberships_Cancelled_Orders_Notice {
 			'edit-wc_user_membership',
 			'edit-wc_membership_plan',
 			'edit-shop_order',
-			'course_page_sensei_learners',
+			'sensei-lms_page_sensei_learners',
 		];
 		$screen        = \get_current_screen();
 
