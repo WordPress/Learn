@@ -42,8 +42,8 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 
 		<hr>
 		<?php
-		$categories = get_terms( array(
-			'taxonomy'   => 'wporg_lesson_category',
+		$topics = get_terms( array(
+			'taxonomy'   => 'topic',
 			'hide_empty' => false,
 			'orderby'    => 'id',
 			'order'      => 'DESC',
@@ -53,16 +53,16 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 			<h2 class="h4 lp-taxonomy-header"><?php echo esc_html__( 'Topic', 'wporg-learn' ); ?></h2>
 			<div class="lp-taxonomy-description"><?php echo esc_html__( 'Browse lesson plans by their high-level topic.', 'wporg-learn' ); ?></div>
 			<div class="card-grid card-grid_4">
-				<?php foreach ( $categories as $category ) :
-					$is_sticky = get_term_meta( $category->term_id, 'sticky', true );
+				<?php foreach ( $topics as $topic ) :
+					$is_sticky = get_term_meta( $topic->term_id, 'sticky', true );
 					if ( $is_sticky ) :
 						?>
-					<a class="card button" href="<?php echo esc_url( get_term_link( $category ) ); ?>">
-						<?php $category_icon = get_term_meta( $category->term_id, 'dashicon-class', true ) ?? 'wordpress-alt'; ?>
+					<a class="card button" href="<?php echo esc_url( get_term_link( $topic ) ); ?>">
+						<?php $topic_icon = get_term_meta( $topic->term_id, 'dashicon-class', true ) ?? 'wordpress-alt'; ?>
 						<div>
-							<span aria-hidden="true" class="dashicons dashicons-<?php echo esc_attr( $category_icon ); ?>"></span>
+							<span aria-hidden="true" class="dashicons dashicons-<?php echo esc_attr( $topic_icon ); ?>"></span>
 						</div>
-						<?php echo esc_html( $category->name ); ?>
+						<?php echo esc_html( $topic->name ); ?>
 					</a>
 						<?php
 					endif;
