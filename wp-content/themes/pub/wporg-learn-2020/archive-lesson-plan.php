@@ -151,7 +151,7 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 						$duration_index++;
 					endforeach;
 
-					if ( $any_duration_arr['duration'] ) :
+					if ( isset( $any_duration_arr['duration'] ) ) :
 						?>
 						<li>
 							<a class="button" href="<?php echo esc_url( add_query_arg( $any_duration_arr, $lp_archive_url ) ); ?>">
