@@ -387,8 +387,6 @@ _x( 'eCommerce', 'Topics term name', 'wporg-learn' );
 _x( 'Extending WordPress', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/topic/extending-wordpress/ */
 _x( 'Developing or customizing with code.', 'Topics term description', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/full-site-editing/ */
-_x( 'Full Site Editing', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/topic/general/ */
 _x( 'General', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/topic/general/ */
@@ -415,6 +413,8 @@ _x( 'Publishing', 'Topics term name', 'wporg-learn' );
 _x( 'RSS', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/topic/security/ */
 _x( 'Security', 'Topics term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/topic/site-editor/ */
+_x( 'Site Editor', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/topic/site-management/ */
 _x( 'Site Management', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/topic/speaking-at-events/ */
