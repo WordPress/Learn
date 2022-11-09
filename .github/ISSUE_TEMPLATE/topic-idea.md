@@ -5,12 +5,6 @@ title: "Topic Idea: TOPIC TITLE"
 labels: Awaiting Triage, Needs Subject Matter Expert
 ---
 
-<!--
-The steps to translating content on Learn WordPress can be found in the handbook: https://make.wordpress.org/training/handbook/content-localization/.
-
-Remember to update the title of this issue. Example: Greek translation for Lesson Plan "Introduction To Common Plugins"
--->
-
 # Details
 <!-- Please describe what this content topic is about-->
 - Topic title: 
