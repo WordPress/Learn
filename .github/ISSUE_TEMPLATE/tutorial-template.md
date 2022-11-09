@@ -15,7 +15,7 @@ Links to related content on Learn, HelpHub, DevHub, GitHub Gutenberg Issues, Dev
 - [ ]
 
 # Guidelines
-Review the [team guidelines] (https://make.wordpress.org/training/handbook/guidelines/)
+Review the [team guidelines](https://make.wordpress.org/training/handbook/guidelines/)
 
 # Tutorial Development Checklist
 
