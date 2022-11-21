@@ -192,7 +192,7 @@ function render_topics_list_table_columns( $content, $column_name, $term_id ) {
 		case 'sticky':
 			$sticky = get_term_meta( $term_id, 'sticky', true );
 
-			echo $sticky ? 'Yes' : '';
+			echo $sticky ? '<span class="dashicons dashicons-sticky"></span>' : '';
 			break;
 	}
 }
