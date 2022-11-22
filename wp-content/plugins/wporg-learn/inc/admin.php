@@ -14,10 +14,12 @@ defined( 'WPINC' ) || die();
  */
 add_action( 'admin_notices', __NAMESPACE__ . '\show_term_translation_notice' );
 add_filter( 'manage_wporg_workshop_posts_columns', __NAMESPACE__ . '\add_workshop_list_table_columns' );
+add_filter( 'manage_edit-topic_columns', __NAMESPACE__ . '\add_topic_list_table_column' );
 foreach ( array( 'lesson-plan', 'meeting', 'course', 'lesson' ) as $pt ) {
 	add_filter( 'manage_' . $pt . '_posts_columns', __NAMESPACE__ . '\add_list_table_language_column' );
 }
 add_action( 'manage_wporg_workshop_posts_custom_column', __NAMESPACE__ . '\render_workshop_list_table_columns', 10, 2 );
+add_action( 'manage_topic_custom_column', __NAMESPACE__ . '\render_topics_list_table_columns', 10, 3 );
 foreach ( array( 'lesson-plan', 'meeting', 'course', 'lesson' ) as $pt ) {
 	add_filter( 'manage_' . $pt . '_posts_custom_column', __NAMESPACE__ . '\render_list_table_language_column', 10, 2 );
 }
@@ -97,6 +99,22 @@ function add_workshop_list_table_columns( $columns ) {
 }
 
 /**
+ * Add additional columns to the terms list table for topics.
+ *
+ * @param array $columns
+ *
+ * @return array
+ */
+function add_topic_list_table_column( $columns ) {
+	$columns = array_slice( $columns, 0, -1, true )
+				+ array( 'icon' => __( 'Icon', 'wporg-learn' ) )
+				+ array( 'sticky' => __( 'Sticky', 'wporg-learn' ) )
+				+ array_slice( $columns, -1, 1, true );
+
+	return $columns;
+}
+
+/**
  * Add a language column to the post list table.
  *
  * @param array $columns
@@ -151,6 +169,30 @@ function render_workshop_list_table_columns( $column_name, $post_id ) {
 					$captions
 				)
 			) );
+			break;
+	}
+}
+
+/**
+ * Render the cell contents for the additional columns in the terms list table for topics.
+ *
+ * @param string $content
+ * @param string $column_name
+ * @param int    $term_id
+ *
+ * @return void
+ */
+function render_topics_list_table_columns( $content, $column_name, $term_id ) {
+	switch ( $column_name ) {
+		case 'icon':
+			$icon = get_term_meta( $term_id, 'dashicon-class', true );
+
+			echo esc_html( $icon );
+			break;
+		case 'sticky':
+			$sticky = get_term_meta( $term_id, 'sticky', true );
+
+			echo $sticky ? '<span class="dashicons dashicons-sticky"></span>' : '';
 			break;
 	}
 }

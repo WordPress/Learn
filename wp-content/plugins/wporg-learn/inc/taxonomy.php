@@ -8,6 +8,18 @@ defined( 'WPINC' ) || die();
  * Actions and filters.
  */
 add_action( 'init', __NAMESPACE__ . '\register' );
+add_action( 'audience_add_form_fields', __NAMESPACE__ . '\register_custom_fields' );
+add_action( 'wporg_lesson_category_add_form_fields', __NAMESPACE__ . '\register_custom_fields' );
+add_action( 'topic_add_form_fields', __NAMESPACE__ . '\register_custom_fields' );
+add_action( 'audience_edit_form_fields', __NAMESPACE__ . '\tax_edit_term_fields', 10, 2 );
+add_action( 'wporg_lesson_category_edit_form_fields', __NAMESPACE__ . '\tax_edit_term_fields', 10, 2 );
+add_action( 'topic_edit_form_fields', __NAMESPACE__ . '\tax_edit_term_fields', 10, 2 );
+add_action( 'created_audience', __NAMESPACE__ . '\tax_save_term_fields' );
+add_action( 'edited_audience', __NAMESPACE__ . '\tax_save_term_fields' );
+add_action( 'created_wporg_lesson_category', __NAMESPACE__ . '\tax_save_term_fields' );
+add_action( 'edited_wporg_lesson_category', __NAMESPACE__ . '\tax_save_term_fields' );
+add_action( 'created_topic', __NAMESPACE__ . '\tax_save_term_fields' );
+add_action( 'edited_topic', __NAMESPACE__ . '\tax_save_term_fields' );
 
 /**
  * Register all the taxonomies.
@@ -583,9 +595,6 @@ function register_custom_fields( $taxonomy ) {
 	';
 }
 
-add_action( 'audience_add_form_fields', __NAMESPACE__ . '\register_custom_fields' );
-add_action( 'wporg_lesson_category_add_form_fields', __NAMESPACE__ . '\register_custom_fields' );
-
 /**
  * Icon field on edit screen.
  *
@@ -593,7 +602,7 @@ add_action( 'wporg_lesson_category_add_form_fields', __NAMESPACE__ . '\register_
  * @param array  $taxonomy the taxonomy array.
  */
 function tax_edit_term_fields( $term, $taxonomy ) {
-	$value = get_term_meta( $term->term_id, 'dashicon-class', true );
+	$value  = get_term_meta( $term->term_id, 'dashicon-class', true );
 	$sticky = get_term_meta( $term->term_id, 'sticky', true );
 
 	echo '<tr class="form-field">
@@ -616,9 +625,6 @@ function tax_edit_term_fields( $term, $taxonomy ) {
 	</tr>
 	';
 }
-
-add_action( 'audience_edit_form_fields', __NAMESPACE__ . '\tax_edit_term_fields', 10, 2 );
-add_action( 'wporg_lesson_category_edit_form_fields', __NAMESPACE__ . '\tax_edit_term_fields', 10, 2 );
 
 /**
  * Save icon field.
@@ -647,8 +653,3 @@ function tax_save_term_fields( $term_id ) {
 		rest_sanitize_boolean( $is_sticky )
 	);
 }
-
-add_action( 'created_audience', __NAMESPACE__ . '\tax_save_term_fields' );
-add_action( 'edited_audience', __NAMESPACE__ . '\tax_save_term_fields' );
-add_action( 'created_wporg_lesson_category', __NAMESPACE__ . '\tax_save_term_fields' );
-add_action( 'edited_wporg_lesson_category', __NAMESPACE__ . '\tax_save_term_fields' );
