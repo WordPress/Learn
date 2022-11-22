@@ -60,7 +60,7 @@ function register_lesson_plan() {
 		'label'               => __( 'Lesson Plan', 'wporg_learn' ),
 		'description'         => __( 'WordPress.org Training Lesson Plan', 'wporg_learn' ),
 		'labels'              => $labels,
-		'supports'            => array( 'title', 'editor', 'comments', 'revisions', 'custom-fields' ),
+		'supports'            => array( 'title', 'editor', 'comments', 'revisions', 'custom-fields', 'author' ),
 		'taxonomies'          => array( 'duration', 'level', 'audience', 'instruction_type' ),
 		'hierarchical'        => true,
 		'public'              => true,
@@ -125,6 +125,7 @@ function register_workshop() {
 		'thumbnail',
 		'title',
 		'wporg-internal-notes',
+		'author',
 	);
 
 	$args = array(
