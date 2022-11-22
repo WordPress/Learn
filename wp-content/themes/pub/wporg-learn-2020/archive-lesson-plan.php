@@ -42,33 +42,26 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 
 		<hr>
 		<?php
-		$topics = get_terms( array(
-			'taxonomy'   => 'topic',
-			'hide_empty' => false,
-			'orderby'    => 'id',
-			'order'      => 'DESC',
-		) );
-		?>
-		<div class="lp-taxonomy">
-			<h2 class="h4 lp-taxonomy-header"><?php echo esc_html__( 'Topic', 'wporg-learn' ); ?></h2>
-			<div class="lp-taxonomy-description"><?php echo esc_html__( 'Browse lesson plans by their high-level topic.', 'wporg-learn' ); ?></div>
-			<div class="card-grid card-grid_4">
-				<?php foreach ( $topics as $topic ) :
-					$is_sticky = get_term_meta( $topic->term_id, 'sticky', true );
-					if ( $is_sticky ) :
-						?>
-					<a class="card button" href="<?php echo esc_url( get_term_link( $topic ) ); ?>">
-						<?php $topic_icon = get_term_meta( $topic->term_id, 'dashicon-class', true ) ?? 'wordpress-alt'; ?>
-						<div>
-							<span aria-hidden="true" class="dashicons dashicons-<?php echo esc_attr( $topic_icon ); ?>"></span>
-						</div>
-						<?php echo esc_html( $topic->name ); ?>
-					</a>
-						<?php
-					endif;
-				endforeach; ?>
+		$topics = wporg_learn_get_sticky_topics_with_selected_first();
+		if ( ! empty( $topics ) ) {
+			?>
+			<div class="lp-taxonomy">
+				<h2 class="h4 lp-taxonomy-header"><?php echo esc_html__( 'Topic', 'wporg-learn' ); ?></h2>
+				<div class="lp-taxonomy-description"><?php echo esc_html__( 'Browse lesson plans by their high-level topic.', 'wporg-learn' ); ?></div>
+				<div class="card-grid card-grid_4">
+					<?php foreach ( $topics as $topic ) : ?>
+						<a class="card button topic-<?php echo esc_attr( $topic->term_id ); ?>" href="<?php echo esc_url( get_term_link( $topic ) ); ?>">
+							<?php $topic_icon = get_term_meta( $topic->term_id, 'dashicon-class', true ) ?? 'wordpress-alt'; ?>
+							<div>
+								<span aria-hidden="true" class="dashicons dashicons-<?php echo esc_attr( $topic_icon ); ?>"></span>
+							</div>
+							<?php echo esc_html( $topic->name ); ?>
+						</a>
+					<?php endforeach; ?>
+				</div>
 			</div>
-		</div>
+			<?php
+		} ?>
 
 		<?php
 		$audiences = get_terms( 'audience', array(
