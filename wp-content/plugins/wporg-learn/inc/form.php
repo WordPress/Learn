@@ -264,7 +264,7 @@ function process_workshop_application_form_submission( $submission ) {
 		'post_excerpt' => $validated['description-short'],
 		'post_content' => $content,
 		'meta_input'   => array(
-			'video_language'       => $validated['language'],
+			'language'             => $validated['language'],
 			'original_application' => $validated,
 		),
 	);

@@ -119,19 +119,6 @@ function register_workshop_meta() {
 
 	register_post_meta(
 		$post_type,
-		'video_language',
-		array(
-			'description'       => __( 'The language that the workshop is presented in.', 'wporg_learn' ),
-			'type'              => 'string',
-			'single'            => true,
-			'default'           => 'en_US',
-			'sanitize_callback' => __NAMESPACE__ . '\sanitize_locale',
-			'show_in_rest'      => true,
-		)
-	);
-
-	register_post_meta(
-		$post_type,
 		'video_caption_language',
 		array(
 			'description'       => __( 'A language for which subtitles are available for the workshop video.', 'wporg_learn' ),
@@ -478,9 +465,6 @@ function save_workshop_metabox_fields( $post_id ) {
 		$duration = $duration['h'] * HOUR_IN_SECONDS + $duration['m'] * MINUTE_IN_SECONDS + $duration['s'];
 		update_post_meta( $post_id, 'duration', $duration );
 	}
-
-	$video_language = filter_input( INPUT_POST, 'video-language' );
-	update_post_meta( $post_id, 'video_language', $video_language );
 
 	$captions = filter_input( INPUT_POST, 'video-caption-language', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 	delete_post_meta( $post_id, 'video_caption_language' );

@@ -460,7 +460,7 @@ add_filter( 'posts_orderby', 'wporg_archive_orderby', 10, 2 );
  *
  * After:
  * SELECT SQL_CALC_FOUND_ROWS wp_posts.*,
- *   MAX( IF( pmeta.meta_key = 'video_language' AND pmeta.meta_value LIKE 'art_%', 1, 0 ) ) AS has_language,
+ *   MAX( IF( pmeta.meta_key = 'language' AND pmeta.meta_value LIKE 'art_%', 1, 0 ) ) AS has_language,
  *   MAX( IF( pmeta.meta_key = 'video_caption_language' AND pmeta.meta_value LIKE 'art_%', 1, 0 ) ) AS has_caption
  * FROM wp_posts
  * INNER JOIN wp_postmeta pmeta ON ( wp_posts.ID = pmeta.post_id )
@@ -494,7 +494,7 @@ function wporg_archive_query_prioritize_locale( $clauses, $query ) {
 		 * grouping, there would be a separate row for each postmeta value for each workshop post.
 		 */
 		$clauses['fields'] .= ",
-			MAX( IF( pmeta.meta_key = 'video_language' AND pmeta.meta_value LIKE '{$locale_root}%', 1, 0 ) ) AS has_language
+			MAX( IF( pmeta.meta_key = 'language' AND pmeta.meta_value LIKE '{$locale_root}%', 1, 0 ) ) AS has_language
 		";
 		$clauses['fields'] .= ",
 			MAX( IF( pmeta.meta_key = 'video_caption_language' AND pmeta.meta_value LIKE '{$locale_root}%', 1, 0 ) ) AS has_caption
@@ -554,7 +554,7 @@ function wporg_archive_maybe_apply_query_filters( WP_Query &$query ) {
 
 	$entity_map = array(
 		'captions'   => 'video_caption_language',
-		'language'   => 'video_language',
+		'language'   => 'language',
 		'audience'   => 'audience',
 		'duration'   => 'duration',
 		'level'      => 'level',
@@ -725,7 +725,7 @@ function wporg_learn_get_card_template_args( $post_id ) {
 				array(
 					'icon'  => 'admin-site-alt3',
 					'label' => __( 'Language:', 'wporg-learn' ),
-					'value' => \WordPressdotorg\Locales\get_locale_name_from_code( $post->video_language, 'native' ),
+					'value' => \WordPressdotorg\Locales\get_locale_name_from_code( $post->language, 'native' ),
 				),
 			);
 			break;

@@ -90,9 +90,8 @@ function show_term_translation_notice() {
  */
 function add_workshop_list_table_columns( $columns ) {
 	$columns = array_slice( $columns, 0, -2, true )
-				+ array( 'video_language' => __( 'Video Language', 'wporg-learn' ) )
-				+ array( 'video_caption_language' => __( 'Subtitles', 'wporg-learn' ) )
 				+ array( 'language' => __( 'Language', 'wporg-learn' ) )
+				+ array( 'video_caption_language' => __( 'Subtitles', 'wporg-learn' ) )
 				+ array_slice( $columns, -2, 2, true );
 
 	return $columns;
@@ -148,13 +147,6 @@ function render_workshop_list_table_columns( $column_name, $post_id ) {
 				'%s [%s]',
 				esc_html( get_locale_name_from_code( $language, 'english' ) ),
 				esc_html( $language )
-			);
-			break;
-		case 'video_language':
-			printf(
-				'%s [%s]',
-				esc_html( get_locale_name_from_code( $post->video_language, 'english' ) ),
-				esc_html( $post->video_language )
 			);
 			break;
 		case 'video_caption_language':
@@ -225,7 +217,7 @@ function render_list_table_language_column( $column_name, $post_id ) {
  * @return array
  */
 function add_workshop_list_table_sortable_columns( $sortable_columns ) {
-	$sortable_columns['video_language'] = 'video_language';
+	$sortable_columns['language'] = 'language';
 
 	return $sortable_columns;
 }
@@ -243,7 +235,7 @@ function add_workshop_list_table_filters( $post_type, $which ) {
 		return;
 	}
 
-	$available_locales = get_available_workshop_locales( 'video_language', 'english', false );
+	$available_locales = get_available_workshop_locales( 'language', 'english', false );
 	$language          = filter_input( INPUT_GET, 'language', FILTER_SANITIZE_STRING );
 
 	?>
@@ -251,7 +243,7 @@ function add_workshop_list_table_filters( $post_type, $which ) {
 		<?php esc_html_e( 'Filter by language', 'wporg-learn' ); ?>
 	</label>
 	<select id="filter-by-language" name="language">
-		<option value=""<?php selected( ! $language ); ?>><?php esc_html_e( 'Any video language', 'wporg-learn' ); ?></option>
+		<option value=""<?php selected( ! $language ); ?>><?php esc_html_e( 'Any language', 'wporg-learn' ); ?></option>
 		<?php foreach ( $available_locales as $code => $name ) : ?>
 			<option value="<?php echo esc_attr( $code ); ?>"<?php selected( $code, $language ); ?>>
 				<?php
@@ -299,15 +291,15 @@ function handle_workshop_list_table_filters( WP_Query $query ) {
 			}
 
 			$meta_query[] = array(
-				'key'   => 'video_language',
+				'key'   => 'language',
 				'value' => $language,
 			);
 
 			$query->set( 'meta_query', $meta_query );
 		}
 
-		if ( 'video_language' === $query->get( 'orderby' ) ) {
-			$query->set( 'meta_key', 'video_language' );
+		if ( 'language' === $query->get( 'orderby' ) ) {
+			$query->set( 'meta_key', 'language' );
 			$query->set( 'orderby', 'meta_value' );
 		}
 	}
