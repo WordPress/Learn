@@ -20,34 +20,6 @@ _x( 'Developers', 'Audiences term name', 'wporg-learn' );
 _x( 'Speakers', 'Audiences term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/audience/users/ */
 _x( 'Users', 'Audiences term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/lesson-plans/extending-wordpress/ */
-_x( 'Extending WordPress', 'Lesson Categories term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/lesson-plans/extending-wordpress/ */
-_x( 'Developing or Customizing with code.', 'Lesson Categories term description', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/lesson-plans/general/ */
-_x( 'General', 'Lesson Categories term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/lesson-plans/general/ */
-_x( 'History of WordPress, About the Community, Open Source, or other broad overview lessons', 'Lesson Categories term description', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/lesson-plans/plugin-development/ */
-_x( 'Plugin Development', 'Lesson Categories term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/lesson-plans/site-management/ */
-_x( 'Site Management', 'Lesson Categories term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/lesson-plans/site-management/ */
-_x( 'Using admin settings, the dashboard, posts, pages,', 'Lesson Categories term description', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/lesson-plans/speaking-at-events/ */
-_x( 'Speaking at Events', 'Lesson Categories term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/lesson-plans/templates/ */
-_x( 'Templates', 'Lesson Categories term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/lesson-plans/templates/ */
-_x( 'How to get started writing lesson plans, templates for lessons, guidelines for Learn', 'Lesson Categories term description', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/lesson-plans/theme-development/ */
-_x( 'Theme Development', 'Lesson Categories term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/lesson-plans/using-plugins/ */
-_x( 'Using Plugins', 'Lesson Categories term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/lesson-plans/using-themes/ */
-_x( 'Using Themes', 'Lesson Categories term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/lesson-plans/using-wordpress/ */
-_x( 'Using WordPress', 'Lesson Categories term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/duration/15/ */
 _x( '15 mins', 'Duration term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/duration/30/ */
@@ -277,9 +249,9 @@ _x( 'Navigation Block Menu', 'Included Content term name', 'wporg-learn' );
 _x( 'page attributes', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/pages/ */
 _x( 'pages', 'Included Content term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/wporg_included_content/performance-settings/ */
-_x( 'performance', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/performance/ */
+_x( 'performance', 'Included Content term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/wporg_included_content/performance-settings/ */
 _x( 'performance', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/permalinks/ */
 _x( 'permalinks', 'Included Content term name', 'wporg-learn' );
