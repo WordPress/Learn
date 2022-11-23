@@ -339,9 +339,9 @@ function wporg_archive_modify_query( WP_Query $query ) {
 	}
 
 	// Some lesson plans were created at exactly the same second, so we're adding the ID to the implicit sort order to avoid randomization.
-	if ( 
+	if (
 		( $query->is_post_type_archive( 'lesson-plan' ) || $query->is_tax( 'topic' ) ) &&
-		empty( $query->get( 'orderby' ) ) 
+		empty( $query->get( 'orderby' ) )
 	) {
 		$query->set(
 			'orderby',
