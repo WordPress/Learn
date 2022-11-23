@@ -42,33 +42,26 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 
 		<hr>
 		<?php
-		$categories = get_terms( array(
-			'taxonomy'   => 'wporg_lesson_category',
-			'hide_empty' => false,
-			'orderby'    => 'id',
-			'order'      => 'DESC',
-		) );
-		?>
-		<div class="lp-taxonomy">
-			<h2 class="h4 lp-taxonomy-header"><?php echo esc_html__( 'Topic', 'wporg-learn' ); ?></h2>
-			<div class="lp-taxonomy-description"><?php echo esc_html__( 'Browse lesson plans by their high-level topic.', 'wporg-learn' ); ?></div>
-			<div class="card-grid card-grid_4">
-				<?php foreach ( $categories as $category ) :
-					$is_sticky = get_term_meta( $category->term_id, 'sticky', true );
-					if ( $is_sticky ) :
-						?>
-					<a class="card button" href="<?php echo esc_url( get_term_link( $category ) ); ?>">
-						<?php $category_icon = get_term_meta( $category->term_id, 'dashicon-class', true ) ?? 'wordpress-alt'; ?>
-						<div>
-							<span aria-hidden="true" class="dashicons dashicons-<?php echo esc_attr( $category_icon ); ?>"></span>
-						</div>
-						<?php echo esc_html( $category->name ); ?>
-					</a>
-						<?php
-					endif;
-				endforeach; ?>
+		$topics = wporg_learn_get_sticky_topics_with_selected_first();
+		if ( ! empty( $topics ) ) {
+			?>
+			<div class="lp-taxonomy">
+				<h2 class="h4 lp-taxonomy-header"><?php echo esc_html__( 'Topic', 'wporg-learn' ); ?></h2>
+				<div class="lp-taxonomy-description"><?php echo esc_html__( 'Browse lesson plans by their high-level topic.', 'wporg-learn' ); ?></div>
+				<div class="card-grid card-grid_4">
+					<?php foreach ( $topics as $topic ) : ?>
+						<a class="card button topic-<?php echo esc_attr( $topic->term_id ); ?>" href="<?php echo esc_url( get_term_link( $topic ) ); ?>">
+							<?php $topic_icon = get_term_meta( $topic->term_id, 'dashicon-class', true ) ?? 'wordpress-alt'; ?>
+							<div>
+								<span aria-hidden="true" class="dashicons dashicons-<?php echo esc_attr( $topic_icon ); ?>"></span>
+							</div>
+							<?php echo esc_html( $topic->name ); ?>
+						</a>
+					<?php endforeach; ?>
+				</div>
 			</div>
-		</div>
+			<?php
+		} ?>
 
 		<?php
 		$audiences = get_terms( 'audience', array(
@@ -151,7 +144,7 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 						$duration_index++;
 					endforeach;
 
-					if ( $any_duration_arr['duration'] ) :
+					if ( isset( $any_duration_arr['duration'] ) ) :
 						?>
 						<li>
 							<a class="button" href="<?php echo esc_url( add_query_arg( $any_duration_arr, $lp_archive_url ) ); ?>">

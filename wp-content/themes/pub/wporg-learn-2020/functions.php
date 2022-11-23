@@ -340,7 +340,7 @@ function wporg_archive_modify_query( WP_Query $query ) {
 
 	// Some lesson plans were created at exactly the same second, so we're adding the ID to the implicit sort order to avoid randomization.
 	if (
-		( $query->is_post_type_archive( 'lesson-plan' ) || $query->is_tax( 'wporg_lesson_category' ) ) &&
+		( $query->is_post_type_archive( 'lesson-plan' ) || $query->is_tax( 'topic' ) ) &&
 		empty( $query->get( 'orderby' ) )
 	) {
 		$query->set(
@@ -1201,3 +1201,36 @@ function wporg_learn_mime_types( $mime_types ) {
 	return $mime_types;
 }
 add_filter( 'mime_types', 'wporg_learn_mime_types' );
+
+/**
+ * Get the sticky Topic terms, with the selected topic first
+ *
+ * @param string $first The slug of the topic to return first.
+ * @return array
+ */
+function wporg_learn_get_sticky_topics_with_selected_first( $first = 'general' ) {
+	$first_topic;
+	$topics     = array();
+	$all_topics = get_terms( array(
+		'taxonomy'   => 'topic',
+		'hide_empty' => false,
+	) );
+
+	foreach ( $all_topics as $topic ) {
+		$is_sticky = get_term_meta( $topic->term_id, 'sticky', true );
+
+		if ( $is_sticky ) {
+			if ( $topic->slug === $first ) {
+				$first_topic = $topic;
+			} else {
+				array_push( $topics, $topic );
+			}
+		}
+	}
+
+	if ( isset( $first_topic ) ) {
+		array_unshift( $topics, $first_topic );
+	}
+
+	return $topics;
+}
