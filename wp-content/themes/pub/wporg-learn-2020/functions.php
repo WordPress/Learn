@@ -475,7 +475,7 @@ add_filter( 'posts_orderby', 'wporg_archive_orderby', 10, 2 );
  * @return array
  */
 function wporg_archive_query_prioritize_locale( $clauses, $query ) {
-	if ( ! $query->is_post_type_archive( 'wporg_workshop' ) || is_admin() ) {
+	if ( ! $query->is_post_type_archive( 'wporg_workshop' ) || is_admin() || is_feed() ) {
 		return $clauses;
 	}
 
