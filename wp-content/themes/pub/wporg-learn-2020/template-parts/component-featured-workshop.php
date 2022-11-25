@@ -7,6 +7,8 @@
  * @package WPBBP
  */
 
+use function WPOrg_Learn\Post_Meta\get_workshop_duration;
+
 $featured_workshop = wporg_get_featured_workshops();
 $featured_workshop = reset( $featured_workshop );
 ?>
@@ -29,9 +31,10 @@ $featured_workshop = reset( $featured_workshop );
 				<h3 class="featured-workshop_title">
 					<a href="<?php echo esc_url( get_the_permalink() ); ?>"><?php the_title(); ?></a>
 				</h3>
+				<p class="featured-workshop_content_duration">Length: <?php echo esc_html( get_workshop_duration( $post, 'string' ) ); ?></p>
 				<div class="row">
 					<div class="col-8">
-						<p><?php the_excerpt(); ?></p>
+						<?php the_excerpt(); ?>
 					</div>
 					<div class="col-4 featured-workshop_content_author">
 						<?php
