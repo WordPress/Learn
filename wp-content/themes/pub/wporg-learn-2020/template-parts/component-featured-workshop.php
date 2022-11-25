@@ -20,7 +20,7 @@ $featured_workshop = reset( $featured_workshop );
 		setup_postdata( $post );
 		?>
 			<div class="featured-workshop_video">
-				<a href="<?php echo esc_url( get_the_permalink() ); ?>">
+				<a href="<?php echo esc_url( get_the_permalink() ); ?>" title="<?php the_title(); ?>">
 					<?php
 					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					echo wporg_get_post_thumbnail( $post, 'full' );
@@ -28,9 +28,9 @@ $featured_workshop = reset( $featured_workshop );
 				</a>
 			</div>
 			<div class="featured-workshop_content">
-				<h3 class="featured-workshop_title">
+				<h2 class="featured-workshop_title">
 					<a href="<?php echo esc_url( get_the_permalink() ); ?>"><?php the_title(); ?></a>
-				</h3>
+				</h2>
 				<p class="featured-workshop_content_duration">Length: <?php echo esc_html( get_workshop_duration( $post, 'string' ) ); ?></p>
 				<div class="row">
 					<div class="col-8">
