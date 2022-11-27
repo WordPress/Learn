@@ -7,6 +7,9 @@
  * @package WPBBP
  */
 
+use function WPOrg_Learn\Post_Meta\get_workshop_duration;
+
+$duration = get_workshop_duration( $post, 'string' );
 ?>
 
 <li class="col-4 video-grid_item">
@@ -16,5 +19,8 @@
 		echo wporg_get_post_thumbnail( $post, 'medium' );
 		?>
 		<h3><?php the_title(); ?></h3>
+		<?php if ( isset( $duration ) ) { ?>
+			<p class="video-grid_item_duration">Length: <?php echo esc_html( $duration ); ?></p>
+		<?php } ?>
 	</a>
 </li>

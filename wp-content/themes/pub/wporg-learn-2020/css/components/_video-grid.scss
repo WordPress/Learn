@@ -8,7 +8,7 @@
 		flex-direction: column;
 		justify-content: space-between;
 		align-items: center;
-		padding: $gutter-default * 2 8px $gutter-default * 2;
+		padding: $gutter-default * 2.5 8px $gutter-default * 2;
 		margin: 0;
 
 		@media only screen and (min-width: $breakpoint-tablet) {
@@ -18,10 +18,10 @@
 
 		&_link {
 			display: block;
-			margin-top: 8px;
 			font-weight: 600;
 			text-align: center;
 			width: 100%;
+			text-decoration: none;
 
 			@media only screen and (min-width: $breakpoint-small) {
 				padding: 0 $gutter-default * 2 $gutter-default;
@@ -42,11 +42,23 @@
 			font-size: 1rem;
 			font-weight: 600;
 			color: currentColor !important;
+			text-decoration: underline;
+		}
+
+		&_duration {
+			margin: 4px 0 0;
+			font-size: 0.8rem;
 		}
 
 		&--no-image {
 			height: 100%;
 			background: #eee;
+		}
+
+		&:hover {
+			.video-grid_item_duration {
+				color: currentColor;
+			}
 		}
 	}
 }
