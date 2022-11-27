@@ -9,6 +9,7 @@
 
 use function WPOrg_Learn\Post_Meta\get_workshop_duration;
 
+$duration = get_workshop_duration( $post, 'string' );
 ?>
 
 <li class="col-4 video-grid_item">
@@ -18,6 +19,8 @@ use function WPOrg_Learn\Post_Meta\get_workshop_duration;
 		echo wporg_get_post_thumbnail( $post, 'medium' );
 		?>
 		<h3><?php the_title(); ?></h3>
-		<p class="video-grid_item_duration">Length: <?php echo esc_html( get_workshop_duration( $post, 'string' ) ); ?></p>
+		<?php if ( isset( $duration ) ) { ?>
+			<p class="video-grid_item_duration">Length: <?php echo esc_html( $duration ); ?></p>
+		<?php } ?>
 	</a>
 </li>
