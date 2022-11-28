@@ -55,7 +55,7 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 						$courses_list .= '<h2 class="h4 course-category-header" id="' . esc_attr( $category_slug ) . '">' . esc_html( $category_title ) . '</h2>';
 
 						if ( $category_description ) {
-							$courses_list .=  '<div class="course-category-description">' . esc_html( $category_description ) . '</div>';
+							$courses_list .= '<div class="course-category-description">' . esc_html( $category_description ) . '</div>';
 						}
 						$courses_list .= '<div class="card-grid card-grid_2">';
 						$prev_category = $category_title;
@@ -74,18 +74,17 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 				<?php
 				$courses_list .= '</div>';
 
-				if( ! empty( $course_categories ) ) { ?>
+				if ( ! empty( $course_categories ) ) { ?>
 					<p>
 						<br>
-						<?php _e( 'WordPress provides limitless ways for people to craft and grow their online presence. The content in these courses is delivered in multiple formats, with a focus on text and video, working towards practical learning objectives to help you become a better WordPress developer, designer, user, and contributor.', 'wporg-learn' );
-						?>
+						<?php esc_html_e( 'WordPress provides limitless ways for people to craft and grow their online presence. The content in these courses is delivered in multiple formats, with a focus on text and video, working towards practical learning objectives to help you become a better WordPress developer, designer, user, and contributor.', 'wporg-learn' ); ?>
 					</p>
 					<p>
 						<?php
 						$i = 0;
-						foreach ( $course_categories as $slug => $title ) {
+						foreach ( $course_categories as $cat_slug => $cat_title ) {
 							if ( 0 < $i ) { echo ' | '; }
-							echo '<a href="#' . esc_attr( $slug ) . '">' . esc_html( $title ) . '</a>';
+							echo '<a href="#' . esc_attr( $cat_slug ) . '">' . esc_html( $cat_title ) . '</a>';
 							$i++;
 						}
 						?>
