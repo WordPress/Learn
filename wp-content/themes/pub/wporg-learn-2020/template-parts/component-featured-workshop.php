@@ -33,7 +33,9 @@ $featured_workshop = reset( $featured_workshop );
 					<a href="<?php echo esc_url( get_the_permalink() ); ?>"><?php the_title(); ?></a>
 				</h2>
 				<?php if ( isset( $duration ) ) { ?>
-					<p class="featured-workshop_content_duration">Length: <?php echo esc_html( $duration ); ?></p>
+					<p class="featured-workshop_content_duration">
+						<?php esc_html_e( 'Length:', 'wporg-learn' ); ?> <?php echo esc_html( $duration ); ?>
+					</p>
 				<?php } ?>
 				<div class="row">
 					<div class="col-8">

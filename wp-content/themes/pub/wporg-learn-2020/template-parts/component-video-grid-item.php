@@ -20,7 +20,9 @@ $duration = get_workshop_duration( $post, 'string' );
 		?>
 		<h3><?php the_title(); ?></h3>
 		<?php if ( isset( $duration ) ) { ?>
-			<p class="video-grid_item_duration">Length: <?php echo esc_html( $duration ); ?></p>
+			<p class="video-grid_item_duration">
+				<?php esc_html_e( 'Length:', 'wporg-learn' ); ?> <?php echo esc_html( $duration ); ?>
+			</p>
 		<?php } ?>
 	</a>
 </li>
