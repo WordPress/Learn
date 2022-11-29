@@ -51,10 +51,7 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 						$all_courses[ $category_slug ]['courses'][]   = ob_get_clean();
 					}
 
-				endwhile; ?>
-
-				<?php
-				// $courses_list .= '</div>';
+				endwhile;
 
 				if ( ! empty( $all_courses ) ) { ?>
 					<p>
