@@ -46,9 +46,9 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 							wporg_learn_get_card_template_args( get_the_ID() )
 						);
 
-						$all_courses[ $category_slug ][ 'name' ]        = $category_title;
-						$all_courses[ $category_slug ][ 'description' ] = $category_description;
-						$all_courses[ $category_slug ][ 'courses' ][]   = ob_get_clean();
+						$all_courses[ $category_slug ]['name']        = $category_title;
+						$all_courses[ $category_slug ]['description'] = $category_description;
+						$all_courses[ $category_slug ]['courses'][]   = ob_get_clean();
 					}
 
 				endwhile; ?>
