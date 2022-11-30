@@ -53,16 +53,28 @@ use Sensei_Reports_Overview_Service_Courses;
 
 			// Set up array of data to be output
 			$course_data = array(
-				'learners' => array( 'label' => __( 'Number of enrolled learners', 'wporg-learn' ), 'value' => $learners ),
-				'completions' => array( 'label' => __( 'Completion rate', 'wporg-learn' ), 'value' => $percent_complete . '%' ),
-				'grade' => array( 'label' => __( 'Average grade', 'wporg-learn' ), 'value' => $average_grade ),
-				'days' => array( 'label' => __( 'Average days to complete', 'wporg-learn' ), 'value' => $avergage_days ),
+				'learners' => array(
+					'label' => __( 'Number of enrolled learners', 'wporg-learn' ),
+					'value' => $learners,
+				),
+				'completions' => array(
+					'label' => __( 'Completion rate', 'wporg-learn' ),
+					'value' => $percent_complete . '%',
+				),
+				'grade' => array(
+					'label' => __( 'Average grade', 'wporg-learn' ),
+					'value' => $average_grade,
+				),
+				'days' => array(
+					'label' => __( 'Average days to complete', 'wporg-learn' ),
+					'value' => $avergage_days,
+				),
 			);
 
 			?>
 
 			<div id="course-data" class="widget course_data">
-				<p><strong><?php _e( 'Course data', 'wporg-learn' ) ?></strong></p>
+				<p><strong><?php esc_html_e( 'Course data', 'wporg-learn' ); ?></strong></p>
 				<ul>
 					<?php
 					foreach ( $course_data as $k => $data ) {
@@ -72,7 +84,7 @@ use Sensei_Reports_Overview_Service_Courses;
 				</ul>
 			</div>
 
-		<?php
+			<?php
 		}
 
 		if ( is_active_sidebar( 'wporg-learn-courses' ) ) :
