@@ -1,0 +1,98 @@
+.section-heading {
+	&_title,
+	&_link {
+
+		@media only screen and (min-width: $breakpoint-tablet) {
+			margin-bottom: 0;
+		}
+	}
+
+	&_title {
+		font-weight: 300;
+
+		.archive-title-prefix {
+			display: block;
+			font-size: 1rem;
+		}
+
+		&.h2 {
+			font-size: 2.75rem;
+			line-height: 1.36;
+		}
+	}
+
+	&_link {
+		text-decoration: underline;
+		font-weight: 600;
+		margin-top: $gutter-default !important; // Override button styles
+
+		@media only screen and (min-width: $breakpoint-tablet) {
+			margin-top: 0 !important; // Override button styles
+		}
+	}
+
+	&_description {
+		margin: 1rem 0 0;
+
+		*:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	&--with-space {
+		padding-bottom: 28px;
+	}
+}
+
+.section-intro {
+	margin: 4rem 0;
+
+	.row p {
+		font-size: 1.125rem;
+		line-height: 1.6;
+
+		@media only screen and (min-width: $breakpoint-desktop) {
+			margin-bottom: 0;
+		}
+	}
+
+	+ .section-nav {
+		margin-top: -2rem;
+	}
+}
+
+.section-nav {
+	margin: 2rem 0;
+
+	> ul {
+		list-style: none;
+		margin-left: 0;
+		display: flex;
+
+		@media only screen and (max-width: $breakpoint-mobile) {
+			flex-direction: column;
+		}
+	}
+
+	&-item {
+		padding: 0 1rem;
+		border-right: 1px solid;
+		line-height: 1.2;
+
+		&:first-child {
+			padding-left: 0;
+		}
+
+		&:last-child {
+			padding-right: 0;
+			border-right: none;
+		}
+
+		@media only screen and (max-width: $breakpoint-mobile) {
+			padding: 0;
+			border: none;
+			line-height: inherit;
+		}
+	}
+}
+
