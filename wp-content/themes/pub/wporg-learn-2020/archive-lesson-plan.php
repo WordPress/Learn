@@ -28,9 +28,9 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 
 		<hr>
 
-		<div class="section-lp_description">
-			<div class="row align-middle between gutters">
-				<p class="section-lp_text col-8">
+		<div class="section-intro">
+			<div class="row between gutters">
+				<p class="col-8">
 					<?php esc_html_e( 'Want to help others learn about WordPress? Read through, use, and remix these lesson plans.', 'wporg-learn' ); ?>
 				</p>
 				<?php
