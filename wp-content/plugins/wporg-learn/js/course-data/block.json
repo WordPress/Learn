@@ -1,0 +1,16 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "wporg-learn/course-data",
+	"title": "Course Data",
+	"category": "widgets",
+	"icon": "info-outline",
+	"description": "",
+	"textdomain": "wporg-learn",
+	"supports": {
+		"html": false
+	},
+	"editorScript": "file:../../build/course-data.js",
+	"editorStyle": "file:../../build/course-data.css",
+	"style": "file:../../build/style-course-data.css"
+}

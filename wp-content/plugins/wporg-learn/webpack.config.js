@@ -13,6 +13,7 @@ config.entry = {
 	'locale-notice': './js/locale-notice.js',
 	'lesson-plan-actions': './js/lesson-plan-actions/src/index.js',
 	'lesson-plan-details': './js/lesson-plan-details/src/index.js',
+	'course-data': './js/course-data/src/index.js',
 	'language-meta': './js/language-meta/index.js',
 };
 
