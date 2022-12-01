@@ -11,7 +11,7 @@ namespace WordPressdotorg\Theme;
 
 ?>
 <aside class="lp-sidebar">
-	<div class="lp-details">
+	<div>
 		<?php
 		if ( is_active_sidebar( 'wporg-learn-courses' ) ) :
 			dynamic_sidebar( 'wporg-learn-courses' );
