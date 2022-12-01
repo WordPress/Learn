@@ -5,7 +5,7 @@
 */
 
 body:not(.trac):not(.home-page) #main {
-	margin-top: 0.5rem;
+	margin-top: 2rem;
 }
 
 .site-branding h1 {
@@ -14,11 +14,16 @@ body:not(.trac):not(.home-page) #main {
 
 h1, h2, h3, h4 { color: #555 !important; }
 
-/* ___ Homepage ___ */
+section {
+	padding-top: 0;
 
-#page.home {
-	background-color: #fff;
+	+ section,
+	+ hr + section {
+		padding-top: 4rem;
+	}
 }
+
+/* ___ Homepage ___ */
 
 .site-header.home .site-title {
 	font-size: 3.10rem;
@@ -30,13 +35,17 @@ h1, h2, h3, h4 { color: #555 !important; }
 	max-width: 650px;
 }
 
+.quick-intro {
+	padding-top: 2rem;
+}
+
 .site-breadcrumbs {
 	margin: 0 auto;
 	max-width: 960px;
 	padding: 0 10px;
 }
 
-.site-main{
+.site-main {
 	margin: 0 auto;
 }
 
