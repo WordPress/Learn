@@ -206,20 +206,6 @@ function course_data_render_callback( $attributes, $content ) {
 		)
 	);
 
-	/**
-	// Get the total number of learners who have completed the course
-	$completions = Sensei_Utils::sensei_check_for_activity(
-		array(
-			'type'     => 'sensei_course_status',
-			'status'   => 'complete',
-			'post__in' => $course_id,
-		)
-	);
-
-	// Calculate the percentage of learners who have completed the course, rounded off to 1 decimal point
-	$percent_complete = round( ( $completions / $learners * 100 ), 1 );
-	**/
-
 	// Get the average grade scross all learners
 	$average_grade = $course_service->get_courses_average_grade( array( $course_id ) );
 
@@ -232,12 +218,6 @@ function course_data_render_callback( $attributes, $content ) {
 			'label' => __( 'Number of learners', 'wporg-learn' ),
 			'value' => $learners,
 		),
-		/**
-		'completions' => array(
-			'label' => __( 'Completion rate', 'wporg-learn' ),
-			'value' => $percent_complete . '%',
-		),
-		**/
 		'grade' => array(
 			'label' => __( 'Average grade', 'wporg-learn' ),
 			'value' => $average_grade,
