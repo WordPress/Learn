@@ -4,6 +4,8 @@ namespace WPOrg_Learn\Blocks;
 
 use Error;
 use Sensei_Lesson;
+use Sensei_Utils;
+use Sensei_Reports_Overview_Service_Courses;
 use function WordPressdotorg\Locales\get_locale_name_from_code;
 use function WPOrg_Learn\{get_build_path, get_build_url, get_views_path};
 use function WPOrg_Learn\Form\render_workshop_application_form;
@@ -26,6 +28,7 @@ add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_block_style_assets' 
 function register_types() {
 	register_lesson_plan_actions();
 	register_lesson_plan_details();
+	register_course_data();
 	register_workshop_details();
 	register_workshop_application_form();
 }
@@ -138,6 +141,95 @@ function lesson_plan_details_render_callback( $attributes, $content ) {
 
 	ob_start();
 	require get_views_path() . 'block-lesson-plan-details.php';
+
+	return ob_get_clean();
+}
+
+/**
+ * Register Course Data block type and related assets.
+ *
+ * @throws Error If the build files are not found.
+ */
+function register_course_data() {
+	$script_asset_path = get_build_path() . 'course-data.asset.php';
+	if ( ! is_readable( $script_asset_path ) ) {
+		throw new Error(
+			'You need to run `npm start` or `npm run build` for the "wporg-learn/course-data" block first.'
+		);
+	}
+
+	$script_asset = require $script_asset_path;
+	wp_register_script(
+		'course-data-editor-script',
+		get_build_url() . 'course-data.js',
+		$script_asset['dependencies'],
+		$script_asset['version'],
+		true,
+	);
+
+	wp_register_style(
+		'course-data-style',
+		get_build_url() . 'style-course-data.css',
+		array(),
+		filemtime( get_build_path() . 'style-course-data.css' )
+	);
+
+	register_block_type( 'wporg-learn/course-data', array(
+		'editor_script'   => 'course-data-editor-script',
+		'style'           => 'course-data-style',
+		'render_callback' => __NAMESPACE__ . '\course_data_render_callback',
+	) );
+}
+
+/**
+ * Render the block content (html) on the frontend of the site.
+ *
+ * @param array  $attributes
+ * @param string $content
+ * @return string HTML output used by the block
+ */
+function course_data_render_callback( $attributes, $content ) {
+	if ( get_post_type() !== 'course' ) {
+		return;
+	}
+
+	$course_service = new Sensei_Reports_Overview_Service_Courses();
+	$post           = get_post();
+	$course_id      = $post->ID;
+
+	// Get the total number of learners enrolled in the course
+	$learners = Sensei_Utils::sensei_check_for_activity(
+		array(
+			'type'     => 'sensei_course_status',
+			'status'   => 'in-progress',
+			'post__in' => $course_id,
+		)
+	);
+
+	// Get the average grade scross all learners
+	$average_grade = $course_service->get_courses_average_grade( array( $course_id ) );
+
+	// Get the average number of days it takes to complete a course
+	$average_days = $course_service->get_average_days_to_completion( array( $course_id ) );
+
+	// Set up array of data to be used
+	$data = array(
+		'learners' => array(
+			'label' => __( 'Number of learners', 'wporg-learn' ),
+			'value' => $learners,
+		),
+		'grade' => array(
+			'label' => __( 'Average grade', 'wporg-learn' ),
+			'value' => $average_grade,
+		),
+		'days' => array(
+			'label' => __( 'Average days to complete', 'wporg-learn' ),
+			'value' => $average_days,
+		),
+	);
+
+	ob_start();
+	require get_views_path() . 'block-course-data.php';
 
 	return ob_get_clean();
 }
