@@ -215,15 +215,15 @@ function course_data_render_callback( $attributes, $content ) {
 	// Set up array of data to be used
 	$data = array(
 		'learners' => array(
-			'label' => __( 'Number of learners', 'wporg-learn' ),
+			'label' => __( 'Enrolled learners', 'wporg-learn' ),
 			'value' => $learners,
 		),
 		'grade' => array(
-			'label' => __( 'Average grade', 'wporg-learn' ),
+			'label' => __( 'Average final grade', 'wporg-learn' ),
 			'value' => $average_grade . '%',
 		),
 		'days' => array(
-			'label' => __( 'Average days to complete', 'wporg-learn' ),
+			'label' => __( 'Average days to completion', 'wporg-learn' ),
 			'value' => $average_days,
 		),
 	);
