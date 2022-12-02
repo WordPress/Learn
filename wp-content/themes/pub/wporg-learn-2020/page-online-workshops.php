@@ -24,10 +24,16 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 			?>
 			<div class="section-intro">
 				<div class="row between gutters">
-					<p class="col-8"><?php esc_html_e( 'Online workshops are live sessions where you can learn alongside other WordPress enthusiasts. They are a safe zone where you can come as you are, develop new ideas, explore issues, ask questions, network over shared interests, exchange theories, collaborate on work, and thrive in uncertainty.', 'wporg-learn' ); ?></p>
+					<p class="col-8">
+						<?php esc_html_e( 'Online workshops are live sessions where you can learn alongside other WordPress enthusiasts. They are a safe zone where you can come as you are, develop new ideas, explore issues, ask questions, network over shared interests, exchange theories, collaborate on work, and thrive in uncertainty.', 'wporg-learn' ); ?>
+					</p>
 					<div class="col-4">
-						<a class="button button-xlarge button-secondary" href="#apply-to-facilitate"><?php esc_html_e( 'Apply to facilitate', 'wporg-learn' ); ?></a>
-						<a class="button button-xlarge button-secondary" href="https://wordpress.tv/category/learn-wordpress-online-workshops/" target="_blank"><?php esc_html_e( 'View recorded online workshops', 'wporg-learn' ); ?></a>
+						<a class="button button-xlarge button-secondary" href="#apply-to-facilitate">
+							<?php esc_html_e( 'Apply to facilitate', 'wporg-learn' ); ?>
+						</a>
+						<a class="button button-xlarge button-secondary" href="https://wordpress.tv/category/learn-wordpress-online-workshops/" target="_blank" rel="noreferrer noopener">
+							<?php esc_html_e( 'View recorded online workshops', 'wporg-learn' ); ?>
+						</a>
 					</div>
 				</div>
 			</div>
