@@ -9,9 +9,12 @@ body {
 		margin-top: 2rem;
 	}
 
-	&.page .entry-content {
-		padding-left: 0;
-		padding-right: 0;
+	&.page {
+		.entry-content,
+		.entry-footer {
+			padding-left: 0;
+			padding-right: 0;
+		}
 	}
 }
 
