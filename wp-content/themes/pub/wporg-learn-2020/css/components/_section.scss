@@ -59,6 +59,15 @@
 	+ .section-nav {
 		margin-top: -2rem;
 	}
+
+	[class^="col-"] > .button {
+		width: 100%;
+		text-align: center;
+
+		+ .button {
+			margin-top: 1rem;
+		}
+	}
 }
 
 .section-nav {
