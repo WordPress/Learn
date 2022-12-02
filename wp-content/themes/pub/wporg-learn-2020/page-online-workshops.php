@@ -24,8 +24,15 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 			?>
 			<div class="section-intro">
 				<div class="row between gutters">
-					<p class="col-8"><?php esc_html_e( 'WordPress provides limitless ways for people to craft and grow their online presence. The content in these courses is delivered in multiple formats, with a focus on text and video, working towards practical learning objectives to help you become a better WordPress developer, designer, user, and contributor.', 'wporg-learn' ); ?></p>
-					<?php // get_template_part( 'template-parts/component', 'archive-search' ); ?>
+					<p class="col-8"><?php esc_html_e( 'Online workshops are live sessions where you can learn alongside other WordPress enthusiasts. They are a safe zone where you can come as you are, develop new ideas, explore issues, ask questions, network over shared interests, exchange theories, collaborate on work, and thrive in uncertainty.', 'wporg-learn' ); ?></p>
+					<div class="col-4">
+						<div class="wp-block-button is-style-secondary-full-width">
+							<a class="wp-block-button__link" href="#apply-to-facilitate" style="border-radius:5px"><?php esc_html_e( 'Apply to facilitate', 'wporg-learn' ); ?></a>
+						</div>
+						<div class="wp-block-button is-style-secondary-full-width">
+							<a class="wp-block-button__link" href="https://wordpress.tv/category/learn-wordpress-online-workshops/" target="_blank" style="border-radius:5px"><?php esc_html_e( 'View recorded online workshops', 'wporg-learn' ); ?></a>
+						</div>
+					</div>
 				</div>
 			</div>
 
