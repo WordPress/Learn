@@ -17,11 +17,9 @@ $args = wp_parse_args( $args );
 	<?php endif; ?>
 	<h2><?php esc_html_e( 'Have an idea for new content? Let us know!', 'wporg-learn' ); ?></h2>
 	<a class="button button-primary button-large" href="https://learn.wordpress.org/tutorial-presenter-application/">
-		<span aria-hidden="true"><?php esc_html_e( 'Apply to present a tutorial', 'wporg-learn' ); ?></span>
-		<span class="screen-reader-text"><?php esc_html_e( 'Apply to present a tutorial', 'wporg-learn' ); ?></span>
+		<?php esc_html_e( 'Apply to present a tutorial', 'wporg-learn' ); ?>
 	</a>
 	<a class="button button-secondary button-large" href="https://github.com/WordPress/Learn/issues/new?assignees=&labels=Awaiting+Triage%2C+Needs+Subject+Matter+Expert&template=topic-idea.md&title=Topic+Idea%3A+TOPIC+TITLE" target="_blank" rel="noreferrer noopener">
-		<span aria-hidden="true"><?php esc_html_e( 'Submit a topic idea', 'wporg-learn' ); ?></span>
-		<span class="screen-reader-text"><?php esc_html_e( 'Submit a topic idea', 'wporg-learn' ); ?></span>
+		<?php esc_html_e( 'Submit a topic idea', 'wporg-learn' ); ?>
 	</a>
 </section>
