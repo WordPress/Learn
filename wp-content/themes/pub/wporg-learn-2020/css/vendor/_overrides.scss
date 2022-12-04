@@ -152,11 +152,15 @@ p {
 
 .submit-idea-cta {
 	text-align: center;
-}
 
-.submit-idea-cta h2 {
-	font-size: 30px;
-	margin-bottom: 30px;
+	h2 {
+		font-size: 30px;
+		margin-bottom: 30px;
+	}
+
+	.button + .button {
+		margin-left: 1rem;
+	}
 }
 
 /* ___ Lesson Plans ___ */
