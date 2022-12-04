@@ -158,8 +158,14 @@ p {
 		margin-bottom: 30px;
 	}
 
-	.button + .button {
-		margin-left: 1rem;
+	.buttons {
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+
+	.button {
+		margin: 0.5rem;
 	}
 }
 
