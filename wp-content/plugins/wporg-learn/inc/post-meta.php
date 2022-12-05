@@ -392,7 +392,7 @@ function add_workshop_metaboxes() {
 function add_meeting_metaboxes( $post_type = '' ) {
 	add_meta_box(
 		'meeting-language',
-		__( 'Meeting Language', 'wporg_learn' ),
+		__( 'Language', 'wporg_learn' ),
 		__NAMESPACE__ . '\render_metabox_meeting_language',
 		'meeting',
 		'side'
