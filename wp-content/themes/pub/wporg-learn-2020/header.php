@@ -86,10 +86,7 @@ $menu_items = array(
 		<div id="survey-banner">
 			<p>
 				<?php
-				printf(
-						wp_kses_post( __( 'Help improve Learn WordPress for everyone - fill out <a href="%s">the individual learner survey</a> today.', 'wporg-learn' ) ),
-						'https://learn.wordpress.org/individual-learner-survey/'
-					);
+				printf( wp_kses_post( __( 'Help improve Learn WordPress for everyone - fill out <a href="%s">the individual learner survey</a> today.', 'wporg-learn' ) ), 'https://learn.wordpress.org/individual-learner-survey/' );
 				?>
 			</p>
 		</div>
