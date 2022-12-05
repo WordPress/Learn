@@ -60,8 +60,8 @@ function update_locale_data() {
  * Register style and script assets for later enqueueing.
  */
 function register_assets() {
-	// Locale switcher script.
-	wp_register_script(
+	// Locale notice script.
+	wp_enqueue_script(
 		'locale-notice',
 		get_build_url() . '/locale-notice.js',
 		array( 'jquery', 'utils' ),
