@@ -61,7 +61,7 @@ function update_locale_data() {
  */
 function register_assets() {
 	// Locale switcher script.
-	wp_register_script(
+	wp_enqueue_script(
 		'locale-notice',
 		get_build_url() . '/locale-notice.js',
 		array( 'jquery', 'utils' ),
