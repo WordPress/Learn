@@ -1,6 +1,6 @@
 <?php
 /**
- * Template for Other Contributors metabox
+ * Template for Meeting Language metabox
  */
 
 /** @var WP_Post $post */
