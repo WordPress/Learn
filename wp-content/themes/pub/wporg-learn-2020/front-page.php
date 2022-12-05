@@ -36,11 +36,10 @@ get_header(); ?>
 			<div class="row align-middle between section-heading">
 				<h2 class="h4 section-heading_title"><?php esc_html_e( 'Recent Courses', 'wporg-learn' ); ?></h2>
 				<a class="section-heading_link" href="/courses/"><span aria-hidden="true"><?php esc_html_e( 'View All Courses', 'wporg-learn' ); ?></span><span class="screen-reader-text"><?php esc_html_e( 'View All Courses', 'wporg-learn' ); ?></span></a>
+				<p class="section-heading_description">
+					<em><?php esc_html_e( 'Multimedia courses setting you up to become a better WordPress developer, designer, user, and contributor.', 'wporg-learn' ); ?></em>
+				</p>
 			</div>
-
-			<p>
-				<em><?php esc_html_e( 'Multimedia courses setting you up to become a better WordPress developer, designer, user, and contributor.', 'wporg-learn' ); ?></em>
-			</p>
 
 			<?php
 			$args = array(
@@ -68,12 +67,10 @@ get_header(); ?>
 			<div class="row align-middle between section-heading">
 				<h2 class="h4 section-heading_title"><?php esc_html_e( 'Recent Tutorials', 'wporg-learn' ); ?></h2>
 				<a class="section-heading_link" href="/tutorials/"><span aria-hidden="true"><?php esc_html_e( 'View All Tutorials', 'wporg-learn' ); ?></span><span class="screen-reader-text"><?php esc_html_e( 'View All Tutorials', 'wporg-learn' ); ?></span></a>
+				<p class="section-heading_description">
+					<em><?php esc_html_e( 'Instructional videos for all skillsets to help you level up your WordPress expertise.', 'wporg-learn' ); ?></em>
+				</p>
 			</div>
-
-			<p>
-				<em><?php esc_html_e( 'Instructional videos for all skillsets to help you level up your WordPress expertise.', 'wporg-learn' ); ?></em>
-			</p>
-
 			<?php
 			$args = array(
 				'query' => wporg_get_archive_query(
@@ -99,10 +96,11 @@ get_header(); ?>
 					<a class="section-heading_link" href="/online-workshops/">
 						<?php esc_html_e( 'View All Online Workshops', 'wporg-learn' ); ?>
 					</a>
+					<p class="section-heading_description">
+						<em><?php esc_html_e( 'Live sessions where you can learn alongside other WordPress enthusiasts from around the world.', 'wporg-learn' ); ?></em>
+					</p>
 				</div>
-				<p>
-					<em><?php esc_html_e( 'Live sessions where you can learn alongside other WordPress enthusiasts from around the world.', 'wporg-learn' ); ?></em>
-				</p>
+
 				<ul class="discussion-event-list">
 					<?php foreach ( $discussion_events as $event ) : ?>
 						<?php get_template_part( 'template-parts/component', 'discussion-event-short-item', $event ); ?>
