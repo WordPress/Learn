@@ -16,8 +16,10 @@ defined( 'WPINC' ) || die();
 add_action( 'init', __NAMESPACE__ . '\register' );
 add_action( 'add_meta_boxes', __NAMESPACE__ . '\add_lesson_plan_metaboxes' );
 add_action( 'add_meta_boxes', __NAMESPACE__ . '\add_workshop_metaboxes' );
+add_action( 'add_meta_boxes', __NAMESPACE__ . '\add_meeting_metaboxes' );
 add_action( 'save_post_lesson-plan', __NAMESPACE__ . '\save_lesson_plan_metabox_fields' );
 add_action( 'save_post_wporg_workshop', __NAMESPACE__ . '\save_workshop_metabox_fields' );
+add_action( 'save_post_meeting', __NAMESPACE__ . '\save_meeting_metabox_fields' );
 add_action( 'admin_footer', __NAMESPACE__ . '\render_locales_list' );
 add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\enqueue_editor_assets' );
 
@@ -385,6 +387,19 @@ function add_workshop_metaboxes() {
 }
 
 /**
+ * Add meta boxes to the Edit Meeting screen.
+ */
+function add_meeting_metaboxes( $post_type = '' ) {
+	add_meta_box(
+		'meeting-language',
+		__( 'Language', 'wporg_learn' ),
+		__NAMESPACE__ . '\render_metabox_meeting_language',
+		'meeting',
+		'side'
+	);
+}
+
+/**
  * Render the Workshop Details meta box.
  *
  * @param WP_Post $post
@@ -442,6 +457,18 @@ function render_metabox_workshop_application( WP_Post $post ) {
 }
 
 /**
+ * Render the Meeting Language meta box.
+ *
+ * @param WP_Post $post
+ */
+function render_metabox_meeting_language( WP_Post $post ) {
+	$locales  = get_locales_with_english_names();
+	$language = get_post_meta( $post->ID, 'language', true ) ?: '';
+
+	require get_views_path() . 'metabox-meeting-language.php';
+}
+
+/**
  * Update the post meta values from the meta box fields when the post is saved.
  *
  * @param int $post_id
@@ -494,6 +521,27 @@ function save_workshop_metabox_fields( $post_id ) {
 			add_post_meta( $post_id, 'other_contributor_wporg_username', $username );
 		}
 	}
+}
+
+/**
+ * Update the post meta values from the meta box fields when a meeting post is saved.
+ *
+ * @param int $post_id
+ */
+function save_meeting_metabox_fields( $post_id ) {
+	if ( wp_is_post_revision( $post_id ) || ! current_user_can( 'edit_post', $post_id ) ) {
+		return;
+	}
+
+	// This nonce field is rendered in the Meeting Language metabox.
+	$nonce = filter_input( INPUT_POST, 'meeting-metabox-nonce' );
+	if ( ! wp_verify_nonce( $nonce, 'meeting-metaboxes' ) ) {
+		return;
+	}
+
+	$language = filter_input( INPUT_POST, 'meeting-language' );
+	update_post_meta( $post_id, 'language', $language );
+
 }
 
 /**
