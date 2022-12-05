@@ -152,11 +152,21 @@ p {
 
 .submit-idea-cta {
 	text-align: center;
-}
 
-.submit-idea-cta h2 {
-	font-size: 30px;
-	margin-bottom: 30px;
+	h2 {
+		font-size: 30px;
+		margin-bottom: 30px;
+	}
+
+	.buttons {
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+
+	.button {
+		margin: 0.5rem;
+	}
 }
 
 /* ___ Lesson Plans ___ */
@@ -445,11 +455,11 @@ p {
 
 /* ___ Submit an Idea ___ */
 
-.type-page .submit-idea-cta {
+.page-template-page-submit-an-idea .submit-idea-cta {
 	padding: .5rem 0 2rem;
 }
 
-.type-page .submit-idea-cta h2 {
+.page-template-page-submit-an-idea .submit-idea-cta h2 {
 	margin: 0 auto 1rem;
 	font-weight: 500;
 }
