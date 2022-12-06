@@ -37,7 +37,7 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 		<?php endif; ?>
 
 		<div class="lp-archive-items row gutters between">
-			<div class="card-grid col-9">
+			<div class="card-grid col-8">
 				<?php if ( have_posts() ) : ?>
 					<?php while ( have_posts() ) :
 						the_post();
@@ -53,8 +53,9 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 					</p>
 				<?php endif; ?>
 			</div>
-			<div class="card-grid col-3">
-				<!-- Sidebar with idea submission form -->
+
+			<div class="col-4">
+				<?php get_template_part( 'template-parts/component', 'ideas-form' );?>
 			</div>
 		</div>
 
