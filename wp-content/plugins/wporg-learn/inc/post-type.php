@@ -20,6 +20,7 @@ add_filter( 'jetpack_page_sitemap_other_urls', __NAMESPACE__ . '\jetpack_page_si
 function register() {
 	register_lesson_plan();
 	register_workshop();
+	register_ideas();
 }
 
 /**
@@ -154,6 +155,68 @@ function register_workshop() {
 	);
 
 	register_post_type( 'wporg_workshop', $args );
+}
+
+/**
+ * Register an Ideas post type.
+ */
+function register_ideas() {
+
+	$labels = array(
+		'name'                  => _x( 'Ideas', 'Post Type General Name', 'wporg_learn' ),
+		'singular_name'         => _x( 'Idea', 'Post Type Singular Name', 'wporg_learn' ),
+		'menu_name'             => __( 'Ideas', 'wporg_learn' ),
+		'name_admin_bar'        => __( 'Idea', 'wporg_learn' ),
+		'archives'              => __( 'Idea Archives', 'wporg_learn' ),
+		'attributes'            => __( 'Idea Attributes', 'wporg_learn' ),
+		'parent_item_colon'     => __( 'Parent Idea:', 'wporg_learn' ),
+		'all_items'             => __( 'All Ideas', 'wporg_learn' ),
+		'add_new_item'          => __( 'Add New Idea', 'wporg_learn' ),
+		'add_new'               => __( 'Add New', 'wporg_learn' ),
+		'new_item'              => __( 'New Idea', 'wporg_learn' ),
+		'edit_item'             => __( 'Edit Idea', 'wporg_learn' ),
+		'update_item'           => __( 'Update Idea', 'wporg_learn' ),
+		'view_item'             => __( 'View Idea', 'wporg_learn' ),
+		'view_items'            => __( 'View Ideas', 'wporg_learn' ),
+		'search_items'          => __( 'Search Idea', 'wporg_learn' ),
+		'not_found'             => __( 'Not found', 'wporg_learn' ),
+		'not_found_in_trash'    => __( 'Not found in Trash', 'wporg_learn' ),
+		'featured_image'        => __( 'Featured Image', 'wporg_learn' ),
+		'set_featured_image'    => __( 'Set featured image', 'wporg_learn' ),
+		'remove_featured_image' => __( 'Remove featured image', 'wporg_learn' ),
+		'use_featured_image'    => __( 'Use as featured image', 'wporg_learn' ),
+		'insert_into_item'      => __( 'Insert into idea', 'wporg_learn' ),
+		'uploaded_to_this_item' => __( 'Uploaded to this idea', 'wporg_learn' ),
+		'items_list'            => __( 'Ideas list', 'wporg_learn' ),
+		'items_list_navigation' => __( 'Ideas list navigation', 'wporg_learn' ),
+		'filter_items_list'     => __( 'Filter ideas list', 'wporg_learn' ),
+	);
+
+	$args   = array(
+		'label'                 => __( 'Idea', 'wporg_learn' ),
+		'description'           => __( 'Ideas submitted by site users', 'wporg_learn' ),
+		'labels'              	=> $labels,
+		'supports'            	=> array( 'title', 'editor', 'comments', 'revisions', 'custom-fields', 'author' ),
+		'taxonomies'          	=> array(),
+		'hierarchical'        	=> true,
+		'public'              	=> true,
+		'show_ui'             	=> true,
+		'show_in_menu'        	=> true,
+		'menu_position'       	=> 8,
+		'menu_icon'           	=> 'dashicons-lightbulb',
+		'show_in_admin_bar'   	=> true,
+		'show_in_nav_menus'   	=> true,
+		'can_export'          	=> true,
+		'has_archive'         	=> 'ideas',
+		'exclude_from_search' 	=> false,
+		'publicly_queryable'  	=> true,
+		'capability_type'     	=> 'post',
+		'map_meta_cap'        	=> true,
+		'show_in_rest'        	=> true,
+	);
+
+	register_post_type( 'wporg_idea', $args );
+
 }
 
 /**
