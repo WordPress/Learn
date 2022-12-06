@@ -192,27 +192,37 @@ function register_ideas() {
 		'filter_items_list'     => __( 'Filter ideas list', 'wporg_learn' ),
 	);
 
-	$args   = array(
+	$supports = array(
+		'comments',
+		'custom-fields',
+		'editor',
+		'revisions',
+		'title',
+		'wporg-internal-notes',
+		'author',
+	);
+
+	$args = array(
 		'label'                 => __( 'Idea', 'wporg_learn' ),
 		'description'           => __( 'Ideas submitted by site users', 'wporg_learn' ),
-		'labels'              	=> $labels,
-		'supports'            	=> array( 'title', 'editor', 'comments', 'revisions', 'custom-fields', 'author' ),
-		'taxonomies'          	=> array(),
-		'hierarchical'        	=> true,
-		'public'              	=> true,
-		'show_ui'             	=> true,
-		'show_in_menu'        	=> true,
-		'menu_position'       	=> 8,
-		'menu_icon'           	=> 'dashicons-lightbulb',
-		'show_in_admin_bar'   	=> true,
-		'show_in_nav_menus'   	=> true,
-		'can_export'          	=> true,
-		'has_archive'         	=> 'ideas',
-		'exclude_from_search' 	=> false,
-		'publicly_queryable'  	=> true,
-		'capability_type'     	=> 'post',
-		'map_meta_cap'        	=> true,
-		'show_in_rest'        	=> true,
+		'labels'                => $labels,
+		'supports'              => $supports,
+		'taxonomies'            => array(),
+		'hierarchical'          => true,
+		'public'                => true,
+		'show_ui'               => true,
+		'show_in_menu'          => true,
+		'menu_position'         => 8,
+		'menu_icon'             => 'dashicons-lightbulb',
+		'show_in_admin_bar'     => true,
+		'show_in_nav_menus'     => true,
+		'can_export'            => true,
+		'has_archive'           => 'ideas',
+		'exclude_from_search'   => false,
+		'publicly_queryable'    => true,
+		'capability_type'       => 'post',
+		'map_meta_cap'          => true,
+		'show_in_rest'          => true,
 	);
 
 	register_post_type( 'wporg_idea', $args );
