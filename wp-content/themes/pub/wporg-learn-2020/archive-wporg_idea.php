@@ -55,7 +55,7 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 			</div>
 
 			<div class="col-4">
-				<?php get_template_part( 'template-parts/component', 'ideas-form' );?>
+				<?php get_template_part( 'template-parts/component', 'ideas-form' ); ?>
 			</div>
 		</div>
 

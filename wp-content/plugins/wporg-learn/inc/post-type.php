@@ -220,7 +220,7 @@ function register_ideas() {
 		'has_archive'           => 'ideas',
 		'rewrite'               => array(
 			'slug' => 'idea',
-			'with_front' => false
+			'with_front' => false,
 		),
 		'exclude_from_search'   => false,
 		'publicly_queryable'    => true,

@@ -11,7 +11,7 @@
 
 <h3 class="h4"><?php esc_html_e( 'Submit an Idea', 'wporg-learn' ); ?></h3>
 
-<?php if( is_user_logged_in() ) { ?>
+<?php if ( is_user_logged_in() ) { ?>
 
 	<form class="contact-form card" method="get" action="<?php echo esc_url( get_post_type_archive_link( 'lesson-plan' ) ); ?>">
 
