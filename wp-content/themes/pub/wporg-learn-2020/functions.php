@@ -281,6 +281,33 @@ function wporg_learn_get_lesson_plan_taxonomy_data( $post_id, $context ) {
 }
 
 /**
+ * Returns the taxonomies associated with a content idea
+ *
+ * @param int $post_id Id of the post.
+ * @param str $context Context of the function reference
+ *
+ * @return array
+ */
+function wporg_learn_get_idea_data( $post_id, $context ) {
+	$data = array(
+		array(
+			'icon'  => 'edit',
+			'slug'  => 'type',
+			'label' => get_taxonomy_labels( get_taxonomy( 'wporg_idea_type' ) )->singular_name,
+			'value' => wporg_learn_get_taxonomy_terms( $post_id, 'wporg_idea_type', $context ),
+		),
+		array(
+			'icon'  => 'dashboard',
+			'slug'  => 'status',
+			'label' => get_taxonomy_labels( get_taxonomy( 'wporg_idea_status' ) )->singular_name,
+			'value' => wporg_learn_get_taxonomy_terms( $post_id, 'wporg_idea_status', $context ),
+		),
+	);
+
+	return $data;
+}
+
+/**
  * Returns whether the post type is a workshop
  *
  * @return bool
@@ -728,6 +755,10 @@ function wporg_learn_get_card_template_args( $post_id ) {
 					'value' => \WordPressdotorg\Locales\get_locale_name_from_code( $post->language, 'native' ),
 				),
 			);
+			break;
+
+		case 'wporg_idea':
+			$args['meta']  = wporg_learn_get_idea_data( $post_id, 'archive' );
 			break;
 	}
 
