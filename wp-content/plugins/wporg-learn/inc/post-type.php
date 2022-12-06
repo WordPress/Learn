@@ -218,7 +218,10 @@ function register_ideas() {
 		'show_in_nav_menus'     => true,
 		'can_export'            => true,
 		'has_archive'           => 'ideas',
-		'rewrite'               => array( 'slug' => 'idea', 'with_front' => false ),
+		'rewrite'               => array(
+			'slug' => 'idea',
+			'with_front' => false
+		),
 		'exclude_from_search'   => false,
 		'publicly_queryable'    => true,
 		'capability_type'       => 'post',

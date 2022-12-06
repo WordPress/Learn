@@ -284,7 +284,7 @@ function wporg_learn_get_lesson_plan_taxonomy_data( $post_id, $context ) {
  * Returns the taxonomies associated with a content idea
  *
  * @param int $post_id Id of the post.
- * @param str $context Context of the function reference
+ * @param str $context Context of the function reference.
  *
  * @return array
  */
