@@ -26,7 +26,6 @@ $buckets = array(
 		'items' => array(
 			'date'   => __( 'Date', 'wporg-learn' ),
 			'votes'  => __( 'Votes', 'wporg-learn' ),
-			'status' => __( 'Status', 'wporg-learn' ),
 		),
 	),
 );

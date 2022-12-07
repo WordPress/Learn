@@ -12,7 +12,7 @@ if ( isset( $_POST['idea-submitted'] ) && 'submitted' == $_POST['idea-submitted'
 	$idea_submitted = wporg_process_submitted_idea( $_POST );
 }
 
-if( is_single() ) {
+if ( is_single() ) {
 	$form_action = get_permalink();
 } else {
 	$form_action = get_post_type_archive_link( 'wporg_idea' );

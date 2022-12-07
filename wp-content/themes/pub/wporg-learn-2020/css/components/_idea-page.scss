@@ -43,6 +43,17 @@
 
 				span {
 					text-align: right;
+
+					&.vote-increment-button {
+						vertical-align: middle;
+						color: #0073aa;
+						cursor: pointer;
+
+						&.disabled {
+							color: #ccd0d4;
+							cursor: not-allowed;
+						}
+					}
 				}
 			}
 		}

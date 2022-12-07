@@ -678,9 +678,6 @@ function wporg_archive_maybe_apply_query_filters( WP_Query &$query ) {
 							$query->set( 'orderby', 'meta_value_num' );
 							$query->set( 'meta_key', 'vote_count' );
 							break;
-						case 'status':
-							// TODO: Order by status: in progress > accepted > submitted > complete > rejected
-							break;
 					}
 					break;
 			}
@@ -1356,4 +1353,41 @@ function wporg_process_submitted_idea( $data = array() ) {
 
 	// Return the ID of the new idea post
 	return $post_id;
+}
+
+/**
+ * Process vote for idea
+ *
+ * @param  int $post_id Id of the idea post.
+ *
+ * @return boolean
+ */
+function wporg_process_idea_vote( $post_id = 0 ) {
+	global $current_user;
+
+	// Security check
+	if ( ! $post_id || ! is_user_logged_in() ) {
+		return false;
+	}
+
+	// Get post meta
+	$votes = absint( get_post_meta( $post_id, 'vote_count', true ) );
+	$voted_users = get_post_meta( $post_id, 'voted_users', false );
+
+	// Check if the current user has already voted for this idea
+	wp_get_current_user();
+	if ( $current_user->user_login && in_array( $current_user->user_login, $voted_users ) ) {
+		return false;
+	}
+
+	// Increment vote count and update post meta
+	$votes++;
+	$updated = update_post_meta( $post_id, 'vote_count', $votes );
+
+	if ( ! $updated ) {
+		return false;
+	}
+
+	return true;
+
 }

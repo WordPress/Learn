@@ -7,8 +7,14 @@
  * @package WPBBP
  */
 
+global $current_user;
+wp_get_current_user();
+
 // Get author details
 $author_user = get_user_by( 'id', $post->post_author );
+
+// Get array of users who have already voted for this idea (includes author)
+$voted_users = get_post_meta( $post->ID, 'voted_users', false );
 
 // Get taxonomy terms
 $data = array(
@@ -30,6 +36,13 @@ $data = array(
 	),
 );
 
+$enable_vote = true;
+$class_tail = '';
+if ( $current_user->user_login && in_array( $current_user->user_login, $voted_users ) ) {
+	$enable_vote = false;
+	$class_tail = ' disabled';
+}
+
 ?>
 
 <ul class="wporg-idea-details">
@@ -37,7 +50,12 @@ $data = array(
 	foreach ( $data as $key => $item ) { ?>
 		<li>
 			<strong><?php echo esc_html( $item['label'] ); ?></strong>
-			<span><?php echo wp_kses_post( $item['value'] ); ?></span>
+			<span>
+				<span id="<?php echo esc_attr( $key ); ?>-value"><?php echo wp_kses_post( $item['value'] ); ?></span>
+				<?php if ( 'votes' == $key ) { ?>
+					<span id="increment-vote" class="dashicons dashicons-plus vote-increment-button<?php echo esc_attr( $class_tail ); ?>"></span>
+				<?php } ?>
+			</span>
 		</li>
 		<?php
 	}
