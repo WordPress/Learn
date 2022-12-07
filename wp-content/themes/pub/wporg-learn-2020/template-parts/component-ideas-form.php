@@ -14,15 +14,15 @@ if ( isset( $_POST['idea-submitted'] ) && 'submitted' == $_POST['idea-submitted'
 
 $form_action = get_post_type_archive_link( 'wporg_idea' );
 
-if( isset( $_GET['status'] ) ) {
+if ( isset( $_GET['status'] ) ) {
 	 $form_action .= '?status=' . esc_attr( $_GET['status'] );
 }
 
-if( isset( $_GET['idea-type'] ) ) {
+if ( isset( $_GET['idea-type'] ) ) {
 	 $form_action .= '&idea-type=' . esc_attr( $_GET['idea-type'] );
 }
 
-if( isset( $_GET['ordering'] ) ) {
+if ( isset( $_GET['ordering'] ) ) {
 	 $form_action .= '&ordering=' . esc_attr( $_GET['ordering'] );
 }
 

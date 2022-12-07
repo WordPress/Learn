@@ -49,7 +49,7 @@ $buckets = array(
 						style="width: 100%;"
 						data-placeholder="<?php esc_attr_e( 'Any', 'wporg-learn' ); ?>"
 					>
-						<?php if( 'ordering' != $bucket['name'] ) { ?>
+						<?php if ( 'ordering' != $bucket['name'] ) { ?>
 							<option value=""><?php esc_html_e( 'Any', 'wporg-learn' ); ?></option>
 						<?php } ?>
 						<?php foreach ( $bucket['items'] as $item_value => $item_label ) : ?>

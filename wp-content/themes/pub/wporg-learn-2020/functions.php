@@ -670,7 +670,7 @@ function wporg_archive_maybe_apply_query_filters( WP_Query &$query ) {
 					);
 					break;
 				case 'ordering':
-					switch( $filter_value ) {
+					switch ( $filter_value ) {
 						case 'date':
 							// Uses default archive behaviour, so no query modification needed
 							break;
@@ -1349,7 +1349,7 @@ function wporg_process_submitted_idea( $data = array() ) {
 
 	// Set voted users array to include post author
 	wp_get_current_user();
-	if( $current_user->user_login ) {
+	if ( $current_user->user_login ) {
 		$usernames = array( $current_user->user_login );
 		update_post_meta( $post_id, 'voted_users', $usernames );
 	}
