@@ -20,17 +20,7 @@
 			padding-top: 0;
 			padding-left: $gutter-default;
 		}
-	}
 
-	&_list {
-		margin-top: $gutter-default * 3;
-	}
-
-	h2 {
-		font-size: 24px;
-	}
-
-	&_sidebar {
 		ul {
 			border-top: 1px solid #e2e4e7;
 			list-style: none;
@@ -52,5 +42,13 @@
 				}
 			}
 		}
+	}
+
+	&_list {
+		margin-top: $gutter-default * 3;
+	}
+
+	h2 {
+		font-size: 24px;
 	}
 }
