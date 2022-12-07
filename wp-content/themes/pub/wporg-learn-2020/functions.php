@@ -348,7 +348,7 @@ function wporg_archive_modify_query( WP_Query $query ) {
 		return;
 	}
 
-	$valid_post_types = array( 'lesson-plan', 'wporg_workshop', 'course' );
+	$valid_post_types = array( 'lesson-plan', 'wporg_workshop', 'course', 'wporg_idea' );
 
 	if ( $query->is_main_query() && $query->is_post_type_archive( $valid_post_types ) ) {
 		wporg_archive_maybe_apply_query_filters( $query );
@@ -571,6 +571,8 @@ function wporg_archive_maybe_apply_query_filters( WP_Query &$query ) {
 				'filter' => FILTER_VALIDATE_INT,
 				'flags'  => FILTER_REQUIRE_ARRAY,
 			),
+			'idea-type'  => FILTER_VALIDATE_INT,
+			'status'     => FILTER_VALIDATE_INT,
 			'wp_version' => array(
 				'filter' => FILTER_VALIDATE_INT,
 				'flags'  => FILTER_FORCE_ARRAY,
@@ -587,6 +589,8 @@ function wporg_archive_maybe_apply_query_filters( WP_Query &$query ) {
 		'level'      => 'level',
 		'topic'      => 'topic',
 		'type'       => 'instruction_type',
+		'idea-type'  => 'wporg_idea_type',
+		'status'     => 'wporg_idea_status',
 		'wp_version' => 'wporg_wp_version',
 	);
 
@@ -646,6 +650,8 @@ function wporg_archive_maybe_apply_query_filters( WP_Query &$query ) {
 				case 'series':
 				case 'topic':
 				case 'type':
+				case 'idea-type':
+				case 'status':
 				case 'wp_version':
 					if ( ! empty( $tax_query ) ) {
 						$tax_query['relation'] = 'AND';
@@ -1268,7 +1274,9 @@ function wporg_learn_get_sticky_topics_with_selected_first( $first = 'general' )
 
 /**
  * Process ideas submitted on the frontend
- * @param  array  $data Array of post data from diea submision form.
+ *
+ * @param  array $data Array of post data from diea submision form.
+ *
  * @return mixed
  */
 function wporg_process_submitted_idea( $data = array() ) {
@@ -1279,18 +1287,18 @@ function wporg_process_submitted_idea( $data = array() ) {
 	}
 
 	// Set and sanitise variables
-	$title = '';
 	$content = esc_html( $data['idea_description'] );
 	$type = esc_html( $data['idea_type'] );
+	$title = $content;
 
 	// Default content type to tutorial
 	if ( ! $type ) {
 		$type = 'tutorial';
 	}
 
-	// Create title from content
-	if ( strlen( $content ) > 30 ) {
-		$title = substr( $content, 0, 30 ) . '...';
+	// Limit title length
+	if ( strlen( $title ) > 30 ) {
+		$title = substr( $title, 0, 30 ) . '...';
 	}
 
 	// Set array of data for the idea post

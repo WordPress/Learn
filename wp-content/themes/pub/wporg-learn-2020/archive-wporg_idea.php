@@ -34,6 +34,7 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 				</div>
 			</div>
 			<hr>
+			<?php get_template_part( 'template-parts/component', 'idea-filters' ); ?>
 		<?php endif; ?>
 
 		<div class="lp-archive-items row gutters between">
