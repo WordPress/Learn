@@ -1297,8 +1297,8 @@ function wporg_process_submitted_idea( $data = array() ) {
 	}
 
 	// Limit title length
-	if ( strlen( $title ) > 50 ) {
-		$title = substr( $title, 0, 50 ) . '...';
+	if ( strlen( $title ) > 40 ) {
+		$title = substr( $title, 0, 40 ) . '...';
 	}
 
 	// Set array of data for the idea post

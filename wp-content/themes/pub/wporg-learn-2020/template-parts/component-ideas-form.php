@@ -34,7 +34,7 @@ if ( isset( $_POST['idea-submitted'] ) && 'submitted' == $_POST['idea-submitted'
 			</p>
 
 			<p>
-				<textarea name="idea_description" class="textarea" rows="6" placeholder="<?php esc_attr_e( 'Describe your content idea...', 'wporg-learn' ); ?>"></textarea><br/>
+				<textarea name="idea_description" class="textarea" rows="6" maxlength="500" placeholder="<?php esc_attr_e( 'Describe your content idea...', 'wporg-learn' ); ?>"></textarea><br/>
 			</p>
 
 			<p>
