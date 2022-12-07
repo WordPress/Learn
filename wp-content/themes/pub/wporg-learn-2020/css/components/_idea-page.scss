@@ -1,0 +1,56 @@
+.idea-page {
+	color: $color__text;
+
+	&_content {
+		margin: $gutter-default 0 $gutter-default * 4;
+	}
+
+	&_section {
+		padding: 4rem 0 0;
+
+		.row + .row {
+			padding: 4rem 0 0;
+		}
+	}
+
+	&_sidebar {
+		padding-top: 32px;
+
+		@include breakpoint( $breakpoint-tablet ) {
+			padding-top: 0;
+			padding-left: $gutter-default;
+		}
+	}
+
+	&_list {
+		margin-top: $gutter-default * 3;
+	}
+
+	h2 {
+		font-size: 24px;
+	}
+
+	&_sidebar {
+		ul {
+			border-top: 1px solid #e2e4e7;
+			list-style: none;
+			margin: 0 0 2rem;
+
+			> li {
+				border-bottom: 1px solid #e2e4e7;
+				display: flex;
+				justify-content: space-between;
+				padding: 0.5rem 0;
+
+				strong {
+					color: #555d66;
+					font-weight: 600;
+				}
+
+				span {
+					text-align: right;
+				}
+			}
+		}
+	}
+}

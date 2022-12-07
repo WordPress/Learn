@@ -21,9 +21,9 @@ if ( isset( $_POST['idea-submitted'] ) && 'submitted' == $_POST['idea-submitted'
 		<?php if ( $idea_submitted ) { ?>
 			<p><strong><?php esc_html_e( 'Thank you for submitting your content idea!', 'wporg-learn' ); ?></strong></p>
 			<script>
-			    if ( window.history.replaceState ) {
-			        window.history.replaceState( null, '', window.location.href );
-			    }
+				if ( window.history.replaceState ) {
+					window.history.replaceState( null, '', window.location.href );
+				}
 			</script>
 		<?php } ?>
 
