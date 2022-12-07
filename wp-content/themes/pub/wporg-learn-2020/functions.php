@@ -291,16 +291,22 @@ function wporg_learn_get_lesson_plan_taxonomy_data( $post_id, $context ) {
 function wporg_learn_get_idea_data( $post_id, $context ) {
 	$data = array(
 		array(
-			'icon'  => 'edit',
-			'slug'  => 'type',
-			'label' => get_taxonomy_labels( get_taxonomy( 'wporg_idea_type' ) )->singular_name,
-			'value' => wporg_learn_get_taxonomy_terms( $post_id, 'wporg_idea_type', $context ),
-		),
-		array(
 			'icon'  => 'dashboard',
 			'slug'  => 'status',
 			'label' => get_taxonomy_labels( get_taxonomy( 'wporg_idea_status' ) )->singular_name,
 			'value' => wporg_learn_get_taxonomy_terms( $post_id, 'wporg_idea_status', $context ),
+		),
+		array(
+			'icon'  => 'saved',
+			'slug'  => 'votes',
+			'label' => __( 'Votes', 'wporg-learn' ),
+			'value' => absint( get_post_meta( $post_id, 'vote_count', true ) ),
+		),
+		array(
+			'icon'  => 'edit',
+			'slug'  => 'type',
+			'label' => get_taxonomy_labels( get_taxonomy( 'wporg_idea_type' ) )->singular_name,
+			'value' => wporg_learn_get_taxonomy_terms( $post_id, 'wporg_idea_type', $context ),
 		),
 	);
 
@@ -573,6 +579,7 @@ function wporg_archive_maybe_apply_query_filters( WP_Query &$query ) {
 			),
 			'idea-type'  => FILTER_VALIDATE_INT,
 			'status'     => FILTER_VALIDATE_INT,
+			'ordering'   => FILTER_SANITIZE_STRING,
 			'wp_version' => array(
 				'filter' => FILTER_VALIDATE_INT,
 				'flags'  => FILTER_FORCE_ARRAY,
@@ -591,6 +598,7 @@ function wporg_archive_maybe_apply_query_filters( WP_Query &$query ) {
 		'type'       => 'instruction_type',
 		'idea-type'  => 'wporg_idea_type',
 		'status'     => 'wporg_idea_status',
+		'ordering'   => 'ordering',
 		'wp_version' => 'wporg_wp_version',
 	);
 
@@ -660,6 +668,20 @@ function wporg_archive_maybe_apply_query_filters( WP_Query &$query ) {
 						'taxonomy' => $entity_map[ $filter_name ],
 						'terms'    => $filter_value,
 					);
+					break;
+				case 'ordering':
+					switch( $filter_value ) {
+						case 'date':
+							// Uses default archive behaviour, so no query modification needed
+							break;
+						case 'votes':
+							$query->set( 'orderby', 'meta_value_num' );
+							$query->set( 'meta_key', 'vote_count' );
+							break;
+						case 'status':
+							// TODO: Order by status: in progress > accepted > submitted > complete > rejected
+							break;
+					}
 					break;
 			}
 		}
@@ -1280,6 +1302,7 @@ function wporg_learn_get_sticky_topics_with_selected_first( $first = 'general' )
  * @return mixed
  */
 function wporg_process_submitted_idea( $data = array() ) {
+	global $current_user;
 
 	// Security check
 	if ( ! is_user_logged_in() || ! is_array( $data ) || empty( $data ) || empty( $data['idea_description'] ) || ! wp_verify_nonce( $data['_wpnonce'], 'submit_idea' ) ) {
@@ -1320,6 +1343,16 @@ function wporg_process_submitted_idea( $data = array() ) {
 	// Set taxonomies for idea post
 	$set_type = wp_set_object_terms( $post_id, $type, 'wporg_idea_type' );
 	$set_status = wp_set_object_terms( $post_id, 'submitted', 'wporg_idea_status' );
+
+	// Set default vote count
+	update_post_meta( $post_id, 'vote_count', 0 );
+
+	// Set voted users array to include post author
+	wp_get_current_user();
+	if( $current_user->user_login ) {
+		$usernames = array( $current_user->user_login );
+		update_post_meta( $post_id, 'voted_users', $usernames );
+	}
 
 	// Return the ID of the new idea post
 	return $post_id;

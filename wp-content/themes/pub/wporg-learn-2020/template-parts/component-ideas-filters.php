@@ -20,6 +20,15 @@ $buckets = array(
 			'fields'   => 'id=>name',
 		) ),
 	),
+	array(
+		'label' => __( 'Order', 'wporg-learn' ),
+		'name'  => 'ordering',
+		'items' => array(
+			'date'   => __( 'Date', 'wporg-learn' ),
+			'votes'  => __( 'Votes', 'wporg-learn' ),
+			'status' => __( 'Status', 'wporg-learn' ),
+		),
+	),
 );
 ?>
 
@@ -40,7 +49,9 @@ $buckets = array(
 						style="width: 100%;"
 						data-placeholder="<?php esc_attr_e( 'Any', 'wporg-learn' ); ?>"
 					>
-						<option value=""><?php esc_html_e( 'Any', 'wporg-learn' ); ?></option>
+						<?php if( 'ordering' != $bucket['name'] ) { ?>
+							<option value=""><?php esc_html_e( 'Any', 'wporg-learn' ); ?></option>
+						<?php } ?>
 						<?php foreach ( $bucket['items'] as $item_value => $item_label ) : ?>
 							<option
 								value="<?php echo esc_attr( $item_value ); ?>"

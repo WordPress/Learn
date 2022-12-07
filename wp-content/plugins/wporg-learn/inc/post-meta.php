@@ -30,6 +30,7 @@ function register() {
 	register_lesson_plan_meta();
 	register_workshop_meta();
 	register_misc_meta();
+	register_idea_meta();
 }
 
 /**
@@ -169,7 +170,14 @@ function register_idea_meta() {
 			'description'       => __( 'An array of users who have already voted for this idea.', 'wporg_learn' ),
 			'type'              => 'array',
 			'single'            => false,
-			'show_in_rest'      => true,
+			'show_in_rest' => array(
+				'schema' => array(
+					'type'  => 'array',
+					'items' => array(
+						'type' => 'string',
+					),
+				),
+			),
 		)
 	);
 }

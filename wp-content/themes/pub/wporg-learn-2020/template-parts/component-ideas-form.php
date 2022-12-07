@@ -12,6 +12,20 @@ if ( isset( $_POST['idea-submitted'] ) && 'submitted' == $_POST['idea-submitted'
 	$idea_submitted = wporg_process_submitted_idea( $_POST );
 }
 
+$form_action = get_post_type_archive_link( 'wporg_idea' );
+
+if( isset( $_GET['status'] ) ) {
+	 $form_action .= '?status=' . esc_attr( $_GET['status'] );
+}
+
+if( isset( $_GET['idea-type'] ) ) {
+	 $form_action .= '&idea-type=' . esc_attr( $_GET['idea-type'] );
+}
+
+if( isset( $_GET['ordering'] ) ) {
+	 $form_action .= '&ordering=' . esc_attr( $_GET['ordering'] );
+}
+
 ?>
 
 <div class="card">
@@ -27,7 +41,7 @@ if ( isset( $_POST['idea-submitted'] ) && 'submitted' == $_POST['idea-submitted'
 			</script>
 		<?php } ?>
 
-		<form class="contact-form" method="post" action="<?php echo esc_url( get_post_type_archive_link( 'wporg_idea' ) ); ?>">
+		<form class="contact-form" method="post" action="<?php echo esc_url( $form_action ); ?>">
 
 			<p>
 				<?php esc_html_e( 'Is there a topic that you would like to see covered on Learn WordPress? Submit your idea here:', 'wporg-learn' ); ?>

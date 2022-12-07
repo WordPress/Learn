@@ -24,6 +24,10 @@ $data = array(
 		'label' => esc_html__( 'Submitted by', 'wporg-learn' ),
 		'value' => wp_kses_post( '<a href="httsp://profiles.wordpress.org/' . esc_attr( $author_user->user_login ) . '" target="_blank" rel="nofollow noopener">' . esc_html( $author_user->display_name ) . '</a>' ),
 	),
+	'votes'    => array(
+		'label' => esc_html__( 'Votes', 'wporg-learn' ),
+		'value' => absint( get_post_meta( $post->ID, 'vote_count', true ) ),
+	),
 );
 
 ?>
