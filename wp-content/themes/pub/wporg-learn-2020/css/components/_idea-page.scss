@@ -16,6 +16,10 @@
 	&_sidebar {
 		padding-top: 32px;
 
+		.notice-idea-submitted {
+			margin-bottom: 1em;
+		}
+
 		@include breakpoint( $breakpoint-tablet ) {
 			padding-top: 0;
 			padding-left: $gutter-default;

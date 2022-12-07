@@ -55,7 +55,7 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 				<?php endif; ?>
 			</div>
 
-			<div class="col-4">
+			<div class="col-4 idea-page_sidebar">
 				<?php get_template_part( 'template-parts/component', 'ideas-form' ); ?>
 			</div>
 		</div>

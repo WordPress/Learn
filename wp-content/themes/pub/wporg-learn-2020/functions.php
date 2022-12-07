@@ -1314,7 +1314,7 @@ function wporg_process_submitted_idea( $data = array() ) {
 	$type = esc_html( $data['idea_type'] );
 	$title = $content;
 
-	// Default content type to tutorial
+	// Set default content type to tutorial
 	if ( ! $type ) {
 		$type = 'tutorial';
 	}
@@ -1344,7 +1344,7 @@ function wporg_process_submitted_idea( $data = array() ) {
 	$set_type = wp_set_object_terms( $post_id, $type, 'wporg_idea_type' );
 	$set_status = wp_set_object_terms( $post_id, 'submitted', 'wporg_idea_status' );
 
-	// Set default vote count
+	// Set default vote count to 0
 	update_post_meta( $post_id, 'vote_count', 0 );
 
 	// Set voted users array to include post author

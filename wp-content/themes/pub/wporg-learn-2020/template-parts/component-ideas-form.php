@@ -12,7 +12,11 @@ if ( isset( $_POST['idea-submitted'] ) && 'submitted' == $_POST['idea-submitted'
 	$idea_submitted = wporg_process_submitted_idea( $_POST );
 }
 
-$form_action = get_post_type_archive_link( 'wporg_idea' );
+if( is_single() ) {
+	$form_action = get_permalink();
+} else {
+	$form_action = get_post_type_archive_link( 'wporg_idea' );
+}
 
 if ( isset( $_GET['status'] ) ) {
 	 $form_action .= '?status=' . esc_attr( $_GET['status'] );
@@ -26,20 +30,22 @@ if ( isset( $_GET['ordering'] ) ) {
 	 $form_action .= '&ordering=' . esc_attr( $_GET['ordering'] );
 }
 
-?>
+if ( $idea_submitted ) { ?>
+	<div class="notice notice-success notice-alt notice-idea-submitted">
+		<p><?php esc_html_e( 'Thank you for submitting your content idea!', 'wporg-learn' ); ?></p>
+	</div>
+	<script>
+		if ( window.history.replaceState ) {
+			window.history.replaceState( null, '', window.location.href );
+		}
+	</script>
+<?php } ?>
 
 <div class="card">
 
-	<?php if ( is_user_logged_in() ) { ?>
+	<h3 class="h4"><?php esc_html_e( 'Submit an idea', 'wporg-learn' ); ?></h3>
 
-		<?php if ( $idea_submitted ) { ?>
-			<p><strong><?php esc_html_e( 'Thank you for submitting your content idea!', 'wporg-learn' ); ?></strong></p>
-			<script>
-				if ( window.history.replaceState ) {
-					window.history.replaceState( null, '', window.location.href );
-				}
-			</script>
-		<?php } ?>
+	<?php if ( is_user_logged_in() ) { ?>
 
 		<form class="contact-form" method="post" action="<?php echo esc_url( $form_action ); ?>">
 
