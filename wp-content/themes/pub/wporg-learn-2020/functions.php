@@ -1265,3 +1265,54 @@ function wporg_learn_get_sticky_topics_with_selected_first( $first = 'general' )
 
 	return $topics;
 }
+
+/**
+ * Process ideas submitted on the frontend
+ * @param  array  $data Array of post data from diea submision form.
+ * @return mixed
+ */
+function wporg_process_submitted_idea( $data = array() ) {
+
+	// Security check
+	if ( ! is_user_logged_in() || ! is_array( $data ) || empty( $data ) || empty( $data['idea_description'] ) || ! wp_verify_nonce( $data['_wpnonce'], 'submit_idea' ) ) {
+		return false;
+	}
+
+	// Set and sanitise variables
+	$title = '';
+	$content = esc_html( $data['idea_description'] );
+	$type = esc_html( $data['idea_type'] );
+
+	// Default content type to tutorial
+	if ( ! $type ) {
+		$type = 'tutorial';
+	}
+
+	// Create title from content
+	if ( strlen( $content ) > 30 ) {
+		$title = substr( $content, 0, 30 ) . '...';
+	}
+
+	// Set array of data for the idea post
+	$data = array(
+		'post_type'    => 'wporg_idea',
+		'post_status'  => 'publish',
+		'post_content' => $content,
+		'post_title'   => $title,
+	);
+
+	// Add the new idea post
+	$post_id = wp_insert_post( $data );
+
+	// Check if post creation was successful
+	if ( ! $post_id || is_wp_error( $post_id ) || ! is_int( $post_id ) ) {
+		return false;
+	}
+
+	// Set taxonomies for idea post
+	$set_type = wp_set_object_terms( $post_id, $type, 'wporg_idea_type' );
+	$set_status = wp_set_object_terms( $post_id, 'submitted', 'wporg_idea_status' );
+
+	// Return the ID of the new idea post
+	return $post_id;
+}
