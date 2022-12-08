@@ -1359,8 +1359,8 @@ function wporg_process_submitted_idea( $data = array() ) {
 /**
  * Process vote for idea
  *
- * @param  int $post_id Id of the idea post.
- * @param  striong $username Username of the user who is voting.
+ * @param  int    $post_id Id of the idea post.
+ * @param  string $username Username of the user who is voting.
  *
  * @return boolean
  */

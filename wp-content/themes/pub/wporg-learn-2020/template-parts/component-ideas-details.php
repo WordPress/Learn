@@ -17,20 +17,20 @@ $author_user = get_user_by( 'id', $post->post_author );
 $voted_users = get_post_meta( $post->ID, 'voted_users', true );
 
 // Get idea status
-$status = wp_get_post_terms( $post->ID, 'wporg_idea_status' )[0];
+$idea_status = wp_get_post_terms( $post->ID, 'wporg_idea_status' )[0];
 
-// Get idea status
-$type = wp_get_post_terms( $post->ID, 'wporg_idea_type' )[0];
+// Get idea type
+$idea_type = wp_get_post_terms( $post->ID, 'wporg_idea_type' )[0];
 
 // Get taxonomy terms
 $data = array(
 	'type'      => array(
 		'label' => esc_html__( 'Type', 'wporg-learn' ),
-		'value' => $type->name,
+		'value' => $idea_type->name,
 	),
 	'status'    => array(
 		'label' => esc_html__( 'Status', 'wporg-learn' ),
-		'value' => $status->name,
+		'value' => $idea_status->name,
 	),
 	'author'    => array(
 		'label' => esc_html__( 'Submitted by', 'wporg-learn' ),
@@ -58,7 +58,7 @@ if ( $current_user->user_login && in_array( $current_user->user_login, $voted_us
 			<strong><?php echo esc_html( $item['label'] ); ?></strong>
 			<span class="<?php echo esc_attr( $key ); ?>-details-item">
 				<span id="<?php echo esc_attr( $key ); ?>-value"><?php echo wp_kses_post( $item['value'] ); ?></span>
-				<?php if ( 'votes' == $key && ! in_array( $status->slug, array( 'rejected', 'complete' ) ) ) { ?>
+				<?php if ( 'votes' == $key && ! in_array( $idea_status->slug, array( 'rejected', 'complete' ) ) ) { ?>
 					<span id="increment-vote" class="dashicons dashicons-plus vote-increment-button<?php echo esc_attr( $class_tail ); ?>"></span>
 				<?php } ?>
 			</span>
