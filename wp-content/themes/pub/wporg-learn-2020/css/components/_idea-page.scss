@@ -53,6 +53,20 @@
 							color: #ccd0d4;
 							cursor: not-allowed;
 						}
+
+						&.saving {
+							color: #ccd0d4;
+							animation: saving 2s infinite linear;
+						}
+
+						@keyframes saving {
+							0% {
+								rotate: 0deg;
+							}
+							100% {
+								rotate: 359deg;
+							}
+						}
 					}
 				}
 			}
