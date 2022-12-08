@@ -44,9 +44,11 @@ $data = array(
 
 $enable_vote = true;
 $class_tail = ' increment-vote';
-if ( $current_user->user_login && in_array( $current_user->user_login, $voted_users ) ) {
+$vote_tooltip = __( 'Click to vote for this idea.', 'wporg-learn' );
+if ( ! is_user_logged_in() || ( $current_user->user_login && in_array( $current_user->user_login, $voted_users ) ) ) {
 	$enable_vote = false;
 	$class_tail = ' disabled';
+	$vote_tooltip = __( 'You may only vote for each idea once and cannot vote for your own submissions. Only logged-in users may vote.', 'wporg-learn' );
 }
 
 ?>
@@ -59,7 +61,7 @@ if ( $current_user->user_login && in_array( $current_user->user_login, $voted_us
 			<span class="<?php echo esc_attr( $key ); ?>-details-item">
 				<span id="<?php echo esc_attr( $key ); ?>-value"><?php echo wp_kses_post( $item['value'] ); ?></span>
 				<?php if ( 'votes' == $key && ! in_array( $idea_status->slug, array( 'rejected', 'complete' ) ) ) { ?>
-					<span id="increment-vote" class="dashicons dashicons-plus vote-increment-button<?php echo esc_attr( $class_tail ); ?>"></span>
+					<span id="increment-vote" class="dashicons dashicons-plus vote-increment-button<?php echo esc_attr( $class_tail ); ?>" title="<?php echo esc_attr( $vote_tooltip ); ?>"></span>
 				<?php } ?>
 			</span>
 		</li>

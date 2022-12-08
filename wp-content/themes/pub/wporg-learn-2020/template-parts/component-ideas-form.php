@@ -74,7 +74,7 @@ if ( $idea_submitted ) { ?>
 
 			<p>
 				<textarea name="idea_description" class="textarea" rows="7" maxlength="1000" placeholder="<?php esc_attr_e( 'Describe your content idea...', 'wporg-learn' ); ?>"></textarea><br/>
-				<small><em><?php eas_html_e( 'Limit: 1000 characters', 'wporg-learn' ); ?></em></small>
+				<small><em><?php esc_html_e( 'Limit: 1000 characters', 'wporg-learn' ); ?></em></small>
 			</p>
 
 			<p>
