@@ -14,17 +14,23 @@ wp_get_current_user();
 $author_user = get_user_by( 'id', $post->post_author );
 
 // Get array of users who have already voted for this idea (includes author)
-$voted_users = get_post_meta( $post->ID, 'voted_users', false );
+$voted_users = get_post_meta( $post->ID, 'voted_users', true );
+
+// Get idea status
+$status = wp_get_post_terms( $post->ID, 'wporg_idea_status' )[0];
+
+// Get idea status
+$type = wp_get_post_terms( $post->ID, 'wporg_idea_type' )[0];
 
 // Get taxonomy terms
 $data = array(
 	'type'      => array(
 		'label' => esc_html__( 'Type', 'wporg-learn' ),
-		'value' => wp_get_post_terms( $post->ID, 'wporg_idea_type' )[0]->name,
+		'value' => $type->name,
 	),
 	'status'    => array(
 		'label' => esc_html__( 'Status', 'wporg-learn' ),
-		'value' => wp_get_post_terms( $post->ID, 'wporg_idea_status' )[0]->name,
+		'value' => $status->name,
 	),
 	'author'    => array(
 		'label' => esc_html__( 'Submitted by', 'wporg-learn' ),
@@ -37,7 +43,7 @@ $data = array(
 );
 
 $enable_vote = true;
-$class_tail = '';
+$class_tail = ' increment-vote';
 if ( $current_user->user_login && in_array( $current_user->user_login, $voted_users ) ) {
 	$enable_vote = false;
 	$class_tail = ' disabled';
@@ -50,9 +56,9 @@ if ( $current_user->user_login && in_array( $current_user->user_login, $voted_us
 	foreach ( $data as $key => $item ) { ?>
 		<li>
 			<strong><?php echo esc_html( $item['label'] ); ?></strong>
-			<span>
+			<span class="<?php echo esc_attr( $key ); ?>-details-item">
 				<span id="<?php echo esc_attr( $key ); ?>-value"><?php echo wp_kses_post( $item['value'] ); ?></span>
-				<?php if ( 'votes' == $key ) { ?>
+				<?php if ( 'votes' == $key && ! in_array( $status->slug, array( 'rejected', 'complete' ) ) ) { ?>
 					<span id="increment-vote" class="dashicons dashicons-plus vote-increment-button<?php echo esc_attr( $class_tail ); ?>"></span>
 				<?php } ?>
 			</span>

@@ -7,29 +7,48 @@
  * @package WPBBP
  */
 
+// Process idea submission
 $idea_submitted = false;
 if ( isset( $_POST['idea-submitted'] ) && 'submitted' == $_POST['idea-submitted'] ) {
 	$idea_submitted = wporg_process_submitted_idea( $_POST );
 }
 
+// Create action URL for submission form
 if ( is_single() ) {
 	$form_action = get_permalink();
 } else {
 	$form_action = get_post_type_archive_link( 'wporg_idea' );
 }
 
+// Make sure filtering variables are included in form action URL
+$actions = array();
+
 if ( isset( $_GET['status'] ) ) {
-	 $form_action .= '?status=' . esc_attr( $_GET['status'] );
+	$actions['status'] = $_GET['status'];
 }
 
 if ( isset( $_GET['idea-type'] ) ) {
-	 $form_action .= '&idea-type=' . esc_attr( $_GET['idea-type'] );
+	 $actions['idea-type'] = $_GET['idea-type'];
 }
 
 if ( isset( $_GET['ordering'] ) ) {
-	 $form_action .= '&ordering=' . esc_attr( $_GET['ordering'] );
+	 $actions['ordering'] = $_GET['ordering'];
 }
 
+$i = 0;
+foreach ( $actions as $slug => $value ) {
+	if( $i > 0 ) {
+		$form_action .= '&';
+	} else {
+		$form_action .= '?';
+	}
+
+	$form_action .= esc_attr( $slug ) . '=' . esc_attr( $value );
+
+	$i++;
+}
+
+// Output thank you message after successful submission and nsure page refresh doesn't cause resubmission
 if ( $idea_submitted ) { ?>
 	<div class="notice notice-success notice-alt notice-idea-submitted">
 		<p><?php esc_html_e( 'Thank you for submitting your content idea!', 'wporg-learn' ); ?></p>
@@ -54,7 +73,8 @@ if ( $idea_submitted ) { ?>
 			</p>
 
 			<p>
-				<textarea name="idea_description" class="textarea" rows="6" maxlength="500" placeholder="<?php esc_attr_e( 'Describe your content idea...', 'wporg-learn' ); ?>"></textarea><br/>
+				<textarea name="idea_description" class="textarea" rows="7" maxlength="1000" placeholder="<?php esc_attr_e( 'Describe your content idea...', 'wporg-learn' ); ?>"></textarea><br/>
+				<small><em><?php _e( 'Limit: 1000 characters', 'wporg-learn' ); ?></em></small>
 			</p>
 
 			<p>

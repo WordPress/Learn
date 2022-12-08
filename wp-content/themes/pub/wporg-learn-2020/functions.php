@@ -1318,7 +1318,7 @@ function wporg_process_submitted_idea( $data = array() ) {
 
 	// Limit title length
 	if ( strlen( $title ) > 40 ) {
-		$title = substr( $title, 0, 40 ) . '...';
+		$title = wp_trim_words( $title, 7, '...' );
 	}
 
 	// Set array of data for the idea post
@@ -1346,8 +1346,9 @@ function wporg_process_submitted_idea( $data = array() ) {
 
 	// Set voted users array to include post author
 	wp_get_current_user();
+	$usernames = array();
 	if ( $current_user->user_login ) {
-		$usernames = array( $current_user->user_login );
+		$usernames[] = $current_user->user_login;
 		update_post_meta( $post_id, 'voted_users', $usernames );
 	}
 
@@ -1359,10 +1360,11 @@ function wporg_process_submitted_idea( $data = array() ) {
  * Process vote for idea
  *
  * @param  int $post_id Id of the idea post.
+ * @param  striong $username Username of the user who is voting.
  *
  * @return boolean
  */
-function wporg_process_idea_vote( $post_id = 0 ) {
+function wporg_process_idea_vote( $post_id = 0, $username = '' ) {
 	global $current_user;
 
 	// Security check
@@ -1372,16 +1374,20 @@ function wporg_process_idea_vote( $post_id = 0 ) {
 
 	// Get post meta
 	$votes = absint( get_post_meta( $post_id, 'vote_count', true ) );
-	$voted_users = get_post_meta( $post_id, 'voted_users', false );
+	$voted_users = get_post_meta( $post_id, 'voted_users', true );
 
-	// Check if the current user has already voted for this idea
-	wp_get_current_user();
-	if ( $current_user->user_login && in_array( $current_user->user_login, $voted_users ) ) {
+	// Check if the user has already voted for this idea - get the current user if no username supplied
+	if ( ! $username ) {
+		wp_get_current_user();
+		$username = $current_user->user_login;
+	}
+
+	if ( $username && in_array( $username, $voted_users ) ) {
 		return false;
 	}
 
 	// Increment vote count and update post meta
-	$votes++;
+	++$votes;
 	$updated = update_post_meta( $post_id, 'vote_count', $votes );
 
 	if ( ! $updated ) {
