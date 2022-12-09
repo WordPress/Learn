@@ -316,7 +316,7 @@
 <!-- wp:quote -->
 <blockquote class="wp-block-quote">
 <!-- wp:paragraph -->
-<p>प्रतिभागियों द्वारा प्रस्तुत सामग्री के अपने अवधारण का मूल्यांकन करने के लिए पूछने के लिए कुछ प्रश्न। ये इस बात का एक माप होना चाहिए कि क्या उद्देश्य पहुंच गए थे। प्रत्येक उद्देश्य के लिए एक प्रश्न होने पर विचार करें।</p>
+<p>प्रतिभागियों द्वारा प्रस्तुत सामग्री के अपने अवधारण का मूल्यांकन करने के लिए पूछे गए कुछ प्रश्न। ये इस बात का एक माप होना चाहिए कि क्या उद्देश्य पहुंच गए थे। प्रत्येक उद्देश्य के लिए एक प्रश्न सुनिश्चित करें।</p>
 <!-- /wp:paragraph -->
 </blockquote>
 <!-- /wp:quote -->
@@ -348,7 +348,7 @@
 <!-- wp:list -->
 <ul>
 <!-- wp:list-item -->
-<li><a data-external="true" href="https://wordpress.org/support/">समर्थन डॉक्स</a> या <a data-external = "true" href = "https: //developer.wordpress.org/">developer संसाधन</a> पर जानकारी के लिए लिंक</li>
+<li><a data-external="true" href="https://wordpress.org/support/">समर्थन डॉक्स</a> या <a data-external = "true" href = "https: //developer.wordpress.org/">डेवलपर संसाधन</a> पर जानकारी के लिए लिंक</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
@@ -382,7 +382,7 @@
 <!-- /wp:quote -->
 
 <!-- wp:heading {"level":3,"lock":{"move":true,"remove":true}} -->
-<h3>पाठ लपेटें</h3>
+<h3>पाठ सारांश</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
