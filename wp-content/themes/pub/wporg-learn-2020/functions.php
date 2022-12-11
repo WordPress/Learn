@@ -1364,7 +1364,7 @@ function wporg_process_submitted_idea( $data = array() ) {
  *
  * @return boolean
  */
-function wporg_process_idea_vote( $post_id = 0, $username = '' ) {
+function wporg_process_idea_vote( $post_id = 0, $user_id = 0 ) {
 	global $current_user;
 
 	// Security check
@@ -1376,8 +1376,11 @@ function wporg_process_idea_vote( $post_id = 0, $username = '' ) {
 	$votes = absint( get_post_meta( $post_id, 'vote_count', true ) );
 	$voted_users = get_post_meta( $post_id, 'voted_users', true );
 
-	// Check if the user has already voted for this idea - get the current user if no username supplied
-	if ( ! $username ) {
+	// Check if the user has already voted for this idea - get the current user if no user ID supplied
+	if ( $user_id ) {
+		$user = get_user_by( 'id', $user_id );
+		$username = $user->user_login;
+	} else {
 		wp_get_current_user();
 		$username = $current_user->user_login;
 	}
