@@ -44,7 +44,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Lernziele sollten als Aktionen formuliert werden. <a href="https://wb-web.de/material/methoden/lernziele-formulieren-leicht-gemacht.html">Lernziele leicht formulieren gemacht<a/> Jedes Lernziel sollte mit einer Übung (siehe unten) überprüft werden.</p>
+<p>Lernziele sollten als Aktionen formuliert werden. <a href="https://wb-web.de/material/methoden/lernziele-formulieren-leicht-gemacht.html">Lernziele leicht formulieren gemacht</a> Jedes Lernziel sollte mit einer Übung (siehe unten) überprüft werden.</p>
 <!-- /wp:paragraph -->
 </blockquote>
 <!-- /wp:quote -->
@@ -272,9 +272,7 @@
 <!-- wp:quote -->
 <blockquote class="wp-block-quote">
 <!-- wp:paragraph -->
-<p>Dies sind kurze oder spezifische Aktivitäten, die den Teilnehmenden helfen, bestimmte Bestandteile der Lektion zu üben. Es sollten keine vollständig geskripteten Übungen sein, sondern etwas, das die Teilnehmer selbst durchführen können. Dies kann eine Übung, basierend auf einem Schritt der Lektion, sein.
-
-</p>
+<p>Dies sind kurze oder spezifische Aktivitäten, die den Teilnehmenden helfen, bestimmte Bestandteile der Lektion zu üben. Es sollten keine vollständig geskripteten Übungen sein, sondern etwas, das die Teilnehmer selbst durchführen können. Dies kann eine Übung, basierend auf einem Schritt der Lektion, sein.</p>
 <!-- /wp:paragraph -->
 </blockquote>
 <!-- /wp:quote -->
@@ -390,4 +388,5 @@
 <!-- wp:paragraph -->
 <p>[tip] 💡 Führe abschließend die <a href="#Exercises">Übungen</a> und den <a href="#Assessment">Quiz</a> wie oben angegeben durch.[/tip]</p>
 <!-- /wp:paragraph -->
+ 
  
