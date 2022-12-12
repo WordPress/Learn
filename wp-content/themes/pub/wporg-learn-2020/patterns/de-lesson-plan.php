@@ -1,7 +1,7 @@
 <?php
 /**
  * Title: German Lesson Plan Content
- * Slug: wporg-learn-2020/lesson-plan
+ * Slug: wporg-learn-2020/lesson-plan/german
  * Block Types: core/post-content
  * Post Types: lesson-plan
  * Categories: featured, text
