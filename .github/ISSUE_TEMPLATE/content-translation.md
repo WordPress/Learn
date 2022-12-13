@@ -13,10 +13,11 @@ Remember to update the title of this issue. Example: Greek translation for Lesso
 -->
 
 # Details
-- Link to original content:
+- Link to original content: 
+- Link to original content GitHub issue: 
 - Language you'll be translating to: 
 - Have you arranged for someone to review this translation?: Yes or No
-- Reviewer's GitHub username:
+- Reviewer's GitHub username: 
 - Other info: 
 
 # Next Steps
