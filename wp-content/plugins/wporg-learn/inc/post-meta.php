@@ -18,7 +18,7 @@ add_action( 'add_meta_boxes', __NAMESPACE__ . '\add_lesson_plan_metaboxes' );
 add_action( 'add_meta_boxes', __NAMESPACE__ . '\add_workshop_metaboxes' );
 add_action( 'add_meta_boxes', __NAMESPACE__ . '\add_meeting_metaboxes' );
 add_action( 'save_post_lesson-plan', __NAMESPACE__ . '\save_lesson_plan_metabox_fields' );
-add_action( 'save_post_wporg_workshop', __NAMESPACE__ . '\save_workshop_metabox_fields' );
+add_action( 'save_post_wporg_workshop', __NAMESPACE__ . '\save_workshop_meta_fields' );
 add_action( 'save_post_meeting', __NAMESPACE__ . '\save_meeting_metabox_fields' );
 add_action( 'admin_footer', __NAMESPACE__ . '\render_locales_list' );
 add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\enqueue_editor_assets' );
@@ -181,6 +181,9 @@ function register_misc_meta() {
 				'default'           => 'en_US',
 				'sanitize_callback' => __NAMESPACE__ . '\sanitize_locale',
 				'show_in_rest'      => true,
+				'auth_callback'     => function() {
+					return current_user_can( 'edit_posts' );
+				},
 			)
 		);
 	}
@@ -469,11 +472,11 @@ function render_metabox_meeting_language( WP_Post $post ) {
 }
 
 /**
- * Update the post meta values from the meta box fields when the post is saved.
+ * Update the post meta values from the meta fields when the post is saved.
  *
  * @param int $post_id
  */
-function save_workshop_metabox_fields( $post_id ) {
+function save_workshop_meta_fields( $post_id ) {
 	if ( wp_is_post_revision( $post_id ) || ! current_user_can( 'edit_post', $post_id ) ) {
 		return;
 	}
@@ -520,6 +523,13 @@ function save_workshop_metabox_fields( $post_id ) {
 		foreach ( $other_contributor_usernames as $username ) {
 			add_post_meta( $post_id, 'other_contributor_wporg_username', $username );
 		}
+	}
+
+	// The block editor won't save this field on publish if it's the default value,
+	// but our custom workshops query wporg_archive_query_prioritize_locale depends on it being set
+	$language = get_post_meta( $post_id, 'language', true );
+	if ( ! isset( $language ) || 'en_US' === $language ) {
+		update_post_meta( $post_id, 'language', 'en_US' );
 	}
 }
 
