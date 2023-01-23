@@ -352,7 +352,7 @@
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li><a data-external="true" href="https://developer.wordpress.org/themes/">Theme Review Team's Handbook (engl.)</a> or <a href="https://make.wordpress.org/plugins/handbook/">Plugin Review Team's Handbook (engl.)</a></li>
+<li><a data-external="true" href="https://developer.wordpress.org/themes/">Theme Review Team's Handbook (engl.)</a> oder <a href="https://make.wordpress.org/plugins/handbook/">Plugin Review Team's Handbook (engl.)</a></li>
 <!-- /wp:list-item -->
 </ul>
 <!-- /wp:list -->
