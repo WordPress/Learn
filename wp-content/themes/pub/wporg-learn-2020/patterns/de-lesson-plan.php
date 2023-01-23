@@ -272,7 +272,7 @@
 <!-- wp:quote -->
 <blockquote class="wp-block-quote">
 <!-- wp:paragraph -->
-<p>Dies sind kurze oder spezifische Aktivitäten, die den Teilnehmenden helfen, bestimmte Bestandteile der Lektion zu üben. Es sollten keine vollständig geskripteten Übungen sein, sondern etwas, das die Teilnehmer selbst durchführen können. Dies kann eine Übung, basierend auf einem Schritt der Lektion, sein.</p>
+<p>Dies sind kurze oder spezifische Aktivitäten, die den Teilnehmenden helfen, bestimmte Bestandteile der Lektion zu üben. Es sollten keine vollständig geskripteten Übungen sein, sondern etwas, das die Teilnehmenden selbst durchführen können. Dies kann eine Übung, basierend auf einem Schritt der Lektion, sein.</p>
 <!-- /wp:paragraph -->
 </blockquote>
 <!-- /wp:quote -->
