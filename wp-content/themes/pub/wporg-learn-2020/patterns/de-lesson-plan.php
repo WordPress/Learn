@@ -132,7 +132,7 @@
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>Artikel 2</li>
+<li>Listenpunkt 2</li>
 <!-- /wp:list-item -->
 </ul>
 <!-- /wp:list -->
