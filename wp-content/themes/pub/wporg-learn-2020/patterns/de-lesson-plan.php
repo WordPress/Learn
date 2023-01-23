@@ -80,7 +80,7 @@
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>Die Lektion "Dashboard Übersicht" abgeschlossen</li>
+<li>Die Lektion „Dashboard Übersicht" abgeschlossen</li>
 <!-- /wp:list-item -->
 </ul>
 <!-- /wp:list -->
