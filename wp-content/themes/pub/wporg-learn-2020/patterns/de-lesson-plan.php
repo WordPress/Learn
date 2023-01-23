@@ -236,7 +236,7 @@
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>Demonstriere wie ein Theme heruntergeladen und aktiviert wird.</li>
+<li>Demonstriere, wie ein Theme heruntergeladen und aktiviert wird</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
