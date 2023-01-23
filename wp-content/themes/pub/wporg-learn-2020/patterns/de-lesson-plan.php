@@ -348,7 +348,7 @@
 <!-- wp:list -->
 <ul>
 <!-- wp:list-item -->
-<li>Link zu <a data-external="true" href="https://wordpress.org/support/">Support Docs</a> or <a data-external="true" href="https://developer.wordpress.org/">Developer Resources (engl.)</a></li>
+<li>Link zu <a data-external="true" href="https://wordpress.org/support/">Support Docs</a> oder <a data-external="true" href="https://developer.wordpress.org/">Developer Resources (engl.)</a></li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
