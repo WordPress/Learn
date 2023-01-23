@@ -338,7 +338,7 @@
 <!-- /wp:list -->
 
 <!-- wp:paragraph -->
-<p>Hier können zusätzliche Ressourcen genannt werden auf die der Moderator zugreifen kann.</p>
+<p>Hier können zusätzliche Ressourcen genannt werden, auf die der Moderator zugreifen kann.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
