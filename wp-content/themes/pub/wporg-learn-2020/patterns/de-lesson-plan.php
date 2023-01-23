@@ -174,7 +174,7 @@
 <!-- /wp:list -->
 
 <!-- wp:paragraph -->
-<p>Eine Liste von Tips und Notizen für den Moderator.</p>
+<p>Eine Liste von Tipps und Notizen für den Moderator.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
