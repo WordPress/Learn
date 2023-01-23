@@ -192,7 +192,7 @@
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>Tips für den Fall das jemand nicht die nötigen Materialien zur Verfügung hat.</li>
+<li>Tipps für den Fall, dass jemand nicht die nötigen Materialien zur Verfügung hat.</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
