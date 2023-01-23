@@ -138,7 +138,7 @@
 <!-- /wp:list -->
 
 <!-- wp:paragraph -->
-<p>Eine Liste mit Dateien, Ressourcen, Geräten oder anderen Materialien, die für die Lektion benötigt werden.</p>
+<p>Eine Liste mit Dateien, Ressourcen, Geräten oder anderen Materialien, die der Moderator für die Lektion benötigt.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
