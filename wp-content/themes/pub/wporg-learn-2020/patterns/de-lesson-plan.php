@@ -22,7 +22,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Nach dieser Lektion kannst du:</p>
+<p>Nach dieser Lektion können Teilnehmende:</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:list -->
