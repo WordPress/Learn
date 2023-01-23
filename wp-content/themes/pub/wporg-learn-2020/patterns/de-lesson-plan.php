@@ -102,7 +102,7 @@
 <!-- /wp:list -->
 
 <!-- wp:paragraph -->
-<p>Dies ist eine Liste von Fragen, die überprüfen soll, ob die Lernenden die Voraussetzungen mitbringen dieser Lektion zu folgen.</p>
+<p>Dies ist eine Liste von Fragen, die überprüfen soll, ob die Lernenden die Voraussetzungen mitbringen, dieser Lektion zu folgen.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
