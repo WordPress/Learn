@@ -1,7 +1,7 @@
 ---
 name: Tutorial Template
 about: Describe this issue template's purpose here.
-title: Tutorial - Tutorial Topic
+title: Tutorial - TUTORIAL TITLE
 labels: Awaiting Triage, [Content Type] Tutorial
 assignees: ''
 
