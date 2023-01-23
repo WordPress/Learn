@@ -232,7 +232,7 @@
 <!-- wp:list -->
 <ul>
 <!-- wp:list-item -->
-<li>Erkläre was ein Theme ist</li>
+<li>Erkläre, was ein Theme ist</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
