@@ -316,7 +316,7 @@
 <!-- wp:quote -->
 <blockquote class="wp-block-quote">
 <!-- wp:paragraph -->
-<p>Ein paar Fragen, die den Teilnehmenden gestellt werden sollten, um zu bewerten, wie sie das präsentierte Material behalten haben. Sie sollten ein Maß dafür sein, ob die Ziele erreicht wurden. Jedes Lernziel sollte mit einer Frage überprüft werden.</p>
+<p>Ein paar Fragen, die den Teilnehmenden gestellt werden sollten, um zu bewerten, wie sie das präsentierte Material behalten haben. Sie sollten ein Maßstab dafür sein, ob die Ziele erreicht wurden. Jedes Lernziel sollte mit einer Frage überprüft werden.</p>
 <!-- /wp:paragraph -->
 </blockquote>
 <!-- /wp:quote -->
