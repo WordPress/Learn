@@ -386,6 +386,6 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>[tip] 💡 Führe abschließend die <a href="#Exercises">Übungen</a> und den <a href="#Assessment">Quiz</a> wie oben angegeben durch.[/tip]</p>
+<p>[tip] 💡 Führe abschließend die <a href="#Exercises">Übungen</a> und das <a href="#Assessment">Quiz</a> wie oben angegeben durch.[/tip]</p>
 <!-- /wp:paragraph -->
 
