@@ -376,7 +376,7 @@
 <!-- wp:quote {"className":"is-style-default"} -->
 <blockquote class="wp-block-quote is-style-default">
 <!-- wp:paragraph -->
-<p>Die Beispiel Lektion muss möglicherweise in Abschnitte unterteilt werden. </p>
+<p>Die Beispiel-Lektion muss möglicherweise in Abschnitte unterteilt werden. </p>
 <!-- /wp:paragraph -->
 </blockquote>
 <!-- /wp:quote -->
