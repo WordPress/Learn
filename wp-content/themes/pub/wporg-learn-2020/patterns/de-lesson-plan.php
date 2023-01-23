@@ -44,7 +44,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Lernziele sollten als Aktionen formuliert werden. <a href="https://wb-web.de/material/methoden/lernziele-formulieren-leicht-gemacht.html">Lernziele leicht formulieren gemacht</a> Jedes Lernziel sollte mit einer Übung (siehe unten) überprüft werden.</p>
+<p>Lernziele sollten als Aktionen formuliert werden, die die Teilnehmenden nach der Lektion ausführen können. Siehe <a href="https://wb-web.de/material/methoden/lernziele-formulieren-leicht-gemacht.html">Lernziele formulieren leicht gemacht<a/> und <a href=https://wb-web.de/material/methoden/formulierungshilfen-fur-lernziele.html>Formulierungshilfen für Lernziele</a>. Begriffe wie „wissen", „verstehen", „lernen", „sich bewusst sein" usw. sollten möglichst vermieden werden. Jedes Lernziel sollte mit einer Übung (siehe unten) überprüft werden.</p>
 <!-- /wp:paragraph -->
 </blockquote>
 <!-- /wp:quote -->
