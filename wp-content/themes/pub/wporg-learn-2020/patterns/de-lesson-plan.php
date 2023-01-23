@@ -310,7 +310,7 @@
 <!-- /wp:list -->
 
 <!-- wp:paragraph -->
-<p><strong>Antwort:</strong>&nbsp;3. Richtige Antwort</p>
+<p><strong>Option:</strong>&nbsp;3. Richtige Antwort</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:quote -->
