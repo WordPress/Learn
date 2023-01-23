@@ -184,7 +184,7 @@
 <!-- wp:list -->
 <ul>
 <!-- wp:list-item -->
-<li>Teilnehmende sollten das Twenty Twenty-Two Theme installiert haben</li>
+<li>Teilnehmende sollten das Theme Twenty Sixteen herunterladen, bevor sie anfangen</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
