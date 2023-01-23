@@ -188,7 +188,7 @@
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>Hinweise für den Fall das kein Projektor oder Internet zur Verfügung steht.</li>
+<li>Hinweise für den Fall, dass kein Projektor oder Internet zur Verfügung steht.</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
