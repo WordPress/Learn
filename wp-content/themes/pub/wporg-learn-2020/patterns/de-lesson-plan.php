@@ -116,7 +116,7 @@
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>Weisst du wie man CSS schreibt?</li>
+<li>Weißt du, wie man CSS schreibt?</li>
 <!-- /wp:list-item -->
 </ul>
 <!-- /wp:list -->
