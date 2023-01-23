@@ -240,7 +240,7 @@
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>Lernende üben selber ein Theme herunterzuladen und zu installieren.</li>
+<li>Lernende üben selbst, ein Theme herunterzuladen und zu installieren.</li>
 <!-- /wp:list-item -->
 </ul>
 <!-- /wp:list -->
