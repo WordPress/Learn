@@ -202,7 +202,7 @@
 <!-- /wp:list -->
 
 <!-- wp:heading {"lock":{"move":true,"remove":true}} -->
-<h2>Lektion Übersicht</h2>
+<h2>Lektions-Übersicht</h2>
 <!-- /wp:heading -->
 
 <!-- wp:list -->
