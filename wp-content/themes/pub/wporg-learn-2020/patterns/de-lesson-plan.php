@@ -222,7 +222,7 @@
 <!-- /wp:list -->
 
 <!-- wp:paragraph -->
-<p>Eine Gliederung der Lektion. </p>
+<p>Ein Entwurf der Lektion, zB. im Gliederungsformat. </p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
