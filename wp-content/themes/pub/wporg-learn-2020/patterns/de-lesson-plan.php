@@ -112,7 +112,7 @@
 <!-- wp:list -->
 <ul>
 <!-- wp:list-item -->
-<li>Willst du Veränderung am Theme selbst vornehmen?</li>
+<li>Willst du Veränderungen am Theme selbst vornehmen?</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
