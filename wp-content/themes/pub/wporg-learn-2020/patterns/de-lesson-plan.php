@@ -128,7 +128,7 @@
 <!-- wp:list -->
 <ul>
 <!-- wp:list-item -->
-<li>Artikel 1</li>
+<li>Listenpunkt 1</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
