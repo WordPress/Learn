@@ -152,7 +152,7 @@
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>Die Dateien für das Twenty Twenty-Two Theme</li>
+<li>Die Dateien für das Theme Twenty Sixteen</li>
 <!-- /wp:list-item -->
 </ul>
 <!-- /wp:list -->
