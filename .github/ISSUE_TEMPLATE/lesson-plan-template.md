@@ -1,7 +1,7 @@
 ---
 name: Lesson Plan template
 about: Lesson Plan Template
-title: Topic - Lesson Plan
+title: Lesson Plan - LESSON PLAN TITLE
 labels: Awaiting Triage, [Content Type] Lesson Plan
 assignees: ''
 
