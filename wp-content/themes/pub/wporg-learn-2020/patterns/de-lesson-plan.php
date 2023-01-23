@@ -158,7 +158,7 @@
 <!-- /wp:list -->
 
 <!-- wp:heading {"lock":{"move":true,"remove":true}} -->
-<h2>Anmerkungen für Lehrer</h2>
+<h2>Anmerkungen für Moderatoren</h2>
 <!-- /wp:heading -->
 
 <!-- wp:list -->
