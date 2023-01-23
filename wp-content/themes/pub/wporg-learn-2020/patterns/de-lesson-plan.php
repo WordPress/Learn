@@ -12,7 +12,7 @@
 <!-- wp:quote -->
 <blockquote class="wp-block-quote">
 <!-- wp:paragraph -->
-<p>Ein kurzer Paragraph über die Lektion. Es sollte so geschrieben sein, dass der Text für ein Meetup oder Workshop als Beschreibung verwendet werden kann.</p>
+<p>Ein kurzer Absatz über die Lektion. Er sollte so geschrieben sein, dass der Text für ein Meetup oder Workshop als Beschreibung verwendet werden kann.</p>
 <!-- /wp:paragraph -->
 </blockquote>
 <!-- /wp:quote -->
