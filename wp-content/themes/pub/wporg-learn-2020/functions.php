@@ -1168,6 +1168,7 @@ function wporg_learn_redirect_old_urls() {
 		'/workshops'                      => '/tutorials',
 		'/social-learning'                => '/online-workshops',
 		'/workshop-presenter-application' => '/tutorial-presenter-application',
+		'/report-content-errors'          => '/report-content-feedback',
 	);
 
 	// Use `REQUEST_URI` rather than `$wp->request`, to get the entire source URI including url parameters.
