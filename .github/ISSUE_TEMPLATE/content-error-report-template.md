@@ -2,7 +2,7 @@
 name: Content Feedback
 about: Learn WordPress Content Feedback template
 title: Learn WordPress Content Feedback -
-labels: Awaiting Triage
+labels: Awaiting Triage, Content Feedback
 assignees: ''
 
 ---
