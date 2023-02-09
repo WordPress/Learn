@@ -281,6 +281,39 @@ function wporg_learn_get_lesson_plan_taxonomy_data( $post_id, $context ) {
 }
 
 /**
+ * Returns the taxonomies associated with a content idea
+ *
+ * @param int $post_id Id of the post.
+ * @param str $context Context of the function reference.
+ *
+ * @return array
+ */
+function wporg_learn_get_idea_data( $post_id, $context ) {
+	$data = array(
+		array(
+			'icon'  => 'dashboard',
+			'slug'  => 'status',
+			'label' => get_taxonomy_labels( get_taxonomy( 'wporg_idea_status' ) )->singular_name,
+			'value' => wporg_learn_get_taxonomy_terms( $post_id, 'wporg_idea_status', $context ),
+		),
+		array(
+			'icon'  => 'saved',
+			'slug'  => 'votes',
+			'label' => __( 'Votes', 'wporg-learn' ),
+			'value' => absint( get_post_meta( $post_id, 'vote_count', true ) ),
+		),
+		array(
+			'icon'  => 'edit',
+			'slug'  => 'type',
+			'label' => get_taxonomy_labels( get_taxonomy( 'wporg_idea_type' ) )->singular_name,
+			'value' => wporg_learn_get_taxonomy_terms( $post_id, 'wporg_idea_type', $context ),
+		),
+	);
+
+	return $data;
+}
+
+/**
  * Returns whether the post type is a workshop
  *
  * @return bool
@@ -321,7 +354,7 @@ function wporg_archive_modify_query( WP_Query $query ) {
 		return;
 	}
 
-	$valid_post_types = array( 'lesson-plan', 'wporg_workshop', 'course' );
+	$valid_post_types = array( 'lesson-plan', 'wporg_workshop', 'course', 'wporg_idea' );
 
 	if ( $query->is_main_query() && $query->is_post_type_archive( $valid_post_types ) ) {
 		wporg_archive_maybe_apply_query_filters( $query );
@@ -544,6 +577,9 @@ function wporg_archive_maybe_apply_query_filters( WP_Query &$query ) {
 				'filter' => FILTER_VALIDATE_INT,
 				'flags'  => FILTER_REQUIRE_ARRAY,
 			),
+			'idea-type'  => FILTER_VALIDATE_INT,
+			'status'     => FILTER_VALIDATE_INT,
+			'ordering'   => FILTER_SANITIZE_STRING,
 			'wp_version' => array(
 				'filter' => FILTER_VALIDATE_INT,
 				'flags'  => FILTER_FORCE_ARRAY,
@@ -560,6 +596,9 @@ function wporg_archive_maybe_apply_query_filters( WP_Query &$query ) {
 		'level'      => 'level',
 		'topic'      => 'topic',
 		'type'       => 'instruction_type',
+		'idea-type'  => 'wporg_idea_type',
+		'status'     => 'wporg_idea_status',
+		'ordering'   => 'ordering',
 		'wp_version' => 'wporg_wp_version',
 	);
 
@@ -619,6 +658,8 @@ function wporg_archive_maybe_apply_query_filters( WP_Query &$query ) {
 				case 'series':
 				case 'topic':
 				case 'type':
+				case 'idea-type':
+				case 'status':
 				case 'wp_version':
 					if ( ! empty( $tax_query ) ) {
 						$tax_query['relation'] = 'AND';
@@ -627,6 +668,17 @@ function wporg_archive_maybe_apply_query_filters( WP_Query &$query ) {
 						'taxonomy' => $entity_map[ $filter_name ],
 						'terms'    => $filter_value,
 					);
+					break;
+				case 'ordering':
+					switch ( $filter_value ) {
+						case 'date':
+							// Uses default archive behaviour, so no query modification needed
+							break;
+						case 'votes':
+							$query->set( 'orderby', 'meta_value_num' );
+							$query->set( 'meta_key', 'vote_count' );
+							break;
+					}
 					break;
 			}
 		}
@@ -728,6 +780,10 @@ function wporg_learn_get_card_template_args( $post_id ) {
 					'value' => \WordPressdotorg\Locales\get_locale_name_from_code( $post->language, 'native' ),
 				),
 			);
+			break;
+
+		case 'wporg_idea':
+			$args['meta']  = wporg_learn_get_idea_data( $post_id, 'archive' );
 			break;
 	}
 
@@ -1233,4 +1289,114 @@ function wporg_learn_get_sticky_topics_with_selected_first( $first = 'general' )
 	}
 
 	return $topics;
+}
+
+/**
+ * Process ideas submitted on the frontend
+ *
+ * @param  array $data Array of post data from diea submision form.
+ *
+ * @return mixed
+ */
+function wporg_process_submitted_idea( $data = array() ) {
+	global $current_user;
+
+	// Security check
+	if ( ! is_user_logged_in() || ! is_array( $data ) || empty( $data ) || empty( $data['idea_description'] ) || ! wp_verify_nonce( $data['_wpnonce'], 'submit_idea' ) ) {
+		return false;
+	}
+
+	// Set and sanitise variables
+	$content = esc_html( $data['idea_description'] );
+	$type = esc_html( $data['idea_type'] );
+	$title = $content;
+
+	// Set default content type to tutorial
+	if ( ! $type ) {
+		$type = 'tutorial';
+	}
+
+	// Limit title length
+	if ( strlen( $title ) > 40 ) {
+		$title = wp_trim_words( $title, 7, '...' );
+	}
+
+	// Set array of data for the idea post
+	$data = array(
+		'post_type'    => 'wporg_idea',
+		'post_status'  => 'publish',
+		'post_content' => $content,
+		'post_title'   => $title,
+	);
+
+	// Add the new idea post
+	$post_id = wp_insert_post( $data );
+
+	// Check if post creation was successful
+	if ( ! $post_id || is_wp_error( $post_id ) || ! is_int( $post_id ) ) {
+		return false;
+	}
+
+	// Set taxonomies for idea post
+	$set_type = wp_set_object_terms( $post_id, $type, 'wporg_idea_type' );
+	$set_status = wp_set_object_terms( $post_id, 'submitted', 'wporg_idea_status' );
+
+	// Set default vote count to 0
+	update_post_meta( $post_id, 'vote_count', 0 );
+
+	// Set voted users array to include post author
+	wp_get_current_user();
+	$usernames = array();
+	if ( $current_user->user_login ) {
+		$usernames[] = $current_user->user_login;
+		update_post_meta( $post_id, 'voted_users', $usernames );
+	}
+
+	// Return the ID of the new idea post
+	return $post_id;
+}
+
+/**
+ * Process vote for idea
+ *
+ * @param  int    $post_id Id of the idea post.
+ * @param  string $username Username of the user who is voting.
+ *
+ * @return boolean
+ */
+function wporg_process_idea_vote( $post_id = 0, $user_id = 0 ) {
+	global $current_user;
+
+	// Security check
+	if ( ! $post_id || ! is_user_logged_in() ) {
+		return false;
+	}
+
+	// Get post meta
+	$votes = absint( get_post_meta( $post_id, 'vote_count', true ) );
+	$voted_users = get_post_meta( $post_id, 'voted_users', true );
+
+	// Check if the user has already voted for this idea - get the current user if no user ID supplied
+	if ( $user_id ) {
+		$user = get_user_by( 'id', $user_id );
+		$username = $user->user_login;
+	} else {
+		wp_get_current_user();
+		$username = $current_user->user_login;
+	}
+
+	if ( $username && in_array( $username, $voted_users ) ) {
+		return false;
+	}
+
+	// Increment vote count and update post meta
+	++$votes;
+	$updated = update_post_meta( $post_id, 'vote_count', $votes );
+
+	if ( ! $updated ) {
+		return false;
+	}
+
+	return true;
+
 }

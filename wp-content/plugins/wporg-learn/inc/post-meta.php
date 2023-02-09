@@ -30,6 +30,7 @@ function register() {
 	register_lesson_plan_meta();
 	register_workshop_meta();
 	register_misc_meta();
+	register_idea_meta();
 }
 
 /**
@@ -140,6 +141,43 @@ function register_workshop_meta() {
 			'single'            => true,
 			'sanitize_callback' => 'absint',
 			'show_in_rest'      => true,
+		)
+	);
+}
+
+/**
+ * Register post meta keys for ideas.
+ */
+function register_idea_meta() {
+	$post_type = 'wporg_idea';
+
+	register_post_meta(
+		$post_type,
+		'vote_count',
+		array(
+			'description'       => __( 'The number of votes recieved for this idea.', 'wporg_learn' ),
+			'type'              => 'integer',
+			'single'            => true,
+			'sanitize_callback' => 'absint',
+			'show_in_rest'      => true,
+		)
+	);
+
+	register_post_meta(
+		$post_type,
+		'voted_users',
+		array(
+			'description'       => __( 'An array of users who have already voted for this idea.', 'wporg_learn' ),
+			'type'              => 'array',
+			'single'            => false,
+			'show_in_rest' => array(
+				'schema' => array(
+					'type'  => 'array',
+					'items' => array(
+						'type' => 'string',
+					),
+				),
+			),
 		)
 	);
 }

@@ -32,6 +32,8 @@ function register() {
 	register_wp_version();
 	register_included_content();
 	register_topic();
+	register_idea_status();
+	register_idea_type();
 }
 
 /**
@@ -526,6 +528,94 @@ function register_included_content() {
 	$post_types = array( 'lesson-plan', 'wporg_workshop', 'course', 'lesson' );
 
 	register_taxonomy( 'wporg_included_content', $post_types, $args );
+}
+
+/**
+ * Register the Idea Status taxonomy.
+ */
+function register_idea_status() {
+	$labels = array(
+		'name'                       => _x( 'Statuses', 'Taxonomy General Name', 'wporg-learn' ),
+		'singular_name'              => _x( 'Status', 'Taxonomy Singular Name', 'wporg-learn' ),
+		'menu_name'                  => __( 'Status', 'wporg-learn' ),
+		'all_items'                  => __( 'All Statuses', 'wporg-learn' ),
+		'parent_item'                => __( 'Parent Status', 'wporg-learn' ),
+		'parent_item_colon'          => __( 'Parent Status:', 'wporg-learn' ),
+		'new_item_name'              => __( 'New Status Name', 'wporg-learn' ),
+		'add_new_item'               => __( 'Add Status', 'wporg-learn' ),
+		'edit_item'                  => __( 'Edit Status', 'wporg-learn' ),
+		'update_item'                => __( 'Update Status', 'wporg-learn' ),
+		'view_item'                  => __( 'View Status', 'wporg-learn' ),
+		'separate_items_with_commas' => __( 'Separate Statuses with commas', 'wporg-learn' ),
+		'add_or_remove_items'        => __( 'Add or remove Statuses', 'wporg-learn' ),
+		'choose_from_most_used'      => __( 'Choose from the most used', 'wporg-learn' ),
+		'popular_items'              => __( 'Popular Statuses', 'wporg-learn' ),
+		'search_items'               => __( 'Search Statuses', 'wporg-learn' ),
+		'not_found'                  => __( 'Not Found', 'wporg-learn' ),
+		'no_terms'                   => __( 'No Statuses', 'wporg-learn' ),
+		'items_list'                 => __( 'Statuses list', 'wporg-learn' ),
+		'items_list_navigation'      => __( 'Statuses list navigation', 'wporg-learn' ),
+	);
+
+	$args   = array(
+		'labels'            => $labels,
+		'hierarchical'      => true,
+		'public'            => true,
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'show_in_nav_menus' => true,
+		'show_tagcloud'     => false,
+		'show_in_rest'      => true,
+		'capabilities'      => array(
+			'assign_terms' => 'edit_any_learn_content',
+		),
+	);
+
+	register_taxonomy( 'wporg_idea_status', array( 'wporg_idea' ), $args );
+}
+
+/**
+ * Register the Idea Type taxonomy.
+ */
+function register_idea_type() {
+	$labels = array(
+		'name'                       => _x( 'Types', 'Taxonomy General Name', 'wporg-learn' ),
+		'singular_name'              => _x( 'Type', 'Taxonomy Singular Name', 'wporg-learn' ),
+		'menu_name'                  => __( 'Type', 'wporg-learn' ),
+		'all_items'                  => __( 'All Types', 'wporg-learn' ),
+		'parent_item'                => __( 'Parent Type', 'wporg-learn' ),
+		'parent_item_colon'          => __( 'Parent Type:', 'wporg-learn' ),
+		'new_item_name'              => __( 'New Type Name', 'wporg-learn' ),
+		'add_new_item'               => __( 'Add Type', 'wporg-learn' ),
+		'edit_item'                  => __( 'Edit Type', 'wporg-learn' ),
+		'update_item'                => __( 'Update Type', 'wporg-learn' ),
+		'view_item'                  => __( 'View Type', 'wporg-learn' ),
+		'separate_items_with_commas' => __( 'Separate Types with commas', 'wporg-learn' ),
+		'add_or_remove_items'        => __( 'Add or remove Types', 'wporg-learn' ),
+		'choose_from_most_used'      => __( 'Choose from the most used', 'wporg-learn' ),
+		'popular_items'              => __( 'Popular Types', 'wporg-learn' ),
+		'search_items'               => __( 'Search Types', 'wporg-learn' ),
+		'not_found'                  => __( 'Not Found', 'wporg-learn' ),
+		'no_terms'                   => __( 'No Types', 'wporg-learn' ),
+		'items_list'                 => __( 'Types list', 'wporg-learn' ),
+		'items_list_navigation'      => __( 'Types list navigation', 'wporg-learn' ),
+	);
+
+	$args   = array(
+		'labels'            => $labels,
+		'hierarchical'      => true,
+		'public'            => true,
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'show_in_nav_menus' => true,
+		'show_tagcloud'     => false,
+		'show_in_rest'      => true,
+		'capabilities'      => array(
+			'assign_terms' => 'edit_any_learn_content',
+		),
+	);
+
+	register_taxonomy( 'wporg_idea_type', array( 'wporg_idea' ), $args );
 }
 
 /**

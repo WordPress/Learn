@@ -9,7 +9,7 @@ $classes = implode( ' ', get_post_class( $args['class'] ) );
 ?>
 
 <article class="card <?php echo esc_attr( $classes ); ?>">
-	<?php if ( is_search() && in_array( $current_post_type, array( 'lesson-plan', 'wporg_workshop', 'course' ) ) ) : ?>
+	<?php if ( is_search() && in_array( $current_post_type, array( 'lesson-plan', 'wporg_workshop', 'course', 'wporg_idea' ) ) ) : ?>
 		<div class="card-type card-type--<?php echo esc_attr( $current_post_type ); ?>">
 			<?php echo esc_attr( get_post_type_object( $current_post_type )->labels->singular_name ); ?>
 		</div>
