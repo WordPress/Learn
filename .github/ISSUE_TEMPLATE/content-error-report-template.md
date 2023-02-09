@@ -1,33 +1,27 @@
 ---
-name: Content Feedback
-about: Learn WordPress Content Feedback template
-title: Learn WordPress Content Feedback: 
-labels: Awaiting Triage
+name: Content Error Report Template
+about: Learn WordPress Content Error Report template
+title: Learn WordPress Content Error Report - Ticket #
+labels: Awaiting Triage, [Type] Bug, Content Error
 assignees: ''
 
 ---
 <!--
-Thank you for taking the time to report feedback about content hosted on https://learn.wordpress.org.
-To start, please add a brief description of your feedback to the title above.
-Then, fill out the details below under Feedback Details.
 
-You can leave "Feedback Report Checklist" as-is.
+Thank you for taking the time to report a content error. Please include the title and the URL to the content in question in the Error Description, and a description of the error.
 
-Thank you for your feedback!
+This can be done either using the markdown format, for example, (Creating Custom Post Types Without Code)[https://learn.wordpress.org/workshop/creating-custom-post-types-without-code/], or by use the **Add a link** icon in the issue editor toolbar. 
+
+Alternatively you can share the link to the page as is.
 -->
 
-# Feedback Details
-- Content title:
-- Content URL:
-- Are you reporting an error (such as outdated information), or providing improvement ideas?:
+# Error Description
+- Content URL: 
 
-Write a description of your feedback here:
+Write a description of the error here.
 
-
----
-
-# Feedback Report Checklist:
-- [ ] Feedback validated
-- [ ] Update proposed
-- [ ] Update reviewed
-- [ ] Update published
+# Error Report Checklist:
+- [ ] Error Validated
+- [ ] Error fix proposed
+- [ ] Error fix reviewed
+- [ ] Error fix published
