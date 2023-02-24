@@ -83,12 +83,5 @@ $menu_items = array(
 
 			</div><!-- .site-branding -->
 		</header><!-- #masthead -->
-		<div class="notice notice-success notice-alt wporg-learn-notice-survey">
-			<p>
-				<?php
-				printf( wp_kses_post( __( 'Help improve Learn WordPress for everyone - fill out <a href="%s">the individual learner survey</a> today.', 'wporg-learn' ) ), 'https://learn.wordpress.org/individual-learner-survey/' );
-				?>
-			</p>
-		</div>
-
+		
 		<?php locale_notice(); ?>
