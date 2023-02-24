@@ -309,6 +309,10 @@ _x( 'settings sidebar', 'Included Content term name', 'wporg-learn' );
 _x( 'site editor', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/site-health/ */
 _x( 'site health', 'Included Content term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/wporg_included_content/site-icon/ */
+_x( 'site icon', 'Included Content term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/wporg_included_content/site-logo/ */
+_x( 'site logo', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/static-block/ */
 _x( 'static block', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/sticky-posts/ */
@@ -329,10 +333,6 @@ _x( 'tools', 'Included Content term name', 'wporg-learn' );
 _x( 'updates', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/users/ */
 _x( 'users', 'Included Content term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/wporg_included_content/video-block/ */
-_x( 'video block', 'Included Content term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/wporg_included_content/widgets/ */
-_x( 'widgets', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/topic/block-development/ */
 _x( 'Block Development', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/topic/block-editor/ */
@@ -369,6 +369,8 @@ _x( 'Getting Started', 'Topics term name', 'wporg-learn' );
 _x( 'Gutenberg', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/topic/hosting/ */
 _x( 'Hosting', 'Topics term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/topic/logo/ */
+_x( 'logo', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/topic/media/ */
 _x( 'Media', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/topic/meetups/ */
@@ -389,6 +391,8 @@ _x( 'Security', 'Topics term name', 'wporg-learn' );
 _x( 'Site Editor', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/topic/site-management/ */
 _x( 'Site Management', 'Topics term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/topic/site-title/ */
+_x( 'site title', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/topic/speaking-at-events/ */
 _x( 'Speaking at Events', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/topic/theme-development/ */
