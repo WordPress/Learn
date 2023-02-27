@@ -10,10 +10,12 @@ body {
 	}
 
 	&.page {
-		.entry-content,
-		.entry-footer {
+		.entry-content {
 			padding-left: 0;
 			padding-right: 0;
+		}
+		.entry-footer {
+			padding : 0;
 		}
 	}
 }
