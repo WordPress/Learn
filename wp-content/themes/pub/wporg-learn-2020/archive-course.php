@@ -25,7 +25,7 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 				<?php the_archive_title( '<h1 class="section-heading_title h2">', '</h1>' ); ?>
 			</div>
 			<?php if ( is_user_logged_in() ) : ?>
-				<a class="section-heading_link" href="/my-courses/"><span aria-hidden="true"><?php esc_html_e( 'My Courses', 'wporg-learn' ); ?></span><span class="screen-reader-text"><?php esc_html_e( 'My Courses', 'wporg-learn' ); ?></span></a>	
+				<a class="section-heading_link" href="/my-courses/"><span><?php esc_html_e( 'My Courses', 'wporg-learn' ); ?></span></a>
 			<?php endif; ?>
 		</div>
 		<hr>
