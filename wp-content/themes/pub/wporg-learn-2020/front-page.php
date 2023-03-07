@@ -37,7 +37,7 @@ get_header(); ?>
 				<h2 class="h4 section-heading_title"><?php esc_html_e( 'Recent Courses', 'wporg-learn' ); ?></h2>
 				<div class=section-heading">
 					<?php if ( is_user_logged_in() ) : ?>
-						<a class="section-heading_link section-heading_loggedin_link" href="/my-courses/"><span aria-hidden="true"><?php esc_html_e( 'My Courses', 'wporg-learn' ); ?></span><span class="screen-reader-text"><?php esc_html_e( 'My Courses', 'wporg-learn' ); ?></span></a>	
+						<a class="section-heading_link section-heading_loggedin_link" href="/my-courses/"><span><?php esc_html_e( 'My Courses', 'wporg-learn' ); ?></span></a>
 					<?php endif; ?>
 					<a class="section-heading_link" href="/courses/"><span><?php esc_html_e( 'View All Courses', 'wporg-learn' ); ?></span></a>
 				</div>
