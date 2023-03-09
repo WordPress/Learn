@@ -13,26 +13,29 @@ defined( 'WPINC' ) || die();
  * Actions and filters.
  */
 add_action( 'admin_notices', __NAMESPACE__ . '\show_term_translation_notice' );
-add_filter( 'manage_wporg_workshop_posts_columns', __NAMESPACE__ . '\add_workshop_list_table_columns' );
-add_filter( 'manage_edit-topic_columns', __NAMESPACE__ . '\add_topic_list_table_column' );
-foreach ( array( 'lesson-plan', 'meeting', 'course', 'lesson' ) as $pt ) {
-	add_filter( 'manage_' . $pt . '_posts_columns', __NAMESPACE__ . '\add_list_table_language_column' );
-}
-add_action( 'manage_wporg_workshop_posts_custom_column', __NAMESPACE__ . '\render_workshop_list_table_columns', 10, 2 );
-add_action( 'manage_topic_custom_column', __NAMESPACE__ . '\render_topics_list_table_columns', 10, 3 );
-foreach ( array( 'lesson-plan', 'meeting', 'course', 'lesson' ) as $pt ) {
-	add_filter( 'manage_' . $pt . '_posts_custom_column', __NAMESPACE__ . '\render_list_table_language_column', 10, 2 );
-}
-add_filter( 'manage_edit-wporg_workshop_sortable_columns', __NAMESPACE__ . '\add_workshop_list_table_sortable_columns' );
-add_action( 'restrict_manage_posts', __NAMESPACE__ . '\add_workshop_list_table_filters', 10, 2 );
 add_action( 'pre_get_posts', __NAMESPACE__ . '\handle_workshop_list_table_filters' );
 add_filter( 'display_post_states', __NAMESPACE__ . '\add_post_states', 10, 2 );
-foreach ( array( 'lesson-plan', 'wporg_workshop', 'course', 'lesson' ) as $pt ) {
-	add_filter( 'views_edit-' . $pt, __NAMESPACE__ . '\list_table_views' );
-}
 add_action( 'pre_get_posts', __NAMESPACE__ . '\handle_list_table_views' );
 add_action( 'bulk_edit_custom_box', __NAMESPACE__ . '\add_language_bulk_edit_field', 10, 2 );
 add_action( 'save_post', __NAMESPACE__ . '\language_bulk_edit_save' );
+// Workshop columns management
+add_filter( 'manage_wporg_workshop_posts_columns', __NAMESPACE__ . '\add_workshop_list_table_columns' );
+add_action( 'manage_wporg_workshop_posts_custom_column', __NAMESPACE__ . '\render_workshop_list_table_columns', 10, 2 );
+add_filter( 'manage_edit-wporg_workshop_sortable_columns', __NAMESPACE__ . '\add_workshop_list_table_sortable_columns' );
+add_action( 'restrict_manage_posts', __NAMESPACE__ . '\add_workshop_list_table_filters', 10, 2 );
+// Topic columns management
+add_filter( 'manage_edit-topic_columns', __NAMESPACE__ . '\add_topic_list_table_column' );
+add_action( 'manage_topic_custom_column', __NAMESPACE__ . '\render_topics_list_table_columns', 10, 3 );
+// Mulitple post types columns management
+foreach ( array( 'lesson-plan', 'meeting', 'course', 'lesson' ) as $pt ) {
+	add_filter( 'manage_' . $pt . '_posts_columns', __NAMESPACE__ . '\add_list_table_language_column' );
+}
+foreach ( array( 'lesson-plan', 'meeting', 'course', 'lesson' ) as $pt ) {
+	add_filter( 'manage_' . $pt . '_posts_custom_column', __NAMESPACE__ . '\render_list_table_language_column', 10, 2 );
+}
+foreach ( array( 'lesson-plan', 'wporg_workshop', 'course', 'lesson' ) as $pt ) {
+	add_filter( 'views_edit-' . $pt, __NAMESPACE__ . '\list_table_views' );
+}
 
 /**
  * Show a notice on taxonomy term screens about terms being translatable.
