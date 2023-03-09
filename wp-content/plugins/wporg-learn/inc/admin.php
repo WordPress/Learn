@@ -26,6 +26,9 @@ add_action( 'restrict_manage_posts', __NAMESPACE__ . '\add_workshop_list_table_f
 // Topic columns management
 add_filter( 'manage_edit-topic_columns', __NAMESPACE__ . '\add_topic_list_table_column' );
 add_action( 'manage_topic_custom_column', __NAMESPACE__ . '\render_topics_list_table_columns', 10, 3 );
+// Meeting columns management
+add_filter( 'manage_meeting_posts_columns', __NAMESPACE__ . '\add_meeting_list_table_columns' );
+add_action( 'manage_meeting_posts_custom_column', __NAMESPACE__ . '\render_meeting_list_table_columns', 10, 2 );
 // Mulitple post types columns management
 foreach ( array( 'lesson-plan', 'meeting', 'course', 'lesson' ) as $pt ) {
 	add_filter( 'manage_' . $pt . '_posts_columns', __NAMESPACE__ . '\add_list_table_language_column' );
@@ -98,6 +101,40 @@ function add_workshop_list_table_columns( $columns ) {
 				+ array_slice( $columns, -2, 2, true );
 
 	return $columns;
+}
+
+/**
+ * Add additional columns to the post list table for meetings.
+ *
+ * @param array $columns
+ *
+ * @return array
+ */
+function add_meeting_list_table_columns( $columns ) {
+	$columns = array_slice( $columns, 0, -1, true )
+				+ array( 'wptv_url' => __( 'WPTV URL', 'wporg-learn' ) )
+				+ array_slice( $columns, -1, 1, true );
+	return $columns;
+}
+
+/**
+ * Render the cell contents for the additional columns in the post list table for meetings.
+ *
+ * @param string $column_name
+ * @param int    $post_id
+ *
+ * @return void
+ */
+function render_meeting_list_table_columns( $column_name, $post_id ) {
+	$post = get_post( $post_id );
+
+	switch ( $column_name ) {
+		case 'wptv_url':
+			$wptv_url = get_post_meta( $post->ID, 'wptv_url', true );
+
+			printf( '%s', esc_html( $wptv_url ) ?: '—' );
+			break;
+	}
 }
 
 /**
