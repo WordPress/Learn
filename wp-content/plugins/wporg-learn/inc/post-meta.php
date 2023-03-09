@@ -588,6 +588,9 @@ function save_meeting_metabox_fields( $post_id ) {
 
 	$language = filter_input( INPUT_POST, 'meeting-language' );
 	update_post_meta( $post_id, 'language', $language );
+
+	$wptv_url = filter_input( INPUT_POST, 'wptv-url', FILTER_VALIDATE_URL ) ?: '';
+	update_post_meta( $post_id, 'wptv_url', $wptv_url );
 }
 
 /**
