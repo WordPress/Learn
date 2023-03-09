@@ -418,6 +418,13 @@ function add_meeting_metaboxes( $post_type = '' ) {
 		'meeting',
 		'side'
 	);
+	add_meta_box(
+		'meeting-wptv-url',
+		__( 'WPTV URL', 'wporg_learn' ),
+		__NAMESPACE__ . '\render_metabox_meeting_wptv_url',
+		'meeting',
+		'side'
+	);
 }
 
 /**
@@ -487,6 +494,15 @@ function render_metabox_meeting_language( WP_Post $post ) {
 	$language = get_post_meta( $post->ID, 'language', true ) ?: '';
 
 	require get_views_path() . 'metabox-meeting-language.php';
+}
+
+/**
+ * Render the Meeting WPTV URL meta box.
+ *
+ * @param WP_Post $post
+ */
+function render_metabox_meeting_wptv_url( WP_Post $post ) {
+	require get_views_path() . 'metabox-meeting-wptv-url.php';
 }
 
 /**
