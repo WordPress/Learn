@@ -27,9 +27,30 @@ add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\enqueue_editor_asse
  * Register all post meta keys.
  */
 function register() {
+	register_meeting_meta();
 	register_lesson_plan_meta();
 	register_workshop_meta();
 	register_misc_meta();
+}
+
+/**
+ * Register post meta keys for meeting.
+ */
+function register_meeting_meta() {
+	$post_type = 'meeting';
+
+	register_post_meta(
+		$post_type,
+		'wptv_url',
+		array(
+			'description'       => __( 'A WPTV URL of recorded online workshop.', 'wporg_learn' ),
+			'type'              => 'string',
+			'single'            => true,
+			'default'           => '',
+			'sanitize_callback' => 'esc_url_raw',
+			'show_in_rest'      => true,
+		)
+	);
 }
 
 /**
@@ -551,7 +572,6 @@ function save_meeting_metabox_fields( $post_id ) {
 
 	$language = filter_input( INPUT_POST, 'meeting-language' );
 	update_post_meta( $post_id, 'language', $language );
-
 }
 
 /**
