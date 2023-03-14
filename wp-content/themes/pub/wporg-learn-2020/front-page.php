@@ -35,7 +35,12 @@ get_header(); ?>
 		<section>
 			<div class="row align-middle between section-heading">
 				<h2 class="h4 section-heading_title"><?php esc_html_e( 'Recent Courses', 'wporg-learn' ); ?></h2>
-				<a class="section-heading_link" href="/courses/"><span aria-hidden="true"><?php esc_html_e( 'View All Courses', 'wporg-learn' ); ?></span><span class="screen-reader-text"><?php esc_html_e( 'View All Courses', 'wporg-learn' ); ?></span></a>
+				<div class=section-heading">
+					<?php if ( is_user_logged_in() ) : ?>
+						<a class="section-heading_link section-heading_loggedin_link" href="/my-courses/"><span><?php esc_html_e( 'My Courses', 'wporg-learn' ); ?></span></a>
+					<?php endif; ?>
+					<a class="section-heading_link" href="/courses/"><span><?php esc_html_e( 'View All Courses', 'wporg-learn' ); ?></span></a>
+				</div>
 				<p class="section-heading_description">
 					<em><?php esc_html_e( 'Multimedia courses setting you up to become a better WordPress developer, designer, user, and contributor.', 'wporg-learn' ); ?></em>
 				</p>
