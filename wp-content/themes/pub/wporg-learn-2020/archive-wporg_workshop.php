@@ -23,7 +23,7 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 <main id="main" class="site-main">
 
 	<section>
-		<div class="section-heading section-heading--with-space">
+		<div class="section-heading section-heading--with-space row align-middle between">
 			<?php the_archive_title( '<h1 class="section-heading_title h2">', '</h1>' ); ?>
 			<?php if ( is_tax( 'wporg_workshop_series' ) && have_posts() ) :
 				$series_term = wporg_learn_series_get_term( $post );

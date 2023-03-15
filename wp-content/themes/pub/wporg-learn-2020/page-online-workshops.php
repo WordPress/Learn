@@ -12,7 +12,7 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 <main id="main" class="site-main page-full-width">
 
 	<section>
-		<div class="section-heading section-heading--with-space">
+		<div class="section-heading section-heading--with-space row align-middle between">
 			<?php the_title( '<h1 class="section-heading_title h2">', '</h1>' ); ?>
 		</div>
 
