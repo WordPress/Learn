@@ -4,6 +4,10 @@
 		@media only screen and (min-width: $breakpoint-tablet) {
 			align-items: baseline;
 		}
+
+		.button {
+			align-self: center;
+		}
 	}
 
 	&_title,
