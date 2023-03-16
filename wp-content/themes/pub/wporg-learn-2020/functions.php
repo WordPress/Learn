@@ -1120,7 +1120,7 @@ add_filter( 'widgets_init', 'wporg_learn_register_sidebars', 10 );
  * @return string Image URL.
  */
 function wporg_learn_return_default_image( $default_image ) {
-	return 'https://s.w.org/images/learn-thumbnail-fallback.jpg?v=2';
+	return 'https://s.w.org/images/learn-thumbnail-fallback.jpg?v=3';
 }
 add_action( 'jetpack_open_graph_image_default', 'wporg_learn_return_default_image', 15, 1 );
 
