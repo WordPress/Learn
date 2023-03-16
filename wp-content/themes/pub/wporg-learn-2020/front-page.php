@@ -33,13 +33,13 @@ get_header(); ?>
 		</section>
 
 		<section>
-			<div class="row align-middle between section-heading">
+			<div class="section-heading row align-middle between">
 				<h2 class="h4 section-heading_title"><?php esc_html_e( 'Recent Courses', 'wporg-learn' ); ?></h2>
-				<div class=section-heading">
+				<div class="section-heading_links row">
 					<?php if ( is_user_logged_in() ) : ?>
-						<a class="section-heading_link section-heading_loggedin_link" href="/my-courses/"><span><?php esc_html_e( 'My Courses', 'wporg-learn' ); ?></span></a>
+						<a class="section-heading_link" href="/my-courses/"><?php esc_html_e( 'My Courses', 'wporg-learn' ); ?></a>
 					<?php endif; ?>
-					<a class="section-heading_link" href="/courses/"><span><?php esc_html_e( 'View All Courses', 'wporg-learn' ); ?></span></a>
+					<a class="section-heading_link" href="/courses/"><?php esc_html_e( 'View All Courses', 'wporg-learn' ); ?></a>
 				</div>
 				<p class="section-heading_description">
 					<em><?php esc_html_e( 'Multimedia courses setting you up to become a better WordPress developer, designer, user, and contributor.', 'wporg-learn' ); ?></em>
@@ -69,9 +69,11 @@ get_header(); ?>
 		<hr>
 
 		<section>
-			<div class="row align-middle between section-heading">
+			<div class="section-heading row align-middle between">
 				<h2 class="h4 section-heading_title"><?php esc_html_e( 'Recent Tutorials', 'wporg-learn' ); ?></h2>
-				<a class="section-heading_link" href="/tutorials/"><span aria-hidden="true"><?php esc_html_e( 'View All Tutorials', 'wporg-learn' ); ?></span><span class="screen-reader-text"><?php esc_html_e( 'View All Tutorials', 'wporg-learn' ); ?></span></a>
+				<a class="section-heading_link" href="/tutorials/">
+					<?php esc_html_e( 'View All Tutorials', 'wporg-learn' ); ?>
+				</a>
 				<p class="section-heading_description">
 					<em><?php esc_html_e( 'Instructional videos for all skillsets to help you level up your WordPress expertise.', 'wporg-learn' ); ?></em>
 				</p>
@@ -94,7 +96,7 @@ get_header(); ?>
 		<?php $discussion_events = \WPOrg_Learn\Events\get_discussion_events(); ?>
 		<?php if ( ! empty( $discussion_events ) ) : ?>
 			<section class="wporg-learn-workshop-discussion-events">
-				<div class="row align-middle between section-heading">
+				<div class="section-heading row align-middle between">
 					<h2 class="h4 section-heading_title">
 						<?php esc_html_e( 'Upcoming Online Workshops', 'wporg-learn' ); ?>
 					</h2>
