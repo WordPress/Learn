@@ -213,6 +213,8 @@ _x( 'Edit', 'Included Content term name', 'wporg-learn' );
 _x( 'edit media', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/export/ */
 _x( 'export', 'Included Content term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/wporg_included_content/featured-images/ */
+_x( 'featured images', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/file/ */
 _x( 'file', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/full-site-editing/ */
@@ -313,6 +315,8 @@ _x( 'site health', 'Included Content term name', 'wporg-learn' );
 _x( 'site icon', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/site-logo/ */
 _x( 'site logo', 'Included Content term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/wporg_included_content/social-media/ */
+_x( 'social media', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/static-block/ */
 _x( 'static block', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/sticky-posts/ */
@@ -329,10 +333,6 @@ _x( 'theme editor', 'Included Content term name', 'wporg-learn' );
 _x( 'themes', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/tools/ */
 _x( 'tools', 'Included Content term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/wporg_included_content/updates/ */
-_x( 'updates', 'Included Content term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/wporg_included_content/users/ */
-_x( 'users', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/topic/block-development/ */
 _x( 'Block Development', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/topic/block-editor/ */
