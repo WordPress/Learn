@@ -30,3 +30,8 @@
 
 # Ignore subfolders in our custom code.
 /wp-content/plugins/wporg-learn/build
+
+# Ignore built CSS.
+/wp-content/themes/pub/wporg-learn-2020/css/print.css
+/wp-content/themes/pub/wporg-learn-2020/css/style-rtl.css
+/wp-content/themes/pub/wporg-learn-2020/css/style.css
