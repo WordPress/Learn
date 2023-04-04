@@ -38,7 +38,7 @@ Review the [team guidelines](https://make.wordpress.org/training/handbook/guidel
 - [ ] Provide feedback of the idea
 - [ ] Gather links to Support and Developer Docs
 - [ ] Review any related material on Learn
-- [ ] Course [created](https://make.wordpress.org/training/handbook/courses/content-creation/) and announced to the team for Q/A review
+- [ ] [Course created](https://make.wordpress.org/training/handbook/courses/content-creation/) and announced to the team for Q/A review
 - [ ] Course review completed and [ready to publish](https://make.wordpress.org/training/handbook/courses/publishing-a-course/)
 - [ ] Course excerpt created and featured on Learn WordPress
 - [ ] Course [announced to Marketing Team](https://docs.google.com/spreadsheets/d/1rY9gyA0KljjlinPE2B0S2qfsN8Nz24_N_KzqB5CrYZM/edit#gid=469255212) for promotion
