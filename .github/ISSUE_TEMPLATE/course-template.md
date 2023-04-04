@@ -11,7 +11,7 @@ assignees: ''
 <!-- A needs assessment statement is a summary of the gaps in knowledge and skills that the course will address. It helps identify the actual learning needs of the students, align course objectives with the desired outcomes, and ensure the right type of content is used to optimize learning effectiveness and engagement. -->
 
 ## Target Audience
-<!- Describe the specific group of learners for whom the course is designed and intended. These learners usually share common characteristics, skill level, or professional goals, which enable the course creator to tailor the content and learning objectives to suit their needs. -->
+<!-- Describe the specific group of learners for whom the course is designed and intended. These learners usually share common characteristics, skill level, or professional goals, which enable the course creator to tailor the content and learning objectives to suit their needs. -->
 
 ## Course Objective
 <!-- The course objective is a statement that describes the expected learning outcomes of the course. It is a concise statement that describes the knowledge and skills that the learners will acquire after completing the course. -->
