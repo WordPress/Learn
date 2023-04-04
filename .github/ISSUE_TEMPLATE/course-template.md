@@ -34,7 +34,7 @@ Review the [team guidelines](https://make.wordpress.org/training/handbook/guidel
 # Course Development Checklist
 
 - [ ] Needs Assessment Statement, Target Audience, Course Objective, and [Outline created](https://make.wordpress.org/training/handbook/courses/content-outline-and-draft/) 
-- [ ] Vetted by instructional designers for content idea
+- [ ] Vetted by Subject Matter Expert for content idea
 - [ ] Provide feedback of the idea
 - [ ] Gather links to Support and Developer Docs
 - [ ] Review any related material on Learn
