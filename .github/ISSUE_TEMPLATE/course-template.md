@@ -19,10 +19,7 @@ assignees: ''
 ## Outline <a href="#outline" id="outline">#</a>
 <!-- The outline is a list of the topics that will be covered in the course. It is a high-level overview of the course content. Feel free to include links to exsiting content that will be used in the course. -->
 
-- [ ] https://learn.wordpress.org/tutorial/using-the-create-block-tool/
-- [ ] https://learn.wordpress.org/tutorial/converting-a-shortcode-into-a-block/
-- [ ] https://learn.wordpress.org/tutorial/styling-your-wordpress-block/
-- [ ] https://learn.wordpress.org/tutorial/using-block-attributes-to-enable-user-editing/
+- [ ] 
 
 # Related Resources
 Links to related content on Learn, HelpHub, DevHub, GitHub Gutenberg Issues, DevNotes, etc.
