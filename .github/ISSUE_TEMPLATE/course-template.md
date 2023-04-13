@@ -1,6 +1,6 @@
 ---
 name: Course Template
-about: Describe this issue template's purpose here.
+about: Course Template
 title: Course - COURSE TITLE
 labels: Awaiting Triage, [Content Type] Course
 assignees: ''
