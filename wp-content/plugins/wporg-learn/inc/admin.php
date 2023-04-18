@@ -5,7 +5,7 @@ namespace WPOrg_Learn\Admin;
 use WP_Query;
 use function WordPressdotorg\Locales\get_locales_with_english_names;
 use function WordPressdotorg\Locales\get_locale_name_from_code;
-use function WPOrg_Learn\Post_Meta\get_available_workshop_locales;
+use function WPOrg_Learn\Post_Meta\get_available_post_type_locales;
 
 defined( 'WPINC' ) || die();
 
@@ -235,7 +235,7 @@ function add_workshop_list_table_filters( $post_type, $which ) {
 		return;
 	}
 
-	$available_locales = get_available_workshop_locales( 'language', 'english', false );
+	$available_locales = get_available_post_type_locales( 'language', 'wporg_workshop', 'english', false );
 	$language          = filter_input( INPUT_GET, 'language', FILTER_SANITIZE_STRING );
 
 	?>

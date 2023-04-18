@@ -257,17 +257,18 @@ function get_workshop_duration( WP_Post $workshop, $format = 'raw' ) {
 }
 
 /**
- * Get a list of locales that are associated with at least one workshop.
+ * Get a list of locales that are associated with at least one post of the specified type.
  *
- * Optionally only published workshops.
+ * Optionally only published posts.
  *
  * @param string $meta_key
+ * @param string $post_type
  * @param string $label_language
  * @param bool   $published_only
  *
  * @return array
  */
-function get_available_workshop_locales( $meta_key, $label_language = 'english', $published_only = true ) {
+function get_available_post_type_locales( $meta_key, $post_type, $label_language = 'english', $published_only = true ) {
 	global $wpdb;
 
 	$and_post_status = '';
@@ -280,9 +281,10 @@ function get_available_workshop_locales( $meta_key, $label_language = 'english',
 		"
 			SELECT DISTINCT postmeta.meta_value
 			FROM {$wpdb->postmeta} postmeta
-				JOIN {$wpdb->posts} posts ON posts.ID = postmeta.post_id $and_post_status
+				JOIN {$wpdb->posts} posts ON posts.ID = postmeta.post_id AND posts.post_type = %s $and_post_status 
 			WHERE postmeta.meta_key = %s
 		",
+		$post_type,
 		$meta_key
 		// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 	) );
