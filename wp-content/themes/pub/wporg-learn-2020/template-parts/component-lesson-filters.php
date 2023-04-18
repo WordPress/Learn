@@ -40,7 +40,7 @@ $taxonomies = array(
 		<button type="submit" class="button button-large button-secondary">
 			<?php esc_html_e( 'Apply Filters', 'wporg-learn' ); ?>
 		</button>
-		<a href="<?php echo esc_url( get_post_type_archive_link( 'lesson-plan' ) ); ?>" class="clear-filters">
+		<a href="<?php echo esc_url( get_post_type_archive_link( 'lesson-plan' ) . '?_view=all' ); ?>" class="clear-filters">
 			<?php esc_html_e( 'Clear All Filters', 'wporg-learn' ); ?>
 		</a>
 	</div>
