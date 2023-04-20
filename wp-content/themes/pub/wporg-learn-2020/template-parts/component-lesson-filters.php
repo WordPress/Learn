@@ -32,7 +32,7 @@ $taxonomies = array(
 	),
 );
 
-$locales = \WPOrg_Learn\Post_Meta\get_available_post_type_locales( 'language', 'lesson-plan', 'native' );
+$locales = \WPOrg_Learn\Post_Meta\get_available_post_type_locales( 'language', 'lesson-plan', 'native', 'publish' );
 ?>
 
 <form class="sidebar-filters col-3" method="get" action="<?php echo esc_url( get_post_type_archive_link( 'lesson-plan' ) ); ?>">

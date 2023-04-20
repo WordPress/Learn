@@ -259,35 +259,38 @@ function get_workshop_duration( WP_Post $workshop, $format = 'raw' ) {
 /**
  * Get a list of locales that are associated with at least one post of the specified type.
  *
- * Optionally only published posts.
- *
  * @param string $meta_key
  * @param string $post_type
  * @param string $label_language
- * @param bool   $published_only
+ * @param string $post_status
  *
  * @return array
  */
-function get_available_post_type_locales( $meta_key, $post_type, $label_language = 'english', $published_only = true ) {
+function get_available_post_type_locales( $meta_key, $post_type, $label_language = 'english', $post_status ) {
 	global $wpdb;
 
-	$and_post_status = '';
-	if ( $published_only ) {
-		$and_post_status = "AND posts.post_status = 'publish'";
-	}
-
-	$results = $wpdb->get_col( $wpdb->prepare(
-		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $and_post_status contains no user input.
-		"
-			SELECT DISTINCT postmeta.meta_value
-			FROM {$wpdb->postmeta} postmeta
-				JOIN {$wpdb->posts} posts ON posts.ID = postmeta.post_id AND posts.post_type = %s $and_post_status 
-			WHERE postmeta.meta_key = %s
-		",
-		$post_type,
-		$meta_key
-		// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-	) );
+	$results = isset( $post_status )
+		? $wpdb->get_col( $wpdb->prepare(
+			"
+				SELECT DISTINCT postmeta.meta_value
+				FROM {$wpdb->postmeta} postmeta
+					JOIN {$wpdb->posts} posts ON posts.ID = postmeta.post_id AND posts.post_type = %s AND posts.post_status = %s 
+				WHERE postmeta.meta_key = %s
+			",
+			$post_type,
+			$post_status,
+			$meta_key
+		) )
+		: $wpdb->get_col( $wpdb->prepare(
+			"
+				SELECT DISTINCT postmeta.meta_value
+				FROM {$wpdb->postmeta} postmeta
+					JOIN {$wpdb->posts} posts ON posts.ID = postmeta.post_id AND posts.post_type = %s 
+				WHERE postmeta.meta_key = %s
+			",
+			$post_type,
+			$meta_key
+		) );
 
 	if ( empty( $results ) ) {
 		return array();

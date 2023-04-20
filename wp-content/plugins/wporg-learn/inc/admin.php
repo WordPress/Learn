@@ -236,8 +236,7 @@ function add_admin_list_table_filters( $post_type, $which ) {
 	}
 
 	$post_status       = filter_input( INPUT_GET, 'post_status', FILTER_SANITIZE_STRING );
-	$published_only    = isset( $post_status ) && 'publish' === $post_status ?? false;
-	$available_locales = get_available_post_type_locales( 'language', $post_type, 'english', $published_only );
+	$available_locales = get_available_post_type_locales( 'language', $post_type, 'english', $post_status );
 	$language          = filter_input( INPUT_GET, 'language', FILTER_SANITIZE_STRING );
 
 	?>

@@ -23,12 +23,12 @@ $buckets = array(
 	array(
 		'label' => __( 'Language', 'wporg-learn' ),
 		'name'  => 'language',
-		'items' => \WPOrg_Learn\Post_Meta\get_available_post_type_locales( 'language', 'wporg_workshop', 'native' ),
+		'items' => \WPOrg_Learn\Post_Meta\get_available_post_type_locales( 'language', 'wporg_workshop', 'native', 'publish' ),
 	),
 	array(
 		'label' => __( 'Subtitles', 'wporg-learn' ),
 		'name'  => 'captions',
-		'items' => \WPOrg_Learn\Post_Meta\get_available_post_type_locales( 'video_caption_language', 'wporg_workshop', 'native' ),
+		'items' => \WPOrg_Learn\Post_Meta\get_available_post_type_locales( 'video_caption_language', 'wporg_workshop', 'native', 'publish' ),
 	),
 	array(
 		'label' => __( 'WordPress Version', 'wporg-learn' ),
