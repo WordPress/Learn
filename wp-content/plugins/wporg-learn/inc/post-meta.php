@@ -350,6 +350,15 @@ function save_lesson_plan_metabox_fields( $post_id ) {
 
 	$download_url = filter_input( INPUT_POST, 'slides-download-url', FILTER_VALIDATE_URL ) ?: '';
 	update_post_meta( $post_id, 'slides_download_url', $download_url );
+
+	// This language meta field is rendered in the editor sidebar using a PluginDocumentSettingPanel block,
+	// which won't save the field on publish if it has the default value.
+	// Our filtering by locale depends on it being set, so we force it to be updated after saving:
+	$language         = get_post_meta( $post_id, 'language', true );
+	$language_default = 'en_US';
+	if ( ! isset( $language ) || $language_default === $language ) {
+		update_post_meta( $post_id, 'language', $language_default );
+	}
 }
 
 /**
