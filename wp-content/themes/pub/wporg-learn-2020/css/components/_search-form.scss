@@ -65,6 +65,7 @@
 				height: inherit;
 				text-shadow: none;
 				color: #32373c;
+				min-height: 40px;
 
 				&:focus {
 					-webkit-box-shadow: 0 0 2px 1px $color__wp-blue;
