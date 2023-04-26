@@ -270,11 +270,7 @@ function get_available_post_type_locales( $meta_key, $post_type, $label_language
 	global $wpdb;
 
 	$and_post_status = '';
-	if ( in_array(
-		$post_status,
-		array( 'all', 'publish', 'draft', 'trash', 'private', 'needs-vetting', 'unlisted', 'declined' ),
-		true
-	) ) {
+	if ( in_array( $post_status, get_post_stati(), true ) ) {
 		$and_post_status = "AND posts.post_status = '$post_status'";
 	}
 
