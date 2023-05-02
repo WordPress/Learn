@@ -236,7 +236,7 @@ function add_admin_list_table_filters( $post_type, $which ) {
 	}
 
 	$post_status       = filter_input( INPUT_GET, 'post_status', FILTER_SANITIZE_STRING );
-	$available_locales = get_available_post_type_locales( 'language', $post_type, 'english', $post_status );
+	$available_locales = get_available_post_type_locales( 'language', $post_type, $post_status );
 	$language          = filter_input( INPUT_GET, 'language', FILTER_SANITIZE_STRING );
 
 	?>

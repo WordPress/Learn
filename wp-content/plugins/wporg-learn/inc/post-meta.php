@@ -261,12 +261,12 @@ function get_workshop_duration( WP_Post $workshop, $format = 'raw' ) {
  *
  * @param string $meta_key
  * @param string $post_type
- * @param string $label_language
  * @param string $post_status
+ * @param string $label_language
  *
  * @return array
  */
-function get_available_post_type_locales( $meta_key, $post_type, $label_language = 'english', $post_status ) {
+function get_available_post_type_locales( $meta_key, $post_type, $post_status, $label_language = 'english' ) {
 	global $wpdb;
 
 	$and_post_status = '';
