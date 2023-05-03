@@ -707,7 +707,16 @@ function wporg_learn_get_card_template_args( $post_id ) {
 			break;
 
 		case 'lesson-plan':
-			$args['meta']  = wporg_learn_get_lesson_plan_taxonomy_data( $post_id, 'archive' );
+			$args['meta'] = array_merge(
+				wporg_learn_get_lesson_plan_taxonomy_data( $post_id, 'archive' ),
+				array(
+					array(
+						'icon'  => 'admin-site-alt3',
+						'label' => __( 'Language:', 'wporg-learn' ),
+						'value' => \WordPressdotorg\Locales\get_locale_name_from_code( $post->language, 'native' ),
+					),
+				)
+			);
 			break;
 
 		case 'wporg_workshop':
