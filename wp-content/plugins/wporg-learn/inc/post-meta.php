@@ -257,32 +257,32 @@ function get_workshop_duration( WP_Post $workshop, $format = 'raw' ) {
 }
 
 /**
- * Get a list of locales that are associated with at least one workshop.
- *
- * Optionally only published workshops.
+ * Get a list of locales that are associated with at least one post of the specified type.
  *
  * @param string $meta_key
+ * @param string $post_type
+ * @param string $post_status
  * @param string $label_language
- * @param bool   $published_only
  *
  * @return array
  */
-function get_available_workshop_locales( $meta_key, $label_language = 'english', $published_only = true ) {
+function get_available_post_type_locales( $meta_key, $post_type, $post_status, $label_language = 'english' ) {
 	global $wpdb;
 
 	$and_post_status = '';
-	if ( $published_only ) {
-		$and_post_status = "AND posts.post_status = 'publish'";
+	if ( in_array( $post_status, get_post_stati(), true ) ) {
+		$and_post_status = "AND posts.post_status = '$post_status'";
 	}
 
 	$results = $wpdb->get_col( $wpdb->prepare(
-		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $and_post_status contains no user input.
+		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $and_post_status only includes $post_status if it matches an allowed string.
 		"
-			SELECT DISTINCT postmeta.meta_value
-			FROM {$wpdb->postmeta} postmeta
-				JOIN {$wpdb->posts} posts ON posts.ID = postmeta.post_id $and_post_status
-			WHERE postmeta.meta_key = %s
-		",
+		SELECT DISTINCT postmeta.meta_value
+		FROM {$wpdb->postmeta} postmeta
+			JOIN {$wpdb->posts} posts ON posts.ID = postmeta.post_id AND posts.post_type = %s $and_post_status
+		WHERE postmeta.meta_key = %s
+	",
+		$post_type,
 		$meta_key
 		// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 	) );
@@ -345,6 +345,15 @@ function save_lesson_plan_metabox_fields( $post_id ) {
 
 	$download_url = filter_input( INPUT_POST, 'slides-download-url', FILTER_VALIDATE_URL ) ?: '';
 	update_post_meta( $post_id, 'slides_download_url', $download_url );
+
+	// This language meta field is rendered in the editor sidebar using a PluginDocumentSettingPanel block,
+	// which won't save the field on publish if it has the default value.
+	// Our filtering by locale depends on it being set, so we force it to be updated after saving:
+	$language         = get_post_meta( $post_id, 'language', true );
+	$language_default = 'en_US';
+	if ( ! isset( $language ) || $language_default === $language ) {
+		update_post_meta( $post_id, 'language', $language_default );
+	}
 }
 
 /**

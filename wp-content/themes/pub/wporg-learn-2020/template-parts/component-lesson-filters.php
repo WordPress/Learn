@@ -31,6 +31,8 @@ $taxonomies = array(
 		'current' => filter_input( INPUT_GET, 'wp_version', FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY ) ?: array(),
 	),
 );
+
+$locales = \WPOrg_Learn\Post_Meta\get_available_post_type_locales( 'language', 'lesson-plan', 'publish', 'native' );
 ?>
 
 <form class="sidebar-filters col-3" method="get" action="<?php echo esc_url( get_post_type_archive_link( 'lesson-plan' ) ); ?>">
@@ -40,9 +42,30 @@ $taxonomies = array(
 		<button type="submit" class="button button-large button-secondary">
 			<?php esc_html_e( 'Apply Filters', 'wporg-learn' ); ?>
 		</button>
-		<a href="<?php echo esc_url( get_post_type_archive_link( 'lesson-plan' ) ); ?>" class="clear-filters">
+		<a href="<?php echo esc_url( get_post_type_archive_link( 'lesson-plan' ) . '?_view=all' ); ?>" class="clear-filters">
 			<?php esc_html_e( 'Clear All Filters', 'wporg-learn' ); ?>
 		</a>
+	</div>
+
+	<h4 class="h5" id="lp-filters-language-heading"><?php esc_html_e( 'Language', 'wporg-learn' ); ?></h4>
+	<div class="filter-group">
+		<select
+			id="<?php echo esc_attr( 'language' ); ?>"
+			class="filter-group-select"
+			name="<?php echo esc_attr( 'language' ); ?>"
+			data-placeholder="<?php esc_attr_e( 'Select', 'wporg-learn' ); ?>"
+			aria-labelledby="lp-filters-language-heading"
+		>
+			<option value=""><?php esc_html_e( 'Select', 'wporg-learn' ); ?></option>
+			<?php foreach ( $locales as $locale_value => $locale_label ) : ?>
+				<option
+					value="<?php echo esc_attr( $locale_value ); ?>"
+					<?php selected( $locale_value, filter_input( INPUT_GET, 'language' ) ); ?>
+				>
+					<?php printf( '%s [%s]', esc_html( $locale_label ), esc_html( $locale_value ) ); ?>
+				</option>
+			<?php endforeach; ?>
+		</select>
 	</div>
 
 	<?php foreach ( $taxonomies as $txnmy ) : ?>

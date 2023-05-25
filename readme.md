@@ -53,3 +53,7 @@ This project has eslint, stylelint, and phpcs set up for linting the code. This 
 	composer run lint
 
 These checks will also be run automatically on each PR.
+
+### Contributing
+
+If you'd like to contribute to the project, please read the [code contribution guidelines](https://make.wordpress.org/training/handbook/training-team-how-to-guides/code-contributions/) in our team handbook. 

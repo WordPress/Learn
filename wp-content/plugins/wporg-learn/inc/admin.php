@@ -5,7 +5,7 @@ namespace WPOrg_Learn\Admin;
 use WP_Query;
 use function WordPressdotorg\Locales\get_locales_with_english_names;
 use function WordPressdotorg\Locales\get_locale_name_from_code;
-use function WPOrg_Learn\Post_Meta\get_available_workshop_locales;
+use function WPOrg_Learn\Post_Meta\get_available_post_type_locales;
 
 defined( 'WPINC' ) || die();
 
@@ -24,8 +24,8 @@ foreach ( array( 'lesson-plan', 'meeting', 'course', 'lesson' ) as $pt ) {
 	add_filter( 'manage_' . $pt . '_posts_custom_column', __NAMESPACE__ . '\render_list_table_language_column', 10, 2 );
 }
 add_filter( 'manage_edit-wporg_workshop_sortable_columns', __NAMESPACE__ . '\add_workshop_list_table_sortable_columns' );
-add_action( 'restrict_manage_posts', __NAMESPACE__ . '\add_workshop_list_table_filters', 10, 2 );
-add_action( 'pre_get_posts', __NAMESPACE__ . '\handle_workshop_list_table_filters' );
+add_action( 'restrict_manage_posts', __NAMESPACE__ . '\add_admin_list_table_filters', 10, 2 );
+add_action( 'pre_get_posts', __NAMESPACE__ . '\handle_admin_list_table_filters' );
 add_filter( 'display_post_states', __NAMESPACE__ . '\add_post_states', 10, 2 );
 foreach ( array( 'lesson-plan', 'wporg_workshop', 'course', 'lesson' ) as $pt ) {
 	add_filter( 'views_edit-' . $pt, __NAMESPACE__ . '\list_table_views' );
@@ -223,19 +223,20 @@ function add_workshop_list_table_sortable_columns( $sortable_columns ) {
 }
 
 /**
- * Add filtering controls for the workshops list table.
+ * Add filtering controls for the tutorial and lesson plan list tables.
  *
  * @param string $post_type
  * @param string $which
  *
  * @return void
  */
-function add_workshop_list_table_filters( $post_type, $which ) {
-	if ( 'wporg_workshop' !== $post_type || 'top' !== $which ) {
+function add_admin_list_table_filters( $post_type, $which ) {
+	if ( ( 'wporg_workshop' !== $post_type && 'lesson-plan' !== $post_type ) || 'top' !== $which ) {
 		return;
 	}
 
-	$available_locales = get_available_workshop_locales( 'language', 'english', false );
+	$post_status       = filter_input( INPUT_GET, 'post_status', FILTER_SANITIZE_STRING );
+	$available_locales = get_available_post_type_locales( 'language', $post_type, $post_status );
 	$language          = filter_input( INPUT_GET, 'language', FILTER_SANITIZE_STRING );
 
 	?>
@@ -260,13 +261,13 @@ function add_workshop_list_table_filters( $post_type, $which ) {
 }
 
 /**
- * Alter the query to include workshop list table filters.
+ * Alter the query to include tutorial and lesson plan list table filters.
  *
  * @param WP_Query $query
  *
  * @return void
  */
-function handle_workshop_list_table_filters( WP_Query $query ) {
+function handle_admin_list_table_filters( WP_Query $query ) {
 	if ( ! is_admin() || ! function_exists( 'get_current_screen' ) ) {
 		return;
 	}
@@ -277,7 +278,7 @@ function handle_workshop_list_table_filters( WP_Query $query ) {
 		return;
 	}
 
-	if ( 'edit-wporg_workshop' === $current_screen->id ) {
+	if ( 'edit-wporg_workshop' === $current_screen->id || 'edit-lesson-plan' === $current_screen->id ) {
 		$language = filter_input( INPUT_GET, 'language', FILTER_SANITIZE_STRING );
 
 		if ( $language ) {
