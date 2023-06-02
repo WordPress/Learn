@@ -6,32 +6,25 @@ labels: Awaiting Triage, Needs Subject Matter Expert
 ---
 
 # Details
-<!-- Please describe what this content topic is about-->
-- Topic title: 
+<!-- 
+Replace TOPIC TITLE in the issue title to the topic title you are proposing.
+Then, please share as much information about your idea as you can by filling out the items.
+-->
+
 - Topic description: 
-- Objective: 
+- Learning objectives: 
 - Content type: 
-- WordPress version: 
+- WordPress version (optional): 
 - Will you be creating this content?: Yes/No
 
 # Related Resources
 Links to related content on Learn, HelpHub, DevHub, GitHub Gutenberg Issues, DevNotes, etc.
-- [ ]
 
-# Triage Checklist
-Please follow this [Vetting content topic ideas handbook page]() guide.
 
-- [ ] SME assigned
-- [ ] Remove Needs Subject Matter Expert label
-- [ ] Content Category applied (Ex. PHP, Gutenberg, Block Theme)
-- [ ] Topic idea has passed vetting checks
-- [ ] Content type label applied
-- [ ] Priority set
-- [ ] Content Type Checklist applied
-- [ ] Content type
-- [ ] Audience set
-- [ ] Experience Level set
-- [ ] Product type (theme, plugin)
-- [ ] WordPress Version applied through Milestone (Ex. milestone 5.9)
-- [ ] If the Topic Idea reporter has not opted to create the content, apply Needs Content Creator label
-- [ ] Ticket moved to Ready to Create 
+# Vetting Checklist for SMEs
+Please follow the team handbook: [Vetting topic ideas](https://make.wordpress.org/training/handbook/training-team-how-to-guides/vetting-topic-ideas/).
+
+- [ ] Set a Priority label
+- [ ] Assess topic details, and provide feedback as necessary.
+- [ ] Move issue to "Vetted Topics" status 
+
