@@ -65,7 +65,6 @@ export function updateCompleteLessonButtons(
 function CompleteLessonTooltip() {
 	const allBlocksAreComplete = useSelector( ( state ) => {
 		const requiredBlockIds = selectors.getRequiredBlockIds( state );
-
 		return selectors.areRequiredBlocksCompleted( state, requiredBlockIds );
 	} );
 

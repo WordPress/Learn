@@ -8,6 +8,7 @@ import {
 } from '@wordpress/edit-post';
 import { __ } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
+import { store as blockEditorStore } from '@wordpress/block-editor';
 
 const VisibilityPluginPrePublishPanel = () => {
 	const VisibilityLabel = (
@@ -21,7 +22,7 @@ const VisibilityPluginPrePublishPanel = () => {
 	);
 
 	const blocks = useSelect( ( select ) => {
-		return select( 'core/block-editor' ).getBlocks();
+		return select( blockEditorStore ).getBlocks();
 	} );
 	const hasHiddenContent = blocks.some( ( block ) => {
 		return (

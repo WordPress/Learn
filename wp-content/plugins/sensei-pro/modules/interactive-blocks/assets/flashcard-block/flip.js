@@ -18,11 +18,16 @@ const classMap = {
  * Flip Card button
  *
  * @param {Object} props
+ * @param {string} props.label Custom flip button label.
  */
-const FlipButton = ( props ) => (
+const FlipButton = ( { label, ...props } ) => (
 	<button { ...props } className="sensei-lms-flip__button" tabIndex={ 0 }>
 		{ /* eslint-disable-next-line jsx-a11y/anchor-is-valid -- Interaction provided by button */ }
-		<a tabIndex={ -1 }>{ __( 'Flip Card', 'sensei-pro' ) }</a>
+		<a tabIndex={ -1 }>
+			{ label ??
+				// translators: verb + noun, refers to an action of flipping a card.
+				__( 'Flip Card', 'sensei-pro' ) }
+		</a>
 	</button>
 );
 
@@ -67,7 +72,7 @@ export const Flip = forwardRef( ( { children, className, ...props }, ref ) => {
 Flip.Save = ( { children, ...props } ) => (
 	<div { ...props } className={ `sensei-lms-flip ${ classMap.false }` }>
 		{ children }
-		<FlipButton />
+		<FlipButton label="Flip Card" />
 	</div>
 );
 

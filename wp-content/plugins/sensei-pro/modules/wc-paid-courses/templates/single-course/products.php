@@ -9,6 +9,8 @@
  * @version 1.1.0
  */
 
+// phpcs:ignoreFile VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- This is a template.
+
 use Sensei_WC_Paid_Courses\Sensei_WC_Paid_Courses;
 
 if ( ! defined( 'ABSPATH' ) ) {

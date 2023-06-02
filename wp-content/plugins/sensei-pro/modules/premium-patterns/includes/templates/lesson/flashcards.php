@@ -35,7 +35,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<!-- /wp:cover -->
 		<!--/sensei:inner-blocks-->
 		<button class="sensei-lms-flip__button" tabindex="0">
-			<a tabindex="-1"><?php esc_html_e( 'Flip Card', 'sensei-pro' ); ?></a>
+			<a tabindex="-1">
+				<?php
+					// translators: verb + noun, refers to an action of flipping a card.
+					esc_html_e( 'Flip Card', 'sensei-pro' );
+				?>
+			</a>
 		</button>
 	</div>
 </div>

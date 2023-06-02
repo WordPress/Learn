@@ -9,6 +9,8 @@
  * @version 1.0.0
  */
 
+// phpcs:ignoreFile VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- This is a template.
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }

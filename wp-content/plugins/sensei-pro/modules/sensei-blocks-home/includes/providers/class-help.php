@@ -29,7 +29,7 @@ class Help {
 				[
 
 					$this->create_item( __( 'Sensei Blocks documentation', 'sensei-pro' ), 'https://senseilms.com/docs/' ),
-					$this->create_item( __( 'Create a support ticket', 'sensei-pro' ), 'https://senseilms.com/contact/' ),
+					$this->create_item( __( 'Create a support ticket', 'sensei-pro' ), $this->get_support_url() ),
 				]
 			),
 		];
@@ -64,6 +64,20 @@ class Help {
 			'icon'       => null,
 			'extra_link' => null,
 		];
+	}
+
+	/**
+	 * Returns the appropriate support URL for Sensei Blocks depending on whether the user has an active WPCOM
+	 * subscription for Sensei Blocks or not.
+	 *
+	 * @return string The URL to support.
+	 */
+	private function get_support_url() {
+		$subscriptions = get_option( 'wpcom_active_subscriptions', [] );
+		if ( array_key_exists( 'sensei-interactive-blocks', $subscriptions ) ) {
+			return 'https://wordpress.com/help/contact';
+		}
+		return 'https://senseilms.com/contact/';
 	}
 
 }

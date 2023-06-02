@@ -61,9 +61,15 @@ class Group_Students_Data_Provider {
 		}
 		$filters['include'] = $student_ids;
 
-		add_action( 'pre_user_query', [ $this, 'modify_user_query_for_custom_fields_orders_filters' ] );
+		$can_use_users_relationship = ! class_exists( '\Sensei_No_Users_Table_Relationship' ) || \Sensei_No_Users_Table_Relationship::instance()->can_use_users_relationship();
+		$action_callback            = [ $this, 'modify_user_query_for_custom_fields_orders_filters' ];
+		if ( $can_use_users_relationship ) {
+			add_action( 'pre_user_query', $action_callback );
+		}
 		$user_search = new WP_User_Query( $filters );
-		remove_action( 'pre_user_query', [ $this, 'modify_user_query_for_custom_fields_orders_filters' ] );
+		if ( $can_use_users_relationship ) {
+			remove_action( 'pre_user_query', $action_callback );
+		}
 
 		return new Group_Students_Result( $user_search );
 	}
@@ -89,7 +95,7 @@ class Group_Students_Data_Provider {
 		) AS last_activity_date";
 
 		// Order by last activity when needed.
-		if ( $query->query_vars['orderby'] && 'last_activity_date' === $query->query_vars['orderby'] ) {
+		if ( in_array( $query->query_vars['order'], [ 'asc', 'desc' ], true ) && 'last_activity_date' === $query->query_vars['orderby'] ) {
 			$query->query_orderby = $wpdb->prepare(
 				'ORDER BY %1s %1s', // phpcs:ignore WordPress.DB.PreparedSQLPlaceholders.UnquotedComplexPlaceholder -- not needed.
 				$query->query_vars['orderby'],

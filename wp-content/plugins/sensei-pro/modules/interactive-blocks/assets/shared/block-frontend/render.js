@@ -1,18 +1,20 @@
 /**
  * External dependencies
  */
+import { isEmpty } from 'lodash';
+import { Provider } from 'react-redux';
+
 /**
  * WordPress dependencies
  */
 import { createElement, isValidElement, render } from '@wordpress/element';
-import { isEmpty } from 'lodash';
-import { Provider } from 'react-redux';
 
 /**
  * Internal dependencies
  */
 import { blocksStore } from './data';
 import { useBlocksStore } from './data/use-blocks-store';
+import { parseBlocks } from './parse';
 
 /**
  * @typedef {module:block-frontend/parse~FrontendBlock} FrontendBlock
@@ -80,6 +82,13 @@ export function RawElement( { block, html } ) {
 
 	return createElement( element.tagName.toLowerCase(), {
 		...blockProps,
+		ref: ( el ) => {
+			// It renders blocks that weren't rendered previously because they
+			// are inside a raw HTML block.
+			if ( el ) {
+				parseBlocks( el ).forEach( runBlock );
+			}
+		},
 		dangerouslySetInnerHTML: { __html: html },
 	} );
 }

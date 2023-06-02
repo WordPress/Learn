@@ -66,6 +66,7 @@ class SenseiLMS_Plugin_Updater {
 
 		add_filter( 'plugins_api', [ $instance, 'get_plugin_info' ], 10, 3 );
 		add_filter( 'site_transient_update_plugins', [ $instance, 'maybe_inject_custom_update_to_update_plugins_transient' ] );
+		add_action( 'in_plugin_update_message-' . $instance->plugin_full_name, [ $instance, 'invalid_license_update_disclaimer' ] );
 	}
 
 	/**
@@ -82,16 +83,16 @@ class SenseiLMS_Plugin_Updater {
 	 */
 	public function get_plugin_info( $res, $action, $args ) {
 		if ( 'plugin_information' !== $action ) {
-			return false;
+			return $res;
 		}
 		if ( $this->plugin_slug !== $args->slug ) {
-			return false;
+			return $res;
 		}
 
 		$remote = $this->request_info();
 		if ( is_wp_error( $remote ) ) {
 			// Early return in case request to SenseiLMS.com failed.
-			return false;
+			return $res;
 		}
 
 		$res                = new stdClass();
@@ -109,6 +110,12 @@ class SenseiLMS_Plugin_Updater {
 			'changelog'    => $remote->sections->changelog,
 		];
 		$res->download_link = $remote->download_url;
+		$res->banners       = [
+			'low'  => $remote->banners->{'1x'},
+			'high' => $remote->banners->{'2x'},
+		];
+
+		wp_enqueue_style( 'sensei-updater-styles', plugin_dir_url( $this->plugin_full_name ) . 'assets/dist/senseilms-licensing/styles.css', [], $this->version );
 
 		return $res;
 	}
@@ -149,9 +156,9 @@ class SenseiLMS_Plugin_Updater {
 			$res->new_version                    = $remote->version;
 			$res->tested                         = $remote->tested;
 			$res->package                        = $remote->download_url;
+			$res->icons                          = (array) $remote->icons;
 			$transient->response[ $res->plugin ] = $res;
 		}
-
 		return $transient;
 	}
 
@@ -162,18 +169,12 @@ class SenseiLMS_Plugin_Updater {
 	 * @return array|WP_Error
 	 */
 	private function request_info() {
-		$license_status = License_Manager::get_license_status( $this->plugin_slug );
-		if ( true !== $license_status['is_valid'] ) {
-			// Early return in case the license is not set or is invalid.
-			// Checking if a license is valid might generate a request itself to the server but those should be cached too.
-			return new WP_Error( 'invalid-license', __( 'The license is not valid so checking for updates is disabled.', 'sensei-pro' ) );
-		}
-
 		$cache_key = self::CACHE_KEY_PREFIX . $this->plugin_slug;
 		$remote    = get_transient( $cache_key );
 
 		if ( false === $remote ) {
-			$remote = wp_remote_get(
+			$license_status = License_Manager::get_license_status( $this->plugin_slug );
+			$remote         = wp_remote_get(
 				add_query_arg(
 					[
 						'plugin_slug' => $this->plugin_slug,
@@ -212,5 +213,22 @@ class SenseiLMS_Plugin_Updater {
 		}
 
 		return $response;
+	}
+
+	/**
+	 * Add update disclaimer for invalid license.
+	 *
+	 * @since 1.14.0
+	 *
+	 * @internal
+	 */
+	public function invalid_license_update_disclaimer() {
+		$license_status = License_Manager::get_license_status( $this->plugin_slug );
+		if ( ! $license_status['is_valid'] ) {
+			printf(
+				'<br /><strong>%s</strong>',
+				esc_html__( 'Update will be available after you activate your license.', 'sensei-pro' )
+			);
+		}
 	}
 }

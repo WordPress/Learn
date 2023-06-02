@@ -36,29 +36,57 @@ const VideoReplaceContext = createContext( undefined );
 export const VideoReplaceProvider = VideoReplaceContext.Provider;
 
 /**
- * Return a component that modifies the core/video block to use a onReplace
- * callback offered by the interactive video block.
+ * Return a component that modifies a block to pass an onReplace prop from the
+ * context if one isn't defined.
  *
  * @param {Function} BlockEdit The component to overwrite.
  *
- * @return {Function} The component to detect core/video and determine onReplace appropriately.
+ * @return {Function} The HOC that detects if it has a value for VideoReplaceContext and
+ * 						uses it as onReplace prop if onReplace is not defined.
  */
-const VideoBlockEdit = createHigherOrderComponent( ( BlockEdit ) => {
+const withOnReplaceVideoBlock = createHigherOrderComponent( ( BlockEdit ) => {
 	return ( props ) => {
 		const onReplace = useContext( VideoReplaceContext );
 
-		if ( props.name === 'core/video' && ! props.onReplace && onReplace ) {
+		// We removed the check for the core/video block here because this
+		// HOC will only be used for the core/video block anyway, check
+		// the function extendCoreVideoBlockEdit below.
+		if ( ! props.onReplace && onReplace ) {
 			return <BlockEdit { ...props } onReplace={ onReplace } />;
 		}
 
 		return <BlockEdit { ...props } />;
 	};
-}, 'VideoBlockEdit' );
+}, 'withOnReplaceVideoBlock' );
+
+/**
+ * Injects the withOnReplaceVideoBlock as HOC for the edit component of the
+ * core/video block.
+ *
+ * @param {Object} settings The settings of the block being handled.
+ * @param {string} name     The name of the block to handle.
+ * @return {Object} The new settings of the block.
+ */
+const extendCoreVideoBlockEdit = ( settings, name ) => {
+	if ( name !== 'core/video' ) {
+		return settings;
+	}
+	return {
+		...settings,
+		edit: withOnReplaceVideoBlock( settings.edit ),
+	};
+};
 
 addFilter(
-	'editor.BlockEdit',
-	'sensei-pro/interactive-video/video-block-edit',
-	VideoBlockEdit
+	'blocks.registerBlockType',
+	'sensei-pro/interactive-video/extend-video-block-edit',
+	extendCoreVideoBlockEdit,
+	// The priority was set to 4 to fix a conflict between VideoPress v5
+	// and the Interactive Video Block. The VideoPress v5 plugin uses
+	// the same filter with a priority of 5, and it was causing the
+	// Interactive Video Block to crash when transforming from the core/video
+	// block modified by VideoPress in some environments.
+	4
 );
 
 /**
@@ -96,7 +124,6 @@ export const useInvalidVideo = ( clientId ) => {
 	const onReplace = useOnReplaceVideoBlock( clientId );
 	const {
 		replaceBlock,
-		replaceInnerBlocks,
 		__unstableMarkNextChangeAsNotPersistent: markNextChangeAsNotPersistent = () => {},
 	} = useDispatch( blockEditorStore );
 	const { createErrorNotice } = useDispatch( noticeStore );
@@ -152,7 +179,6 @@ export const useInvalidVideo = ( clientId ) => {
 	}, [
 		clientId,
 		replaceBlock,
-		replaceInnerBlocks,
 		firstBlockVariation,
 		createErrorNotice,
 		interactiveVideoBlock,

@@ -3,7 +3,7 @@
  * File containing the class \Sensei_Pro\Screen_ID_Helper.
  *
  * @package sensei-pro
- * @since $$next-version$$
+ * @since 1.8.1
  */
 
 namespace Sensei_Pro;

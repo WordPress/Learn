@@ -1,28 +1,146 @@
-*** Sensei Pro Changelog ***
+# Sensei Pro Changelog
+
+## 1.15.0 - 2023-06-01
+### Changed
+- Improve the Learning Mode experience
+
+### Fixed
+- Fix error when course enrolment job runs
+- Fix visibility of Header and Course Navigation on Modern template of Learning Mode
+
+## 1.14.1 - 2023-05-10
+### Fixed
+- Fixed licensing issue for wcpc AI quiz question generator
+
+## 1.14.0 - 2023-05-10
+### Added
+- Add disclamer with the reason that Sensei Pro can't be updated when license is not active
+- Add functionality to generate question from lesson content using OpenAI
+
+### Changed
+- Allow to check for Sensei Pro updates even with the license deactivated
+
+### Fixed
+- Remove type declaration for hooked method.
+- Use wp_date to handle locale-dependent date formatting
+
+## 1.13.1 - 2023-04-19
+### Fixed
+- Fix early returns to keep the original filtered value to prevent issues with other filters.
+
+## 1.13.0 - 2023-04-03
+### Fixed
+- Fix type error caused by some third-party integrations
+- Pro email becoming unavailable after disabling
+
+## 1.12.0 - 2023-03-29
+### Added
+- Added email to be sent to student when a lesson becomes available via content drip
+- Add No Progress background jobs and email generator
+- Add usage tracking for content drip and course expiration emails
+- Email for notifying student before course expires
+- Enabling pro emails
+- Add Course Showcase feature to allow promotion of eligible courses to SenseiLMS.com's Showcase.
+
+## 1.11.2 - 2023-03-07
+### Changed
+- Ensure Sell your course.. task is only shown when WooCommerce is active.
+- Set product to be downloadable when created
+
+### Fixed
+- Stop standalone question from crashing
+- Add missing "Search Courses" translation.
+- Fix display of Group Students for users on Calypso
+- Fixing CI build
+- Fix issue where Interactive Video Block caused the gutenberg editor to crash in some situations.
+- Move hardcoded colors from Learning Mode templates to CSS
+
+## 1.11.1 - 2023-02-03
+### Fixed
+- Fix course list button style on Blockbase theme.
+- Fix type error when `the_content` is not a string.
+
+## 1.11.0 - 2023-02-02
+### Added
+- Add a Glossary.
+- Add accordion interactive block.
+- Add a translator comment to "Flip Card" text.
+- Add bulk actions to add or remove studens in groups.
+- Add filter to disable open access for paid courses.
+- Apply sticky style to Sidebars on Modern and Video Full templates.
+
+### Changed
+- Show the correct support link when using Sensei Pro on WPCOM.
+
+### Removed
+- Remove a filter that forced the status of WooCommerce orders that include virtual products to be "completed" when it would be "processing".
+
+### Fixed
+- Co-teacher performance enhancements.
+- Comment: Fix course ID check.
+- Fix class list alignment in Groups page.
+- Fixed add to cart notice not appearing if course is not on first page of Course List block.
+- Fix issue that caused the quiz page to be blank given a combination of settings of the Quiz Timer.
+- Fix issue while saving quiz settings.
+
+## 1.10.0 - 2023-01-12
+### Added
+- Add Block Visibility feature to Site Editor.
+- Support for multisites.
+
+### Changed
+- Improve the course access period selection.
+
+### Fixed
+- Course outline cannot be hidden.
+- Fix flash card block breaking after changing site language.
+- Fix issue where the Co-Teachers feature blocked courses from being removed in WP 5.9.
+- Fix issue with Sensei blocks inside other Sensei blocks not being rendered in some situations.
+
+## 1.9.1 - 2022-12-19
+### Fixed
+- Co-teachers are lost from dropdown on refresh.
+
+## 1.9.0 - 2022-12-06
+### Added
+- Add support for Co-Teachers.
+- Give Teachers the ability to edit Questions for Courses on which they are a Co-Teacher.
+
+### Fixed
+- Add access period and course pricing slot fills for Sensei Course Settings.
+- Fix ordering question removing classic editor support.
+- Support wp.com purchase plans on Sensei Pro (Paid Courses) plugin.
+- Fixes issue of email not being sent for content drip at scheduled time.
+
+## 1.8.1 - 2022-11-10
+### Fixed
+- Improve compatibility with alternative translation file locations.
+- Improve plugin update details changelog, icon, and banner.
+- Fix error when removing partial refund of a course order.
 
 ## 1.8.0 - 2022-10-27
 ### Added
-- Added task "Sell your Course with WooCommerce" to the Sensei Home tasks
+- Added task "Sell your Course with WooCommerce" to the Sensei Home tasks.
 
 ### Changed
-- Change admin menu references to be compatible with the latest changes in Sensei LMS
-- Moved Activation Form from Setup Wizard to Sensei Home
+- Change admin menu references to be compatible with the latest changes in Sensei LMS.
+- Moved Activation Form from Setup Wizard to Sensei Home.
 
 ## 1.7.2 - 2022-10-24
 ### Fixed
-- Fix columns vertical alignment on WP 6.0
-- Fix cron update check.
+- Fix columns vertical alignment on WP 6.0.
+- Fix cron update check..
 
 ## 1.7.1 - 2022-10-24
 ### Fixed
-- Fix issue with WooCommerce partial refunds
-- Fix alignment in Modern template
-- Fix block visibility settings panel
-- Fix cron scheduling performance issue
+- Fix issue with WooCommerce partial refunds.
+- Fix alignment in Modern template.
+- Fix block visibility settings panel.
+- Fix cron scheduling performance issue.
 
 ## 1.7.0 - 2022-10-11
 ### Added
-- Adjust learning mode templates
+- Adjust learning mode templates.
 - Introduce premium-templates module.
 - Make block visibility panel closed by default.
 
@@ -65,7 +183,7 @@
 ## 1.5.0 - 2022-07-25
 ### Added
 - "Logged out users", "Completed lesson" and "Not completed lesson" options.
-- Add block visibility labels to list view
+- Add block visibility labels to list view.
 - Add block visibility option descriptions.
 - Add block visibility sidebar options.
 - Add extra description text when lesson post type to enrolment options.
@@ -73,7 +191,7 @@
 - Add support for groups select paging.
 - Add support for relative scheduling for block visibility option.
 - Add visibility borders to blocks when hidden.
-- Comment: Add a pre-publish notice about hidden content
+- Comment: Add a pre-publish notice about hidden content.
 - Hide blocks on the frontend for groups visibility type.
 - Hide content based on blocks' scheduled visibility settings.
 - Implement block visiblity schedule option.
@@ -99,35 +217,35 @@
 
 ## 1.4.0 - 2022-07-11
 
-* New! Create groups and cohorts of students
-    - Action menu with generic modal with action item to remove a student from a group
-    - Track usage of Student Groups functionality
-    - Add an endpoint to add students to a group
-    - Add a group courses column in the group list table to show the number of courses in the group
-    - Add a last activity column in group students table with ability to sort
-    - Add a modal to create new student group
-    - Add a students column in the group list table to show number of assigned students
-    - Add endpoint to edit the access period of a course in a group
-    - Add endpoint to get courses by group ID
-    - Add endpoint to remove a student from a group
-    - Add endpoint to remove students in batch from a group
-    - Add endpoint to update group name
-    - Add endpoint to remove group and all related data
-    - Add enrolled courses column in group students table
-    - Add filter by course functionality in group students page
-    - Add group list page action to remove group and a modal for confirming
-    - Add modal to update the name of a group in the action menu
-    - Add rest endpoint for adding student group
-    - Add enrolment provider and enroll students into courses
-    - Add group settings page
+* New! Create groups and cohorts of students.
+    - Action menu with generic modal with action item to remove a student from a group.
+    - Track usage of Student Groups functionality.
+    - Add an endpoint to add students to a group.
+    - Add a group courses column in the group list table to show the number of courses in the group.
+    - Add a last activity column in group students table with ability to sort.
+    - Add a modal to create new student group.
+    - Add a students column in the group list table to show number of assigned students.
+    - Add endpoint to edit the access period of a course in a group.
+    - Add endpoint to get courses by group ID.
+    - Add endpoint to remove a student from a group.
+    - Add endpoint to remove students in batch from a group.
+    - Add endpoint to update group name.
+    - Add endpoint to remove group and all related data.
+    - Add enrolled courses column in group students table.
+    - Add filter by course functionality in group students page.
+    - Add group list page action to remove group and a modal for confirming.
+    - Add modal to update the name of a group in the action menu.
+    - Add rest endpoint for adding student group.
+    - Add enrolment provider and enroll students into courses.
+    - Add group settings page.
     - Add modal to assign students to the selected group.
-    - Add endpoint to add a course to a group
-    - Enable to remove multiple students from the selected group
-    - Enable to update access periods
+    - Add endpoint to add a course to a group.
+    - Enable to remove multiple students from the selected group.
+    - Enable to update access periods.
     - Improve the groups access period interface.
-    - Redirect user to group students page when students are added via action menu
-    - Use action hook to render groups menu item on proper place in the sensei lms menu
-    - Increased PHP requirement from 7.0 to 7.2
+    - Redirect user to group students page when students are added via action menu.
+    - Use action hook to render groups menu item on proper place in the sensei lms menu.
+    - Increased PHP requirement from 7.0 to 7.2.
 
 ## 1.3.1 - 2022-06-20
 ### Fixed
@@ -147,7 +265,7 @@
 * New: Add a new sensei notice for version checks.
 * Tweak: Bump minimum PHP version supported to 7.2
 * Fix: Task List block autofocus fix.
-* Fix: The styles enqueue that was causing a conflict with Setup Wizard style
+* Fix: The styles enqueue that was causing a conflict with Setup Wizard style.
 * Fix: Translations for sidebar color settings in task list block.
 
 ## 1.1.1 - 2022-05-04

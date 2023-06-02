@@ -27,7 +27,7 @@ function sensei_pro_get_home_url() {
  * @internal
  */
 function sensei_pro_detect_sensei_activated() {
-	if ( \Sensei_Pro_Setup\Wizard::is_sensei_activated() ) {
+	if ( \Sensei_Pro_Setup\Wizard::is_sensei_home_available() ) {
 		add_filter( 'sensei_pro_wizard_setup_url', 'sensei_pro_get_home_url' );
 	}
 }
@@ -55,6 +55,10 @@ function sensei_pro_setup_init( $context ) {
 	// Sensei Home activation form.
 	require_once dirname( __FILE__ ) . '/class-sensei-home-license-activation.php';
 	\Sensei_Pro_Setup\Sensei_Home_License_Activation::instance( $context )->init();
+
+	// Sensei WPCOM Marketplace License Manager.
+	require_once dirname( __FILE__ ) . '/class-wpcom-marketplace-license-manager.php';
+	\Sensei_Pro_Setup\WPCOM_Marketplace_License_Manager::instance()->init();
 }
 
 /**

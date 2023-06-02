@@ -2,7 +2,6 @@
  * WordPress dependencies
  */
 import { useState, RawHTML } from '@wordpress/element';
-import { PluginDocumentSettingPanel } from '@wordpress/edit-post';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { __, _n, sprintf } from '@wordpress/i18n';
 import {
@@ -10,6 +9,7 @@ import {
 	CheckboxControl,
 	Button,
 	Spinner,
+	PanelBody,
 } from '@wordpress/components';
 
 /**
@@ -142,10 +142,9 @@ const CoursePricingSidebar = () => {
 	}
 
 	return (
-		<PluginDocumentSettingPanel
-			className="sensei-wcpc-course-pricing"
-			name="sensei-wcpc-pricing"
+		<PanelBody
 			title={ __( 'Pricing', 'sensei-pro' ) }
+			className="sensei-wcpc-course-pricing"
 		>
 			<p>
 				{ __(
@@ -181,7 +180,7 @@ const CoursePricingSidebar = () => {
 				isFormActive={ isNewProductFormActive }
 				setFormActive={ setNewProductFormActive }
 			/>
-		</PluginDocumentSettingPanel>
+		</PanelBody>
 	);
 };
 

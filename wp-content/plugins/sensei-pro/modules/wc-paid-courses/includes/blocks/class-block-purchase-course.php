@@ -30,6 +30,13 @@ class Block_Purchase_Course {
 	private $render_take_course;
 
 	/**
+	 * Attributes of purchase block
+	 *
+	 * @var array
+	 */
+	private $attributes;
+
+	/**
 	 * Course product IDs.
 	 *
 	 * @var \WC_Product[]
@@ -148,9 +155,10 @@ class Block_Purchase_Course {
 	public function maybe_override_take_course_block( $attributes, $content ) {
 
 		global $post;
-		$this->course_id = $post->ID;
-		$this->products  = $this->get_purchasable_products();
-		$this->button    = $content;
+		$this->course_id  = $post->ID;
+		$this->products   = $this->get_purchasable_products();
+		$this->button     = $content;
+		$this->attributes = $attributes;
 
 		$user_has_membership = class_exists( 'Sensei_WC_Paid_Courses\Course_Enrolment_Providers\WooCommerce_Memberships' )
 			&& \Sensei_WC_Paid_Courses\Course_Enrolment_Providers\WooCommerce_Memberships::does_user_have_membership( get_current_user_id(), $this->course_id );
@@ -178,7 +186,7 @@ class Block_Purchase_Course {
 		}
 
 		if ( Sensei_WC::is_course_in_cart( $this->course_id ) ) {
-			return $this->course_in_cart();
+			return $this->wrap_in_sensei_wrapper( $this->course_in_cart() );
 		}
 
 		if ( empty( $this->products[0] ) ) {
@@ -191,7 +199,19 @@ class Block_Purchase_Course {
 			return '';
 		}
 
-		return $this->render_form();
+		return $this->wrap_in_sensei_wrapper( $this->render_form() );
+	}
+
+	/**
+	 * Wrap the html content in a sensei block wrapper div.
+	 *
+	 * @param string $content The html content.
+	 *
+	 * @return string Wrapped content.
+	 */
+	private function wrap_in_sensei_wrapper( $content ) {
+		$wrapper_attributes = get_block_wrapper_attributes( [ 'class' => 'sensei-block-wrapper sensei-cta' ] );
+		return '<div ' . $wrapper_attributes . '>' . $content . '</div>';
 	}
 
 	/**
@@ -247,9 +267,19 @@ class Block_Purchase_Course {
 		$button_text = esc_html__( 'Buy', 'sensei-pro' ) . ' - ' . $price;
 		$button_text = apply_filters( 'sensei_wc_paid_courses_add_to_cart_button_text', $button_text );
 		$button      = $this->render_button( $button_text );
+		$cart_url    = add_query_arg(
+			array_filter(
+				$_GET, // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				function( $key ) {
+					return 'add-to-cart' !== $key;
+				},
+				ARRAY_FILTER_USE_KEY
+			),
+			$product->add_to_cart_url()
+		);
 
 		return '
-			<form action="' . esc_url( $product->add_to_cart_url() ) . '" method="post" enctype="multipart/form-data">
+			<form action="' . esc_url( $cart_url ) . '" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="product_id" value="' . esc_attr( Sensei_WC_Utils::get_product_id( $product ) ) . '" />
 				<input type="hidden" name="quantity" value="1" />
 				' . $this->product_variation_fields( $product, true ) . '
@@ -263,12 +293,13 @@ class Block_Purchase_Course {
 	 * @return string Multiple products form HTML.
 	 */
 	private function render_multiple_products_form() {
-		$button = $this->render_button( esc_html__( 'Buy Course', 'sensei-pro' ) );
+		$button                  = $this->render_button( esc_html__( 'Buy Course', 'sensei-pro' ) );
+		$is_in_course_list_block = $this->attributes['isCourseListChild'] ?? false;
 
 		return '
-			<form method="post" enctype="multipart/form-data" class="multiple-products-form">
+			<form method="post" action="' . esc_url( get_permalink( $this->course_id ) ) . '" enctype="multipart/form-data" class="multiple-products-form">
 				<input type="hidden" name="quantity" value="1" />
-				' . $this->render_products() . '
+				' . ( $is_in_course_list_block ? '' : $this->render_products() ) . '
 				' . $button . '
 			</form>';
 	}

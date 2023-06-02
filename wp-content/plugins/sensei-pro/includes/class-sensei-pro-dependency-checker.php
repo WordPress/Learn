@@ -206,7 +206,7 @@ class Sensei_Pro_Dependency_Checker {
 		$plugin_not_loaded = version_compare( $this->hard_minimum_sensei_version, Sensei()->version, '>' );
 
 		// translators: %1$s is the minimum version number of Sensei that is required, %2$s is the detected version.
-		$message = sprintf( __( '<strong>Sensei Pro</strong> requires that the plugin <strong>Sensei LMS, version %1$s</strong> is installed and activated. Version detected: <strong>%2$s</strong>.', 'sensei-pro' ), $this->soft_minimum_sensei_version, Sensei()->version );
+		$message = sprintf( __( '<strong>Sensei Pro</strong> requires that the plugin <strong>Sensei LMS (minimum version %1$s)</strong> is installed and activated. Version detected: <strong>%2$s</strong>.', 'sensei-pro' ), $this->soft_minimum_sensei_version, Sensei()->version );
 		if ( $plugin_not_loaded ) {
 			$message .= ' <strong>' . __( 'All features provided by Sensei Pro, including paid courses, will not work until Sensei LMS is updated.', 'sensei-pro' ) . '</strong>';
 		}

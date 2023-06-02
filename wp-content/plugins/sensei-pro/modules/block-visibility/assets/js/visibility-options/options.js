@@ -16,3 +16,5 @@ export const optionsMap = options.reduce(
  */
 export const emptyOption =
 	window.sensei?.blockVisibility?.emptyType || 'EVERYONE';
+
+export const screenId = window.sensei?.blockVisibility?.screenId || null;

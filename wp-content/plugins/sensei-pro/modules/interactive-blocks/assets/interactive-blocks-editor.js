@@ -32,6 +32,7 @@ import timelineBlock from './interactive-video/timeline-block';
 import './flashcard-block';
 import './hotspots-block';
 import './tasklist-block';
+import './accordion';
 
 updateCategory( 'sensei-lms', {
 	icon: <SenseiIcon width="20" height="20" />,

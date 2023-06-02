@@ -81,6 +81,24 @@ class Course_Expiration_Notification_Recurring_Job implements Cron_Job {
 			return;
 		}
 
+		$remaining_days_notifications = self::get_remaining_days_for_notifications();
+
+		foreach ( $remaining_days_notifications as $days ) {
+			$job = new self( [ 'remaining_days' => $days ] );
+			Scheduler::instance()->schedule_cron_job( $job );
+		}
+	}
+
+	/**
+	 * Get the remaining days notifications.
+	 *
+	 * @since 1.12.0
+	 *
+	 * @internal
+	 *
+	 * @return int[]
+	 */
+	public static function get_remaining_days_for_notifications() {
 		/**
 		 * Remaining days notifications.
 		 * If you filter this, remember to remove the notification jobs you don't want anymore.
@@ -93,12 +111,7 @@ class Course_Expiration_Notification_Recurring_Job implements Cron_Job {
 		 *
 		 * @return {int[]} The remaining days to send notification.
 		 */
-		$remaining_days_notifications = apply_filters( 'sensei_wc_paid_courses_expiration_remaining_days_notifications', [ 0, 3, 7 ] );
-
-		foreach ( $remaining_days_notifications as $days ) {
-			$job = new self( [ 'remaining_days' => $days ] );
-			Scheduler::instance()->schedule_cron_job( $job );
-		}
+		return apply_filters( 'sensei_wc_paid_courses_expiration_remaining_days_notifications', [ 0, 3, 7 ] );
 	}
 
 	/**

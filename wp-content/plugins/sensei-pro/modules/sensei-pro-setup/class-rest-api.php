@@ -72,7 +72,7 @@ class Rest_Api extends \WP_REST_Controller {
 				[
 					'methods'             => \WP_REST_Server::CREATABLE,
 					'callback'            => [ $this, 'activate_license' ],
-					'permission_callback' => [ $this, 'check_user_can_install_plugins' ],
+					'permission_callback' => [ $this, 'check_user_is_administrator' ],
 					'args'                => [
 						'license_key' => [
 							'type'     => 'string',
@@ -141,13 +141,21 @@ class Rest_Api extends \WP_REST_Controller {
 	}
 
 	/**
-	 * Check if the current user has permission to activate a license
-	 * for the given plugin.
+	 * Check if the current user has permission to install plugins.
 	 *
 	 * @return bool|\WP_Error
 	 */
 	public function check_user_can_install_plugins() {
 		return current_user_can( 'install_plugins' );
+	}
+
+	/**
+	 * Check if current user is an administrator.
+	 *
+	 * @return bool|\WP_Error
+	 */
+	public function check_user_is_administrator() {
+		return current_user_can( 'manage_options' );
 	}
 
 	/**

@@ -10,7 +10,10 @@ import { useCallback } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 import { createHigherOrderComponent } from '@wordpress/compose';
 import { addFilter } from '@wordpress/hooks';
-import { InspectorControls } from '@wordpress/block-editor';
+import {
+	InspectorControls,
+	store as blockEditorStore,
+} from '@wordpress/block-editor';
 import { PanelBody } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
@@ -58,14 +61,6 @@ const withVisibilitySupport = createHigherOrderComponent(
 	( BlockEdit ) => ( props ) => {
 		const { setAttributes, attributes } = props;
 
-		const currentPostType = useSelect( ( select ) => {
-			return select( 'core/editor' ).getCurrentPostType();
-		} );
-
-		// If it's not a lesson or course post then it does not get a visibility options.
-		const isLessonOrCoursePost = [ 'lesson', 'course' ].includes(
-			currentPostType
-		);
 		const excludedBlocks = [
 			'sensei-lms/conditional-content',
 			'sensei-lms/quiz',
@@ -76,12 +71,11 @@ const withVisibilitySupport = createHigherOrderComponent(
 			'sensei-lms/quiz-question-feedback-incorrect',
 			'sensei-lms/question-answers',
 			'sensei-lms/course-progress',
-			'sensei-lms/course-outline',
 			'sensei-lms/course-outline-module',
 			'sensei-lms/course-outline-lesson',
 		];
 		const excludedParentBlockIds = useSelect( ( select ) =>
-			select( 'core/block-editor' ).getBlockParentsByBlockName(
+			select( blockEditorStore ).getBlockParentsByBlockName(
 				props.clientId,
 				excludedBlocks
 			)
@@ -133,7 +127,7 @@ const withVisibilitySupport = createHigherOrderComponent(
 		return (
 			<>
 				<BlockEdit { ...props } />
-				{ isLessonOrCoursePost && isNotExcludedBlock && (
+				{ isNotExcludedBlock && (
 					<>
 						<InspectorControls key="sensei-visibility">
 							<PanelBody

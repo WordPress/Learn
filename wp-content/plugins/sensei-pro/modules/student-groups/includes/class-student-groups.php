@@ -19,6 +19,7 @@ use Sensei_Pro_Student_Groups\Rest_Api\Controllers\Group_Courses_Controller;
 use Sensei_Pro_Student_Groups\Rest_Api\Controllers\Group_Students_Controller;
 use Sensei_Pro_Student_Groups\Rest_Api\Controllers\Groups_Controller;
 use Sensei_Pro_Student_Groups\Rest_Api\Controllers\WP_REST_Groups_Controller;
+use Sensei_Pro_Student_Groups\Students\Group_Bulk_Actions;
 use Sensei_Pro_Student_Groups\View\Student_Groups_View;
 use WP_Post;
 
@@ -251,6 +252,9 @@ class Student_Groups {
 
 		// Init the group reports.
 		Group_Reports::instance()->init();
+
+		// Init the group related bulk actions.
+		Group_Bulk_Actions::instance()->init();
 	}
 
 	/**
@@ -432,6 +436,7 @@ class Student_Groups {
 		require_once $this->ssg_dir . '/includes/enrolment/class-providers.php';
 		require_once $this->ssg_dir . '/includes/enrolment/class-enrolment-handler.php';
 		require_once $this->ssg_dir . '/includes/reports/class-group-reports.php';
+		require_once $this->ssg_dir . '/includes/students/class-group-bulk-actions.php';
 	}
 
 	/**
@@ -641,6 +646,10 @@ class Student_Groups {
 				$this->assets->enqueue_component( 'add-courses-to-group', [ 'wp-components' ], [ 'wp-components' ] );
 			}
 		}
+
+		if ( 'sensei-lms_page_sensei_learners' === $screen->id ) {
+			$this->assets->enqueue_component( 'student-management-bulk-actions', [ 'wp-hooks' ], [], false );
+		}
 	}
 
 	/**
@@ -720,8 +729,15 @@ class Student_Groups {
 		// so we won't have control over which menu item gets highlighted. Deifining
 		// the parent slug makes sure when this page is rendered, the parent menu item
 		// will be highlighted.
+
+		// We're removing the parent slug when the page is not the actual Group Students
+		// so that it doesn't show up in the Calypso menu.
+		global $pagenow;
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$parent_slug = ( 'admin.php' === $pagenow && isset( $_GET['page'] ) && 'student_groups' === $_GET['page'] ) ? 'sensei' : '';
+
 		add_submenu_page(
-			'sensei',
+			$parent_slug,
 			'Group Students',
 			'Group Students',
 			'edit_courses',

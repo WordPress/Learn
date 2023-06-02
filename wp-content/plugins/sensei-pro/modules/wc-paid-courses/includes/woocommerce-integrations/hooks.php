@@ -50,6 +50,9 @@ add_filter( 'sensei_is_login_required', [ 'Sensei_WC', 'require_login_for_paid_c
 // show a notice if the user has already added the current course to their cart.
 add_action( 'sensei_single_course_content_inside_before', [ 'Sensei_WC', 'course_in_cart_message' ], 20 );
 
+// Disable open access if the course is paid.
+add_filter( 'sensei_course_open_access', [ 'Sensei_WC', 'course_no_open_access_if_paid_course' ], 10, 2 );
+
 /******************************
  *
  * No Permissions Template
@@ -82,8 +85,6 @@ if ( \Sensei_WC_Paid_Courses\Course_Enrolment_Providers::use_legacy_enrolment_me
 
 // Disable guest checkout if a course is in the cart as we need a valid user to store data for.
 add_filter( 'pre_option_woocommerce_enable_guest_checkout', [ 'Sensei_WC', 'disable_guest_checkout' ] );
-// Mark orders with virtual products as complete rather then stay processing.
-add_filter( 'woocommerce_payment_complete_order_status', [ 'Sensei_WC', 'virtual_order_payment_complete' ], 10, 2 );
 
 /************************************
  *
