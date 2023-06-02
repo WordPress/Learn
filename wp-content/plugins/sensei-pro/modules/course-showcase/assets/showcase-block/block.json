@@ -1,0 +1,13 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "sensei-pro/showcase",
+  "title": "Showcase",
+  "description": "Course details to be listed in senseilms.com.",
+  "supports": {
+    "html": false,
+    "inserter": false,
+    "reusable": false
+  },
+  "textdomain": "sensei-pro"
+}

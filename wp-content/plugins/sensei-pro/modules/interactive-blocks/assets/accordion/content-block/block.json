@@ -1,0 +1,41 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "sensei-lms/accordion-content",
+	"title": "Content",
+	"parent": ["sensei-lms/accordion-section"],
+	"description": "The accordion section content.",
+	"category": "sensei-lms",
+	"textdomain": "sensei-pro",
+	"keywords": [],
+	"attributes": {
+		"content": {
+			"type": "string"
+		}
+	},
+	"supports": {
+    "sensei": {
+      "frontend": true,
+      "blockId": true
+    },
+		"html": false,
+		"anchor": true,
+		"color": {
+			"background": true,
+			"enableContrastChecker": true,
+			"gradients": true,
+			"text": true
+		},
+		"spacing": {
+			"margin": true,
+			"padding": true
+		},
+		"blockGap": ["horizontal", "vertical"],
+		"__experimentalBorder": true,
+		"border": true,
+		"alignWide": true,
+		"typography": {
+			"__experimentalFontFamily": true
+		}
+	}
+}

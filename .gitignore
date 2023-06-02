@@ -1,4 +1,5 @@
 # Global.
+.idea
 /**/.DS_STORE
 /**/node_modules
 /vendor
