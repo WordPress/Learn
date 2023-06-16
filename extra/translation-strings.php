@@ -225,6 +225,8 @@ _x( 'file', 'Included Content term name', 'wporg-learn' );
 _x( 'full site editing', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/group-block/ */
 _x( 'group block', 'Included Content term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/wporg_included_content/headings-block/ */
+_x( 'headings block', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/image/ */
 _x( 'image', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/import/ */
@@ -333,8 +335,6 @@ _x( 'tags', 'Included Content term name', 'wporg-learn' );
 _x( 'template editing mode', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/theme-editor/ */
 _x( 'theme editor', 'Included Content term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/wporg_included_content/themes/ */
-_x( 'themes', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/topic/block-development/ */
 _x( 'Block Development', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/topic/block-editor/ */
