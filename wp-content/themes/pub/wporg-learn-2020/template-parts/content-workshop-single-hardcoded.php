@@ -21,7 +21,7 @@ $other_contributors = array_map(
 );
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<section>
+	<div>
 		<div class="row align-middle between section-heading section-heading--with-space">
 			<h1 class="section-heading_title h2"><?php the_title(); ?></h1>
 		</div>
@@ -71,5 +71,5 @@ $other_contributors = array_map(
 				</section>
 			<?php endif; ?>
 		</div>
-	</section>
+	</div>
 </article>

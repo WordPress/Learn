@@ -11,7 +11,7 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-	<section>
+	<div>
 		<header class="row align-middle between section-heading section-heading--with-space">
 			<h1 class="section-heading_title h2"><?php the_title(); ?></h1>
 		</header>
@@ -54,7 +54,7 @@
 			}
 			?>
 		</div>
-	</section>
+	</div>
 
 	<?php if ( is_object_in_term( get_the_ID(), 'wporg_lesson_plan_series' ) ) : ?>
 		<hr class="wp-block-separator" />
