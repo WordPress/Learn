@@ -6,7 +6,6 @@ import { intersection } from 'lodash';
 /**
  * WordPress dependencies
  */
-import { useSelect } from '@wordpress/data';
 import { useCallback, useMemo } from '@wordpress/element';
 import { SelectControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
@@ -17,14 +16,37 @@ const excludeFrom = {
 		'NOT_COMPLETED_LESSON',
 		'GROUPS',
 		'SCHEDULE',
+		'LOGGED_IN',
+		'ENROLLED_TO_ANY_COURSE',
+		'NOT_ENROLLED_TO_ANY_COURSE',
+		'COMPLETED_ANY_COURSE',
+		'NOT_COMPLETED_ANY_COURSE',
 	],
-	lesson: [ 'GROUPS', 'SCHEDULE' ],
+	lesson: [
+		'GROUPS',
+		'SCHEDULE',
+		'LOGGED_IN',
+		'ENROLLED_TO_ANY_COURSE',
+		'NOT_ENROLLED_TO_ANY_COURSE',
+		'COMPLETED_ANY_COURSE',
+		'NOT_COMPLETED_ANY_COURSE',
+	],
+	'site-editor': [
+		'SCHEDULE',
+		'GROUPS',
+		'COMPLETED_LESSON',
+		'NOT_COMPLETED_LESSON',
+		'COMPLETED_COURSE',
+		'NOT_COMPLETED_COURSE',
+		'ENROLLED_TO_COURSE',
+		'NOT_ENROLLED_TO_COURSE',
+	],
 };
 
 /**
  * Internal dependencies
  */
-import { emptyOption, options, optionsMap } from './options';
+import { emptyOption, options, optionsMap, screenId } from './options';
 
 const userStatusValues = options.map( ( option ) => option.value );
 const getUserStatusValue = ( senseiVisibility = {} ) => {
@@ -54,17 +76,12 @@ export const UserStatus = ( props ) => {
 		[ onChange, attributes.senseiVisibility ]
 	);
 
-	const currentPostType = useSelect( ( select ) =>
-		select( 'core/editor' ).getCurrentPostType()
-	);
-
 	const userStatusOptions = useMemo(
 		() =>
 			options.filter(
-				( { value } ) =>
-					! excludeFrom[ currentPostType ].includes( value )
+				( { value } ) => ! excludeFrom[ screenId ].includes( value )
 			),
-		[ currentPostType ]
+		[ screenId ]
 	);
 
 	const value = getUserStatusValue( attributes.senseiVisibility );

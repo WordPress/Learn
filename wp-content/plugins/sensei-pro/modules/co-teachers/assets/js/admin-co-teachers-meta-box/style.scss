@@ -1,0 +1,33 @@
+#sensei-co-teachers-meta-box input[type="checkbox"]:checked {
+	background: #000;
+}
+
+#sensei-co-teachers-meta-box h3.co-teacher-header {
+	margin-top: 15px;
+	margin-left: 0;
+	padding-left: 0;
+	font-weight: bold;
+}
+
+// For an unknown reason, the build process is not loading the css file from the search-autocomplete component. It requires further investigation.
+// See also: `modules/student-groups/assets/js/add-courses-to-group/style.scss`
+.search-autocomplete {
+	position: relative;
+	&__icon {
+		position: absolute;
+		z-index: 2;
+		top: 10px;
+		left: 13px;
+		float: left;
+		vertical-align: baseline;
+	}
+	input:focus {
+		box-shadow: none;
+	}
+}
+
+.sensei-course-coteachers {
+	& &__header {
+		margin-top: 15px;
+	}
+}

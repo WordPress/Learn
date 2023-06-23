@@ -2,6 +2,8 @@
  * WordPress dependencies
  */
 import { useMemo, useState } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
+
 /**
  * Internal dependencies
  */
@@ -35,7 +37,7 @@ const CourseSelector = ( { onSelect, selectedCourses = [] } ) => {
 		<SearchAutoComplete
 			isLoading={ isLoading }
 			onSearch={ setTerm }
-			placeholder={ 'Search Courses' }
+			placeholder={ __( 'Search Courses', 'sensei-pro' ) }
 			options={ searchOptions }
 			onSelect={ ( option ) => onSelect( option.course ) }
 		/>

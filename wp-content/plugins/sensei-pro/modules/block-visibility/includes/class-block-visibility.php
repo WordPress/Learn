@@ -66,10 +66,9 @@ class Block_Visibility {
 	 * Enqueue assets.
 	 */
 	public function enqueue_assets() {
-		$screen    = get_current_screen();
-		$post_type = $screen->id;
+		$screen = get_current_screen();
 
-		if ( ! in_array( $post_type, [ 'course', 'lesson' ], true ) ) {
+		if ( ! in_array( $screen->id, [ 'course', 'lesson', 'site-editor' ], true ) ) {
 			return;
 		}
 

@@ -41,7 +41,7 @@ class Course_Helper {
 		}
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		if ( is_tax( 'module' ) && ! empty( $_GET['course_id'] ) && is_numeric( (int) $_GET['course_id'] ) ) {
+		if ( is_tax( 'module' ) && ! empty( $_GET['course_id'] ) && is_numeric( $_GET['course_id'] ) ) {
 		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- No form is submitted and argument is validated to be a number.
 			return (int) $_GET['course_id'];
 		}

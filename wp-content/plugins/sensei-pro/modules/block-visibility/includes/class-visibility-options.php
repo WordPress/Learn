@@ -18,8 +18,13 @@ require_once __DIR__ . '/visibility-types/class-enrolled-to-course.php';
 require_once __DIR__ . '/visibility-types/class-not-enrolled-to-course.php';
 require_once __DIR__ . '/visibility-types/class-completed-course.php';
 require_once __DIR__ . '/visibility-types/class-not-completed-course.php';
+require_once __DIR__ . '/visibility-types/class-enrolled-to-any-course.php';
+require_once __DIR__ . '/visibility-types/class-not-enrolled-to-any-course.php';
+require_once __DIR__ . '/visibility-types/class-completed-any-course.php';
+require_once __DIR__ . '/visibility-types/class-not-completed-any-course.php';
 require_once __DIR__ . '/visibility-types/class-completed-lesson.php';
 require_once __DIR__ . '/visibility-types/class-not-completed-lesson.php';
+require_once __DIR__ . '/visibility-types/class-logged-in.php';
 require_once __DIR__ . '/visibility-types/class-logged-out.php';
 require_once __DIR__ . '/visibility-types/class-groups.php';
 require_once __DIR__ . '/visibility-types/class-schedule.php';
@@ -75,9 +80,14 @@ class Visibility_Options {
 			new Types\Not_Completed_Course(),
 			new Types\Completed_Lesson(),
 			new Types\Not_Completed_Lesson(),
+			new Types\Logged_In(),
 			new Types\Logged_Out(),
 			new Types\Groups(),
 			new Types\Schedule(),
+			new Types\Enrolled_To_Any_Course(),
+			new Types\Not_Enrolled_To_Any_Course(),
+			new Types\Completed_Any_Course(),
+			new Types\Not_Completed_Any_Course(),
 		];
 
 		foreach ( $visibility_types as $visibility_type ) {
@@ -138,6 +148,7 @@ class Visibility_Options {
 			[
 				'options'   => $this->get_visibility_options(),
 				'emptyType' => $this->empty_type->name(),
+				'screenId'  => get_current_screen()->id,
 			]
 		);
 

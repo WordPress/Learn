@@ -646,7 +646,13 @@ class WooCommerce_Memberships
 	 * @param bool $restore_users  If enabled, users that have been previously removed from the course will be restored.
 	 */
 	private function invalidate_user_plan_enrolments( $user_id, $plan_id, $restore_users = false ) {
-		// Clear cache for this User and Plan.
+		// Clear post cache for the membership before recalculating enrolments.
+		$membership = wc_memberships_get_user_membership( $user_id, $plan_id );
+		if ( $membership ) {
+			clean_post_cache( $membership );
+		}
+
+		// Clear WC Memberships cache for this User and Plan.
 		wc_memberships_is_user_active_or_delayed_member( $user_id, $plan_id, false );
 
 		// Bypass Membership cache for this User and Plan in this request.

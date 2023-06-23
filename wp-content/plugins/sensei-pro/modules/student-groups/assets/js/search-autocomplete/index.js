@@ -7,7 +7,7 @@ import Select, { components } from 'react-select';
  * WordPress dependencies
  */
 import { Icon, search as searchIcon } from '@wordpress/icons';
-import { useState, useCallback } from '@wordpress/element';
+import { useState, useCallback, useRef, useEffect } from '@wordpress/element';
 import { TextHighlight } from '@wordpress/components';
 
 /**
@@ -81,10 +81,18 @@ const SearchAutoComplete = ( {
 	const [ value ] = useState( null );
 	const [ inputValue, setInputValue ] = useState( '' );
 
+	// Keep mounted status to avoid state updates on unmounted components.
+	const isMounted = useRef( true );
+	useEffect( () => {
+		return () => {
+			isMounted.current = false;
+		};
+	}, [] );
+
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const handleSearch = useCallback(
 		debounce( ( term ) => {
-			if ( term.length > 0 ) {
+			if ( isMounted.current ) {
 				setInputValue( term );
 				onSearch( term );
 			}
@@ -99,9 +107,16 @@ const SearchAutoComplete = ( {
 		[ onSelect ]
 	);
 
-	// it is important because the input onBlur event is bubbling to the modals component, closing it unexpected.
 	const handleBlur = ( event ) => {
+		// Important because the input onBlur event is bubbling to the modals component, closing it unexpectedly.
 		event.stopPropagation();
+
+		// Reset search and input value.
+		if ( inputValue !== '' ) {
+			setInputValue( '' );
+			onSearch( '' );
+		}
+
 		if ( onBlur ) onBlur();
 	};
 

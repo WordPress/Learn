@@ -49,6 +49,8 @@ final class Sensei_Pro {
 	public static function init() {
 		$instance = self::instance();
 
+		add_action( 'init', [ $instance, 'load_textdomain' ], 0 );
+
 		$skip_plugin_deps_check = defined( 'SENSEI_PRO_SKIP_DEPS_CHECK' ) && SENSEI_PRO_SKIP_DEPS_CHECK;
 
 		if ( ! $skip_plugin_deps_check && ! \Sensei_Pro_Dependency_Checker::are_plugin_dependencies_met() ) {
@@ -74,6 +76,13 @@ final class Sensei_Pro {
 	}
 
 	/**
+	 * Load the plugin textdomain.
+	 */
+	public function load_textdomain() {
+		load_plugin_textdomain( 'sensei-pro', false, dirname( plugin_basename( $this->plugin_dir ) ) . '/lang' );
+	}
+
+	/**
 	 * Get the list of modules.
 	 *
 	 * @return array
@@ -81,6 +90,7 @@ final class Sensei_Pro {
 	private function modules() {
 		return [
 			'shared-module', // Shared module must be loaded first since other modules may depend on it.
+			'tracking',
 			'senseilms-licensing',
 			'wc-paid-courses',
 			'content-drip',
@@ -89,9 +99,13 @@ final class Sensei_Pro {
 			'interactive-blocks',
 			'student-groups',
 			'premium-patterns',
+			'co-teachers',
 			'block-visibility',
 			'premium-templates',
 			'sensei-pro-home',
+			'glossary',
+			'course-showcase',
+			'sensei-pro-ai',
 		];
 	}
 

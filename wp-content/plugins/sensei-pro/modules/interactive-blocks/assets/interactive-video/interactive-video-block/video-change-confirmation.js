@@ -18,7 +18,7 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
-import usePrevious from '../use-previous';
+import usePrevious from 'shared-module/use-previous';
 
 /**
  * Hook that displays confirmation when trying to change the video.

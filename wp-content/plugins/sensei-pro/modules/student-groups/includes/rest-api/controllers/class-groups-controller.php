@@ -8,10 +8,12 @@
 
 namespace Sensei_Pro_Student_Groups\Rest_Api\Controllers;
 
-use \WP_REST_Controller;
-use \WP_REST_Response;
-use \WP_REST_Server;
-use \WP_Error;
+use WP_Post;
+use WP_Query;
+use WP_REST_Controller;
+use WP_REST_Response;
+use WP_REST_Server;
+use WP_Error;
 
 /**
  * Student groups controller class.
@@ -88,7 +90,7 @@ class Groups_Controller extends WP_REST_Controller {
 		$params     = $request->get_params();
 		$group_name = $params['name'];
 
-		if ( get_page_by_title( $group_name, OBJECT, 'group' ) ) {
+		if ( $this->get_group_by_name( $group_name ) ) {
 			return new WP_Error(
 				'sensei_duplicate_group_name',
 				__( 'A group with this name already exists.', 'sensei-pro' ),
@@ -164,8 +166,7 @@ class Groups_Controller extends WP_REST_Controller {
 		$group_id   = (int) $params['group_id'];
 		$group_name = $params['name'];
 
-		$existing_group = get_page_by_title( $group_name, OBJECT, 'group' );
-
+		$existing_group = $this->get_group_by_name( $group_name );
 		if ( $existing_group && $existing_group->ID !== $group_id ) {
 			return new WP_Error(
 				'sensei_duplicate_group_name',
@@ -273,6 +274,26 @@ class Groups_Controller extends WP_REST_Controller {
 		}
 
 		return current_user_can( $delete_group_cap, $params['group_id'] );
+	}
+
+	/**
+	 * Get the group post by name.
+	 *
+	 * @param string $name The group name.
+	 *
+	 * @return WP_Post|null
+	 */
+	private function get_group_by_name( $name ): ?WP_Post {
+		$query = new WP_Query(
+			[
+				'post_type'      => 'group',
+				'post_status'    => 'any',
+				'posts_per_page' => 1,
+				'title'          => $name,
+			]
+		);
+
+		return $query->have_posts() ? $query->posts[0] : null;
 	}
 
 }

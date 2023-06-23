@@ -9,7 +9,7 @@ import classnames from 'classnames';
 /**
  * WordPress dependencies
  */
-import { useEffect, useCallback, useRef, Children } from '@wordpress/element';
+import { useEffect, useCallback, Children } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -20,7 +20,7 @@ import useBreakPointPositionStyle from './use-break-point-position-style';
 import { registerBlockFrontend } from '../../shared/block-frontend';
 import meta from './block.json';
 import { useContextFrontendPlayer } from '../frontend-player-context';
-import usePrevious from '../use-previous';
+import usePrevious from 'shared-module/use-previous';
 import ignorePersistedAttributes from '../../shared/ignore-persisted-attributes';
 import { selectors as parentSelector } from '../../shared/block-frontend/data/parents';
 import { selectors as attributeSelector } from '../../shared/block-frontend/data/attributes';
@@ -64,28 +64,6 @@ const renderBreakPointFooter = ( onClose ) => (
 );
 
 /**
- * Searches for iframes and videos inside the ref element and set the
- * "loading" attribute to "eager", forcing the element to be loaded even when
- * the breakpoint is not loaded yet.
- *
- * @return {Object} The ref attribute to pass to an HTML Element rendered by React.
- */
-const useEagerLoading = () => {
-	const ref = useRef();
-	useEffect( () => {
-		if ( ! ref.current ) {
-			return;
-		}
-		ref.current
-			.querySelectorAll( 'iframe, video' )
-			.forEach( ( element ) => {
-				element.setAttribute( 'loading', 'eager' );
-			} );
-	} );
-	return ref;
-};
-
-/**
  * Component to render content of the break point. If isModalOpen is true, it
  * will render the Modal component. If it is false, it will render a hidden
  * container.
@@ -118,15 +96,6 @@ const BreakPointContent = ( {
 	const onCloseCallback = isModalOpen ? onClose : () => {};
 	const extraContentProps = { [ BLOCK_ID_ATTRIBUTE ]: blockId };
 
-	// On browsers that support the "loading" attribute (like Chrome, for instance),
-	// the value "lazy" means that it will only effectively load the element
-	// when the element is visible on the screen, which means the "registerVideo"
-	// function is not called until the modal is visible.
-	// So, because of this, we need to change the value of the attribute to
-	// "eager" - which is the default value anyway - to force the browser into
-	// loading the iframe and calling "registerVideo" properly.
-	const ref = useEagerLoading();
-
 	// We need to force rendering the children because otherwise the
 	// required blocks logic will not detect them, which can be very
 	// confusing.
@@ -138,7 +107,7 @@ const BreakPointContent = ( {
 			onClose={ onCloseCallback }
 			renderFooter={ renderBreakPointFooter }
 		>
-			<div className="entry-content" ref={ ref } { ...extraContentProps }>
+			<div className="entry-content" { ...extraContentProps }>
 				{ children }
 			</div>
 		</Modal>

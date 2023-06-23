@@ -74,7 +74,7 @@ class License_Manager {
 		// Get domain.
 		$domain = self::get_domain();
 		// Get license from option.
-		$license_key = get_option( self::LICENSE_KEY_OPTION_PREFIX . $plugin_slug, null );
+		$license_key = get_site_option( self::LICENSE_KEY_OPTION_PREFIX . $plugin_slug, null );
 		if ( ! is_null( $license_key ) ) {
 			// Get response from cache.
 			$remote = get_transient( self::CACHE_KEY_PREFIX . $plugin_slug );
@@ -122,7 +122,7 @@ class License_Manager {
 	 * @param string $plugin_slug  The plugin slug.
 	 * @param string $license_key  The license key given by the user.
 	 *
-	 * @return array|false Pass through the API response from the licensing server, or return false on error.
+	 * @return \stdClass|false Pass through the API response from the licensing server, or return false on error.
 	 */
 	public static function activate_license( $plugin_slug, $license_key ) {
 		// Assume error unless told otherwise.
@@ -148,7 +148,7 @@ class License_Manager {
 			$response = json_decode( wp_remote_retrieve_body( $remote ) );
 			if ( isset( $response->success ) ) {
 				if ( $response->success ) {
-					update_option( self::LICENSE_KEY_OPTION_PREFIX . $plugin_slug, $license_key );
+					update_site_option( self::LICENSE_KEY_OPTION_PREFIX . $plugin_slug, $license_key );
 				}
 			}
 		}
@@ -175,7 +175,8 @@ class License_Manager {
 	 * @return string
 	 */
 	private static function get_domain() {
-		$urlparts = wp_parse_url( home_url() );
+		$site_url = is_multisite() ? network_site_url() : site_url();
+		$urlparts = wp_parse_url( $site_url );
 		$domain   = $urlparts['host'];
 
 		return strtolower( sanitize_text_field( $domain ) );

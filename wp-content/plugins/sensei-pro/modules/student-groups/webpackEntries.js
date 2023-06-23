@@ -7,4 +7,5 @@ module.exports = {
 	'add-courses-to-group': 'js/add-courses-to-group',
 	'group-students-page': 'js/group-students-page.js',
 	'group-students-bulk-actions': 'js/group-students-bulk-actions',
+	'student-management-bulk-actions': 'js/students',
 };

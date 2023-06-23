@@ -109,6 +109,7 @@ class Interactive_Blocks {
 		new Hotspots_Block();
 		new TaskList_Block();
 		new Interactive_Video_Block();
+		new Accordion_Block();
 	}
 
 	/**
@@ -163,7 +164,17 @@ class Interactive_Blocks {
 	 */
 	public function enqueue_frontend_assets() {
 
-		$blocks        = [ 'sensei-pro/question', 'sensei-pro/flashcard', 'sensei-pro/hotspots', 'sensei-pro/task-list', 'sensei-pro/interactive-video', 'core/video', 'core/embed' ];
+		$blocks = [
+			'sensei-pro/question',
+			'sensei-pro/flashcard',
+			'sensei-lms/accordion',
+			'sensei-pro/hotspots',
+			'sensei-pro/task-list',
+			'sensei-pro/interactive-video',
+			'core/video',
+			'core/embed',
+		];
+
 		$has_any_block = false;
 		$post          = get_post();
 
@@ -206,6 +217,7 @@ class Interactive_Blocks {
 	 * Include required files.
 	 */
 	private function include_dependencies() {
+		include_once __DIR__ . '/blocks/class-accordion-block.php';
 		include_once __DIR__ . '/blocks/class-question-block.php';
 		include_once __DIR__ . '/blocks/class-flashcard-block.php';
 		include_once __DIR__ . '/blocks/class-hotspots-block.php';

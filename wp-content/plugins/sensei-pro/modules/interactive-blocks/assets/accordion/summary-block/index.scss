@@ -1,0 +1,68 @@
+$block: "sensei-lms-accordion-summary";
+
+.wp-block-#{$block} {
+	display: flex;
+	align-items: center;
+	list-style-type: none;
+	padding: 0;
+
+	padding-top: 20px;
+	padding-bottom: 20px;
+
+	&__title {
+		color: currentColor;
+		margin: 0;
+		padding: 0 !important;
+		font-family: inherit;
+
+		display: inline-flex;
+		flex-grow: 1;
+		align-items: center;
+		cursor: pointer;
+
+	}
+
+	&.has-custom-font-size &__title {
+		font-size: inherit;
+	}
+
+	&__toggle {
+		cursor: pointer;
+		background-color: transparent;
+		border: none;
+		color: currentColor;
+		width: 20px;
+		height: 34px;
+		margin-left: 16px;
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		padding: 0;
+
+		svg {
+			cursor: pointer;
+			transform: rotate(-180deg);
+			transition: 0.2s transform ease-in-out;
+			fill: currentColor;
+		}
+	}
+
+	@at-root .editor-styles-wrapper .wp-block-post-content .wp-block-#{$block} {
+
+		&__title {
+			cursor: text;
+			font-family: inherit;
+		}
+
+		& > svg {
+			cursor: pointer;
+		}
+	}
+
+	@at-root details.wp-block-sensei-lms-accordion-section--open .wp-block-#{$block} {
+		&__toggle svg {
+			transform: rotate(0);
+		}
+	}
+}
+

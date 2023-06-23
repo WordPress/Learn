@@ -76,6 +76,30 @@ class Premium_Templates {
 
 		add_filter( 'sensei_learning_mode_block_templates', [ $instance, 'update_pro_templates' ] );
 		add_action( 'sensei_course_learning_mode_load_theme', [ $instance, 'enqueue_learning_mode_pro_styles' ] );
+
+		// register admin styles.
+		add_action( 'admin_enqueue_scripts', [ $instance, 'add_editor_styles' ] );
+
+	}
+
+	/**
+	 * Enqueue Learning Mode styles in the admin for the Site Editor and Lesson Editor.
+	 */
+	public function add_editor_styles() {
+		if ( ! is_admin() || ! function_exists( 'get_current_screen' ) ) {
+			return;
+		}
+
+		$screen           = get_current_screen();
+		$is_lesson_editor = 'lesson' === $screen->post_type && 'post' === $screen->base;
+		$is_site_editor   = 'site-editor' === $screen->id;
+
+		if ( $is_lesson_editor || $is_site_editor ) {
+			$this->assets->enqueue(
+				'learning-mode-pro-editor-styles',
+				'learning-mode-pro.editor.css'
+			);
+		}
 	}
 
 	/**

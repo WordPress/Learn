@@ -2070,9 +2070,12 @@ class Sensei_WC {
 	 * @param string $order_status Order Status.
 	 * @param int    $order_id Order ID.
 	 *
+	 * @deprecated 1.11.0
+	 *
 	 * @return string
 	 **/
 	public static function virtual_order_payment_complete( $order_status, $order_id ) {
+		_deprecated_function( __METHOD__, '1.11.0' );
 
 		$order = wc_get_order( $order_id );
 
@@ -2482,6 +2485,19 @@ class Sensei_WC {
 		}
 
 		return $purchased_course_data;
+	}
+
+
+	/**
+	 * Disable open access if the course is paid.
+	 *
+	 * @param boolean $is_open   Open access setting for the course.
+	 * @param int     $course_id Course ID.
+	 *
+	 * @return bool
+	 */
+	public static function course_no_open_access_if_paid_course( $is_open, $course_id ) {
+		return ! self::is_course_purchasable( $course_id ) && $is_open;
 	}
 
 	/**

@@ -118,7 +118,6 @@ class Course_Expiration_Notification_Job implements Completable_Job {
 		);
 
 		$this->is_complete = count( $results ) < $this->batch_size;
-		$email             = new Course_Expiration_Email( $this->remaining_days );
 
 		foreach ( $results as $item ) {
 			$user_id   = intval(
@@ -131,7 +130,18 @@ class Course_Expiration_Notification_Job implements Completable_Job {
 			$course_id = intval( $item->post_id );
 
 			// Send email.
-			$email->send( $user_id, $course_id );
+			/**
+			 * Action to send the course expiration email.
+			 * The dynamic portion of the hook name, `$this->remaining_days`, refers to the number of days until the course expires.
+			 *
+			 * @since 1.12.0
+			 *
+			 * @hook sensei_pro_course_expiration_{$this->remaining_days}_days_mail
+			 *
+			 * @param {int} $user_id   The user ID.
+			 * @param {int} $course_id The course ID.
+			 */
+			do_action( "sensei_pro_course_expiration_{$this->remaining_days}_days_mail", $user_id, $course_id );
 
 			$this->last_item = intval( $item->meta_id );
 		}

@@ -14,6 +14,7 @@ use Sensei_Pro_Course_Expiration\Background_Jobs\Course_Expiration_Job;
 use Sensei_Pro_Course_Expiration\Background_Jobs\Course_Expiration_Recurring_Job;
 use Sensei_Pro_Course_Expiration\Background_Jobs\Course_Expiration_Notification_Job;
 use Sensei_Pro_Course_Expiration\Background_Jobs\Course_Expiration_Notification_Recurring_Job;
+use Sensei_Pro_Course_Expiration\Emails\Setup_Emails;
 use Sensei_WC_Paid_Courses\Sensei_WC_Paid_Courses;
 use DateInterval;
 use DateTimeImmutable;
@@ -141,6 +142,7 @@ class Course_Expiration {
 		Course_Expiration_Recurring_Job::init();
 		Course_Expiration_Notification_Job::init();
 		Course_Expiration_Notification_Recurring_Job::init();
+		Setup_Emails::instance()->init();
 	}
 
 	/**
@@ -150,7 +152,11 @@ class Course_Expiration {
 	 */
 	private function include_dependencies() {
 		// Emails.
+		if ( class_exists( 'Sensei\Internal\Emails\Generators\Email_Generators_Abstract' ) ) {
+			include_once $this->module_dir . '/includes/emails/generators/class-course-expiration-email-generator.php';
+		}
 		include_once $this->module_dir . '/includes/emails/class-course-expiration-email.php';
+		include_once $this->module_dir . '/includes/emails/class-setup-emails.php';
 
 		// Background jobs.
 		include_once $this->module_dir . '/includes/background-jobs/class-course-expiration-job.php';
@@ -493,7 +499,7 @@ class Course_Expiration {
 			$expiration_datetime = $this->get_user_expiration_datetime( $user_id, $course_id );
 
 			if ( null !== $expiration_datetime ) {
-				return [ sprintf( $expired_format, $expiration_datetime->format( __( 'M d, Y', 'sensei-pro' ) ) ), 'expired' ];
+				return [ sprintf( $expired_format, $this->get_formatted_date( $expiration_datetime ) ), 'expired' ];
 			}
 		}
 
@@ -535,7 +541,7 @@ class Course_Expiration {
 
 		return null === $future_date_format
 			? null
-			: [ sprintf( $future_date_format, $expiration_datetime->format( __( 'M d, Y', 'sensei-pro' ) ) ), 'future' ];
+			: [ sprintf( $future_date_format, $this->get_formatted_date( $expiration_datetime ) ), 'future' ];
 	}
 
 	/**
@@ -551,7 +557,17 @@ class Course_Expiration {
 	private function get_not_started_message( int $user_id, int $course_id, string $message ) {
 		$start_date = $this->get_user_start_datetime( $user_id, $course_id );
 
-		return $start_date ? [ sprintf( $message, $start_date->format( __( 'M d, Y', 'sensei-pro' ) ) ), 'expired' ] : null;
+		return $start_date ? [ sprintf( $message, $this->get_formatted_date( $start_date ) ), 'expired' ] : null;
+	}
+
+	/**
+	 * Return formatted date.
+	 *
+	 * @param \DateTimeInterface $datetime Date time.
+	 * @return string Formatted date.
+	 */
+	private function get_formatted_date( \DateTimeInterface $datetime ): string {
+		return wp_date( __( 'M d, Y', 'sensei-pro' ), $datetime->getTimestamp() );
 	}
 
 	/**

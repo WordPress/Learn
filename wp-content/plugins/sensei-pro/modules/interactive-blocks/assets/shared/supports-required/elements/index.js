@@ -38,6 +38,7 @@ export const CompletedStatus = ( {
 			position="bottom-start"
 			disabled={ completed || ! showTooltip }
 			message={ message }
+			aria-label={ __( 'Status from the required block', 'sensei-pro' ) }
 			className={ classnames(
 				'sensei-supports-required__completed-status',
 				{

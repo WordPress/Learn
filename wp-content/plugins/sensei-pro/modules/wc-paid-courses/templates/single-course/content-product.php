@@ -13,6 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// phpcs:ignoreFile VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- This is a template.
+
 /**
  * Fires before outputting the opening div that contains the product.
  *

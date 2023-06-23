@@ -1,0 +1,24 @@
+$breakpoint: 783px;
+
+.sensei-course-theme,
+.editor-styles-wrapper {
+	.sensei-course-theme-utils {
+		&-hide-on-mobile {
+			display: none;
+
+			// Desktop
+			@media screen and (min-width: $breakpoint) {
+				display: revert;
+			}
+		}
+
+		&-hide-on-desktop {
+			display: revert;
+
+			// Desktop
+			@media screen and (min-width: $breakpoint) {
+				display: none;
+			}
+		}
+	}
+}

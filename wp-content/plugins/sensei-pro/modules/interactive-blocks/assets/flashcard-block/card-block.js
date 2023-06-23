@@ -24,6 +24,7 @@ import { useSyncHeight } from './use-sync-height';
 import { ReactComponent as icon } from '../icons/flashcard-block.svg';
 import { example } from './example';
 import { CompletedStatus } from '../shared/supports-required/elements';
+import deprecated from './deprecated';
 
 const useInnerBlocksProps =
 	stableUseInnerBlocksProps ?? __experimentalUseInnerBlocksProps;
@@ -77,6 +78,7 @@ export const CardBlock = {
 	keywords: [
 		__( 'sensei', 'sensei-pro' ),
 		__( 'flash card', 'sensei-pro' ),
+		// translators: verb + noun, refers to an action of flipping a card.
 		__( 'flip card', 'sensei-pro' ),
 		__( 'flip box', 'sensei-pro' ),
 	],
@@ -132,6 +134,7 @@ export const CardBlock = {
 			</CardWrapper>
 		);
 	},
+	deprecated,
 };
 
 /**

@@ -309,10 +309,10 @@ class WooCommerce_Simple
 	/**
 	 * Get the courses IDs that are provided by an order.
 	 *
-	 * @param \WC_Order $order
+	 * @param \WC_Order|OrderRefund $order
 	 * @return int[]
 	 */
-	private function get_order_courses( \WC_Order $order ) {
+	private function get_order_courses( $order ) {
 		$course_ids = [];
 
 		// Run through each product ordered.
@@ -415,12 +415,12 @@ class WooCommerce_Simple
 	/**
 	 * Check if the order has a product.
 	 *
-	 * @param \WC_Order $order       Order object.
-	 * @param int[]     $product_ids Product post IDs.
+	 * @param \WC_Order|WC_Order_Refund $order       Order / refunded order object.
+	 * @param int[]                     $product_ids Product post IDs.
 	 *
 	 * @return bool
 	 */
-	private function order_has_product( \WC_Order $order, $product_ids ) {
+	private function order_has_product( $order, $product_ids ) {
 		foreach ( $order->get_items() as $item ) {
 			if (
 				in_array( $item->get_product_id(), $product_ids, true )

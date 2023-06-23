@@ -186,8 +186,9 @@ class Access_Control {
 	 * @return bool
 	 */
 	public function is_access_blocked( int $user_id, int $course_id ): bool {
-		$cache_key = "student_groups_is_access_blocked_{$user_id}_{$course_id}";
-		$blocked   = wp_cache_get( $cache_key, 'sensei_pro', false, $cache_found );
+		$cache_key   = "student_groups_is_access_blocked_{$user_id}_{$course_id}";
+		$cache_found = false;
+		$blocked     = wp_cache_get( $cache_key, 'sensei_pro', false, $cache_found );
 
 		if ( $cache_found ) {
 			return $blocked;

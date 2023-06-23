@@ -137,6 +137,12 @@ class Group_Students_List_Table extends \Sensei_List_Table {
 			// phpcs:ignore WordPress.Security.NonceVerification
 			$user_query_args['filter_by_course_id'] = sanitize_text_field( wp_unslash( $_GET['filter_by_course_id'] ) );
 		}
+		// phpcs:ignore WordPress.Security.NonceVerification
+		if ( isset( $_GET['s'] ) ) {
+			// phpcs:ignore WordPress.Security.NonceVerification
+			$user_query_args['search'] = sanitize_text_field( wp_unslash( $_GET['s'] ) );
+		}
+
 		$result = $this->group_students_data_provider->get_items(
 			$user_query_args,
 			$this->group_id
@@ -172,7 +178,7 @@ class Group_Students_List_Table extends \Sensei_List_Table {
 			'email'              => $item['user_email'],
 			'courses'            => $this->get_learner_courses_html( $item['ID'] ),
 			'last_activity_date' => (
-				$item['last_activity_date']
+				isset( $item['last_activity_date'] )
 					? $this->format_last_activity_date( $item['last_activity_date'] )
 					: __( 'N/A', 'sensei-pro' )
 			),

@@ -300,6 +300,10 @@ class Scd_Ext_Access_Control {
 				$course_start_date = get_comment_meta( $activity->comment_ID, 'start', true );
 			}
 
+			// Define variables so linter stop complaining.
+			$user_course_start_date_string = 'now';
+			$timezone                      = null;
+
 			// Make sure there is a start date attached the users sensei_course_status comment data on the course.
 			if ( ! empty( $course_start_date ) ) {
 				$user_course_start_date_string = $course_start_date;
@@ -346,10 +350,18 @@ class Scd_Ext_Access_Control {
 			// See https://make.wordpress.org/core/2017/05/22/multisite-focused-changes-in-4-8/.
 			// And https://core.trac.wordpress.org/ticket/39205#comment:13.
 			// `upgrade_netrowk` is the new more granular way to check for super_admins.
-			return current_user_can( 'upgrade_network' );
+			$is_super_admin = current_user_can( 'upgrade_network' );
+		} else {
+			$is_super_admin = is_super_admin();
 		}
-
-		return is_super_admin();
+		/**
+		 * Filter sensei_pro_content_drip_is_super_admin
+		 *
+		 * @param boolean $is_super_admin
+		 *
+		 * Filter the boolean value returned. The value tells us if the user is a super admin or not.
+		 */
+		return apply_filters( 'sensei_pro_content_drip_is_super_admin', $is_super_admin );
 	}
 
 	/**

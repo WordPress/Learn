@@ -2,12 +2,12 @@
  * WordPress dependencies
  */
 import { __, sprintf } from '@wordpress/i18n';
-import { useState } from '@wordpress/element';
+import { createInterpolateElement, useState } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
-import { Button, Spinner } from '@wordpress/components';
-import { Icon, check, external } from '@wordpress/icons';
+import { Button, ExternalLink, Spinner } from '@wordpress/components';
+import { Icon, check } from '@wordpress/icons';
 
-const LicenseActivationForm = () => {
+const LicenseActivationForm = ( { isMultisite } ) => {
 	const [ isFetching, setIsFetching ] = useState( false );
 	const [ success, setSuccess ] = useState( null );
 	const [ errorMessage, setErrorMessage ] = useState( null );
@@ -18,6 +18,7 @@ const LicenseActivationForm = () => {
 		window.senseiHomeLicenseActivation.pluginSlug === 'sensei-pro'
 			? __( 'Sensei Pro', 'sensei-pro' )
 			: __( 'Sensei Blocks', 'sensei-pro' );
+	const domain = window.senseiHomeLicenseActivation.domain;
 
 	const handleSubmit = () => {
 		setIsFetching( true );
@@ -60,13 +61,26 @@ const LicenseActivationForm = () => {
 					'You can find your key by logging in to your SenseiLMS.com account',
 					'sensei-pro'
 				) }{ ' ' }
-				<a
-					href="https://senseilms.com/my-account/"
-					target="_blank"
-					rel="noreferrer"
-				>
-					{ __( 'here', 'sensei-pro' ) } <Icon icon={ external } />
-				</a>
+				<ExternalLink href="https://senseilms.com/my-account/">
+					{ __( 'here', 'sensei-pro' ) }
+				</ExternalLink>
+				{ '.' }
+			</div>
+			<div className="sensei-pro-sensei-home-license-activation__content">
+				{ isMultisite &&
+					createInterpolateElement(
+						sprintf(
+							// translators: %s: Name of the plugin being activated.
+							__(
+								"<strong>Multisite Network</strong>: Main site's domain (%s) will be used for activation and the license will be valid for all the sites on the network.",
+								'sensei-pro'
+							),
+							domain
+						),
+						{
+							strong: <strong />,
+						}
+					) }
 			</div>
 			{ ! success && (
 				<div className="sensei-pro-sensei-home-license-activation__form">

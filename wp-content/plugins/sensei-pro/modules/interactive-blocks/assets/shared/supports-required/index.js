@@ -70,7 +70,6 @@ export const withRequiredSupport = createHigherOrderComponent(
 				'sensei.required',
 				false
 			);
-
 			const { attributes, setAttributes } = props;
 			const handleToggleRequired = useCallback( () => {
 				setAttributes( { required: ! attributes.required } );

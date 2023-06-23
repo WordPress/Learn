@@ -1,21 +1,22 @@
 /**
  * WordPress dependencies
  */
-import { PluginDocumentSettingPanel } from '@wordpress/edit-post';
 import { __, sprintf } from '@wordpress/i18n';
 import {
 	Button,
 	DatePicker,
 	SelectControl,
 	TextControl,
+	PanelBody,
 } from '@wordpress/components';
 import { useEntityProp } from '@wordpress/core-data';
-import { useState } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 
 /**
  * External dependencies
  */
 import moment from 'moment';
+import editorLifecycle from 'sensei/assets/shared/helpers/editor-lifecycle';
 
 /**
  * Internal dependencies
@@ -49,6 +50,15 @@ const startCourseAccessPeriodLabel = __(
 
 const format = ( date ) => moment( date ).format( moment.HTML5_FMT.DATE );
 
+let savedState;
+
+/**
+ * Resets the saved state.
+ */
+export const resetSavedState = () => {
+	savedState = null;
+};
+
 /**
  * A hook that provides a value from course meta and a setter for that value.
  *
@@ -68,11 +78,17 @@ const useCourseMeta = ( metaName ) => {
  * Course Expiration Sidebar component.
  */
 const CourseExpirationSidebar = () => {
-	const [ expirationType, setExpirationType ] = useCourseMeta(
+	const [ expirationTypeMeta, setExpirationTypeMeta ] = useCourseMeta(
 		EXPIRATION_TYPE
 	);
 
-	const [ startType, setStartType ] = useCourseMeta( START_TYPE );
+	const [ expirationTypeInput, setExpirationTypeInput ] = useState(
+		expirationTypeMeta
+	);
+
+	const [ startTypeMeta, setStartTypeMeta ] = useCourseMeta( START_TYPE );
+
+	const [ startTypeInput, setStartTypeInput ] = useState( startTypeMeta );
 
 	const [ showExpirationDatePicker, setShowExpirationDatePicker ] = useState(
 		false
@@ -92,14 +108,75 @@ const CourseExpirationSidebar = () => {
 		EXPIRATION_PERIOD
 	);
 
+	/**
+	 * Save the current state.
+	 */
+	const saveCurrentState = () => {
+		savedState = {
+			expirationType: expirationTypeMeta,
+			startType: startTypeMeta,
+		};
+	};
+
+	if ( ! savedState ) {
+		saveCurrentState();
+	}
+
+	// Save the current state on post save.
+	useEffect( () => {
+		editorLifecycle( {
+			onSave: () => saveCurrentState,
+		} );
+	} );
+
+	/**
+	 * Validate and set the expiration type meta.
+	 * If not valid, reset to saved state.
+	 *
+	 * @param {string} value
+	 */
+	const maybeSetExpirationTypeMeta = ( value ) => {
+		if ( value === EXPIRES_ON && ! expirationDate ) {
+			setExpirationTypeMeta( savedState.expirationType );
+		} else {
+			setExpirationTypeMeta( value );
+		}
+	};
+
+	/**
+	 * Validate and set the start type meta.
+	 * If not valid, reset to saved state.
+	 *
+	 * @param {string} value
+	 */
+	const maybeSetStartTypeMeta = ( value ) => {
+		if ( value === STARTS_ON && ! startDate ) {
+			setStartTypeMeta( savedState.startType );
+		} else {
+			setStartTypeMeta( value );
+		}
+	};
+
+	const onExpirationTypeInputChange = ( value ) => {
+		setExpirationTypeInput( value );
+		maybeSetExpirationTypeMeta( value );
+	};
+
+	const onStartTypeInputChange = ( value ) => {
+		setStartTypeInput( value );
+		maybeSetStartTypeMeta( value );
+	};
+
 	const pickExpirationDate = ( newDate ) => {
 		setExpirationDate( newDate );
 		setShowExpirationDatePicker( false );
+		setExpirationTypeMeta( expirationTypeInput );
 	};
 
 	const pickStartDate = ( newDate ) => {
 		setStartDate( newDate );
 		setShowStartDatePicker( false );
+		setStartTypeMeta( startTypeInput );
 	};
 
 	const onExpirationLengthChange = ( value ) => {
@@ -178,7 +255,7 @@ const CourseExpirationSidebar = () => {
 					setShowDatePicker( true );
 				} }
 				className="datepicker"
-				data-testid={ 'start-date-button' }
+				data-testid={ 'set-date-button' }
 			>
 				{ label }
 			</Button>
@@ -189,8 +266,7 @@ const CourseExpirationSidebar = () => {
 	);
 
 	return (
-		<PluginDocumentSettingPanel
-			name="sensei-wcpc-course-access-period"
+		<PanelBody
 			title={ __( 'Access Period', 'sensei-pro' ) }
 			className="sensei-wcpc-course-expiration"
 		>
@@ -203,7 +279,7 @@ const CourseExpirationSidebar = () => {
 			<div className="access-period-starts">
 				<SelectControl
 					label={ __( 'Course Access Starts', 'sensei-pro' ) }
-					value={ startType }
+					value={ startTypeInput }
 					options={ [
 						{
 							label: __( 'Immediately', 'sensei-pro' ),
@@ -214,9 +290,10 @@ const CourseExpirationSidebar = () => {
 							value: STARTS_ON,
 						},
 					] }
-					onChange={ setStartType }
+					onChange={ onStartTypeInputChange }
+					data-testid="access-period-starts"
 				/>
-				{ STARTS_ON === startType &&
+				{ STARTS_ON === startTypeInput &&
 					accessPeriodDatePicker(
 						setShowStartDatePicker,
 						startDate,
@@ -234,7 +311,7 @@ const CourseExpirationSidebar = () => {
 			<div className="access-period-expires">
 				<SelectControl
 					label={ __( 'Course Access Ends', 'sensei-pro' ) }
-					value={ expirationType }
+					value={ expirationTypeInput }
 					options={ [
 						{
 							label: __( 'Never', 'sensei-pro' ),
@@ -249,11 +326,12 @@ const CourseExpirationSidebar = () => {
 							value: EXPIRES_ON,
 						},
 					] }
-					onChange={ setExpirationType }
+					onChange={ onExpirationTypeInputChange }
+					data-testid="access-period-expires"
 				/>
 
-				{ EXPIRES_AFTER === expirationType && expiresAfterForm }
-				{ EXPIRES_ON === expirationType &&
+				{ EXPIRES_AFTER === expirationTypeInput && expiresAfterForm }
+				{ EXPIRES_ON === expirationTypeInput &&
 					accessPeriodDatePicker(
 						setShowExpirationDatePicker,
 						expirationDate,
@@ -268,7 +346,7 @@ const CourseExpirationSidebar = () => {
 						pickExpirationDate
 					) }
 			</div>
-		</PluginDocumentSettingPanel>
+		</PanelBody>
 	);
 };
 

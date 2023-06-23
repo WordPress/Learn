@@ -17,6 +17,20 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Logged_Out extends Type {
 	/**
+	 * Instance of Logged_In visibility type.
+	 *
+	 * @var Sensei_Pro_Block_Visibility\Types\Logged_In
+	 */
+	private $logged_in_type;
+
+	/**
+	 * Constructor for the class Sensei_Pro_Block_Visibility\Types\Logged_Out.
+	 */
+	public function __construct() {
+		$this->logged_in_type = new Logged_In();
+	}
+
+	/**
 	 * Name
 	 */
 	public function name(): string {
@@ -50,6 +64,6 @@ class Logged_Out extends Type {
 	 * @param array $visibility_settings The sensei visibility settings.
 	 */
 	public function is_visible( array $visibility_settings ): bool {
-		return ! is_user_logged_in();
+		return ! $this->logged_in_type->is_visible( $visibility_settings );
 	}
 }

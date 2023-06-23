@@ -10,7 +10,7 @@
  * @global string $field_index        The field index to use in the form.
  */
 
-// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- View file.
+// phpcs:ignoreFile VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable,WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- This is a template.
 
 $field_name         = "sensei_course_ids[$field_index][]";
 $field_id           = "sensei_course_ids_$field_index";
