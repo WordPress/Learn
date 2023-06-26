@@ -1,0 +1,1 @@
+import{j as c}from"./jsx-runtime-93b56483.js";function a(){const s=wp.data.useSelect(t=>t(wp.notices.store).getNotices(),[]),{removeNotice:e}=wp.data.useDispatch(wp.notices.store),o=s.filter(({type:t})=>t==="snackbar");return c.jsx(wp.components.SnackbarList,{notices:o,className:"interactive-code-block__snackbar-list",onRemove:e})}export{a as N};
