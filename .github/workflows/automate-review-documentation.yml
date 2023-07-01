@@ -9,7 +9,7 @@
 
 # This was based on https://docs.github.com/en/actions/managing-issues-and-pull-requests/commenting-on-an-issue-when-a-label-is-added
 
-name: Add comment
+name: Mention Documentation when Ready to Review
 on:
   issues:
     types:
@@ -26,4 +26,4 @@ jobs:
         with:
           issue-number: ${{ github.event.issue.number }}
           body: |
-            This content is ready to be reviewed. Please follow the steps listed under [Guidelines for reviewing content](https://make.wordpress.org/training/handbook/training-team-how-to-guides/guidelines-for-reviewing-content-on-learn/).Thank you for your contribution! :sparkles:
+            This content is ready to be reviewed. Please follow the steps listed under [Guidelines for reviewing content](https://make.wordpress.org/training/handbook/training-team-how-to-guides/guidelines-for-reviewing-content-on-learn/). Thank you for your contribution! :sparkles:
