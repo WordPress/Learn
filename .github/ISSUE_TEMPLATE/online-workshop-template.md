@@ -2,7 +2,7 @@
 name: Online Workshop Template
 about: Online Workshop template
 title: Online Workshop - WORKSHOP TITLE
-labels: Needs Co-host, [Content Type] Online Workshop
+labels: Needs Co-host, [Content Type] Online Workshop, Awaiting Triage
 assignees: ''
 
 ---
