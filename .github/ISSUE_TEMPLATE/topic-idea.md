@@ -1,6 +1,6 @@
 ---
-name: Topic Idea Template
-about: Tracking content topic ideas for the learn.wordpress.org website
+name: Topic Idea
+about: Submit a new content topic ideas for the Learn.WordPress.org website
 title: "Topic Idea: TOPIC TITLE"
 labels: Awaiting Triage, Needs Subject Matter Expert
 ---
@@ -8,23 +8,21 @@ labels: Awaiting Triage, Needs Subject Matter Expert
 # Details
 <!-- 
 Replace TOPIC TITLE in the issue title to the topic title you are proposing.
-Then, please share as much information about your idea as you can by filling out the items.
+Then, share as much information about your idea as you can by filling out these items.
 -->
 
-- Topic description: 
+- Topic description:
+- Audience (User, Developer, Contributor, etc.): 
 - Learning objectives: 
-- Content type: 
+- Content type (Course, Tutorial, Online Workshop, or Lesson Plan): 
 - WordPress version (optional): 
-- Will you be creating this content?: Yes/No
+- Will you be creating this content? (Yes or No): 
 
 # Related Resources
-Links to related content on Learn, HelpHub, DevHub, GitHub Gutenberg Issues, DevNotes, etc.
+<!--
+Below, list links related to this content that would be useful for Content Creators to reference as they develop the content. Related resources can be found on Learn, HelpHub, DevHub, GitHub Gutenberg Issues, DevNotes, etc.
+-->
 
 
-# Vetting Checklist for SMEs
-Please follow the team handbook: [Vetting topic ideas](https://make.wordpress.org/training/handbook/training-team-how-to-guides/vetting-topic-ideas/).
-
-- [ ] Set a Priority label
-- [ ] Assess topic details, and provide feedback as necessary.
-- [ ] Move issue to "Vetted Topics" status 
-
+# Next steps for SMEs
+Please follow the team handbook "[Vetting topic ideas](https://make.wordpress.org/training/handbook/training-team-how-to-guides/vetting-topic-ideas/)" to vet this topic.
