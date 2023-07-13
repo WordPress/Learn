@@ -11,7 +11,7 @@ Replace TOPIC TITLE in the issue title to the topic title you are proposing.
 Then, share as much information about your idea as you can by filling out these items.
 -->
 
-- Topic description:
+- Topic description: 
 - Audience (User, Developer, Contributor, etc.): 
 - Learning objectives (What will the leaner be able to do as a result of this content?): 
 - Content type (Course, Tutorial, Online Workshop, or Lesson Plan): 
