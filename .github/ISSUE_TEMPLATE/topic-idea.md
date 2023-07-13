@@ -13,7 +13,7 @@ Then, share as much information about your idea as you can by filling out these 
 
 - Topic description:
 - Audience (User, Developer, Contributor, etc.): 
-- Learning objectives: 
+- Learning objectives (What will the leaner be able to do as a result of this content?): 
 - Content type (Course, Tutorial, Online Workshop, or Lesson Plan): 
 - WordPress version (optional): 
 - Will you be creating this content? (Yes or No): 
