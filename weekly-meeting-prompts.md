@@ -4,7 +4,7 @@ Kindly note that anything written ***/ in italics with forward slashes /*** is f
 
 ---
 
-/here <meeting> is starting now
+/here `<meeting>` is starting now
 Welcome, everyone to our weekly global meeting!
 
 1️⃣ **Intro/Welcome**
