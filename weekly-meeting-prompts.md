@@ -4,15 +4,8 @@ Kindly note that anything written ***/ in italics with forward slashes /*** is f
 
 ---
 
-/here EMEA/AMER <meeting> is starting now
-Welcome, everyone. We have alternated our weekly team meetings according to the timezone. This week we are having the Team Meeting in the EMEA timezone, and a Coffee Hour was held in the APAC timezone at 7:00 UTC.
-
-***/ Use this is for EMEA/AMER Meetings only /***
-
-/here APAC <meeting> is starting now
-Welcome, everyone. We have alternated our weekly team meetings according to the timezone. This week we are having the Team Meeting in the APAC timezone, and a Coffee Hour will be held in the Americas/EMEA timezone at 17:00 UTC.
-
-***/ Use this is for APAC Meetings only /***
+/here <meeting> is starting now
+Welcome, everyone to our weekly global meeting!
 
 1️⃣ **Intro/Welcome**
 
