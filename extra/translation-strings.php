@@ -203,6 +203,8 @@ _x( 'command palette', 'Included Content term name', 'wporg-learn' );
 _x( 'comments', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/create-a-website/ */
 _x( 'create a website', 'Included Content term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/wporg_included_content/creating-tutorials/ */
+_x( 'creating tutorials', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/custom-post-type/ */
 _x( 'custom post type', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/customizer/ */
@@ -335,8 +337,6 @@ _x( 'sticky posts', 'Included Content term name', 'wporg-learn' );
 _x( 'styles', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/tags/ */
 _x( 'tags', 'Included Content term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/wporg_included_content/template-editing-mode/ */
-_x( 'template editing mode', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/topic/block-development/ */
 _x( 'Block Development', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/topic/block-editor/ */
