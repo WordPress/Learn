@@ -57,18 +57,18 @@ $has_transcript = false !== strpos( $post->post_content, 'id="transcript"' );
 						</span>
 					</li>
 				<?php endif; ?>
-		                <li>
-		                    <b><?php esc_html_e( 'Published', 'wporg-learn' ); ?></b>
-		                    <span>
-		        				<?php echo get_the_date(); ?>
-							</span>
-		                </li>
-		                <li>
-		                    <b><?php esc_html_e( 'Updated', 'wporg-learn' ); ?></b>
-		                    <span>
-		        				<?php echo get_the_modified_date(); ?>
-							</span>
-		                </li>
+                <li>
+                    <b><?php esc_html_e( 'Published', 'wporg-learn' ); ?></b>
+                    <span>
+                        <?php echo get_the_date(); ?>
+                    </span>
+                </li>
+                <li>
+                    <b><?php esc_html_e( 'Updated', 'wporg-learn' ); ?></b>
+                    <span>
+                        <?php echo get_the_modified_date(); ?>
+                    </span>
+                </li>
 				<li>
 					<b><?php esc_html_e( 'Print View', 'wporg-learn' ); ?></b>
 					<span>
