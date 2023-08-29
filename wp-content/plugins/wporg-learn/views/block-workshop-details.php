@@ -11,6 +11,7 @@ defined( 'WPINC' ) || die();
  */
 
 $has_transcript = false !== strpos( $post->post_content, 'id="transcript"' );
+$is_updated = get_post_timestamp() < get_post_modified_timestamp();
 
 ?>
 
@@ -63,12 +64,14 @@ $has_transcript = false !== strpos( $post->post_content, 'id="transcript"' );
                         <?php echo get_the_date(); ?>
                     </span>
                 </li>
-                <li>
-                    <b><?php esc_html_e( 'Updated', 'wporg-learn' ); ?></b>
-                    <span>
-                        <?php echo get_the_modified_date(); ?>
-                    </span>
-                </li>
+				<?php if ( $is_updated ) : ?>
+                    <li>
+                        <b><?php esc_html_e( 'Updated', 'wporg-learn' ); ?></b>
+                        <span>
+                            <?php echo get_the_modified_date(); ?>
+                        </span>
+                    </li>
+				<?php endif; ?>
 				<li>
 					<b><?php esc_html_e( 'Print View', 'wporg-learn' ); ?></b>
 					<span>
