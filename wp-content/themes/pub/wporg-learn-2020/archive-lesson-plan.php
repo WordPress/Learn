@@ -187,11 +187,9 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 
 <?php else : ?>
 	<section>
-		<div class="row align-right">
+		<div class="row gutters between section-heading section-heading--with-space">
+			<?php the_archive_title( '<h1 class="section-heading_title h2 col-8">', '</h1>' ); ?>
 			<?php get_template_part( 'template-parts/component', 'archive-search' ); ?>
-		</div>
-		<div class="row align-left">
-			<?php the_archive_title( '<h1 class="section-heading_title h2">', '</h1>' ); ?>
 		</div>
 
 		<hr>
