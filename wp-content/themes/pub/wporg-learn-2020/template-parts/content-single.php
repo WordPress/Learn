@@ -12,7 +12,7 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
 	<section>
-		<header class="row align-middle between section-heading section-heading--with-space">
+		<header class="section-heading section-heading--with-space">
 			<h1 class="section-heading_title h2"><?php the_title(); ?></h1>
 		</header>
 

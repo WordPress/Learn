@@ -22,7 +22,7 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 	<main id="main" class="site-main type-page">
 
 		<section>
-			<div class="row align-middle between section-heading section-heading--with-space">
+			<div class="section-heading section-heading--with-space">
 				<h1 class="section-heading_title h2"><?php echo esc_html( $search_query ); ?></h1>
 			</div>
 			<hr>
