@@ -7,7 +7,10 @@ assignees: ''
 
 ---
 
-This week’s meeting will be held in ABCD timezone on Tuesday, MONTH DATE, 2023, at HOUR:00 UTC, and MEETING_HOST will be hosting.
+While Training Team meetings are held weekly on Tuesdays from 07:00 UTC, we welcome anyone to contribute to the meeting by commenting in the Slack threads throughout the week. Meeting notes will be published at the end of the week to incoporate these asynchronous conversations, too. 
+
+
+This week’s meeting will be hosted by MEETING_HOST.
 
 ## 1. Intro/Welcome
 
