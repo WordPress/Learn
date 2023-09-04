@@ -7,10 +7,9 @@ assignees: ''
 
 ---
 
-While Training Team meetings are held weekly on Tuesdays from 07:00 UTC, we welcome anyone to contribute to the meeting by commenting in the Slack threads throughout the week. Meeting notes will be published at the end of the week to incoporate these asynchronous conversations, too. 
+Training Team meetings start at 07:00 UTC weekly on Tuesdays. Anyone is welcome to contribute to the meeting by commenting in Slack threads throughout the week. Meeting notes will be published at the end of the week to also incoporate these asynchronous conversations.
 
-
-This week’s meeting will be hosted by MEETING_HOST.
+_This week’s meeting will be hosted by MEETING_HOST._
 
 ## 1. Intro/Welcome
 
