@@ -58,6 +58,8 @@ _x( 'Any', 'Experience Levels term name', 'wporg-learn' );
 _x( 'Beginner', 'Experience Levels term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/level/intermediate/ */
 _x( 'Intermediate', 'Experience Levels term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/lesson-plan-series/test/ */
+_x( 'Test', 'Lesson Plan Series term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/tutorials/como-contribuir-a-wordpress/ */
 _x( 'Cómo contribuir a WordPress', 'Tutorial Series term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/tutorials/como-usar-wordpress/ */
