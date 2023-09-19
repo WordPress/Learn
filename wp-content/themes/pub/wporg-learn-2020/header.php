@@ -85,5 +85,5 @@ $menu_items = array(
 		</header><!-- #masthead -->
 		
 		<?php if ( function_exists( 'locale_notice' ) ) {
-			locale_notice(); 
+			locale_notice();
 		} ?>
