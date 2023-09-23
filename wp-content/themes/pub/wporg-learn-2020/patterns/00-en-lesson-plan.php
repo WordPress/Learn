@@ -18,7 +18,7 @@
 <!-- /wp:quote -->
 
 <!-- wp:heading {"lock":{"move":true,"remove":true}} -->
-<h2>Objectives</h2>
+<h2 class="wp-block-heading" id="Objectives">Objectives</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -50,7 +50,7 @@
 <!-- /wp:quote -->
 
 <!-- wp:heading {"lock":{"move":true,"remove":true}} -->
-<h2>Prerequisite Skills</h2>
+<h2 class="wp-block-heading" id="Prerequisite-Skills">Prerequisite Skills</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -86,7 +86,7 @@
 <!-- /wp:list -->
 
 <!-- wp:heading {"lock":{"move":true,"remove":true}} -->
-<h2>Readiness Questions</h2>
+<h2 class="wp-block-heading" id="Readiness-Questions">Readiness Questions</h2>
 <!-- /wp:heading -->
 
 <!-- wp:list -->
@@ -122,7 +122,7 @@
 <!-- /wp:list -->
 
 <!-- wp:heading {"lock":{"move":true,"remove":true}} -->
-<h2>Materials Needed</h2>
+<h2 class="wp-block-heading" id="Materials-Needed">Materials Needed</h2>
 <!-- /wp:heading -->
 
 <!-- wp:list -->
@@ -158,7 +158,7 @@
 <!-- /wp:list -->
 
 <!-- wp:heading {"lock":{"move":true,"remove":true}} -->
-<h2>Notes for the Presenter</h2>
+<h2 class="wp-block-heading" id="Notes-for-the-Presenter">Notes for the Presenter</h2>
 <!-- /wp:heading -->
 
 <!-- wp:list -->
@@ -202,7 +202,7 @@
 <!-- /wp:list -->
 
 <!-- wp:heading {"lock":{"move":true,"remove":true}} -->
-<h2>Lesson Outline</h2>
+<h2 class="wp-block-heading" id="Lesson-Outline">Lesson Outline</h2>
 <!-- /wp:heading -->
 
 <!-- wp:list -->
@@ -246,7 +246,7 @@
 <!-- /wp:list -->
 
 <!-- wp:heading {"lock":{"move":true,"remove":true}} -->
-<h2>Exercises</h2>
+<h2 class="wp-block-heading" id="Exercises">Exercises</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -278,11 +278,11 @@
 <!-- /wp:quote -->
 
 <!-- wp:heading {"lock":{"move":true,"remove":true}} -->
-<h2>Assessment</h2>
+<h2 class="wp-block-heading" id="Assessment">Assessment</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>There should be one assement item (or more) for each objective listed above. Each assessment item should support an objective; there should be none that don't.</p>
+<p>There should be one assessment item (or more) for each objective listed above. Each assessment item should support an objective; there should be none that don't.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
@@ -322,7 +322,7 @@
 <!-- /wp:quote -->
 
 <!-- wp:heading {"lock":{"move":true,"remove":true}} -->
-<h2>Additional Resources</h2>
+<h2 class="wp-block-heading" id="Additional-Resources">Additional Resources</h2>
 <!-- /wp:heading -->
 
 <!-- wp:list -->
@@ -358,7 +358,7 @@
 <!-- /wp:list -->
 
 <!-- wp:heading {"lock":{"move":true,"remove":true}} -->
-<h2>Example</h2>
+<h2 class="wp-block-heading" id="Example-Lesson">Example Lesson</h2>
 <!-- /wp:heading -->
 
 <!-- wp:quote -->
