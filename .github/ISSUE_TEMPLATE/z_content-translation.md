@@ -1,5 +1,5 @@
 ---
-name: Content Translation
+name: _do-not-use_ Content Translation
 about: Tracking content translation for learn.wordpress.org 
 title: LANGUAGE translation for CONTENT_TYPE "CONTENT_TITLE" 
 labels: Awaiting Triage, Translation, Needs Translation Reviewer
