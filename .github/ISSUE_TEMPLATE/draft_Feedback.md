@@ -1,5 +1,5 @@
 ---
-name: Feedback
+name: _draft_ Feedback
 about: Reporting bugs, errors, and feature requests for learn.wordpress.org
 title: Feedback - 
 labels: Awaiting Triage
