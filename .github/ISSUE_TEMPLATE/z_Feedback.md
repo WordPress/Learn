@@ -1,5 +1,5 @@
 ---
-name: -do not use- Feedback
+name: _do-not-use_ Feedback
 about: Reporting bugs, errors, and feature requests for learn.wordpress.org
 title: Feedback - 
 labels: Awaiting Triage
