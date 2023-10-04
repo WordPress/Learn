@@ -1,0 +1,30 @@
+$block: "sensei-lms-accordion-section";
+
+.wp-block-#{$block} {
+	&__wrapper {
+		display: flex;
+		align-items: baseline;
+		gap: 20px;
+
+		details {
+			width: 100%;
+			overflow: hidden;
+		}
+	}
+
+	&__status.sensei-supports-required__completed-status {
+		display: flex;
+
+		svg {
+			width: 24px;
+			height: 24px;
+		}
+	}
+
+}
+
+.editor-styles-wrapper .wp-block-#{$block} {
+	&.has-child-selected {
+		border-bottom: solid 1px var(--wp-admin-theme-color);
+	}
+}

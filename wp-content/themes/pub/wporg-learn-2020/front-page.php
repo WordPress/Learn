@@ -33,9 +33,9 @@ get_header(); ?>
 		</section>
 
 		<section>
-			<div class="section-heading row align-middle between">
-				<h2 class="h4 section-heading_title"><?php esc_html_e( 'Recent Courses', 'wporg-learn' ); ?></h2>
-				<div class="section-heading_links row">
+			<div class="section-heading row align-middle between gutters">
+				<h2 class="h4 section-heading_title col-8"><?php esc_html_e( 'Recent Courses', 'wporg-learn' ); ?></h2>
+				<div class="section-heading_links col-4 row">
 					<?php if ( is_user_logged_in() ) : ?>
 						<a class="section-heading_link" href="/my-courses/"><?php esc_html_e( 'My Courses', 'wporg-learn' ); ?></a>
 					<?php endif; ?>
@@ -69,11 +69,15 @@ get_header(); ?>
 		<hr>
 
 		<section>
-			<div class="section-heading row align-middle between">
-				<h2 class="h4 section-heading_title"><?php esc_html_e( 'Recent Tutorials', 'wporg-learn' ); ?></h2>
-				<a class="section-heading_link" href="/tutorials/">
-					<?php esc_html_e( 'View All Tutorials', 'wporg-learn' ); ?>
-				</a>
+			<div class="section-heading row align-middle between gutters">
+				<h2 class="h4 section-heading_title col-8">
+					<?php esc_html_e( 'Recent Tutorials', 'wporg-learn' ); ?>
+				</h2>
+				<div class="section-heading_links col-4 row">
+					<a class="section-heading_link" href="/tutorials/">
+						<?php esc_html_e( 'View All Tutorials', 'wporg-learn' ); ?>
+					</a>
+				</div>
 				<p class="section-heading_description">
 					<em><?php esc_html_e( 'Instructional videos for all skillsets to help you level up your WordPress expertise.', 'wporg-learn' ); ?></em>
 				</p>
@@ -96,13 +100,15 @@ get_header(); ?>
 		<?php $discussion_events = \WPOrg_Learn\Events\get_discussion_events(); ?>
 		<?php if ( ! empty( $discussion_events ) ) : ?>
 			<section class="wporg-learn-workshop-discussion-events">
-				<div class="section-heading row align-middle between">
-					<h2 class="h4 section-heading_title">
+				<div class="section-heading row align-middle between gutters">
+					<h2 class="h4 section-heading_title col-8">
 						<?php esc_html_e( 'Upcoming Online Workshops', 'wporg-learn' ); ?>
 					</h2>
-					<a class="section-heading_link" href="/online-workshops/">
-						<?php esc_html_e( 'View All Online Workshops', 'wporg-learn' ); ?>
-					</a>
+					<div class="section-heading_links col-4 row">
+						<a class="section-heading_link" href="/online-workshops/">
+							<?php esc_html_e( 'View All Online Workshops', 'wporg-learn' ); ?>
+						</a>
+					</div>
 					<p class="section-heading_description">
 						<em><?php esc_html_e( 'Live sessions where you can learn alongside other WordPress enthusiasts from around the world.', 'wporg-learn' ); ?></em>
 					</p>

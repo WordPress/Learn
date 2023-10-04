@@ -48,6 +48,7 @@ export function parseBlocks( root = document ) {
 		const elements = root.querySelectorAll(
 			getBlockTypeSelector( blockType )
 		);
+
 		return Array.from( elements ).map( ( element ) => {
 			element.setAttribute( BLOCK_NAME_ATTRIBUTE, blockType.name );
 			return {

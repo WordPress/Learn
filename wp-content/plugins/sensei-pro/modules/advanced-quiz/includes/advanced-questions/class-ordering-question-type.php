@@ -43,6 +43,7 @@ class Ordering_Question_Type {
 		add_action( 'enqueue_block_editor_assets', [ $this, 'enqueue_block_editor_assets' ] );
 		add_filter( 'sensei_question_types', [ $this, 'add_question_type' ] );
 		add_filter( 'sensei_quiz_enable_block_based_editor', [ $this, 'enable_block_editor' ] );
+		add_filter( 'init', [ $this, 'skip_sensei_question_types_check' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'register_frontend_assets' ] );
 		add_action( 'sensei_quiz_question_inside_after', [ $this, 'render_ordering_question' ], 9 );
 		add_action( 'sensei_single_quiz_questions_after', [ $this, 'enqueue_frontend_assets' ] );
@@ -107,8 +108,27 @@ class Ordering_Question_Type {
 	 *
 	 * @return bool
 	 */
-	public function enable_block_editor() : bool {
-		return true;
+	public function enable_block_editor(): bool {
+		$current_screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+
+		$is_block_editor = (
+			! $current_screen || $current_screen->is_block_editor()
+		) || (
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Don't touch the nonce.
+			isset( $_GET['meta-box-loader-nonce'] ) && wp_verify_nonce( wp_unslash( $_GET['meta-box-loader-nonce'] ), 'meta-box-loader' )
+		);
+
+		return $is_block_editor;
+	}
+
+	/**
+	 * Remove filter that disable the block based editor functions if question
+	 * types are registered.
+	 *
+	 * @since 1.11.0
+	 */
+	public function skip_sensei_question_types_check() {
+		remove_filter( 'sensei_quiz_enable_block_based_editor', [ Sensei()->quiz, 'disable_block_editor_functions_when_question_types_are_registered' ], 2 );
 	}
 
 	/**

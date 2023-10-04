@@ -159,6 +159,10 @@ class Sensei_Content_Drip {
 
 		// Load and initialize classes.
 		add_action( 'init', [ $instance, 'initialize_classes' ], 0 );
+
+		if ( class_exists( 'Sensei\Internal\Emails\Generators\Email_Generators_Abstract' ) ) {
+			require_once $instance->dir . '/includes/generators/class-lesson-available-email-generator.php';
+		}
 	}
 
 	/**
@@ -272,8 +276,9 @@ class Sensei_Content_Drip {
 		$scheduled_time      = $tomorrow_start + 30 * MINUTE_IN_SECONDS;
 		$gmt_offset          = (float) get_option( 'gmt_offset' );
 		$scheduled_time_unix = $scheduled_time - $gmt_offset * HOUR_IN_SECONDS;
+		$next_schedule       = wp_next_scheduled( $this->cron_hook );
 
-		if ( wp_next_scheduled( $this->cron_hook ) !== absint( $scheduled_time_unix ) ) {
+		if ( absint( $scheduled_time_unix ) !== $next_schedule && absint( $scheduled_time_unix - 24 * HOUR_IN_SECONDS ) !== $next_schedule ) {
 			wp_clear_scheduled_hook( $this->cron_hook );
 			wp_schedule_event( $scheduled_time_unix, 'daily', $this->cron_hook );
 		}

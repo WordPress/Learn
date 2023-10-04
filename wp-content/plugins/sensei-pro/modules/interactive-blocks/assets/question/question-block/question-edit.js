@@ -89,6 +89,9 @@ const QuestionEdit = ( props ) => {
 			showAnswerFeedback,
 			toggleAnswerFeedback,
 		},
+		options: {
+			hideAnswerFeedback: '',
+		},
 	};
 
 	const { removeBlock, selectDescription } = useBlockNavigation( clientId );

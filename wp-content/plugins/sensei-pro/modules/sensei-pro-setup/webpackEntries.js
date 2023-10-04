@@ -1,6 +1,6 @@
 module.exports = {
-	licensing_page: 'js/licensing.js',
-	extensions_page: 'js/extensions.js',
+	'licensing-page': 'js/licensing.js',
+	'extensions-page': 'js/extensions.js',
 	'setup-wizard-welcome-step': 'js/setup-wizard/welcome-step.js',
 	style: 'css/index.scss',
 	'sensei-home-license-activation': 'js/sensei-home-license-activation',

@@ -19,6 +19,7 @@ if ( class_exists( 'Sensei_WC_Paid_Courses\Sensei_WC_Paid_Courses' ) ) {
 	return;
 }
 
+// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- $plugin is passed to `uninstall_plugin`
 define( 'SENSEI_PRO_PLUGIN_FILE', dirname( __DIR__ ) . '/' . $plugin );
 
 require dirname( __FILE__ ) . '/modules/wc-paid-courses/wc-paid-courses.php';
@@ -42,4 +43,5 @@ foreach ( $sensei_pro_all_sub_dir as $sensei_pro_dir ) {
 require dirname( __FILE__ ) . '/includes/class-data-cleaner.php';
 require dirname( __FILE__ ) . '/modules/installer/installer.php';
 
+// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- $plugin is passed to `uninstall_plugin`
 ( new Sensei_Pro\Data_Cleaner() )->uninstall( $plugin );

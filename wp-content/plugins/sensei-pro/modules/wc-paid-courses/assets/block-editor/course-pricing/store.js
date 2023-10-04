@@ -146,6 +146,7 @@ const actions = {
 				type: 'simple',
 				regular_price: price,
 				virtual: true,
+				downloadable: true,
 				description,
 				short_description: description,
 			},

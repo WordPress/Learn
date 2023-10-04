@@ -163,6 +163,7 @@ class Sensei_WC_Subscriptions {
 		_deprecated_function( __METHOD__, '2.0.0' );
 
 		$order_user         = get_user_by( 'id', $order->get_customer_id() );
+		$user               = [];
 		$user['ID']         = $order_user->ID;
 		$user['user_login'] = $order_user->user_login;
 		$user['user_email'] = $order_user->user_email;

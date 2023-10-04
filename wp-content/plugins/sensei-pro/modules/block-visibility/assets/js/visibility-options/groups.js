@@ -11,6 +11,7 @@ import { useCallback, useState, useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { Icon } from '@wordpress/components';
 import { chevronDown } from '@wordpress/icons';
+import { store as coreStore } from '@wordpress/core-data';
 
 const LOADING_INDICATOR_VALUE = -1;
 const LOADING_INDICATOR_OPTION = { label: '', value: LOADING_INDICATOR_VALUE };
@@ -45,12 +46,12 @@ export const Groups = ( props ) => {
 			];
 
 			// Get the list of group entities for the query.
-			const records = select( 'core' ).getEntityRecords(
+			const records = select( coreStore ).getEntityRecords(
 				...entityRecordsParams
 			);
 
 			// Check if we recieved the records for the query.
-			const hasRecords = select( 'core' ).hasEntityRecords(
+			const hasRecords = select( coreStore ).hasEntityRecords(
 				...entityRecordsParams
 			);
 

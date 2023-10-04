@@ -21,7 +21,10 @@ class Interactive_Video_Block {
 	public function __construct() {
 		add_action( 'init', [ $this, 'init' ], 11 );
 		add_action( 'save_post', [ $this, 'log_on_save_post' ], 10, 2 );
+		// When there's no embed handler for YouTube, it uses the oembed filter.
 		add_filter( 'embed_oembed_html', [ $this, 'maybe_replace_iframe_youtube_url' ], 12, 2 );
+		// When there is an embed handler registered, it uses the embed handler filter.
+		add_filter( 'embed_handler_html', [ $this, 'maybe_replace_iframe_youtube_url' ], 12, 2 );
 	}
 
 	/**

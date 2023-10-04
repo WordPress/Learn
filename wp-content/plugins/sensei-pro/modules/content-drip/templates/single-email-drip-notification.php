@@ -9,6 +9,8 @@
  * @category Templates
  * @version  2.0.0
  */
+
+// phpcs:ignoreFile VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- This is a template.
 ?>
 
 <p><?php echo esc_html( $email_greeting ); ?></p>

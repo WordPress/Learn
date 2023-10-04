@@ -270,6 +270,21 @@ class Wizard {
 	}
 
 	/**
+	 * Tells if Sensei Home is available or not.
+	 *
+	 * @since 1.10.0
+	 * @return bool
+	 */
+	public static function is_sensei_home_available(): bool {
+		if ( class_exists( 'Sensei_Interactive_Blocks_Sensei_Home\Sensei_Home' ) ) {
+			// If this is Sensei Blocks, we can consider Sensei Home as available.
+			return true;
+		}
+		return self::is_sensei_activated() &&
+				version_compare( Sensei()->version, '4.8.0' ) >= 0;
+	}
+
+	/**
 	 * Returns the sensei core plugin activation url.
 	 *
 	 * @return string
@@ -323,7 +338,7 @@ class Wizard {
 	 * Enqueue licensing page scripts.
 	 */
 	public function enqueue_licensing_page_scripts() {
-		$this->enqueue_script( 'licensing_page' );
+		$this->enqueue_script( 'licensing-page' );
 		$this->enqueue_initial_state_script();
 	}
 
@@ -331,7 +346,7 @@ class Wizard {
 	 * Enqueue extensions page scripts.
 	 */
 	public function enqueue_extensions_page_scripts() {
-		$this->enqueue_script( 'extensions_page' );
+		$this->enqueue_script( 'extensions-page' );
 		$this->enqueue_initial_state_script();
 	}
 
@@ -339,8 +354,8 @@ class Wizard {
 	 * Redirect the user to Sensei Home if Sensei is already activated.
 	 */
 	protected static function check_sensei_home_redirected() {
-		if ( self::is_sensei_activated() ) {
-			// If Sensei is already activated, redirect to Sensei Home.
+		if ( self::is_sensei_home_available() ) {
+			// If Sensei Home is available, redirect to Sensei Home.
 			wp_safe_redirect( admin_url( 'admin.php?page=sensei' ) );
 		}
 	}
@@ -359,6 +374,7 @@ class Wizard {
 			'licenseActivated'  => (bool) $license_data['is_valid'],
 			'locales'           => $this->setup_context->get_locales(),
 			'requires_sensei'   => $this->setup_context->get_requires_sensei(),
+			'hasSenseiHome'     => self::is_sensei_home_available(),
 			'plugin_slug'       => $this->setup_context->get_plugin_slug(),
 		];
 		wp_add_inline_script(

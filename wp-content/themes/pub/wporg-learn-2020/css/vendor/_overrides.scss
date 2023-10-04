@@ -36,9 +36,14 @@ section {
 /* ___ Homepage ___ */
 
 .site-header.home .site-title {
-	font-size: 3.10rem;
 	font-weight: 400;
 	line-height: normal;
+}
+
+@media only screen and (min-width: $breakpoint-small) {
+	.site-header.home .site-title {
+		font-size: 3.10rem;
+	}
 }
 
 .site-header .site-description {

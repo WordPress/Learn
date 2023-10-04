@@ -7,8 +7,12 @@
 	--sensei-visibility-badge-color: #f0c33c;
 }
 
+// The .wp-block class used below might look redundant, but it SHOULD NOT be removed because WordPress requires it to
+// be present to load a stylesheet in the Full Site Editor.
+// See: https://developer.wordpress.org/reference/hooks/enqueue_block_editor_assets/#comment-6139
 .interface-complementary-area .sensei-block-visibility,
-.sensei-block-visibility {
+.sensei-block-visibility,
+.wp-block.sensei-block-visibility {
 	&__hidden {
 		position: relative;
 		&:not(:focus, .is-highlighted)::after {

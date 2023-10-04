@@ -19,11 +19,13 @@ get_template_part( 'template-parts/component', 'breadcrumbs' );
 if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive() ) :
 	?>
 	<section>
-		<div class="row align-middle between section-heading section-heading--with-space">
-			<h1 class="section-heading_title h2"><?php esc_html_e( 'Lesson Plans', 'wporg-learn' ); ?></h1>
-			<a href="<?php echo esc_url( get_post_type_archive_link( 'lesson-plan' ) . '?_view=all' ); ?>" class="button button-xlarge button-secondary">
-				<?php esc_html_e( 'Browse all lesson plans', 'wporg-learn' ); ?>
-			</a>
+		<div class="row align-middle between section-heading section-heading--with-space gutters">
+			<h1 class="section-heading_title h2 col-8"><?php esc_html_e( 'Lesson Plans', 'wporg-learn' ); ?></h1>
+			<div class="col-4 row section-heading_links">
+				<a href="<?php echo esc_url( get_post_type_archive_link( 'lesson-plan' ) . '?_view=all' ); ?>" class="button button-xlarge button-secondary">
+					<?php esc_html_e( 'Browse all lesson plans', 'wporg-learn' ); ?>
+				</a>
+			</div>
 		</div>
 
 		<hr>
@@ -187,8 +189,8 @@ if ( '' === get_query_var( 'search' ) && empty( $_GET ) && is_post_type_archive(
 
 <?php else : ?>
 	<section>
-		<div class="row align-middle between section-heading section-heading--with-space">
-			<?php the_archive_title( '<h1 class="section-heading_title h2">', '</h1>' ); ?>
+		<div class="row gutters between section-heading section-heading--with-space">
+			<?php the_archive_title( '<h1 class="section-heading_title h2 col-8">', '</h1>' ); ?>
 			<?php get_template_part( 'template-parts/component', 'archive-search' ); ?>
 		</div>
 

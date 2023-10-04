@@ -1,37 +1,28 @@
 ---
-name: Topic Idea Template
-about: Tracking content topic ideas for the learn.wordpress.org website
+name: Topic Idea
+about: Submit a new content topic ideas for the Learn.WordPress.org website
 title: "Topic Idea: TOPIC TITLE"
 labels: Awaiting Triage, Needs Subject Matter Expert
 ---
 
 # Details
-<!-- Please describe what this content topic is about-->
-- Topic title: 
+<!-- 
+Replace TOPIC TITLE in the issue title to the topic title you are proposing.
+Then, share as much information about your idea as you can by filling out these items.
+-->
+
 - Topic description: 
-- Objective: 
-- Content type: 
-- WordPress version: 
-- Will you be creating this content?: Yes/No
+- Audience (User, Developer, Contributor, etc.): 
+- Learning objectives (What will the learner be able to do as a result of this content?): 
+- Content type (Course, Tutorial, Online Workshop, or Lesson Plan): 
+- WordPress version (optional): 
+- Will you be creating this content? (Yes or No): 
 
 # Related Resources
-Links to related content on Learn, HelpHub, DevHub, GitHub Gutenberg Issues, DevNotes, etc.
-- [ ]
+<!--
+Below, list links related to this content that would be useful for Content Creators to reference as they develop the content. Related resources can be found on Learn, HelpHub, DevHub, GitHub Gutenberg Issues, DevNotes, etc.
+-->
 
-# Triage Checklist
-Please follow this [Vetting content topic ideas handbook page]() guide.
 
-- [ ] SME assigned
-- [ ] Remove Needs Subject Matter Expert label
-- [ ] Content Category applied (Ex. PHP, Gutenberg, Block Theme)
-- [ ] Topic idea has passed vetting checks
-- [ ] Content type label applied
-- [ ] Priority set
-- [ ] Content Type Checklist applied
-- [ ] Content type
-- [ ] Audience set
-- [ ] Experience Level set
-- [ ] Product type (theme, plugin)
-- [ ] WordPress Version applied through Milestone (Ex. milestone 5.9)
-- [ ] If the Topic Idea reporter has not opted to create the content, apply Needs Content Creator label
-- [ ] Ticket moved to Ready to Create 
+# Next steps for SMEs
+Please follow the team handbook "[Vetting topic ideas](https://make.wordpress.org/training/handbook/training-team-how-to-guides/vetting-topic-ideas/)" to vet this topic.

@@ -9,6 +9,7 @@ import { __ } from '@wordpress/i18n';
  * @member {Object.<string, string>}
  */
 export const blockTypeLabels = {
+	'sensei-lms/accordion': __( 'Accordions', 'sensei-pro' ),
 	'sensei-pro/flashcard': __( 'Flashcards', 'sensei-pro' ),
 	'sensei-pro/image-hotspots': __( 'Image Hotspots', 'sensei-pro' ),
 	'sensei-pro/task-list': __( 'Task Lists', 'sensei-pro' ),

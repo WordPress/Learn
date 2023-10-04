@@ -15,6 +15,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 use Sensei_Templates;
 use Sensei_Pro\Background_Jobs\Scheduler;
 use Sensei_Course_Theme_Option;
+use Sensei_WC_Paid_Courses\Background_Jobs\Student_No_Progress_Job;
+use Sensei_WC_Paid_Courses\Background_Jobs\Student_No_Progress_Recurring_Job;
+use Sensei_WC_Paid_Courses\Emails\Emails_Setup;
 
 /**
  * Main Sensei WooCommerce Paid Courses class.
@@ -70,6 +73,9 @@ final class Sensei_WC_Paid_Courses {
 		$instance = self::instance();
 
 		$instance->assets = \Sensei_Pro\Modules\assets_loader( self::MODULE_NAME );
+
+		$instance->init_no_progress_jobs();
+		$instance->init_emails();
 
 		$skip_plugin_deps_check = defined( 'SENSEI_WC_PAID_COURSES_SKIP_DEPS_CHECK' ) && SENSEI_WC_PAID_COURSES_SKIP_DEPS_CHECK;
 
@@ -340,6 +346,29 @@ final class Sensei_WC_Paid_Courses {
 			include_once $this->wcpc_dir . '/includes/frontend/class-lessons.php';
 			include_once $this->wcpc_dir . '/includes/frontend/class-shortcodes.php';
 		}
+	}
+
+	/**
+	 * Initialize No Progress background jobs.
+	 */
+	private function init_no_progress_jobs() {
+		include_once $this->wcpc_dir . '/includes/background-jobs/class-student-no-progress-job.php';
+		include_once $this->wcpc_dir . '/includes/background-jobs/class-student-no-progress-recurring-job.php';
+
+		Student_No_Progress_Job::init();
+		Student_No_Progress_Recurring_Job::init();
+	}
+
+	/**
+	 * Initialize emails.
+	 */
+	private function init_emails() {
+		if ( class_exists( 'Sensei\Internal\Emails\Generators\Email_Generators_Abstract' ) ) {
+			include_once $this->wcpc_dir . '/includes/emails/generators/class-student-no-progress-email-generator.php';
+		}
+		include_once $this->wcpc_dir . '/includes/emails/class-emails-setup.php';
+
+		Emails_Setup::instance()->init();
 	}
 
 	/**

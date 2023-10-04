@@ -30,18 +30,16 @@
 .search-form {
 	&--is-inline {
 		.search-form {
+			$label-position: 2rem;
+
 			display: flex;
 			justify-content: space-between;
-			margin-top: 0.5rem;
+			margin-top: $label-position;
 			background: #fff;
-
-			@media only screen and (max-width: $breakpoint-tablet) {
-				margin-top: 2rem;
-			}
 
 			> label {
 				position: absolute;
-				transform: translateY(-2rem);
+				transform: translateY(-1 * $label-position);
 			}
 
 			input {

@@ -1,0 +1,30 @@
+$block: "sensei-lms-accordion-content";
+
+.wp-block-#{$block} {
+
+	overflow: auto;
+
+	& > * {
+		margin-block-start: 20px;
+		margin-block-end: 20px;
+	}
+
+	.sensei-lms-flip {
+		padding: 2px;
+	}
+
+	@at-root .editor-styles-wrapper & > * {
+		margin-block-start: 0;
+		margin-block-end: 0;
+
+		.block-editor-block-list__layout {
+			overflow: auto;
+
+			& > * {
+				margin-block-start: 20px;
+				margin-block-end: 20px;
+			}
+		}
+	}
+}
+

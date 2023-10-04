@@ -66,11 +66,12 @@ export function useBlocksStore( block ) {
 			blockId,
 			block
 		);
+
 		const attributes = {
 			blockId,
 			blockType,
-			...defaultAttributes,
 			...finalPersistedAttributes,
+			...defaultAttributes,
 		};
 
 		dispatch( setBlockAttributes( blockId, attributes ) );

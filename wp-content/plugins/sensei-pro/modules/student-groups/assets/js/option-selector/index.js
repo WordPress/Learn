@@ -1,7 +1,8 @@
 /**
  * WordPress dependencies
  */
-import { useCallback, useState } from '@wordpress/element';
+import { useCallback, useEffect, useState } from '@wordpress/element';
+
 /**
  * External dependencies
  */
@@ -23,6 +24,7 @@ const OptionsSelector = ( {
 	placeholder = '',
 	className = 'options-selector',
 	disabled = false,
+	excluded = [],
 } ) => {
 	const [ selectedOptions, setSelectedOptions ] = useState( selected );
 
@@ -64,6 +66,12 @@ const OptionsSelector = ( {
 			} ),
 		[ onUnSelect ]
 	);
+
+	useEffect( () => {
+		setSelectedOptions( ( previous ) =>
+			previous.filter( ( option ) => ! excluded.includes( option.value ) )
+		);
+	}, [ JSON.stringify( excluded ), setSelectedOptions ] );
 
 	return (
 		<div className={ className }>

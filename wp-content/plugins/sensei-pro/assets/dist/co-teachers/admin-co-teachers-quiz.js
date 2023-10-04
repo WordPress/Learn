@@ -1,0 +1,1 @@
+(()=>{"use strict";const e=window.wp.hooks,s=window.wp.data;(0,e.addFilter)("sensei-lms.Quiz.appender-controls","sensei-lms",(e=>(0,s.select)("core/editor").getCurrentPost().is_coteacher?e.filter((e=>"existing-question"!==e.id)):e))})();

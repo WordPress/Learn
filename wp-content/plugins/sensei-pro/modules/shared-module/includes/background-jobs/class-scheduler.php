@@ -47,6 +47,30 @@ class Scheduler {
 	private function __construct() {}
 
 	/**
+	 * Load Action Scheduler, if enabled.
+	 *
+	 * @param string $vendor_path The path to the vendor folder.
+	 *
+	 * @return void
+	 */
+	public static function init( string $vendor_path ) {
+		if ( defined( 'SENSEI_DO_NOT_LOAD_ACTION_SCHEDULER' ) && SENSEI_DO_NOT_LOAD_ACTION_SCHEDULER ) {
+			return;
+		}
+		if (
+			! class_exists( 'ActionScheduler_Versions' )
+			|| ! function_exists( 'as_unschedule_all_actions' )
+			|| ! function_exists( 'as_next_scheduled_action' )
+			|| ! function_exists( 'as_schedule_single_action' )
+		) {
+			$as_plugin_file = $vendor_path . 'woocommerce/action-scheduler/action-scheduler.php';
+			require_once $as_plugin_file;
+			require_once $vendor_path . 'woocommerce/action-scheduler/classes/abstracts/ActionScheduler.php';
+			\ActionScheduler::init( $as_plugin_file );
+		}
+	}
+
+	/**
 	 * Handle the scheduling of a job that might need to be rescheduled.
 	 *
 	 * @param Completable_Job $job                 Job object.
@@ -95,6 +119,9 @@ class Scheduler {
 	 * @param bool            $reschedule_running If true, reschedule if it is currently running.
 	 */
 	public function schedule_single_job( Completable_Job $job, $reschedule_running = false ) {
+		if ( ! self::is_loaded() ) {
+			return;
+		}
 		$name  = $job->get_name();
 		$args  = [ $job->get_args() ];
 		$group = $this->get_job_group( $job );
@@ -119,6 +146,9 @@ class Scheduler {
 	 * @param bool     $apply_wp_timezone Whether it should apply the WordPress timezone.
 	 */
 	public function schedule_cron_job( Cron_Job $job, bool $apply_wp_timezone = true ) {
+		if ( ! self::is_loaded() ) {
+			return;
+		}
 		$schedule = $job->get_schedule();
 		$name     = $job->get_name();
 		$args     = [ $job->get_args() ];
@@ -185,6 +215,9 @@ class Scheduler {
 	 * @param string $group Group name (without the prefix).
 	 */
 	public function unschedule_all_actions( $hook, $args, $group ) {
+		if ( ! self::is_loaded() ) {
+			return;
+		}
 		\as_unschedule_all_actions( $hook, $args, $this->get_group_full_name( $group ) );
 	}
 
@@ -218,6 +251,9 @@ class Scheduler {
 	 * @return \ActionScheduler_Action[]
 	 */
 	public function get_pending_actions( $args = [] ) {
+		if ( ! self::is_loaded() ) {
+			return [];
+		}
 		$args['status']   = \ActionScheduler_Store::STATUS_PENDING;
 		$args['per_page'] = -1;
 
@@ -265,5 +301,20 @@ class Scheduler {
 		}
 
 		return self::ACTION_SCHEDULER_GROUP_PREFIX . $group;
+	}
+
+
+	/**
+	 * Check if the Action Scheduler library is loaded.
+	 *
+	 * If the Sensei LMS plugin is not activated, the scheduler won't load.
+	 *
+	 * @since 1.4.0
+	 *
+	 * @return bool
+	 */
+	public static function is_loaded(): bool {
+		return function_exists( 'as_schedule_single_action' ) &&
+				function_exists( 'as_has_scheduled_action' );
 	}
 }

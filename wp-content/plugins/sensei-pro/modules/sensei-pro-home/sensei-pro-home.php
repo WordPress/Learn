@@ -11,13 +11,18 @@ if ( ! defined( 'ABSPATH' ) || ! defined( 'SENSEI_PRO_PLUGIN_DIR_URL' ) ) {
 }
 
 /**
- * Function that adds the task "Sell your Course with WooCommerce" to the task list returned by Sensei Home.
+ * Function that updates the task "Sell your Course with WooCommerce" in the task list returned by Sensei Home.
  *
  * @param array $tasks The original tasks array to modify.
  *
  * @return array The tasks array with the "sell-course-with-woocommerce" included.
  */
 function sensei_pro_add_sell_course_with_woocommerce_task( $tasks ) {
+	$task_id = 'sell-course-with-woocommerce';
+	if ( empty( $tasks[ $task_id ] ) ) {
+		return $tasks;
+	}
+
 	$courses_with_products = get_posts(
 		[
 			'post_type'        => 'course',
@@ -27,8 +32,8 @@ function sensei_pro_add_sell_course_with_woocommerce_task( $tasks ) {
 			'posts_per_page'   => 1,
 		]
 	);
-	$task_id               = 'sell-course-with-woocommerce';
-	$tasks[ $task_id ]     = [
+
+	$tasks[ $task_id ] = [
 		'id'       => $task_id,
 		'title'    => __( 'Sell your course with WooCommerce', 'sensei-pro' ),
 		'priority' => 400,

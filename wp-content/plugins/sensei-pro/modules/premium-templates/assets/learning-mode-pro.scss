@@ -1,4 +1,110 @@
+$min_desktop_size: 783px;
+@import "./utils";
+
 .sensei-course-theme {
+
+	// All premium templates
+	&:is(.sensei-video, .sensei-modern, .sensei-video-full) {
+		.wp-block-post-title,
+		.sensei-course-theme-lesson-quiz-notice {
+			max-width: var(--content-size) !important;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.entry-content.wp-block-post-content {
+			margin-top: 0;
+		}
+
+		.sensei-course-theme__header {
+			& ~ div {
+				padding-top: 2rem;
+			}
+		}
+
+		.sensei-course-theme__post-pagination,
+		.sensei-lesson-footer {
+			max-width: var(--content-size) !important;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.sensei-course-theme__sidebar-progress {
+			display: none;
+		}
+
+		.sensei-course-theme__empty-column {
+			display: none;
+		}
+
+		// Desktop
+		@media screen and (min-width: $min_desktop_size) {
+			.wp-block-post-title {
+				margin-bottom: 2.5rem;
+			}
+
+			.sensei-course-theme__sidebar-progress {
+				padding-bottom: 0 !important;
+				display: flex;
+				gap: 8px;
+			}
+
+			.sensei-course-theme__header ~ div {
+				padding-top: 3.5rem;
+			}
+
+			.sensei-course-theme__empty-column {
+				display: block;
+			}
+		}
+	}
+
+	/* Large Video Template */
+	&:is(.sensei-video-full) {
+		.wp-block-post-title {
+			margin-bottom: 1.875rem;
+		}
+	}
+
+	/* Modern/Video Template */
+	&:is(.sensei-video, .sensei-modern) {
+		.sensei-course-theme-course-progress {
+			font-size: 0.875rem;
+		}
+
+		.wp-block-sensei-lms-course-navigation {
+			padding-top: 0;
+			margin-top: 0;
+		}
+
+		// Desktop
+		@media screen and (min-width: $min_desktop_size) {
+			.wp-block-sensei-lms-course-navigation {
+				margin-top: 2rem;
+			}
+
+			.sensei-course-theme__header {
+				padding-bottom: 0 !important;
+				border-bottom: 1px solid var(--border-color);
+			}
+		}
+	}
+
+	/* Modern Template */
+	&:is(.sensei-modern) {
+		.sensei-course-theme__header {
+			border-bottom: 1px solid var(--border-color);
+		}
+		.sensei-course-theme__sidebar {
+			border: 1px solid var(--border-color);
+		}
+		.sensei-course-theme-lesson-video {
+			max-width: var(--content-size) !important;
+			margin-left: auto;
+			margin-right: auto;
+			padding-bottom: 2.5rem;
+		}
+	}
 
 	.wp-block-sensei-pro-timeline {
 		border: none;

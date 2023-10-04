@@ -8,13 +8,17 @@ const searchResource = async (
 	resource,
 	term = '',
 	exclude = [],
-	fields = []
+	fields = [],
+	roles = [],
+	include = []
 ) => {
 	const params = new URLSearchParams( {
 		per_page: 100,
 		search: term,
 		_fields: fields.join( ',' ),
 		exclude: exclude.join( ',' ),
+		roles: roles.join( ',' ),
+		include: include.join( ',' ),
 	} );
 
 	return apiFetch( {
@@ -22,16 +26,28 @@ const searchResource = async (
 	} );
 };
 
-const useResource = ( { resource, term, exclude, fields } ) => {
+const useResource = ( {
+	resource,
+	term,
+	exclude,
+	fields,
+	roles = [],
+	include = [],
+} ) => {
 	const [ state, setState ] = useState( {
-		status: 'IDLE',
+		isLoading: false,
 		resources: [],
+		reset: () =>
+			setState( {
+				status: false,
+				resources: [],
+			} ),
 	} );
 
 	useEffect( () => {
 		async function fetchData() {
 			setState( {
-				status: 'LOADING',
+				isLoading: true,
 				resources: [],
 			} );
 
@@ -39,27 +55,26 @@ const useResource = ( { resource, term, exclude, fields } ) => {
 				resource,
 				term,
 				exclude,
-				fields
+				fields,
+				roles,
+				include
 			);
 			setState( {
-				status: 'IDLE',
+				status: false,
 				resources: response,
 			} );
 		}
 
 		fetchData();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [ resource, term, JSON.stringify( exclude ) ] );
+	}, [
+		resource,
+		term,
+		JSON.stringify( exclude ),
+		JSON.stringify( include ),
+	] );
 
-	return {
-		resources: state.status === 'LOADING' ? [] : state.resources,
-		isLoading: state.status === 'LOADING',
-		reset: () =>
-			setState( {
-				status: 'IDLE',
-				resources: [],
-			} ),
-	};
+	return state;
 };
 
 export default useResource;

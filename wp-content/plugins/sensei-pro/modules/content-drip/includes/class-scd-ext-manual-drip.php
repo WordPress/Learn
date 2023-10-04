@@ -383,8 +383,8 @@ class Scd_Ext_Manual_Drip {
 			'wrap_footer' => Sensei()->emails->load_template( 'footer' ),
 		];
 
-		$drip_email = new Scd_Ext_Drip_Email();
-		$drip_email->send_single_email_drip_notifications( $user_id, [ $lesson_id ], $email_wrappers );
+		// Documentation is already added for this hook.
+		do_action( 'sensei_pro_content_drip_email_send', $user_id, [ $lesson_id ], $email_wrappers );
 
 		// Setup the response array and new nonce.
 		$response = [

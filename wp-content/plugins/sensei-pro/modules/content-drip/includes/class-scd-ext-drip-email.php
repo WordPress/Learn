@@ -10,6 +10,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use Sensei\Internal\Emails\Email_Customization;
+use \Sensei\Internal\Emails\Generators\Email_Generators_Abstract;
+use Sensei_Pro\Modules\Content_Drip\Emails\Generators\Lesson_Available_Email_Generator;
+
 /**
  * Sensei Content Drip ( scd ) Email functionality class
  *
@@ -44,6 +48,10 @@ class Scd_Ext_Drip_Email {
 			// Add email sending action to the cron job.
 			add_action( 'woo_scd_daily_cron_hook', [ $this, 'daily_drip_lesson_email_run' ] );
 		}
+
+		add_action( 'sensei_pro_content_drip_email_send', [ $this, 'send_single_email_drip_notifications' ], 20, 3 );
+		add_action( 'sensei_disable_legacy_emails', [ $this, 'disable_legacy_email' ] );
+		add_filter( 'sensei_email_generators', [ $this, 'add_content_drip_email_generator' ] );
 	}
 
 	/**
@@ -288,7 +296,18 @@ class Scd_Ext_Drip_Email {
 			];
 
 			foreach ( $users_lessons as $user_id => $lessons ) {
-				$this->send_single_email_drip_notifications( $user_id, $lessons, $email_wrappers );
+				/**
+				 * Action hook to send drip notifications.
+				 *
+				 * @hook sensei_pro_content_drip_email_send
+				 *
+				 * @param {string} $user_id The Student ID.
+				 * @param {string} $lessons The Lessons that are being dripped.
+				 * @param {array}  $email_wrappers Email wrapper for legacy emails.
+				 *
+				 * @since 1.12.0
+				 */
+				do_action( 'sensei_pro_content_drip_email_send', $user_id, $lessons, $email_wrappers );
 			}
 		}
 	}
@@ -556,6 +575,8 @@ class Scd_Ext_Drip_Email {
 
 		$ordered_lesson_ids = get_posts( $args );
 
+		$ordered_lessons = [];
+
 		foreach ( $ordered_lesson_ids as $lesson_id ) {
 			$ordered_lessons[ $lesson_id ] = $unordered_lessons[ $lesson_id ];
 		}
@@ -566,5 +587,38 @@ class Scd_Ext_Drip_Email {
 		}
 
 		return $ordered_lessons;
+	}
+
+	/**
+	 * Disable the legacy email drip notifications.
+	 *
+	 * @internal
+	 *
+	 * @access private
+	 */
+	public function disable_legacy_email() {
+		remove_action( 'sensei_pro_content_drip_email_send', [ $this, 'send_single_email_drip_notifications' ], 20, 3 );
+	}
+
+	/**
+	 * Add the email drip generator to the email generator array.
+	 *
+	 * @param Email_Generators_Abstract[] $email_generators Array of email generators.
+	 *
+	 * @internal
+	 *
+	 * @access private
+	 *
+	 * @return Email_Generators_Abstract[] $email_generators Array of email generators.
+	 */
+	public function add_content_drip_email_generator( $email_generators ) {
+		if ( ! is_array( $email_generators ) ) {
+			$email_generators = [];
+		}
+
+		$generator = new Lesson_Available_Email_Generator( Email_Customization::instance()->repository );
+
+		$email_generators[ $generator->get_identifier() ] = $generator;
+		return $email_generators;
 	}
 }

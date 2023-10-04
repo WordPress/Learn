@@ -53,6 +53,26 @@ class Quiz_Timer {
 		add_action( 'sensei_rest_api_lesson_quiz_update', [ $this, 'save_timer_meta' ], 10, 2 );
 		add_filter( 'sensei_rest_api_lesson_quiz_response', [ $this, 'add_quiz_timer' ], 10, 2 );
 
+		// Add start timer action and nonce to the guest user actions list.
+		add_filter( 'sensei_guest_user_supported_actions', [ $this, 'add_guest_user_supported_actions' ] );
+	}
+
+	/**
+	 * Add guest user supported actions.
+	 *
+	 * @param array $actions Array of supported actions.
+	 * @access private
+	 *
+	 * @return array
+	 */
+	public function add_guest_user_supported_actions( $actions ) {
+		$actions[] = [
+			'field' => 'start_quiz_timer',
+			'nonce' => 'sensei_start_quiz_timer_nonce',
+			'enrol' => true,
+		];
+
+		return $actions;
 	}
 
 	/**
@@ -124,28 +144,6 @@ class Quiz_Timer {
 			);
 		}
 
-	}
-
-	/**
-	 * Find a block in the block hierarchy.
-	 *
-	 * @param string $name Block name.
-	 * @param array  $blocks Blocks.
-	 *
-	 * @return mixed|null Block if found.
-	 */
-	private function find_block( $name, $blocks ) {
-		foreach ( $blocks as $block ) {
-			if ( $name === $block['blockName'] ) {
-				return $block;
-			}
-			$inner_block = $this->find_block( $name, $block['innerBlocks'] );
-			if ( $inner_block ) {
-				return $inner_block;
-			}
-		}
-
-		return null;
 	}
 
 	/**
@@ -238,18 +236,17 @@ class Quiz_Timer {
 	 * @return bool
 	 */
 	public function has_unstarted_quiz_timer() {
-		if ( ! is_single() || get_post_type() !== 'quiz' ) {
+		if ( ! $this->should_enable_quiz_timer() ) {
 			return false;
 		}
 
-		$time         = get_post_meta( get_the_ID(), self::META_QUIZ_TIMER, true );
 		$time_started = Sensei_Utils::get_user_data(
 			self::META_QUIZ_TIMER_STARTED,
 			Sensei()->quiz->get_lesson_id( get_the_ID() ),
 			get_current_user_id()
 		);
 
-		return $time && ! $time_started;
+		return ! $time_started;
 	}
 
 	/**
@@ -260,7 +257,7 @@ class Quiz_Timer {
 	 * @return mixed|void
 	 */
 	public function quiz_start_page( $content ) {
-		if ( ! $this->should_enable_quiz_timer() || ! $this->has_unstarted_quiz_timer() ) {
+		if ( ! $this->has_unstarted_quiz_timer() ) {
 			return $content;
 		}
 
@@ -305,8 +302,8 @@ class Quiz_Timer {
 							'</div>
 						</div>
 						<div class="wp-block-button sensei-lms-quiz-timer__start-page__start-button">'
-							. wp_nonce_field( 'sensei_start_quiz_timer', 'sensei_start_quiz_timer_nonce' ) .
-							'<button name="start_quiz_timer" class="wp-block-button__link">'
+							. wp_nonce_field( 'sensei_start_quiz_timer_nonce', 'sensei_start_quiz_timer_nonce' ) .
+							'<button name="start_quiz_timer" class="wp-block-button__link" value="1">'
 								. esc_attr__( 'Start Quiz', 'sensei-pro' ) .
 							'</button>
 						</div>
@@ -337,7 +334,7 @@ class Quiz_Timer {
 		if ( ! isset( $_POST['start_quiz_timer'] )
 			|| ! isset( $_POST['sensei_start_quiz_timer_nonce'] )
 			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Do not change the nonce.
-			|| ! wp_verify_nonce( wp_unslash( $_POST['sensei_start_quiz_timer_nonce'] ), 'sensei_start_quiz_timer' ) ) {
+			|| ! wp_verify_nonce( wp_unslash( $_POST['sensei_start_quiz_timer_nonce'] ), 'sensei_start_quiz_timer_nonce' ) ) {
 			return;
 		}
 
@@ -355,7 +352,7 @@ class Quiz_Timer {
 	 * @access private
 	 */
 	public function setup_learning_mode_start_page() {
-		if ( Sensei_WC_Paid_Courses::should_use_learning_mode() && $this->should_enable_quiz_timer() && $this->has_unstarted_quiz_timer() ) {
+		if ( Sensei_WC_Paid_Courses::should_use_learning_mode() && $this->has_unstarted_quiz_timer() ) {
 			add_action( 'sensei_single_quiz_content_inside_before', [ $this, 'quiz_start_page_e' ] );
 			add_action( 'sensei_can_user_view_lesson', '__return_false' );
 			remove_filter( 'the_content', [ $this, 'quiz_start_page' ] );

@@ -30,7 +30,7 @@ import BreakPointButton from './break-point-button';
 import EditTime from './edit-time';
 import useBreakPointPositionStyle from './use-break-point-position-style';
 import { useContextEditorPlayer } from '../editor-player-context';
-import usePrevious from '../use-previous';
+import usePrevious from 'shared-module/use-previous';
 import useDragging from '../../use-dragging';
 import BreakPointPopover from './break-point-popover';
 

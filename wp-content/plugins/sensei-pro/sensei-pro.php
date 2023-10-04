@@ -3,14 +3,14 @@
  * Plugin Name: Sensei Pro
  * Plugin URI: https://senseilms.com/
  * Description: Whether you want to teach, tutor or train, we have you covered.
- * Version: 1.8.0
+ * Version: 1.15.0
  * License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
- * Requires at least: 5.9
- * Tested up to: 6.1
+ * Requires at least: 6.0
+ * Tested up to: 6.2
  * Requires PHP: 7.2
  * WC requires at least: 4.0
- * WC tested up to: 7.0
- * Sensei requires at least: 4.8.0
+ * WC tested up to: 7.7
+ * Sensei requires at least: 4.15.0
  * Author: Automattic
  * Author URI: https://automattic.com/
  * Text Domain: sensei-pro
@@ -32,7 +32,7 @@ if ( ! realpath( dirname( __FILE__ ) . '/../../woothemes-sensei.php' ) ) {
 	}
 }
 
-define( 'SENSEI_PRO_VERSION', '1.8.0' );
+define( 'SENSEI_PRO_VERSION', '1.15.0' );
 define( 'SENSEI_PRO_PLUGIN_FILE', __FILE__ );
 define( 'SENSEI_PRO_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 define( 'SENSEI_PRO_PLUGIN_DIR_URL', plugin_dir_url( __FILE__ ) );

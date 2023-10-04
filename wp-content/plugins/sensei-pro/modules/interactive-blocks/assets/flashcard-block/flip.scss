@@ -57,6 +57,11 @@ body:not(.no-sidebar) .entry-content .sensei-lms-flip,
 			outline-offset: 3px;
 		}
 	}
+
+	& li {
+		text-align: left;
+	}
+
 }
 
 // Fix text color for cover block with light theme for twenty twenty-one

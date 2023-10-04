@@ -103,6 +103,8 @@ class Sensei_Home_License_Activation {
 			'isLicenseActivated' => ! is_null( $license_status['license_key'] ) && $license_status['is_valid'],
 			'pluginSlug'         => $this->setup_context->get_plugin_slug(),
 			'licenseKey'         => $license_status['license_key'] ?? '',
+			'isMultisite'        => is_multisite(),
+			'domain'             => $license_status['domain'] ?? '',
 		];
 		wp_add_inline_script( 'sensei-home-license-activation', 'window.senseiHomeLicenseActivation=' . wp_json_encode( $license_activation_info ) . ';', 'before' );
 	}

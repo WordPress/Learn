@@ -7,7 +7,9 @@ assignees: ''
 
 ---
 
-This week’s meeting will be held in ABCD timezone on Tuesday, MONTH DATE, 2023, at HOUR:00 UTC, and MEETING_HOST will be hosting.
+Training Team meetings start at 07:00 UTC weekly on Tuesdays. Anyone is welcome to contribute to the meeting by commenting in Slack threads throughout the week. Meeting notes will be published at the end of the week to also incoporate these asynchronous conversations.
+
+_This week’s meeting will be hosted by MEETING_HOST._
 
 ## 1. Intro/Welcome
 
@@ -32,21 +34,19 @@ Welcome to all new teammates who joined the Training Team this week!
 - item 1
 - item 2
 
-**4. Other news**
+**4. Updates from last week's dev-squad triage session**
 
 - item 1
 - item 2
 
-## 3. Content published in the last week
+**5. Other news**
 
-- **Tutorials**
-  - a
-- **Lesson Plans**
-  - b
-- **Courses**
-  - c
+- item 1
+- item 2
 
-## 4. [Open requests for review](https://github.com/orgs/WordPress/projects/33/views/17)
+## 3. [Open requests for review](https://github.com/orgs/WordPress/projects/33/views/17)
+
+See our [Guidelines for reviewing content](https://make.wordpress.org/training/handbook/training-team-how-to-guides/guidelines-for-reviewing-content-on-learn/) to review the following content.
 
 - **Tutorials**
   - a
@@ -57,14 +57,14 @@ Welcome to all new teammates who joined the Training Team this week!
 - **Translated Content**
   - d
 
-## 5. Project updates
+## 4. Project updates
 
 - Project_1
   - details
 - Project_2
   - details
 
-## 6. Open Discussions
+## 5. Open Discussions
 
 If you have topics you’d liked discussed in the meeting, please leave them as a comment on this issue.
 

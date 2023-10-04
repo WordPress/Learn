@@ -4,12 +4,14 @@
 import { createBlock, getDefaultBlockName } from '@wordpress/blocks';
 import { createHigherOrderComponent } from '@wordpress/compose';
 import { createContext, useEffect, useContext } from '@wordpress/element';
+import { store as blockEditorStore } from '@wordpress/block-editor';
+import { store as noticeStore } from '@wordpress/notices';
 import { useDispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 
 /**
  * A HOC for the block edit component, which checks if it's a descendant of the same block type.
- * If it's a descendant, it will remoove the block and show a notice. Otherwise, it renders the
+ * If it's a descendant, it will remove the block and show a notice. Otherwise, it renders the
  * component with a provider (allowing it to catch the descendants).
  *
  * @param {Object} RecursionContext The recursion context object to check or add the provider.
@@ -26,8 +28,8 @@ const withRecursionNotAllowed = createHigherOrderComponent(
 			const {
 				replaceBlock,
 				__unstableMarkNextChangeAsNotPersistent: markNextChangeAsNotPersistent = () => {},
-			} = useDispatch( 'core/block-editor' );
-			const { createWarningNotice } = useDispatch( 'core/notices' );
+			} = useDispatch( blockEditorStore );
+			const { createWarningNotice } = useDispatch( noticeStore );
 
 			const insideRecursion = useContext( RecursionContext );
 
