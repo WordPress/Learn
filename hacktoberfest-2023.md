@@ -14,5 +14,5 @@ Contributors:
 
 | Github Username | Ticket URL|
 |-----------------|-----------|
-| |  |
-| |  |
+|westnz           |https://github.com/WordPress/Learn/issues/455|
+|westnz           |https://github.com/WordPress/Learn/issues/1896|
