@@ -160,6 +160,49 @@ class License_Manager {
 	}
 
 	/**
+	 * Tries to deactivate the given license for the domain and deletes it if successful.
+	 *
+	 * @param string $plugin_slug  The plugin slug.
+	 * @param string $license_key  The license key given by the user.
+	 *
+	 * @return \stdClass|false Pass through the API response from the licensing server, or return false on error.
+	 */
+	public static function deactivate_license( $plugin_slug, $license_key ) {
+		// Assume error unless told otherwise.
+		$response = false;
+		// Get domain.
+		$domain = self::get_domain();
+		// Call activation service.
+		$remote = wp_remote_post(
+			self::get_api_url() . '/licensing/v1/deactivate',
+			[
+				'body' => [
+					'license_key' => $license_key,
+					'plugin_slug' => $plugin_slug,
+					'domain'      => $domain,
+				],
+			]
+		);
+		if (
+			! is_wp_error( $remote )
+			&& 200 === wp_remote_retrieve_response_code( $remote )
+			&& ! empty( wp_remote_retrieve_body( $remote ) )
+		) {
+			$response = json_decode( wp_remote_retrieve_body( $remote ) );
+			if ( isset( $response->success ) ) {
+				if ( $response->success ) {
+					delete_site_option( self::LICENSE_KEY_OPTION_PREFIX . $plugin_slug );
+				}
+			}
+		}
+
+		// Flush cache no matter the response itself, so we have a mechanism to flush it on purpose.
+		delete_transient( self::CACHE_KEY_PREFIX . $plugin_slug );
+
+		return $response;
+	}
+
+	/**
 	 * Returns the API URL.
 	 *
 	 * @return string
@@ -175,7 +218,7 @@ class License_Manager {
 	 * @return string
 	 */
 	private static function get_domain() {
-		$site_url = is_multisite() ? network_site_url() : site_url();
+		$site_url = network_site_url();
 		$urlparts = wp_parse_url( $site_url );
 		$domain   = $urlparts['host'];
 

@@ -23,6 +23,8 @@ define( 'SENSEI_IB_PLUGIN_DIR_PATH', SENSEI_PRO_PLUGIN_DIR_PATH . 'modules/inter
  * Sets up interactive blocks module.
  */
 function sensei_pro_setup_interactive_blocks() {
+	require_once __DIR__ . '/includes/tutor-chat/class-tutor-chat-service.php';
+	require_once __DIR__ . '/includes/tutor-chat/class-tutor-chat-rest-api.php';
 	require_once __DIR__ . '/includes/class-interactive-blocks.php';
 	require_once __DIR__ . '/includes/class-assets-provider.php';
 

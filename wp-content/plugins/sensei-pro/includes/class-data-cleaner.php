@@ -26,7 +26,15 @@ class Data_Cleaner {
 	 * @var string[]
 	 */
 	private $post_meta = [
+		'_course_expiration_length',
+		'_course_expiration_period',
+		'_course_expiration_type',
+		'_course_expires_on_date',
+		'_course_start_type',
+		'_course_starts_on_date',
 		'_course_woocommerce_product',
+		'sensei_course_audience',
+		'sensei_course_skill_level',
 		'sensei_wc_paid_courses_calculation_version',
 	];
 

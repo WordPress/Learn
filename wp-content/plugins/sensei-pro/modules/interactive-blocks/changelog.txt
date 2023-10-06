@@ -1,5 +1,11 @@
 # Sensei Interactive Blocks Changelog
 
+## 2023-09-13 - version 1.4.1
+* Added functionality to deactivate license directly within the plugin.
+
+## 2023-07-13 - version 1.4.0
+* Add TutorAI block to create guided questions.
+
 ## 2023-05-03 - version 1.3.1
 * Fix issue where Interactive Video Block caused the gutenberg editor to crash in some situations.
 * Stop standalone question from crashing.

@@ -88,6 +88,27 @@ class Rest_Api extends \WP_REST_Controller {
 		);
 		register_rest_route(
 			$this->namespace,
+			"/{$this->rest_base}/deactivate-license",
+			[
+				[
+					'methods'             => \WP_REST_Server::CREATABLE,
+					'callback'            => [ $this, 'deactivate_license' ],
+					'permission_callback' => [ $this, 'check_user_is_administrator' ],
+					'args'                => [
+						'license_key' => [
+							'type'     => 'string',
+							'required' => true,
+						],
+						'plugin_slug' => [
+							'type'     => 'string',
+							'required' => true,
+						],
+					],
+				],
+			]
+		);
+		register_rest_route(
+			$this->namespace,
 			"/{$this->rest_base}/install-sensei",
 			[
 				[
@@ -111,6 +132,39 @@ class Rest_Api extends \WP_REST_Controller {
 			$plugin_slug,
 			$license_key
 		);
+		if ( false === $api_response ) {
+			$api_response = [
+				'success' => false,
+				'message' => __( 'An error occurred while activating the license. Please reload the page and try again.', 'sensei-pro' ),
+			];
+		}
+
+		// Pass through the API response from the license server.
+		return rest_ensure_response( $api_response );
+	}
+
+	/**
+	 * Deactivate the license for the given license key and plugin slug.
+	 *
+	 * @param WP_REST_Request $request The current request.
+	 */
+	public function deactivate_license( $request ) {
+		$license_key  = $request->get_param( 'license_key' );
+		$plugin_slug  = $request->get_param( 'plugin_slug' );
+		$nonce        = $request->get_param( 'nonce' );
+		$api_response = false;
+		if ( wp_verify_nonce( $nonce, 'deactivate-license-' . $plugin_slug ) ) {
+			$api_response = License_Manager::deactivate_license(
+				$plugin_slug,
+				$license_key
+			);
+		}
+		if ( false === $api_response ) {
+			$api_response = [
+				'success' => false,
+				'message' => __( 'An error occurred while deactivating the license. Please reload the page and try again.', 'sensei-pro' ),
+			];
+		}
 
 		// Pass through the API response from the license server.
 		return rest_ensure_response( $api_response );

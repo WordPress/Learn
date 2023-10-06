@@ -97,7 +97,7 @@ class Wizard {
 		add_action( 'rest_api_init', [ $this, 'register_rest_api' ] );
 
 		$plugin_file = self::get_plugin_file( $this->setup_context->get_plugin_slug() );
-		add_filter( "plugin_action_links_{$plugin_file}", [ $this, 'add_activate_license_action' ], 10, 4 );
+		add_filter( "plugin_action_links_{$plugin_file}", [ $this, 'add_license_action' ], 10, 4 );
 
 		if ( ! is_admin() || ! $this->is_sensei_pro() ) {
 			return;
@@ -161,7 +161,12 @@ class Wizard {
 	 * @param string $plugin_slug
 	 */
 	public static function get_setup_url( string $plugin_slug ): string {
-		$setup_url = admin_url( 'admin.php?page=' . self::get_licensing_page_slug( $plugin_slug ) );
+		$setup_url = add_query_arg(
+			[
+				'page' => self::get_licensing_page_slug( $plugin_slug ),
+			],
+			admin_url( 'admin.php' )
+		);
 
 		/**
 		 * Filter the setup URL to allow for customizing the setup page.
@@ -301,18 +306,36 @@ class Wizard {
 	}
 
 	/**
-	 * Adds the "Activate License" action link to Senseei Pro
+	 * Adds the "Activate License" action link to Sensei Pro
 	 * plugin in the WP plugins page. Doesn't do anything if the license
-	 * is already installed.
+	 * is already installed. Replaced by `add_license_action`.
 	 *
+	 * @deprecated 1.17.0
 	 * @param array $actions The plugin actions in the plugins page.
 	 * @return array Return back the actions array with additional Activate License link.
 	 */
 	public function add_activate_license_action( array $actions ) {
+		_deprecated_function( __METHOD__, '1.17.0', 'add_license_action' );
+		$actions = $this->add_license_action( $actions );
+		unset( $actions['manage_license'] );
+		return $actions;
+	}
+
+	/**
+	 * Adds License actions (Activate or Manage) in the WP plugins page.
+	 *
+	 * @param array $actions The plugin actions in the plugins page.
+	 * @return array Return back the actions array with additional "Activate License" or "Manage License" link.
+	 */
+	public function add_license_action( array $actions ) {
 		$license_status = License_Manager::get_license_status( $this->setup_context->get_plugin_slug() );
-		if ( ! $license_status['is_valid'] ) {
+		$url            = self::get_setup_url( $this->setup_context->get_plugin_slug() );
+		if ( $license_status['is_valid'] ) {
+			$title                     = __( 'Manage License', 'sensei-pro' );
+			$url                       = add_query_arg( 'manage_license', '1', $url );
+			$actions['manage_license'] = "<a href='{$url}' aria-label='{$title}'>{$title}</a>";
+		} else {
 			$title                       = __( 'Activate License', 'sensei-pro' );
-			$url                         = self::get_setup_url( $this->setup_context->get_plugin_slug() );
 			$actions['activate_license'] = "<a href='{$url}' aria-label='{$title}' style='color: red;'>{$title}</a>";
 		}
 		return $actions;

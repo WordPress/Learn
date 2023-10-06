@@ -98,11 +98,16 @@ class Sensei_Home_License_Activation {
 			$this->setup_context->get_plugin_version()
 		);
 
-		$license_status          = License_Manager::get_license_status( $this->setup_context->get_plugin_slug() );
+		$plugin_slug    = $this->setup_context->get_plugin_slug();
+		$license_status = License_Manager::get_license_status( $plugin_slug );
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$force_show_license      = isset( $_GET['manage_license'] ) && '1' === $_GET['manage_license'];
 		$license_activation_info = [
 			'isLicenseActivated' => ! is_null( $license_status['license_key'] ) && $license_status['is_valid'],
+			'forceShowLicense'   => $force_show_license,
 			'pluginSlug'         => $this->setup_context->get_plugin_slug(),
 			'licenseKey'         => $license_status['license_key'] ?? '',
+			'deactivateNonce'    => wp_create_nonce( 'deactivate-license-' . $plugin_slug ),
 			'isMultisite'        => is_multisite(),
 			'domain'             => $license_status['domain'] ?? '',
 		];

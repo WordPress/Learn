@@ -101,10 +101,10 @@ final class Language_Packs {
 		}
 
 		// Check if we've cached this in the last day.
-		$transient_key = self::REMOTE_PACKAGE_TRANSIENT . md5( SENSEI_PRO_VERSION . wp_json_encode( $locales ) );
+		$transient_key = self::REMOTE_PACKAGE_TRANSIENT . md5( SENSEI_PRO_VERSION . wp_json_encode( [ $this->plugins, $locales ] ) );
 		$data          = get_site_transient( $transient_key );
 		if ( false !== $data && is_array( $data ) ) {
-			return $data;
+			return $this->parse_language_pack_translations( $data );
 		}
 
 		// Set the timeout for the request. We may want to consider increasing this when we add additional plugins.
@@ -147,7 +147,7 @@ final class Language_Packs {
 
 		$this->language_pack_updates_cache = $this->parse_language_pack_translations( $response['data'] );
 
-		set_site_transient( $transient_key, $this->language_pack_updates_cache, DAY_IN_SECONDS );
+		set_site_transient( $transient_key, $response['data'], DAY_IN_SECONDS );
 
 		return $this->language_pack_updates_cache;
 	}

@@ -2,13 +2,26 @@ body,
 .quiz ol#sensei-quiz-list, // For greater specificity.
 #left-area .wp-block-sensei-pro-question { // For greater specificity in Divi.
 	.sensei-ordering-answers {
-		padding: 0;
-		margin: 0;
-		position: relative;
 		list-style: none;
+		margin: 0;
+		padding: 0;
+		position: relative;
 
 		&__active {
 			z-index: 100;
+		}
+	}
+
+	.wp-block-sensei-lms-question-answers__ordering-answers {
+		list-style: disc;
+		margin: 0 0 0 1em;
+		padding: 0;
+
+		li {
+			display: list-item;
+			line-height: 1;
+			list-style: disc;
+			margin-top: 20px;
 		}
 	}
 
@@ -19,8 +32,7 @@ body,
 		user-select: none;
 		touch-action: none;
 		transition: unset;
-		margin: 0;
-		margin-bottom: 8px;
+		margin: 0 0 20px;
 
 		&--draggable {
 			cursor: grab;
