@@ -15,4 +15,4 @@ Contributors:
 | Github Username | Ticket URL|
 |-----------------|-----------|
 | @jonathanbossenger | https://github.com/WordPress/Learn/issues/806 |
-| |  |
+| @psykrotek | https://github.com/WordPress/Learn/issues/1893 |
