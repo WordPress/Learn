@@ -84,4 +84,6 @@ $menu_items = array(
 			</div><!-- .site-branding -->
 		</header><!-- #masthead -->
 		
-		<?php locale_notice(); ?>
+		<?php if ( function_exists( 'locale_notice' ) ) {
+			locale_notice();
+		} ?>
