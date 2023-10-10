@@ -16,3 +16,4 @@ Contributors:
 |-----------------|-----------|
 | @jonathanbossenger | https://github.com/WordPress/Learn/issues/806 |
 | @jonathanbossenger | https://github.com/WordPress/Learn/issues/1893 |
+| @westnz| https://github.com/WordPress/Learn/issues/455 |
