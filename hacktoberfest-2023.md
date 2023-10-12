@@ -18,4 +18,5 @@ Contributors:
 | @devmuhib009 | https://github.com/WordPress/Learn/issues/1882 |
 | @jonathanbossenger | https://github.com/WordPress/Learn/issues/1893 |
 | @westnz| https://github.com/WordPress/Learn/issues/455 |
+| @shail-mehta | https://github.com/WordPress/Learn/issues/1881 |
 | @westnz | https://github.com/WordPress/Learn/issues/1896 |
