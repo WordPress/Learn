@@ -1,15 +1,4 @@
 .section-heading {
-	&.row {
-
-		@media only screen and (min-width: $breakpoint-tablet) {
-			align-items: baseline;
-		}
-
-		.button {
-			align-self: center;
-		}
-	}
-
 	&_title,
 	&_link {
 
@@ -35,6 +24,11 @@
 	&_links {
 		gap: 1rem;
 		flex-direction: row;
+		justify-content: flex-end;
+
+		@media only screen and (max-width: $breakpoint-tablet) {
+			justify-content: flex-start;
+		}
 	}
 
 	&_link {

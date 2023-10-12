@@ -58,6 +58,8 @@ _x( 'Any', 'Experience Levels term name', 'wporg-learn' );
 _x( 'Beginner', 'Experience Levels term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/level/intermediate/ */
 _x( 'Intermediate', 'Experience Levels term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/lesson-plan-series/test/ */
+_x( 'Test', 'Lesson Plan Series term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/tutorials/como-contribuir-a-wordpress/ */
 _x( 'Cómo contribuir a WordPress', 'Tutorial Series term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/tutorials/como-usar-wordpress/ */
@@ -135,6 +137,8 @@ _x( '6.1', 'WordPress Version term name', 'wporg-learn' );
 _x( '6.2', 'WordPress Version term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_wp_version/6-3/ */
 _x( '6.3', 'WordPress Version term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/wporg_wp_version/6-4/ */
+_x( '6.4', 'WordPress Version term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/accessibility/ */
 _x( 'accessibility', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/add-new-plugin/ */
