@@ -15,5 +15,6 @@ Contributors:
 | Github Username | Ticket URL|
 |-----------------|-----------|
 | @jonathanbossenger | https://github.com/WordPress/Learn/issues/806 |
+| @devmuhib009 | https://github.com/WordPress/Learn/issues/1882 |
 | @jonathanbossenger | https://github.com/WordPress/Learn/issues/1893 |
 | @westnz| https://github.com/WordPress/Learn/issues/455 |
