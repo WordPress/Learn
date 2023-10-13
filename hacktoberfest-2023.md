@@ -20,3 +20,4 @@ Contributors:
 | @westnz| https://github.com/WordPress/Learn/issues/455 |
 | @westnz | https://github.com/WordPress/Learn/issues/1896 |
 | @jonathanbossenger | https://github.com/WordPress/Learn/issues/1913 |
+| @jonathanbossenger | https://github.com/WordPress/Learn/issues/1867 |
