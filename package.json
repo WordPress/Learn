@@ -33,5 +33,8 @@
 	"main": "index.js",
 	"devDependencies": {
 		"@wordpress/scripts": "^19.2.2"
+	},
+	"resolutions": {
+		"eslint-plugin-jsdoc": "^39.9.1"
 	}
 }
