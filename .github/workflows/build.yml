@@ -32,6 +32,9 @@ jobs:
           mv wp-content/themes/pub/wporg-learn-2020 $RUNNER_TEMP
           git rm -rfq .
           rm -rf *
+          mkdir -p wp-content/mu-plugins/pub
+          mkdir -p wp-content/plugins
+          mkdir -p wp-content/themes/pub
           mv $RUNNER_TEMP/locale-switcher wp-content/mu-plugins/pub
           mv $RUNNER_TEMP/class-validator.php wp-content/mu-plugins/pub
           mv $RUNNER_TEMP/locales.php wp-content/mu-plugins/pub
