@@ -28,6 +28,10 @@
 			"url": "https://wpackagist.org/"
 		},
 		{
+			"type": "vcs",
+			"url": "git@github.com:WordPress/wporg-repo-tools.git"
+		},
+		{
 			"type": "package",
 			"package": [
 				{
@@ -82,7 +86,8 @@
 		"wp-coding-standards/wpcs": "2.*",
 		"phpcompatibility/phpcompatibility-wp": "*",
 		"rmccue/requests": "^1.7",
-		"wporg/wporg-mu-plugins": "dev-build"
+		"wporg/wporg-mu-plugins": "dev-build",
+		"wporg/wporg-repo-tools": "dev-trunk"
 	},
 	"scripts": {
 		"format": "phpcbf -p",

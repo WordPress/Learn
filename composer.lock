@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dfcbbd7403f9a829f5ef980b6c068f56",
+    "content-hash": "9839452a5f944bb49fa2c470a01902b1",
     "packages": [],
     "packages-dev": [
         {
@@ -759,12 +759,43 @@
                 "issues": "https://github.com/WordPress/wporg-mu-plugins/issues"
             },
             "time": "2022-09-05T16:08:26+00:00"
+        },
+        {
+            "name": "wporg/wporg-repo-tools",
+            "version": "dev-trunk",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/WordPress/wporg-repo-tools.git",
+                "reference": "d78f1cf7dc04d96a511a14a23c4ddbe1d4d51499"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/WordPress/wporg-repo-tools/zipball/d78f1cf7dc04d96a511a14a23c4ddbe1d4d51499",
+                "reference": "d78f1cf7dc04d96a511a14a23c4ddbe1d4d51499",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "bin": [
+                "bin/update-configs"
+            ],
+            "type": "library",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "description": "Common configurations and scripts used in projects for WordPress.org Meta",
+            "homepage": "https://wordpress.org",
+            "support": {
+                "issues": "https://github.com/WordPress/wporg-repo-tools/issues",
+                "source": "https://github.com/WordPress/wporg-repo-tools/tree/trunk"
+            },
+            "time": "2023-08-01T17:27:15+00:00"
         }
     ],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "wporg/wporg-mu-plugins": 20
+        "wporg/wporg-mu-plugins": 20,
+        "wporg/wporg-repo-tools": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
