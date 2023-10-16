@@ -2,7 +2,7 @@ name: Build and push to build branch.
 
 on:
   push:
-    branches: [build-test]
+    branches: [trunk]
   workflow_dispatch:
 
 jobs:
