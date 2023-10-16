@@ -19,9 +19,29 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Trim the repo down to just the source and built files
+        run: |
+          rm -rf wp-content/mu-plugins/pub/locale-switcher/node_modules
+          rm -rf wp-content/plugins/wporg-learn/node_modules
+          rm -rf wp-content/themes/pub/wporg-learn-2020/node_modules
+          mv wp-content/mu-plugins/pub/locale-switcher $RUNNER_TEMP
+          mv wp-content/mu-plugins/pub/class-validator.php $RUNNER_TEMP
+          mv wp-content/mu-plugins/pub/locales.php $RUNNER_TEMP
+          mv wp-content/plugins/sensei-pro $RUNNER_TEMP
+          mv wp-content/plugins/wporg-learn $RUNNER_TEMP
+          mv wp-content/themes/pub/wporg-learn-2020 $RUNNER_TEMP
+          git rm -rfq .
+          rm -rf *
+          mv $RUNNER_TEMP/locale-switcher wp-content/mu-plugins/pub
+          mv $RUNNER_TEMP/class-validator.php wp-content/mu-plugins/pub
+          mv $RUNNER_TEMP/locales.php wp-content/mu-plugins/pub
+          mv $RUNNER_TEMP/sensei-pro wp-content/plugins
+          mv $RUNNER_TEMP/wporg-learn wp-content/plugins
+          mv $RUNNER_TEMP/wporg-learn-2020 wp-content/themes/pub
+
       - name: Add all the files
         run: |
-          git add -A
+          git add * --force
 
       - name: Commit and push
         uses: actions-js/push@a52398fac807b0c1e5f1492c969b477c8560a0ba # 1.3
