@@ -21,7 +21,7 @@ jobs:
 
       - name: Add all the files
         run: |
-          git add * --force
+          git add *
 
       - name: Commit and push
         uses: actions-js/push@a52398fac807b0c1e5f1492c969b477c8560a0ba # 1.3
