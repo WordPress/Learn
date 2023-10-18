@@ -18,7 +18,7 @@
 <!-- /wp:quote -->
 
 <!-- wp:heading {"lock":{"move":true,"remove":true}} -->
-<h2 class="wp-block-heading" id="Objectives">Objectives</h2>
+<h2 class="wp-block-heading" id="objectives">Objectives</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -50,7 +50,7 @@
 <!-- /wp:quote -->
 
 <!-- wp:heading {"lock":{"move":true,"remove":true}} -->
-<h2 class="wp-block-heading" id="Prerequisite-Skills">Prerequisite Skills</h2>
+<h2 class="wp-block-heading" id="prerequisite-skills">Prerequisite Skills</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -86,7 +86,7 @@
 <!-- /wp:list -->
 
 <!-- wp:heading {"lock":{"move":true,"remove":true}} -->
-<h2 class="wp-block-heading" id="Readiness-Questions">Readiness Questions</h2>
+<h2 class="wp-block-heading" id="readiness-questions">Readiness Questions</h2>
 <!-- /wp:heading -->
 
 <!-- wp:list -->
@@ -122,7 +122,7 @@
 <!-- /wp:list -->
 
 <!-- wp:heading {"lock":{"move":true,"remove":true}} -->
-<h2 class="wp-block-heading" id="Materials-Needed">Materials Needed</h2>
+<h2 class="wp-block-heading" id="materials-needed">Materials Needed</h2>
 <!-- /wp:heading -->
 
 <!-- wp:list -->
@@ -158,7 +158,7 @@
 <!-- /wp:list -->
 
 <!-- wp:heading {"lock":{"move":true,"remove":true}} -->
-<h2 class="wp-block-heading" id="Notes-for-the-Presenter">Notes for the Presenter</h2>
+<h2 class="wp-block-heading" id="notes-for-the-presenter">Notes for the Presenter</h2>
 <!-- /wp:heading -->
 
 <!-- wp:list -->
@@ -202,7 +202,7 @@
 <!-- /wp:list -->
 
 <!-- wp:heading {"lock":{"move":true,"remove":true}} -->
-<h2 class="wp-block-heading" id="Lesson-Outline">Lesson Outline</h2>
+<h2 class="wp-block-heading" id="lesson-outline">Lesson Outline</h2>
 <!-- /wp:heading -->
 
 <!-- wp:list -->
@@ -246,7 +246,7 @@
 <!-- /wp:list -->
 
 <!-- wp:heading {"lock":{"move":true,"remove":true}} -->
-<h2 class="wp-block-heading" id="Exercises">Exercises</h2>
+<h2 class="wp-block-heading" id="exercises">Exercises</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -278,7 +278,7 @@
 <!-- /wp:quote -->
 
 <!-- wp:heading {"lock":{"move":true,"remove":true}} -->
-<h2 class="wp-block-heading" id="Assessment">Assessment</h2>
+<h2 class="wp-block-heading" id="assessment">Assessment</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -322,7 +322,7 @@
 <!-- /wp:quote -->
 
 <!-- wp:heading {"lock":{"move":true,"remove":true}} -->
-<h2 class="wp-block-heading" id="Additional-Resources">Additional Resources</h2>
+<h2 class="wp-block-heading" id="additional-resources">Additional Resources</h2>
 <!-- /wp:heading -->
 
 <!-- wp:list -->
@@ -358,7 +358,7 @@
 <!-- /wp:list -->
 
 <!-- wp:heading {"lock":{"move":true,"remove":true}} -->
-<h2 class="wp-block-heading" id="Example-Lesson">Example Lesson</h2>
+<h2 class="wp-block-heading" id="example-lesson">Example Lesson</h2>
 <!-- /wp:heading -->
 
 <!-- wp:quote -->
@@ -386,6 +386,6 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>[tip] 💡 Follow with the <a href="#Exercises">Exercises</a> and <a href="#Assessment">Assessment</a> outlined above.[/tip]</p>
+<p>[tip] 💡 Follow with the <a href="#exercises">Exercises</a> and <a href="#assessment">Assessment</a> outlined above.[/tip]</p>
 <!-- /wp:paragraph -->
  
