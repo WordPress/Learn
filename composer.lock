@@ -8,6 +8,63 @@
     "packages": [],
     "packages-dev": [
         {
+            "name": "adhocore/jwt",
+            "version": "1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/adhocore/php-jwt.git",
+                "reference": "6c434af7170090bb7a8880d2bc220a2254ba7899"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/adhocore/php-jwt/zipball/6c434af7170090bb7a8880d2bc220a2254ba7899",
+                "reference": "6c434af7170090bb7a8880d2bc220a2254ba7899",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0 || ^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.5 || ^7.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ahc\\Jwt\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jitendra Adhikari",
+                    "email": "jiten.adhikary@gmail.com"
+                }
+            ],
+            "description": "Ultra lightweight JSON web token (JWT) library for PHP5.5+.",
+            "keywords": [
+                "auth",
+                "json-web-token",
+                "jwt",
+                "jwt-auth",
+                "jwt-php",
+                "token"
+            ],
+            "support": {
+                "issues": "https://github.com/adhocore/php-jwt/issues",
+                "source": "https://github.com/adhocore/php-jwt/tree/1.1.2"
+            },
+            "funding": [
+                {
+                    "url": "https://paypal.me/ji10",
+                    "type": "custom"
+                }
+            ],
+            "time": "2021-02-20T09:56:44+00:00"
+        },
+        {
             "name": "composer/installers",
             "version": "v1.12.0",
             "source": {
@@ -716,22 +773,26 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/WordPress/wporg-mu-plugins.git",
-                "reference": "af2bbf6b2af762e617b542a13fd72a6a14f6b70f"
+                "reference": "bc3ea4b89d9e9128ef3005b2e808a9476c973215"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WordPress/wporg-mu-plugins/zipball/af2bbf6b2af762e617b542a13fd72a6a14f6b70f",
-                "reference": "af2bbf6b2af762e617b542a13fd72a6a14f6b70f",
+                "url": "https://api.github.com/repos/WordPress/wporg-mu-plugins/zipball/bc3ea4b89d9e9128ef3005b2e808a9476c973215",
+                "reference": "bc3ea4b89d9e9128ef3005b2e808a9476c973215",
                 "shasum": ""
             },
             "require": {
-                "composer/installers": "~1.0"
+                "adhocore/jwt": "^1.0"
             },
             "require-dev": {
+                "composer/installers": "~1.0",
                 "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
                 "phpcompatibility/phpcompatibility-wp": "*",
+                "phpunit/phpunit": "^9.5",
                 "wp-coding-standards/wpcs": "2.*",
-                "wporg/wporg-repo-tools": "dev-trunk"
+                "wp-phpunit/wp-phpunit": "~6.0",
+                "wporg/wporg-repo-tools": "dev-trunk",
+                "yoast/phpunit-polyfills": "^1.1"
             },
             "type": "wordpress-muplugin",
             "extra": {
@@ -758,7 +819,7 @@
                 "source": "https://github.com/WordPress/wporg-mu-plugins/tree/build",
                 "issues": "https://github.com/WordPress/wporg-mu-plugins/issues"
             },
-            "time": "2022-09-05T16:08:26+00:00"
+            "time": "2023-10-20T19:05:54+00:00"
         },
         {
             "name": "wporg/wporg-repo-tools",
@@ -804,5 +865,5 @@
     "platform-overrides": {
         "php": "7.4"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
