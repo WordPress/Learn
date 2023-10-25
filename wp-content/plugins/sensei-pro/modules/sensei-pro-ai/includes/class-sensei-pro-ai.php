@@ -8,9 +8,12 @@
 
 namespace Sensei_Pro_AI;
 
+use Sensei_Pro\AI_API_Client;
 use Sensei_Pro\Assets;
+use Sensei_Pro_AI\Rest_Api\Controllers\Chat_GPT_Controller;
+use Sensei_Pro_AI\Rest_Api\Controllers\Course_Outline_Controller;
+use Sensei_Pro_AI\Services\Course_Outline_Service;
 use Sensei_Pro_AI\Services\Question_Generator_Service;
-use WP_Post;
 use function Sensei_Pro\Modules\assets_loader;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -32,6 +35,20 @@ class Sensei_Pro_AI {
 	 * @var string
 	 */
 	const USER_QUESTION_AI_USED_META_KEY = 'sensei_pro_question_ai_used';
+
+	/**
+	 * Course Outline REST API Controller.
+	 *
+	 * @var Course_Outline_Controller
+	 */
+	public $course_outline_controller;
+
+	/**
+	 * Chat GPT REST API Controller.
+	 *
+	 * @var Chat_GPT_Controller
+	 */
+	public $chat_gpt_controller;
 
 	/**
 	 * Instance of class.
@@ -76,6 +93,9 @@ class Sensei_Pro_AI {
 	public static function init() {
 		$instance = self::instance();
 
+		$instance->chat_gpt_controller       = new Chat_GPT_Controller( new Question_Generator_Service() );
+		$instance->course_outline_controller = new Course_Outline_Controller( new Course_Outline_Service( new AI_API_Client() ) );
+
 		add_action( 'enqueue_block_editor_assets', [ $instance, 'enqueue_editor_assets' ] );
 
 		// Set up REST API endpoints.
@@ -91,7 +111,8 @@ class Sensei_Pro_AI {
 	 * Initialize REST API endpoints.
 	 */
 	public function init_rest_api_endpoints() {
-		( new \Sensei_Pro_AI\Rest_Api\Controllers\Chat_GPT_Controller( new Question_Generator_Service() ) )->register_routes();
+		$this->chat_gpt_controller->register_routes();
+		$this->course_outline_controller->register_routes();
 	}
 
 	/**

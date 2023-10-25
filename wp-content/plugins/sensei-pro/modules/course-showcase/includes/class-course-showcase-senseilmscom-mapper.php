@@ -242,10 +242,11 @@ class Course_Showcase_SenseiLMSCom_Mapper {
 			// License data is not valid, return early.
 			return null;
 		}
+
 		return [
 			'type'     => 'senseilmscom',
 			'key'      => $license['license_key'],
-			'site_url' => get_site_url(),
+			'site_url' => network_site_url(),
 		];
 	}
 

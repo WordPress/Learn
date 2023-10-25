@@ -1,0 +1,33 @@
+{
+  "name": "sensei-pro/ai-student-response",
+  "title": "Student Answer",
+  "category": "sensei-lms",
+  "apiVersion": 2,
+  "supports": {
+    "align": false,
+    "color": true,
+    "sensei": {
+      "blockId": true,
+      "frontend": true,
+      "required": true
+    },
+    "spacing": {
+      "margin": true,
+      "padding": true
+    },
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true
+    },
+    "__experimentalBorder": {
+      "color": true,
+      "radius": true,
+      "style": true,
+      "width": true
+    }
+  },
+  "attributes": {
+    
+  },
+  "textdomain": "sensei-pro"
+}

@@ -10,10 +10,12 @@ import LicenseActivationForm from './LicenseActivationForm';
 
 addFilter( 'sensei.home.top', 'sensei-pro', () => {
 	const isActivated = window.senseiHomeLicenseActivation?.isLicenseActivated;
+	const forceShowLicense =
+		window.senseiHomeLicenseActivation?.forceShowLicense;
 	const isMultisite =
 		window.senseiHomeLicenseActivation?.isMultisite === true;
 
-	if ( isActivated ) {
+	if ( isActivated && ! forceShowLicense ) {
 		return null;
 	}
 

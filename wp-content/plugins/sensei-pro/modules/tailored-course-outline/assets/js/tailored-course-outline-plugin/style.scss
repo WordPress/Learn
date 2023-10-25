@@ -1,0 +1,149 @@
+@import "~@wordpress/base-styles/breakpoints";
+
+.sensei-tailored-course-outline-modal {
+
+	.components-modal__content {
+		padding: 0;
+		margin: 0;
+	}
+
+	// It hides a border when the user scroll the modal content.
+	.components-modal__content.has-scrolled-content:not(.hide-header) .components-modal__header {
+		border: none;
+	}
+
+	&__body {
+		display: flex;
+		flex-direction: row;
+		max-width: 800px;
+	}
+
+	&__loading {
+		position: absolute;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		z-index: 2;
+		flex-direction: column;
+		height: 564px;
+	}
+
+	&__error {
+		margin: 0;
+		padding-left: 27px;
+
+		p {
+			margin: 0;
+		}
+	}
+
+	&__actions {
+		padding: 18px 30px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		border: 1px solid rgba(30, 30, 30, 0.12);
+		min-height: 72px;
+	}
+
+	&__fields {
+		padding-left: 30px;
+		padding-right: 30px;
+		display: flex;
+		flex-direction: column;
+
+		&--loading {
+			> fieldset {
+				opacity: 0.3;
+				pointer-events: none;
+			}
+		}
+
+		fieldset {
+			display: flex;
+			flex-direction: column;
+			margin-bottom: 24px;
+
+			.components-base-control__field {
+				margin-bottom: 0;
+			}
+
+			.components-base-control__help {
+				margin-top: 3px;
+				margin-bottom: 0;
+			}
+
+
+			label,
+			label.components-input-control__label.components-text {
+				color: #1e1e1e;
+				font-size: 0.8125rem;
+				margin-bottom: 12px;
+				font-weight: 600;
+				line-height: 1;
+				text-transform: none;
+			}
+
+			.components-select-control {
+				label.components-input-control__label.components-text {
+					margin-bottom: 0;
+				}
+				gap: 12px;
+			}
+
+			select,
+			textarea {
+				border-radius: 2px;
+				border: 1px solid #757575;
+				min-width: 100%;
+				min-height: 85px;
+			}
+		}
+
+		h2 {
+			color: #1f1f1f;
+			font-size: 2rem;
+			margin-bottom: 1.125rem;
+			margin-top: 24px;
+			line-height: 1;
+			margin-right: 1.25rem;
+		}
+		> p {
+			margin-top: 0;
+			margin-bottom: 1.5rem;
+		}
+	}
+
+	&__illustration {
+		display: none;
+	}
+
+	@media (min-width: $break-medium) {
+
+		&__fields {
+			h2 {
+				margin-top: 30px;
+				margin-right: 0;
+			}
+		}
+		&__loading {
+			height: 600px;
+		}
+
+		&__illustration {
+			min-width: 385px;
+			background-color: #43af99;
+			min-height: 600px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			& > svg {
+				width: 100%;
+				max-width: 300px;
+			}
+		}
+	}
+
+}
