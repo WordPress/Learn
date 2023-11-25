@@ -1,5 +1,5 @@
 ---
-name: _do-not-use_ Meeting Agenda
+name: Meeting Agenda
 about: Used by team reps to publish team meeting agendas
 title: Meeting Agenda MONTH DAY, YEAR
 labels: Meeting Agenda
