@@ -24,7 +24,7 @@ jobs:
       - uses: actions/github-script@v7.0.1
         with:
           script: console.log(context)
-      - uses: actions/github-script@v7.0.1, peter-evans/create-or-update-comment@5f728c3dae25f329afbe34ee4d08eef25569d79f
+      - uses: peter-evans/create-or-update-comment@5f728c3dae25f329afbe34ee4d08eef25569d79f
         if: contains(github.event.issue.body, '/tutorial')  
         with:
           issue-number: ${{ github.event.issue.number }}
