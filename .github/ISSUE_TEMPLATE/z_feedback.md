@@ -15,13 +15,16 @@ If you'd like, you can see if similar feedback has already been reported by sear
 
 ## Type of feedback
 <!--
-Is your feedback reporting a bug, flagging out-dated content, suggesting a new feature, or something else?
+Below this comment, please type one of these three: /dev /content /handbook
+Is your feedback reporting a bug or feature request for the Learn WordPress website? Type: /dev
+Is your feedback about the content on Learn WordPress, such as out-dated information? Type: /content
+Is your feedback about the Training Team's documentation? Type: /handbook
 -->
 
 ## Description
 <!-- Describe your feedback here. -->
 
-## Step-by-step reproduction instructions
+## Step-by-step reproduction instructions (optional)
 <!--
 Please list the steps needed to reproduce or verify the feedback. For example:
 1. Go to '...'
@@ -34,7 +37,7 @@ Please list the steps needed to reproduce or verify the feedback. For example:
 If possible, please upload a screenshot or screen recording illustrating the feedback. 
 -->
 
-## Other information
+## Other information (optional)
 <!--
 Leave any other relevant information here.
 For example, if you are reporting a bug, you can note your browser, device, and operating system.
