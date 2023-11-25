@@ -39,7 +39,8 @@ jobs:
             - [ ] Tutorial post reviewed for grammar, spelling, etc.
             - [ ] Tutorial published on Learn.WordPress.org
             - [ ] Tutorial [announced to Marketing Team](https://docs.google.com/spreadsheets/d/1rY9gyA0KljjlinPE2B0S2qfsN8Nz24_N_KzqB5CrYZM/edit#gid=469255212) for promotion
-      - if: contains(github.event.comment.body, '/course')  
+      - uses: peter-evans/create-or-update-comment@5f728c3dae25f329afbe34ee4d08eef25569d79f
+        if: contains(github.event.comment.body, '/course')  
         with:
           issue-number: ${{ github.event.issue.number }}
           body: |
@@ -48,7 +49,8 @@ jobs:
             - [ ] [Create content](https://make.wordpress.org/training/handbook/courses/content-creation/)
             - [ ] Request a review from the team
             - [ ] [Publish content](https://make.wordpress.org/training/handbook/courses/publishing/)
-      - if: contains(github.event.comment.body, '/lesson-plan')  
+      - uses: peter-evans/create-or-update-comment@5f728c3dae25f329afbe34ee4d08eef25569d79f
+        if: contains(github.event.comment.body, '/lesson-plan')  
         with:
           issue-number: ${{ github.event.issue.number }}
           body: |
@@ -64,7 +66,8 @@ jobs:
             - [ ] Announce to lesson plan creator
             - [ ] Announce to marketing
             - [ ] Gather feedback from lesson plan users about the quality
-      - if: contains(github.event.comment.body, '/online-workshop')  
+      - uses: peter-evans/create-or-update-comment@5f728c3dae25f329afbe34ee4d08eef25569d79f
+        if: contains(github.event.comment.body, '/online-workshop')  
         with:
           issue-number: ${{ github.event.issue.number }}
           body: |
