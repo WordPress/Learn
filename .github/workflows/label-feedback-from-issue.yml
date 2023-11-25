@@ -1,6 +1,6 @@
 # BASED ON https://github.com/WordPress/Documentation-Issue-Tracker/blob/main/.github/workflows/actions-when-commented.yml
 
-name: Label feedback to correct project when opened
+name: Label feedback-type issues when opened
 on: 
   issues:
     types: [opened, edited]
