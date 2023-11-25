@@ -1,7 +1,7 @@
 ---
-name: _do-not-use_ Content Development (general)
+name: Content Development (general)
 about: Want to create a new piece of content, or suggest a topic, for the Learn.WordPress.org website? Start here!
-title: "TOPIC_TITLE"
+title: TOPIC_TITLE
 labels: Awaiting Triage, Needs Subject Matter Expert
 ---
 
@@ -10,14 +10,12 @@ labels: Awaiting Triage, Needs Subject Matter Expert
 Replace TOPIC_TITLE in the issue title to the topic title you are proposing.
 Then, share as much information about your idea as you can by filling out these items.
 A team member will review the proposal and share next steps.
-
-You'll find guidance about using this issue template at _handbook_link_.
 -->
 
 - Topic description: 
 - Audience (User, Developer, Designer, Contributor, etc.): 
 - Learning objectives (What will the learner be able to do as a result of this content?): 
-- Content type (Course, Tutorial, Online Workshop, or Lesson Plan): 
+- Content type (Tutorial, Online Workshop, Course or Lesson Plan): 
 - WordPress version (optional): 
 - Will you be creating this content? (Yes or No): 
 
