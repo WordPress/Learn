@@ -15,10 +15,10 @@ If you'd like, you can see if similar feedback has already been reported by sear
 
 ## Type of feedback
 <!--
-Below this comment, please type one of these three: /dev /content /handbook
-Is your feedback reporting a bug or feature request for the Learn WordPress website? Type: /dev
-Is your feedback about the content on Learn WordPress, such as out-dated information? Type: /content
-Is your feedback about the Training Team's documentation? Type: /handbook
+Please type the corresponding command that represents your feedback. It will be a slash (/) plus a word (dev, content, handbook) with no space in between. (Like /example)
+Is your feedback reporting a bug or feature request for the Learn WordPress website? Type: / dev (with no space)
+Is your feedback about the content on Learn WordPress, such as out-dated information? Type: / content (with no space)
+Is your feedback about the Training Team's documentation? Type: / handbook (with no space)
 -->
 
 ## Description
