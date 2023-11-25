@@ -1,0 +1,34 @@
+# BASED ON https://github.com/WordPress/Documentation-Issue-Tracker/blob/main/.github/workflows/actions-when-commented.yml
+
+name: Label and move feedback to correct project when opened
+on: 
+  issues:
+    types: [opened, edited]
+
+jobs:
+
+  label_issues:
+    if: ${{ !github.event.issue.pull_request }}
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - uses: actions/github-script@v7.0.1
+        with:
+          script: console.log(context)
+      - uses: actions/github-script@v7.0.1
+        if: contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.issue.labels.*.name, '[Type] Bug') && contains(github.event.issue.body, '/content')  
+        with:
+          script: |
+            github.rest.issues.removeLabel({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: ["[Type] Bug"]
+            })
+            github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ["Content Feedback"]
+            })
