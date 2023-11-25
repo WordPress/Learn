@@ -1,6 +1,6 @@
 # BASED ON https://github.com/WordPress/Documentation-Issue-Tracker/blob/main/.github/workflows/actions-when-commented.yml
 
-name: Label and move feedback to correct project when commented with command
+name: Label feedback based on command in comment
 on: 
   issue_comment:
     types: [created, edited]
@@ -20,15 +20,31 @@ jobs:
         if: contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.comment.body, '/content')  
         with:
           script: |
-            github.rest.issues.removeLabel({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              name: ["[Type] Bug"]
-            })
             github.rest.issues.addLabels({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
               labels: ["Content Feedback"]
             })
+      - uses: actions/github-script@v7.0.1
+        if: contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.comment.body, '/dev')  
+        with:
+          script: |
+            github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ["[Type] Bug"]
+            })
+      - uses: actions/github-script@v7.0.1
+        if: contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.comment.body, '/handbook')  
+        with:
+          script: |
+            github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ["[Admin] Handbook"]
+            })
+
+            
