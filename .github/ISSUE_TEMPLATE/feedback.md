@@ -1,6 +1,6 @@
 ---
-name: _do-not-use_ Feedback
-about: Reporting bugs, errors, and feature requests for learn.wordpress.org
+name: Feedback
+about: Reporting bugs, content errors, and feature requests for learn.wordpress.org
 title: Feedback - 
 labels: Awaiting Triage
 assignees: ''
@@ -8,16 +8,14 @@ assignees: ''
 ---
 <!--
 Thank you for submitting feedback to the Make WordPress Training Team!
-You'll find guidance about using this issue template at _handbook_link_.
-
-If you'd like, you can see if similar feedback has already been reported by searching https://github.com/WordPress/gutenberg/issues.
+You can see if similar feedback has already been reported by searching https://github.com/WordPress/gutenberg/issues.
 -->
 
 ## Type of feedback
 <!--
 Please type the corresponding command that represents your feedback. It will be a slash (/) plus a word (dev, content, handbook) with no space in between. (Like /example)
 Is your feedback reporting a bug or feature request for the Learn WordPress website? Type: / dev (with no space)
-Is your feedback about the content on Learn WordPress, such as out-dated information? Type: / content (with no space)
+Is your feedback about the content on Learn WordPress, such as reporting out-dated information? Type: / content (with no space)
 Is your feedback about the Training Team's documentation? Type: / handbook (with no space)
 -->
 
@@ -44,7 +42,3 @@ For example, if you are reporting a bug, you can note your browser, device, and 
 If you are making a feature request, you can note other sites/services you've seen the feature on.
 -->
 
----
-
-## Next steps for Training Team member
-Please follow _link_to_handbook_page_ to triage this feedback.
