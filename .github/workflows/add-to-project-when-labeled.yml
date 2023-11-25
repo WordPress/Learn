@@ -1,0 +1,45 @@
+# Uses https://github.com/marketplace/actions/add-to-github-projects
+# Based on https://github.com/WordPress/Documentation-Issue-Tracker/blob/main/.github/workflows/add-to-project.yml
+
+
+name: Add issues to GitHub projects
+
+on:
+  issues:
+    types:
+      - labeled
+      
+jobs:
+  add-to-web-development-project:
+    name: Add issues labeled "[Type] Bug" to web development project
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/add-to-project@v0.5.0
+        if: contains(github.event.issue.labels.*.name, '[Type] Bug')
+        with:
+          project-url: https://github.com/orgs/WordPress/projects/71
+          github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
+          labeled: "[Type] Bug"
+ 
+  add-to-content-feedback-project:
+    name: Add issues labeled "Content Feedback" to LearnWP Content - Feedback project
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/add-to-project@v0.5.0
+        if: contains(github.event.issue.labels.*.name, 'Content Feedback')
+        with:
+          project-url: https://github.com/orgs/WordPress/projects/78
+          github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
+          labeled: Content Feedback
+          
+  add-to-admin-project:
+    name: Add handbook issues to Training Team Administration project
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/add-to-project@v0.5.0
+        if: contains(github.event.issue.labels.*.name, '[Admin] Handbook')
+        with:
+          project-url: https://github.com/orgs/WordPress/projects/53/views/1
+          github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
+          labeled: "[Admin] Handbook"
+
