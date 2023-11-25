@@ -39,3 +39,44 @@ jobs:
             - [ ] Tutorial post reviewed for grammar, spelling, etc.
             - [ ] Tutorial published on Learn.WordPress.org
             - [ ] Tutorial [announced to Marketing Team](https://docs.google.com/spreadsheets/d/1rY9gyA0KljjlinPE2B0S2qfsN8Nz24_N_KzqB5CrYZM/edit#gid=469255212) for promotion
+      - if: contains(github.event.issue.body, '/course')  
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            ## Course Development Checklist
+            - [ ] [Draft content outline](https://make.wordpress.org/training/handbook/courses/content-outline-and-draft/)
+            - [ ] [Create content](https://make.wordpress.org/training/handbook/courses/content-creation/)
+            - [ ] Request a review from the team
+            - [ ] [Publish content](https://make.wordpress.org/training/handbook/courses/publishing/)
+      - if: contains(github.event.issue.body, '/lesson-plan')  
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            ## Lesson Plan Development Checklist
+            - [ ] Create an outline of the example lesson walk-through
+            - [ ] Draft lesson plan
+            - [ ] Copy edit
+            - [ ] Style guide review
+            - [ ] Instructional Review
+            - [ ] Final review
+            - [ ] Publish
+            - [ ] Announce to the Training team
+            - [ ] Announce to lesson plan creator
+            - [ ] Announce to marketing
+            - [ ] Gather feedback from lesson plan users about the quality
+      - if: contains(github.event.issue.body, '/online-workshop')  
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            ## Online Workshop Details
+            - Date:
+            - Meetup.com event link:
+            - Co-host: 
+            
+            ## Online Workshop Development Checklist
+            - [ ] Create Online Workshop event on [Learn WordPress Online Workshops](https://www.meetup.com/learn-wordpress-online-workshops/)
+            - [ ] Add Online Workshop to [Online Workshop calendar](https://learn.wordpress.org/online-workshops/)
+            - [ ] Assign [a Co-host](https://make.wordpress.org/training/handbook/online-workshops/co-hosting-an-online-workshop/) to event (Remove the "Needs Co-host" tag from issue once assigned)
+            - [ ] Hold Online Workshop
+            - [ ] Complete [After an Online Workshop](https://make.wordpress.org/training/handbook/online-workshops/after-an-online-workshop/) next steps
+            - [ ] Add link to slides and/or WordPress.tv video to GitHub issue
