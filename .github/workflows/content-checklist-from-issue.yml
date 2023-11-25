@@ -12,7 +12,7 @@
 name: Add the applicable content development checklist based on a command in the issue body
 on:
   issues:
-    types:  [opened, edited]
+    types:  opened
 
 jobs:
   add-comment:
