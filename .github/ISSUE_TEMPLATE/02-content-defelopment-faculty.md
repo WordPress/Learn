@@ -23,6 +23,6 @@ What will the learner be able to do as a result of this content?
 
 # Automation Code
 <!-- 
-Enter a slash (/) plus one of the following words to add a new comment with the relevant development checklist. (Like /example)
+Under this comment, type an underscore (_) plus one of the following words to indicate which content type this issue is for.  (Like _example) Once submitted, the code will add a new comment with the relevant development checklist to the issue.
 tutorial, online-workshop, lesson-plan, course
 -->
