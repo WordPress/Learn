@@ -13,10 +13,10 @@ You can see if similar feedback has already been reported by searching https://g
 
 ## Type of feedback
 <!--
-Please type the corresponding command that represents your feedback. It will be a slash (/) plus a word (dev, content, docs) with no space in between. (Like /example)
-Is your feedback reporting a bug or feature request for the Learn WordPress website? Type: / dev (with no space)
-Is your feedback about the content on Learn WordPress, such as reporting out-dated information? Type: / content (with no space)
-Is your feedback about the Training Team's documentation? Type: / docs (with no space)
+Please type the corresponding command that represents your feedback. It will be an underscore (_) plus a word (dev, content, docs) with no space in between. (Like _example)
+Is your feedback reporting a bug or feature request for the Learn WordPress website? Type: _ dev (with no space)
+Is your feedback about the content on Learn WordPress, such as reporting out-dated information? Type: _ content (with no space)
+Is your feedback about the Training Team's documentation? Type: _ docs (with no space)
 -->
 
 ## Description
