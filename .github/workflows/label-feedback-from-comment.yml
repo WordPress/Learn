@@ -17,7 +17,7 @@ jobs:
         with:
           script: console.log(context)
       - uses: actions/github-script@v7.0.1
-        if: contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.comment.body, '_content')  
+        if: contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.comment.body, '#content#')  
         with:
           script: |
             github.rest.issues.addLabels({
@@ -27,7 +27,7 @@ jobs:
               labels: ["[Content] Feedback"]
             })
       - uses: actions/github-script@v7.0.1
-        if: contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.comment.body, '_dev')  
+        if: contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.comment.body, '#dev#')  
         with:
           script: |
             github.rest.issues.addLabels({
@@ -37,7 +37,7 @@ jobs:
               labels: ["[Type] Bug"]
             })
       - uses: actions/github-script@v7.0.1
-        if: contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.comment.body, '_docs')  
+        if: contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.comment.body, '#docs#')  
         with:
           script: |
             github.rest.issues.addLabels({
