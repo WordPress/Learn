@@ -37,7 +37,7 @@ jobs:
               labels: ["[Type] Bug"]
             })
       - uses: actions/github-script@v7.0.1
-        if: contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.issue.body, '/handbook')  
+        if: contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.issue.body, '/docs')  
         with:
           script: |
             github.rest.issues.addLabels({
