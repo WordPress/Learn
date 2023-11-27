@@ -25,7 +25,7 @@ jobs:
         with:
           script: console.log(context)
       - uses: peter-evans/create-or-update-comment@5f728c3dae25f329afbe34ee4d08eef25569d79f
-        if: contains(github.event.comment.body, '/tutorial')  
+        if: contains(github.event.comment.body, '_tutorial')  
         with:
           issue-number: ${{ github.event.issue.number }}
           body: |
@@ -40,7 +40,7 @@ jobs:
             - [ ] Tutorial published on Learn.WordPress.org
             - [ ] Tutorial [announced to Marketing Team](https://docs.google.com/spreadsheets/d/1rY9gyA0KljjlinPE2B0S2qfsN8Nz24_N_KzqB5CrYZM/edit#gid=469255212) for promotion
       - uses: peter-evans/create-or-update-comment@5f728c3dae25f329afbe34ee4d08eef25569d79f
-        if: contains(github.event.comment.body, '/course')  
+        if: contains(github.event.comment.body, '_course')  
         with:
           issue-number: ${{ github.event.issue.number }}
           body: |
@@ -50,7 +50,7 @@ jobs:
             - [ ] Request a review from the team
             - [ ] [Publish content](https://make.wordpress.org/training/handbook/courses/publishing/)
       - uses: peter-evans/create-or-update-comment@5f728c3dae25f329afbe34ee4d08eef25569d79f
-        if: contains(github.event.comment.body, '/lesson-plan')  
+        if: contains(github.event.comment.body, '_lesson-plan')  
         with:
           issue-number: ${{ github.event.issue.number }}
           body: |
@@ -67,7 +67,7 @@ jobs:
             - [ ] Announce to marketing
             - [ ] Gather feedback from lesson plan users about the quality
       - uses: peter-evans/create-or-update-comment@5f728c3dae25f329afbe34ee4d08eef25569d79f
-        if: contains(github.event.comment.body, '/online-workshop')  
+        if: contains(github.event.comment.body, '_online-workshop')  
         with:
           issue-number: ${{ github.event.issue.number }}
           body: |
