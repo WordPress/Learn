@@ -9,22 +9,45 @@ on:
 
 jobs:
   tutorial-issue:
-    if: ${{ !github.event.issue.pull_request && ( contains(github.event.issue.body, '#tutorial#') || contains(github.event.comment.body, '#tutorial#') ) }}
-    uses: ./.github/workflows/comment-with-checklist.yml
-    with:
-      content-type: 'tutorial'
+    runs-on: ubuntu-latest
+    if: ${{ !github.event.issue.pull_request && contains(github.event.issue.labels.*.name, 'Awaiting Triage') && ( contains(github.event.issue.body, '#tutorial#') || contains(github.event.comment.body, '#tutorial#') ) }}
+    steps:
+    - uses: ./.github/workflows/comment-with-checklist.yml
+      with:
+        content-type: 'tutorial'
+    - uses: ./.github/workflows/add-label.yml
+      with:
+        label-name: 'Awaiting Triage'
+        
   online-workshop-issue:
-    if: ${{ !github.event.issue.pull_request && ( contains(github.event.issue.body, '#online-workshop#') || contains(github.event.comment.body, '#online-workshop#') ) }}
-    uses: ./.github/workflows/comment-with-checklist.yml
-    with:
-      content-type: 'online-workshop'
+    runs-on: ubuntu-latest
+    if: ${{ !github.event.issue.pull_request && contains(github.event.issue.labels.*.name, 'Awaiting Triage') && ( contains(github.event.issue.body, '#online-workshop#') || contains(github.event.comment.body, '#online-workshop#') ) }}
+    steps:
+    - uses: ./.github/workflows/comment-with-checklist.yml
+      with:
+        content-type: 'online-workshop'
+    - uses: ./.github/workflows/add-label.yml
+      with:
+        label-name: 'Awaiting Triage'
+  
   lesson-plan-issue:
-    if: ${{ !github.event.issue.pull_request && ( contains(github.event.issue.body, '#lesson-plan#') || contains(github.event.comment.body, '#lesson-plan#') ) }}
-    uses: ./.github/workflows/comment-with-checklist.yml
-    with:
-      content-type: 'lesson-plan'
+    runs-on: ubuntu-latest
+    if: ${{ !github.event.issue.pull_request && contains(github.event.issue.labels.*.name, 'Awaiting Triage') && ( contains(github.event.issue.body, '#lesson-plan#') || contains(github.event.comment.body, '#lesson-plan#') ) }}
+    steps:
+    - uses: ./.github/workflows/comment-with-checklist.yml
+      with:
+        content-type: 'lesson-plan'
+    - uses: ./.github/workflows/add-label.yml
+      with:
+        label-name: 'Awaiting Triage'
+  
   course-issue:
-    if: ${{ !github.event.issue.pull_request && ( contains(github.event.issue.body, '#course#') || contains(github.event.comment.body, '#course#') ) }}
-    uses: ./.github/workflows/comment-with-checklist.yml
-    with:
-      content-type: 'course'
+    runs-on: ubuntu-latest
+    if: ${{ !github.event.issue.pull_request && contains(github.event.issue.labels.*.name, 'Awaiting Triage') && ( contains(github.event.issue.body, '#course#') || contains(github.event.comment.body, '#course#') ) }}
+    steps:
+    - uses: ./.github/workflows/comment-with-checklist.yml
+      with:
+        content-type: 'course'
+    - uses: ./.github/workflows/add-label.yml
+      with:
+        label-name: 'Awaiting Triage'
