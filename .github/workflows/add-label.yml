@@ -1,0 +1,26 @@
+# This is a reusable workflow, called from other workflows
+# See https://docs.github.com/en/actions/using-workflows/reusing-workflows
+
+name: Add label to issue
+on:
+  workflow_call:
+    inputs:
+      label-name:
+        type: string
+
+jobs:
+  label_issues:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+    - uses: actions/github-script@v7.0.1
+      with:
+        script: |
+          github.rest.issues.addLabels({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            labels: inputs.label-name
+          })
+            
