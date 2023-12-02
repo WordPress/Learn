@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ !github.event.issue.pull_request && contains(github.event.issue.labels.*.name, 'Awaiting Triage') && ( contains(github.event.issue.body, '#tutorial#') || contains(github.event.comment.body, '#tutorial#') ) }}
     steps:
+    - uses: actions/checkout@v1
     - uses: ./.github/workflows/comment-with-checklist.yml
       with:
         content-type: 'tutorial'
@@ -23,6 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ !github.event.issue.pull_request && contains(github.event.issue.labels.*.name, 'Awaiting Triage') && ( contains(github.event.issue.body, '#online-workshop#') || contains(github.event.comment.body, '#online-workshop#') ) }}
     steps:
+    - uses: actions/checkout@v1
     - uses: ./.github/workflows/comment-with-checklist.yml
       with:
         content-type: 'online-workshop'
@@ -34,6 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ !github.event.issue.pull_request && contains(github.event.issue.labels.*.name, 'Awaiting Triage') && ( contains(github.event.issue.body, '#lesson-plan#') || contains(github.event.comment.body, '#lesson-plan#') ) }}
     steps:
+    - uses: actions/checkout@v1
     - uses: ./.github/workflows/comment-with-checklist.yml
       with:
         content-type: 'lesson-plan'
@@ -45,6 +48,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ !github.event.issue.pull_request && contains(github.event.issue.labels.*.name, 'Awaiting Triage') && ( contains(github.event.issue.body, '#course#') || contains(github.event.comment.body, '#course#') ) }}
     steps:
+    - uses: actions/checkout@v1
     - uses: ./.github/workflows/comment-with-checklist.yml
       with:
         content-type: 'course'
