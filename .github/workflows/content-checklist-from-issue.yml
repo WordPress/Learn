@@ -4,30 +4,28 @@ name: Add the applicable content development checklist based on a command in the
 on:
   issues:
     types:  [opened, edited]
-  issue_comment:
-    types: [created, edited]
 
 jobs:
   tutorial-issue:
-    if: ${{ contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.*.body, '#tutorial#') }}
+    if: ${{ !github.event.issue.pull_request && contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.issue.body, '#tutorial#') }}
     uses: ./.github/workflows/comment-with-checklist.yml
     with:
       content-type: 'tutorial'
       
   online-workshop-issue:
-    if: ${{ contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.*.body, '#online-workshop#') }}
+    if: ${{ !github.event.issue.pull_request && contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.issue.body, '#online-workshop#') }}
     uses: ./.github/workflows/comment-with-checklist.yml
     with:
       content-type: 'online-workshop'
   
   lesson-plan-issue:
-    if: ${{ contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.*.body, '#lesson-plan#') }}
+    if: ${{ !github.event.issue.pull_request && contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.issue.body, '#lesson-plan#') }}
     uses: ./.github/workflows/comment-with-checklist.yml
     with:
       content-type: 'lesson-plan'
   
   course-issue:
-    if: ${{ contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.*.body, '#course#') }}
+    if: ${{ !github.event.issue.pull_request && contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.issue.body, '#course#') }}
     uses: ./.github/workflows/comment-with-checklist.yml
     with:
       content-type: 'course'
