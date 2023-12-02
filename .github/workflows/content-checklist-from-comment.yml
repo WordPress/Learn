@@ -1,0 +1,31 @@
+# This was based on https://docs.github.com/en/actions/managing-issues-and-pull-requests/commenting-on-an-issue-when-a-label-is-added
+
+name: Add the applicable content development checklist based on a command in the comment
+on:
+  issue_comment:
+    types:  [created, edited]
+
+jobs:
+  tutorial-issue:
+    if: ${{ contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.comment.body, '#tutorial#') }}
+    uses: ./.github/workflows/comment-with-checklist.yml
+    with:
+      content-type: 'tutorial'
+      
+  online-workshop-issue:
+    if: ${{ contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.comment.body, '#online-workshop#') }}
+    uses: ./.github/workflows/comment-with-checklist.yml
+    with:
+      content-type: 'online-workshop'
+  
+  lesson-plan-issue:
+    if: ${{ contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.comment.body, '#lesson-plan#') }}
+    uses: ./.github/workflows/comment-with-checklist.yml
+    with:
+      content-type: 'lesson-plan'
+  
+  course-issue:
+    if: ${{ contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.comment.body, '#course#') }}
+    uses: ./.github/workflows/comment-with-checklist.yml
+    with:
+      content-type: 'course'
