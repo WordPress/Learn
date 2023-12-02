@@ -1,0 +1,23 @@
+# Based on https://github.com/WordPress/Documentation-Issue-Tracker/blob/31612f907897d8161b80a9d6bc352c74b4748b38/.github/workflows/actions-when-commented.yml
+
+name: Label and assign issues when commented
+on: 
+  issue_comment:
+    types: [created, edited]
+
+jobs:
+  assign-issue:
+    if: contains(github.event.comment.body, '#assign#')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Assign the comment author
+        uses: takanome-dev/assign-issue-action@v2.0.0
+        with:
+          github_token: '${{ secrets.GITHUB_TOKEN }}'
+          trigger: '#assign#'
+          required_label: ''
+          assigned_label: 'Self-Assigned'
+          assigned_comment: "Hi @{{ comment.user.login }}, thanks for your interest in this issue!<br>If you have any questions, do not hesitate to ask them in our <a href='https://wordpress.slack.com/archives/C02RW657Q'>#training</a> Slack channel.<br>Thank you for contributing!"
+          already_assigned_comment: "Hey @{{ comment.user.login }}, this issue is already assigned to @{{ assignee.login }}.<br>A <a href='https://make.wordpress.org/training/handbook/faculty-program/'>Faculty Administrator</a> can also add you to the list of assignees or swap you with the current assignee. Or you can take a look at other unassigned issues we have.<br>"
+          pin_label: ''
+          days_until_unassign: 0
