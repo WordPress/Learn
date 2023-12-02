@@ -9,22 +9,22 @@ on:
 
 jobs:
   tutorial-issue:
-    if: ${{ !github.event.issue.pull_request }} && ( contains(github.event.issue.body, '#tutorial#') || contains(github.event.comment.body, '#tutorial#') )
+    if: ${{ !github.event.issue.pull_request && ( contains(github.event.issue.body, '#tutorial#') || contains(github.event.comment.body, '#tutorial#') ) }}
     uses: ./.github/workflows/comment-with-checklist.yml
     with:
       content-type: 'tutorial'
   online-workshop-issue:
-    if: ${{ !github.event.issue.pull_request }} && ( contains(github.event.issue.body, '#online-workshop#') || contains(github.event.comment.body, '#online-workshop#') )
+    if: ${{ !github.event.issue.pull_request && ( contains(github.event.issue.body, '#online-workshop#') || contains(github.event.comment.body, '#online-workshop#') ) }}
     uses: ./.github/workflows/comment-with-checklist.yml
     with:
       content-type: 'online-workshop'
   lesson-plan-issue:
-    if: ${{ !github.event.issue.pull_request }} && ( contains(github.event.issue.body, '#lesson-plan#') || contains(github.event.comment.body, '#lesson-plan#') )
+    if: ${{ !github.event.issue.pull_request && ( contains(github.event.issue.body, '#lesson-plan#') || contains(github.event.comment.body, '#lesson-plan#') ) }}
     uses: ./.github/workflows/comment-with-checklist.yml
     with:
       content-type: 'lesson-plan'
   course-issue:
-    if: ${{ !github.event.issue.pull_request }} && ( contains(github.event.issue.body, '#course#') || contains(github.event.comment.body, '#course#') )
+    if: ${{ !github.event.issue.pull_request && ( contains(github.event.issue.body, '#course#') || contains(github.event.comment.body, '#course#') ) }}
     uses: ./.github/workflows/comment-with-checklist.yml
     with:
       content-type: 'course'
