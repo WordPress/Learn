@@ -1,0 +1,13 @@
+# This was based on https://docs.github.com/en/actions/managing-issues-and-pull-requests/commenting-on-an-issue-when-a-label-is-added
+
+name: Add the applicable content development checklist based on a command in the issue body
+on:
+  issues:
+    type:  opened
+
+jobs:
+  tutorial-issue:
+    if: ${{ !github.event.issue.pull_request }} && contains(github.event.issue.body, '#tutorial#')
+    uses: ./.github/workflows/comment-with-checklist.yml
+    with:
+      content-type: 'tutorial'
