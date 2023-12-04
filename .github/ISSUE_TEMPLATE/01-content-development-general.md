@@ -2,7 +2,7 @@
 name: Content Development (general)
 about: Want to create a new piece of content, or suggest a topic, for the Learn.WordPress.org website? Start here!
 title: TOPIC_TITLE
-labels: Awaiting Triage, Needs Subject Matter Expert
+labels: Awaiting Triage, [Content] Needs SME
 ---
 
 # Details
