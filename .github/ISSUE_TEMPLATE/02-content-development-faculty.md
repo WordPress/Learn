@@ -21,8 +21,7 @@ What will the learner be able to do as a result of this content?
 # Related Resources and Other Notes
 
 
-# Automation Code
+### Automation Code
 <!-- 
-Under this comment, type one of the following words surrounded by sharps (#) to indicate which content type this issue is for.  (Like #example#) Once submitted, that code will add a new comment to the issue with the relevant development checklist.
-tutorial, online-workshop, lesson-plan, course
+Under this comment, type two slashes (//) followed by the content type (tutorial, online-workshop, lesson-plan, course). (Like //example) Once submitted, that code will add a new comment to the issue with the relevant development checklist.
 -->
