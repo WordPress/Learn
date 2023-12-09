@@ -106,7 +106,7 @@ class Premium_Patterns {
 		register_block_pattern(
 			'sensei-lms/checklist',
 			[
-				'title'         => __( 'Checklist', 'sensei-pro' ),
+				'title'         => __( 'Tasklist', 'sensei-pro' ),
 				'categories'    => [ $this->get_patterns_category() ],
 				'blockTypes'    => [ $this->get_post_content_block_type_name() ],
 				'viewportWidth' => 800,

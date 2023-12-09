@@ -106,6 +106,7 @@ final class Sensei_Pro {
 			'glossary',
 			'course-showcase',
 			'sensei-pro-ai',
+			'tailored-course-outline',
 		];
 	}
 

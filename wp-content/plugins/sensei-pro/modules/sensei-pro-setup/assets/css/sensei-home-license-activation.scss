@@ -100,9 +100,13 @@
 		}
 	}
 
+	&__message,
 	&__error {
 		font-size: 14px;
 		line-height: 20px;
+	}
+
+	&__error {
 		color: #f00;
 	}
 

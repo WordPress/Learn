@@ -45,7 +45,7 @@ class Ordering_Question_Type {
 		add_filter( 'sensei_quiz_enable_block_based_editor', [ $this, 'enable_block_editor' ] );
 		add_filter( 'init', [ $this, 'skip_sensei_question_types_check' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'register_frontend_assets' ] );
-		add_action( 'sensei_quiz_question_inside_after', [ $this, 'render_ordering_question' ], 9 );
+		add_action( 'sensei_quiz_question_answers_inside_after', [ $this, 'render_ordering_question' ], 9 );
 		add_action( 'sensei_single_quiz_questions_after', [ $this, 'enqueue_frontend_assets' ] );
 
 		$this->questions_data = [];
@@ -180,6 +180,27 @@ class Ordering_Question_Type {
 
 		$this->questions_data[ $question_id ]['question']           = $question_data;
 		$this->questions_data[ $question_id ]['user_saved_answers'] = ! empty( $saved_answer );
+
+		$is_awaiting_grade = false;
+
+		$lesson_status = \Sensei_Utils::user_lesson_status( $lesson_id, get_current_user_id() );
+
+		if ( $lesson_status ) {
+			$lesson_status = is_array( $lesson_status ) ? $lesson_status[0] : $lesson_status;
+
+			$is_awaiting_grade = 'ungraded' === $lesson_status->comment_approved;
+		}
+
+		if ( $is_awaiting_grade ) {
+			$answers = '';
+
+			foreach ( $question_data['answers'] as $answer ) {
+				$answers .= '<li>' . $answer['label'] . '</li>';
+			}
+
+			echo wp_kses_post( '<ul class="wp-block-sensei-lms-question-answers__ordering-answers">' . $answers . '</ul>' );
+			return;
+		}
 
 		echo '<div id="sensei-ordering-question-' . esc_attr( $question_id ) . '" class="ordering-question-answers-container"></div>';
 	}

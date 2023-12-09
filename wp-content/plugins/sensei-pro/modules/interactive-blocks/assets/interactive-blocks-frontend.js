@@ -15,5 +15,6 @@ import './question/question-block/question-frontend';
 import './interactive-video/break-point-block/break-point-frontend';
 import './interactive-video/timeline-block/timeline-frontend';
 import './accordion/frontend';
+import './tutor-ai/frontend';
 
 runBlocks();

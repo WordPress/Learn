@@ -97,6 +97,7 @@ class Shared_Module {
 		include_once $this->module_dir . '/includes/class-language-packs.php';
 		include_once $this->module_dir . '/includes/class-course-helper.php';
 		include_once $this->module_dir . '/includes/class-screen-id-helper.php';
+		include_once $this->module_dir . '/includes/class-ai-api-client.php';
 		// Initialize Scheduler.
 		Scheduler::init( $this->vendor_path );
 	}
