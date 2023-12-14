@@ -14,7 +14,7 @@ jobs:
         uses: takanome-dev/assign-issue-action@v2.0.0
         with:
           github_token: '${{ secrets.GITHUB_TOKEN }}'
-          trigger: '#assign#'
+          trigger: '//assign'
           required_label: ''
           assigned_label: 'Self-Assigned'
           assigned_comment: "Hi @{{ comment.user.login }}, thanks for your interest in this issue!<br>If you have any questions, do not hesitate to ask them in our <a href='https://wordpress.slack.com/archives/C02RW657Q'>#training</a> Slack channel.<br>Thank you for contributing!"
