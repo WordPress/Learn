@@ -30,3 +30,8 @@ jobs:
     with:
       content-type: 'course'
 
+  lesson-issue:
+    if: ${{ contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.issue.body, '//lesson') }}
+    uses: ./.github/workflows/comment-with-checklist.yml
+    with:
+      content-type: 'lesson'
