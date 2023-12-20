@@ -2,10 +2,6 @@
 
 The details below will walk you through getting set up to contribute to the **code** behind https://learn.wordpress.org. If you are interested in contributing to the **content** or **translation** of the content hosted on the site, you'll find further guidance in the [Training Team Handbook](https://make.wordpress.org/training/handbook/). Content development is tracked on this GitHub repository [in this project board](https://github.com/orgs/WordPress/projects/33/views/1).
 
-## Hacktoberfest 2023
-
-Looking to contribute to our project for Hacktoberfest 2023? You can read more details of [how to contribute here](https://github.com/WordPress/Learn/issues/1832#issuecomment-1744514289).
-
 ## Prerequisites
 - [Docker](https://docs.docker.com/get-docker/)
 - [Node/NPM](https://nodejs.org/en/download/)
