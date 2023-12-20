@@ -1,0 +1,29 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "sensei-pro/group-members-count",
+  "title": "Group Members Count",
+  "description": "The number of members in the group.",
+  "category": "sensei-lms",
+  "ancestor": [
+    "sensei-pro/join-group"
+  ],
+  "supports": {
+    "html": false,
+    "spacing": {
+      "margin": true,
+      "padding": true
+    },
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true
+    },
+    "color": {
+      "text": true,
+      "background": true,
+      "enableContrastChecker": true,
+      "gradients": true
+    }
+  },
+  "textdomain": "sensei-pro"
+}

@@ -1,0 +1,17 @@
+.wp-block-sensei-pro-join-group {
+	box-sizing: border-box; // Like group and columns blocks are handled.
+
+	&__button-disabled {
+		opacity: 0.4;
+		pointer-events: none;
+	}
+
+	& &__full-message {
+		margin-bottom: 0;
+		margin-top: 0;
+	}
+
+	& &__message {
+		margin-bottom: 0;
+	}
+}

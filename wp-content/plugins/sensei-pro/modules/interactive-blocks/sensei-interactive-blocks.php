@@ -3,11 +3,11 @@
  * Plugin Name: Sensei Blocks
  * Plugin URI: https://senseilms.com/
  * Description: A collection of interactive blocks for making your content and lessons more engaging.
- * Version: 1.4.1
+ * Version: 1.4.3
  * License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
- * Requires at least: 6.1
- * Tested up to: 6.3
- * Requires PHP: 7.3
+ * Requires at least: 6.2
+ * Tested up to: 6.4
+ * Requires PHP: 7.4
  * Author: Automattic
  * Author URI: https://automattic.com/
  * Text Domain: sensei-pro
@@ -26,8 +26,8 @@ if ( sensei_interactive_blocks_has_conflicts() ) {
 }
 
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound
-define( 'SENSEI_PRO_VERSION', '1.17.0' ); // Note: this is the current sensei-pro version this plugin was built from, needed so the correct language packs are loaded (in shared module).
-define( 'SENSEI_IB_VERSION', '1.4.1' );
+define( 'SENSEI_PRO_VERSION', '1.20.0' ); // Note: this is the current sensei-pro version this plugin was built from, needed so the correct language packs are loaded (in shared module).
+define( 'SENSEI_IB_VERSION', '1.4.3' );
 define( 'SENSEI_IB_PLUGIN_FILE', __FILE__ );
 define( 'SENSEI_IB_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 define( 'SENSEI_IB_PLUGIN_DIR_URL', plugin_dir_url( __FILE__ ) );

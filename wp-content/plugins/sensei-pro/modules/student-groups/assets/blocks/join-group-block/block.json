@@ -1,0 +1,59 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "sensei-pro/join-group",
+  "title": "Join Group",
+  "description": "Join a group and automatically get enrolled in all the group's active courses.",
+  "category": "sensei-lms",
+  "supports": {
+    "html": false,
+    "spacing": {
+      "margin": true,
+      "padding": true
+    },
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true
+    },
+    "__experimentalBorder": {
+      "color": true,
+      "radius": true,
+      "style": true,
+      "width": true
+    },
+    "border": {
+      "color": true,
+      "radius": true,
+      "style": true,
+      "width": true
+    },
+    "color": {
+      "text": true,
+      "background": true,
+      "enableContrastChecker": true,
+      "gradients": true
+    },
+    "align": true
+  },
+  "attributes": {
+    "style": {
+      "type": "object",
+      "default": {
+        "border": {
+          "color": "#c7c3c34f",
+          "style":"solid",
+          "width":"1px"
+        },
+        "spacing": {
+          "padding": {
+            "top": "30px",
+            "bottom": "30px",
+            "left": "30px",
+            "right": "30px"
+          }
+        }
+      }
+    }
+  },
+  "textdomain": "sensei-pro"
+}

@@ -169,17 +169,25 @@ class SenseiLMS_Plugin_Updater {
 	 * @return array|WP_Error
 	 */
 	private function request_info() {
-		$cache_key = self::CACHE_KEY_PREFIX . $this->plugin_slug;
-		$remote    = get_transient( $cache_key );
+		$cache_key         = self::CACHE_KEY_PREFIX . $this->plugin_slug;
+		$license_cache_key = $cache_key . '_license_key';
+		$license_status    = License_Manager::get_license_status( $this->plugin_slug );
+		$license_key       = $license_status['license_key'];
+		$domain            = $license_status['domain'];
 
-		if ( false === $remote ) {
-			$license_status = License_Manager::get_license_status( $this->plugin_slug );
-			$remote         = wp_remote_get(
+		$last_license_key = get_transient( $license_cache_key );
+		$remote           = get_transient( $cache_key );
+
+		// Check if the license key has changed since the last time the transient was set.
+		$license_key_has_changed = ! empty( $license_key ) && $last_license_key !== $license_key;
+
+		if ( false === $remote || $license_key_has_changed ) {
+			$remote = wp_remote_get(
 				add_query_arg(
 					[
 						'plugin_slug' => $this->plugin_slug,
-						'license_key' => $license_status['license_key'],
-						'domain'      => $license_status['domain'],
+						'license_key' => $license_key,
+						'domain'      => $domain,
 						'ts'          => time(), // Adding some timestamp to workaround cache issues.
 					],
 					License_Manager::get_api_url() . '/plugin-updater/v1/info'
@@ -195,6 +203,7 @@ class SenseiLMS_Plugin_Updater {
 
 			// Caching any response.
 			set_transient( $cache_key, $remote, self::CACHE_TTL );
+			set_transient( $license_cache_key, $license_key, self::CACHE_TTL );
 		}
 
 		// Check response for errors.

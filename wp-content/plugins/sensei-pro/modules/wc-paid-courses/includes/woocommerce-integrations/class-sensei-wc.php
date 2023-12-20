@@ -11,7 +11,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use Sensei_WC_Paid_Courses\Course_Enrolment_Providers;
-use Sensei_WC_Paid_Courses\Course_Enrolment_Providers\WooCommerce_Subscriptions;
 use Sensei_Pro_Course_Expiration\Course_Expiration;
 use Sensei_WC_Paid_Courses\Courses;
 
@@ -350,14 +349,30 @@ class Sensei_WC {
 	 * @return boolean Whether login is required to access course.
 	 */
 	public static function require_login_for_paid_courses( $login_required, $course_id ) {
+
+		$found             = false;
+		$cache_key         = 'paid-course-requires-login-course-' . $course_id;
+		$cache_group       = 'sensei-user-access';
+		$is_login_required = wp_cache_get( $cache_key, $cache_group, false, $found );
+
+		if ( $found ) {
+			return $is_login_required;
+		}
+
+		$is_login_required = true;
+
 		if (
 			empty( $course_id )
 			|| ! Course_Enrolment_Providers::instance()->handles_enrolment( $course_id )
 		) {
-			return $login_required;
+			$is_login_required = $login_required;
 		}
 
-		return true;
+		// wp_cache_set is non-persistant by default, but in case the user has a
+		// persistant cache configured, we set the expiration time to 2 seconds.
+		wp_cache_set( $cache_key, $is_login_required, $cache_group, 2 );
+
+		return $is_login_required;
 	}
 
 	/**
@@ -510,7 +525,7 @@ class Sensei_WC {
 
 		echo wp_kses_post(
 			'<section class="woocommerce-order-sensei-courses"><h2>' . esc_html__( 'Courses', 'sensei-pro' ) . '</h2>
-			<ul>' . join( '', $course_links ) . '</ul></section>'
+			<ul>' . implode( '', $course_links ) . '</ul></section>'
 		);
 
 	}
@@ -540,7 +555,7 @@ class Sensei_WC {
 		foreach ( $order->get_items() as $item ) {
 			$item_id = Sensei_WC_Utils::get_item_id_from_item( $item );
 
-			$user_id = get_post_meta( $order->get_id(), '_customer_user', true );
+			$user_id = $order->get_customer_id();
 
 			if ( $user_id ) {
 				$product_ids[] = $item_id;
@@ -1428,15 +1443,16 @@ class Sensei_WC {
 			$product_id = Sensei_WC_Utils::get_product_id( $product );
 		}
 
-		$orders = self::get_user_product_orders( $user_id );
+		$orders = wc_get_orders(
+			[
+				'limit'       => -1,
+				'type'        => 'shop_order',
+				'customer_id' => (int) $user_id,
+				'status'      => [ 'wc-completed', 'wc-processing' ],
+			]
+		);
 
-		foreach ( $orders as $order_id ) {
-
-			$order = wc_get_order( $order_id->ID );
-			if ( false === $order ) {
-				continue;
-			}
-
+		foreach ( $orders as $order ) {
 			// wc-active is the subscriptions complete status.
 			$status = 'wc-' . $order->get_status();
 			if ( ! in_array( $status, [ 'wc-processing', 'wc-completed' ], true )
@@ -1595,7 +1611,7 @@ class Sensei_WC {
 	}
 
 	/**
-	 * Adds detail to to the WooCommerce order
+	 * Adds detail to the WooCommerce order
 	 *
 	 * @since Sensei 1.4.5
 	 * @since Sensei 1.9.0 function moved to class Sensei_WC and renamed from sensei_woocommerce_email_course_details to email_course_details
@@ -1615,8 +1631,7 @@ class Sensei_WC {
 		}
 
 		$order_items = $order->get_items();
-		$order_id    = $order->get_id();
-		$user_id     = get_post_meta( $order_id, '_customer_user', true );
+		$user_id     = $order->get_customer_id();
 
 		if ( ! $user_id ) {
 			return;
@@ -1635,7 +1650,7 @@ class Sensei_WC {
 
 			$courses = Courses::get_product_courses( $product_ids );
 
-			if ( $courses && count( $courses ) > 0 ) {
+			if ( $courses ) {
 
 				foreach ( $courses as $course ) {
 
@@ -1745,7 +1760,7 @@ class Sensei_WC {
 				}
 			}
 
-			if ( count( $courses ) > 0 ) {
+			if ( $courses ) {
 				$order_contains_courses = true;
 			}
 		}
@@ -2044,7 +2059,7 @@ class Sensei_WC {
 
 						$posts = get_posts( $args );
 
-						if ( $posts && count( $posts ) > 0 ) {
+						if ( $posts ) {
 
 							foreach ( $posts as $course ) {
 								$guest_checkout = '';
@@ -2173,11 +2188,14 @@ class Sensei_WC {
 	/**
 	 * Get all the orders for a specific user.
 	 *
+	 * @deprecated 1.18.0 Use wc_get_orders instead.
+	 *
 	 * @param int $user_id The user id.
 	 *
 	 * @return array $orders
 	 */
 	public static function get_user_product_orders( $user_id = 0 ) {
+		_deprecated_function( __METHOD__, '1.18.0', 'wc_get_orders' );
 
 		if ( empty( $user_id ) ) {
 			return [];
@@ -2192,7 +2210,6 @@ class Sensei_WC {
 		];
 
 		return get_posts( $args );
-
 	}
 
 	/**

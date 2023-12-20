@@ -173,33 +173,38 @@ class Interactive_Blocks {
 	}
 
 	/**
-	 * Enqueue frontend assets - It's enqueued by default as part of the `view_script` arg
-	 * when registering the blocks. It's a workaround for WP 5.7.
+	 * Enqueue frontend assets.
 	 */
 	public function enqueue_frontend_assets() {
+		$post = get_post();
 
-		$blocks = [
-			'sensei-pro/question',
-			'sensei-pro/flashcard',
-			'sensei-lms/accordion',
-			'sensei-lms/tutor-ai',
-			'sensei-pro/hotspots',
-			'sensei-pro/task-list',
-			'sensei-pro/interactive-video',
-			'core/video',
-			'core/embed',
-		];
-
-		$has_any_block = false;
-		$post          = get_post();
-
-		foreach ( $blocks as $block ) {
-			$has_any_block |= has_block( $block, $post );
+		if ( ! $post ) {
+			return;
 		}
 
-		if ( $has_any_block ) {
-			$post_id = get_post()->ID;
-			wp_add_inline_script( 'sensei-interactive-blocks-frontend-script', "window.sensei = window.sensei || {};  window.sensei.postId = '$post_id';", 'before' );
+		wp_add_inline_script( 'sensei-interactive-blocks-frontend-script', "window.sensei = window.sensei || {};  window.sensei.postId = '$post->ID';", 'before' );
+
+		$this->maybe_enqueue_lesson_video_assets();
+	}
+
+	/**
+	 * Enqueue assets for video blocks on lessons because that assets contain the Required Videos feature
+	 * and it's not enqueued through the block registration as the other Sensei Interactive Blocks.
+	 */
+	private function maybe_enqueue_lesson_video_assets() {
+		$post            = get_post();
+		$video_blocks    = [ 'core/video', 'core/embed' ];
+		$has_video_block = false;
+
+		if ( 'lesson' !== $post->post_type ) {
+			return;
+		}
+
+		foreach ( $video_blocks as $block ) {
+			$has_video_block |= has_block( $block, $post );
+		}
+
+		if ( $has_video_block ) {
 			$this->assets_provider->enqueue_style( 'sensei-interactive-blocks-styles' );
 			$this->assets_provider->enqueue_script( 'sensei-interactive-blocks-frontend-script' );
 		}

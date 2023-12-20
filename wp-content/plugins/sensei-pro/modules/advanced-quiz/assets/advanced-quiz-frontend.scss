@@ -1,3 +1,5 @@
+@import "~@wordpress/base-styles/breakpoints";
+
 .sensei-lms-quiz-timer__start-page {
 	margin: 80px auto;
 	&__time-limit-notice {
@@ -7,6 +9,60 @@
 		border-radius: 1px;
 		.entry-content & h3 {
 			margin-top: 0;
+		}
+	}
+}
+
+body.sensei-course-theme {
+	.sensei-lms-quiz-timer__start-page {
+		&__time-limit-notice {
+			margin-left: calc(var(--content-padding) * -1);
+			margin-right: calc(var(--content-padding) * -1);
+
+			h2 {
+				margin: 0 0 10px 0;
+			}
+		}
+
+		&__start-button {
+			display: flex;
+			justify-content: center;
+		}
+
+		@media (min-width: $break-medium) {
+			&__time-limit-notice {
+				border-radius: 4px;
+				margin-left: 0;
+				margin-right: 0;
+			}
+
+			&__start-button {
+				display: block;
+			}
+		}
+	}
+
+	&.theme-course {
+		/* For older version of Course theme */
+		--notice-text-font-size: var(--wp--custom--typography--font-sizes--normal);
+
+		&.is-default {
+			--notice-text-font-size: clamp(1.25rem, 1.083rem + 0.556vw, 1.5rem);
+		}
+
+		&.is-blue,
+		&.is-gold {
+			--notice-text-font-size: clamp(1rem, 0.917rem + 0.278vw, 1.125rem);
+		}
+
+		&.is-dark {
+			--notice-text-font-size: clamp(1.125rem, 1.042rem + 0.278vw, 1.25rem);
+		}
+
+		.sensei-lms-quiz-timer__start-page__time-limit-notice {
+			&__text {
+				font-size: var(--notice-text-font-size);
+			}
 		}
 	}
 }
@@ -34,7 +90,6 @@
 			position: relative;
 			margin: auto;
 			border-radius: 50%;
-			background: #fff;
 		}
 
 		svg {
@@ -62,14 +117,40 @@
 	.sensei-course-theme__frame & * {
 		transition: unset;
 	}
+
+	.sensei-lms-quiz-timer__countdown-text {
+		&--sticky {
+			display: flex;
+			height: 2.5rem;
+			justify-content: center;
+			left: 0;
+			position: fixed;
+			right: 0;
+			top: var(--full-header-height, 80px);
+			z-index: 100;
+		}
+
+		&--inner-container {
+			align-items: center;
+			display: flex;
+			font-family: var(--wp--preset--font-family--system, var(--wp--preset--font-family--body-font));
+			font-size: 0.875rem;
+			justify-content: space-between;
+			max-width: var(--content-size);
+		}
+
+		&--time {
+			font-weight: 700;
+		}
+	}
 }
 
 .sensei-course-theme__quiz__header__right {
 	&--with-timer {
+		align-items: center;
 		display: flex;
 		flex-direction: row;
 		justify-content: flex-start;
-		align-items: center;
 
 		div {
 			flex: 1;
@@ -83,6 +164,43 @@
 			.sensei-lms-quiz-timer__countdown-circular {
 				margin: 0;
 			}
+		}
+	}
+}
+
+/* Styles specific to the sticky timer clock in timed quizzes in Learning Mode */
+.sensei-course-theme {
+
+	/* Default variation or when the theme is not course theme*/
+	.sensei-lms-quiz-timer__countdown-text--sticky {
+		background-color: #f8f8f8;
+	}
+
+	/* Gold, Dark and Blue variation */
+	&.is-gold,
+	&.is-dark,
+	&.is-blue {
+		.sensei-lms-quiz-timer__countdown-text--sticky {
+			background-color: var(--sensei-background-color-global);
+
+			&::before {
+				background: #1b0f000d;
+				content: "";
+				height: inherit;
+				position: fixed;
+				width: 100%;
+			}
+		}
+	}
+}
+
+/* Syles specific to the circular clock in timed quizzes in learning mode */
+.sensei-course-theme {
+	.sensei-lms-quiz-timer__countdown-circular {
+		&__circle-container {
+			font-family: var(--wp--preset--font-family--system, var(--wp--preset--font-family--body-font));
+			font-size: 1.5rem;
+			font-weight: 400;
 		}
 	}
 }

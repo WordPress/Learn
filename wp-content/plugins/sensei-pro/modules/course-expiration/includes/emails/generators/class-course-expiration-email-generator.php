@@ -64,7 +64,12 @@ class Course_Expiration_Email_Generator extends Email_Generators_Abstract {
 	 * @return void
 	 */
 	public function init() {
-		add_action( "sensei_pro_course_expiration_{$this->remaining_days}_days_mail", [ $this, 'send_course_expiration_mail' ], 10, 2 );
+		// Support for older versions of Sensei.
+		if ( method_exists( $this, 'maybe_add_action' ) ) {
+			$this->maybe_add_action( "sensei_pro_course_expiration_{$this->remaining_days}_days_mail", [ $this, 'send_course_expiration_mail' ], 10, 2 );
+		} else {
+			add_action( "sensei_pro_course_expiration_{$this->remaining_days}_days_mail", [ $this, 'send_course_expiration_mail' ], 10, 2 );
+		}
 	}
 
 	/**
@@ -91,6 +96,7 @@ class Course_Expiration_Email_Generator extends Email_Generators_Abstract {
 	 * @access private
 	 */
 	public function send_course_expiration_mail( $student_id, $course_id ) {
+
 		$course = get_post( $course_id );
 
 		if ( ! $course || 'publish' !== $course->post_status ) {

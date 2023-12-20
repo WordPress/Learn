@@ -1,5 +1,13 @@
 # Sensei Interactive Blocks Changelog
 
+## 2023-11-23 - version 1.4.3
+* Ensure Image Hotspot toolbar is not over the hotspot in the editor
+* Frontend assets for interactive blocks loading in any page with a video
+
+## 2023-11-06 - version 1.4.2
+* Fix compatibility issues between Interactive Videos and latest version of Gutenberg.
+* Fix elements dragging on Image Hotspots and Interactive Video with latest version of Gutenberg.
+
 ## 2023-09-13 - version 1.4.1
 * Added functionality to deactivate license directly within the plugin.
 

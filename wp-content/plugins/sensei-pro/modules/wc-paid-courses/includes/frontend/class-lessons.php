@@ -143,12 +143,12 @@ final class Lessons {
 				[
 					'label' => __( 'Purchase course', 'sensei-pro' ),
 					'url'   => $purchase_url,
-					'style' => 'primary',
+					'style' => 'primary wp-element-button',
 				],
 				[
 					'label' => __( 'Sign in', 'sensei-pro' ),
 					'url'   => $sign_in_url,
-					'style' => 'secondary',
+					'style' => 'secondary wp-element-button is-link',
 				],
 			];
 

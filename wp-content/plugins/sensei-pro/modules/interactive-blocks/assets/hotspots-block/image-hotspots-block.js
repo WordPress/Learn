@@ -104,6 +104,7 @@ export const ImageHotspotsBlock = {
 					allowedBlocks={ [ HotspotBlock.name ] }
 					template={ [] }
 					renderAppender={ false }
+					__experimentalCaptureToolbars={ true }
 				/>
 				{ props.attributes.required && (
 					<CompletedStatus

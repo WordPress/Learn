@@ -75,16 +75,45 @@
 			flex-grow: 1;
 		}
 	}
-	.sensei-pro-tutor-ai__answer-submit {
-		border-radius: 200px;
-		border: none;
-		background-color: transparent;
-		svg {
-			height: 32px;
-			width: 32px;
-			cursor: pointer;
-			path {
-				fill: var(--active-background-color);
+	.sensei-pro-tutor-ai {
+		&__form {
+			align-items: center;
+			display: flex;
+			gap: 14px;
+			width: 100%;
+		}
+
+		&__input {
+			background-color: transparent;
+			border: none;
+			color: inherit;
+			cursor: text;
+			font-family: inherit;
+			font-size: inherit;
+			line-height: 1.6;
+			margin: 0;
+			overflow-wrap: break-word;
+			overflow: hidden;
+			padding: 0;
+			resize: none !important;
+			width: 100%;
+
+			&:focus {
+				outline: none;
+			}
+		}
+
+		&__answer-submit {
+			border-radius: 200px;
+			border: none;
+			background-color: transparent;
+			svg {
+				height: 32px;
+				width: 32px;
+				cursor: pointer;
+				path {
+					fill: var(--active-background-color);
+				}
 			}
 		}
 	}
