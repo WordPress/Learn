@@ -7,7 +7,7 @@ labels: Awaiting Triage
 
 # Details
 
-- Content type (Course, Tutorial, Online Workshop, or Lesson Plan):
+- Content type (Course, Lesson, Tutorial, Online Workshop, or Lesson Plan):
 - Content title: 
 - Topic description: 
 - Audience (User, Developer, Designer, Contributor, etc.):
@@ -23,5 +23,5 @@ What will the learner be able to do as a result of this content?
 
 ### Automation Code
 <!-- 
-Under this comment, type two slashes (//) followed by the content type (tutorial, online-workshop, lesson-plan, course). (Like //example) Once submitted, that code will add a new comment to the issue with the relevant development checklist.
+Under this comment, type two slashes (//) followed by the content type (lesson, tutorial, online-workshop, lesson-plan, course). (Like //example) Once submitted, that code will add a new comment to the issue with the relevant development checklist.
 -->
