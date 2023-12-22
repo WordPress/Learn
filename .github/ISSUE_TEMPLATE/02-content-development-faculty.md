@@ -7,7 +7,7 @@ labels: Awaiting Triage
 
 # Details
 
-- Content type (Course, Lesson, Tutorial, Online Workshop, or Lesson Plan):
+- Content type (Online Workshop, Lesson, Course, Tutorial, or Lesson Plan):
 - Content title: 
 - Topic description: 
 - Audience (User, Developer, Designer, Contributor, etc.):
