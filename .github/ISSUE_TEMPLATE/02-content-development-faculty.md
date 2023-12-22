@@ -23,5 +23,11 @@ What will the learner be able to do as a result of this content?
 
 ### Automation Code
 <!-- 
-Under this comment, type two slashes (//) followed by the content type (lesson, tutorial, online-workshop, lesson-plan, course). (Like //example) Once submitted, that code will add a new comment to the issue with the relevant development checklist.
+Under this comment, type two slashes (//) followed by the code that represents the content type. (Like //example) 
+- Online Workshop = online-workshop
+- Lesson = lesson
+- Course = course
+- Tutorial = tutorial
+- Lesson Plan = teach
+Once submitted, that code will add a new comment to the issue with the relevant development checklist.
 -->
