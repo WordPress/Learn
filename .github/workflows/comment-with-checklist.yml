@@ -40,7 +40,7 @@ jobs:
             - [ ] Request a review from the team
             - [ ] [Publish content](https://make.wordpress.org/training/handbook/courses/publishing/)
       - uses: peter-evans/create-or-update-comment@v3
-        if: contains(inputs.content-type, 'lesson-plan')  
+        if: contains(inputs.content-type, 'teach')  
         with:
           issue-number: ${{ github.event.issue.number }}
           body: |
