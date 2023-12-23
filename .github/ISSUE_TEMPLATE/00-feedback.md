@@ -13,7 +13,7 @@ You can see if similar feedback has already been reported by searching https://g
 
 ## Type of feedback
 <!--
-Please type the corresponding command that represents your feedback. It will be two slasshes (//) followed by a word (dev, content, handbook). (Like //example)
+Please type the corresponding command that represents your feedback. It will be two slashes (//) followed by a word (dev, content, handbook). (Like //example)
 Is your feedback reporting a bug or feature request for the Learn WordPress website? Type: // dev (with no space)
 Is your feedback about the content on Learn WordPress, such as reporting out-dated information? Type: // content (with no space)
 Is your feedback about the Training Team's handbook or other documentation? Type: // handbook (with no space)
