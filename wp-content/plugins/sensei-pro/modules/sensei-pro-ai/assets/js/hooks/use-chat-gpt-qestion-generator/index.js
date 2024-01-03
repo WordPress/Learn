@@ -154,6 +154,10 @@ const handleError = async (
 		errorMessage = await error.json();
 	}
 
+	if ( errorMessage && errorMessage.message ) {
+		errorMessage = errorMessage.message;
+	}
+
 	createErrorNotice( errorMessage || defaultErrorMessage, {
 		type: 'snackbar',
 	} );

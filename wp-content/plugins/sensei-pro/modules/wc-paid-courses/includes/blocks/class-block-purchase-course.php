@@ -249,7 +249,7 @@ class Block_Purchase_Course {
 	 * @return string Purchase form HTML.
 	 */
 	private function render_form() {
-		if ( 1 < count( $this->products ) ) {
+		if ( 1 < count( (array) $this->products ) ) {
 			return $this->render_multiple_products_form();
 		}
 

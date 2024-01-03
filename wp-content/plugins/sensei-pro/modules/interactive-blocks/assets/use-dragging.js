@@ -70,12 +70,17 @@ export const useDragging = ( {
 	);
 
 	useEffect( () => {
-		document.addEventListener( 'mouseup', onMouseUp );
-		document.addEventListener( 'mousemove', onMouseMove );
+		const editorCanvasIframe = document.querySelector(
+			'iframe[name="editor-canvas"]'
+		);
+		const doc = editorCanvasIframe?.contentDocument || document;
+
+		doc.addEventListener( 'mouseup', onMouseUp );
+		doc.addEventListener( 'mousemove', onMouseMove );
 
 		return () => {
-			document.removeEventListener( 'mouseup', onMouseUp );
-			document.removeEventListener( 'mousemove', onMouseMove );
+			doc.removeEventListener( 'mouseup', onMouseUp );
+			doc.removeEventListener( 'mousemove', onMouseMove );
 		};
 	}, [ onMouseUp, onMouseMove ] );
 

@@ -27,7 +27,7 @@ body,
 
 	.sensei-ordering-answer {
 		border: 1px solid currentColor;
-		border-radius: 3px;
+		border-radius: 2px;
 		width: 100%;
 		user-select: none;
 		touch-action: none;
@@ -69,7 +69,7 @@ body,
 			align-content: center;
 			align-items: center;
 			gap: 10px;
-			padding: 10px;
+			padding: 14px;
 		}
 
 		.sensei-ordering-answer__content {
@@ -78,7 +78,7 @@ body,
 
 		&--correct,
 		&--wrong {
-			border: 1px solid var(--result-color);
+			border: 2px solid var(--result-color);
 			margin-left: 0;
 			box-shadow: inset 0 0 1px var(--result-color);
 			cursor: initial;
@@ -96,28 +96,32 @@ body,
 			}
 
 			.sensei-ordering-answer__result-icon {
-				flex-basis: 6%;
+				display: flex;
 
 				&::after {
-					content: var(--icon);
+					box-sizing: border-box;
 					color: var(--result-color);
-					font-family: FontAwesomeSensei, sans-serif;
+					content: var(--icon);
+					font-family: dashicons, sans-serif;
+					font-size: 1.5rem;
+					line-height: 1;
 				}
 			}
-		}
-
-		&--correct {
-			--result-color: #43af99;
-			--icon: "\f058";
-		}
-
-		&--wrong {
-			--result-color: #d67709;
-			--icon: "\f057";
 		}
 	}
 }
 
+.sensei-ordering-answer {
+	&--correct {
+		--icon: "\f15e";
+		--result-color: #5c936b;
+	}
+
+	&--wrong {
+		--icon: "\f335";
+		--result-color: #cf8b25;
+	}
+}
 
 @media screen and (max-width: (783px)) {
 	.sensei-ordering-answer__icon {

@@ -157,6 +157,7 @@ class Ordering_Question_Type {
 			'id'      => $question_id,
 			'answers' => $right_answer,
 		];
+		$count_answers = is_countable( $question_data['answers'] ) ? count( $question_data['answers'] ) : 0;
 
 		// If user has saved answers then sort the answers the way user
 		// sorted them before.
@@ -172,7 +173,7 @@ class Ordering_Question_Type {
 			}
 
 			$question_data['answers'] = $user_answers;
-		} elseif ( count( $question_data['answers'] ) > 1 ) {
+		} elseif ( $count_answers > 1 ) {
 			do {
 				shuffle( $question_data['answers'] );
 			} while ( $question_data['answers'] === $right_answer );
@@ -216,9 +217,10 @@ class Ordering_Question_Type {
 			return;
 		}
 
-		$user_answers = $this->questions_data[ $question_id ]['question']['answers'];
+		$user_answers  = $this->questions_data[ $question_id ]['question']['answers'];
+		$count_answers = is_countable( $user_answers ) ? count( $user_answers ) : 0;
 
-		if ( count( $user_answers ) !== count( $correct_orderings ) ) {
+		if ( count( $correct_orderings ) !== $count_answers ) {
 			return;
 		}
 

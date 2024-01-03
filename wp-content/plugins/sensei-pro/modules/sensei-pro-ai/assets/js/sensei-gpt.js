@@ -1,19 +1,25 @@
 /**
  * WordPress dependencies
  */
-import { Button, Fill, Notice, Spinner } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { ReactComponent as AiIcon } from '../icons/ai-icon.svg';
-import { addFilter } from '@wordpress/hooks';
+import { Button, Fill, Spinner } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { useEffect, useState } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
+import { __ } from '@wordpress/i18n';
+import { addFilter } from '@wordpress/hooks';
 
 /**
  * Internal dependencies
  */
+import { ReactComponent as AiIcon } from '../icons/ai-icon.svg';
 import { getLessonContent } from './block-text-scrapper';
 import { useGPTQuestionGenerator } from './hooks/use-chat-gpt-qestion-generator';
+
+const notices = {
+	lessonNoContent: __(
+		"Oops! Looks like your lesson doesn't have any content. Quiz questions are generated based on the current content of the lesson.",
+		'sensei-pro'
+	),
+};
 
 const withQuestionGeneratorButton = ( BlockEdit ) => ( props ) => {
 	const {
@@ -24,31 +30,31 @@ const withQuestionGeneratorButton = ( BlockEdit ) => ( props ) => {
 		hasQuestions,
 	} = useGPTQuestionGenerator();
 
+	const [ errorMessage, setErrorMessage ] = useState( null );
 	const [ showErrorNotice, setShowErrorNotice ] = useState( false );
-	const [ firstTimeUser, setFirstTimeUser ] = useState( true );
-	const [ showFirstTimeUserNotice, setShowFirstTimeUserNotice ] = useState(
-		false
-	);
-
-	const { user } = useSelect( ( select ) => ( {
-		user: select( 'core' ).getCurrentUser(),
-	} ) );
-
-	useEffect( () => {
-		if ( user && user.meta && user.meta.sensei_pro_question_ai_used ) {
-			setFirstTimeUser( false );
-		}
-	}, [ user ] );
 
 	const doProcessing = () => {
-		setShowFirstTimeUserNotice( firstTimeUser );
-		if ( firstTimeUser ) {
-			setFirstTimeUser( false );
-		}
 		const lessonContent = getLessonContent();
+
+		if ( ! lessonContent ) {
+			setErrorMessage( notices.lessonNoContent );
+			setShowErrorNotice( true );
+			return;
+		} else if ( errorMessage === notices.lessonNoContent ) {
+			setErrorMessage( null );
+			setShowErrorNotice( false );
+		}
+
 		generateQuizQuestions( lessonContent, 3 );
-		setShowErrorNotice( true );
 	};
+
+	useEffect( () => {
+		setShowErrorNotice( disabledByTimeout );
+
+		if ( disabledByTimeout ) {
+			setErrorMessage( limitErrorMessage );
+		}
+	}, [ disabledByTimeout, limitErrorMessage ] );
 
 	return (
 		<>
@@ -75,35 +81,9 @@ const withQuestionGeneratorButton = ( BlockEdit ) => ( props ) => {
 					</div>
 				</Fill>
 			) }
-			{ disabledByTimeout && showErrorNotice && (
+			{ showErrorNotice && (
 				<Fill name="SenseiQuizBlockTop">
-					<Notice
-						className="sensei-pro-quiz-question-generate-notice"
-						dismissible={ false }
-						onDismiss={ () => {
-							setShowErrorNotice( false );
-						} }
-						status="warning"
-					>
-						{ limitErrorMessage }
-					</Notice>
-				</Fill>
-			) }
-			{ showFirstTimeUserNotice && (
-				<Fill name="SenseiQuizBlockTop">
-					<Notice
-						className="sensei-pro-quiz-question-generate-notice"
-						dismissible={ false }
-						onDismiss={ () => {
-							setShowFirstTimeUserNotice( false );
-						} }
-						status="info"
-					>
-						{ __(
-							'Using AI can feel like magic. But make sure to double check the text and make changes as you see fit.',
-							'sensei-pro'
-						) }
-					</Notice>
+					<div className="sensei-message info">{ errorMessage }</div>
 				</Fill>
 			) }
 			<BlockEdit { ...props } />

@@ -8,6 +8,7 @@
 
 namespace Sensei_WC_Paid_Courses\Background_Jobs;
 
+use Automattic\WooCommerce\Utilities\OrderUtil;
 use Sensei_WC_Paid_Courses\Course_Enrolment_Providers;
 use Sensei_Pro\Background_Jobs\Completable_Job;
 use Sensei_Pro\Background_Jobs\Scheduler;
@@ -153,8 +154,20 @@ class WooCommerce_Memberships_Detect_Cancelled_Orders implements Completable_Job
 			return [];
 		}
 
-		$plan_ids_str  = implode( ',', $plan_ids );
-		$sql_statement = "
+		$plan_ids_str = implode( ',', $plan_ids );
+
+		if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
+			$sql_statement = "
+			SELECT p1.`ID` FROM {$wpdb->posts} p1
+				LEFT JOIN {$wpdb->postmeta} pm ON ( p1.ID = pm.`post_id` AND pm.`meta_key`='_order_id' )
+				LEFT JOIN {$wpdb->prefix}wc_orders orders ON ( pm.`meta_value` = orders.id )
+				WHERE p1.`post_type`='wc_user_membership'
+					AND p1.`post_status`='wcm-active'
+					AND orders.`status`='wc-cancelled'
+					AND p1.`post_parent` IN ( {$plan_ids_str} )
+			";
+		} else {
+			$sql_statement = "
 			SELECT p1.`ID` FROM {$wpdb->posts} p1
 				LEFT JOIN {$wpdb->postmeta} pm ON ( p1.ID = pm.`post_id` AND pm.`meta_key`='_order_id' )
 				LEFT JOIN {$wpdb->posts} p2 ON ( pm.`meta_value` = p2.ID )
@@ -162,7 +175,8 @@ class WooCommerce_Memberships_Detect_Cancelled_Orders implements Completable_Job
 					AND p1.`post_status`='wcm-active'
 					AND p2.`post_status`='wc-cancelled'
 					AND p1.`post_parent` IN ( {$plan_ids_str} )
-		";
+			";
+		}
 
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.NotPrepared -- Async call with lots of joins. No vars that can be prepared.
 		$results_raw = $wpdb->get_col( $sql_statement );

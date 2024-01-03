@@ -70,17 +70,27 @@ class WooCommerce_Subscriptions
 	 * Adds the actions related to subscription products.
 	 */
 	public function init() {
-		\add_filter( 'sensei_is_legacy_enrolled', [ $this, 'maybe_allow_legacy_manual_enrolment' ], 10, 4 );
+		add_filter( 'sensei_is_legacy_enrolled', [ $this, 'maybe_allow_legacy_manual_enrolment' ], 10, 4 );
 
-		// Order lifecycle hooks to listen to. We don't listen for `untrashed_post` here because subscriptions are
+		// Order lifecycle hooks to listen to. We don't listen for `untrashed` here because subscriptions are
 		// cancelled when they are sent to the trash. In the UI, trashing a subscription isn't possible until they are
 		// cancelled.
-		\add_action( 'woocommerce_subscription_status_updated', [ $this, 'maybe_trigger_enrolment_check' ], 10, 3 );
-		\add_action( 'trashed_post', [ $this, 'maybe_trigger_subscription_trash_change' ] );
+		add_action( 'woocommerce_subscription_status_updated', [ $this, 'maybe_trigger_enrolment_check' ], 10, 3 );
 
-		// Adds support for deleting directly or for disabled `EMPTY_TRASH_DAYS`.
-		\add_action( 'before_delete_post', [ $this, 'before_delete_subscription' ], 1 );
-		\add_action( 'deleted_post', [ $this, 'after_delete_subscription' ] );
+		// When using custom order tables with no post sync, we need to use the subscription hooks.
+		// Otherwise, we use the post hooks.
+		if ( $this->is_custom_order_tables_usage_enabled() && ! $this->is_custom_order_tables_data_sync_enabled() ) {
+			add_action( 'woocommerce_trash_subscription', [ $this, 'maybe_trigger_subscription_trash_change' ] );
+
+			add_action( 'woocommerce_before_delete_subscription', [ $this, 'before_delete_subscription' ], 1 );
+			add_action( 'woocommerce_delete_subscription', [ $this, 'after_delete_subscription' ] );
+		} else {
+			add_action( 'trashed_post', [ $this, 'maybe_trigger_subscription_trash_change' ] );
+
+			// Adds support for deleting directly or for disabled `EMPTY_TRASH_DAYS`.
+			add_action( 'before_delete_post', [ $this, 'before_delete_subscription' ], 1 );
+			add_action( 'deleted_post', [ $this, 'after_delete_subscription' ] );
+		}
 	}
 
 	/**
@@ -140,11 +150,11 @@ class WooCommerce_Subscriptions
 	 * @param int $subscription_id Subscription post ID.
 	 */
 	public function maybe_trigger_subscription_trash_change( $subscription_id ) {
-		if ( 'shop_subscription' !== \get_post_type( $subscription_id ) ) {
+		if ( ! wcs_is_subscription( $subscription_id ) ) {
 			return;
 		}
 
-		$subscription = \wcs_get_subscription( $subscription_id );
+		$subscription = wcs_get_subscription( $subscription_id );
 		$courses      = $this->get_subscription_courses( $subscription );
 		$course_ids   = wp_list_pluck( $courses, 'ID' );
 
@@ -207,16 +217,14 @@ class WooCommerce_Subscriptions
 	 * @param int $subscription_id Subscription post ID.
 	 */
 	public function before_delete_subscription( $subscription_id ) {
-		if (
-			'shop_subscription' !== \get_post_type( $subscription_id )
-			|| 'trash' === \get_post_status( $subscription_id )
-		) {
-			// Bail if this isn't a subscription being deleted or if the post status was trash before deleting.
+		if ( ! wcs_is_subscription( $subscription_id ) ) {
+			// Bail if this isn't a subscription being deleted...
 			return;
 		}
 
-		$subscription = \wcs_get_subscription( $subscription_id );
-		if ( ! $subscription ) {
+		$subscription = wcs_get_subscription( $subscription_id );
+		if ( ! $subscription || 'trash' === $subscription->get_status() ) {
+			// ...or if the post status was trash before deleting.
 			return;
 		}
 
@@ -593,5 +601,32 @@ class WooCommerce_Subscriptions
 	 */
 	public function get_version() {
 		return '2.0.0';
+	}
+
+	/**
+	 * Determines whether custom order tables usage is enabled.
+	 *
+	 * @return bool
+	 */
+	private function is_custom_order_tables_usage_enabled(): bool {
+		if ( ! class_exists( '\Automattic\WooCommerce\Utilities\OrderUtil' ) ) {
+			return false;
+		}
+
+		return \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled();
+	}
+	/**
+	 * Determines whether the order tables are synchronized with WP posts.
+	 *
+	 * @return bool True if the order tables are synchronized with WP posts, false otherwise.
+	 */
+	private function is_custom_order_tables_data_sync_enabled(): bool {
+		if ( ! class_exists( '\Automattic\WooCommerce\Internal\DataStores\Orders\DataSynchronizer' ) ) {
+			return false;
+		}
+
+		$data_synchronizer = wc_get_container()->get( \Automattic\WooCommerce\Internal\DataStores\Orders\DataSynchronizer::class );
+
+		return $data_synchronizer && $data_synchronizer->data_sync_is_enabled();
 	}
 }

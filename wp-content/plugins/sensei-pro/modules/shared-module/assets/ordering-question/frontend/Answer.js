@@ -46,9 +46,11 @@ function Answer(
 				className="sensei-ordering-answer__label"
 				htmlFor={ `question_${ questionId }_answer-${ id }` }
 			>
-				<div className="sensei-ordering-answer__icon">
-					{ ! hasResult && <Icon icon={ dragHandle } size={ 18 } /> }
-				</div>
+				{ ! hasResult && (
+					<div className="sensei-ordering-answer__icon">
+						<Icon icon={ dragHandle } size={ 18 } />
+					</div>
+				) }
 				<div className="sensei-ordering-answer__content">{ label }</div>
 				{ hasResult && (
 					<span className="sensei-ordering-answer__result-icon" />

@@ -284,19 +284,19 @@ class Quiz_Timer {
 
 		return '
 			<div>
-				<div class="sensei-lms-quiz-timer__start-page">
+				<div class="sensei-lms-quiz-timer__start-page wp-block-sensei-lms-course-theme-notices">
 					<form method="POST">
 						<div class="sensei-lms-quiz-timer__start-page__question-count">'
 							// translators: the number of questions.
 							. wp_kses_post( sprintf( _n( 'Quiz length: %d question', 'Quiz length: %d questions', $question_count, 'sensei-pro' ), $question_count ) ) .
 						'</div>
 
-						<div class="sensei-lms-quiz-timer__start-page__time-limit-notice">
-							<h3>'
+						<div class="sensei-lms-quiz-timer__start-page__time-limit-notice sensei-lms-notice">
+							<h2 class="sensei-lms-quiz-timer__start-page__time-limit-notice__title">'
 								// translators: the time limit in minutes.
 								. wp_kses_post( sprintf( __( 'Time limit: %s', 'sensei-pro' ), $time_minutes ) ) .
-							'</h3>
-							<div>'
+							'</h2>
+							<div class="sensei-lms-quiz-timer__start-page__time-limit-notice__text">'
 								// translators: the time limit in minutes.
 								. wp_kses_post( sprintf( __( 'You will have %s available to finish this quiz.', 'sensei-pro' ), $time_minutes ) ) .
 							'</div>

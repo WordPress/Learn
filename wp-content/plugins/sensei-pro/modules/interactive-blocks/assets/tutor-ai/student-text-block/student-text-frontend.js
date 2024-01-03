@@ -11,7 +11,6 @@ import { TutorAIContext } from '../frontend';
 /**
  * External dependencies
  */
-import SingleLineInput from 'sensei/assets/shared/blocks/single-line-input';
 import classnames from 'classnames';
 
 function FrontendStudentResponse( props, ref ) {
@@ -22,8 +21,9 @@ function FrontendStudentResponse( props, ref ) {
 		TutorAIContext
 	);
 
-	const blockPropsWithAdditionalClass = {
+	const customBlockProps = {
 		...blockProps,
+		ref,
 		className: classnames( blockProps.className, 'block-frontend' ),
 	};
 
@@ -31,7 +31,9 @@ function FrontendStudentResponse( props, ref ) {
 		return <></>;
 	}
 
-	const handleClick = () => {
+	const handleSubmit = ( e ) => {
+		e.preventDefault();
+
 		if ( studentText ) {
 			insertMessage( {
 				message: studentText,
@@ -40,32 +42,45 @@ function FrontendStudentResponse( props, ref ) {
 		}
 	};
 
+	const handleChange = ( e ) => {
+		setStudentText( e.target.value );
+		e.target.style.height = 'auto'; // It sets the height as "auto" first to reset the height for when removing lines.
+		e.target.style.height = e.target.scrollHeight + 'px';
+	};
+
+	const handleKeyDown = ( e ) => {
+		if ( e.key === 'Enter' ) {
+			handleSubmit( e );
+		}
+	};
+
 	return (
-		<div { ...blockPropsWithAdditionalClass } ref={ ref }>
+		<div { ...customBlockProps }>
 			{ avatarBlock }
 			{ props.attributes?.message ? (
 				<div>{ props.attributes?.message }</div>
 			) : (
-				<>
-					<SingleLineInput
+				<form
+					className="sensei-pro-tutor-ai__form"
+					onSubmit={ handleSubmit }
+				>
+					<textarea
+						className="sensei-pro-tutor-ai__input"
 						ref={ inputRef }
 						placeholder={ __(
 							'Type your answer here…',
 							'sensei-pro'
 						) }
-						onChange={ ( value ) => {
-							setStudentText( value );
-						} }
-						onEnter={ handleClick }
+						onChange={ handleChange }
+						onKeyDown={ handleKeyDown }
 						maxLength={ 100 }
-					></SingleLineInput>
-					<button
-						className="sensei-pro-tutor-ai__answer-submit"
-						onClick={ handleClick }
-					>
+						rows={ 1 }
+						value={ studentText }
+					/>
+					<button className="sensei-pro-tutor-ai__answer-submit">
 						<ArrowIcon />
 					</button>
-				</>
+				</form>
 			) }
 		</div>
 	);

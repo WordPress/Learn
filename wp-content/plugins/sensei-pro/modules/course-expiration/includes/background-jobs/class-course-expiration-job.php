@@ -95,7 +95,8 @@ class Course_Expiration_Job implements Completable_Job {
 			)
 		);
 
-		$this->is_complete = count( $results ) < $this->batch_size;
+		$count_results     = is_countable( $results ) ? count( $results ) : 0;
+		$this->is_complete = $count_results < $this->batch_size;
 
 		foreach ( $results as $item ) {
 			$user_id   = intval(
