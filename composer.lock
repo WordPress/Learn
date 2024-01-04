@@ -640,15 +640,15 @@
         },
         {
             "name": "wpackagist-plugin/gutenberg",
-            "version": "14.0.2",
+            "version": "17.4.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/gutenberg/",
-                "reference": "tags/14.0.2"
+                "reference": "trunk"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/gutenberg.14.0.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/gutenberg.zip?timestamp=1704288860"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -676,15 +676,15 @@
         },
         {
             "name": "wpackagist-plugin/sensei-lms",
-            "version": "4.6.3",
+            "version": "4.20.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/sensei-lms/",
-                "reference": "tags/4.6.3"
+                "reference": "tags/4.20.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/sensei-lms.4.6.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/sensei-lms.4.20.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
