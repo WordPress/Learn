@@ -2,7 +2,7 @@
 name: Content Development (for Training Team Faculty)
 about: To be used by Faculty members when creating content for learn.wordpress.org
 title: "CONTENT_TYPE: CONTENT_TITLE"
-labels: Awaiting Triage
+labels: Awaiting Triage, [Content] Faculty Author
 ---
 
 # Details
