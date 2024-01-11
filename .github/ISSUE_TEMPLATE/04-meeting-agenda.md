@@ -1,13 +1,13 @@
 ---
 name: Meeting Agenda
 about: Used by team reps to publish team meeting agendas
-title: Meeting Agenda MONTH DAY, YEAR
+title: Meeting Agenda MONTH DAY, 2024
 labels: "[Admin] Agenda"
 assignees: ''
 
 ---
 
-Training Team meetings start at 07:00 UTC weekly on Tuesdays. Anyone is welcome to contribute to the meeting by commenting in Slack threads throughout the week. Meeting notes will be published at the end of the week to also incorporate these asynchronous conversations.
+Training Team meetings start at [00:00 UTC weekly on Thursdays](https://make.wordpress.org/meetings/#training). Anyone is welcome to contribute to the meeting by commenting in Slack threads during the meeting and throughout the following days. Meeting notes will be published by the following Tuesday to also incorporate these asynchronous conversations.
 
 _This week’s meeting will be hosted by MEETING_HOST._
 
@@ -44,7 +44,7 @@ Welcome to all new teammates who joined the Training Team this week!
 - item 1
 - item 2
 
-## 3. [Open requests for review](https://github.com/orgs/WordPress/projects/33/views/17)
+## 3. [Content available for review](https://github.com/orgs/WordPress/projects/33/views/17)
 
 See our [Guidelines for reviewing content](https://make.wordpress.org/training/handbook/training-team-how-to-guides/guidelines-for-reviewing-content-on-learn/) to review the following content.
 
@@ -64,7 +64,14 @@ See our [Guidelines for reviewing content](https://make.wordpress.org/training/h
 - Project_2
   - details
 
-## 5. Open Discussions
+## 5. Faculty Updates
+
+- What have you been working on and how has it been going?
+- Anything you’ve accomplished since the last meeting?
+- Do you have any blockers?
+- Can other Faculty or Training Team members help you in some way?
+
+## 6. Open Discussions
 
 If you have topics you’d liked discussed in the meeting, please leave them as a comment on this issue.
 
