@@ -39,7 +39,13 @@
 		}
 	}
 }
-
+#site-navigation {
+	.search-form {
+	  @media only screen and (max-width: 768px) and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+		display: none;
+	  }
+	}
+  }  
 // Undo the positioning because it's coupled to the front end layout. Use mobile positioning in the editor.
 .wp-block-pullquote.is-style-wporg-home-pullquote {
 	position: relative;
