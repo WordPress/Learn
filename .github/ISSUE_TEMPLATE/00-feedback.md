@@ -8,7 +8,7 @@ assignees: ''
 ---
 <!--
 Thank you for submitting feedback to the Make WordPress Training Team!
-You can see if similar feedback has already been reported by searching https://github.com/WordPress/gutenberg/issues.
+You can see if similar feedback has already been reported by searching https://github.com/WordPress/Learn/issues.
 -->
 
 ## Type of feedback
