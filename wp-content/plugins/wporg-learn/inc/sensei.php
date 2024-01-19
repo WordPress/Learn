@@ -182,7 +182,6 @@ WHERE comment_type = 'sensei_course_status'";
 
 	if ( $from_date ) {
 		$from_date->setTime( 0, 0, 0 );
- 
 		$query .= " AND comment_date_gmt >= '" . $from_date->format( 'Y-m-d H:i:s' ) . "'";
 	}
 
