@@ -62,21 +62,21 @@ _This week’s meeting will be hosted by MEETING_HOST._
 
 - Faculty Editors, see [Validating and Applying Content Feedback](https://make.wordpress.org/training/handbook/training-team-how-to-guides/how-we-use-github/validating-and-applying-content-feedback/) for step-by-step guidance on applying feedback that has been validated.
 
-## 4. Project updates
+## 3. Project updates
 
 - Project_1
   - details
 - Project_2
   - details
 
-## 5. Faculty Updates
+## 4. Faculty Updates
 
 - What have you been working on and how has it been going?
 - Anything you’ve accomplished since the last meeting?
 - Do you have any blockers?
 - Can other Faculty or Training Team members help you in some way?
 
-## 6. Open Discussions
+## 5. Open Discussions
 
 If you have topics you’d liked discussed in the meeting, please leave them as a comment on this issue.
 
