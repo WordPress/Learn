@@ -167,55 +167,56 @@ add_action( 'sensei_course_learning_mode_load_theme', __NAMESPACE__ . '\wporg_fi
 /**
  * Add script to count unique learners
  */
-add_action( 'sensei_reports_overview_before_top_filters', __NAMESPACE__ . '\wporg_learn_add_student_count_to_reports' );
 function wporg_learn_add_student_count_to_reports( $type ) {
-    if ( 'users' !== $type ) {
-        return; // Only show the count on the students report screen.
-    }
- 
-    $from_date = \DateTime::createFromFormat( 'Y-m-d', $_GET['from_date'] ?? '', new \DateTimeZone( 'UTC' ) );
-    $to_date   = \DateTime::createFromFormat( 'Y-m-d', $_GET['to_date'] ?? '', new \DateTimeZone( 'UTC' ) );
- 
-    global $wpdb;
-    $query = "SELECT COUNT(DISTINCT user_id)
+	if ( 'users' !== $type ) {
+		return; // Only show the count on the students report screen.
+	}
+
+	$from_date = \DateTime::createFromFormat( 'Y-m-d', $_GET['from_date'] ?? '', new \DateTimeZone( 'UTC' ) );
+	$to_date   = \DateTime::createFromFormat( 'Y-m-d', $_GET['to_date'] ?? '', new \DateTimeZone( 'UTC' ) );
+
+	global $wpdb;
+	$query = "SELECT COUNT(DISTINCT user_id)
 FROM $wpdb->comments
 WHERE comment_type = 'sensei_course_status'";
+
+	if ( $from_date ) {
+		$from_date->setTime( 0, 0, 0 );
  
-    if ( $from_date ) {
-        $from_date->setTime( 0, 0, 0 );
+		$query .= " AND comment_date_gmt >= '" . $from_date->format( 'Y-m-d H:i:s' ) . "'";
+	}
+
+	if ( $to_date ) {
+		$to_date->setTime( 23, 59, 59 );
  
-        $query .= " AND comment_date_gmt >= '" . $from_date->format( 'Y-m-d H:i:s' ) . "'";
-    }
- 
-    if ( $to_date ) {
-        $to_date->setTime( 23, 59, 59 );
- 
-        $query .= " AND comment_date_gmt <= '" . $to_date->format( 'Y-m-d H:i:s' ) . "'";
-    }
- 
-    $student_count = $wpdb->get_var( $query );
- 
-    ?>
-    <div class="actions bulkactions">
-        <label><?php esc_html_e( 'Total number of students', 'wporg-learn' ); ?></label>
-        <input
-            class="sensei-date-picker"
-            name="from_date"
-            type="text"
-            autocomplete="off"
-            placeholder="<?php echo esc_attr( __( 'From Date', 'sensei-lms' ) ); ?>"
-            value="<?php echo esc_attr( $from_date ? $from_date->format( 'Y-m-d' ) : '' ); ?>"
-        />
-        <input
-            class="sensei-date-picker"
-            name="to_date"
-            type="text"
-            autocomplete="off"
-            placeholder="<?php echo esc_attr( __( 'To Date', 'sensei-lms' ) ); ?>"
-            value="<?php echo esc_attr( $to_date ? $to_date->format( 'Y-m-d' ) : '' ); ?>"
-        />
-        <label>: <?php echo (int) $student_count; ?></label>
-    </div>
-    <br>
-    <?php
+		$query .= " AND comment_date_gmt <= '" . $to_date->format( 'Y-m-d H:i:s' ) . "'";
+	}
+
+	$student_count = $wpdb->get_var( $query );
+
+	?>
+	<div class="actions bulkactions">
+		<label><?php esc_html_e( 'Total number of students', 'wporg-learn' ); ?></label>
+		<input
+			class="sensei-date-picker"
+			name="from_date"
+			type="text"
+			autocomplete="off"
+			placeholder="<?php echo esc_attr( __( 'From Date', 'sensei-lms' ) ); ?>"
+			value="<?php echo esc_attr( $from_date ? $from_date->format( 'Y-m-d' ) : '' ); ?>"
+		/>
+		<input
+			class="sensei-date-picker"
+			name="to_date"
+			type="text"
+			autocomplete="off"
+			placeholder="<?php echo esc_attr( __( 'To Date', 'sensei-lms' ) ); ?>"
+			value="<?php echo esc_attr( $to_date ? $to_date->format( 'Y-m-d' ) : '' ); ?>"
+		/>
+		<label>: <?php echo (int) $student_count; ?></label>
+	</div>
+	<br>
+	<?php
 }
+add_action( 'sensei_reports_overview_before_top_filters', __NAMESPACE__ . '\wporg_learn_add_student_count_to_reports' );
+
