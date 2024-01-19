@@ -11,11 +11,7 @@ Training Team meetings start at [00:00 UTC weekly on Thursdays](https://make.wor
 
 _This week’s meeting will be hosted by MEETING_HOST._
 
-## 1. Intro/Welcome
-
-Welcome to all new teammates who joined the Training Team this week!
-
-## 2. News
+## 1. News
 
 **1. [Meeting Note Takers](https://make.wordpress.org/training/handbook/about/team-roles/)**
 
@@ -44,18 +40,27 @@ Welcome to all new teammates who joined the Training Team this week!
 - item 1
 - item 2
 
-## 3. [Content available for review](https://github.com/orgs/WordPress/projects/33/views/17)
+## 2. Come and Contribute
 
-See our [Guidelines for reviewing content](https://make.wordpress.org/training/handbook/training-team-how-to-guides/guidelines-for-reviewing-content-on-learn/) to review the following content.
+**[Content ready for review](https://github.com/orgs/WordPress/projects/33/views/17)**
 
-- **Tutorials**
-  - a
-- **Lesson Plans**
-  - b
-- **Courses**
-  - c
-- **Translated Content**
-  - d
+- See [Guidelines for reviewing content](https://make.wordpress.org/training/handbook/training-team-how-to-guides/guidelines-for-reviewing-content-on-learn/) when reviewing content.
+
+**[Feedback awaiting validation](https://github.com/orgs/WordPress/projects/78/views/3)**
+
+- See [Validating and Applying Content Feedback](https://make.wordpress.org/training/handbook/training-team-how-to-guides/how-we-use-github/validating-and-applying-content-feedback/) for step-by-step guidance on validating feedback.
+
+**[Topics awaiting vetting](https://github.com/orgs/WordPress/projects/105/views/1)**
+
+- See [Vetting Topic Ideas](https://make.wordpress.org/training/handbook/training-team-how-to-guides/how-we-use-github/vetting-topic-ideas/) for step-by-step guidance on vetting topic ideas.
+
+**[Good first issues for developers](https://github.com/orgs/WordPress/projects/71/views/7)**
+
+- See [Developing Learn WordPress](https://make.wordpress.org/training/handbook/training-team-how-to-guides/developing-learn-wordpress/) for instructions on contributing to the Learn WordPress code.
+
+**[Validated feedback awaiting fix](https://github.com/orgs/WordPress/projects/78/views/4)**
+
+- Faculty Editors, see [Validating and Applying Content Feedback](https://make.wordpress.org/training/handbook/training-team-how-to-guides/how-we-use-github/validating-and-applying-content-feedback/) for step-by-step guidance on applying feedback that has been validated.
 
 ## 4. Project updates
 
