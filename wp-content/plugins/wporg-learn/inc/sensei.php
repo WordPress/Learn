@@ -182,13 +182,13 @@ WHERE comment_type = 'sensei_course_status'";
 
 	if ( $from_date ) {
 		$from_date->setTime( 0, 0, 0 );
- 
+
 		$query .= " AND comment_date_gmt >= '" . $from_date->format( 'Y-m-d H:i:s' ) . "'";
 	}
 
 	if ( $to_date ) {
 		$to_date->setTime( 23, 59, 59 );
- 
+
 		$query .= " AND comment_date_gmt <= '" . $to_date->format( 'Y-m-d H:i:s' ) . "'";
 	}
 
@@ -202,7 +202,7 @@ WHERE comment_type = 'sensei_course_status'";
 			name="from_date"
 			type="text"
 			autocomplete="off"
-			placeholder="<?php echo esc_attr( __( 'From Date', 'wporg-lms' ) ); ?>"
+			placeholder="<?php echo esc_attr( __( 'From Date', 'wporg-learn' ) ); ?>"
 			value="<?php echo esc_attr( $from_date ? $from_date->format( 'Y-m-d' ) : '' ); ?>"
 		/>
 		<input
@@ -210,7 +210,7 @@ WHERE comment_type = 'sensei_course_status'";
 			name="to_date"
 			type="text"
 			autocomplete="off"
-			placeholder="<?php echo esc_attr( __( 'To Date', 'wporg-lms' ) ); ?>"
+			placeholder="<?php echo esc_attr( __( 'To Date', 'wporg-learn' ) ); ?>"
 			value="<?php echo esc_attr( $to_date ? $to_date->format( 'Y-m-d' ) : '' ); ?>"
 		/>
 		<label>: <?php echo (int) $student_count; ?></label>
