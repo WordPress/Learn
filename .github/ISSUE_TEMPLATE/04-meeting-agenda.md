@@ -78,7 +78,7 @@ _This week’s meeting will be hosted by MEETING_HOST._
 
 ## 5. Open Discussions
 
-If you have topics you’d liked discussed in the meeting, please leave them as a comment on this issue.
+If you have topics you’d like discussed in the meeting, please leave them as a comment on this issue.
 
 ---
 
