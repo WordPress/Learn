@@ -40,7 +40,7 @@ jobs:
             - [ ] Request a review from the team
             - [ ] [Publish content](https://make.wordpress.org/training/handbook/courses/publishing/)
       - uses: peter-evans/create-or-update-comment@v3
-        if: contains(inputs.content-type, 'lesson-plan')  
+        if: contains(inputs.content-type, 'teach')  
         with:
           issue-number: ${{ github.event.issue.number }}
           body: |
@@ -72,5 +72,19 @@ jobs:
             - [ ] Assign [a Co-host](https://make.wordpress.org/training/handbook/online-workshops/co-hosting-an-online-workshop/) to event (Remove the "Needs Co-host" tag from issue once assigned)
             - [ ] Hold Online Workshop
             - [ ] Complete [After an Online Workshop](https://make.wordpress.org/training/handbook/online-workshops/after-an-online-workshop/) next steps
-            - [ ] Add link to slides and/or WordPress.tv video to GitHub issue          
-            
+            - [ ] Add link to slides and/or WordPress.tv video to GitHub issue
+      - uses: peter-evans/create-or-update-comment@v3
+        if: contains(inputs.content-type, 'lesson')
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            # Lesson Development Checklist
+            - [ ] Gather any relevant links to Support, Docs, or related material
+            - [ ] Description and Objectives finalized
+            - [ ] Lesson created and announced to the team for review
+            - [ ] Lesson reviewed
+            - [ ] Lesson video submitted and published to WPTV
+            - [ ] Lesson created on Learn.WordPress.org
+            - [ ] Lesson video published to YouTube
+            - [ ] Lesson on Learn.WordPress.org updated with YouTube video
+            - [ ] Lesson published to Learn.WordPress.org

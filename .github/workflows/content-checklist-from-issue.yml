@@ -19,10 +19,10 @@ jobs:
       content-type: 'online-workshop'
   
   lesson-plan-issue:
-    if: ${{ contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.issue.body, '//lesson-plan') }}
+    if: ${{ contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.issue.body, '//teach') }}
     uses: ./.github/workflows/comment-with-checklist.yml
     with:
-      content-type: 'lesson-plan'
+      content-type: 'teach'
   
   course-issue:
     if: ${{ contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.issue.body, '//course') }}
@@ -30,3 +30,8 @@ jobs:
     with:
       content-type: 'course'
 
+  lesson-issue:
+    if: ${{ contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.issue.body, '//lesson') }}
+    uses: ./.github/workflows/comment-with-checklist.yml
+    with:
+      content-type: 'lesson'
