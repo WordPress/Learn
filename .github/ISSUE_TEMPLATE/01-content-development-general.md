@@ -15,7 +15,7 @@ A team member will review the proposal and share next steps.
 - Topic description: 
 - Audience (User, Developer, Designer, Contributor, etc.): 
 - Learning objectives (What will the learner be able to do as a result of this content?): 
-- Content type (Tutorial, Online Workshop, Course or Lesson Plan): 
+- Content type (Online Workshop, Lesson, Course, Tutorial, or Lesson Plan): 
 - WordPress version (optional): 
 - Will you be creating this content? (Yes or No): 
 
