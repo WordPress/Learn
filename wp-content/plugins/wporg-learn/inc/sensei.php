@@ -177,8 +177,8 @@ function wporg_learn_add_student_count_to_reports( $type ) {
 
 	global $wpdb;
 	$query = "SELECT COUNT(DISTINCT user_id)
-FROM $wpdb->comments
-WHERE comment_type = 'sensei_course_status'";
+	FROM $wpdb->comments
+	WHERE comment_type = 'sensei_course_status'";
 
 	if ( $from_date ) {
 		$from_date->setTime( 0, 0, 0 );
