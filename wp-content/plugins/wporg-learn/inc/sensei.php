@@ -183,7 +183,7 @@ function wporg_learn_get_date( $query_var ) {
  */
 function wporg_learn_get_student_count( $from_date, $to_date ) {
 
-	if ( ! $from_date && ! $to_date ) {
+	if ( ! $from_date || ! $to_date ) {
 		return 0;
 	}
 
