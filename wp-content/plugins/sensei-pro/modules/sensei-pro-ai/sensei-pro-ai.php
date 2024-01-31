@@ -11,7 +11,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require_once __DIR__ . '/includes/class-sensei-pro-ai.php';
 require_once __DIR__ . '/includes/services/class-question-generator-service.php';
+require_once __DIR__ . '/includes/services/class-course-outline-service.php';
 require_once __DIR__ . '/includes/rest-api/controllers/class-chat-gpt-controller.php';
+require_once __DIR__ . '/includes/rest-api/controllers/class-course-outline-controller.php';
 
 use \Sensei_Pro_AI\Sensei_Pro_AI;
 

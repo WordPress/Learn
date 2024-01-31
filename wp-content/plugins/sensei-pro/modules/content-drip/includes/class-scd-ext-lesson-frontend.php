@@ -98,7 +98,7 @@ class Scd_Ext_Lesson_Frontend {
 				// Remove hooked.
 				global $wp_query;
 
-				if ( $wp_query->is_main_query() && count( $wp_query->posts ) > 0 && 'lesson' === $wp_query->query_vars['post_type'] ) {
+				if ( $wp_query->is_main_query() && is_array( $wp_query->posts ) && count( $wp_query->posts ) > 0 && 'lesson' === $wp_query->query_vars['post_type'] ) {
 					$current_lesson = $wp_query->posts[0];
 
 					if ( isset( $current_lesson->ID ) && $current_lesson->ID === $lesson->ID ) {

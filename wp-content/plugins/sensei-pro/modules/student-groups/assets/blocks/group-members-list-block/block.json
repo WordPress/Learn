@@ -1,0 +1,30 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "sensei-pro/group-members-list",
+  "title": "Group Members List",
+  "description": "The list of members in the group.",
+  "category": "sensei-lms",
+  "ancestor": [
+    "sensei-pro/join-group"
+  ],
+  "supports": {
+    "html": false,
+    "spacing": {
+      "margin": true,
+      "padding": true
+    },
+    "color": {
+      "background": true,
+      "gradients": true
+    },
+    "align": true
+  },
+  "attributes": {
+    "numberOfMembers": {
+      "type": "integer",
+      "default": 3
+    }
+  },
+  "textdomain": "sensei-pro"
+}

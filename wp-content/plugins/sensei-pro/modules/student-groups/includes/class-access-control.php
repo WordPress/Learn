@@ -253,7 +253,7 @@ class Access_Control {
 		$provider_results         = $enrolment_check_results->get_provider_results();
 		$providers_with_enrolment = array_filter( $provider_results );
 
-		return count( $providers_with_enrolment ) === 1
+		return count( (array) $providers_with_enrolment ) === 1
 			&& isset( $providers_with_enrolment[ Groups_Provider::instance()->get_id() ] );
 	}
 

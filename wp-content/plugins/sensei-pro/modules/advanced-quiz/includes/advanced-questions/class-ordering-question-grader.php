@@ -66,6 +66,7 @@ class Ordering_Question_Grader {
 		}
 
 		$right_answer = get_post_meta( $question_id, '_question_right_answer', true );
+		$answer       = is_array( $answer ) ? $answer : [ $answer ];
 
 		if ( is_array( $right_answer ) && count( $right_answer ) === count( $answer ) ) {
 			$correct = true;
@@ -114,6 +115,7 @@ class Ordering_Question_Grader {
 		}
 
 		$user_question_answer = $user_answers[ $question_id ];
+		$user_question_answer = is_array( $user_question_answer ) ? $user_question_answer : [ $user_question_answer ];
 		$right_answer         = get_post_meta( $question_id, '_question_right_answer', true );
 
 		if ( is_array( $right_answer ) && count( $right_answer ) === count( $user_question_answer ) ) {

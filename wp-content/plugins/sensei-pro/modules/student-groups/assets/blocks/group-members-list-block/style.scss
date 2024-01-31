@@ -1,0 +1,27 @@
+.editor-styles-wrapper .wp-block-sensei-pro-group-members-list, // Increase specificity for the editor.
+#left-area .wp-block-sensei-pro-group-members-list, // Increase specificity for Divi.
+.wp-block-sensei-pro-group-members-list {
+	& &__list {
+		display: flex;
+		flex-wrap: wrap;
+		list-style: none;
+		margin: 0 0 0 20px;
+		padding: 0;
+	}
+	&__item {
+		margin-left: -20px;
+	}
+
+	&__avatar,
+	&__avatar-placeholder {
+		display: block;
+		border-radius: 100%;
+		border: solid 1px #fff;
+		box-sizing: border-box;
+		height: 48px;
+		width: 48px;
+	}
+	&__avatar-placeholder {
+		background-color: #ccc;
+	}
+}

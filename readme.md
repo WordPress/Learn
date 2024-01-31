@@ -2,9 +2,10 @@
 
 The details below will walk you through getting set up to contribute to the **code** behind https://learn.wordpress.org. If you are interested in contributing to the **content** or **translation** of the content hosted on the site, you'll find further guidance in the [Training Team Handbook](https://make.wordpress.org/training/handbook/). Content development is tracked on this GitHub repository [in this project board](https://github.com/orgs/WordPress/projects/33/views/1).
 
-## Hacktoberfest 2023
-
-Looking to contribute to our project for Hacktoberfest 2023? You can read more details of [how to contribute here](https://github.com/WordPress/Learn/issues/1832#issuecomment-1744514289).
+## Getting Started Workshops
+If you're interested in contributing to the site, but aren't sure where to start, we have a series of workshops to help you get started. 
+- [Contributing to Learn WordPress with code – part 1](https://www.youtube.com/watch?v=3KU0Vdn5_6g)
+- [Contributing to Learn WordPress with code – part 2](https://www.youtube.com/watch?v=3Rx2KoZToZk)
 
 ## Prerequisites
 - [Docker](https://docs.docker.com/get-docker/)
@@ -60,4 +61,4 @@ These checks will also be run automatically on each PR.
 
 ### Contributing
 
-If you'd like to contribute to the project, please read the [code contribution guidelines](https://make.wordpress.org/training/handbook/training-team-how-to-guides/code-contributions/) in our team handbook. 
+If you'd like to contribute to the project, please read the [Developing Learn WordPress](https://make.wordpress.org/training/handbook/training-team-how-to-guides/developing-learn-wordpress/)https://make.wordpress.org/training/handbook/training-team-how-to-guides/developing-learn-wordpress/ page in our team handbook. 

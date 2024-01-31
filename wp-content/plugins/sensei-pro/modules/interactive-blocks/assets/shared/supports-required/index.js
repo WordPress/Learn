@@ -10,6 +10,7 @@ import { createHigherOrderComponent } from '@wordpress/compose';
 import { addFilter } from '@wordpress/hooks';
 import { getBlockSupport } from '@wordpress/blocks';
 import { BlockControls } from '@wordpress/block-editor';
+import { store as editorStore } from '@wordpress/editor';
 import {
 	ToolbarItem,
 	ToolbarButton,
@@ -76,7 +77,7 @@ export const withRequiredSupport = createHigherOrderComponent(
 			}, [ attributes.required, setAttributes ] );
 
 			const currentPostType = useSelect( ( select ) =>
-				select( 'core/editor' ).getCurrentPostType()
+				select( editorStore ).getCurrentPostType()
 			);
 			const isLessonPost = 'lesson' === currentPostType;
 

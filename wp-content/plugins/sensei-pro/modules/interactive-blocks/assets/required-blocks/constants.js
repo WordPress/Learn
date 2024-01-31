@@ -13,6 +13,7 @@ export const blockTypeLabels = {
 	'sensei-pro/flashcard': __( 'Flashcards', 'sensei-pro' ),
 	'sensei-pro/image-hotspots': __( 'Image Hotspots', 'sensei-pro' ),
 	'sensei-pro/task-list': __( 'Task Lists', 'sensei-pro' ),
+	'sensei-pro/tutor-ai': __( 'Tutor AI', 'sensei-pro' ),
 	'sensei-pro/question': __( 'Questions', 'sensei-pro' ),
 	'sensei/video': __( 'Videos', 'sensei-pro' ),
 };

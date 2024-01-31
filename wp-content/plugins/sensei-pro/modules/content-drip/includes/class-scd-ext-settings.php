@@ -98,31 +98,6 @@ class Scd_Ext_Settings {
 			'section'     => 'sensei-content-drip-settings',
 		];
 
-		// Email related settings.
-		$sensei_settings_fields['scd_disable_email_notifications'] = [
-			'name'        => __( 'Email Notifications', 'sensei-pro' ),
-			'description' => __( 'Disable Email Notifications', 'sensei-pro' ),
-			'type'        => 'checkbox',
-			'default'     => 'false',
-			'section'     => 'sensei-content-drip-settings',
-		];
-
-		$sensei_settings_fields['scd_email_body_notice_html'] = [
-			'name'        => esc_html__( 'Email Before Lessons', 'sensei-pro' ),
-			'description' => esc_html__( 'The text before the list of lessons dripping today.', 'sensei-pro' ),
-			'type'        => 'textarea',
-			'default'     => esc_html__( 'The following lessons will become available today:', 'sensei-pro' ),
-			'section'     => 'sensei-content-drip-settings',
-		];
-
-		$sensei_settings_fields['scd_email_footer_html'] = [
-			'name'        => esc_html__( 'Email Footer', 'sensei-pro' ),
-			'description' => esc_html__( 'The text below the list of lessons dripping today', 'sensei-pro' ),
-			'type'        => 'textarea',
-			'default'     => esc_html__( 'Visit the online course today to start taking the lessons: [home_url]', 'sensei-pro' ),
-			'section'     => 'sensei-content-drip-settings',
-		];
-
 		return $sensei_settings_fields;
 	}
 }

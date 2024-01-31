@@ -163,3 +163,81 @@ function wporg_fix_learning_mode_header_space() {
 	wp_add_inline_style( 'learning-mode-header-fix', $custom_styles );
 }
 add_action( 'sensei_course_learning_mode_load_theme', __NAMESPACE__ . '\wporg_fix_learning_mode_header_space' );
+
+/**
+ * Format a date query var into a DateTime object.
+ */
+function wporg_learn_get_date( $query_var ) {
+	$date = sanitize_text_field( $_GET[ $query_var ] ?? '' );
+
+	return \DateTime::createFromFormat( 'Y-m-d', $date ?? '', new \DateTimeZone( 'UTC' ) );
+}
+
+/**
+ * Get the number of unique learners between two dates.
+ *
+ * @param \DateTime $from_date
+ * @param \DateTime $to_date
+ *
+ * @return int
+ */
+function wporg_learn_get_student_count( $from_date, $to_date ) {
+
+	if ( ! $from_date || ! $to_date ) {
+		return 0;
+	}
+
+	global $wpdb;
+
+	return $wpdb->get_var(
+		$wpdb->prepare(
+			"SELECT COUNT(DISTINCT user_id) FROM $wpdb->comments 
+			WHERE comment_type = 'sensei_course_status'
+			AND comment_date_gmt >= %s 
+			AND comment_date_gmt <= %s",
+			array(
+				$from_date->format( 'Y-m-d H:i:s' ),
+				$to_date->format( 'Y-m-d H:i:s' ),
+			)
+		)
+	);
+}
+
+/**
+ * Add script to count unique learners
+ */
+function wporg_learn_add_student_count_to_reports( $type ) {
+	if ( 'users' !== $type ) {
+		return; // Only show the count on the students report screen.
+	}
+
+	$from_date = wporg_learn_get_date( 'from_date' );
+	$to_date   = wporg_learn_get_date( 'to_date' );
+
+	$student_count = wporg_learn_get_student_count( $from_date, $to_date );
+
+	?>
+	<div class="actions bulkactions">
+		<label><?php esc_html_e( 'Total number of students', 'wporg-learn' ); ?></label>
+		<input
+				class="sensei-date-picker"
+				name="from_date"
+				type="text"
+				autocomplete="off"
+				placeholder="<?php echo esc_attr( __( 'From Date', 'wporg-learn' ) ); ?>"
+				value="<?php echo esc_attr( $from_date ? $from_date->format( 'Y-m-d' ) : '' ); ?>"
+		/>
+		<input
+				class="sensei-date-picker"
+				name="to_date"
+				type="text"
+				autocomplete="off"
+				placeholder="<?php echo esc_attr( __( 'To Date', 'wporg-learn' ) ); ?>"
+				value="<?php echo esc_attr( $to_date ? $to_date->format( 'Y-m-d' ) : '' ); ?>"
+		/>
+		<label>: <?php echo (int) $student_count; ?></label>
+	</div>
+	<br>
+	<?php
+}
+add_action( 'sensei_reports_overview_before_top_filters', __NAMESPACE__ . '\wporg_learn_add_student_count_to_reports' );

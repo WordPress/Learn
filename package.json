@@ -28,7 +28,8 @@
 		"lint:css": "yarn workspace wporg-learn-plugin lint:css && yarn workspace wporg-learn-theme lint:css",
 		"lint:js": "yarn workspace wporg-learn-plugin lint:js",
 		"watch:theme": "yarn workspace wporg-learn-theme start",
-		"watch:plugin": "yarn workspace wporg-learn-plugin start"
+		"watch:plugin": "yarn workspace wporg-learn-plugin start",
+		"setup:tools": "exit 0"
 	},
 	"main": "index.js",
 	"devDependencies": {

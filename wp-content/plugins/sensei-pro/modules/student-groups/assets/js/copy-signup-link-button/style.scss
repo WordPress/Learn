@@ -1,0 +1,30 @@
+.sensei-group-copy-signup-link-button {
+	align-items: center;
+	background: transparent;
+	border: none;
+	color: #2270b1;
+	cursor: pointer;
+	display: inline-flex;
+	gap: 9px;
+	padding: 0;
+
+	&:hover,
+	&:active {
+		color: #135e96;
+	}
+
+	&:focus {
+		box-shadow: 0 0 0 1px #4f94d4, 0 0 2px 1px rgba(79, 148, 212, 0.8);
+		outline: 1px solid transparent;
+	}
+
+	&__icon {
+		height: 16px;
+		width: 16px;
+	}
+}
+
+.components-editor-notices__snackbar {
+	bottom: 40px;
+	position: fixed;
+}

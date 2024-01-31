@@ -7,6 +7,7 @@ import classnames from 'classnames';
  * Wordpress dependencies
  */
 import { useEffect, useState, forwardRef } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 
 export const CountdownTimer = forwardRef(
 	(
@@ -19,26 +20,27 @@ export const CountdownTimer = forwardRef(
 			isSticky = false,
 			isHidden = false,
 			style = {},
+			showTextOnlyTimer = false,
 		},
 		ref
 	) => {
-		let size = 144;
-		let strokeWidth = 6;
+		let size = 106;
+		let strokeWidth = 4;
 
 		if ( isSmall ) {
 			size = 81;
-			strokeWidth = 4;
 		}
 
 		const milliseconds = seconds * 1000;
 		const radius = size / 2;
-		const circumference = size * Math.PI;
+		const circumference = ( size - strokeWidth ) * Math.PI;
 		const [ countdown, setCountdown ] = useState( deadline - Date.now() );
 		const [ isPlaying, setIsPlaying ] = useState( false );
 
 		useEffect( () => {
 			setCountdown( deadline - Date.now() );
 		}, [ deadline ] );
+
 		useEffect( () => {
 			if ( ! triggerOnRender || countdown <= 0 ) {
 				return;
@@ -82,12 +84,34 @@ export const CountdownTimer = forwardRef(
 			return ( h === '00' ? '' : h + ':' ) + m + ':' + s;
 		};
 
+		if ( showTextOnlyTimer ) {
+			return (
+				<div
+					className={ classnames(
+						'sensei-lms-quiz-timer__countdown-text--sticky',
+						'sensei-course-theme__main-content'
+					) }
+				>
+					<div className="sensei-lms-quiz-timer__countdown-text--inner-container">
+						<span className="sensei-lms-quiz-timer__countdown-text--label">
+							{ __( 'Time left', 'sensei-pro' ) }
+						</span>
+						<span className="sensei-lms-quiz-timer__countdown-text--time">
+							{ getDisplayTime( countdown ) }
+						</span>
+					</div>
+				</div>
+			);
+		}
+
 		return (
 			<div
 				ref={ ref }
 				className={ classnames( {
 					'sensei-lms-quiz-timer__countdown-circular': true,
-					'sensei-lms-quiz-timer__countdown-circular--sticky': isSticky,
+					'sensei-lms-quiz-timer__countdown-circular--sticky': showTextOnlyTimer
+						? false
+						: isSticky,
 					'sensei-lms-quiz-timer__countdown-circular--hidden': isHidden,
 					'sensei-lms-quiz-timer-course-theme': isCourseTheme,
 				} ) }
@@ -103,6 +127,16 @@ export const CountdownTimer = forwardRef(
 					<svg>
 						<circle
 							style={ {
+								r: radius - strokeWidth / 2,
+								cx: radius,
+								cy: radius,
+								strokeWidth,
+								fill: 'transparent',
+								strokeOpacity: 0.2,
+							} }
+						/>
+						<circle
+							style={ {
 								strokeDasharray: circumference,
 								strokeDashoffset:
 									isPlaying ||
@@ -113,6 +147,7 @@ export const CountdownTimer = forwardRef(
 								cx: radius,
 								cy: radius,
 								strokeWidth,
+								fill: 'transparent',
 							} }
 						/>
 					</svg>

@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use Sensei_WC;
+use Sensei_WC_Paid_Courses\Course_Enrolment_Providers;
 use Sensei_WC_Paid_Courses\Course_Enrolment_Providers\WooCommerce_Memberships;
 use Sensei_WC_Utils;
 use Sensei_Utils;
@@ -57,7 +58,7 @@ final class Courses {
 	public function init() {
 		add_filter( 'sensei_course_meta_fields', [ $this, 'add_course_product_meta_field' ] );
 
-		if ( \Sensei_WC_Paid_Courses\Course_Enrolment_Providers::use_legacy_enrolment_method() ) {
+		if ( Course_Enrolment_Providers::use_legacy_enrolment_method() ) {
 			// Remove course from active courses if an order is cancelled or refunded.
 			add_action( 'woocommerce_order_status_processing_to_cancelled', [ $this, 'remove_active_course' ], 10, 1 );
 			add_action( 'woocommerce_order_status_completed_to_cancelled', [ $this, 'remove_active_course' ], 10, 1 );
@@ -88,6 +89,9 @@ final class Courses {
 		// Defer list of products being added or removed from a course.
 		add_action( 'sensei_wc_paid_courses_course_product_toggled', [ $this, 'defer_products_toggled' ], 10, 3 );
 		add_action( 'shutdown', [ $this, 'recalculate_deferred_products_toggled' ] );
+
+		// Deactivate self-enrollment not allowed feature if course is handled by WCPC.
+		add_filter( 'sensei_self_enrollment_not_allowed', [ $this, 'maybe_deactivate_self_enrollment_not_allowed_feature' ], 10, 2 );
 	}
 
 	/**
@@ -244,7 +248,7 @@ final class Courses {
 		 *
 		 * @param WP_Post[] $course      The array of courses.
 		 * @param array     $product_ids The array of product IDs.
-		 * @param array     $args        The additional query args.
+		 * @return WP_Post[] Filtered array of courses.
 		 */
 		$courses = apply_filters( 'sensei_wc_paid_courses_get_product_courses', $courses, $product_ids );
 
@@ -995,14 +999,15 @@ final class Courses {
 				}
 			);
 			$variation_ids      = wp_list_pluck( $variation_products, 'ID' );
+			$count_variations   = is_countable( $variation_ids ) ? count( $variation_ids ) : 0;
 
-			if ( count( $variation_ids ) > 0 ) {
+			if ( $count_variations > 0 ) {
 				$query_variations  = new \Automattic\WooCommerce\Admin\API\Reports\Variations\Query(
 					[
 						'variation_includes' => $variation_ids,
 						'fields'             => [ 'variation_id', 'items_sold' ],
 						'after'              => '2010-01-01T00:00:00+00:00',
-						'per_page'           => count( $variation_ids ),
+						'per_page'           => $count_variations,
 					]
 				);
 				$result_variations = $query_variations->get_data();
@@ -1025,6 +1030,26 @@ final class Courses {
 			},
 			$products
 		);
+	}
+
+	/**
+	 * Deactivate self-enrollment not allowed feature if course is handled by WCPC.
+	 *
+	 * @internal
+	 *
+	 * @since 1.19.0
+	 *
+	 * @param bool $self_enrollment_not_allowed The original value to be filtered.
+	 * @param int  $course_id                   Course post ID.
+	 *
+	 * @return bool False if course is handled by WCPC, otherwise the original value.
+	 */
+	public function maybe_deactivate_self_enrollment_not_allowed_feature( $self_enrollment_not_allowed, $course_id ) {
+		if ( Course_Enrolment_Providers::instance()->handles_enrolment( $course_id ) ) {
+			return false;
+		}
+
+		return $self_enrollment_not_allowed;
 	}
 
 	/**

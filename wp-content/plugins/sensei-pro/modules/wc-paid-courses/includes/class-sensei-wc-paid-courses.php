@@ -406,7 +406,7 @@ final class Sensei_WC_Paid_Courses {
 			$template_name,
 			$args,
 			'sensei-wc-paid-courses/',
-			untrailingslashit( dirname( dirname( __FILE__ ) ) ) . '/templates/'
+			untrailingslashit( dirname( __FILE__, 2 ) ) . '/templates/'
 		);
 	}
 
@@ -428,6 +428,8 @@ final class Sensei_WC_Paid_Courses {
 	 * @param array  $args  Optional. Arguments to pass to template part. Default empty array.
 	 */
 	public static function get_template_part( $slug, $name = null, $args = [] ) {
+		$template = null;
+
 		if ( $args && is_array( $args ) ) {
 			extract( $args ); // @codingStandardsIgnoreLine
 		}
@@ -443,7 +445,7 @@ final class Sensei_WC_Paid_Courses {
 
 			// If the template file was not found, look in plugins/sensei-wc-paid-courses/templates/{$slug}-{$name}.php.
 			if ( ! $template ) {
-				$fallback = dirname( dirname( __FILE__ ) ) . "/templates/{$slug}-{$name}.php";
+				$fallback = dirname( __FILE__, 2 ) . "/templates/{$slug}-{$name}.php";
 				$template = file_exists( $fallback ) ? $fallback : '';
 			}
 		}

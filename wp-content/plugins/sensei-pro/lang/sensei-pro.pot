@@ -2,16 +2,16 @@
 # This file is distributed under the GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html.
 msgid ""
 msgstr ""
-"Project-Id-Version: Sensei Pro 1.15.0\n"
+"Project-Id-Version: Sensei Pro 1.20.0\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/support\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-06-01T15:58:19+00:00\n"
+"POT-Creation-Date: 2023-12-14T20:44:13+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.7.1\n"
+"X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: sensei-pro\n"
 
 #. Plugin Name of the plugin
@@ -461,30 +461,30 @@ msgid "Select a Lesson"
 msgstr ""
 
 #: modules/content-drip/includes/class-scd-ext-manual-drip.php:151
-#: modules/content-drip/includes/class-scd-ext-manual-drip.php:234
+#: modules/content-drip/includes/class-scd-ext-manual-drip.php:233
 msgid "Give Access"
 msgstr ""
 
-#: modules/content-drip/includes/class-scd-ext-manual-drip.php:233
+#: modules/content-drip/includes/class-scd-ext-manual-drip.php:232
 msgid "Remove Access"
 msgstr ""
 
-#: modules/content-drip/includes/class-scd-ext-manual-drip.php:251
+#: modules/content-drip/includes/class-scd-ext-manual-drip.php:250
 msgid "Manual Drip Status Saved"
 msgstr ""
 
-#: modules/content-drip/includes/class-scd-ext-manual-drip.php:374
+#: modules/content-drip/includes/class-scd-ext-manual-drip.php:373
 #: modules/content-drip/includes/class-scd-ext-settings.php:69
 msgid "Content Drip"
 msgstr ""
 
 #. translators: %d is replaced with the invalid user ID
-#: modules/content-drip/includes/class-scd-ext-manual-drip.php:428
+#: modules/content-drip/includes/class-scd-ext-manual-drip.php:427
 msgid "The userID( %d ) is invalid, there is no user that matches this ID "
 msgstr ""
 
 #. translators: %d is replaced with the invalid lesson ID
-#: modules/content-drip/includes/class-scd-ext-manual-drip.php:444
+#: modules/content-drip/includes/class-scd-ext-manual-drip.php:443
 msgid "The lessonId( %d ) is invalid, there is no lesson that matches this ID "
 msgstr ""
 
@@ -516,38 +516,6 @@ msgstr ""
 msgid "This quiz will become available on [date]."
 msgstr ""
 
-#: modules/content-drip/includes/class-scd-ext-settings.php:103
-msgid "Email Notifications"
-msgstr ""
-
-#: modules/content-drip/includes/class-scd-ext-settings.php:104
-msgid "Disable Email Notifications"
-msgstr ""
-
-#: modules/content-drip/includes/class-scd-ext-settings.php:111
-msgid "Email Before Lessons"
-msgstr ""
-
-#: modules/content-drip/includes/class-scd-ext-settings.php:112
-msgid "The text before the list of lessons dripping today."
-msgstr ""
-
-#: modules/content-drip/includes/class-scd-ext-settings.php:114
-msgid "The following lessons will become available today:"
-msgstr ""
-
-#: modules/content-drip/includes/class-scd-ext-settings.php:119
-msgid "Email Footer"
-msgstr ""
-
-#: modules/content-drip/includes/class-scd-ext-settings.php:120
-msgid "The text below the list of lessons dripping today"
-msgstr ""
-
-#: modules/content-drip/includes/class-scd-ext-settings.php:122
-msgid "Visit the online course today to start taking the lessons: [home_url]"
-msgstr ""
-
 #: modules/content-drip/includes/class-sensei-content-drip-legacy-plugin-checker.php:52
 msgid "Found legacy Content Drip plugin"
 msgstr ""
@@ -561,8 +529,8 @@ msgstr ""
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: modules/content-drip/includes/generators/class-lesson-available-email-generator.php:105
-#: modules/course-expiration/includes/emails/generators/class-course-expiration-email-generator.php:107
+#: modules/content-drip/includes/generators/class-lesson-available-email-generator.php:110
+#: modules/course-expiration/includes/emails/generators/class-course-expiration-email-generator.php:113
 msgid "today"
 msgstr ""
 
@@ -644,9 +612,7 @@ msgid "Starts on %s"
 msgstr ""
 
 #: modules/course-expiration/includes/emails/class-course-expiration-email.php:51
-#: modules/course-expiration/includes/emails/generators/class-course-expiration-email-generator.php:106
-#: tests/unit-tests/tests/modules/course-expiration/includes/emails/generators/test-class-course-expiration-email-generator.php:38
-#: tests/unit-tests/tests/modules/course-expiration/includes/emails/generators/test-class-course-expiration-email-generator.php:104
+#: modules/course-expiration/includes/emails/generators/class-course-expiration-email-generator.php:112
 msgid "l, F d, Y"
 msgstr ""
 
@@ -689,8 +655,8 @@ msgid "Status"
 msgstr ""
 
 #: modules/course-showcase/includes/class-course-showcase-cpt-list.php:113
-#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:301
-#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:334
+#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:302
+#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:335
 msgid "Unknown"
 msgstr ""
 
@@ -850,67 +816,67 @@ msgstr ""
 msgid "Image is required"
 msgstr ""
 
-#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:295
+#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:296
 msgid "Not Submitted"
 msgstr ""
 
-#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:296
+#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:297
 msgid "Review Pending"
 msgstr ""
 
-#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:297
+#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:298
 msgid "Approved"
 msgstr ""
 
-#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:298
+#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:299
 msgid "Rejected"
 msgstr ""
 
-#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:315
+#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:316
 msgid "The course could not be verified."
 msgstr ""
 
-#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:316
+#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:317
 msgid "The course was not accessible from SenseiLMS.com's server."
 msgstr ""
 
-#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:319
+#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:320
 msgid "The course was found to not be relevant to Sensei Showcase."
 msgstr ""
 
-#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:320
+#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:321
 msgid "The course (or one very similar) was already submitted to Sensei Showcase."
 msgstr ""
 
-#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:321
+#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:322
 msgid "The course is in violation of SenseiLMS.com's Terms of Service."
 msgstr ""
 
-#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:322
+#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:323
 msgid "This site has submitted too many listings to the Sensei Showcase. Please delete some and try again."
 msgstr ""
 
-#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:323
+#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:324
 msgid "The listing was rejected from the Sensei Showcase."
 msgstr ""
 
-#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:326
+#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:327
 msgid "The remote listing was not found."
 msgstr ""
 
-#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:327
+#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:328
 msgid "Too many requests have been made to SenseiLMS.com. Please wait and try again later."
 msgstr ""
 
-#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:328
+#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:329
 msgid "Sensei Showcase submissions are temporarily not available. Please try again later."
 msgstr ""
 
-#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:329
+#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:330
 msgid "The course image could not be downloaded. Is it publicly available?"
 msgstr ""
 
-#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:330
+#: modules/course-showcase/includes/class-course-showcase-senseilmscom-mapper.php:331
 msgid "The site icon could not be downloaded. Is it publicly available?"
 msgstr ""
 
@@ -926,7 +892,7 @@ msgid "Entry"
 msgstr ""
 
 #: modules/glossary/includes/class-glossary-admin.php:82
-#: modules/student-groups/includes/class-student-groups.php:469
+#: modules/student-groups/includes/class-student-groups.php:664
 msgid "Add New"
 msgstr ""
 
@@ -986,7 +952,7 @@ msgstr ""
 msgid "Could not complete the data migration process. Please, contact support."
 msgstr ""
 
-#: modules/interactive-blocks/includes/class-interactive-blocks.php:259
+#: modules/interactive-blocks/includes/class-interactive-blocks.php:283
 #: modules/premium-patterns/includes/class-premium-patterns.php:79
 msgid "Sensei LMS"
 msgstr ""
@@ -1014,13 +980,63 @@ msgid ""
 "\t\t\t\t\t\tYou don't need <strong>Sensei Blocks</strong> plugin if you already using <strong>Sensei Pro (WC Paid Courses)</strong> plugin."
 msgstr ""
 
+#: modules/interactive-blocks/includes/tutor-chat/class-tutor-chat-rest-api.php:64
+msgid "The question the student replies."
+msgstr ""
+
+#: modules/interactive-blocks/includes/tutor-chat/class-tutor-chat-rest-api.php:71
+msgid "The correct answer provided by the teacher."
+msgstr ""
+
+#: modules/interactive-blocks/includes/tutor-chat/class-tutor-chat-rest-api.php:78
+msgid "The context of the question to help tutor with thinking up a clue."
+msgstr ""
+
+#: modules/interactive-blocks/includes/tutor-chat/class-tutor-chat-rest-api.php:84
+msgid "The last student's to the question."
+msgstr ""
+
+#: modules/interactive-blocks/includes/tutor-chat/class-tutor-chat-service.php:32
+#: modules/sensei-pro-ai/includes/services/class-question-generator-service.php:32
+#: modules/shared-module/includes/class-ai-api-client.php:48
+msgid "No valid license was found. Verify you have a license and it's still active."
+msgstr ""
+
+#: modules/interactive-blocks/includes/tutor-chat/class-tutor-chat-service.php:61
+#: modules/sensei-pro-ai/includes/rest-api/controllers/class-chat-gpt-controller.php:192
+#: modules/sensei-pro-ai/includes/services/class-question-generator-service.php:57
+msgid "Something went wrong"
+msgstr ""
+
+#: modules/interactive-blocks/includes/tutor-chat/class-tutor-chat-service.php:68
+#: modules/sensei-pro-ai/includes/services/class-question-generator-service.php:64
+#: modules/shared-module/includes/class-ai-api-client.php:76
+msgid "You have temporarily exceeded the amount of requests. Please try again in a while."
+msgstr ""
+
+#: modules/interactive-blocks/includes/tutor-chat/class-tutor-chat-service.php:73
+#: modules/sensei-pro-ai/includes/services/class-question-generator-service.php:69
+#: modules/shared-module/includes/class-ai-api-client.php:81
+msgid "Invalid license. You need an active and valid license."
+msgstr ""
+
+#: modules/interactive-blocks/includes/tutor-chat/class-tutor-chat-service.php:78
+msgid "Something went wrong. If the error persists try changing params slightly."
+msgstr ""
+
+#: modules/interactive-blocks/includes/tutor-chat/class-tutor-chat-service.php:86
+#: modules/sensei-pro-ai/includes/services/class-question-generator-service.php:82
+msgid "Unexpected response from server. Try again later."
+msgstr ""
+
 #: modules/premium-patterns/includes/class-premium-patterns.php:98
 #: assets/dist/interactive-blocks/interactive-blocks-frontend.js:1
 msgid "Flashcards"
 msgstr ""
 
 #: modules/premium-patterns/includes/class-premium-patterns.php:109
-msgid "Checklist"
+#: assets/dist/interactive-blocks/interactive-blocks-editor.js:5
+msgid "Tasklist"
 msgstr ""
 
 #: modules/premium-patterns/includes/class-premium-patterns.php:120
@@ -1049,18 +1065,27 @@ msgstr ""
 #: modules/premium-patterns/includes/templates/lesson/checklist.php:47
 #: modules/premium-patterns/includes/templates/lesson/flashcards.php:55
 #: modules/premium-patterns/includes/templates/lesson/timed-quiz.php:23
-msgid "View Quiz"
+#: modules/premium-templates/templates/modern/lesson.php:85
+#: modules/premium-templates/templates/video-full/lesson.php:82
+#: modules/premium-templates/templates/video/lesson.php:100
+msgid "Take Quiz"
 msgstr ""
 
 #: modules/premium-patterns/includes/templates/lesson/checklist.php:55
 #: modules/premium-patterns/includes/templates/lesson/flashcards.php:63
 #: modules/premium-patterns/includes/templates/lesson/timed-quiz.php:31
+#: modules/premium-templates/templates/modern/lesson.php:81
+#: modules/premium-templates/templates/video-full/lesson.php:78
+#: modules/premium-templates/templates/video/lesson.php:96
 msgid "Complete Lesson"
 msgstr ""
 
 #: modules/premium-patterns/includes/templates/lesson/checklist.php:63
 #: modules/premium-patterns/includes/templates/lesson/flashcards.php:71
 #: modules/premium-patterns/includes/templates/lesson/timed-quiz.php:39
+#: modules/premium-templates/templates/modern/lesson.php:93
+#: modules/premium-templates/templates/video-full/lesson.php:90
+#: modules/premium-templates/templates/video/lesson.php:108
 msgid "Next Lesson"
 msgstr ""
 
@@ -1091,6 +1116,12 @@ msgstr ""
 
 #: modules/premium-patterns/includes/templates/lesson/timed-quiz.php:13
 msgid "Write quiz introduction here. By default, the quiz timer is set for 5 minutes. Click on Quiz settings below to change the amount of time allowed."
+msgstr ""
+
+#: modules/premium-templates/templates/modern/lesson.php:89
+#: modules/premium-templates/templates/video-full/lesson.php:86
+#: modules/premium-templates/templates/video/lesson.php:104
+msgid "Completed"
 msgstr ""
 
 #: modules/sensei-blocks-home/includes/class-sensei-home.php:206
@@ -1127,7 +1158,7 @@ msgstr ""
 #: modules/sensei-blocks-home/includes/shared/notices/class-sensei-home-notices.php:243
 #: assets/dist/sensei-pro-setup/extensions-page.js:1
 #: assets/dist/sensei-pro-setup/licensing-page.js:1
-#: assets/dist/sensei-pro-setup/sensei-home-license-activation.js:6
+#: assets/dist/sensei-pro-setup/sensei-home-license-activation.js:8
 msgid "Activate"
 msgstr ""
 
@@ -1149,36 +1180,43 @@ msgstr ""
 msgid "The number of questions to create."
 msgstr ""
 
-#: modules/sensei-pro-ai/includes/rest-api/controllers/class-chat-gpt-controller.php:192
-#: modules/sensei-pro-ai/includes/services/class-question-generator-service.php:57
-msgid "Something went wrong"
+#: modules/sensei-pro-ai/includes/rest-api/controllers/class-course-outline-controller.php:64
+msgid "The course title."
 msgstr ""
 
-#: modules/sensei-pro-ai/includes/services/class-question-generator-service.php:32
-msgid "No valid license was found. Verify you have a license and it's still active."
+#: modules/sensei-pro-ai/includes/rest-api/controllers/class-course-outline-controller.php:69
+msgid "The course description."
 msgstr ""
 
-#: modules/sensei-pro-ai/includes/services/class-question-generator-service.php:64
-msgid "You have temporarily exceeded the amount of requests. Please try again in a while."
+#: modules/sensei-pro-ai/includes/rest-api/controllers/class-course-outline-controller.php:74
+msgid "The intended course audience"
 msgstr ""
 
-#: modules/sensei-pro-ai/includes/services/class-question-generator-service.php:69
-msgid "Invalid license. You need an active and valid license."
+#: modules/sensei-pro-ai/includes/rest-api/controllers/class-course-outline-controller.php:79
+msgid "The audience skill level."
 msgstr ""
 
 #: modules/sensei-pro-ai/includes/services/class-question-generator-service.php:74
 msgid "Something went wrong. If the error persists try changing the content of the lesson slightly."
 msgstr ""
 
-#: modules/sensei-pro-ai/includes/services/class-question-generator-service.php:82
-msgid "Unexpected response from server. Try again later."
-msgstr ""
-
 #: modules/sensei-pro-home/sensei-pro-home.php:38
 msgid "Sell your course with WooCommerce"
 msgstr ""
 
-#: modules/sensei-pro-setup/class-wizard.php:314
+#: modules/sensei-pro-setup/class-rest-api.php:138
+msgid "An error occurred while activating the license. Please reload the page and try again."
+msgstr ""
+
+#: modules/sensei-pro-setup/class-rest-api.php:165
+msgid "An error occurred while deactivating the license. Please reload the page and try again."
+msgstr ""
+
+#: modules/sensei-pro-setup/class-wizard.php:334
+msgid "Manage License"
+msgstr ""
+
+#: modules/sensei-pro-setup/class-wizard.php:338
 msgid "Activate License"
 msgstr ""
 
@@ -1200,83 +1238,142 @@ msgstr ""
 msgid "Check License"
 msgstr ""
 
-#: modules/senseilms-licensing/includes/class-senseilms-plugin-updater.php:206
+#: modules/senseilms-licensing/includes/class-senseilms-plugin-updater.php:215
 msgid "Remote answered with an error."
 msgstr ""
 
-#: modules/senseilms-licensing/includes/class-senseilms-plugin-updater.php:212
+#: modules/senseilms-licensing/includes/class-senseilms-plugin-updater.php:221
 msgid "Remote answered with an invalid response."
 msgstr ""
 
-#: modules/senseilms-licensing/includes/class-senseilms-plugin-updater.php:230
+#: modules/senseilms-licensing/includes/class-senseilms-plugin-updater.php:239
 msgid "Update will be available after you activate your license."
 msgstr ""
+
+#: modules/shared-module/includes/class-ai-api-client.php:69
+#: modules/shared-module/includes/class-ai-api-client.php:86
+#: assets/dist/sensei-pro-setup/extensions-page.js:1
+#: assets/dist/sensei-pro-setup/licensing-page.js:1
+#: assets/dist/student-groups/add-student-to-group-button.js:1
+#: assets/dist/student-groups/group-action-menu.js:1
+#: assets/dist/student-groups/group-creation-modal.js:1
+msgid "Something went wrong. Please try again."
+msgstr ""
+
+#: modules/student-groups/includes/blocks/class-join-group-blocks.php:150
+msgid "Oops! Group not found! Please request a new link and try again."
+msgstr ""
+
+#. translators: Placeholder is a link to log in.
+#: modules/student-groups/includes/blocks/class-join-group-blocks.php:160
+#: modules/wc-paid-courses/includes/blocks/class-block-purchase-course.php:444
+#: modules/wc-paid-courses/includes/frontend/class-courses.php:106
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:1373
+msgid "log in"
+msgstr ""
+
+#. translators: Placeholder is a link to log in.
+#: modules/student-groups/includes/blocks/class-join-group-blocks.php:165
+msgid "Please %1$s to join this group."
+msgstr ""
+
+#: modules/student-groups/includes/blocks/class-join-group-blocks.php:177
+msgid "You joined this group!"
+msgstr ""
+
+#: modules/student-groups/includes/blocks/class-join-group-blocks.php:187
+msgid "Oops! Something went wrong. Please try again."
+msgstr ""
+
+#: modules/student-groups/includes/blocks/class-join-group-blocks.php:197
+msgid "You are already a member of this group."
+msgstr ""
+
+#: modules/student-groups/includes/blocks/class-join-group-blocks.php:372
+msgid "Be the first member of this group."
+msgstr ""
+
+#. translators: %d: number of members.
+#: modules/student-groups/includes/blocks/class-join-group-blocks.php:376
+msgid "%d member"
+msgid_plural "%d members"
+msgstr[0] ""
+msgstr[1] ""
 
 #. translators: Placeholder is the date.
 #: modules/student-groups/includes/class-access-control.php:117
 msgid "This course will become available on %s."
 msgstr ""
 
-#: modules/student-groups/includes/class-student-groups.php:112
-#: modules/student-groups/includes/class-student-groups.php:334
-#: modules/student-groups/includes/class-student-groups.php:467
-#: modules/student-groups/includes/class-student-groups.php:478
-#: modules/student-groups/includes/class-student-groups.php:760
-#: modules/student-groups/includes/class-student-groups.php:761
+#: modules/student-groups/includes/class-student-groups.php:127
+#: modules/student-groups/includes/class-student-groups.php:526
+#: modules/student-groups/includes/class-student-groups.php:662
+#: modules/student-groups/includes/class-student-groups.php:673
+#: modules/student-groups/includes/class-student-groups.php:956
+#: modules/student-groups/includes/class-student-groups.php:957
 #: assets/dist/block-visibility/script.js:5
 msgid "Groups"
 msgstr ""
 
-#: modules/student-groups/includes/class-student-groups.php:131
+#: modules/student-groups/includes/class-student-groups.php:146
 msgctxt "column name"
 msgid "Students"
 msgstr ""
 
-#: modules/student-groups/includes/class-student-groups.php:132
+#: modules/student-groups/includes/class-student-groups.php:147
 msgctxt "column name"
 msgid "Group Courses"
 msgstr ""
 
-#: modules/student-groups/includes/class-student-groups.php:468
+#: modules/student-groups/includes/class-student-groups.php:150
+msgctxt "column name"
+msgid "Invite Link"
+msgstr ""
+
+#: modules/student-groups/includes/class-student-groups.php:663
 #: modules/student-groups/includes/reports/class-group-reports.php:78
 msgid "Group"
 msgstr ""
 
-#: modules/student-groups/includes/class-student-groups.php:470
+#: modules/student-groups/includes/class-student-groups.php:665
 msgid "Add New Group"
 msgstr ""
 
-#: modules/student-groups/includes/class-student-groups.php:471
+#: modules/student-groups/includes/class-student-groups.php:666
 msgid "Edit Group"
 msgstr ""
 
-#: modules/student-groups/includes/class-student-groups.php:472
+#: modules/student-groups/includes/class-student-groups.php:667
 #: assets/dist/student-groups/group-creation-modal.js:1
 msgid "New Group"
 msgstr ""
 
-#: modules/student-groups/includes/class-student-groups.php:473
+#: modules/student-groups/includes/class-student-groups.php:668
 msgid "View Group"
 msgstr ""
 
-#: modules/student-groups/includes/class-student-groups.php:474
+#: modules/student-groups/includes/class-student-groups.php:669
 msgid "Search Groups"
 msgstr ""
 
-#: modules/student-groups/includes/class-student-groups.php:475
+#: modules/student-groups/includes/class-student-groups.php:670
 msgid "No groups found"
 msgstr ""
 
-#: modules/student-groups/includes/class-student-groups.php:476
+#: modules/student-groups/includes/class-student-groups.php:671
 msgid "No groups found in trash"
 msgstr ""
 
-#: modules/student-groups/includes/class-student-groups.php:477
+#: modules/student-groups/includes/class-student-groups.php:672
 msgid "Parent Group:"
 msgstr ""
 
 #: modules/student-groups/includes/enrolment/class-groups-provider.php:62
 msgid "Student Groups"
+msgstr ""
+
+#: modules/student-groups/includes/join-group-page.php:17
+msgid "Join your new group"
 msgstr ""
 
 #. translators: placeholder is the price.
@@ -1378,6 +1475,18 @@ msgstr ""
 msgid "Request not allowed."
 msgstr ""
 
+#: modules/student-groups/includes/settings/class-group-settings.php:64
+msgid "Select a Page:"
+msgstr ""
+
+#: modules/student-groups/includes/settings/class-group-settings.php:69
+msgid "Group Signup Page"
+msgstr ""
+
+#: modules/student-groups/includes/settings/class-group-settings.php:70
+msgid "The page for users to sign up for a group."
+msgstr ""
+
 #: modules/student-groups/includes/students/class-group-bulk-actions.php:57
 #: assets/dist/student-groups/add-student-to-group-button.js:2
 #: assets/dist/student-groups/group-action-menu.js:2
@@ -1477,8 +1586,8 @@ msgid "View Active Memberships with Cancelled Orders"
 msgstr ""
 
 #: modules/wc-paid-courses/includes/admin/views/html-product-course-field.php:29
-#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:512
-#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:758
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:527
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:773
 msgid "Courses"
 msgstr ""
 
@@ -1490,46 +1599,39 @@ msgstr ""
 msgid "Search for a course&hellip;"
 msgstr ""
 
-#: modules/wc-paid-courses/includes/blocks/class-block-purchase-course.php:186
+#: modules/wc-paid-courses/includes/blocks/class-block-purchase-course.php:194
 msgid "There are no products available to purchase."
 msgstr ""
 
-#: modules/wc-paid-courses/includes/blocks/class-block-purchase-course.php:259
+#: modules/wc-paid-courses/includes/blocks/class-block-purchase-course.php:267
 #: assets/dist/wc-paid-courses/block-editor/course.js:12
 #: assets/dist/wc-paid-courses/blocks/purchase-course/frontend.js:1
 msgid "Buy"
 msgstr ""
 
-#: modules/wc-paid-courses/includes/blocks/class-block-purchase-course.php:288
+#: modules/wc-paid-courses/includes/blocks/class-block-purchase-course.php:296
 msgid "Buy Course"
 msgstr ""
 
-#: modules/wc-paid-courses/includes/blocks/class-block-purchase-course.php:390
+#: modules/wc-paid-courses/includes/blocks/class-block-purchase-course.php:399
 msgid "added to cart"
 msgstr ""
 
 #. translators: Placeholder is a link to the cart.
-#: modules/wc-paid-courses/includes/blocks/class-block-purchase-course.php:394
+#: modules/wc-paid-courses/includes/blocks/class-block-purchase-course.php:403
 msgid "Course %1s. Please complete the purchase to access the course."
 msgstr ""
 
-#: modules/wc-paid-courses/includes/blocks/class-block-purchase-course.php:398
+#: modules/wc-paid-courses/includes/blocks/class-block-purchase-course.php:407
 msgid "Complete purchase"
 msgstr ""
 
 #. translators: Placeholder is a link to log in.
-#: modules/wc-paid-courses/includes/blocks/class-block-purchase-course.php:435
-#: modules/wc-paid-courses/includes/frontend/class-courses.php:106
-#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:1358
-msgid "log in"
-msgstr ""
-
-#. translators: Placeholder is a link to log in.
-#: modules/wc-paid-courses/includes/blocks/class-block-purchase-course.php:440
+#: modules/wc-paid-courses/includes/blocks/class-block-purchase-course.php:449
 msgid "Please %1$s to access your purchased courses."
 msgstr ""
 
-#: modules/wc-paid-courses/includes/class-courses.php:595
+#: modules/wc-paid-courses/includes/class-courses.php:599
 msgid "The products which are linked to the course memberships."
 msgstr ""
 
@@ -1616,45 +1718,45 @@ msgstr ""
 msgid "Learner has not signed up for this course and is not able to without an active membership."
 msgstr ""
 
-#: modules/wc-paid-courses/includes/course-enrolment-providers/class-woocommerce-simple.php:85
+#: modules/wc-paid-courses/includes/course-enrolment-providers/class-woocommerce-simple.php:101
 msgid "WooCommerce Simple Products"
 msgstr ""
 
 #. translators: %1$s is URL to edit/view the order; #%2$s is the order number.
-#: modules/wc-paid-courses/includes/course-enrolment-providers/class-woocommerce-simple.php:491
+#: modules/wc-paid-courses/includes/course-enrolment-providers/class-woocommerce-simple.php:507
 msgid "<a href=\"%1$s\">Order #%2$s</a> has a paid status and is providing enrollment."
 msgstr ""
 
 #. translators: %1$s is URL to edit/view the order; #%2$s is the order number.
-#: modules/wc-paid-courses/includes/course-enrolment-providers/class-woocommerce-simple.php:498
+#: modules/wc-paid-courses/includes/course-enrolment-providers/class-woocommerce-simple.php:514
 msgid "<a href=\"%1$s\">Order #%2$s</a> contains a product that would provide enrollment for this course but it does not have a paid status."
 msgstr ""
 
-#: modules/wc-paid-courses/includes/course-enrolment-providers/class-woocommerce-simple.php:506
+#: modules/wc-paid-courses/includes/course-enrolment-providers/class-woocommerce-simple.php:522
 msgid "Learner does not have any orders for products that would provide enrollment for this course."
 msgstr ""
 
-#: modules/wc-paid-courses/includes/course-enrolment-providers/class-woocommerce-subscriptions.php:101
+#: modules/wc-paid-courses/includes/course-enrolment-providers/class-woocommerce-subscriptions.php:111
 msgid "WooCommerce Subscriptions"
 msgstr ""
 
 #. translators: %1$s is URL to edit/view the subscription; #%2$s is the subscription number.
-#: modules/wc-paid-courses/includes/course-enrolment-providers/class-woocommerce-subscriptions.php:545
+#: modules/wc-paid-courses/includes/course-enrolment-providers/class-woocommerce-subscriptions.php:553
 msgid "<a href=\"%1$s\">Subscription #%2$s</a> has an active status and is providing enrollment."
 msgstr ""
 
 #. translators: %1$s is URL to edit/view the subscription; #%2$s is the subscription number.
-#: modules/wc-paid-courses/includes/course-enrolment-providers/class-woocommerce-subscriptions.php:552
+#: modules/wc-paid-courses/includes/course-enrolment-providers/class-woocommerce-subscriptions.php:560
 msgid "<a href=\"%1$s\">Subscription #%2$s</a> contains a product that would provide enrollment for this course but it does not have an active status."
 msgstr ""
 
-#: modules/wc-paid-courses/includes/course-enrolment-providers/class-woocommerce-subscriptions.php:560
+#: modules/wc-paid-courses/includes/course-enrolment-providers/class-woocommerce-subscriptions.php:568
 msgid "Learner does not have any subscriptions for products that would provide enrollment for this course."
 msgstr ""
 
 #. translators: Placeholder is a link to log in.
 #: modules/wc-paid-courses/includes/frontend/class-courses.php:105
-#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:1398
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:1413
 msgid "Or %1$s to access your purchased courses"
 msgstr ""
 
@@ -1767,77 +1869,77 @@ msgstr ""
 msgid "Sorry, you do not have an access to this content without an active subscription."
 msgstr ""
 
-#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:164
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:163
 #: assets/dist/course-showcase/showcase-block/index.js:3
 #: assets/dist/wc-paid-courses/block-editor/course.js:14
 msgid "Paid"
 msgstr ""
 
-#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:175
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:174
 #: assets/dist/course-showcase/showcase-block/index.js:3
 #: assets/dist/wc-paid-courses/block-editor/course.js:14
 msgid "Free"
 msgstr ""
 
-#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:586
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:601
 msgctxt "Purchase thank you note on Checkout page. The course link(s) will be shown"
 msgid "You have purchased the following course:"
 msgid_plural "You have purchased the following courses:"
 msgstr[0] ""
 msgstr[1] ""
 
-#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:652
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:667
 msgid "complete purchase"
 msgstr ""
 
-#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:653
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:668
 msgid "complete the purchase"
 msgstr ""
 
 #. translators: Placeholder is a link to the cart.
-#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:656
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:671
 msgid "You have already added this Course to your cart. Please %1$s to access the course."
 msgstr ""
 
-#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:1167
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:1182
 msgid "Register for this Course"
 msgstr ""
 
-#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:1169
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:1184
 msgid "Purchase this Course"
 msgstr ""
 
-#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:1373
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:1388
 msgid "Checkout"
 msgstr ""
 
-#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:1373
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:1388
 msgid "checkout"
 msgstr ""
 
 #. translators: Placeholder is a link to the cart.
-#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:1377
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:1392
 msgid "This course is already in your cart, please proceed to %1$s, to gain access."
 msgstr ""
 
-#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:1628
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:1643
 msgid "Course details"
 msgstr ""
 
 #. translators: Placeholder is a link to the course.
-#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:1646
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:1661
 msgid "View course: %1$s"
 msgstr ""
 
-#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:2295
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:2312
 msgid "You are already taking all the courses associated with this product."
 msgstr ""
 
-#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:2298
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:2315
 msgid "The product you are buying contains a course where your access has expired. Buying it will not enroll you again to expired course."
 msgstr ""
 
-#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:2301
+#: modules/wc-paid-courses/includes/woocommerce-integrations/class-sensei-wc.php:2318
 msgid "The product you are buying contains a course you are already taking."
 msgstr ""
 
@@ -1872,6 +1974,10 @@ msgstr ""
 
 #: assets/dist/advanced-quiz/blocks/ordering-question-type.js:1
 msgid "Add at least two answers"
+msgstr ""
+
+#: assets/dist/advanced-quiz/blocks/quiz-timer-frontend.js:1
+msgid "Time left"
 msgstr ""
 
 #: assets/dist/advanced-quiz/blocks/quiz-timer.js:1
@@ -2137,7 +2243,7 @@ msgstr ""
 
 #: assets/dist/interactive-blocks/interactive-blocks-editor.js:1
 #: assets/dist/sensei-pro-ai/js/sensei-gpt.js:1
-msgid "Browse…"
+msgid "Choose File"
 msgstr ""
 
 #: assets/dist/interactive-blocks/interactive-blocks-editor.js:1
@@ -2157,17 +2263,17 @@ msgstr ""
 
 #: assets/dist/interactive-blocks/interactive-blocks-editor.js:1
 #: assets/dist/sensei-pro-ai/js/sensei-gpt.js:1
-msgid "Answer:"
-msgstr ""
-
-#: assets/dist/interactive-blocks/interactive-blocks-editor.js:1
-#: assets/dist/sensei-pro-ai/js/sensei-gpt.js:1
 msgid "Right"
 msgstr ""
 
 #: assets/dist/interactive-blocks/interactive-blocks-editor.js:1
 #: assets/dist/sensei-pro-ai/js/sensei-gpt.js:1
 msgid "Wrong"
+msgstr ""
+
+#: assets/dist/interactive-blocks/interactive-blocks-editor.js:1
+#: assets/dist/sensei-pro-ai/js/sensei-gpt.js:1
+msgid "Answer:"
 msgstr ""
 
 #: assets/dist/interactive-blocks/interactive-blocks-editor.js:1
@@ -2311,6 +2417,7 @@ msgid "Block cannot be added inside itself."
 msgstr ""
 
 #: assets/dist/interactive-blocks/interactive-blocks-editor.js:1
+#: assets/dist/interactive-blocks/interactive-blocks-tutor-ai.js:1
 msgid "Question title"
 msgstr ""
 
@@ -2328,6 +2435,7 @@ msgid "Add interactive questions (multiple-choice, true/false, etc.) with feedba
 msgstr ""
 
 #: assets/dist/interactive-blocks/interactive-blocks-editor.js:1
+#: assets/dist/interactive-blocks/interactive-blocks-tutor-ai.js:1
 msgid "question"
 msgstr ""
 
@@ -2709,10 +2817,6 @@ msgid "Checkbox"
 msgstr ""
 
 #: assets/dist/interactive-blocks/interactive-blocks-editor.js:5
-msgid "Tasklist"
-msgstr ""
-
-#: assets/dist/interactive-blocks/interactive-blocks-editor.js:5
 msgid "A list for users to check off as items are completed."
 msgstr ""
 
@@ -2813,6 +2917,11 @@ msgid "Task Lists"
 msgstr ""
 
 #: assets/dist/interactive-blocks/interactive-blocks-frontend.js:1
+#: assets/dist/interactive-blocks/interactive-blocks-tutor-ai.js:1
+msgid "Tutor AI"
+msgstr ""
+
+#: assets/dist/interactive-blocks/interactive-blocks-frontend.js:1
 msgid "Questions"
 msgstr ""
 
@@ -2856,6 +2965,78 @@ msgstr ""
 
 #: assets/dist/interactive-blocks/interactive-blocks-frontend.js:6
 msgid "Required - Answer this question correctly to complete."
+msgstr ""
+
+#: assets/dist/interactive-blocks/interactive-blocks-frontend.js:6
+msgid "Type your answer here…"
+msgstr ""
+
+#: assets/dist/interactive-blocks/interactive-blocks-frontend.js:6
+msgid "Something wrong, please try again"
+msgstr ""
+
+#: assets/dist/interactive-blocks/interactive-blocks-frontend.js:6
+msgid "The correct answer is: "
+msgstr ""
+
+#: assets/dist/interactive-blocks/interactive-blocks-tutor-ai.js:1
+msgid "Guide your students in finding the right answer with the help of AI, allowing them to delve deeper into the topic."
+msgstr ""
+
+#: assets/dist/interactive-blocks/interactive-blocks-tutor-ai.js:1
+msgid "tutor"
+msgstr ""
+
+#: assets/dist/interactive-blocks/interactive-blocks-tutor-ai.js:1
+msgid "ai"
+msgstr ""
+
+#: assets/dist/interactive-blocks/interactive-blocks-tutor-ai.js:1
+msgid "Tutor AI Documentation"
+msgstr ""
+
+#: assets/dist/interactive-blocks/interactive-blocks-tutor-ai.js:1
+msgid "Read how the Tutor AI works"
+msgstr ""
+
+#: assets/dist/interactive-blocks/interactive-blocks-tutor-ai.js:1
+msgid "Give Tutor AI better context"
+msgstr ""
+
+#: assets/dist/interactive-blocks/interactive-blocks-tutor-ai.js:1
+msgid "To help Tutor AI better understand how to guide your students to the correct answer, please provide here a short explanation of why the answer above is the correct one."
+msgstr ""
+
+#: assets/dist/interactive-blocks/interactive-blocks-tutor-ai.js:1
+msgid "Why is your answer correct?"
+msgstr ""
+
+#: assets/dist/interactive-blocks/interactive-blocks-tutor-ai.js:1
+msgid "AI Answer"
+msgstr ""
+
+#: assets/dist/interactive-blocks/interactive-blocks-tutor-ai.js:1
+msgid "Answer to the Tutor AI question."
+msgstr ""
+
+#: assets/dist/interactive-blocks/interactive-blocks-tutor-ai.js:1
+msgid "answer"
+msgstr ""
+
+#: assets/dist/interactive-blocks/interactive-blocks-tutor-ai.js:1
+msgid "Add the correct answer your students should reach with the help of AI"
+msgstr ""
+
+#: assets/dist/interactive-blocks/interactive-blocks-tutor-ai.js:1
+msgid "Student Answer"
+msgstr ""
+
+#: assets/dist/interactive-blocks/interactive-blocks-tutor-ai.js:1
+msgid "Student's reply to the Tutor AI question."
+msgstr ""
+
+#: assets/dist/interactive-blocks/interactive-blocks-tutor-ai.js:1
+msgid "Student's answer"
 msgstr ""
 
 #: assets/dist/sensei-blocks-home/sensei-home.js:1
@@ -3003,19 +3184,11 @@ msgid "Sorry could not generate questions"
 msgstr ""
 
 #: assets/dist/sensei-pro-ai/js/sensei-gpt.js:5
-msgid "Generate quiz questions with AI"
+msgid "Oops! Looks like your lesson doesn't have any content. Quiz questions are generated based on the current content of the lesson."
 msgstr ""
 
 #: assets/dist/sensei-pro-ai/js/sensei-gpt.js:5
-msgid "Using AI can feel like magic. But make sure to double check the text and make changes as you see fit."
-msgstr ""
-
-#: assets/dist/sensei-pro-setup/extensions-page.js:1
-#: assets/dist/sensei-pro-setup/licensing-page.js:1
-#: assets/dist/student-groups/add-student-to-group-button.js:1
-#: assets/dist/student-groups/group-action-menu.js:1
-#: assets/dist/student-groups/group-creation-modal.js:1
-msgid "Something went wrong. Please try again."
+msgid "Generate quiz questions with AI"
 msgstr ""
 
 #: assets/dist/sensei-pro-setup/extensions-page.js:1
@@ -3083,6 +3256,22 @@ msgstr ""
 msgid "Sensei LMS installation failed. You can try to {{link}}install it manually{{/link}}."
 msgstr ""
 
+#: assets/dist/sensei-pro-setup/sensei-home-license-activation.js:1
+msgid "Deactivating license…"
+msgstr ""
+
+#: assets/dist/sensei-pro-setup/sensei-home-license-activation.js:1
+msgid "License deactivated successfully."
+msgstr ""
+
+#: assets/dist/sensei-pro-setup/sensei-home-license-activation.js:1
+msgid "Error while deactivating license"
+msgstr ""
+
+#: assets/dist/sensei-pro-setup/sensei-home-license-activation.js:1
+msgid "Deactivate License"
+msgstr ""
+
 #. translators: %s: Name of the plugin that has been activated
 #: assets/dist/sensei-pro-setup/sensei-home-license-activation.js:3
 msgid "%s successfully activated"
@@ -3093,21 +3282,30 @@ msgstr ""
 msgid "Activate %s"
 msgstr ""
 
-#: assets/dist/sensei-pro-setup/sensei-home-license-activation.js:5
+#. translators: %s: Name of the plugin to be activated
+#: assets/dist/sensei-pro-setup/sensei-home-license-activation.js:7
+msgid "%s License Information"
+msgstr ""
+
+#: assets/dist/sensei-pro-setup/sensei-home-license-activation.js:7
 msgid "You can find your key by logging in to your SenseiLMS.com account"
 msgstr ""
 
-#: assets/dist/sensei-pro-setup/sensei-home-license-activation.js:5
+#: assets/dist/sensei-pro-setup/sensei-home-license-activation.js:7
 msgid "here"
 msgstr ""
 
 #. translators: %s: Name of the plugin being activated.
-#: assets/dist/sensei-pro-setup/sensei-home-license-activation.js:6
+#: assets/dist/sensei-pro-setup/sensei-home-license-activation.js:8
 msgid "<strong>Multisite Network</strong>: Main site's domain (%s) will be used for activation and the license will be valid for all the sites on the network."
 msgstr ""
 
-#: assets/dist/sensei-pro-setup/sensei-home-license-activation.js:6
+#: assets/dist/sensei-pro-setup/sensei-home-license-activation.js:8
 msgid "Enter your license key"
+msgstr ""
+
+#: assets/dist/sensei-pro-setup/sensei-home-license-activation.js:8
+msgid "Error while activating license"
 msgstr ""
 
 #: assets/dist/sensei-pro-setup/setup-wizard-welcome-step.js:1
@@ -3189,6 +3387,18 @@ msgstr ""
 msgid "Add Students"
 msgstr ""
 
+#: assets/dist/student-groups/copy-signup-link-button.js:1
+msgid "Page link copied to the clipboard."
+msgstr ""
+
+#: assets/dist/student-groups/copy-signup-link-button.js:1
+msgid "Edit page"
+msgstr ""
+
+#: assets/dist/student-groups/copy-signup-link-button.js:1
+msgid "Copy invite link"
+msgstr ""
+
 #: assets/dist/student-groups/group-action-menu.js:2
 msgid "Save Name"
 msgstr ""
@@ -3207,6 +3417,7 @@ msgstr ""
 
 #: assets/dist/student-groups/group-action-menu.js:2
 #: assets/dist/student-groups/group-creation-modal.js:1
+#: assets/dist/student-groups/group-name-block.js:1
 msgid "Group Name"
 msgstr ""
 
@@ -3239,6 +3450,14 @@ msgstr ""
 
 #: assets/dist/student-groups/group-creation-modal.js:1
 msgid "Create Group"
+msgstr ""
+
+#: assets/dist/student-groups/group-members-count-block.js:1
+msgid "99 members"
+msgstr ""
+
+#: assets/dist/student-groups/group-members-list-block.js:1
+msgid "Number of members displayed"
 msgstr ""
 
 #: assets/dist/student-groups/group-student-action-menu.js:1
@@ -3278,6 +3497,19 @@ msgstr ""
 
 #: assets/dist/student-groups/group-students-bulk-actions.js:2
 msgid "Bulk Student actions"
+msgstr ""
+
+#: assets/dist/student-groups/join-group-block.js:1
+#: assets/dist/student-groups/join-group-button-variation.js:1
+msgid "Join Group"
+msgstr ""
+
+#: assets/dist/student-groups/join-group-button-variation.js:1
+msgid "Join Group Button"
+msgstr ""
+
+#: assets/dist/student-groups/join-group-button-variation.js:1
+msgid "Button to join the group."
 msgstr ""
 
 #: assets/dist/student-groups/student-management-bulk-actions.js:1
@@ -3334,6 +3566,71 @@ msgstr ""
 
 #: assets/dist/student-groups/student-management-bulk-actions.js:5
 msgid "Search groups"
+msgstr ""
+
+#: assets/dist/tailored-course-outline/tailored-course-outline-plugin.js:1
+msgid "Skill Level"
+msgstr ""
+
+#: assets/dist/tailored-course-outline/tailored-course-outline-plugin.js:1
+msgid "Please select"
+msgstr ""
+
+#: assets/dist/tailored-course-outline/tailored-course-outline-plugin.js:1
+msgid "Beginner Level"
+msgstr ""
+
+#: assets/dist/tailored-course-outline/tailored-course-outline-plugin.js:1
+msgid "Intermediate Level"
+msgstr ""
+
+#: assets/dist/tailored-course-outline/tailored-course-outline-plugin.js:1
+msgid "Advanced Level"
+msgstr ""
+
+#. translators: %1$d number of characters introduced, %2$d number of total characters allowed.
+#: assets/dist/tailored-course-outline/tailored-course-outline-plugin.js:2
+msgid "Characters: %1$d/%2$d"
+msgstr ""
+
+#: assets/dist/tailored-course-outline/tailored-course-outline-plugin.js:2
+msgid "AI is analyzing your text. This may take a few moments, up to 4 minutes."
+msgstr ""
+
+#: assets/dist/tailored-course-outline/tailored-course-outline-plugin.js:2
+msgid "Tailored Course Outline"
+msgstr ""
+
+#: assets/dist/tailored-course-outline/tailored-course-outline-plugin.js:2
+msgid "Our AI can help you come up with a great course outline so you can just get in and add your own content to it. To get started, tell us about your target audience."
+msgstr ""
+
+#: assets/dist/tailored-course-outline/tailored-course-outline-plugin.js:2
+msgid "Course Description"
+msgstr ""
+
+#: assets/dist/tailored-course-outline/tailored-course-outline-plugin.js:2
+msgid "Intended audience"
+msgstr ""
+
+#: assets/dist/tailored-course-outline/tailored-course-outline-plugin.js:2
+msgid "Who is the target audience? This is used by AI to generate course content and quiz questions."
+msgstr ""
+
+#: assets/dist/tailored-course-outline/tailored-course-outline-plugin.js:2
+msgid "Generating a new Course Outline will replace the existing one."
+msgstr ""
+
+#: assets/dist/tailored-course-outline/tailored-course-outline-plugin.js:2
+msgid "Generate course outline"
+msgstr ""
+
+#: assets/dist/tailored-course-outline/tailored-course-outline-toolbar.js:1
+msgid "Generate new course outline using ai"
+msgstr ""
+
+#: assets/dist/tailored-course-outline/tailored-course-outline-toolbar.js:1
+msgid "Generate new"
 msgstr ""
 
 #. translators: Error message.
@@ -3723,4 +4020,59 @@ msgstr ""
 #: modules/interactive-blocks/assets/tasklist-block/block.json
 msgctxt "block title"
 msgid "Task List"
+msgstr ""
+
+#: modules/interactive-blocks/assets/tutor-ai/answer-block/block.json
+msgctxt "block title"
+msgid "Tutor AI Answer"
+msgstr ""
+
+#: modules/interactive-blocks/assets/tutor-ai/block.json
+msgctxt "block title"
+msgid "Tutor AI"
+msgstr ""
+
+#: modules/interactive-blocks/assets/tutor-ai/student-text-block/block.json
+msgctxt "block title"
+msgid "Student Answer"
+msgstr ""
+
+#: modules/student-groups/assets/blocks/group-members-count-block/block.json
+msgctxt "block title"
+msgid "Group Members Count"
+msgstr ""
+
+#: modules/student-groups/assets/blocks/group-members-count-block/block.json
+msgctxt "block description"
+msgid "The number of members in the group."
+msgstr ""
+
+#: modules/student-groups/assets/blocks/group-members-list-block/block.json
+msgctxt "block title"
+msgid "Group Members List"
+msgstr ""
+
+#: modules/student-groups/assets/blocks/group-members-list-block/block.json
+msgctxt "block description"
+msgid "The list of members in the group."
+msgstr ""
+
+#: modules/student-groups/assets/blocks/group-name-block/block.json
+msgctxt "block title"
+msgid "Group Name"
+msgstr ""
+
+#: modules/student-groups/assets/blocks/group-name-block/block.json
+msgctxt "block description"
+msgid "The group name."
+msgstr ""
+
+#: modules/student-groups/assets/blocks/join-group-block/block.json
+msgctxt "block title"
+msgid "Join Group"
+msgstr ""
+
+#: modules/student-groups/assets/blocks/join-group-block/block.json
+msgctxt "block description"
+msgid "Join a group and automatically get enrolled in all the group's active courses."
 msgstr ""

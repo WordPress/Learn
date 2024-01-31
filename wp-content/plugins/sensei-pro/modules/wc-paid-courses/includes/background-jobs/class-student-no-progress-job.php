@@ -101,14 +101,30 @@ class Student_No_Progress_Job implements Completable_Job {
 		$results           = $wpdb->get_results(
 			$wpdb->prepare(
 				"
-				SELECT MAX(c.comment_ID) id, c.user_id, m.meta_value course_id
+				SELECT MAX(c.comment_ID) as id, MAX(c.comment_date_gmt) as comment_date_gmt, c.user_id, m.meta_value course_id
 				FROM {$wpdb->comments} c
-				INNER JOIN {$wpdb->postmeta} m
-					ON m.post_id = c.comment_post_ID AND m.meta_key = '_lesson_course'
 				INNER JOIN {$wpdb->commentmeta} cm
 					ON cm.comment_id = c.comment_ID AND cm.meta_key = 'start' AND cm.meta_value BETWEEN %s AND %s
+				INNER JOIN {$wpdb->postmeta} m
+					ON m.post_id = c.comment_post_ID AND m.meta_key = '_lesson_course'
+				LEFT JOIN (
+					SELECT MAX(c.comment_date_gmt) as max_comment_date_gmt, c.user_id, m.meta_value course_id
+					FROM {$wpdb->comments} c
+					INNER JOIN {$wpdb->postmeta} m
+						ON m.post_id = c.comment_post_ID AND m.meta_key = '_lesson_course'
+					WHERE
+						c.comment_type = 'sensei_lesson_status' AND
+						c.comment_approved != 'in-progress'
+					GROUP BY c.user_id, m.meta_value
+				) newer_progress
+				ON
+					c.user_id = newer_progress.user_id AND
+					m.meta_value = newer_progress.course_id AND
+					comment_date_gmt < newer_progress.max_comment_date_gmt
 				WHERE
-					c.comment_type = 'sensei_lesson_status' AND c.comment_approved = 'in-progress' AND
+					c.comment_type = 'sensei_lesson_status' AND
+					c.comment_approved = 'in-progress' AND
+					newer_progress.max_comment_date_gmt IS NULL AND
 					c.comment_ID > %d
 				GROUP BY c.user_id, m.meta_value
 				ORDER BY id ASC

@@ -1,0 +1,41 @@
+{
+  "name": "sensei-pro/ai-answer",
+  "title": "Tutor AI Answer",
+  "category": "sensei-lms",
+  "apiVersion": 2,
+  "supports": {
+    "align": false,
+    "color": true,
+    "sensei": {
+      "blockId": true,
+      "frontend": true,
+      "required": true
+    },
+    "spacing": {
+      "margin": true,
+      "padding": true
+    },
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true
+    },
+    "__experimentalBorder": {
+      "color": true,
+      "radius": true,
+      "style": true,
+      "width": true
+    }
+  },
+  "attributes": {
+    "style": {
+      "type": "object",
+      "default": {
+        "color": {
+          "text": "background",
+          "background": "primary"
+        }
+      }
+    }
+  },
+  "textdomain": "sensei-pro"
+}

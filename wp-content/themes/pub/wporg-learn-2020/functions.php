@@ -16,6 +16,8 @@ function setup() {
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'sensei' );
 
+	add_theme_support( 'responsive-embeds' );
+
 	global $woothemes_sensei;
 	if ( $woothemes_sensei ) {
 		remove_action( 'sensei_before_main_content', array( $woothemes_sensei->frontend, 'sensei_output_content_wrapper' ) );

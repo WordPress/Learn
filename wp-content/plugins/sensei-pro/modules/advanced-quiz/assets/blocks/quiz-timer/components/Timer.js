@@ -8,7 +8,8 @@ import { useState, useEffect, useCallback, useRef } from '@wordpress/element';
  */
 import { CountdownTimer } from './CountdownTimer';
 
-const WP_ADMIN_BAR_ELEMENT_SELECTOR = '#wpadminbar';
+const WP_ADMIN_BAR_ELEMENT_SELECTOR =
+	'#wpadminbar,.sensei-course-theme__header';
 const TIMER_FIXED_POSITION_OFFSET = 20;
 const SMALL_SCREEN_BREAKPOINT = 782;
 
@@ -68,13 +69,33 @@ export const Timer = ( {
 		};
 	}, [ handleScroll, handleWindowResize ] );
 
+	const showTextOnlyCountdown =
+		( isSmallScreen || isSticky ) && isCourseTheme;
+
+	useEffect( () => {
+		const courseThemeMainContent = document.querySelector(
+			'main.sensei-course-theme__main-content'
+		);
+
+		if ( showTextOnlyCountdown ) {
+			courseThemeMainContent.classList.add(
+				'sensei-course-theme__main-content--sticky-quiz-timer'
+			);
+		} else {
+			courseThemeMainContent &&
+				courseThemeMainContent.classList.remove(
+					'sensei-course-theme__main-content--sticky-quiz-timer'
+				);
+		}
+	}, [ showTextOnlyCountdown ] );
+
 	return (
 		<>
 			{ /* This is the main timer that shows up at the beginning of the quiz content. */ }
 			<CountdownTimer
 				seconds={ time }
 				triggerOnRender={ isPreviewMode }
-				isHidden={ isSticky }
+				isHidden={ isSticky || showTextOnlyCountdown }
 				isSmall={ isSmallScreen }
 				ref={ timerRef }
 				isCourseTheme={ isCourseTheme }
@@ -98,6 +119,19 @@ export const Timer = ( {
 					{ ...props }
 				/>
 			) }
+			{
+				// This is the sticky timer that shows up in Learning Mode when the main timer is outside the viewport.
+				isCourseTheme && showTextOnlyCountdown && (
+					<CountdownTimer
+						seconds={ time }
+						triggerOnRender={ isPreviewMode }
+						isSmall={ isSmallScreen }
+						isCourseTheme={ isCourseTheme }
+						showTextOnlyTimer={ true }
+						{ ...props }
+					/>
+				)
+			}
 		</>
 	);
 };

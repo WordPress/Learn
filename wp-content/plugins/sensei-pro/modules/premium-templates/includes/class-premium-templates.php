@@ -143,11 +143,17 @@ class Premium_Templates {
 	 * Get the premium templates.
 	 */
 	public function get_premium_templates(): array {
+
+		$file_extension = 'html';
+
+		if ( version_compare( '4.19.1', Sensei()->version ) < 0 ) {
+			$file_extension = 'php';
+		}
 		return [
 			'modern'     =>
 				[
 					'content' => [
-						'lesson' => "{$this->module_path}/templates/modern/lesson.html",
+						'lesson' => "{$this->module_path}/templates/modern/lesson." . $file_extension,
 						'quiz'   => '',
 					],
 					'styles'  => [],
@@ -157,7 +163,7 @@ class Premium_Templates {
 			'video'      =>
 				[
 					'content' => [
-						'lesson' => "{$this->module_path}/templates/video/lesson.html",
+						'lesson' => "{$this->module_path}/templates/video/lesson." . $file_extension,
 						'quiz'   => '',
 					],
 					'styles'  => [],
@@ -167,7 +173,7 @@ class Premium_Templates {
 			'video-full' =>
 				[
 					'content' => [
-						'lesson' => "{$this->module_path}/templates/video-full/lesson.html",
+						'lesson' => "{$this->module_path}/templates/video-full/lesson." . $file_extension,
 						'quiz'   => '',
 					],
 					'styles'  => [],

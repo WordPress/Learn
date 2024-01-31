@@ -57,12 +57,22 @@ class Student_No_Progress_Email_Generator extends Email_Generators_Abstract {
 	 * @return void
 	 */
 	public function init() {
-		add_action(
-			'sensei_wc_paid_courses_student_no_progress_reminder',
-			[ $this, 'send_student_no_progress_email' ],
-			10,
-			3
-		);
+		// Support for older versions of Sensei.
+		if ( method_exists( $this, 'maybe_add_action' ) ) {
+			$this->maybe_add_action(
+				'sensei_wc_paid_courses_student_no_progress_reminder',
+				[ $this, 'send_student_no_progress_email' ],
+				10,
+				3
+			);
+		} else {
+			add_action(
+				'sensei_wc_paid_courses_student_no_progress_reminder',
+				[ $this, 'send_student_no_progress_email' ],
+				10,
+				3
+			);
+		}
 	}
 
 	/**
@@ -90,6 +100,7 @@ class Student_No_Progress_Email_Generator extends Email_Generators_Abstract {
 	 * @param int $days_without_progress Number of days without progress.
 	 */
 	public function send_student_no_progress_email( $course_id, $student_id, $days_without_progress ) {
+
 		if ( $days_without_progress !== $this->days_without_progress ) {
 			return;
 		}

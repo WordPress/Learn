@@ -164,7 +164,6 @@ class Scd_Ext_Manual_Drip {
 	 * @return void
 	 */
 	public function update_manual_drip_activity() {
-		global $woothemes_sensei;
 
 		// Verify nonce field exist.
 		if ( ! isset( $_POST['scd_learner_lesson_manual_drip'] ) ) {
@@ -212,10 +211,10 @@ class Scd_Ext_Manual_Drip {
 
 		if ( $this->give_access_value === $_POST['scd_log_learner_lesson_manual_drip_submit'] ) {
 			// Log the users activity on the lesson drip.
-			$activity_updated = Sensei_Utils::sensei_log_activity( $args );
+			Sensei_Utils::sensei_log_activity( $args );
 		} else {
 			// Log the users activity on the lesson drip.
-			$activity_updated = Sensei_Utils::sensei_delete_activities( $args );
+			Sensei_Utils::sensei_delete_activities( $args );
 		}
 
 		add_action( 'admin_notices', [ $this, 'scd_manual_drip_admin_notice' ] );

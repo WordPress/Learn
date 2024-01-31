@@ -288,7 +288,8 @@ class WooCommerce_Memberships_Cancelled_Orders_Notice {
 			'dashboard',
 			'edit-wc_user_membership',
 			'edit-wc_membership_plan',
-			'edit-shop_order',
+			'edit-shop_order',            // The orders screen name when Woo HPOS is disabled.
+			'woocommerce_page_wc-orders', // The orders screen name when Woo HPOS is enabled.
 			'sensei-lms_page_sensei_learners',
 		];
 		$screen        = \get_current_screen();

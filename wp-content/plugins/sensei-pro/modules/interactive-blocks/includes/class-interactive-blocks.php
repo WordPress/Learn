@@ -9,6 +9,8 @@ namespace Sensei_Pro_Interactive_Blocks;
 
 use Sensei_Interactive_Blocks_Sensei_Home\Sensei_Home;
 use Sensei_Interactive_Blocks_Sensei_Home\Sensei_LMS_Home;
+use Sensei_Pro_Interactive_Blocks\Tutor_Chat\Tutor_Chat_Rest_Api;
+use Sensei_Pro_Interactive_Blocks\Tutor_Chat\Tutor_Chat_Service;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -19,6 +21,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Interactive_Blocks {
 	const MODULE_NAME = 'interactive-blocks';
+
+	/**
+	 * Tutor Chat REST API.
+	 *
+	 * @var Tutor_Chat_Rest_Api
+	 */
+	public $tutor_chat_rest_api;
 
 	/**
 	 * Script and stylesheet loading.
@@ -56,14 +65,16 @@ class Interactive_Blocks {
 	 * @param Assets_Provider $assets_provider The assets' provider.
 	 */
 	public static function init( Assets_Provider $assets_provider ) {
-		$instance                  = self::instance();
-		$instance->assets_provider = $assets_provider;
+		$instance                      = self::instance();
+		$instance->assets_provider     = $assets_provider;
+		$instance->tutor_chat_rest_api = new Tutor_Chat_Rest_Api( new Tutor_Chat_Service() );
 
 		$instance->include_dependencies();
 		$instance->init_blocks();
 
 		add_action( 'init', [ $instance, 'register_assets' ] );
 		add_action( 'wp_enqueue_scripts', [ $instance, 'enqueue_frontend_assets' ] );
+		add_action( 'rest_api_init', [ $instance, 'init_rest_api_endpoints' ] );
 
 		// Add Sensei LMS blocks category.
 		if ( is_wp_version_compatible( '5.8' ) ) {
@@ -110,6 +121,7 @@ class Interactive_Blocks {
 		new TaskList_Block();
 		new Interactive_Video_Block();
 		new Accordion_Block();
+		new Tutor_AI_Block();
 	}
 
 	/**
@@ -117,6 +129,8 @@ class Interactive_Blocks {
 	 */
 	public function register_assets() {
 		$this->assets_provider->register( 'sensei-interactive-blocks-editor-script', 'interactive-blocks-editor.js' );
+
+		$this->assets_provider->register( 'interactive-blocks-tutor-ai', 'interactive-blocks-tutor-ai.js', [ 'sensei-interactive-blocks-editor-script' ] );
 
 		$this->maybe_register_video_apis();
 
@@ -159,32 +173,38 @@ class Interactive_Blocks {
 	}
 
 	/**
-	 * Enqueue frontend assets - It's enqueued by default as part of the `view_script` arg
-	 * when registering the blocks. It's a workaround for WP 5.7.
+	 * Enqueue frontend assets.
 	 */
 	public function enqueue_frontend_assets() {
+		$post = get_post();
 
-		$blocks = [
-			'sensei-pro/question',
-			'sensei-pro/flashcard',
-			'sensei-lms/accordion',
-			'sensei-pro/hotspots',
-			'sensei-pro/task-list',
-			'sensei-pro/interactive-video',
-			'core/video',
-			'core/embed',
-		];
-
-		$has_any_block = false;
-		$post          = get_post();
-
-		foreach ( $blocks as $block ) {
-			$has_any_block |= has_block( $block, $post );
+		if ( ! $post ) {
+			return;
 		}
 
-		if ( $has_any_block ) {
-			$post_id = get_post()->ID;
-			wp_add_inline_script( 'sensei-interactive-blocks-frontend-script', "window.sensei = window.sensei || {};  window.sensei.postId = '$post_id';", 'before' );
+		wp_add_inline_script( 'sensei-interactive-blocks-frontend-script', "window.sensei = window.sensei || {};  window.sensei.postId = '$post->ID';", 'before' );
+
+		$this->maybe_enqueue_lesson_video_assets();
+	}
+
+	/**
+	 * Enqueue assets for video blocks on lessons because that assets contain the Required Videos feature
+	 * and it's not enqueued through the block registration as the other Sensei Interactive Blocks.
+	 */
+	private function maybe_enqueue_lesson_video_assets() {
+		$post            = get_post();
+		$video_blocks    = [ 'core/video', 'core/embed' ];
+		$has_video_block = false;
+
+		if ( 'lesson' !== $post->post_type ) {
+			return;
+		}
+
+		foreach ( $video_blocks as $block ) {
+			$has_video_block |= has_block( $block, $post );
+		}
+
+		if ( $has_video_block ) {
 			$this->assets_provider->enqueue_style( 'sensei-interactive-blocks-styles' );
 			$this->assets_provider->enqueue_script( 'sensei-interactive-blocks-frontend-script' );
 		}
@@ -206,11 +226,14 @@ class Interactive_Blocks {
 			$script,
 			'before'
 		);
+
 		wp_add_inline_script(
 			'sensei-interactive-blocks-frontend-script',
 			$script,
 			'before'
 		);
+
+		wp_add_inline_script( 'sensei-interactive-blocks-frontend-script', 'window.senseiProIsUserLoggedIn=' . wp_json_encode( is_user_logged_in() ) . ';', 'before' );
 	}
 
 	/**
@@ -222,6 +245,7 @@ class Interactive_Blocks {
 		include_once __DIR__ . '/blocks/class-flashcard-block.php';
 		include_once __DIR__ . '/blocks/class-hotspots-block.php';
 		include_once __DIR__ . '/blocks/class-tasklist-block.php';
+		include_once __DIR__ . '/blocks/class-tutor-ai-block.php';
 		include_once __DIR__ . '/blocks/class-interactive-video-block.php';
 	}
 
@@ -261,5 +285,12 @@ class Interactive_Blocks {
 			],
 			$categories
 		);
+	}
+
+	/**
+	 * Initialize REST API endpoints.
+	 */
+	public function init_rest_api_endpoints() {
+		$this->tutor_chat_rest_api->register_routes();
 	}
 }

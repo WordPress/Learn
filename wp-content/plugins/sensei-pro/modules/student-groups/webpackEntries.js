@@ -8,4 +8,10 @@ module.exports = {
 	'group-students-page': 'js/group-students-page.js',
 	'group-students-bulk-actions': 'js/group-students-bulk-actions',
 	'student-management-bulk-actions': 'js/students',
+	'copy-signup-link-button': 'js/copy-signup-link-button',
+	'join-group-block': 'blocks/join-group-block',
+	'group-name-block': 'blocks/group-name-block',
+	'group-members-count-block': 'blocks/group-members-count-block',
+	'group-members-list-block': 'blocks/group-members-list-block',
+	'join-group-button-variation': 'blocks/join-group-button-variation',
 };
