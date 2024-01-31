@@ -61,4 +61,4 @@ These checks will also be run automatically on each PR.
 
 ### Contributing
 
-If you'd like to contribute to the project, please read the [Developing Learn WordPress](https://make.wordpress.org/training/handbook/training-team-how-to-guides/developing-learn-wordpress/)https://make.wordpress.org/training/handbook/training-team-how-to-guides/developing-learn-wordpress/ page in our team handbook. 
+If you'd like to contribute to the project, please read the [Developing Learn WordPress](https://make.wordpress.org/training/handbook/training-team-how-to-guides/developing-learn-wordpress/) page in our team handbook. 
