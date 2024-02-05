@@ -67,7 +67,12 @@ function import_rest_to_posts( $rest_url ) {
 	foreach ( $data as $post ) {
 		echo esc_html( "Got {$post->type} {$post->id} {$post->slug}\n" );
 
-
+        // check if this post slug already exists in the database, and skip if it does
+		$existing_post = get_page_by_path( $post->slug, OBJECT, $post->type );
+		if ( $existing_post ) {
+			echo esc_html( "Post {$post->slug} already exists in the database\n" );
+			continue;
+		}
 
 		// Surely there's a neater way to do this.
 		$newpost = array(
