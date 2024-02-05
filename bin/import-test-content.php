@@ -47,7 +47,12 @@ function sanitize_meta_input( $meta ) {
  * @param string $rest_url The remote REST API endpoint URL.
  */
 function import_rest_to_posts( $rest_url ) {
-	$response = wp_remote_get( $rest_url );
+
+    $args = array(
+        'timeout' => 30,
+    );
+
+	$response = wp_remote_get( $rest_url, $args );
 	$status_code = wp_remote_retrieve_response_code( $response );
 
 	if ( is_wp_error( $response ) ) {
@@ -61,6 +66,8 @@ function import_rest_to_posts( $rest_url ) {
 
 	foreach ( $data as $post ) {
 		echo esc_html( "Got {$post->type} {$post->id} {$post->slug}\n" );
+
+
 
 		// Surely there's a neater way to do this.
 		$newpost = array(
@@ -88,5 +95,7 @@ function import_rest_to_posts( $rest_url ) {
 }
 
 import_rest_to_posts( 'https://learn.wordpress.org/wp-json/wp/v2/wporg_workshop?context=wporg_export&per_page=50' );
+
 import_rest_to_posts( 'https://learn.wordpress.org/wp-json/wp/v2/lesson-plan?context=wporg_export&per_page=50' );
+
 import_rest_to_posts( 'https://learn.wordpress.org/wp-json/wp/v2/pages?per_page=50' );
