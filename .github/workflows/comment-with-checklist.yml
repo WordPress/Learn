@@ -19,7 +19,7 @@ jobs:
         with:
           issue-number: ${{ github.event.issue.number }}
           body: |
-            # Tutorial Development Checklist
+            ## Tutorial Development Checklist
             - [ ] Tutorial [created](https://make.wordpress.org/training/handbook/tutorials/creating-a-tutorial) and announced to the team for Q/A review
             - [ ] Tutorial reviewed and [ready to publish](https://make.wordpress.org/training/handbook/tutorials/publishing-a-tutorial)
             - [ ] Tutorial [submitted and published to WPTV](https://make.wordpress.org/training/handbook/tutorials/publishing-a-tutorial/#1-submit-your-video-to-wordpress-tv) 
@@ -78,7 +78,7 @@ jobs:
         with:
           issue-number: ${{ github.event.issue.number }}
           body: |
-            # Lesson Development Checklist
+            ## Lesson Development Checklist
             - [ ] Gather any relevant links to Support, Docs, or related material
             - [ ] Description and Objectives finalized
             - [ ] Lesson created and announced to the team for review
