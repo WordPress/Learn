@@ -7,31 +7,31 @@ on:
 
 jobs:
   tutorial-issue:
-    if: ${{ contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.issue.body, '//tutorial') }}
+    if: ${{ contains(github.event.issue.body, '//tutorial') }}
     uses: ./.github/workflows/comment-with-checklist.yml
     with:
       content-type: 'tutorial'
       
   online-workshop-issue:
-    if: ${{ contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.issue.body, '//online-workshop') }}
+    if: ${{ contains(github.event.issue.body, '//online-workshop') }}
     uses: ./.github/workflows/comment-with-checklist.yml
     with:
       content-type: 'online-workshop'
   
   lesson-plan-issue:
-    if: ${{ contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.issue.body, '//teach') }}
+    if: ${{ contains(github.event.issue.body, '//teach') }}
     uses: ./.github/workflows/comment-with-checklist.yml
     with:
       content-type: 'teach'
   
   course-issue:
-    if: ${{ contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.issue.body, '//course') }}
+    if: ${{ contains(github.event.issue.body, '//course') }}
     uses: ./.github/workflows/comment-with-checklist.yml
     with:
       content-type: 'course'
 
   lesson-issue:
-    if: ${{ contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.issue.body, '//lesson') }}
+    if: ${{ contains(github.event.issue.body, '//lesson') }}
     uses: ./.github/workflows/comment-with-checklist.yml
     with:
       content-type: 'lesson'
