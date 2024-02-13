@@ -29,3 +29,9 @@ jobs:
     uses: ./.github/workflows/comment-with-checklist.yml
     with:
       content-type: 'course'
+
+  lesson-issue:
+    if: ${{ contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.comment.body, '//lesson') }}
+    uses: ./.github/workflows/comment-with-checklist.yml
+    with:
+      content-type: 'lesson'
