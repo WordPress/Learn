@@ -1995,7 +1995,7 @@ input[type="checkbox"]:checked::before {
 	color: #1e8cbe;
 	content: "\f147";
 	font: 400 30px/1 dashicons;
-	margin: -3px -5px;
+	margin: -3px -1px;
 }
 
 input[type="radio"]:checked::before {
@@ -2127,7 +2127,7 @@ fieldset label {
 	}
 	input[type="checkbox"]:checked::before {
 		font: 400 21px/1 dashicons;
-		margin: -3px 0 0 -4px;
+		margin: -3px 0 0 -1px;
 	}
 	input[type="radio"],
 	input[type="checkbox"] {
