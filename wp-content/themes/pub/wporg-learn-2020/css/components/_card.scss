@@ -11,6 +11,7 @@ body:not(.single):not(.search) .site-main .card.post.course {
 	color: #555d66;
 	padding: 1.75rem;
 	position: relative;
+	white-space: unset;
 
 	/* Fix over-specific rule in the parent theme. */
 	body:not(.single):not(.search) .site-main &.post {
