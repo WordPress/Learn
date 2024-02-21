@@ -191,10 +191,12 @@ function wporg_learn_get_student_count( $from_date, $to_date ) {
 
 	return $wpdb->get_var(
 		$wpdb->prepare(
-			"SELECT COUNT(DISTINCT user_id) FROM $wpdb->comments 
-			WHERE comment_type = 'sensei_course_status'
-			AND comment_date_gmt >= %s 
-			AND comment_date_gmt <= %s",
+			"SELECT COUNT(DISTINCT user_id) FROM $wpdb->comments as c
+            INNER JOIN $wpdb->commentmeta AS cm ON c.comment_ID = cm.comment_id
+			WHERE c.comment_type = 'sensei_course_status'
+            AND cm.meta_key = 'start'
+            AND cm.meta_value >= %s
+            AND cm.meta_value <= %s",
 			array(
 				$from_date->format( 'Y-m-d H:i:s' ),
 				$to_date->format( 'Y-m-d H:i:s' ),
