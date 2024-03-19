@@ -92,5 +92,8 @@
 	"scripts": {
 		"format": "phpcbf -p",
 		"lint": "phpcs"
+	},
+	"require": {
+		"wpackagist-plugin/interactive-code-block": "^0.2.1"
 	}
 }
