@@ -94,6 +94,6 @@
 		"lint": "phpcs"
 	},
 	"require": {
-		"wpackagist-plugin/interactive-code-block": "^0.1.4"
+		"wpackagist-plugin/interactive-code-block": "^0.2.1"
 	}
 }
