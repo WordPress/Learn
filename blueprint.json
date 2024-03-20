@@ -1,0 +1,14 @@
+{
+	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
+	"steps": [
+		{
+			"step": "activateTheme",
+			"themeFolderName": "wporg-learn-2020"
+		},
+		{
+			"step": "activatePlugin",
+			"pluginName": "WordPress.org Learn",
+			"pluginPath": "wporg-learn/wporg-learn.php"
+		}
+	]
+}
