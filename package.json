@@ -34,7 +34,8 @@
 		"start:locale-switcher": "yarn workspace wporg-locale-switcher start",
 		"start:plugin": "yarn workspace wporg-learn-plugin start",
 		"start:theme": "yarn workspace wporg-learn-2024 start",
-		"wp-env": "wp-env"
+		"wp-env": "wp-env",
+		"wp-now": "(cd wp-content && wp-now start --blueprint=../blueprint.json --reset)"
 	},
 	"main": "index.js"
 }
