@@ -3,7 +3,7 @@
 	"steps": [
 		{
 			"step": "activateTheme",
-			"themeFolderName": "wporg-learn-2020"
+			"themeFolderName": "pub/wporg-learn-2020"
 		},
 		{
 			"step": "activatePlugin",
