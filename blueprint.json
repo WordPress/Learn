@@ -9,6 +9,46 @@
 			"step": "activatePlugin",
 			"pluginName": "WordPress.org Learn",
 			"pluginPath": "wporg-learn/wporg-learn.php"
+		},
+		{
+			"step": "activatePlugin",
+			"pluginName": "Gutenberg",
+			"pluginPath": "gutenberg/gutenberg.php"
+		},
+		{
+			"step": "activatePlugin",
+			"pluginName": "Sensei LMS",
+			"pluginPath": "sensei-lms/sensei-lms.php"
+		},
+		{
+			"step": "activatePlugin",
+			"pluginName": "Sensei Pro",
+			"pluginPath": "sensei-pro/sensei-pro.php"
+		},
+		{
+			"step": "activatePlugin",
+			"pluginName": "Jetpack",
+			"pluginPath": "jetpack/jetpack.php"
+		},
+		{
+			"step": "activatePlugin",
+			"pluginName": "Edit Flow",
+			"pluginPath": "edit-flow/edit_flow.php"
+		},
+		{
+			"step": "activatePlugin",
+			"pluginName": "Code Syntax Block",
+			"pluginPath": "code-syntax-block/index.php"
+		},
+		{
+			"step": "activatePlugin",
+			"pluginName": "Locale Detection",
+			"pluginPath": "locale-detection/locale-detection.php"
+		},
+		{
+			"step": "activatePlugin",
+			"pluginName": "WordPress Importer",
+			"pluginPath": "wordpress-importer/wordpress-importer.php"
 		}
 	]
 }
