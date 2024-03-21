@@ -35,7 +35,7 @@
 		"start:plugin": "yarn workspace wporg-learn-plugin start",
 		"start:theme": "yarn workspace wporg-learn-2024 start",
 		"wp-env": "wp-env",
-		"wp-now": "(cd wp-content && wp-now start --blueprint=../blueprint.json --reset)"
+		"wp-now": "(cd wp-content && wp-now start --blueprint=../blueprint.json)"
 	},
 	"main": "index.js"
 }
