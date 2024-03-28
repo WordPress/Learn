@@ -1,18 +1,18 @@
-.sensei-course-theme.quiz
-  form
-  #sensei-quiz-list
-  input[type="radio"].sensei-multiple-choice-answer-option-radio {
-    width: 26px;
-    height: 26px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  &:checked {
-    border: 2px solid black;
-    &::before {
-      width: 12px;
-      height: 12px;
-      background-color: black;
-    }
-  }
+.sensei-course-theme.quiz form #sensei-quiz-list input[type="radio"].sensei-multiple-choice-answer-option-radio {
+	width: 26px;
+	height: 26px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	&:checked {
+		border: 2px solid #000;
+
+		&::before {
+			width: 12px;
+			height: 12px;
+			background-color: #000;
+		}
+	}
+
 }
