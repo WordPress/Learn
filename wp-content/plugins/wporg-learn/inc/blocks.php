@@ -307,7 +307,7 @@ function workshop_details_render_callback( $attributes, $content ) {
 			'value' => $topic_names,
 		),
 		'wp_version' => array(
-			'label' => __( 'Related Version', 'wporg-learn' ),
+			'label' => __( 'WordPress Version', 'wporg-learn' ),
 			'param' => $version_ids,
 			'value' => $version_names,
 		),
