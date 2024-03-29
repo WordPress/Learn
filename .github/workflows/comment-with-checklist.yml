@@ -73,6 +73,16 @@ jobs:
             - [ ] Hold Online Workshop
             - [ ] Complete [After an Online Workshop](https://make.wordpress.org/training/handbook/online-workshops/after-an-online-workshop/) next steps
             - [ ] Add link to slides and/or WordPress.tv video to GitHub issue
+      - uses: actions/github-script@v7.0.1
+        if: contains(inputs.content-type, 'online-workshop')
+        with:
+          script: |
+            github.rest.issues.addLabels({
+              issue_number: ${{ github.event.issue.number }},
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ["[Content] Needs Co-host"]
+            })
       - uses: peter-evans/create-or-update-comment@v3
         if: contains(inputs.content-type, 'lesson')
         with:
