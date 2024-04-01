@@ -1248,14 +1248,16 @@ function wporg_learn_get_sticky_topics_with_selected_first( $first = 'general' )
 }
 
 /**
- * Add custom class to jetpack forms
+ * Adds a custom class to Jetpack contact form inputs.
  *
- * @param string 
- * @return string
+ * This function appends a custom class to the existing classes of Jetpack contact form input elements.
+ *
+ * @param string $class Current input classes.
+ * @return string Modified input classes including the custom class.
  */
-function my_custom_jetpack_contact_form_class( $class ) {
-    // Add 'my-custom-class' to the existing class string
+function wporg_learn_add_custom_class_to_jetpack_forms( $class ) {
+    // Append 'wporg-learn-form' class to the existing class string.
     $class .= ' wporg-learn-form';
     return $class;
 }
-add_filter( 'jetpack_contact_form_input_class', 'my_custom_jetpack_contact_form_class' );
+add_filter( 'jetpack_contact_form_input_class', 'wporg_learn_add_custom_class_to_jetpack_forms' );
