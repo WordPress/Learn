@@ -1246,3 +1246,16 @@ function wporg_learn_get_sticky_topics_with_selected_first( $first = 'general' )
 
 	return $topics;
 }
+
+/**
+ * Add custom class to jetpack forms
+ *
+ * @param string 
+ * @return string
+ */
+function my_custom_jetpack_contact_form_class( $class ) {
+    // Add 'my-custom-class' to the existing class string
+    $class .= ' wporg-learn-form';
+    return $class;
+}
+add_filter( 'jetpack_contact_form_input_class', 'my_custom_jetpack_contact_form_class' );
