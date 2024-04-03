@@ -4,9 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9839452a5f944bb49fa2c470a01902b1",
-    "packages": [],
-    "packages-dev": [
+    "content-hash": "221986e29ded57bdfd417837c302eaa3",
+    "packages": [
         {
             "name": "composer/installers",
             "version": "v1.12.0",
@@ -158,6 +157,26 @@
             ],
             "time": "2021-09-13T08:19:44+00:00"
         },
+        {
+            "name": "wpackagist-plugin/interactive-code-block",
+            "version": "0.2.1",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/interactive-code-block/",
+                "reference": "trunk"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/interactive-code-block.zip?timestamp=1705482591"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/interactive-code-block/"
+        }
+    ],
+    "packages-dev": [
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
             "version": "v0.7.2",
