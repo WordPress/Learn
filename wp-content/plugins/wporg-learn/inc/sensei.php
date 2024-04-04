@@ -27,8 +27,8 @@ add_action( 'plugins_loaded', __NAMESPACE__ . '\wporg_correct_sensei_editor_perm
  */
 function wporg_correct_sensei_editor_permissions() {
 	if ( current_user_can( 'editor' ) ) {
-		remove_filter( 'get_terms', [ Sensei()->modules, 'filter_module_terms' ], 20, 3 );
-		remove_filter( 'get_object_terms', [ Sensei()->modules, 'filter_course_selected_terms' ], 20, 3 );
+		remove_filter( 'get_terms', array( Sensei()->modules, 'filter_module_terms' ), 20, 3 );
+		remove_filter( 'get_object_terms', array( Sensei()->modules, 'filter_course_selected_terms' ), 20, 3 );
 	}
 }
 
