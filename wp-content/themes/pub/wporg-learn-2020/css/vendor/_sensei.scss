@@ -148,3 +148,54 @@ details {
 .wp-block-sensei-lms-course-results.is-style-default .wp-block-sensei-lms-course-results__module-header:not(.has-background) {
     background-color: #eee;
 }
+
+
+.wp-block-sensei-lms-course-results.is-style-default
+.wp-block-sensei-lms-course-results__module-header:not(.has-background) {
+background-color: #eee;
+}
+
+.sensei-lms-question {
+&__answer-feedback {
+  &__header {
+    background-color: transparent;
+    font-weight: bold;
+  }
+  &--incorrect {
+    .sensei-lms-question__answer-feedback__header {
+      color: #cf8b25;
+    }
+  }
+  &--correct {
+    .sensei-lms-question__answer-feedback__header {
+      color: #5c936b;
+    }
+  }
+}
+}
+.sensei-course-theme {
+.wp-block-button.wp-block-button {
+  &.sensei-lms-interactive-block-question {
+    &__reset-button,
+    &__submit-button {
+      display: inline-block;
+      .wp-block-button__link {
+        padding-top: 8px;
+        padding-bottom: 8px;
+      }
+    }
+  }
+}
+}
+
+.wp-block-sensei-pro-question form {
+padding: 20px 0;
+border-top: 1px solid #eee;
+}
+
+.sensei-lesson-footer {
+border-top: 1px solid #eee;
+justify-content: end;
+border-top: 1px solid #949494;
+padding-top: 20px;
+}
