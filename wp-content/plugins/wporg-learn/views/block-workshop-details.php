@@ -76,7 +76,7 @@ $is_updated = get_the_modified_date( 'ymd' ) != get_the_date( 'ymd' );
 				<?php echo esc_html( get_the_date() ); ?>
 			</span>
 		</li>
-		<?php if ( $is_updated) : ?>
+		<?php if ( $is_updated ) : ?>
 			<li>
 				<b><?php esc_html_e( 'Updated', 'wporg-learn' ); ?></b>
 				<span>
