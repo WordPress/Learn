@@ -73,18 +73,18 @@ $is_updated = get_the_modified_date( 'ymd' ) != get_the_date( 'ymd' );
 		<li>
 			<b><?php esc_html_e( 'Published', 'wporg-learn' ); ?></b>
 			<span>
-				<?php esc_html_e( get_the_date() ); ?>
+				<?php echo esc_html( get_the_date() ); ?>
 			</span>
 		</li>
-		<?php if ($is_updated) : ?>
+		<?php if ( $is_updated) : ?>
 			<li>
 				<b><?php esc_html_e( 'Updated', 'wporg-learn' ); ?></b>
 				<span>
-					<?php esc_html_e( get_the_modified_date() ); ?>
+					<?php echo esc_html( get_the_modified_date() ); ?>
 				</span>
 			</li>
 		<?php endif; ?>
-		<!-- END –– Date and modified date -->
+		<!-- END Date and modified date -->
 
 		<?php if ( ! empty( $quiz_url ) ) : ?>
 			<div class="wp-block-button is-style-primary-full-width">
