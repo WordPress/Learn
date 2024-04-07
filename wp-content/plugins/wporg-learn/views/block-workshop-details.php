@@ -11,6 +11,7 @@ defined( 'WPINC' ) || die();
  */
 
 $has_transcript = false !== strpos( $post->post_content, 'id="transcript"' );
+$is_updated = get_the_modified_date( "ymd" ) != get_the_date( "ymd" );
 
 ?>
 
@@ -67,6 +68,23 @@ $has_transcript = false !== strpos( $post->post_content, 'id="transcript"' );
 				</li>
 			</ul>
 		<?php endif; ?>
+
+		<!-- Date and modified date -->
+		<li>
+			<b><?php esc_html_e('Published', 'wporg-learn'); ?></b>
+			<span>
+				<?php echo get_the_date(); ?>
+			</span>
+		</li>
+		<?php if ($is_updated) : ?>
+			<li>
+				<b><?php esc_html_e('Updated', 'wporg-learn'); ?></b>
+				<span>
+					<?php echo get_the_modified_date(); ?>
+				</span>
+			</li>
+		<?php endif; ?>
+		<!-- END –– Date and modified date -->
 
 		<?php if ( ! empty( $quiz_url ) ) : ?>
 			<div class="wp-block-button is-style-primary-full-width">

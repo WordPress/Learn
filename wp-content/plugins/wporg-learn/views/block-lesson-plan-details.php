@@ -7,6 +7,7 @@ defined( 'WPINC' ) || die();
 /**
  * @var array $details
  */
+$is_updated = get_the_modified_date( "ymd" ) != get_the_date( "ymd" );
 
 ?>
 
@@ -37,5 +38,22 @@ defined( 'WPINC' ) || die();
 			}
 		}
 		?>
+		<!-- Date and modified date -->
+		<li>
+			<b><?php esc_html_e('Published', 'wporg-learn'); ?></b>
+			<span>
+				<?php echo get_the_date(); ?>
+			</span>
+		</li>
+		<?php if ($is_updated) : ?>
+			<li>
+				<b><?php esc_html_e('Updated', 'wporg-learn'); ?></b>
+				<span>
+					<?php echo get_the_modified_date(); ?>
+				</span>
+			</li>
+		<?php endif; ?>
+		<!-- END Date and modified date -->
+
 	</ul>
 <?php endif; ?>
