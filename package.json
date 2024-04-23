@@ -34,7 +34,7 @@
 		"lint:js": "yarn workspace wporg-learn-plugin lint:js",
 		"watch:theme": "yarn workspace wporg-learn-theme start",
 		"watch:plugin": "yarn workspace wporg-learn-plugin start",
-		"setup:tools": "exit 0"
+		"setup:tools": "TEXTDOMAIN=wporg-learn composer exec update-configs"
 	},
 	"main": "index.js"
 }
