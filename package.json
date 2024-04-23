@@ -10,6 +10,9 @@
 		"@wordpress/scripts": "27.2.0",
 		"@wordpress/stylelint-config": "21.34.0"
 	},
+	"resolutions": {
+		"eslint-plugin-jsdoc": "^46.4.6"
+	},
 	"workspaces": {
 		"packages": [
 			"wp-content/mu-plugins/pub/locale-switcher",
