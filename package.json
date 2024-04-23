@@ -33,8 +33,5 @@
 		"watch:plugin": "yarn workspace wporg-learn-plugin start",
 		"setup:tools": "exit 0"
 	},
-	"main": "index.js",
-	"devDependencies": {
-		"@wordpress/scripts": "^19.2.2"
-	}
+	"main": "index.js"
 }
