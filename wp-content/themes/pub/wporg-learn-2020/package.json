@@ -22,7 +22,7 @@
 	],
 	"devDependencies": {
 		"@wordpress/browserslist-config": "2.6.0",
-		"@wordpress/scripts": "^19.2.2",
+		"@wordpress/scripts": "27.2.0",
 		"autoprefixer": "9.6.1",
 		"cssnano": "4.1.10",
 		"grunt": "1.0.4",
@@ -36,6 +36,6 @@
 	},
 	"stylelint": {
 		"extends": "../../../../.stylelintrc",
-		"ignoreFiles": ["*/vendor/*", "**/*.css", "**/*.css.map"]
+		"ignoreFiles": ["*/vendor/*", "**/*.css", "**/*.css.map", "**/*.md"]
 	}
 }
