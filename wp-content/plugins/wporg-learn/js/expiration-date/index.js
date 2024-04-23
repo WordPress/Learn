@@ -77,9 +77,8 @@ const ExpirationDate = () => {
 											},
 										} );
 
-										const {
-											ownerDocument,
-										} = pickerRef.current;
+										const { ownerDocument } =
+											pickerRef.current;
 										ownerDocument.activeElement.blur();
 									} }
 								/>
