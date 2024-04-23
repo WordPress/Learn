@@ -20,7 +20,7 @@
 	<exclude-pattern>*/build/*</exclude-pattern>
 
 	<!-- Exclude all themes except the learn theme -->
-	<exclude-pattern>/wp-content/themes/pub/(?!wporg-learn-2020)</exclude-pattern>
+	<exclude-pattern>/wp-content/themes/pub/(?!wporg-learn-2020|wporg-learn-2024)</exclude-pattern>
 
 	<!-- Exclude all plugins except the learn plugin -->
 	<exclude-pattern>/wp-content/plugins/(?!wporg-learn)</exclude-pattern>
