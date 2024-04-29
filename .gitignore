@@ -11,7 +11,6 @@
 .eslintrc.js
 .prettierrc.js
 .stylelintrc
-phpcs.xml.dist
 
 # Ignore 3rd-party code.
 /wp-content/*
