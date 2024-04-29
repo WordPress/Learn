@@ -21,5 +21,8 @@
 	},
 	"devDependencies": {
 		"@wordpress/scripts": "27.2.0"
+	},
+	"stylelint": {
+		"extends": "../../../../.stylelintrc"
 	}
 }

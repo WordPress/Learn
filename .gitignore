@@ -16,6 +16,7 @@
 /wp-content/*
 /wp-content/mu-plugins/*
 /wp-content/mu-plugins/pub/*
+/wp-content/mu-plugins/pub/locale-switcher/build
 /wp-content/plugins/*
 /wp-content/themes/*
 /wp-content/themes/pub/*
@@ -25,6 +26,8 @@
 !/wp-content/mu-plugins/pub
 !/wp-content/mu-plugins/pub/locales.php
 !/wp-content/mu-plugins/pub/class-validator.php
+!/wp-content/mu-plugins/pub/locale-switcher
+!/wp-content/mu-plugins/pub/locale-switcher/.eslintrc.js
 !/wp-content/plugins
 !/wp-content/plugins/wporg-learn
 !/wp-content/plugins/sensei-pro

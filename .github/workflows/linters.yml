@@ -24,6 +24,11 @@ jobs:
       run: |
         composer install
 
+    - name: Git reset and clean
+      run: |
+        git reset --hard
+        git clean -f -d
+
     - name: Setup tools
       run: |
         yarn setup:tools
