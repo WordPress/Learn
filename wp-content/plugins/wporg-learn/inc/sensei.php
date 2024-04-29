@@ -17,7 +17,7 @@ add_filter( 'sensei_load_default_supported_theme_wrappers', '__return_false' );
 add_action( 'sensei_before_main_content', __NAMESPACE__ . '\theme_wrapper_start' );
 add_action( 'sensei_after_main_content', __NAMESPACE__ . '\theme_wrapper_end' );
 add_action( 'init', __NAMESPACE__ . '\wporg_correct_sensei_slugs' );
-add_action( 'plugins_loaded', __NAMESPACE__ . '\wporg_correct_sensei_editor_permissions' );
+add_action( 'init', __NAMESPACE__ . '\wporg_correct_sensei_editor_permissions' );
 
 /**
  * Remove Sensei's default module editor permissions.
