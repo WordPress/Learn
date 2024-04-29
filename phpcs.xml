@@ -1,18 +1,13 @@
 <?xml version="1.0" ?>
-<ruleset name="WordCamp.org Coding Standards">
-	<description>Apply customized version of WordPress Coding Standards to WordCamp.org projects.</description>
-
+<ruleset name="Project-specific Coding Standards Overrides">
 	<!--
-		Setup instructions:
-
-		1) Install PHPCS & all required code standards using `composer install`
-		2) Run `composer run lint`. You can use the `-a` flag to run it interactively.
-
-		See these links for useful information:
-			- https://github.com/squizlabs/PHP_CodeSniffer/wiki/Annotated-ruleset.xml
-			- https://github.com/squizlabs/PHP_CodeSniffer/wiki/Customisable-Sniff-Properties
-			- https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/wiki/Customizable-sniff-properties
+		Use the WordPress.org Meta Coding Standards for the project (from wporg-repo-tools),
+		but override a few specific rules in a few directories. This will let us keep using phpcs
+		on those directories without flagging known non-issues from generated or forked code.
 	-->
+
+	<!-- Import the shared PHPCS settings. -->
+	<rule ref="./phpcs.xml.dist" />
 
 	<!-- Exclude 3rd-party files -->
 	<exclude-pattern>*/vendor/*</exclude-pattern>
@@ -54,7 +49,8 @@
 		<!-- I know it's a language construct, but it just looks better using the function call syntax. -->
 		<exclude name="PEAR.Files.IncludingFile.BracketsNotRequired" />
 
-		<!-- This requires passing a whitelist of prefixes in order to work, which is not practical for a large and varied codebase. It's also fixes a problem that we're unlikely to cause. -->
+		<!-- This requires passing a whitelist of prefixes in order to work, which is not practical
+			for a large and varied codebase. It's also fixes a problem that we're unlikely to cause. -->
 		<exclude name="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound" />
 		<exclude name="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound" />
 		<exclude name="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound" />
@@ -81,8 +77,8 @@
 			</properties>
 		</rule>
 
-		<!-- trigger_error() isn't only development function. In development environments it conveniently displays an error, but in
-		     (properly configured) production environment, it logs the error instead. -->
+		<!-- trigger_error() isn't only development function. In development environments it conveniently
+			displays an error, but in (properly configured) production environment, it logs the error instead. -->
 		<exclude name="WordPress.PHP.DevelopmentFunctions.error_log_trigger_error" />
 
 		<!-- print_r() is perfectly accepted in some circumstances, like WP_CLI commands. -->
@@ -103,7 +99,8 @@
 	</rule>
 
 	<rule ref="WordPress-Docs">
-		<!-- If files/variables are given descriptive names like they should be, then an explicit description is usually unnecessary, so leave this as a judgement call. -->
+		<!-- If files/variables are given descriptive names like they should be, then an explicit
+			description is usually unnecessary, so leave this as a judgement call. -->
 		<exclude name="Squiz.Commenting.FunctionComment.MissingParamComment" />
 		<exclude name="Squiz.Commenting.FileComment.Missing" />
 		<exclude name="Squiz.Commenting.ClassComment.Missing" />
@@ -121,13 +118,15 @@
 		<!-- Whitespace makes things more readable. -->
 		<exclude name="Squiz.Commenting.FileComment.SpacingAfterOpen" />
 
-		<!-- There are some valid cases of this, like in identifying a closing tag from another file; e.g., in `themes/campsite-2017/footer.php`. -->
+		<!-- There are some valid cases of this, like in identifying a closing tag from another file;
+			e.g., in `themes/campsite-2017/footer.php`. -->
 		<exclude name="Squiz.Commenting.InlineComment.SpacingAfter" />
 
 		<!-- It's not wrong for WordPress plugin file headers. -->
 		<exclude name="Squiz.Commenting.FileComment.WrongStyle" />
 
-		<!-- Class comments are generally not useful, so they're left out, but then PHPCS confuses the plugin headers for a class comment -->
+		<!-- Class comments are generally not useful, so they're left out, but then PHPCS confuses
+			the plugin headersfor a class comment -->
 		<exclude name="Squiz.Commenting.ClassComment.WrongStyle" />
 		<exclude name="Squiz.Commenting.ClassComment.SpacingAfter" />
 
@@ -144,7 +143,7 @@
 	</rule>
 
 	<!-- Verify that the text_domain is set to the desired text-domain. Multiple valid text domains can be
-	     provided as a comma-delimited list. -->
+		provided as a comma-delimited list. -->
 	<rule ref="WordPress.WP.I18n">
 		<properties>
 			<property name="text_domain" type="array" value="wporg-learn,wporg_learn" />

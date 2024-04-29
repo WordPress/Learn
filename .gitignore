@@ -7,6 +7,12 @@
 
 .wp-env.override.json
 
+# Configs from wporg-repo-tools.
+.eslintrc.js
+.prettierrc.js
+.stylelintrc
+phpcs.xml.dist
+
 # Ignore 3rd-party code.
 /wp-content/*
 /wp-content/mu-plugins/*
