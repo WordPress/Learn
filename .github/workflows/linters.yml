@@ -24,6 +24,10 @@ jobs:
       run: |
         composer install
 
+    - name: Setup tools
+      run: |
+        yarn setup:tools
+
     - name: Install NodeJS
       uses: actions/setup-node@v4
       with:
@@ -33,17 +37,13 @@ jobs:
     - name: yarn install and build
       run: |
         yarn
-        yarn workspaces run build
-
-    - name: Setup tools
-      run: |
-        yarn setup:tools
+        yarn build
 
     - name: Lint JavaScript and Styles
       run: |
-        yarn workspaces run lint:js
-        yarn workspaces run lint:css
+        yarn lint:js
+        yarn lint:css
 
     - name: Lint PHP
       run: |
-        composer run lint
+        yarn lint:php
