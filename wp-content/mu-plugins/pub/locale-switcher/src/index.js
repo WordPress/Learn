@@ -56,8 +56,12 @@ const LocaleSwitcher = ( props ) => {
 };
 
 const initLocaleSwitcher = () => {
-	const container = document.getElementById( 'wporg-locale-switcher-container' );
-	const externalButton = document.getElementById( 'wp-admin-bar-locale-switcher' );
+	const container = document.getElementById(
+		'wporg-locale-switcher-container'
+	);
+	const externalButton = document.getElementById(
+		'wp-admin-bar-locale-switcher'
+	);
 
 	const props = {
 		externalButton,

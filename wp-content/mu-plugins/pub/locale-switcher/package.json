@@ -20,9 +20,6 @@
 		"@wordpress/url": "^3.21.0"
 	},
 	"devDependencies": {
-		"@wordpress/scripts": "27.2.0"
-	},
-	"stylelint": {
-		"extends": "../../../../.stylelintrc"
+		"@wordpress/scripts": "^19.2.2"
 	}
 }
