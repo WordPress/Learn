@@ -43,10 +43,7 @@ registerBlockType( metadata.name, {
 	 * This is a short description for your block, can be translated with `i18n` functions.
 	 * It will be shown in the Block Tab in the Settings Sidebar.
 	 */
-	description: __(
-		'Show average learner details for the course.',
-		'wporg-learn'
-	),
+	description: __( 'Show average learner details for the course.', 'wporg-learn' ),
 
 	/**
 	 * Blocks are grouped into categories to help users browse and discover them.

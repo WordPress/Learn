@@ -20,6 +20,19 @@ jobs:
         mkdir wp-content/themes/pub/wporg
         svn export https://meta.svn.wordpress.org/sites/trunk/wordpress.org/public_html/wp-content/themes/pub/wporg/css wp-content/themes/pub/wporg/css
 
+    - name: composer install
+      run: |
+        composer install
+
+    - name: Git reset and clean
+      run: |
+        git reset --hard
+        git clean -f -d
+
+    - name: Setup tools
+      run: |
+        yarn setup:tools
+
     - name: Install NodeJS
       uses: actions/setup-node@v4
       with:
@@ -29,18 +42,13 @@ jobs:
     - name: yarn install and build
       run: |
         yarn
-        yarn workspaces run build
+        yarn build
 
     - name: Lint JavaScript and Styles
       run: |
-        yarn workspaces run lint:js
-        yarn workspaces run lint:css
-
-    - name: composer install
-      run: |
-        composer install
+        yarn lint:js
+        yarn lint:css
 
     - name: Lint PHP
       run: |
-        composer run lint
-
+        yarn lint:php

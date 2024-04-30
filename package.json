@@ -10,9 +10,6 @@
 		"@wordpress/scripts": "27.2.0",
 		"@wordpress/stylelint-config": "21.34.0"
 	},
-	"resolutions": {
-		"eslint-plugin-jsdoc": "^46.4.6"
-	},
 	"workspaces": {
 		"packages": [
 			"wp-content/mu-plugins/pub/locale-switcher",
@@ -26,15 +23,16 @@
 	"scripts": {
 		"install:env": "./bin/index.sh",
 		"install:githooks": "mv .git/hooks .git/hooks_orig && ln -s ../.githooks .git/hooks",
-		"create": "composer install && yarn workspaces run build && yarn run install:env",
+		"build": "yarn workspaces run build",
+		"create": "composer install && yarn setup:tools && yarn workspaces run build && yarn run install:env",
 		"wp-env": "wp-env",
 		"lint:php": "composer run lint",
 		"format:php": "composer run format",
-		"lint:css": "yarn workspace wporg-learn-plugin lint:css && yarn workspace wporg-learn-theme lint:css",
-		"lint:js": "yarn workspace wporg-learn-plugin lint:js",
+		"lint:css": "yarn workspaces run lint:css",
+		"lint:js": "yarn workspaces run lint:js",
 		"watch:theme": "yarn workspace wporg-learn-theme start",
 		"watch:plugin": "yarn workspace wporg-learn-plugin start",
-		"setup:tools": "exit 0"
+		"setup:tools": "TEXTDOMAIN=wporg-learn composer exec update-configs"
 	},
 	"main": "index.js"
 }

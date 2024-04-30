@@ -1,4 +1,5 @@
 /* global jQuery, wpCookies */
+// eslint-disable-next-line id-length
 ( function ( window, $, wpCookies ) {
 	'use strict';
 
@@ -7,20 +8,16 @@
 	const app = $.extend( localeNotice, {
 		$notice: $(),
 
-		init() {
+		init: function () {
 			app.$notice = $( '.wporg-learn-locale-notice' );
 
-			app.$notice.on(
-				'click',
-				'.wporg-learn-locale-notice-dismiss',
-				function ( event ) {
-					event.preventDefault();
-					app.dismissNotice();
-				}
-			);
+			app.$notice.on( 'click', '.wporg-learn-locale-notice-dismiss', function ( event ) {
+				event.preventDefault();
+				app.dismissNotice();
+			} );
 		},
 
-		dismissNotice() {
+		dismissNotice: function () {
 			app.$notice.fadeTo( 100, 0, function () {
 				app.$notice.slideUp( 100, function () {
 					app.$notice.remove();
