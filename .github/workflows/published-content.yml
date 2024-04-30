@@ -1,7 +1,7 @@
 # This workflow is based on the Community Team's similar workflow
 # https://github.com/WordPress/Community-Team/blob/trunk/.github/workflows/close-issue-on-publish.yml
 
-name: Close and label issue when content is marked as published
+name: Close and label published issues
 
 on:
   issue_comment:
