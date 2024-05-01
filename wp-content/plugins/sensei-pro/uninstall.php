@@ -22,7 +22,7 @@ if ( class_exists( 'Sensei_WC_Paid_Courses\Sensei_WC_Paid_Courses' ) ) {
 // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- $plugin is passed to `uninstall_plugin`
 define( 'SENSEI_PRO_PLUGIN_FILE', dirname( __DIR__ ) . '/' . $plugin );
 
-require dirname( __FILE__ ) . '/modules/wc-paid-courses/wc-paid-courses.php';
+require __DIR__ . '/modules/wc-paid-courses/wc-paid-courses.php';
 
 if ( ! class_exists( 'Sensei_WC_Paid_Courses\Sensei_WC_Paid_Courses' ) ) {
 	// We still want people to be able to delete WCPC if they don't meet dependencies.
@@ -30,7 +30,7 @@ if ( ! class_exists( 'Sensei_WC_Paid_Courses\Sensei_WC_Paid_Courses' ) ) {
 }
 
 // Fetch all sub-directories in the 'modules' folder.
-$sensei_pro_modules_dir = dirname( __FILE__ ) . '/modules';
+$sensei_pro_modules_dir = __DIR__ . '/modules';
 $sensei_pro_all_sub_dir = glob( $sensei_pro_modules_dir . '/*', GLOB_ONLYDIR );
 
 foreach ( $sensei_pro_all_sub_dir as $sensei_pro_dir ) {
@@ -40,8 +40,8 @@ foreach ( $sensei_pro_all_sub_dir as $sensei_pro_dir ) {
 	}
 }
 
-require dirname( __FILE__ ) . '/includes/class-data-cleaner.php';
-require dirname( __FILE__ ) . '/modules/installer/installer.php';
+require __DIR__ . '/includes/class-data-cleaner.php';
+require __DIR__ . '/modules/installer/installer.php';
 
 // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- $plugin is passed to `uninstall_plugin`
 ( new Sensei_Pro\Data_Cleaner() )->uninstall( $plugin );

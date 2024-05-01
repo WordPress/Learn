@@ -244,5 +244,3 @@ class Course_Showcase_Promote_Action {
 		];
 	}
 }
-
-

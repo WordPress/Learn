@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-require_once dirname( __FILE__ ) . '/includes/class-co-teachers.php';
+require_once __DIR__ . '/includes/class-co-teachers.php';
 
 // Load the plugin after all the other plugins have loaded.
 add_action( 'plugins_loaded', [ Co_Teachers::class, 'init' ], 5 );

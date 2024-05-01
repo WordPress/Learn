@@ -54,7 +54,13 @@ class Scheduler {
 	 * @return void
 	 */
 	public static function init( string $vendor_path ) {
-		if ( defined( 'SENSEI_DO_NOT_LOAD_ACTION_SCHEDULER' ) && SENSEI_DO_NOT_LOAD_ACTION_SCHEDULER ) {
+		if (
+			// Check for Automattic private site in WPCOM (Like Learnomattic).
+			( defined( 'A8C__IS_A8C_PRIVATE_BLOG' ) && A8C__IS_A8C_PRIVATE_BLOG )
+			// Check for Automattic public site in WPCOM (learn.wordpress.com).
+			|| ( defined( 'A8C__IS_A8C_BLOG' ) && A8C__IS_A8C_BLOG )
+			|| ( defined( 'SENSEI_DO_NOT_LOAD_ACTION_SCHEDULER' ) && SENSEI_DO_NOT_LOAD_ACTION_SCHEDULER )
+		) {
 			return;
 		}
 		if (

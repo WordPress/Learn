@@ -294,7 +294,6 @@ final class Courses {
 			'orderby'          => 'menu_order date',
 			'order'            => 'ASC',
 		];
-
 	}
 
 	/**
@@ -365,10 +364,8 @@ final class Courses {
 							if ( ! in_array( $course->ID, $course_ids_from_order, true ) ) {
 								$course_ids_from_order[] = $course->ID;
 							}
-						} else {
-							if ( ! in_array( $course->ID, $course_ids_from_other_orders, true ) ) {
+						} elseif ( ! in_array( $course->ID, $course_ids_from_other_orders, true ) ) {
 								$course_ids_from_other_orders[] = $course->ID;
-							}
 						}
 					}
 				}
@@ -381,7 +378,6 @@ final class Courses {
 				Sensei_Utils::sensei_remove_user_from_course( $order_course_id, $user_id );
 			}
 		}
-
 	}
 
 	/**
@@ -533,13 +529,10 @@ final class Courses {
 							return;
 						}
 					}
-				} else {
-
+				} elseif ( in_array( intval( $item['product_id'] ), $course_product_ids, true ) ) {
 					// handle regular products.
-					if ( in_array( intval( $item['product_id'] ), $course_product_ids, true ) ) {
-						Sensei_Utils::user_start_course( $user_id, $course_id );
-						return;
-					}
+					Sensei_Utils::user_start_course( $user_id, $course_id );
+					return;
 				}
 			}
 		}
@@ -563,10 +556,10 @@ final class Courses {
 				'description'       => 'An array of Product IDs attached to this course.',
 				'single'            => false,
 				'show_in_rest'      => true,
-				'sanitize_callback' => function( $value ) {
+				'sanitize_callback' => function ( $value ) {
 					return intval( $value );
 				},
-				'auth_callback'     => function() {
+				'auth_callback'     => function () {
 					return current_user_can( 'edit_courses' );
 				},
 			]
@@ -576,7 +569,7 @@ final class Courses {
 		// to "-" from the UI component.
 		add_filter(
 			'rest_prepare_course',
-			function( $response ) {
+			function ( $response ) {
 				if ( isset( $response->data['meta'] ) && isset( $response->data['meta'][ self::META_COURSE_PRODUCT ] ) ) {
 					$response->data['meta'][ self::META_COURSE_PRODUCT ] = array_filter( $response->data['meta'][ self::META_COURSE_PRODUCT ] );
 				}
@@ -592,7 +585,7 @@ final class Courses {
 				'course',
 				'course_membership_products',
 				[
-					'get_callback' => function( $course_data ) {
+					'get_callback' => function ( $course_data ) {
 						return \Sensei_WC_Memberships::get_course_membership_product_ids( $course_data['id'], false, false, [ 'post_status' => 'any' ] );
 					},
 					'schema'       => [
@@ -672,7 +665,7 @@ final class Courses {
 	public function update_modal_confirmation_date( $request_args ) {
 		_deprecated_function( __METHOD__, '2.4.0' );
 
-		// phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison -- This is intentional. The method handles input from form and JSON.
+		// phpcs:ignore Universal.Operators.StrictComparisons.LooseNotEqual -- This is intentional. The method handles input from form and JSON.
 		if ( ! isset( $request_args['user_confirmed_modal'] ) || true != $request_args['user_confirmed_modal'] ) {
 			return;
 		}
@@ -994,7 +987,7 @@ final class Courses {
 		if ( class_exists( '\Automattic\WooCommerce\Admin\API\Reports\Variations\Query' ) ) {
 			$variation_products = array_filter(
 				$products,
-				function( $product ) {
+				function ( $product ) {
 					return 'product_variation' === $product->post_type;
 				}
 			);
@@ -1019,7 +1012,7 @@ final class Courses {
 		}
 
 		return array_map(
-			function( $product ) use ( $variations_total_sales ) {
+			function ( $product ) use ( $variations_total_sales ) {
 				if ( 'product_variation' === $product->post_type ) {
 					$product->total_sales = $variations_total_sales[ $product->ID ] ?? 0;
 				} else {
@@ -1063,5 +1056,4 @@ final class Courses {
 		}
 		return self::$instance;
 	}
-
 }

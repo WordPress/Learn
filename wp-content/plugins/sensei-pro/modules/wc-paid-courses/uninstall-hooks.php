@@ -11,7 +11,7 @@
 
 add_filter(
 	'sensei_pro_data_cleaner_post_meta',
-	function( $post_meta ) {
+	function ( $post_meta ) {
 		return array_merge(
 			$post_meta,
 			[
@@ -24,7 +24,7 @@ add_filter(
 
 add_filter(
 	'sensei_pro_data_cleaner_options',
-	function( $options ) {
+	function ( $options ) {
 		return array_merge(
 			$options,
 			[
@@ -36,7 +36,7 @@ add_filter(
 
 add_filter(
 	'sensei_pro_data_cleaner_user_meta',
-	function( $user_meta ) {
+	function ( $user_meta ) {
 		return array_merge(
 			$user_meta,
 			[
@@ -48,7 +48,7 @@ add_filter(
 
 add_filter(
 	'sensei_pro_data_cleaner_transients',
-	function( $transients ) {
+	function ( $transients ) {
 		return array_merge(
 			$transients,
 			[

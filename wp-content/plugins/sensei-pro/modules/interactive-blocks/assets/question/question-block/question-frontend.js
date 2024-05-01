@@ -193,14 +193,16 @@ const QuestionSubmit = ( { questionTitle } ) => {
 	);
 
 	return (
-		<div className="wp-block-button sensei-lms-interactive-block-question__submit-button">
-			<button
-				type="submit"
-				className="wp-block-button__link"
-				aria-label={ buttonLabel }
-			>
-				{ __( 'Submit', 'sensei-pro' ) }
-			</button>
+		<div className="wp-block-buttons">
+			<div className="wp-block-button sensei-lms-interactive-block-question__submit-button">
+				<button
+					type="submit"
+					className="wp-block-button__link"
+					aria-label={ buttonLabel }
+				>
+					{ __( 'Submit', 'sensei-pro' ) }
+				</button>
+			</div>
 		</div>
 	);
 };
@@ -235,16 +237,18 @@ const QuestionReset = ( { questionTitle, reset } ) => {
 	};
 
 	return (
-		<div className="wp-block-button sensei-lms-interactive-block-question__reset-button">
-			<button
-				ref={ button }
-				type="button"
-				className="wp-block-button__link"
-				aria-label={ buttonLabel }
-				onClick={ onClick }
-			>
-				{ __( 'Reset', 'sensei-pro' ) }
-			</button>
+		<div className="wp-block-buttons">
+			<div className="wp-block-button sensei-lms-interactive-block-question__reset-button">
+				<button
+					ref={ button }
+					type="button"
+					className="wp-block-button__link"
+					aria-label={ buttonLabel }
+					onClick={ onClick }
+				>
+					{ __( 'Reset', 'sensei-pro' ) }
+				</button>
+			</div>
 		</div>
 	);
 };

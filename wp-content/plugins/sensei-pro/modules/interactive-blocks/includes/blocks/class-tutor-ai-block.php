@@ -30,6 +30,15 @@ class Tutor_AI_Block {
 		if ( function_exists( 'Sensei' ) && ! Sensei()->feature_flags->is_enabled( 'tutor_ai' ) ) {
 			return;
 		}
+
+		add_action( 'init', [ $this, 'init' ] );
+		add_filter( 'render_block_core/avatar', [ $this, 'maybe_change_with_user_avatar' ], 10, 2 );
+	}
+
+	/**
+	 * Initialize block.
+	 */
+	public function init() {
 		register_block_type_from_metadata(
 			SENSEI_IB_PLUGIN_DIR_PATH . 'assets/tutor-ai/',
 			[
@@ -38,8 +47,6 @@ class Tutor_AI_Block {
 				'style'         => 'sensei-interactive-blocks-styles',
 			]
 		);
-
-		add_filter( 'render_block_core/avatar', [ $this, 'maybe_change_with_user_avatar' ], 10, 3 );
 	}
 
 	/**
@@ -48,11 +55,10 @@ class Tutor_AI_Block {
 	 *
 	 * @param string $block_content Block content.
 	 * @param array  $block Block.
-	 * @param array  $instance Block instance.
 	 *
 	 * @return string
 	 */
-	public function maybe_change_with_user_avatar( $block_content, $block, $instance ) {
+	public function maybe_change_with_user_avatar( $block_content, $block ) {
 		if ( 'sensei-pro-tutor-ai__user-avatar' === ( $block['attrs']['className'] ?? '' ) ) {
 			// Change image attribute's src value to logged in user's gravatar link.
 			$dom = new \DomDocument();

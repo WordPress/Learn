@@ -422,8 +422,8 @@ class Join_Group_Blocks {
 				'<li class="wp-block-sensei-pro-group-members-list__item">
 					<img class="wp-block-sensei-pro-group-members-list__avatar" src="%s" alt="%s" />
 				</li>',
-				get_avatar_url( $user->ID, [ 'size' => '48' ] ),
-				$user->display_name . ' avatar'
+				esc_url( get_avatar_url( $user->ID, [ 'size' => '48' ] ) ),
+				esc_attr( $user->display_name ) . ' avatar'
 			);
 		}
 

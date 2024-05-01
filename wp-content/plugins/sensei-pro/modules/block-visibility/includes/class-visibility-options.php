@@ -57,7 +57,7 @@ class Visibility_Options {
 	/**
 	 * Interactive blocks instance.
 	 */
-	public static function instance() : Visibility_Options {
+	public static function instance(): Visibility_Options {
 		if ( ! self::$instance ) {
 			self::$instance = new self();
 		}

@@ -181,7 +181,7 @@ class Student_Groups_View {
 					<?php
 
 					if ( 'group_students' === $this->view ) {
-						echo sprintf(
+						printf(
 							'<div class="add-student-to-group-button" data-group-id="%s" data-group-name="%s" ></div>',
 							esc_attr( $this->group_id ),
 							esc_attr( $this->group_name )
@@ -200,7 +200,7 @@ class Student_Groups_View {
 					break;
 
 				case 'group_access_period':
-					echo sprintf(
+					printf(
 						'<div id="access-period-page" data-group-id="%s"',
 						esc_attr( $this->group_id )
 					);

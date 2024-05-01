@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use Sensei\Internal\Emails\Email_Customization;
-use \Sensei\Internal\Emails\Generators\Email_Generators_Abstract;
+use Sensei\Internal\Emails\Generators\Email_Generators_Abstract;
 use Sensei_Pro\Modules\Content_Drip\Emails\Generators\Lesson_Available_Email_Generator;
 
 /**

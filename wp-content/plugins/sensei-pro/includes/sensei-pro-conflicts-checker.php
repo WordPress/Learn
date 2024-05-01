@@ -13,11 +13,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require_once dirname( __DIR__ ) . '/modules/shared-module/includes/class-conflicts-checker.php';
 
+use Sensei_Pro\Conflicts_Checker;
+
 /**
  * Tells if Sensei Pro has conflicts with other activated plugins.
  */
 function sensei_pro_has_conflicts(): bool {
-	$checker = new \Sensei_Pro\Conflicts_Checker(
+	$checker = new Conflicts_Checker(
 		[
 			'plugin_slug' => 'sensei-pro',
 			'conflicts'   => [

@@ -138,7 +138,7 @@ class Course_Expiration_Email {
 			self::TEMPLATE,
 			$email_content,
 			'course-expiration/',
-			untrailingslashit( dirname( __FILE__, 3 ) ) . '/templates/'
+			untrailingslashit( dirname( __DIR__, 2 ) ) . '/templates/'
 		);
 		$email_html = Sensei()->emails->load_template( 'header' ) .
 			ob_get_clean() .

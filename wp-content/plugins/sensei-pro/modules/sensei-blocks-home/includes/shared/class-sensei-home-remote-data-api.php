@@ -179,7 +179,7 @@ class Sensei_Home_Remote_Data_API {
 	 *
 	 * @return string
 	 */
-	private function get_primary_plugin_slug() : string {
+	private function get_primary_plugin_slug(): string {
 		/**
 		 * Filter the primary plugin slug.
 		 *
@@ -198,7 +198,7 @@ class Sensei_Home_Remote_Data_API {
 	 *
 	 * @return array
 	 */
-	private function get_other_plugins() : array {
+	private function get_other_plugins(): array {
 		/**
 		 * Filter the other plugins used for Sensei Home.
 		 *
@@ -217,7 +217,7 @@ class Sensei_Home_Remote_Data_API {
 	 *
 	 * @return string
 	 */
-	protected function get_api_url() : string {
+	protected function get_api_url(): string {
 		$url = sprintf( self::API_BASE_URL . '%s.json', $this->get_primary_plugin_slug() );
 
 		$query_args = [

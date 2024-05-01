@@ -10,9 +10,7 @@ namespace Sensei_WC_Paid_Courses\Frontend;
 
 use Sensei_Utils;
 use Sensei_WC;
-use Sensei_WC_Paid_Courses\Course_Enrolment_Providers;
 use Sensei_WC_Paid_Courses\Sensei_WC_Paid_Courses;
-use Sensei_Course_Theme_Option;
 use Sensei_Context_Notices;
 use Sensei_Course;
 
@@ -57,7 +55,7 @@ final class Lessons {
 	 * @param int  $course_id                 Post ID for the course.
 	 * @return bool
 	 */
-	public function do_show_course_signup_notice( $show_course_signup_notice, $course_id ) {
+	public function do_show_course_signup_notice( $show_course_signup_notice, $course_id ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed -- This is a deprecated method.
 		_deprecated_function( __METHOD__, '2.0.0' );
 
 		return $show_course_signup_notice;
@@ -73,7 +71,7 @@ final class Lessons {
 	 * @param string $course_link Generated HTML link to the course.
 	 * @return string
 	 */
-	public function course_signup_notice_message( $message, $course_id, $course_link ) {
+	public function course_signup_notice_message( $message, $course_id, $course_link ) {  // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed -- This is a deprecated method.
 		_deprecated_function( __METHOD__, '2.0.0' );
 
 		return $message;
@@ -143,7 +141,7 @@ final class Lessons {
 				[
 					'label' => __( 'Purchase course', 'sensei-pro' ),
 					'url'   => $purchase_url,
-					'style' => 'primary wp-element-button',
+					'style' => 'primary wp-block-button__link wp-element-button',
 				],
 				[
 					'label' => __( 'Sign in', 'sensei-pro' ),
@@ -176,7 +174,7 @@ final class Lessons {
 			[
 				'label' => __( 'Purchase course', 'sensei-pro' ),
 				'url'   => $purchase_url,
-				'style' => 'primary',
+				'style' => 'primary wp-block-button__link wp-element-button',
 			],
 		];
 

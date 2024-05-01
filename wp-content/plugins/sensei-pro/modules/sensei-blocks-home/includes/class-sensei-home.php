@@ -217,7 +217,7 @@ class Sensei_Home {
 	private function force_display_submenu() {
 		add_action(
 			'admin_enqueue_scripts',
-			function() {
+			function () {
 				$custom_css = '#' . self::SCREEN_ID . ' .wp-submenu li:last-child { display: none; }';
 				wp_add_inline_style( 'admin-menu', $custom_css );
 			}
@@ -225,7 +225,7 @@ class Sensei_Home {
 
 		add_action(
 			'admin_menu',
-			function() {
+			function () {
 				add_submenu_page(
 					'sensei',
 					'',

@@ -32,7 +32,7 @@ class Assets extends \Sensei_Assets {
 	 */
 	public function __construct( $module_name = '' ) {
 		$plugin_url = SENSEI_PRO_PLUGIN_DIR_URL;
-		$plugin_dir = dirname( __FILE__, 2 );
+		$plugin_dir = dirname( __DIR__ );
 		$version    = SENSEI_PRO_VERSION;
 		parent::__construct( $plugin_url, $plugin_dir, $version, 'sensei-pro' );
 

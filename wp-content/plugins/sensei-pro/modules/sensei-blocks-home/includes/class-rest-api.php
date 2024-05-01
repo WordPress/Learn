@@ -106,6 +106,4 @@ class REST_API extends \WP_REST_Controller {
 			'notices' => $this->notices_provider->get(),
 		];
 	}
-
 }
-

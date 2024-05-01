@@ -32,7 +32,7 @@ class Visibility_Enforcer {
 	/**
 	 * Interactive blocks instance.
 	 */
-	public static function instance() : Visibility_Enforcer {
+	public static function instance(): Visibility_Enforcer {
 		if ( ! self::$instance ) {
 			self::$instance = new self();
 		}

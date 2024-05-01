@@ -249,7 +249,7 @@ class Sensei_WC_Utils {
 	 *
 	 * @return bool|WC_Product
 	 */
-	public static function get_product_from_item( $item, $order ) {
+	public static function get_product_from_item( $item, $order ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed -- This is a deprecated method.
 		_deprecated_function( __METHOD__, '1.0.0', '$item->get_product()' );
 
 		return $item->get_product();

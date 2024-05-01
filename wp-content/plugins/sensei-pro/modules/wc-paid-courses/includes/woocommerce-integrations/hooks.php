@@ -97,7 +97,7 @@ add_action( 'woocommerce_after_order_details', [ 'Sensei_WC', 'order_details_dis
  * Add To Cart
  */
 // fail to add to cart if user already taking course.
-add_action( 'woocommerce_add_to_cart', [ 'Sensei_WC', 'do_not_add_course_to_cart_if_user_taking_course' ], 10, 6 );
+add_action( 'woocommerce_add_to_cart', [ 'Sensei_WC', 'do_not_add_course_to_cart_if_user_taking_course' ], 10, 2 );
 
 /************************************
  *

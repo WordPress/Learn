@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use \Sensei_Blocks;
+use Sensei_Blocks;
 
 /**
  * Displays the quiz timer in the frontend.
@@ -34,13 +34,11 @@ class Quiz_Timer_Block {
 	/**
 	 * Renders the block.
 	 *
-	 * @param array $attributes The block attributes.
-	 *
 	 * @access private
 	 *
 	 * @return string The block HTML.
 	 */
-	public function render( array $attributes = [] ): string {
+	public function render(): string {
 		return Quiz_Timer::QUIZ_TIMER_HTML;
 	}
 }

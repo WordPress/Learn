@@ -46,18 +46,18 @@ function sensei_pro_setup_init( $context ) {
 	SenseiLMS_Licensing\License_Manager::init( $context->get_plugin_main_filename(), $context->get_plugin_version() );
 
 	// Plugin activation.
-	require_once dirname( __FILE__ ) . '/class-wizard.php';
-	require_once dirname( __FILE__ ) . '/class-rest-api.php';
+	require_once __DIR__ . '/class-wizard.php';
+	require_once __DIR__ . '/class-rest-api.php';
 
 	add_action( 'init', 'sensei_pro_detect_sensei_activated' );
 	\Sensei_Pro_Setup\Wizard::instance( $context )->init();
 
 	// Sensei Home activation form.
-	require_once dirname( __FILE__ ) . '/class-sensei-home-license-activation.php';
+	require_once __DIR__ . '/class-sensei-home-license-activation.php';
 	\Sensei_Pro_Setup\Sensei_Home_License_Activation::instance( $context )->init();
 
 	// Sensei WPCOM Marketplace License Manager.
-	require_once dirname( __FILE__ ) . '/class-wpcom-marketplace-license-manager.php';
+	require_once __DIR__ . '/class-wpcom-marketplace-license-manager.php';
 	\Sensei_Pro_Setup\WPCOM_Marketplace_License_Manager::instance()->init();
 }
 

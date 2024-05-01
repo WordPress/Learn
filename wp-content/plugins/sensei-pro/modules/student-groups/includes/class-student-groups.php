@@ -18,13 +18,13 @@ use Sensei_Pro_Student_Groups\Repositories\Group_Student_Repository;
 use Sensei_Pro_Student_Groups\Rest_Api\Controllers\Group_Courses_Controller;
 use Sensei_Pro_Student_Groups\Rest_Api\Controllers\Group_Students_Controller;
 use Sensei_Pro_Student_Groups\Rest_Api\Controllers\Groups_Controller;
-use Sensei_Pro_Student_Groups\Rest_Api\Controllers\WP_REST_Groups_Controller;
 use Sensei_Pro_Student_Groups\Settings\Group_Settings;
 use Sensei_Pro_Student_Groups\Students\Group_Bulk_Actions;
 use Sensei_Pro_Student_Groups\View\Student_Groups_View;
 use Sensei_Pro_Student_Groups\Blocks\Join_Group_Blocks;
 use WP_Post;
 use function Sensei_Pro_Student_Groups\get_join_group_page_attributes;
+use function get_current_screen;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -169,7 +169,7 @@ class Student_Groups {
 
 		if ( 'actions' === $key && ! self::is_trash_view() ) {
 			$group = get_post( $group_id );
-			echo sprintf(
+			printf(
 				'<div class="group-action-menu" data-group-id="%s" data-group-name="%s" data-edit-group-students-url="%s" data-group-settings-url="%s" />',
 				esc_attr( $group_id ),
 				esc_attr( $group->post_title ),
@@ -195,7 +195,7 @@ class Student_Groups {
 			if ( 0 !== $signup_page_id ) {
 				$edit_page_link = admin_url( 'post.php?post=' . $signup_page_id . '&action=edit' );
 
-				echo sprintf(
+				printf(
 					'<div class="sensei-group-copy-signup-link-container" data-signup-link="%s" data-edit-page-link="%s" />',
 					esc_url( $signup_link ),
 					esc_url( $edit_page_link ),
@@ -700,6 +700,10 @@ class Student_Groups {
 	 * @return string url for student groups redirect or edit post url.
 	 */
 	public function get_student_groups_page_url( string $url, string $post_id ): string {
+		if ( ! function_exists( 'get_current_screen' ) ) {
+			return $url;
+		}
+
 		$screen = get_current_screen();
 		// If the post type is not group, return default url.
 		if ( ! $screen || $this->post_type !== $screen->post_type ) {
@@ -951,6 +955,10 @@ class Student_Groups {
 	 * @return void
 	 */
 	public function add_groups_submenu_page() {
+		if ( ! current_user_can( 'manage_sensei' ) ) {
+			return;
+		}
+
 		add_submenu_page(
 			'sensei',
 			__( 'Groups', 'sensei-pro' ),

@@ -13,6 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-require_once dirname( __FILE__ ) . '/includes/class-course-showcase.php';
+require_once __DIR__ . '/includes/class-course-showcase.php';
 
 add_action( 'plugins_loaded', [ Course_Showcase::class, 'init' ] );

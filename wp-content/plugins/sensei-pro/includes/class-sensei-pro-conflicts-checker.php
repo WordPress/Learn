@@ -94,7 +94,7 @@ class Sensei_Pro_Conflicts_Checker {
 	 * Deactivate self.
 	 */
 	public static function deactivate_self() {
-		$file = realpath( dirname( __FILE__ ) . '/../sensei-pro.php' );
+		$file = realpath( __DIR__ . '/../sensei-pro.php' );
 		deactivate_plugins( $file );
 	}
 

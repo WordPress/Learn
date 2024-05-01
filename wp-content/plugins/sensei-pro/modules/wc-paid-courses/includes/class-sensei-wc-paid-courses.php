@@ -131,6 +131,9 @@ final class Sensei_WC_Paid_Courses {
 
 		// Set up REST API endpoints.
 		add_action( 'rest_api_init', [ $instance, 'init_rest_api_endpoints' ], 1 );
+
+		// Add the Sell Courses with WooCommerce tour.
+		add_filter( 'sensei_tour_loaders', [ $instance, 'maybe_load_sell_with_woocommerce_tour' ] );
 	}
 
 	/**
@@ -406,7 +409,7 @@ final class Sensei_WC_Paid_Courses {
 			$template_name,
 			$args,
 			'sensei-wc-paid-courses/',
-			untrailingslashit( dirname( __FILE__, 2 ) ) . '/templates/'
+			untrailingslashit( dirname( __DIR__ ) ) . '/templates/'
 		);
 	}
 
@@ -445,7 +448,7 @@ final class Sensei_WC_Paid_Courses {
 
 			// If the template file was not found, look in plugins/sensei-wc-paid-courses/templates/{$slug}-{$name}.php.
 			if ( ! $template ) {
-				$fallback = dirname( __FILE__, 2 ) . "/templates/{$slug}-{$name}.php";
+				$fallback = dirname( __DIR__ ) . "/templates/{$slug}-{$name}.php";
 				$template = file_exists( $fallback ) ? $fallback : '';
 			}
 		}
@@ -494,5 +497,43 @@ final class Sensei_WC_Paid_Courses {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Enqueue the tour assets.
+	 *
+	 * @param array $tours Array of tours.
+	 * @return array Filtered array of tours.
+	 */
+	public function maybe_load_sell_with_woocommerce_tour( $tours ) {
+		$post_type = get_post_type();
+
+		if ( 'course' !== $post_type ) {
+			return $tours;
+		}
+
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce verification is not required here.
+		if ( ! isset( $_GET['show-course-sell-tour'] ) || ! boolval( $_GET['show-course-sell-tour'] ) ) {
+			return $tours;
+		}
+
+		return [
+			'sell-course-with-woo' =>
+			[
+				'minimum_install_version' => '4.23.0',
+				'callback'                => $this->sell_course_with_woo_asset_enqueue_callback(),
+			],
+		];
+	}
+
+	/**
+	 * Enqueue the tour assets.
+	 *
+	 * @return callable Callback function.
+	 */
+	public function sell_course_with_woo_asset_enqueue_callback() {
+		return function () {
+			$this->assets->enqueue( 'sensei-pro-sell-course-with-woo-tour', 'block-editor/sell-with-woo-tour.js' );
+		};
 	}
 }

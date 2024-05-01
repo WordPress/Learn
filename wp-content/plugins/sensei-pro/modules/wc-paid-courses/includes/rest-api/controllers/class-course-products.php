@@ -8,12 +8,12 @@
 
 namespace Sensei_WC_Paid_Courses\Rest_Api\Controllers;
 
-use \WP_REST_Posts_Controller;
-use \WP_REST_Controller;
-use \WP_REST_Server;
-use \WP_Error;
+use WP_REST_Posts_Controller;
+use WP_REST_Controller;
+use WP_REST_Server;
+use WP_Error;
 
-use \Sensei_WC_Paid_Courses\Courses;
+use Sensei_WC_Paid_Courses\Courses;
 
 /**
  * REST API class for retrieving products that may be attached to courses.
@@ -271,7 +271,7 @@ class Course_Products extends WP_REST_Controller {
 	 *
 	 * @return array
 	 */
-	private function get_product_attributes( $product, $fields ) : array {
+	private function get_product_attributes( $product, $fields ): array {
 		$product_attributes = [];
 
 		if ( in_array( 'id', $fields, true ) ) {
@@ -324,7 +324,7 @@ class Course_Products extends WP_REST_Controller {
 /**
  * Register the routes for the Course_Products controller.
  */
-function sensei_wc_paid_courses_register_course_products_routes() {
+function sensei_wc_paid_courses_register_course_products_routes() { // phpcs:ignore Universal.Files.SeparateFunctionsFromOO.Mixed
 	$controller = new Course_Products();
 	$controller->register_routes();
 }

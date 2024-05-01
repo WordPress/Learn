@@ -105,7 +105,7 @@ class Lesson_Available_Email_Generator extends Email_Generators_Abstract {
 						'student:id'          => $student_id,
 						'student:displayname' => $student->display_name,
 						'lesson:id'           => $lesson,
-						'lesson:name'         => get_the_title( $lesson ),
+						'lesson:name'         => html_entity_decode( get_the_title( $lesson ) ),
 						'lesson:url'          => esc_url( get_permalink( $lesson ) ),
 						'date:dtext'          => __( 'today', 'sensei-pro' ),
 					],

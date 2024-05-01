@@ -146,7 +146,7 @@ class Glossary_Handler {
 			if ( empty( $inside_block ) ) {
 				$element = preg_replace_callback(
 					$regex,
-					function( $matches ) use ( $entries ) {
+					function ( $matches ) use ( $entries ) {
 						return $this->replace_phrase_with_markup( $entries, $matches );
 					},
 					$element
@@ -208,7 +208,7 @@ class Glossary_Handler {
 			return $full_match;
 		}
 
-		$this->phrases_replaced++;
+		++$this->phrases_replaced;
 
 		// Prevent recursively calling `the_content` filter when generating the markup.
 		remove_filter( 'the_content', [ $this, 'add_glossary_markup' ], 12 );

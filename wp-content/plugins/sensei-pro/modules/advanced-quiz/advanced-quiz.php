@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-require_once dirname( __FILE__ ) . '/includes/class-advanced-quiz.php';
+require_once __DIR__ . '/includes/class-advanced-quiz.php';
 
 // Load the plugin after all the other plugins have loaded.
 add_action( 'plugins_loaded', [ Advanced_Quiz::class, 'init' ], 5 );

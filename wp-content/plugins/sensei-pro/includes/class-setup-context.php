@@ -66,7 +66,7 @@ class Setup_Context extends \Sensei_Pro_Setup\Setup_Context {
 	/**
 	 * Tells if Sensei should be installed or not.
 	 */
-	public function get_requires_sensei():bool {
+	public function get_requires_sensei(): bool {
 		return true;
 	}
 }

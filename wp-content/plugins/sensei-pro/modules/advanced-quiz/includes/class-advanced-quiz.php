@@ -50,7 +50,7 @@ class Advanced_Quiz {
 	/**
 	 * Initialize ordering question.
 	 */
-	public static function instance() : Advanced_Quiz {
+	public static function instance(): Advanced_Quiz {
 		if ( ! self::$instance ) {
 			self::$instance = new self();
 		}

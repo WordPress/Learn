@@ -7,7 +7,6 @@ import {
 	useState,
 	useMemo,
 } from '@wordpress/element';
-import apiFetch from '@wordpress/api-fetch';
 import { Button, ExternalLink, Spinner } from '@wordpress/components';
 import { Icon, check } from '@wordpress/icons';
 
@@ -15,63 +14,42 @@ import { Icon, check } from '@wordpress/icons';
  * Internal dependencies
  */
 import DeactivateLicense from './DeactivateLicense';
+import useActivationSubmit from './useActivationSubmit';
 
-const LicenseActivationForm = ( { isMultisite } ) => {
-	const [ isFetching, setIsFetching ] = useState( false );
-	const [ success, setSuccess ] = useState( null );
-	const [ errorMessage, setErrorMessage ] = useState( null );
+const DefaultActivationForm = ( { isMultisite } ) => {
+	const {
+		submit,
+		reset,
+		isFetching,
+		success,
+		errorMessage,
+		isActivated,
+	} = useActivationSubmit();
 	const [ currentLicenseKey, setCurrentLicenseKey ] = useState(
 		window.senseiHomeLicenseActivation.licenseKey
 	);
 
-	const [ isActivated, setIsActivated ] = useState(
-		window.senseiHomeLicenseActivation.isLicenseActivated
-	);
 	const pluginName =
 		window.senseiHomeLicenseActivation.pluginSlug === 'sensei-pro'
 			? __( 'Sensei Pro', 'sensei-pro' )
 			: __( 'Sensei Blocks', 'sensei-pro' );
 	const { domain, forceShowLicense } = window.senseiHomeLicenseActivation;
 	const handleSubmit = () => {
-		setIsFetching( true );
-		apiFetch( {
-			path: '/sensei-pro-internal/v1/sensei-pro-setup/activate-license',
-			method: 'POST',
-			data: {
-				license_key: currentLicenseKey,
-				plugin_slug: window.senseiHomeLicenseActivation.pluginSlug,
-			},
-		} )
-			.then( ( response ) => {
-				setIsFetching( false );
-				if ( response.success ) {
-					setSuccess( true );
-					setIsActivated( true );
-					setErrorMessage( null );
-				} else {
-					setSuccess( false );
-					setErrorMessage( response.message );
-				}
-			} )
-			.catch( () => {
-				setIsFetching( false );
-				setSuccess( false );
-				setErrorMessage(
-					__( 'Error while activating license', 'sensei-pro' )
-				);
-			} );
+		submit( '/sensei-pro-internal/v1/sensei-pro-setup/activate-license', {
+			license_key: currentLicenseKey,
+			plugin_slug: window.senseiHomeLicenseActivation.pluginSlug,
+			nonce: window.senseiHomeLicenseActivation.formNonce,
+		} );
 	};
-	const reset = () => {
+	const handleReset = () => {
 		setCurrentLicenseKey( '' );
-		setSuccess( null );
-		setErrorMessage( null );
-		setIsActivated( false );
+		reset();
 	};
 
 	const title = useMemo( () => {
 		let result = sprintf(
 			/* translators: %s: Name of the plugin that has been activated */
-			__( '%s successfully activated', 'sensei-pro' ),
+			__( '%s successfully activated!', 'sensei-pro' ),
 			pluginName
 		);
 		if ( ! success ) {
@@ -92,11 +70,12 @@ const LicenseActivationForm = ( { isMultisite } ) => {
 	}, [ pluginName, success, forceShowLicense, isActivated ] );
 
 	return (
-		<div className="sensei-pro-sensei-home-license-activation">
+		<>
 			<div className="sensei-pro-sensei-home-license-activation__title">
 				{ ( success || isActivated ) && <Icon icon={ check } /> }
 				{ title }
 			</div>
+
 			<div className="sensei-pro-sensei-home-license-activation__content">
 				{ __(
 					'You can find your key by logging in to your SenseiLMS.com account',
@@ -161,10 +140,10 @@ const LicenseActivationForm = ( { isMultisite } ) => {
 			<DeactivateLicense
 				currentLicenseKey={ currentLicenseKey }
 				successActivation={ success }
-				reset={ reset }
+				reset={ handleReset }
 			/>
-		</div>
+		</>
 	);
 };
 
-export default LicenseActivationForm;
+export default DefaultActivationForm;

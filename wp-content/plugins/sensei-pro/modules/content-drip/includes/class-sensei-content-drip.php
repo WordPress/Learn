@@ -148,8 +148,8 @@ class Sensei_Content_Drip {
 		 * @since  1.0.0
 		 * @return object Sensei_Content_Drip
 		 */
-		function Sensei_Content_Drip() {
-			// phpcs:ignore Squiz.Classes.SelfMemberReference.NotUsed -- Used in global function
+		function Sensei_Content_Drip() { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.FunctionNameInvalid -- Used as global function
+			// phpcs:ignore Squiz.Classes.SelfMemberReference.NotUsed -- Used as global function
 			return Sensei_Content_Drip::instance();
 		}
 

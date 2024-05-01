@@ -799,7 +799,7 @@ class Sensei_WC_Memberships {
 	 * @param array $data The localization data.
 	 * @return array
 	 */
-	public static function notify_double_attached_product_on_course_block_editor( $data ) : array {
+	public static function notify_double_attached_product_on_course_block_editor( $data ): array {
 		global $post;
 
 		$screen = get_current_screen();

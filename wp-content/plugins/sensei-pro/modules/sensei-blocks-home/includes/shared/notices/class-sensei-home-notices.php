@@ -198,7 +198,7 @@ class Sensei_Home_Notices {
 	 *
 	 * @return array
 	 */
-	private function get_unlicensed_plugin_update_notice( array $plugin_data ):array {
+	private function get_unlicensed_plugin_update_notice( array $plugin_data ): array {
 		$plugin_name    = $plugin_data['name'];
 		$latest_version = $plugin_data['latest_version'];
 
@@ -317,5 +317,4 @@ class Sensei_Home_Notices {
 
 		return $plugins_with_updates;
 	}
-
 }

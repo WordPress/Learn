@@ -8,7 +8,7 @@
 
 namespace Sensei_Pro_Student_Groups\Assets;
 
-use \Sensei_Pro\Assets;
+use Sensei_Pro\Assets;
 
 /**
  * Assets_Provider class
@@ -62,8 +62,5 @@ class Components_Provider {
 		if ( $auto_include_component_css ) {
 			$this->css_assets->enqueue( self::MODULE_NAME . '-style-' . $component, $css_path, $css_dependencies );
 		}
-
 	}
 }
-
-

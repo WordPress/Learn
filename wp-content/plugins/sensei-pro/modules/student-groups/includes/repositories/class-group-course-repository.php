@@ -111,7 +111,7 @@ class Group_Course_Repository {
 		$access_period_end_date = null;
 		if ( ! is_null( $access_period_end ) ) {
 			$access_period_end_date = new DateTime( $access_period_end . ' 23:59:59' );
-		};
+		}
 
 		$insert_data = [
 			'group_id'            => $group->ID,
@@ -187,7 +187,7 @@ class Group_Course_Repository {
 		$access_period_end_date = null;
 		if ( ! is_null( $access_period_end ) ) {
 			$access_period_end_date = new DateTime( $access_period_end . ' 23:59:59' );
-		};
+		}
 
 		$update_data = [
 			'access_period_start' => ! is_null( $access_period_start_date )

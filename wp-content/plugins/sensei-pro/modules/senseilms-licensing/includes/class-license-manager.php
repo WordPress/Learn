@@ -54,8 +54,8 @@ class License_Manager {
 	 * Include all required files.
 	 */
 	private static function include_dependencies() {
-		require_once dirname( __FILE__ ) . '/class-senseilms-plugin-updater.php';
-		require_once dirname( __FILE__ ) . '/class-license-notice.php';
+		require_once __DIR__ . '/class-senseilms-plugin-updater.php';
+		require_once __DIR__ . '/class-license-notice.php';
 	}
 
 	/**
@@ -200,6 +200,56 @@ class License_Manager {
 		delete_transient( self::CACHE_KEY_PREFIX . $plugin_slug );
 
 		return $response;
+	}
+
+	/**
+	 * Flushes the license key for the given plugin slug.
+	 * It's used to fetch and save the license key for the WPCOM website when it doesn't work on the normal flow.
+	 *
+	 * @param string $plugin_slug The plugin slug.
+	 * @param string $activation_url The URL to receive the license key.
+	 *
+	 * @return \stdClass|false Pass through the API response from the licensing server, or return false on error.
+	 */
+	public static function flush_wpcom_license( $plugin_slug, $activation_url ) {
+		// Assume error unless told otherwise.
+		$response = false;
+		// Get domain.
+		$domain = self::get_domain();
+		// Call activation service.
+		$remote = wp_remote_post(
+			self::get_api_url() . '/licensing/v1/flush-wpcom-activation',
+			[
+				'body'    => [
+					'plugin_slug'    => $plugin_slug,
+					'domain'         => $domain,
+					'activation_url' => $activation_url,
+				],
+				'timeout' => 60,
+			]
+		);
+		if (
+			! is_wp_error( $remote )
+			&& 200 === wp_remote_retrieve_response_code( $remote )
+			&& ! empty( wp_remote_retrieve_body( $remote ) )
+		) {
+			$response = json_decode( wp_remote_retrieve_body( $remote ) );
+		}
+
+		return $response;
+	}
+
+	/**
+	 * Receives the license key for the given plugin slug and stores it.
+	 *
+	 * @param string $plugin_slug The plugin slug.
+	 * @param string $license_key The license key.
+	 */
+	public static function receive_wpcom_license_key( $plugin_slug, $license_key ) {
+		update_site_option( self::LICENSE_KEY_OPTION_PREFIX . $plugin_slug, $license_key );
+
+		// Flush cache no matter the response itself, so we have a mechanism to flush it on purpose.
+		delete_transient( self::CACHE_KEY_PREFIX . $plugin_slug );
 	}
 
 	/**

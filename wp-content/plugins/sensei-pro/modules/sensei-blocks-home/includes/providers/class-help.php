@@ -79,5 +79,4 @@ class Help {
 		}
 		return 'https://senseilms.com/contact/';
 	}
-
 }

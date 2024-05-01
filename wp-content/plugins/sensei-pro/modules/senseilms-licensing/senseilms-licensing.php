@@ -10,4 +10,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Initialises License Manager.
-require_once dirname( __FILE__ ) . '/includes/class-license-manager.php';
+require_once __DIR__ . '/includes/class-license-manager.php';

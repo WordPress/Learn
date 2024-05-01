@@ -51,7 +51,7 @@ class Scd_Ext_Access_Control {
 		);
 
 		// Handle lessons for which to block access through Sensei.
-		add_filter( 'sensei_can_user_view_lesson', [ $this, 'can_user_view_lesson' ], 10, 3 );
+		add_filter( 'sensei_can_user_view_lesson', [ $this, 'can_user_view_lesson' ], 10, 2 );
 	}
 
 	/**
@@ -127,10 +127,9 @@ class Scd_Ext_Access_Control {
 	 *
 	 * @since  1.0.9
 	 * @param  int $lesson_id
-	 * @param  int $user_id
 	 * @return bool true if Sensei should block access, false otherwise.
 	 */
-	public function sensei_should_block_lesson( $lesson_id, $user_id ) {
+	public function sensei_should_block_lesson( $lesson_id ) {
 		$lesson_course_id = Sensei()->lesson->get_course_id( $lesson_id );
 
 		if ( Sensei_Content_Drip::instance()->is_legacy_enrolment() ) {
@@ -150,11 +149,10 @@ class Scd_Ext_Access_Control {
 	 * @since  1.0.9
 	 * @param bool $can_user_view_lesson
 	 * @param int  $lesson_id
-	 * @param int  $user_id
 	 * @return bool true if the user access should be allowed, false otherwise.
 	 */
-	public function can_user_view_lesson( $can_user_view_lesson, $lesson_id, $user_id ) {
-		return $can_user_view_lesson && ! $this->sensei_should_block_lesson( $lesson_id, $user_id );
+	public function can_user_view_lesson( $can_user_view_lesson, $lesson_id ) {
+		return $can_user_view_lesson && ! $this->sensei_should_block_lesson( $lesson_id );
 	}
 
 	/**
@@ -386,5 +384,4 @@ class Scd_Ext_Access_Control {
 		// phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict -- $course_id is string and $teacher_courses_id is int[]
 		return in_array( $course_id, $teacher_courses_id );
 	}
-
 }

@@ -39,6 +39,7 @@ const useCourseOutline = () => {
 		const blocks = lessons.map( ( lesson ) =>
 			createBlock( 'sensei-lms/course-outline-lesson', {
 				title: lesson.name,
+				initialContent: lesson.lesson_body,
 			} )
 		);
 

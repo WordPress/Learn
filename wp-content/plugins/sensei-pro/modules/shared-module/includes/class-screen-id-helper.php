@@ -35,5 +35,4 @@ class Screen_ID_Helper {
 		}
 		return null;
 	}
-
 }
