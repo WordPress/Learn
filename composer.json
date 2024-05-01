@@ -32,6 +32,10 @@
 			"url": "git@github.com:WordPress/wporg-repo-tools.git"
 		},
 		{
+			"type": "vcs",
+			"url": "git@github.com:WordPress/wporg-parent-2021.git"
+		},
+		{
 			"type": "package",
 			"package": [
 				{
@@ -87,6 +91,7 @@
 		"phpcompatibility/phpcompatibility-wp": "*",
 		"rmccue/requests": "^1.7",
 		"wporg/wporg-mu-plugins": "dev-build",
+		"wporg/wporg-parent-2021": "dev-build",
 		"wporg/wporg-repo-tools": "dev-trunk"
 	},
 	"scripts": {

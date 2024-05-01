@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c999b3e6a405f7852f0dc04cd339528d",
+    "content-hash": "d2ecc3e83a7c9db5a0375a7a3af8b309",
     "packages": [
         {
             "name": "composer/installers",
@@ -867,6 +867,27 @@
             "time": "2024-04-18T23:15:59+00:00"
         },
         {
+            "name": "wporg/wporg-parent-2021",
+            "version": "dev-build",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/WordPress/wporg-parent-2021.git",
+                "reference": "7bf402d5ca819d54ed677292c48c39166ce7d7ab"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/WordPress/wporg-parent-2021/zipball/7bf402d5ca819d54ed677292c48c39166ce7d7ab",
+                "reference": "7bf402d5ca819d54ed677292c48c39166ce7d7ab",
+                "shasum": ""
+            },
+            "type": "wordpress-theme",
+            "support": {
+                "source": "https://github.com/WordPress/wporg-parent-2021/tree/build",
+                "issues": "https://github.com/WordPress/wporg-parent-2021/issues"
+            },
+            "time": "2024-04-16T18:42:38+00:00"
+        },
+        {
             "name": "wporg/wporg-repo-tools",
             "version": "dev-trunk",
             "source": {
@@ -901,6 +922,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "wporg/wporg-mu-plugins": 20,
+        "wporg/wporg-parent-2021": 20,
         "wporg/wporg-repo-tools": 20
     },
     "prefer-stable": false,

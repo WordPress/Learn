@@ -1,0 +1,29 @@
+{
+    "name": "wporg-learn-2024",
+    "version": "1.0.0",
+    "description": "Theme for learn.wordpress.org",
+	"author": "WordPress.org",
+	"license": "GPL-2.0-or-later",
+	"private": true,
+	"devDependencies": {
+		"@wordpress/scripts": "27.2.0",
+		"rtlcss-webpack-plugin": "4.0.7"
+	},
+	"eslintConfig": {
+		"extends": "../../../../.eslintrc.js"
+	},
+	"stylelint": {
+		"extends": "../../../../.stylelintrc",
+		"ignoreFiles": [
+			"**/*.css",
+			"**/*.css.map"
+		]
+	},
+	"scripts": {
+		"build": "wp-scripts build --experimental-modules",
+		"start": "wp-scripts start --experimental-modules",
+		"lint:js": "wp-scripts lint-js src",
+		"lint:css": "wp-scripts lint-style src/**/*.scss",
+		"format": "wp-scripts format src -- --config=../../../../.prettierrc.js"
+	}
+}

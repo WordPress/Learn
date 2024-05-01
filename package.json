@@ -14,7 +14,8 @@
 		"packages": [
 			"wp-content/mu-plugins/pub/locale-switcher",
 			"wp-content/plugins/wporg-learn",
-			"wp-content/themes/pub/wporg-learn-2020"
+			"wp-content/themes/pub/wporg-learn-2020",
+			"wp-content/themes/pub/wporg-learn-2024"
 		],
 		"nohoist": [
 			"**/grunt-*"
@@ -30,8 +31,9 @@
 		"format:php": "composer run format",
 		"lint:css": "yarn workspaces run lint:css",
 		"lint:js": "yarn workspaces run lint:js",
-		"watch:theme": "yarn workspace wporg-learn-theme start",
-		"watch:plugin": "yarn workspace wporg-learn-plugin start",
+		"start:theme:old": "yarn workspace wporg-learn-theme start",
+		"start:theme": "yarn workspace wporg-learn-2024 start",
+		"start:plugin": "yarn workspace wporg-learn-plugin start",
 		"setup:tools": "TEXTDOMAIN=wporg-learn composer exec update-configs"
 	},
 	"main": "index.js"
