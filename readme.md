@@ -15,10 +15,16 @@ If you're interested in contributing to the site, but aren't sure where to start
 - [SVN](https://subversion.apache.org/packages.html)
 - [NVM](https://github.com/nvm-sh/nvm) or [N](https://github.com/tj/n) (optional)
 
-## Setup
+## Setup 2020 version
+1. `yarn`
+2. `yarn run create:old`
+3. Visit site at `localhost:8888`
+
+## Setup 2024 version
 1. `yarn`
 2. `yarn run create`
 3. Visit site at `localhost:8888`
+4. To watch for changes `yarn start:theme`
 
 ## Stopping Environment
 run `yarn run wp-env stop`
@@ -34,30 +40,46 @@ Since the local environment uses [wp-env](https://developer.wordpress.org/block-
 
 While working on the theme & plugin, you might need to rebuild the CSS or JavaScript.
 
-To build both projects, you can run:
+To build all projects, you can run:
 
-	yarn workspaces run build
+	yarn build
 
-To build one at a time, run
+To build one project at a time, run:
 
+	yarn workspace wporg-learn-2024 build
 	yarn workspace wporg-learn-theme build
 	yarn workspace wporg-learn-plugin build
 
 If you want to watch for changes, run `start`. This can only be run in one project at a time:
 
+	yarn workspace wporg-learn-2024 start
 	yarn workspace wporg-learn-theme start
 	yarn workspace wporg-learn-plugin start
 
 ### Linting
 
-This project has eslint, stylelint, and phpcs set up for linting the code. This ensures all developers are working from the same style. To check your code before pushing it to the repo, run
+This project has eslint, stylelint, and phpcs set up for linting the code. This ensures all developers are working from the same style.
 
+To lint everything run:
+
+	yarn lint
+
+To lint one language run one of:
+
+	yarn lint:js
+	yarn lint:css
+	yarn lint:php
+
+To check an individual project before pushing to the repo, run one of:
+
+	yarn workspace wporg-learn-2024 lint:css
+	yarn workspace wporg-learn-2024 lint:js
 	yarn workspace wporg-learn-theme lint:css
 	yarn workspace wporg-learn-plugin lint:css
 	yarn workspace wporg-learn-plugin lint:js
 	composer run lint
 
-These checks will also be run automatically on each PR.
+Linting will also be run automatically on each PR.
 
 ### Contributing
 
