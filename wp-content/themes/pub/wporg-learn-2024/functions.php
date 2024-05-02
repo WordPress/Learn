@@ -30,25 +30,21 @@ function add_site_navigation_menus( $menus ) {
 	return array(
 		'learn' => array(
 			array(
-				'label' => __( 'Courses', 'wporg-learn' ),
-				'url' => '/courses/',
+				'label' => __( 'User', 'wporg-learn' ),
+				'url' => '/learning-pathways/user/',
 			),
 			array(
-				'label' => __( 'Lessons', 'wporg-learn' ),
-				'url' => '/lessons/',
+				'label' => __( 'Designer', 'wporg-learn' ),
+				'url' => '/learning-pathways/designer/',
 			),
 			array(
-				'label' => __( 'Learning Pathways', 'wporg-learn' ),
-				'url' => '/learning-pathways/',
+				'label' => __( 'Contributor', 'wporg-learn' ),
+				'url' => '/learning-pathways/contributor/',
 			),
 			array(
-				'label' => __( 'Contribute', 'wporg-learn' ),
-				'url' => '/contribute/',
-			),
-			array(
-				'label' => __( 'Instruct', 'wporg-learn' ),
-				'url' => '/instruct/',
-			),
+				'label' => __( 'Developer', 'wporg-learn' ),
+				'url' => '/learning-pathways/developer/',
+			)
 		),
 	);
 }
