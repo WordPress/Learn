@@ -44,7 +44,7 @@ function add_site_navigation_menus( $menus ) {
 			array(
 				'label' => __( 'Developer', 'wporg-learn' ),
 				'url' => '/learning-pathways/developer/',
-			)
+			),
 		),
 	);
 }
