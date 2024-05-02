@@ -10,6 +10,8 @@ module.exports = {
 		'block-editor/course-wc-memberships.js',
 	'block-editor/woocommerce-prompt':
 		'block-editor/woocommerce-prompt/index.js',
+	'block-editor/sell-with-woo-tour':
+		'block-editor/sell-with-woo-tour/index.js',
 	'blocks/blocks': 'blocks/blocks.scss',
 	'blocks/purchase-course/frontend': 'blocks/purchase-course/frontend.js',
 };

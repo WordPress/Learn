@@ -71,8 +71,13 @@ const addTransformButtonToVideoBlocks = () => {
 			const original = <BlockEdit { ...props } />;
 
 			if (
-				// Check embed or video.
-				! [ 'core/embed', 'core/video' ].includes( name ) ||
+				// Check embed, video or videopress.
+				! [
+					'core/embed',
+					'core/video',
+					// VideoPress block (previously VideoPress used the video block).
+					'videopress/video',
+				].includes( name ) ||
 				// Check embed (VideoPress, YouTube, Vimeo).
 				( name === 'core/embed' &&
 					! [ 'videopress', 'youtube', 'vimeo' ].includes(

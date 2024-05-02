@@ -1,5 +1,11 @@
 # Sensei Interactive Blocks Changelog
 
+## 2024-04-25 - version 1.4.5
+* Add support for VideoPress block on video integrations
+
+## 2024-03-20 - version 1.4.4
+* Update button of the question block to have the correct styles on some themes where it was broken
+
 ## 2023-11-23 - version 1.4.3
 * Ensure Image Hotspot toolbar is not over the hotspot in the editor
 * Frontend assets for interactive blocks loading in any page with a video

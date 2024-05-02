@@ -103,15 +103,16 @@ class Course_Expiration {
 		add_action( 'sensei_course_enrolment_status_changed', [ $instance, 'set_expiration_date' ], 10, 3 );
 		add_action( 'sensei_course_enrolment_status_changed', [ $instance, 'set_access_period_start_date' ], 10, 3 );
 
-		add_filter( 'sensei_is_enrolled', [ $instance, 'check_expiration' ], 10, 3 );
 		add_filter( 'sensei_can_user_manually_enrol', [ $instance, 'can_user_enroll' ], 10, 2 );
+		add_filter( 'sensei_can_user_view_lesson', [ $instance, 'can_user_view_lesson' ], 10, 2 );
 
-		// Expand learner management.
+		// Expand Students.
 		add_action( 'sensei_admin_enrol_user', [ $instance, 'handle_manual_enrolment' ], 10, 2 );
+		add_action( 'sensei_manual_enrolment_learner_withdrawn', [ $instance, 'handle_remove_enrolment' ], 10, 2 );
+
 		add_filter( 'sensei_learners_default_columns', [ $instance, 'add_learner_management_expiration_columns' ], 10, 2 );
 		add_filter( 'sensei_learners_default_columns', [ $instance, 'add_learner_management_starts_access_columns' ], 10, 2 );
 		add_filter( 'sensei_learners_main_column_data', [ $instance, 'enrich_learner_management_data' ], 10, 4 );
-
 		add_filter( 'sensei_learners_learner_updated', [ $instance, 'update_learner_expiry_date' ], 10, 3 );
 		add_filter( 'sensei_learners_learner_updated', [ $instance, 'update_learner_start_date' ], 10, 3 );
 
@@ -220,7 +221,7 @@ class Course_Expiration {
 				'single'            => true,
 				'type'              => 'integer',
 				'default'           => 1,
-				'sanitize_callback' => function( $value ) {
+				'sanitize_callback' => function ( $value ) {
 					return max( 1, absint( $value ) );
 				},
 				'auth_callback'     => [ $this, 'course_expiration_post_meta_auth_callback' ],
@@ -335,6 +336,7 @@ class Course_Expiration {
 			return;
 		}
 
+		// Expires after a set period.
 		update_post_meta(
 			$course_id,
 			$expiration_post_meta,
@@ -579,7 +581,7 @@ class Course_Expiration {
 	 *
 	 * @return int Calculated expiration date timestamp.
 	 */
-	private function calculate_expiration_date_timestamp( int $user_id, int $course_id, DateTimeImmutable $start_date ) : int {
+	private function calculate_expiration_date_timestamp( int $user_id, int $course_id, DateTimeImmutable $start_date ): int {
 		$course_expiration_length = get_post_meta( $course_id, self::EXPIRATION_LENGTH, true );
 		$course_expiration_period = get_post_meta( $course_id, self::EXPIRATION_PERIOD, true );
 		$expiration_date          = $start_date->setTime( 0, 0, 0 )->modify( "+{$course_expiration_length} {$course_expiration_period}" );
@@ -627,6 +629,7 @@ class Course_Expiration {
 	 * It filters the `is_enrolled` value, returning false in case the access is expired.
 	 *
 	 * @access private
+	 * @deprecated 1.23.0
 	 *
 	 * @param bool|null $is_enrolled If a boolean, that value will be used. Null values will keep default behavior.
 	 * @param int       $user_id     User ID.
@@ -635,6 +638,7 @@ class Course_Expiration {
 	 * @return false|null False if it's expired or not started. Original `$is_enrolled` if not expired.
 	 */
 	public function check_expiration( $is_enrolled, int $user_id, int $course_id ) {
+		_deprecated_function( __METHOD__, '1.23.0' );
 
 		if ( $this->is_access_expired_or_not_started( $user_id, $course_id ) ) {
 			return false;
@@ -654,7 +658,7 @@ class Course_Expiration {
 	 *
 	 * @return bool Whether the access has expired or not started.
 	 */
-	public function is_access_expired_or_not_started( int $user_id, int $course_id ) : bool {
+	public function is_access_expired_or_not_started( int $user_id, int $course_id ): bool {
 		$is_expired     = $this->is_access_expired( $user_id, $course_id );
 		$is_not_started = $this->is_access_not_started( $user_id, $course_id );
 		return $is_expired || $is_not_started;
@@ -668,10 +672,9 @@ class Course_Expiration {
 	 *
 	 * @return bool Whether the access has expired.
 	 */
-	public function is_access_expired( int $user_id, int $course_id ) : bool {
+	public function is_access_expired( int $user_id, int $course_id ): bool {
 		$expiration_timestamp = $this->get_user_expiration_timestamp( $user_id, $course_id );
 		return null !== $expiration_timestamp && current_datetime()->getTimestamp() >= $expiration_timestamp;
-
 	}
 
 	/**
@@ -774,7 +777,7 @@ class Course_Expiration {
 	 *
 	 * @return bool False if it's expired. Original `$can_user_manually_enrol` if not expired.
 	 */
-	public function can_user_enroll( bool $can_user_manually_enrol, int $course_id ) : bool {
+	public function can_user_enroll( bool $can_user_manually_enrol, int $course_id ): bool {
 		if ( $this->is_access_expired_or_not_started( get_current_user_id(), $course_id ) ) {
 			return false;
 		}
@@ -807,7 +810,7 @@ class Course_Expiration {
 	 *
 	 * @return bool Whether render the view results block.
 	 */
-	public function maybe_render_view_results_block( bool $render ) : bool {
+	public function maybe_render_view_results_block( bool $render ): bool {
 		$user_id = get_current_user_id();
 		$course  = get_post();
 
@@ -834,7 +837,7 @@ class Course_Expiration {
 	 *
 	 * @return bool Whether display course enrollment actions.
 	 */
-	public function maybe_display_course_enrollment_actions( bool $display_actions, int $course_id, int $user_id, bool $completed_course ) : bool {
+	public function maybe_display_course_enrollment_actions( bool $display_actions, int $course_id, int $user_id, bool $completed_course ): bool {
 		if ( empty( $user_id ) || empty( $course_id ) ) {
 			return $display_actions;
 		}
@@ -995,7 +998,7 @@ class Course_Expiration {
 	 *
 	 * @return bool If removal was successful.
 	 */
-	private function remove_user_expiry( int $course_id, int $user_id ) : bool {
+	private function remove_user_expiry( int $course_id, int $user_id ): bool {
 		$deleted_expiry     = delete_post_meta( $course_id, self::EXPIRED_TIMESTAMP_COURSE_META_PREFIX . $user_id );
 		$deleted_expiration = delete_post_meta( $course_id, self::EXPIRATION_TIMESTAMP_COURSE_META_PREFIX . $user_id );
 
@@ -1011,7 +1014,7 @@ class Course_Expiration {
 	 *
 	 * @return bool If removal was successful.
 	 */
-	private function remove_user_started( int $course_id, int $user_id ) : bool {
+	private function remove_user_started( int $course_id, int $user_id ): bool {
 		return delete_post_meta( $course_id, self::START_TIMESTAMP_COURSE_META_PREFIX . $user_id );
 	}
 
@@ -1036,6 +1039,38 @@ class Course_Expiration {
 	}
 
 	/**
+	 * Delete course expiration post meta when enrolment is removed.
+	 *
+	 * @access private
+	 * @since 1.23.0
+	 *
+	 * @param int $user_id   User ID.
+	 * @param int $course_id Course Id.
+	 */
+	public function handle_remove_enrolment( int $user_id, int $course_id ) {
+		$this->remove_user_started( $course_id, $user_id );
+		$this->remove_user_expiry( $course_id, $user_id );
+	}
+
+	/**
+	 * Don't show lesson if course hasn't started or has expired.
+	 *
+	 * @access private
+	 * @since 1.23.0
+	 *
+	 * @param bool $can_user_view_lesson Whether the user can view the lesson.
+	 * @param int  $lesson_id            Lesson ID.
+	 *
+	 * @return bool true if the user can view the lesson, false otherwise.
+	 */
+	public function can_user_view_lesson( $can_user_view_lesson, $lesson_id ) {
+		$user_id   = get_current_user_id();
+		$course_id = Sensei()->lesson->get_course_id( $lesson_id );
+
+		return $can_user_view_lesson && ! $this->is_access_expired_or_not_started( $user_id, (int) $course_id );
+	}
+
+	/**
 	 * Adds the 'Access Expiration' column in learner management.
 	 *
 	 * @access private
@@ -1045,7 +1080,7 @@ class Course_Expiration {
 	 *
 	 * @returns array The modified columns.
 	 */
-	public function add_learner_management_expiration_columns( array $columns, $learners_instance ) : array {
+	public function add_learner_management_expiration_columns( array $columns, $learners_instance ): array {
 		if ( 'learners' !== $learners_instance->get_view() ) {
 			return $columns;
 		}
@@ -1069,7 +1104,7 @@ class Course_Expiration {
 	 *
 	 * @returns array The modified columns.
 	 */
-	public function add_learner_management_starts_access_columns( array $columns, $learners_instance ) : array {
+	public function add_learner_management_starts_access_columns( array $columns, $learners_instance ): array {
 		if ( 'learners' !== $learners_instance->get_view() ) {
 			return $columns;
 		}
@@ -1093,7 +1128,7 @@ class Course_Expiration {
 	 * @param ?int        $post_id   The post id.
 	 * @param ?string     $post_type The post type.
 	 */
-	public function enrich_learner_management_data( array $columns, $comment, int $post_id = null, string $post_type = null ) : array {
+	public function enrich_learner_management_data( array $columns, $comment, int $post_id = null, string $post_type = null ): array {
 		if ( empty( $post_id ) || empty( $post_type ) ) {
 			return $columns;
 		}
@@ -1125,7 +1160,7 @@ class Course_Expiration {
 	 *
 	 * @return string
 	 */
-	private function get_expiry_date_column( string $expiry_date ) : string {
+	private function get_expiry_date_column( string $expiry_date ): string {
 		return '<input class="edit-date-date-picker access-expiration" data-name="expiration-date" type="text" value="' . esc_attr( $expiry_date ) . '">';
 	}
 
@@ -1136,7 +1171,7 @@ class Course_Expiration {
 	 *
 	 * @return string
 	 */
-	private function get_start_date_column( string $start_date ) : string {
+	private function get_start_date_column( string $start_date ): string {
 		return '<input class="edit-date-date-picker access-expiration" data-name="start-access-date" type="text" value="' . esc_attr( $start_date ) . '">';
 	}
 
@@ -1151,7 +1186,7 @@ class Course_Expiration {
 	 *
 	 * @return bool Whether an update happened or not.
 	 */
-	public function update_learner_expiry_date( bool $updated, int $post_id, int $comment_id ) : bool {
+	public function update_learner_expiry_date( bool $updated, int $post_id, int $comment_id ): bool {
 		$comment = get_comment( $comment_id );
 
 		$post_type = get_post_type( $post_id );
@@ -1226,7 +1261,7 @@ class Course_Expiration {
 	 *
 	 * @return bool Whether an update happened or not.
 	 */
-	public function update_learner_start_date( bool $updated, int $post_id, int $comment_id ) : bool {
+	public function update_learner_start_date( bool $updated, int $post_id, int $comment_id ): bool {
 		$post_type = get_post_type( $post_id );
 
 		if ( 'course' === $post_type ) {
@@ -1435,7 +1470,7 @@ class Course_Expiration {
 	 *
 	 * @returns array The quiz message arguments.
 	 */
-	public function update_quiz_signup_notice( $quiz_message_args, $lesson_id, $user_id ) : array {
+	public function update_quiz_signup_notice( $quiz_message_args, $lesson_id, $user_id ): array {
 		$course_id = Sensei()->lesson->get_course_id( $lesson_id );
 		if ( empty( $course_id ) || empty( $user_id ) ) {
 			return $quiz_message_args;

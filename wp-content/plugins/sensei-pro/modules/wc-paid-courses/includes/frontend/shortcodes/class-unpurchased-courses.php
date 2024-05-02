@@ -66,7 +66,6 @@ class Unpurchased_Courses implements Sensei_Shortcode_Interface {
 	 * @param string $shortcode  Shortcode that was called for this instance.
 	 */
 	public function __construct( $attributes, $content, $shortcode ) {
-
 		// Set up all argument need for constructing the course query.
 		$this->number  = isset( $attributes['number'] ) ? $attributes['number'] : '10';
 		$this->orderby = isset( $attributes['orderby'] ) ? $attributes['orderby'] : 'title';
@@ -90,7 +89,6 @@ class Unpurchased_Courses implements Sensei_Shortcode_Interface {
 	 * @since Sensei 1.9.0
 	 */
 	protected function setup_course_query() {
-
 		// Course query parameters to be used for all courses.
 		$query_args = [
 			'post_type'      => 'course',
@@ -124,7 +122,6 @@ class Unpurchased_Courses implements Sensei_Shortcode_Interface {
 		$query_args['posts_per_page'] = $this->number;
 
 		$this->query = new WP_Query( $query_args );
-
 	}
 
 	/**

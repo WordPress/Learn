@@ -9,6 +9,7 @@ const isValidVideoBlock = ( block ) =>
 		[ 'videopress', 'youtube', 'vimeo' ].includes(
 			block?.attributes?.providerNameSlug
 		) ) ||
-	block?.name === 'core/video';
+	block?.name === 'core/video' ||
+	block?.name === 'videopress/video';
 
 export default isValidVideoBlock;

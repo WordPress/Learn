@@ -8,8 +8,8 @@
 
 namespace Sensei_Pro_Student_Groups\Rest_Api\Controllers;
 
-use \WP_REST_Posts_Controller;
-use \WP_Error;
+use WP_REST_Posts_Controller;
+use WP_Error;
 
 /**
  * Student groups controller class.
@@ -97,5 +97,4 @@ class WP_REST_Groups_Controller extends WP_REST_Posts_Controller {
 	public function delete_item_permissions_check( $request ) {
 		return $this->forbidden_response();
 	}
-
 }

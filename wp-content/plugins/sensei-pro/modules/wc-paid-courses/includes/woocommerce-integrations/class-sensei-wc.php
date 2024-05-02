@@ -38,10 +38,10 @@ class Sensei_WC {
 			return;
 		}
 
-		$woocommerce_hooks_file_path = dirname( __FILE__ ) . '/hooks.php';
+		$woocommerce_hooks_file_path = __DIR__ . '/hooks.php';
 		require_once $woocommerce_hooks_file_path;
-
 	}
+
 	/**
 	 * Check if WooCommerce plugin is loaded and allowed by Sensei.
 	 *
@@ -175,7 +175,6 @@ class Sensei_WC {
 		];
 
 		return $filter_links;
-
 	}
 
 	/**
@@ -206,7 +205,6 @@ class Sensei_WC {
 		}
 
 		return $query;
-
 	}
 
 	/**
@@ -239,7 +237,6 @@ class Sensei_WC {
 		}
 
 		return $query;
-
 	}
 
 	/**
@@ -283,7 +280,6 @@ class Sensei_WC {
 		// This hooks is documented within the WooCommerce plugin.
 		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Using WooCommerce hook.
 		do_action( 'woocommerce_before_single_product' );
-
 	}
 
 	/**
@@ -474,7 +470,6 @@ class Sensei_WC {
 		}
 
 		return $current_user->ID;
-
 	}
 
 	/**
@@ -527,7 +522,6 @@ class Sensei_WC {
 			'<section class="woocommerce-order-sensei-courses"><h2>' . esc_html__( 'Courses', 'sensei-pro' ) . '</h2>
 			<ul>' . implode( '', $course_links ) . '</ul></section>'
 		);
-
 	}
 
 	/**
@@ -674,7 +668,6 @@ class Sensei_WC {
 			</div>
 			<?php
 		}
-
 	}
 
 	/**
@@ -697,7 +690,6 @@ class Sensei_WC {
 		}
 
 		return false;
-
 	}
 
 	/**
@@ -872,7 +864,6 @@ class Sensei_WC {
 			array_keys( $free_product_variation_parent_ids ),
 			array_values( $free_product_variation_parent_ids )
 		);
-
 	}
 
 	/**
@@ -902,7 +893,6 @@ class Sensei_WC {
 				'compare' => 'NOT IN',
 			],
 		];
-
 	}
 
 	/**
@@ -926,7 +916,6 @@ class Sensei_WC {
 				'compare' => 'IN',
 			],
 		];
-
 	}
 
 	/**
@@ -957,7 +946,6 @@ class Sensei_WC {
 		];
 
 		return $args;
-
 	} // get_paid_products_on_sale_query_args
 
 	/**
@@ -988,7 +976,6 @@ class Sensei_WC {
 		];
 
 		return $args;
-
 	} // get_paid_courses_meta_query
 
 	/**
@@ -1044,7 +1031,6 @@ class Sensei_WC {
 			array_keys( $paid_product_variation_parent_ids ),
 			array_values( $paid_product_variation_parent_ids )
 		);
-
 	}
 
 	/**
@@ -1133,7 +1119,6 @@ class Sensei_WC {
 		}
 
 		return get_posts( $free_course_query_args );
-
 	}
 
 	/**
@@ -1354,7 +1339,6 @@ class Sensei_WC {
 		$woocommerce_course_no_permissions_message = ob_get_clean();
 
 		return $woocommerce_course_no_permissions_message;
-
 	}
 
 	/**
@@ -1495,7 +1479,6 @@ class Sensei_WC {
 
 		// default is no order.
 		return false;
-
 	}
 
 	/**
@@ -1669,7 +1652,6 @@ class Sensei_WC {
 
 			}
 		}
-
 	}
 
 	/**
@@ -1769,7 +1751,6 @@ class Sensei_WC {
 			// Add meta to indicate that payment has been completed successfully.
 			update_post_meta( $order_id, 'sensei_payment_complete', '1' );
 		}
-
 	}
 
 	/**
@@ -1828,7 +1809,6 @@ class Sensei_WC {
 				}
 			}
 		}
-
 	}
 
 	/**
@@ -1848,33 +1828,20 @@ class Sensei_WC {
 
 		$wc_product_object = false;
 		if ( 0 < intval( $wc_product_id ) ) {
-
 			// Get the product.
 			if ( function_exists( 'wc_get_product' ) ) {
-
 				$wc_product_object = wc_get_product( $wc_product_id ); // Post WC 2.3x.
-
 			} elseif ( function_exists( 'get_product' ) ) {
-
 				$wc_product_object = get_product( $wc_product_id ); // Post WC 2.0.
-
-			} else {
-
+			} elseif ( 'variation' === $product_type || 'subscription_variation' === $product_type ) {
 				// Pre WC 2.0.
-				if ( 'variation' === $product_type || 'subscription_variation' === $product_type ) {
-
-					$wc_product_object = new WC_Product_Variation( $wc_product_id );
-
-				} else {
-
-					$wc_product_object = new WC_Product( $wc_product_id );
-
-				}
+				$wc_product_object = new WC_Product_Variation( $wc_product_id );
+			} else {
+				$wc_product_object = new WC_Product( $wc_product_id );
 			}
 		}
 
 		return $wc_product_object;
-
 	}
 
 	/**
@@ -2024,7 +1991,6 @@ class Sensei_WC {
 		Sensei_WC_Utils::log( 'Sensei_WC::course_update: user taking course after update: ' . ( $is_user_taking_course ? 'yes' : 'NO' ) );
 
 		return $is_user_taking_course;
-
 	}
 
 	/**
@@ -2073,7 +2039,6 @@ class Sensei_WC {
 		}
 
 		return $guest_checkout;
-
 	}
 
 	/**
@@ -2128,7 +2093,6 @@ class Sensei_WC {
 		}
 
 		return $order_status;
-
 	}
 
 	/**
@@ -2270,14 +2234,10 @@ class Sensei_WC {
 	 *
 	 * @param mixed $cart_item_key Cart Item Key.
 	 * @param int   $product_id Product ID.
-	 * @param mixed $quantity Quantity.
-	 * @param int   $variation_id Variation ID.
-	 * @param mixed $variation Variation.
-	 * @param mixed $cart_item_data Cart Item Data.
 	 *
 	 * @throws Exception When learner already taking course.
 	 */
-	public static function do_not_add_course_to_cart_if_user_taking_course( $cart_item_key, $product_id, $quantity, $variation_id, $variation, $cart_item_data ) {
+	public static function do_not_add_course_to_cart_if_user_taking_course( $cart_item_key, $product_id ) {
 		if ( ! self::is_woocommerce_active() ) {
 			return;
 		}
@@ -2301,7 +2261,7 @@ class Sensei_WC {
 
 		foreach ( $courses as $course ) {
 			if ( Course_Enrolment_Providers::is_user_enrolled( $course->ID, $user_id ) ) {
-				$courses_started++;
+				++$courses_started;
 			} elseif ( Course_Expiration::instance()->is_access_expired_or_not_started( $user_id, $course->ID ) ) {
 				$has_expired_courses = true;
 			}
@@ -2309,7 +2269,7 @@ class Sensei_WC {
 
 		if ( $courses_started === $product_course_count ) {
 			// Taking all courses. Prevent adding to the cart.
-			throw new Exception( __( 'You are already taking all the courses associated with this product.', 'sensei-pro' ) );
+			throw new Exception( esc_html__( 'You are already taking all the courses associated with this product.', 'sensei-pro' ) );
 		} elseif ( $has_expired_courses ) {
 			// Has expired courses.
 			wc_add_notice( __( 'The product you are buying contains a course where your access has expired. Buying it will not enroll you again to expired course.', 'sensei-pro' ), 'notice' );
@@ -2348,7 +2308,7 @@ class Sensei_WC {
 
 		foreach ( $courses as $course ) {
 			if ( Course_Enrolment_Providers::is_user_enrolled( $course->ID, $user_id ) ) {
-				$courses_started++;
+				++$courses_started;
 			}
 		}
 
@@ -2555,5 +2515,4 @@ class Sensei_WC {
 
 		return $purchased_course_data;
 	}
-
 }

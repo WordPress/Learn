@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-require_once dirname( __FILE__ ) . '/includes/class-block-visibility.php';
+require_once __DIR__ . '/includes/class-block-visibility.php';
 
 // Load the plugin after all the other plugins have loaded.
 add_action( 'plugins_loaded', [ Block_Visibility::class, 'init' ], 5 );

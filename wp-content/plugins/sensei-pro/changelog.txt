@@ -1,5 +1,48 @@
 # Sensei Pro Changelog
 
+## 1.24.0 - 2024-04-25
+### Security
+- Sanitize user's display name
+
+### Fixed
+- Add support for VideoPress block on video integrations
+- Fix students' last activity date in Groups
+- Sell course with woocommerce tour not appearing
+- Show Groups in menu only for admins
+
+## 1.23.1 - 2024-04-15
+### Fixed
+- "wp_style_is was called incorrectly" debug warning
+
+## 1.23.0 - 2024-04-04
+### Added
+- Sensei home task for creating new product
+
+### Fixed
+- For course expiration, distinguish between course access and course enrolment
+
+## 1.22.0 - 2024-03-20
+### Added
+- Add WPCOM activation button in case of losing the license
+
+### Fixed
+- Fix Lessons Available email with special characters being displayed incorrectly in the subject line
+- Missing CSS classes for "Purchase Course" button
+- Update button of the question block to have the correct styles on some themes where it was broken
+
+## 1.21.0 - 2024-02-26
+### Added
+- Generate initial content for lesson using AI
+
+### Fixed
+- Don't load Sensei Blocks plugin if Sensei Pro is already activated to avoid duplicity
+
+## 1.20.1 - 2024-01-17
+### Fixed
+- Content drip not working when Jetpack is enabled issue solved
+- Prevent an error in rare cases when both WooCommerce and WP Activity Log are active
+- Prevent an error log related to Woo HPOS support
+
 ## 1.20.0 - 2023-12-14
 ### Added
 - Ability to style lesson action buttons in Premium learning mode lesson templates

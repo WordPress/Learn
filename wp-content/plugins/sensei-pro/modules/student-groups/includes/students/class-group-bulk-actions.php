@@ -60,4 +60,3 @@ class Group_Bulk_Actions {
 		return $known_bulk_actions;
 	}
 }
-

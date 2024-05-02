@@ -79,7 +79,6 @@ class Premium_Templates {
 
 		// register admin styles.
 		add_action( 'admin_enqueue_scripts', [ $instance, 'add_editor_styles' ] );
-
 	}
 
 	/**

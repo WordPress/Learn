@@ -82,6 +82,10 @@ class Rest_Api extends \WP_REST_Controller {
 							'type'     => 'string',
 							'required' => true,
 						],
+						'nonce'       => [
+							'type'     => 'string',
+							'required' => true,
+						],
 					],
 				],
 			]
@@ -100,6 +104,56 @@ class Rest_Api extends \WP_REST_Controller {
 							'required' => true,
 						],
 						'plugin_slug' => [
+							'type'     => 'string',
+							'required' => true,
+						],
+						'nonce'       => [
+							'type'     => 'string',
+							'required' => true,
+						],
+					],
+				],
+			]
+		);
+		register_rest_route(
+			$this->namespace,
+			"/{$this->rest_base}/flush-wpcom-license",
+			[
+				[
+					'methods'             => \WP_REST_Server::CREATABLE,
+					'callback'            => [ $this, 'flush_wpcom_license' ],
+					'permission_callback' => [ $this, 'check_user_is_administrator' ],
+					'args'                => [
+						'plugin_slug' => [
+							'type'     => 'string',
+							'required' => true,
+						],
+						'nonce'       => [
+							'type'     => 'string',
+							'required' => true,
+						],
+					],
+				],
+			]
+		);
+		register_rest_route(
+			$this->namespace,
+			"/{$this->rest_base}/receive-wpcom-license-key",
+			[
+				[
+					'methods'             => \WP_REST_Server::CREATABLE,
+					'callback'            => [ $this, 'receive_wpcom_license_key' ],
+					'permission_callback' => '__return_true',
+					'args'                => [
+						'plugin_slug'  => [
+							'type'     => 'string',
+							'required' => true,
+						],
+						'license_key'  => [
+							'type'     => 'string',
+							'required' => true,
+						],
+						'custom_nonce' => [
 							'type'     => 'string',
 							'required' => true,
 						],
@@ -124,14 +178,22 @@ class Rest_Api extends \WP_REST_Controller {
 	 * Activate the license for the given license key and plugin slug.
 	 *
 	 * @param WP_REST_Request $request The current request.
+	 *
+	 * @return WP_REST_Response
 	 */
 	public function activate_license( $request ) {
-		$license_key  = $request->get_param( 'license_key' );
-		$plugin_slug  = $request->get_param( 'plugin_slug' );
-		$api_response = License_Manager::activate_license(
-			$plugin_slug,
-			$license_key
-		);
+		$license_key  = sanitize_text_field( $request->get_param( 'license_key' ) );
+		$plugin_slug  = sanitize_text_field( $request->get_param( 'plugin_slug' ) );
+		$nonce        = $request->get_param( 'nonce' );
+		$api_response = false;
+
+		if ( wp_verify_nonce( $nonce, 'license-form-' . $plugin_slug ) ) {
+			$api_response = License_Manager::activate_license(
+				$plugin_slug,
+				$license_key
+			);
+		}
+
 		if ( false === $api_response ) {
 			$api_response = [
 				'success' => false,
@@ -147,18 +209,22 @@ class Rest_Api extends \WP_REST_Controller {
 	 * Deactivate the license for the given license key and plugin slug.
 	 *
 	 * @param WP_REST_Request $request The current request.
+	 *
+	 * @return WP_REST_Response
 	 */
 	public function deactivate_license( $request ) {
-		$license_key  = $request->get_param( 'license_key' );
-		$plugin_slug  = $request->get_param( 'plugin_slug' );
+		$license_key  = sanitize_text_field( $request->get_param( 'license_key' ) );
+		$plugin_slug  = sanitize_text_field( $request->get_param( 'plugin_slug' ) );
 		$nonce        = $request->get_param( 'nonce' );
 		$api_response = false;
-		if ( wp_verify_nonce( $nonce, 'deactivate-license-' . $plugin_slug ) ) {
+
+		if ( wp_verify_nonce( $nonce, 'license-form-' . $plugin_slug ) ) {
 			$api_response = License_Manager::deactivate_license(
 				$plugin_slug,
 				$license_key
 			);
 		}
+
 		if ( false === $api_response ) {
 			$api_response = [
 				'success' => false,
@@ -171,7 +237,104 @@ class Rest_Api extends \WP_REST_Controller {
 	}
 
 	/**
+	 * Creates a custom nonce for the given plugin slug.
+	 *
+	 * @param string $action The action name.
+	 *
+	 * @return string The custom nonce.
+	 */
+	private function create_custom_nonce( $action ) {
+		$custom_nonce = wp_generate_password( 15, false );
+		set_transient( 'sensei-pro-custom-nonce-' . $action, $custom_nonce, 60 );
+
+		return $custom_nonce;
+	}
+
+	/**
+	 * Checks if the given nonce is valid for the given action.
+	 *
+	 * @param string $nonce  The nonce to check.
+	 * @param string $action The action name.
+	 *
+	 * @return bool True if the nonce is valid, false otherwise.
+	 */
+	private function check_custom_nonce( $nonce, $action ) {
+		$saved_nonce = get_transient( 'sensei-pro-custom-nonce-' . $action );
+
+		return ! empty( $saved_nonce ) && $nonce === $saved_nonce;
+	}
+
+	/**
+	 * Flushes the license key for the given plugin slug.
+	 * It's used to fetch and save the license key for the WPCOM website when it doesn't work on the normal flow.
+	 *
+	 * @param WP_REST_Request $request The current request.
+	 *
+	 * @return WP_REST_Response
+	 */
+	public function flush_wpcom_license( $request ) {
+		$plugin_slug  = sanitize_text_field( $request->get_param( 'plugin_slug' ) );
+		$nonce        = $request->get_param( 'nonce' );
+		$api_response = false;
+
+		if ( wp_verify_nonce( $nonce, 'license-form-' . $plugin_slug ) ) {
+			// Generate a custom nonce for the external request.
+			// We don't use the original nonce system beucase it's not reliable for authentication.
+			$custom_nonce = $this->create_custom_nonce( 'receive-license-' . $plugin_slug );
+
+			$activation_url = add_query_arg(
+				'custom_nonce',
+				$custom_nonce,
+				get_rest_url( get_current_blog_id(), '/sensei-pro-internal/v1/sensei-pro-setup/receive-wpcom-license-key' )
+			);
+			$api_response   = License_Manager::flush_wpcom_license( $plugin_slug, $activation_url );
+		}
+
+		if ( false === $api_response ) {
+			$api_response = [
+				'success' => false,
+				'message' => __( 'An error occurred while activating the license. Please reload the page and try again.', 'sensei-pro' ),
+			];
+		}
+
+		// Pass through the API response from the license server.
+		return rest_ensure_response( $api_response );
+	}
+
+	/**
+	 * Receives the license key for the given plugin slug from the WPCOM website.
+	 * This endpoint is expected to be called as the `activation_url` from flush WPCOM license.
+	 *
+	 * @param WP_REST_Request $request The current request.
+	 *
+	 * @return WP_REST_Response
+	 */
+	public function receive_wpcom_license_key( $request ) {
+		$license_key  = sanitize_text_field( $request->get_param( 'license_key' ) );
+		$plugin_slug  = sanitize_text_field( $request->get_param( 'plugin_slug' ) );
+		$custom_nonce = $request->get_param( 'custom_nonce' );
+		$response     = false;
+
+		if ( $this->check_custom_nonce( $custom_nonce, 'receive-license-' . $plugin_slug ) ) {
+			License_Manager::receive_wpcom_license_key( $plugin_slug, $license_key );
+			$response = [ 'success' => true ];
+		}
+
+		if ( false === $response ) {
+			$response = [
+				'success' => false,
+				'message' => __( 'An error occurred while receiving the license key.', 'sensei-pro' ),
+			];
+		}
+
+		// Pass through the API response from the license server.
+		return rest_ensure_response( $response );
+	}
+
+	/**
 	 * Installs the Sensei Core plugin.
+	 *
+	 * @return WP_REST_Response
 	 */
 	public function install_sensei() {
 		try {
@@ -252,7 +415,7 @@ class Rest_Api extends \WP_REST_Controller {
 		);
 
 		if ( is_wp_error( $plugin_information ) ) {
-			throw new \Exception( $this->get_error_message( $plugin_information ) );
+			throw new \Exception( esc_html( $this->get_error_message( $plugin_information ) ) );
 		}
 
 		// Suppress feedback.
@@ -262,13 +425,13 @@ class Rest_Api extends \WP_REST_Controller {
 		$download = $upgrader->download_package( $package );
 
 		if ( is_wp_error( $download ) ) {
-			throw new \Exception( $this->get_error_message( $download ) );
+			throw new \Exception( esc_html( $this->get_error_message( $download ) ) );
 		}
 
 		$working_dir = $upgrader->unpack_package( $download, true );
 
 		if ( is_wp_error( $working_dir ) ) {
-			throw new \Exception( $this->get_error_message( $working_dir ) );
+			throw new \Exception( esc_html( $this->get_error_message( $working_dir ) ) );
 		}
 
 		$result = $upgrader->install_package(
@@ -289,7 +452,7 @@ class Rest_Api extends \WP_REST_Controller {
 		ob_end_clean();
 
 		if ( is_wp_error( $result ) ) {
-			throw new \Exception( $this->get_error_message( $result ) );
+			throw new \Exception( esc_html( $this->get_error_message( $result ) ) );
 		}
 
 		return $result;
@@ -306,7 +469,7 @@ class Rest_Api extends \WP_REST_Controller {
 		$result = activate_plugin( $plugin_file, '', false, true );
 
 		if ( is_wp_error( $result ) ) {
-			throw new \Exception( $this->get_error_message( $result ) );
+			throw new \Exception( esc_html( $this->get_error_message( $result ) ) );
 		}
 
 		return $result;

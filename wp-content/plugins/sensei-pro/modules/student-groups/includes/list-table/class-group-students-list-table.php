@@ -248,16 +248,17 @@ class Group_Students_List_Table extends \Sensei_List_Table {
 	 * @since 1.4.0
 	 * @access public
 	 */
-	public function no_items() {        ?>
+	public function no_items() {
+		?>
 		<div class="group-students-table__no-items-container">
 			<?php
-			echo sprintf(
+			printf(
 				'<div class="group-students-table__no-items-title">%s</div>',
 				esc_attr( __( "This group doesn't have any students yet.", 'sensei-pro' ) )
 			);
 			?>
 			<?php
-			echo sprintf(
+			printf(
 				'<div class="add-student-to-group-button" data-group-id="%s" data-group-name="%s" data-is-primary="true" ></div>',
 				esc_attr( $this->group_id ),
 				esc_attr( $this->group_name )

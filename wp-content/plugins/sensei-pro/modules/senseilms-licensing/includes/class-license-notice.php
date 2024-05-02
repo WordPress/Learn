@@ -107,24 +107,22 @@ class License_Notice {
 					],
 				],
 			];
-		} else {
-			if ( isset( $status['is_valid'] ) && ! $status['is_valid'] ) {
-				// License is set but invalid.
-				$notices[ "senseilms-invalid-license-{$this->plugin_slug}" ] = [
-					'type'    => 'user',
-					'icon'    => 'sensei',
-					'style'   => 'error',
-					'heading' => $plugin_name,
-					// translators: Placeholder is the plugin name.
-					'message' => sprintf( __( 'We noticed a problem with your %s license, which could prevent future updates.', 'sensei-pro' ), $plugin_name ),
-					'actions' => [
-						[
-							'label' => __( 'Check License', 'sensei-pro' ),
-							'url'   => \Sensei_Pro_Setup\Wizard::get_setup_url( $this->plugin_slug ),
-						],
+		} elseif ( isset( $status['is_valid'] ) && ! $status['is_valid'] ) {
+			// License is set but invalid.
+			$notices[ "senseilms-invalid-license-{$this->plugin_slug}" ] = [
+				'type'    => 'user',
+				'icon'    => 'sensei',
+				'style'   => 'error',
+				'heading' => $plugin_name,
+				// translators: Placeholder is the plugin name.
+				'message' => sprintf( __( 'We noticed a problem with your %s license, which could prevent future updates.', 'sensei-pro' ), $plugin_name ),
+				'actions' => [
+					[
+						'label' => __( 'Check License', 'sensei-pro' ),
+						'url'   => \Sensei_Pro_Setup\Wizard::get_setup_url( $this->plugin_slug ),
 					],
-				];
-			}
+				],
+			];
 		}
 
 		return $notices;

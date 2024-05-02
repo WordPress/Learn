@@ -69,6 +69,29 @@ class Sensei_Home_License_Activation {
 	}
 
 	/**
+	 * Whether there is a wpcom subscription for the plugin.
+	 *
+	 * @return boolean
+	 */
+	private function has_wpcom_subscription() {
+		// See https://developer.wordpress.com/wordpress-com-marketplace/vendor-apis/#infrastructure-api.
+		$is_wpcom = defined( 'IS_ATOMIC' ) && IS_ATOMIC && defined( 'ATOMIC_CLIENT_ID' ) && '2' === ATOMIC_CLIENT_ID;
+
+		if ( ! $is_wpcom ) {
+			return false;
+		}
+
+		$plugin_slug         = $this->setup_context->get_plugin_slug();
+		$wpcom_subscriptions = get_option( 'wpcom_active_subscriptions', [] );
+
+		if ( empty( $wpcom_subscriptions ) ) {
+			return false;
+		}
+
+		return isset( $wpcom_subscriptions[ $plugin_slug ] );
+	}
+
+	/**
 	 * Enqueue scripts.
 	 *
 	 * @param string $hook_suffix The hook suffix.
@@ -103,13 +126,14 @@ class Sensei_Home_License_Activation {
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$force_show_license      = isset( $_GET['manage_license'] ) && '1' === $_GET['manage_license'];
 		$license_activation_info = [
-			'isLicenseActivated' => ! is_null( $license_status['license_key'] ) && $license_status['is_valid'],
-			'forceShowLicense'   => $force_show_license,
-			'pluginSlug'         => $this->setup_context->get_plugin_slug(),
-			'licenseKey'         => $license_status['license_key'] ?? '',
-			'deactivateNonce'    => wp_create_nonce( 'deactivate-license-' . $plugin_slug ),
-			'isMultisite'        => is_multisite(),
-			'domain'             => $license_status['domain'] ?? '',
+			'isLicenseActivated'   => ! is_null( $license_status['license_key'] ) && $license_status['is_valid'],
+			'forceShowLicense'     => $force_show_license,
+			'pluginSlug'           => $this->setup_context->get_plugin_slug(),
+			'licenseKey'           => $license_status['license_key'] ?? '',
+			'formNonce'            => wp_create_nonce( 'license-form-' . $plugin_slug ),
+			'isMultisite'          => is_multisite(),
+			'domain'               => $license_status['domain'] ?? '',
+			'hasWpcomSubscription' => $this->has_wpcom_subscription(),
 		];
 		wp_add_inline_script( 'sensei-home-license-activation', 'window.senseiHomeLicenseActivation=' . wp_json_encode( $license_activation_info ) . ';', 'before' );
 	}

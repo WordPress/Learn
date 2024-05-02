@@ -87,7 +87,6 @@ class Assets_Provider {
 
 		$config = $this->asset_config( $filename, $dependencies, $args );
 		$this->call_wp( 'wp_enqueue', $handle, $config );
-
 	}
 
 	/**
@@ -147,7 +146,7 @@ class Assets_Provider {
 	 *
 	 * @return array Asset information.
 	 */
-	public function asset_config( string $filename, array $dependencies = [], $wp_enqueue_args = null ) : array {
+	public function asset_config( string $filename, array $dependencies = [], $wp_enqueue_args = null ): array {
 
 		$is_js             = preg_match( '/\.js$/', $filename );
 		$basename          = preg_replace( '/\.\w+$/', '', $filename );
@@ -191,7 +190,7 @@ class Assets_Provider {
 	 *
 	 * @return string
 	 */
-	public function dist_path( string $file ) : string {
+	public function dist_path( string $file ): string {
 		if ( ! empty( $this->module_name ) ) {
 			return path_join( $this->plugin_path, "assets/dist/$this->module_name/$file" );
 		}
@@ -206,7 +205,7 @@ class Assets_Provider {
 	 *
 	 * @return string
 	 */
-	public function src_path( string $file ) : string {
+	public function src_path( string $file ): string {
 		if ( ! empty( $this->module_name ) ) {
 			return path_join( $this->plugin_path, "modules/$this->module_name/assets/$file" );
 		}
@@ -221,7 +220,7 @@ class Assets_Provider {
 	 *
 	 * @return string Public url for the file.
 	 */
-	public function asset_url( string $filename ) : string {
+	public function asset_url( string $filename ): string {
 		if ( ! empty( $this->module_name ) ) {
 			return rtrim( $this->plugin_url, '/' ) . "/assets/dist/$this->module_name/$filename";
 		}
@@ -246,6 +245,5 @@ class Assets_Provider {
 			sprintf( 'wp.apiFetch.use( wp.apiFetch.createPreloadingMiddleware( %s ) );', wp_json_encode( $preload_data ) ),
 			'after'
 		);
-
 	}
 }

@@ -37,6 +37,20 @@ const transforms = {
 		},
 		{
 			type: 'block',
+			blocks: [ 'videopress/video' ],
+			transform( attributes ) {
+				return createBlock(
+					'sensei-pro/interactive-video',
+					migrateAttributes( attributes ),
+					[
+						createBlock( 'videopress/video', attributes ),
+						createBlock( 'sensei-pro/timeline' ),
+					]
+				);
+			},
+		},
+		{
+			type: 'block',
 			blocks: [ 'core/embed' ],
 			transform( attributes ) {
 				return createBlock(

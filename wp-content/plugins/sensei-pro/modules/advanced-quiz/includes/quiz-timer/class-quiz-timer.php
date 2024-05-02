@@ -110,7 +110,7 @@ class Quiz_Timer {
 	 *
 	 * @return array
 	 */
-	public function add_quiz_timer( array $quiz_data, WP_Post $quiz ) : array {
+	public function add_quiz_timer( array $quiz_data, WP_Post $quiz ): array {
 		$enable_quiz_timer                         = get_post_meta( $quiz->ID, self::META_ENABLE_TIMER, true );
 		$quiz_data['options']['enable_quiz_timer'] = $enable_quiz_timer ?? false;
 
@@ -143,7 +143,6 @@ class Quiz_Timer {
 				$user_id
 			);
 		}
-
 	}
 
 	/**
@@ -227,7 +226,6 @@ class Quiz_Timer {
 		}
 
 		return true;
-
 	}
 
 	/**
@@ -393,6 +391,5 @@ class Quiz_Timer {
 			$lesson_id,
 			$user_id
 		);
-
 	}
 }

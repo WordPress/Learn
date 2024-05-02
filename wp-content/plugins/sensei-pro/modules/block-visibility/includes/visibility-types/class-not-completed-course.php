@@ -78,5 +78,4 @@ class Not_Completed_Course extends Type {
 	public function is_visible( array $visibility_settings ): bool {
 		return $this->enrolled_to_course_type->is_visible( $visibility_settings ) && ! $this->completed_course_type->is_visible( $visibility_settings );
 	}
-
 }

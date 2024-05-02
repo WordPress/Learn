@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use \Sensei_Pro_Student_Groups\Repositories\Group_Student_Repository;
+use Sensei_Pro_Student_Groups\Repositories\Group_Student_Repository;
 
 /**
  * Class that handles the "Visible to Groups" visibility type.

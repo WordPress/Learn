@@ -172,7 +172,7 @@ class Course_Showcase_Listing {
 		$instance->mapper = new Course_Showcase_SenseiLMSCom_Mapper();
 
 		if ( is_admin() ) {
-			require_once dirname( __FILE__ ) . '/class-course-showcase-cpt-list.php';
+			require_once __DIR__ . '/class-course-showcase-cpt-list.php';
 			Course_Showcase_CPT_List::init();
 		}
 	}

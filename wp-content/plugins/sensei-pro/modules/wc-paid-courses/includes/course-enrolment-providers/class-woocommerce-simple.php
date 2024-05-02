@@ -18,8 +18,7 @@ use Sensei_WC_Paid_Courses\Courses;
  *
  * @since 2.0.0
  */
-class WooCommerce_Simple
-	implements \Sensei_Course_Enrolment_Provider_Interface, \Sensei_Course_Enrolment_Provider_Debug_Interface {
+class WooCommerce_Simple implements \Sensei_Course_Enrolment_Provider_Interface, \Sensei_Course_Enrolment_Provider_Debug_Interface {
 	/**
 	 * Singleton instance.
 	 *
@@ -125,7 +124,7 @@ class WooCommerce_Simple
 	public function is_enrolled( $user_id, $course_id ) {
 		$products    = $this->get_course_simple_products( $course_id );
 		$product_ids = array_map(
-			function( \WC_Product $product ) {
+			function ( \WC_Product $product ) {
 				return $product->get_id();
 			},
 			$products
@@ -490,7 +489,7 @@ class WooCommerce_Simple
 		$products = $this->get_course_simple_products( $course_id );
 
 		$product_ids = array_map(
-			function( \WC_Product $product ) {
+			function ( \WC_Product $product ) {
 				return $product->get_id();
 			},
 			$products

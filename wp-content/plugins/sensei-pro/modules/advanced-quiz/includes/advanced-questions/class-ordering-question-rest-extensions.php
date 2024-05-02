@@ -75,7 +75,7 @@ class Ordering_Question_REST_Extensions {
 	 * @param string   $question_type            The question type.
 	 * @param \WP_Post $question                 The question post.
 	 */
-	public function get_ordering_question_properties( array $type_specific_properties, string $question_type, \WP_Post $question ) : array {
+	public function get_ordering_question_properties( array $type_specific_properties, string $question_type, \WP_Post $question ): array {
 		if ( 'ordering' !== $question_type ) {
 			return $type_specific_properties;
 		}
@@ -101,7 +101,7 @@ class Ordering_Question_REST_Extensions {
 	 *
 	 * @param array $single_question_schema The existing schema.
 	 */
-	public function add_ordering_question_schema( array $single_question_schema ) : array {
+	public function add_ordering_question_schema( array $single_question_schema ): array {
 		$single_question_schema['oneOf'][] = $this->get_ordering_question_schema();
 
 		return $single_question_schema;
@@ -115,7 +115,7 @@ class Ordering_Question_REST_Extensions {
 	 * @param array  $schema The existing schema.
 	 * @param string $type   The question type\.
 	 */
-	public function get_question_type_schema( array $schema, string $type ) : array {
+	public function get_question_type_schema( array $schema, string $type ): array {
 		if ( 'ordering' === $type ) {
 			return $this->get_ordering_question_schema();
 		}
@@ -126,7 +126,7 @@ class Ordering_Question_REST_Extensions {
 	/**
 	 * Helper method which returns the ordering question schema.
 	 */
-	private function get_ordering_question_schema() : array {
+	private function get_ordering_question_schema(): array {
 		$ordering_properties = [
 			'type'    => [
 				'type'     => 'string',

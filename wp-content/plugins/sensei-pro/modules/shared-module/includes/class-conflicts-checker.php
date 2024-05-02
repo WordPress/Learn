@@ -6,13 +6,14 @@
  * @since   1.2.0
  */
 
+// This namespace will be replaced in some builds to avoid conflicts between the plugins.
 namespace Sensei_Pro;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( class_exists( 'Sensei_Pro\Conflicts_Checker' ) ) {
+if ( class_exists( Conflicts_Checker::class ) ) {
 	return;
 }
 

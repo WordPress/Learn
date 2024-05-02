@@ -133,7 +133,7 @@ class Block_Purchase_Course {
 	 *
 	 * @return array
 	 */
-	public function extend_take_course_block( $args, $name ) : array {
+	public function extend_take_course_block( $args, $name ): array {
 
 		if ( 'sensei-lms/button-take-course' === $name ) {
 			$this->render_take_course = $args['render_callback'];
@@ -270,7 +270,7 @@ class Block_Purchase_Course {
 		$cart_url    = add_query_arg(
 			array_filter(
 				$_GET, // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-				function( $key ) {
+				function ( $key ) {
 					return 'add-to-cart' !== $key;
 				},
 				ARRAY_FILTER_USE_KEY

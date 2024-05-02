@@ -92,10 +92,9 @@ class Co_Teachers_Meta_Box {
 
 		// Check permissions for current course.
 		global $post;
-		if ( $post && $this->co_teachers->can_current_user_manage_coteachers( $post->ID ) ) {
+		if ( $post && $this->co_teachers->can_current_user_manage_coteachers() ) {
 			$this->js_assets->enqueue( 'sensei-co-teachers-meta-box-script', 'admin-co-teachers-meta-box.js', [ 'wp-element', 'wp-dom-ready' ] );
 			$this->css_assets->enqueue( 'sensei-co-teachers-meta-box-style', 'admin-co-teachers-meta-box.css', [] );
 		}
 	}
-
 }

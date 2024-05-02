@@ -53,6 +53,8 @@ class Group_Students_Result {
 		};
 
 		$this->items = array_map( $to_array, $query->get_results() );
+
+		$this->hydrate_last_activity_date();
 	}
 
 	/**
@@ -63,7 +65,7 @@ class Group_Students_Result {
 	 *
 	 * @return integer
 	 */
-	public function get_total_items():int {
+	public function get_total_items(): int {
 		return $this->total_items;
 	}
 
@@ -77,5 +79,40 @@ class Group_Students_Result {
 	 */
 	public function get_items(): array {
 		return $this->items;
+	}
+
+	/**
+	 * Hydrate the last activity date for each student.
+	 */
+	private function hydrate_last_activity_date() {
+		global $wpdb;
+
+		if ( empty( $this->items ) ) {
+			return;
+		}
+
+		$query_params = wp_list_pluck( $this->items, 'ID' );
+		$placeholders = array_fill( 0, count( $query_params ), '%d' );
+		$placeholders = implode( ', ', $placeholders );
+
+		$sql = "
+			SELECT {$wpdb->comments}.user_id, MAX({$wpdb->comments}.comment_date_gmt) AS last_activity_date
+			FROM {$wpdb->comments}
+			WHERE {$wpdb->comments}.user_id in ({$placeholders})
+			AND {$wpdb->comments}.comment_approved IN ('complete', 'passed', 'graded')
+			AND {$wpdb->comments}.comment_type = 'sensei_lesson_status'
+			GROUP BY {$wpdb->comments}.user_id";
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
+		$results = $wpdb->get_results(
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+			$wpdb->prepare( $sql, $query_params )
+		);
+
+		$last_activity_dates = wp_list_pluck( $results, 'last_activity_date', 'user_id' );
+
+		foreach ( $this->items as $key => $student ) {
+			$this->items[ $key ]['last_activity_date'] = $last_activity_dates[ $student['ID'] ] ?? null;
+		}
 	}
 }

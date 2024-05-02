@@ -93,10 +93,9 @@ class Scd_Ext_Quiz_Frontend {
 	 * @since 1.0.6
 	 * @param boolean $can_user_view_lesson
 	 * @param int     $lesson_id
-	 * @param int     $user_id
 	 * @return bool
 	 */
-	public function can_user_access_quiz_for_lesson( $can_user_view_lesson, $lesson_id, $user_id = null ) {
+	public function can_user_access_quiz_for_lesson( $can_user_view_lesson, $lesson_id ) {
 		if ( false === empty( $lesson_id ) && Sensei_Content_Drip()->access_control->is_lesson_access_blocked( $lesson_id ) ) {
 			return false;
 		}
@@ -117,10 +116,9 @@ class Scd_Ext_Quiz_Frontend {
 		}
 
 		$lesson_id = Sensei()->quiz->get_lesson_id( $quiz_id );
-		$user_id   = get_current_user_id();
 
 		if ( Sensei_Content_Drip()->access_control->is_lesson_access_blocked( $lesson_id ) &&
-			! Sensei_Content_Drip()->access_control->sensei_should_block_lesson( $lesson_id, $user_id ) ) {
+			! Sensei_Content_Drip()->access_control->sensei_should_block_lesson( $lesson_id ) ) {
 			$drip_message_body = $this->get_drip_type_message( $quiz_id );
 			if ( empty( $drip_message_body ) ) {
 				return;

@@ -6,18 +6,8 @@ import { addFilter } from '@wordpress/hooks';
 /**
  * Internal dependencies
  */
-import LicenseActivationForm from './LicenseActivationForm';
+import LicenseActivation from './LicenseActivation';
 
 addFilter( 'sensei.home.top', 'sensei-pro', () => {
-	const isActivated = window.senseiHomeLicenseActivation?.isLicenseActivated;
-	const forceShowLicense =
-		window.senseiHomeLicenseActivation?.forceShowLicense;
-	const isMultisite =
-		window.senseiHomeLicenseActivation?.isMultisite === true;
-
-	if ( isActivated && ! forceShowLicense ) {
-		return null;
-	}
-
-	return <LicenseActivationForm isMultisite={ isMultisite } />;
+	return <LicenseActivation />;
 } );

@@ -220,5 +220,4 @@ class Course_Showcase_CPT_List {
 
 		return $actions;
 	}
-
 }

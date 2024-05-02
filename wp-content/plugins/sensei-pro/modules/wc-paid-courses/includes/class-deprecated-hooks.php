@@ -128,7 +128,7 @@ class Deprecated_Hooks {
 	private static function hook_into_new_action( $old_hook, $new_hook ) {
 		add_action(
 			$new_hook,
-			function() use ( $old_hook, $new_hook ) {
+			function () use ( $old_hook, $new_hook ) {
 				$callback_args = func_get_args();
 				if ( has_action( $old_hook ) ) {
 					static::trigger_deprecation_notice( $old_hook, $new_hook );
@@ -149,7 +149,7 @@ class Deprecated_Hooks {
 	private static function hook_into_new_filter( $old_hook, $new_hook ) {
 		add_filter(
 			$new_hook,
-			function() use ( $old_hook, $new_hook ) {
+			function () use ( $old_hook, $new_hook ) {
 				$callback_args = func_get_args();
 				$return_value  = $callback_args[0];
 
@@ -217,5 +217,4 @@ class Deprecated_Hooks {
 
 		_deprecated_hook( esc_html( $old_hook ), esc_html( $version ), esc_html( $new_hook ), esc_html( $message ) );
 	}
-
 }

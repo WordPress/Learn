@@ -123,9 +123,7 @@ class Sensei_WC_Subscriptions {
 			$user_subscription_cancelled = wcs_user_has_subscription( $user_id, $product_id, 'cancelled' );
 
 			if ( $user_subscription_cancelled && ! self::is_user_eligible_for_access( $user_id, $product_id, $course_id ) ) {
-
-				$cancelled_subscriptions++;
-
+				++$cancelled_subscriptions;
 			}
 		}
 
@@ -204,7 +202,6 @@ class Sensei_WC_Subscriptions {
 
 			}
 		}
-
 	}
 
 	/**
@@ -300,7 +297,6 @@ class Sensei_WC_Subscriptions {
 		}
 
 		return $user_access_permission;
-
 	}
 
 	/**
@@ -530,7 +526,6 @@ class Sensei_WC_Subscriptions {
 		 * Filter is documented in `includes/course-enrolment-providers/class-woocommerce-subscriptions.php `.
 		 */
 		return apply_filters( 'sensei_wc_paid_courses_subscriptions_get_subscription_types', self::$default_subscription_types );
-
 	}
 
 	/**

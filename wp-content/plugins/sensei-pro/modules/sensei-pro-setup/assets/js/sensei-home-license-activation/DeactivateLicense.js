@@ -23,7 +23,7 @@ const DeactivateLicense = ( {
 	const [ message, setMessage ] = useState( null );
 	const [ isFetching, setIsFetching ] = useState( false );
 	const {
-		deactivateNonce,
+		formNonce,
 		pluginSlug,
 		isLicenseActivated,
 	} = window.senseiHomeLicenseActivation;
@@ -38,7 +38,7 @@ const DeactivateLicense = ( {
 			data: {
 				license_key: currentLicenseKey,
 				plugin_slug: pluginSlug,
-				nonce: deactivateNonce,
+				nonce: formNonce,
 			},
 		} )
 			.then( ( response ) => {
@@ -76,7 +76,7 @@ const DeactivateLicense = ( {
 			</div>
 		);
 	}
-	if ( deactivateNonce && ( isLicenseActivated || successActivation ) ) {
+	if ( formNonce && ( isLicenseActivated || successActivation ) ) {
 		return (
 			<>
 				<Button

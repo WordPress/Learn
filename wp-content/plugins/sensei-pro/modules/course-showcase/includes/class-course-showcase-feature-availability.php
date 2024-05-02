@@ -98,7 +98,7 @@ class Course_Showcase_Feature_Availability {
 	 *
 	 * @return Course_Showcase_Feature_Availability
 	 */
-	public static function instance() : Course_Showcase_Feature_Availability {
+	public static function instance(): Course_Showcase_Feature_Availability {
 		if ( ! self::$instance ) {
 			self::$instance = new self();
 		}

@@ -85,17 +85,17 @@ class Group_Students_Data_Provider {
 	public function modify_user_query_for_custom_fields_orders_filters( WP_User_Query $query ) {
 		global $wpdb;
 
-		// Add last activity column in the result.
-		$query->query_fields .= ", (
-			SELECT MAX({$wpdb->comments}.comment_date_gmt)
-			FROM {$wpdb->comments}
-			WHERE {$wpdb->comments}.user_id = {$wpdb->users}.ID
-			AND {$wpdb->comments}.comment_approved IN ('complete', 'passed', 'graded')
-			AND {$wpdb->comments}.comment_type = 'sensei_lesson_status'
-		) AS last_activity_date";
-
 		// Order by last activity when needed.
 		if ( in_array( $query->query_vars['order'], [ 'asc', 'desc' ], true ) && 'last_activity_date' === $query->query_vars['orderby'] ) {
+			// Add last activity column in the result.
+			$query->query_fields .= ", (
+				SELECT MAX({$wpdb->comments}.comment_date_gmt)
+				FROM {$wpdb->comments}
+				WHERE {$wpdb->comments}.user_id = {$wpdb->users}.ID
+				AND {$wpdb->comments}.comment_approved IN ('complete', 'passed', 'graded')
+				AND {$wpdb->comments}.comment_type = 'sensei_lesson_status'
+			) AS last_activity_date";
+
 			$query->query_orderby = $wpdb->prepare(
 				'ORDER BY %1s %1s', // phpcs:ignore WordPress.DB.PreparedSQLPlaceholders.UnquotedComplexPlaceholder -- not needed.
 				$query->query_vars['orderby'],
