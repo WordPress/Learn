@@ -21,6 +21,14 @@ function enqueue_assets() {
 		array( 'wporg-parent-2021-style', 'wporg-global-fonts' ),
 		filemtime( __DIR__ . '/build/style/style-index.css' )
 	);
+
+	// Preload the heading font(s).
+	if ( is_callable( 'global_fonts_preload' ) ) {
+		/* translators: Subsets can be any of cyrillic, cyrillic-ext, greek, greek-ext, vietnamese, latin, latin-ext. */
+		$subsets = _x( 'Latin', 'Heading font subsets, comma separated', 'wporg-learn' );
+		// All headings.
+		global_fonts_preload( 'EB Garamond, Inter', $subsets );
+	}
 }
 
 /**
