@@ -77,6 +77,12 @@ jobs:
         run: |
           git add * --force
 
+      - name: Append build number to version
+        run: |
+          current_version=$(grep -oP 'Version: \K[0-9]+\.[0-9]+\.[0-9]+' style.css)
+          new_version="${current_version}-${GITHUB_SHA::7}"
+          sed -i "s/Version: $current_version/Version: $new_version/" style.css
+
       - name: Commit and push
         uses: actions-js/push@a52398fac807b0c1e5f1492c969b477c8560a0ba # 1.3
         with:
