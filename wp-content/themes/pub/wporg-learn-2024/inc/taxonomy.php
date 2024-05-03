@@ -1,6 +1,6 @@
 <?php
 
-namespace WPOrg_Learn\Taxonomy;
+namespace WordPressdotorg\Theme\Learn_2024\Taxonomy;
 
 defined( 'WPINC' ) || die();
 
