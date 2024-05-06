@@ -25,8 +25,8 @@ function add_admin_list_table_filters( $post_type, $which ) {
 		return;
 	}
 
-	$level            = filter_input( INPUT_GET, 'experience_level', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-	$available_levels = get_available_taxonomy_terms( 'experience_level', $post_type );
+	$level            = filter_input( INPUT_GET, 'wporg_experience_level', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+	$available_levels = get_available_taxonomy_terms( 'level', $post_type );
 
 	if ( empty( $available_levels ) ) {
 		return;
@@ -34,10 +34,10 @@ function add_admin_list_table_filters( $post_type, $which ) {
 
 	?>
 
-		<label for="filter-by-experience_level" class="screen-reader-text">
+		<label for="filter-by-level" class="screen-reader-text">
 			<?php esc_html_e( 'Filter by level', 'wporg-learn' ); ?>
 		</label>
-		<select id="filter-by-experience_level" name="experience_level">
+		<select id="filter-by-level" name="wporg_experience_level">
 			<option value=""<?php selected( ! $level ); ?>><?php esc_html_e( 'Any level', 'wporg-learn' ); ?></option>
 			<?php foreach ( $available_levels as $code => $name ) : ?>
 				<option value="<?php echo esc_attr( $code ); ?>"<?php selected( $code, $level ); ?>>

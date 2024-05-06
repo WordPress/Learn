@@ -47,18 +47,18 @@ function register_experience_level() {
 		'labels'            => $labels,
 		'hierarchical'      => false,
 		'public'            => true,
-		'query_var'         => 'experience_level',
+		'query_var'         => 'wporg_experience_level', // Prevent collisions with query params in the archive
 		'show_ui'           => true,
 		'show_admin_column' => true,
 		'show_in_nav_menus' => true,
 		'show_tagcloud'     => false,
 		'show_in_rest'      => true,
 		'capabilities'      => array(
-			'assign_terms' => 'edit_any_learn_content', // See WordPressdotorg\Theme\Learn_2024\Capabilities\map_meta_caps.
+			'assign_terms' => 'edit_any_learn_content', // See WordPressdotorg\Theme\Learn_2024\Capabilities\map_meta_caps
 		),
 	);
 
-	register_taxonomy( 'experience_level', array( 'lesson', 'course' ), $args );
+	register_taxonomy( 'level', array( 'lesson', 'course' ), $args );
 }
 
 /**
