@@ -13,7 +13,53 @@ add_action( 'init', __NAMESPACE__ . '\register' );
  * Register all the taxonomies.
  */
 function register() {
+	register_audience();
 	register_experience_level();
+}
+
+/**
+ * Register the Audience taxonomy.
+ */
+function register_audience() {
+	$labels = array(
+		'name'                       => _x( 'Audiences', 'Taxonomy General Name', 'wporg-learn' ),
+		'singular_name'              => _x( 'Audience', 'Taxonomy Singular Name', 'wporg-learn' ),
+		'menu_name'                  => __( 'Audience', 'wporg-learn' ),
+		'all_items'                  => __( 'All audiences', 'wporg-learn' ),
+		'parent_item'                => __( 'Parent audience', 'wporg-learn' ),
+		'parent_item_colon'          => __( 'Parent audience:', 'wporg-learn' ),
+		'new_item_name'              => __( 'New audience Name', 'wporg-learn' ),
+		'add_new_item'               => __( 'Add New audience', 'wporg-learn' ),
+		'edit_item'                  => __( 'Edit audience', 'wporg-learn' ),
+		'update_item'                => __( 'Update audience', 'wporg-learn' ),
+		'view_item'                  => __( 'View audience', 'wporg-learn' ),
+		'separate_items_with_commas' => __( 'Separate audiences with commas', 'wporg-learn' ),
+		'add_or_remove_items'        => __( 'Add or remove audiences', 'wporg-learn' ),
+		'choose_from_most_used'      => __( 'Choose from the most used', 'wporg-learn' ),
+		'popular_items'              => __( 'Popular audiences', 'wporg-learn' ),
+		'search_items'               => __( 'Search audiences', 'wporg-learn' ),
+		'not_found'                  => __( 'No audience found', 'wporg-learn' ),
+		'no_terms'                   => __( 'No audiences', 'wporg-learn' ),
+		'items_list'                 => __( 'Audiences list', 'wporg-learn' ),
+		'items_list_navigation'      => __( 'Audiences list navigation', 'wporg-learn' ),
+	);
+
+	$args = array(
+		'labels'            => $labels,
+		'hierarchical'      => false,
+		'public'            => true,
+		'query_var'         => 'wporg_audience', // Prevent collisions with query params in the archive
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'show_in_nav_menus' => true,
+		'show_tagcloud'     => false,
+		'show_in_rest'      => true,
+		'capabilities'      => array(
+			'assign_terms' => 'edit_any_learn_content', // See WordPressdotorg\Theme\Learn_2024\Capabilities\map_meta_caps
+		),
+	);
+
+	register_taxonomy( 'audience', array( 'lesson', 'course' ), $args );
 }
 
 /**

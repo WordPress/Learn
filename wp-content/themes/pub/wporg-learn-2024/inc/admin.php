@@ -25,14 +25,23 @@ function add_admin_list_table_filters( $post_type, $which ) {
 		return;
 	}
 
-	$level            = filter_input( INPUT_GET, 'wporg_experience_level', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-	$available_levels = get_available_taxonomy_terms( 'level', $post_type );
-
-	if ( empty( $available_levels ) ) {
-		return;
-	}
-
+	$audience            = filter_input( INPUT_GET, 'wporg_audience', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+	$level               = filter_input( INPUT_GET, 'wporg_experience_level', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+	$available_audiences = get_available_taxonomy_terms( 'audience', $post_type );
+	$available_levels    = get_available_taxonomy_terms( 'level', $post_type );
 	?>
+
+		<label for="filter-by-audience" class="screen-reader-text">
+			<?php esc_html_e( 'Filter by audience', 'wporg-learn' ); ?>
+		</label>
+		<select id="filter-by-audience" name="wporg_audience">
+			<option value=""<?php selected( ! $audience ); ?>><?php esc_html_e( 'Any audience', 'wporg-learn' ); ?></option>
+			<?php foreach ( $available_audiences as $code => $name ) : ?>
+				<option value="<?php echo esc_attr( $code ); ?>"<?php selected( $code, $audience ); ?>>
+					<?php echo esc_html( $name ); ?>
+				</option>
+			<?php endforeach; ?>
+		</select>
 
 		<label for="filter-by-level" class="screen-reader-text">
 			<?php esc_html_e( 'Filter by level', 'wporg-learn' ); ?>
