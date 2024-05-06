@@ -54,7 +54,7 @@ function register_experience_level() {
 		'show_tagcloud'     => false,
 		'show_in_rest'      => true,
 		'capabilities'      => array(
-			'assign_terms' => 'edit_lessons',
+			'assign_terms' => 'edit_any_learn_content', // See WordPressdotorg\Theme\Learn_2024\Capabilities\map_meta_caps.
 		),
 	);
 

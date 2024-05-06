@@ -8,6 +8,11 @@ namespace WordPressdotorg\Theme\Learn_2024;
 require __DIR__ . '/inc/admin.php';
 
 /**
+ * Capabilities.
+ */
+require __DIR__ . '/inc/capabilities.php';
+
+/**
  * Taxonomies.
  */
 require __DIR__ . '/inc/taxonomy.php';
