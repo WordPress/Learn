@@ -3,6 +3,11 @@
 namespace WordPressdotorg\Theme\Learn_2024;
 
 /**
+ * Admin.
+ */
+require __DIR__ . '/inc/admin.php';
+
+/**
  * Taxonomies.
  */
 require __DIR__ . '/inc/taxonomy.php';

@@ -58,6 +58,53 @@ function register_experience_level() {
 		),
 	);
 
-	register_taxonomy( 'level', array( 'lesson', 'course' ), $args );
+	register_taxonomy( 'experience_level', array( 'lesson', 'course' ), $args );
 }
 
+/**
+ * Get available taxonomy terms for a post type.
+ *
+ * @param string $taxonomy The taxonomy.
+ * @param string $post_type The post type.
+ * @param string $post_status The post status.
+ * @return array The available taxonomy terms.
+ */
+function get_available_taxonomy_terms( $taxonomy, $post_type, $post_status = null ) {
+	$posts = get_posts( array(
+		'post_status'    => $post_status ?? 'any',
+		'post_type'      => $post_type,
+		'posts_per_page' => -1,
+	) );
+
+	if ( empty( $posts ) ) {
+		return array();
+	}
+
+	$term_ids = array();
+	foreach ( $posts as $post ) {
+		$post_terms = wp_get_post_terms( $post->ID, $taxonomy, array( 'fields' => 'ids' ) );
+
+		if ( ! is_wp_error( $post_terms ) ) {
+			$term_ids = array_merge( $term_ids, $post_terms );
+		}
+	}
+
+	if ( empty( $term_ids ) ) {
+		return array();
+	}
+
+	$term_ids = array_unique( $term_ids );
+
+	$terms = get_terms( array(
+		'taxonomy'   => $taxonomy,
+		'include'    => $term_ids,
+		'hide_empty' => false,
+	) );
+
+	$levels = array();
+	foreach ( $terms as $term ) {
+		$levels[ $term->slug ] = $term->name;
+	}
+
+	return $levels;
+}
