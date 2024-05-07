@@ -139,3 +139,46 @@ function enqueue_language_meta_assets() {
 		wp_set_script_translations( 'wporg-learn-language-meta', 'wporg-learn' );
 	}
 }
+
+/**
+ * Get a list of locales that are associated with at least one post of the specified type.
+ *
+ * @param string $meta_key
+ * @param string $post_type
+ * @param string $post_status
+ * @param string $label_language
+ *
+ * @return array
+ */
+function get_available_post_type_locales( $meta_key, $post_type, $post_status, $label_language = 'english' ) {
+	global $wpdb;
+
+	$and_post_status = '';
+	if ( in_array( $post_status, get_post_stati(), true ) ) {
+		$and_post_status = "AND posts.post_status = '$post_status'";
+	}
+
+	$results = $wpdb->get_col( $wpdb->prepare(
+		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $and_post_status only includes $post_status if it matches an allowed string.
+		"
+		SELECT DISTINCT postmeta.meta_value
+		FROM {$wpdb->postmeta} postmeta
+			JOIN {$wpdb->posts} posts ON posts.ID = postmeta.post_id AND posts.post_type = %s $and_post_status
+		WHERE postmeta.meta_key = %s
+	",
+		$post_type,
+		$meta_key
+		// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+	) );
+
+	if ( empty( $results ) ) {
+		return array();
+	}
+
+	$available_locales = array_fill_keys( $results, '' );
+
+	$locale_fn = "\WordPressdotorg\Locales\get_locales_with_{$label_language}_names";
+	$locales   = $locale_fn();
+
+	return array_intersect_key( $locales, $available_locales );
+}
