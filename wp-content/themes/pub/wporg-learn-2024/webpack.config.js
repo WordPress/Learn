@@ -5,6 +5,10 @@ const [ scriptConfig ] = defaultConfig;
 
 module.exports = {
 	...scriptConfig,
+	entry: {
+		...scriptConfig.entry,
+		'language-meta': './src/language-meta/index.js',
+	},
 	plugins: [
 		...scriptConfig.plugins,
 		new RtlCssPlugin( {

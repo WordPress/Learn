@@ -49,6 +49,11 @@ require get_includes_path() . 'admin.php';
 require get_includes_path() . 'capabilities.php';
 
 /**
+ * Post meta.
+ */
+require get_includes_path() . 'post-meta.php';
+
+/**
  * Taxonomies.
  */
 require get_includes_path() . 'taxonomy.php';
