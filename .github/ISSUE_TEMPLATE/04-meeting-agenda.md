@@ -45,22 +45,27 @@ _This week’s meeting will be hosted by MEETING_HOST._
 **[Content ready for review](https://github.com/orgs/WordPress/projects/33/views/17)**
 
 - See [Guidelines for reviewing content](https://make.wordpress.org/training/handbook/training-team-how-to-guides/guidelines-for-reviewing-content-on-learn/) when reviewing content.
+- We have # issues ready for review
 
 **[Feedback awaiting validation](https://github.com/orgs/WordPress/projects/78/views/3)**
 
 - See [Validating and Applying Content Feedback](https://make.wordpress.org/training/handbook/training-team-how-to-guides/how-we-use-github/validating-and-applying-content-feedback/) for step-by-step guidance on validating feedback.
+- We have # issues that require validation
 
 **[Topics awaiting vetting](https://github.com/orgs/WordPress/projects/105/views/1)**
 
 - See [Vetting Topic Ideas](https://make.wordpress.org/training/handbook/training-team-how-to-guides/how-we-use-github/vetting-topic-ideas/) for step-by-step guidance on vetting topic ideas.
+- We have # issues that require vetting
 
 **[Good first issues for developers](https://github.com/orgs/WordPress/projects/71/views/7)**
 
 - See [Developing Learn WordPress](https://make.wordpress.org/training/handbook/training-team-how-to-guides/developing-learn-wordpress/) for instructions on contributing to the Learn WordPress code.
+- We have # issues requiring development
 
 **[Validated feedback awaiting fix](https://github.com/orgs/WordPress/projects/78/views/4)**
 
 - Faculty Editors, see [Validating and Applying Content Feedback](https://make.wordpress.org/training/handbook/training-team-how-to-guides/how-we-use-github/validating-and-applying-content-feedback/) for step-by-step guidance on applying feedback that has been validated.
+- We have # issues awaiting a fix
 
 ## 3. Contribution Acknowledgement
 
