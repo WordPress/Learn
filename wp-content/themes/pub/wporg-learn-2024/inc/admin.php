@@ -3,6 +3,7 @@
 namespace WordPressdotorg\Theme\Learn_2024\Admin;
 
 use WP_Query;
+use function WordPressdotorg\Locales\get_locale_name_from_code;
 use function WordPressdotorg\Theme\Learn_2024\Taxonomy\get_available_taxonomy_terms;
 
 defined( 'WPINC' ) || die();
@@ -11,6 +12,10 @@ defined( 'WPINC' ) || die();
  * Actions and filters.
  */
 add_action( 'restrict_manage_posts', __NAMESPACE__ . '\add_admin_list_table_filters', 10, 2 );
+foreach ( array( 'meeting', 'course', 'lesson' ) as $pt ) {
+	add_filter( 'manage_' . $pt . '_posts_columns', __NAMESPACE__ . '\add_list_table_language_column' );
+	add_filter( 'manage_' . $pt . '_posts_custom_column', __NAMESPACE__ . '\render_list_table_language_column', 10, 2 );
+}
 
 /**
  * Add filtering controls for the course and lesson list tables.
@@ -56,4 +61,39 @@ function add_admin_list_table_filters( $post_type, $which ) {
 		</select>
 
 	<?php
+}
+
+/**
+ * Add a language column to the post list table.
+ *
+ * @param array $columns
+ *
+ * @return array
+ */
+function add_list_table_language_column( $columns ) {
+	$columns = array_slice( $columns, 0, -2, true )
+				+ array( 'language' => __( 'Language', 'wporg-learn' ) )
+				+ array_slice( $columns, -2, 2, true );
+
+	return $columns;
+}
+
+/**
+ * Render the cell contents for the additional language columns in the post list table.
+ *
+ * @param string $column_name
+ * @param int    $post_id
+ *
+ * @return void
+ */
+function render_list_table_language_column( $column_name, $post_id ) {
+	$language = get_post_meta( get_the_ID(), 'language', true );
+
+	if ( 'language' === $column_name ) {
+		printf(
+			'%s [%s]',
+			esc_html( get_locale_name_from_code( $language, 'english' ) ),
+			esc_html( $language )
+		);
+	}
 }
