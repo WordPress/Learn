@@ -8,7 +8,6 @@ defined( 'WPINC' ) || die();
  * Actions and filters.
  */
 add_action( 'init', __NAMESPACE__ . '\register' );
-add_filter( 'sensei_course_custom_navigation_tabs', __NAMESPACE__ . '\add_sensei_course_custom_navigation_tabs' );
 
 /**
  * Register all the taxonomies.
@@ -152,22 +151,6 @@ function register_learning_pathway() {
 	);
 
 	register_taxonomy( 'learning-pathways', array( 'course' ), $args );
-}
-
-/**
- * Add custom navigation tabs for Sensei courses.
- *
- * @param array $tabs The existing navigation tabs.
- * @return array The modified navigation tabs.
- */
-function add_sensei_course_custom_navigation_tabs( $tabs ) {
-	$tabs['learning-pathways'] = array(
-		'label'     => __( 'Learning Pathways', 'wporg-learn' ),
-		'url'       => admin_url( 'edit-tags.php?taxonomy=learning-pathways&post_type=course' ),
-		'screen_id' => 'edit-learning-pathways',
-	);
-
-	return $tabs;
 }
 
 /**
