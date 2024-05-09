@@ -56,8 +56,25 @@ require get_includes_path() . 'taxonomy.php';
 /**
  * Actions and filters.
  */
+add_action( 'after_setup_theme', __NAMESPACE__ . '\setup' );
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_assets' );
 add_filter( 'wporg_block_navigation_menus', __NAMESPACE__ . '\add_site_navigation_menus' );
+
+/**
+ * Sets up theme defaults and registers support for various WordPress features.
+ *
+ * Note that this function is hooked into the after_setup_theme hook, which
+ * runs before the init hook. The init hook is too late for some features, such
+ * as indicating support for post thumbnails.
+ */
+function setup() {
+	add_theme_support( 'post-thumbnails' );
+	add_theme_support( 'sensei' );
+	add_theme_support( 'responsive-embeds' );
+
+	add_filter( 'mkaz_code_syntax_force_loading', '__return_true' );
+	add_filter( 'mkaz_prism_css_path', '__return_empty_string' ); // Disable default styles to avoid conflicts.
+}
 
 /**
  * Enqueue scripts and styles.
