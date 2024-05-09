@@ -3,6 +3,9 @@
 	"version": 2,
 	"settings": {
 		"custom": {
+			"color": {
+				"border": "var(--wp--preset--color--light-grey-1)"
+			},
 			"heading": {
 				"typography": {
 					"fontFamily": "var(--wp--preset--font-family--inter)",
@@ -84,6 +87,13 @@
 								"lineHeight": 1.2
 							}
 						}
+					}
+				}
+			},
+			"sensei": {
+				"lesson": {
+					"main-content": {
+						"padding-right": "calc(var(--wp--preset--spacing--edge-space) - 24px)"
 					}
 				}
 			}
