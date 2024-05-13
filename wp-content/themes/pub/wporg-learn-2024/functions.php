@@ -59,6 +59,23 @@ require get_includes_path() . 'taxonomy.php';
 add_action( 'after_setup_theme', __NAMESPACE__ . '\setup' );
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_assets' );
 add_filter( 'wporg_block_navigation_menus', __NAMESPACE__ . '\add_site_navigation_menus' );
+add_filter( 'single_template_hierarchy', __NAMESPACE__ . '\modify_single_template' );
+
+/**
+ * Modify the single template hierarchy to use a customised copy of the Sensei Course Theme template for lessons.
+ *
+ * @param array $templates Array of template files.
+ * @return array
+ */
+function modify_single_template( $templates ) {
+	if ( is_singular( 'lesson' ) ) {
+		array_unshift( $templates, 'single-lesson.html' );
+	} elseif ( is_singular( 'quiz' ) ) {
+		array_unshift( $templates, 'single-quiz.html' );
+	}
+
+	return $templates;
+}
 
 /**
  * Sets up theme defaults and registers support for various WordPress features.

@@ -1,0 +1,76 @@
+body.sensei {
+	--content-size: var(--wp--style--global--content-size);
+	--content-padding: var(--wp--preset--spacing--edge-space);
+	--sensei-lm-header-height: 60px;
+	--sensei-lm-sidebar-width: calc(280px + var(--wp--preset--spacing--edge-space));
+
+	--border-color: var(--wp--custom--color--border);
+	--sensei-secondary-color: var(--wp--preset--color--blueberry-1);
+	--sensei-button-text-color: var(--wp--preset--color--white);
+
+	--sensei-course-progress-bar-color: var(--wp--custom--color--border);
+	--sensei-course-progress-bar-inner-color: var(--wp--preset--color--blueberry-1);
+	--sensei-lesson-meta-color: var(--wp--preset--color--charcoal-4);
+	--sensei-module-lesson-color: var(--wp--preset--color--charcoal-1);
+
+	.sensei-course-theme-header-content > .wp-block-group {
+		row-gap: 0;
+	}
+
+	.sensei-course-theme__columns .sensei-course-theme__sidebar ~ .sensei-course-theme__main-content {
+		--sensei-lm-sidebar-width: calc(280px + (var(--wp--preset--spacing--edge-space) * 2) - 24px);
+
+		@media (min-width: 890px) {
+			padding-right: calc(var(--wp--preset--spacing--edge-space) - 24px);
+		}
+	}
+
+	.sensei-lms-course-navigation-module__header {
+		.sensei-collapsible__toggle.sensei-lms-course-navigation-module__button {
+			flex-direction: row-reverse;
+			align-items: flex-start;
+			gap: 0;
+		}
+	}
+
+	.sensei-lms-course-navigation-module__title {
+		font-weight: 700;
+		font-size: var(--wp--preset--font-size--small);
+		color: var(--wp--preset--color--charcoal-1);
+		margin-top: unset;
+	}
+
+	.sensei-lms-course-navigation-module__lessons.sensei-collapsible__content,
+	.sensei-lms-course-navigation-module__summary {
+		padding-left: 24px;
+	}
+
+	.sensei-lms-course-navigation-module__summary {
+		font-size: var(--wp--preset--font-size--xsmall);
+	}
+
+	.sensei-lms-course-navigation-lesson {
+		font-size: var(--wp--preset--font-size--small);
+
+		&.status-in-progress,
+		&.status-not-started {
+			--sensei-module-lesson-color: var(--wp--preset--color--charcoal-4);
+		}
+	}
+
+	@media screen and (max-width: 782px) {
+		.sensei-lesson-footer .wp-block-sensei-lms-button-lesson-completed {
+			display: flex;
+
+			.wp-block-button__link {
+				flex: 1;
+			}
+		}
+	}
+
+	&.quiz {
+		#sensei-quiz-list .question-title {
+			font-size: var(--wp--preset--font-size--heading-2);
+		}
+	}
+}

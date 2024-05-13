@@ -147,7 +147,7 @@
 	     provided as a comma-delimited list. -->
 	<rule ref="WordPress.WP.I18n">
 		<properties>
-			<property name="text_domain" type="array" value="wporg-learn,wporg_learn" />
+			<property name="text_domain" type="array" value="wporg-learn,wporg_learn,sensei-lms" />
 		</properties>
 	</rule>
 </ruleset>
