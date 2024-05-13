@@ -60,9 +60,20 @@ add_action( 'after_setup_theme', __NAMESPACE__ . '\setup' );
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_assets' );
 add_filter( 'wporg_block_navigation_menus', __NAMESPACE__ . '\add_site_navigation_menus' );
 add_filter( 'single_template_hierarchy', __NAMESPACE__ . '\modify_single_template' );
+remove_filter( 'template_include', array( 'Sensei_Templates', 'template_loader' ), 10, 1 );
+add_filter( 'sensei_register_post_type_lesson', function( $args ) {
+	$args['has_archive'] = true;
+	return $args;
+} );
+add_filter( 'sensei_lesson_slug', function( $slug ) {
+	return _x( 'lessons', 'post type single slug', 'wporg-learn' );
+} );
+add_filter( 'sensei_course_slug', function( $slug ) {
+	return _x( 'courses', 'post type single url base', 'wporg-learn' );
+} );
 
 /**
- * Modify the single template hierarchy to use a customised copy of the Sensei Course Theme template for lessons.
+ * Modify the single template hierarchy to use customised copies of the Sensei Course Theme templates.
  *
  * @param array $templates Array of template files.
  * @return array
