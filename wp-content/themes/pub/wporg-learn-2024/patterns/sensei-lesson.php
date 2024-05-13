@@ -4,7 +4,7 @@
  * Slug: wporg-learn-2024/sensei-lesson
  * Inserter: no
  *
- * Copied from https://github.com/Automattic/sensei/blob/trunk/themes/sensei-course-theme/templates/default/lesson.php
+ * Original source: https://github.com/Automattic/sensei/blob/af62fb1115daf2063bc56331a7d8b1b3ea805866/themes/sensei-course-theme/templates/default/lesson.php
  */
 
 ?>
