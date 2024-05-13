@@ -70,6 +70,8 @@ add_filter( 'single_template_hierarchy', __NAMESPACE__ . '\modify_single_templat
 function modify_single_template( $templates ) {
 	if ( is_singular( 'lesson' ) ) {
 		array_unshift( $templates, 'single-lesson.html' );
+	} elseif ( is_singular( 'quiz' ) ) {
+		array_unshift( $templates, 'single-quiz.html' );
 	}
 
 	return $templates;
