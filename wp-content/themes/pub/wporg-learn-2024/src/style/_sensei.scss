@@ -9,6 +9,7 @@ body.sensei {
 	--sensei-lm-sidebar-width: calc(280px + var(--wp--preset--spacing--edge-space));
 	--border-color: var(--wp--custom--color--border);
 	--content-size: var(--wp--style--global--content-size);
+	--content-padding: var(--wp--preset--spacing--edge-space);
 
 	.sensei-course-theme-header-content > .wp-block-group {
 		row-gap: 0;
@@ -62,6 +63,12 @@ body.sensei {
 			.wp-block-button__link {
 				flex: 1;
 			}
+		}
+	}
+
+	&.quiz {
+		#sensei-quiz-list .question-title {
+			font-size: var(--wp--preset--font-size--heading-2);
 		}
 	}
 }
