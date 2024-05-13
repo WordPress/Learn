@@ -1,15 +1,17 @@
 body.sensei {
+	--content-size: var(--wp--style--global--content-size);
+	--content-padding: var(--wp--preset--spacing--edge-space);
+	--sensei-lm-header-height: 60px;
+	--sensei-lm-sidebar-width: calc(280px + var(--wp--preset--spacing--edge-space));
+
+	--border-color: var(--wp--custom--color--border);
 	--sensei-secondary-color: var(--wp--preset--color--blueberry-1);
+	--sensei-button-text-color: var(--wp--preset--color--white);
+
 	--sensei-course-progress-bar-color: var(--wp--custom--color--border);
 	--sensei-course-progress-bar-inner-color: var(--wp--preset--color--blueberry-1);
 	--sensei-lesson-meta-color: var(--wp--preset--color--charcoal-4);
 	--sensei-module-lesson-color: var(--wp--preset--color--charcoal-1);
-	--sensei-button-text-color: var(--wp--preset--color--white);
-	--sensei-lm-header-height: 60px;
-	--sensei-lm-sidebar-width: calc(280px + var(--wp--preset--spacing--edge-space));
-	--border-color: var(--wp--custom--color--border);
-	--content-size: var(--wp--style--global--content-size);
-	--content-padding: var(--wp--preset--spacing--edge-space);
 
 	.sensei-course-theme-header-content > .wp-block-group {
 		row-gap: 0;
