@@ -89,13 +89,6 @@
 						}
 					}
 				}
-			},
-			"sensei": {
-				"lesson": {
-					"main-content": {
-						"padding-right": "calc(var(--wp--preset--spacing--edge-space) - 24px)"
-					}
-				}
 			}
 		},
 		"layout": {
