@@ -485,8 +485,8 @@ function language_bulk_edit_save( $post_id ) {
 function add_sensei_course_custom_navigation_tabs( $tabs ) {
 	$tabs['learning-pathways'] = array(
 		'label'     => __( 'Learning Pathways', 'wporg-learn' ),
-		'url'       => admin_url( 'edit-tags.php?taxonomy=learning-pathways&post_type=course' ),
-		'screen_id' => 'edit-learning-pathways',
+		'url'       => admin_url( 'edit-tags.php?taxonomy=learning-pathway&post_type=course' ),
+		'screen_id' => 'edit-learning-pathway',
 	);
 
 	return $tabs;

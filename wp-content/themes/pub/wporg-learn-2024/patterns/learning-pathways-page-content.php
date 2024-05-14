@@ -13,7 +13,7 @@
 
 $learning_pathways = get_terms(
 	array(
-		'taxonomy'   => 'learning-pathways',
+		'taxonomy'   => 'learning-pathway',
 		'hide_empty' => false,
 	)
 );
