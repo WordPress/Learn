@@ -33,6 +33,7 @@ foreach ( array( 'lesson-plan', 'wporg_workshop', 'course', 'lesson' ) as $pt ) 
 add_action( 'pre_get_posts', __NAMESPACE__ . '\handle_list_table_views' );
 add_action( 'bulk_edit_custom_box', __NAMESPACE__ . '\add_language_bulk_edit_field', 10, 2 );
 add_action( 'save_post', __NAMESPACE__ . '\language_bulk_edit_save' );
+add_filter( 'sensei_course_custom_navigation_tabs', __NAMESPACE__ . '\add_sensei_course_custom_navigation_tabs' );
 
 /**
  * Show a notice on taxonomy term screens about terms being translatable.
@@ -473,4 +474,20 @@ function language_bulk_edit_save( $post_id ) {
 	}
 
 	update_post_meta( $post_id, 'language', $_REQUEST['language'] );
+}
+
+/**
+ * Add custom navigation tabs for Sensei courses.
+ *
+ * @param array $tabs The existing navigation tabs.
+ * @return array The modified navigation tabs.
+ */
+function add_sensei_course_custom_navigation_tabs( $tabs ) {
+	$tabs['learning-pathways'] = array(
+		'label'     => __( 'Learning Pathways', 'wporg-learn' ),
+		'url'       => admin_url( 'edit-tags.php?taxonomy=learning-pathway&post_type=course' ),
+		'screen_id' => 'edit-learning-pathway',
+	);
+
+	return $tabs;
 }

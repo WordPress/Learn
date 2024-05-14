@@ -8,23 +8,17 @@
 
 		<!-- wp:query-title {"type":"archive","showPrefix":false} /-->
 
-		<!-- wp:query {"queryId":10,"query":{"perPage":6,"pages":0,"offset":0,"postType":"course","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"exclude","inherit":true},"metadata":{"categories":["posts"],"patternName":"core/query-grid-posts","name":"Grid"}} -->
-		<div class="wp-block-query">
+		<!-- wp:query {"query":{"postType":"course","order":"desc","orderBy":"date","inherit":true}} -->
+		<div class="wp-block-query wp-block-sensei-lms-course-list">
+			
+			<!-- wp:post-template -->
 
-			<!-- wp:post-template {"layout":{"type":"grid","columnCount":3}} -->
-
-				<!-- wp:group {"style":{"spacing":{"padding":{"top":"30px","right":"30px","bottom":"30px","left":"30px"}}},"layout":{"inherit":false}} -->
-				<div class="wp-block-group" style="padding-top:30px;padding-right:30px;padding-bottom:30px;padding-left:30px">
-
-					<!-- wp:post-title {"isLink":true} /-->
-
-					<!-- wp:post-excerpt /-->
-					
-					<!-- wp:post-date /-->
-
-				</div>
-				<!-- /wp:group -->
-
+				<!-- wp:post-title {"isLink":true} /-->
+				
+				<!-- wp:post-featured-image {"isLink":true,"align":"wide"} /-->
+				
+				<!-- wp:post-excerpt /-->
+				
 			<!-- /wp:post-template -->
 
 			<!-- wp:pattern {"slug":"wporg-learn-2024/query-no-results-course"} /-->
