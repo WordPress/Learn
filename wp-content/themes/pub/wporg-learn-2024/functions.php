@@ -144,19 +144,19 @@ function add_site_navigation_menus( $menus ) {
 		'learn' => array(
 			array(
 				'label' => __( 'User', 'wporg-learn' ),
-				'url'   => '/learning-pathways/user/',
+				'url'   => '/learning-pathway/user/',
 			),
 			array(
 				'label' => __( 'Designer', 'wporg-learn' ),
-				'url'   => '/learning-pathways/designer/',
+				'url'   => '/learning-pathway/designer/',
 			),
 			array(
 				'label' => __( 'Contributor', 'wporg-learn' ),
-				'url'   => '/learning-pathways/contributor/',
+				'url'   => '/learning-pathway/contributor/',
 			),
 			array(
 				'label' => __( 'Developer', 'wporg-learn' ),
-				'url'   => '/learning-pathways/developer/',
+				'url'   => '/learning-pathway/developer/',
 			),
 		),
 	);
