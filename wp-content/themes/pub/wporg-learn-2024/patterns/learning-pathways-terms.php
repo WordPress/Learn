@@ -1,7 +1,7 @@
 <?php
 /**
  * Title: Learning Pathways Page content
- * Slug: wporg-learn-2024/learning-pathways-page-content
+ * Slug: wporg-learn-2024/learning-pathways-terms
  * Inserter: no
  */
 

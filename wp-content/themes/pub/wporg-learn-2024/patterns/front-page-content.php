@@ -14,7 +14,7 @@
 	<h2 class="wp-block-heading is-style-short-text has-heading-5-font-size" style="font-style:normal;font-weight:600"><?php esc_html_e( 'Get Started', 'wporg-learn' ); ?></h2>
 	<!-- /wp:heading -->
 
-	<!-- wp:pattern {"slug":"wporg-learn-2024/learning-pathways-page-content"} /-->
+	<!-- wp:pattern {"slug":"wporg-learn-2024/learning-pathways-terms"} /-->
 
 </div>
 <!-- /wp:group -->
