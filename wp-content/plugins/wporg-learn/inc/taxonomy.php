@@ -569,6 +569,10 @@ function register_learning_pathway() {
 		'capabilities'      => array(
 			'assign_terms' => 'edit_others_posts',
 		),
+		'rewrite'           => array(
+			'slug'       => 'learning-pathway', // Base slug for single terms
+			'with_front' => false, // Don't show the category base before the slug
+		),
 	);
 
 	register_taxonomy( 'learning-pathways', array( 'course' ), $args );
