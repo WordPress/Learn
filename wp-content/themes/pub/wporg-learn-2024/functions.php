@@ -143,6 +143,10 @@ function add_site_navigation_menus( $menus ) {
 	return array(
 		'learn' => array(
 			array(
+				'label' => __( 'Learning Pathways', 'wporg-learn' ),
+				'url'   => '/learning-pathways/',
+			),
+			array(
 				'label' => __( 'User', 'wporg-learn' ),
 				'url'   => '/learning-pathway/user/',
 			),
@@ -157,6 +161,18 @@ function add_site_navigation_menus( $menus ) {
 			array(
 				'label' => __( 'Developer', 'wporg-learn' ),
 				'url'   => '/learning-pathway/developer/',
+			),
+			array(
+				'label' => __( 'Courses', 'wporg-learn' ),
+				'url'   => '/courses/',
+			),
+			array(
+				'label' => __( 'Lessons', 'wporg-learn' ),
+				'url'   => '/lessons/',
+			),
+			array(
+				'label' => __( 'Online Workshops', 'wporg-learn' ),
+				'url'   => '/online-workshops/',
 			),
 		),
 	);
