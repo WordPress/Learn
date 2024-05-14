@@ -11,7 +11,6 @@ defined( 'WPINC' ) || die();
  * Actions and filters.
  */
 add_action( 'restrict_manage_posts', __NAMESPACE__ . '\add_admin_list_table_filters', 10, 2 );
-add_filter( 'sensei_course_custom_navigation_tabs', __NAMESPACE__ . '\add_sensei_course_custom_navigation_tabs' );
 
 /**
  * Add filtering controls for the course and lesson list tables.
@@ -57,20 +56,4 @@ function add_admin_list_table_filters( $post_type, $which ) {
 		</select>
 
 	<?php
-}
-
-/**
- * Add custom navigation tabs for Sensei courses.
- *
- * @param array $tabs The existing navigation tabs.
- * @return array The modified navigation tabs.
- */
-function add_sensei_course_custom_navigation_tabs( $tabs ) {
-	$tabs['learning-pathways'] = array(
-		'label'     => __( 'Learning Pathways', 'wporg-learn' ),
-		'url'       => admin_url( 'edit-tags.php?taxonomy=learning-pathways&post_type=course' ),
-		'screen_id' => 'edit-learning-pathways',
-	);
-
-	return $tabs;
 }

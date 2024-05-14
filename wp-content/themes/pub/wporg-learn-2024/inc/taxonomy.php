@@ -15,7 +15,6 @@ add_action( 'init', __NAMESPACE__ . '\register' );
 function register() {
 	register_audience();
 	register_experience_level();
-	register_learning_pathway();
 }
 
 /**
@@ -106,51 +105,6 @@ function register_experience_level() {
 	);
 
 	register_taxonomy( 'level', array( 'lesson', 'course' ), $args );
-}
-
-/**
- * Register the Learning Pathway taxonomy.
- */
-function register_learning_pathway() {
-	$labels = array(
-		'name'                       => _x( 'Learning Pathways', 'Taxonomy General Name', 'wporg-learn' ),
-		'singular_name'              => _x( 'Learning Pathway', 'Taxonomy Singular Name', 'wporg-learn' ),
-		'menu_name'                  => __( 'Learning pathway', 'wporg-learn' ),
-		'all_items'                  => __( 'All learning pathways', 'wporg-learn' ),
-		'parent_item'                => __( 'Parent learning pathway', 'wporg-learn' ),
-		'parent_item_colon'          => __( 'Parent learning pathway:', 'wporg-learn' ),
-		'new_item_name'              => __( 'New learning pathway Name', 'wporg-learn' ),
-		'add_new_item'               => __( 'Add New learning pathway', 'wporg-learn' ),
-		'edit_item'                  => __( 'Edit learning pathway', 'wporg-learn' ),
-		'update_item'                => __( 'Update learning pathway', 'wporg-learn' ),
-		'view_item'                  => __( 'View learning pathway', 'wporg-learn' ),
-		'separate_items_with_commas' => __( 'Separate learning pathways with commas', 'wporg-learn' ),
-		'add_or_remove_items'        => __( 'Add or remove learning pathways', 'wporg-learn' ),
-		'choose_from_most_used'      => __( 'Choose from the most used', 'wporg-learn' ),
-		'popular_items'              => __( 'Popular learning pathways', 'wporg-learn' ),
-		'search_items'               => __( 'Search learning pathways', 'wporg-learn' ),
-		'not_found'                  => __( 'No learning pathway found', 'wporg-learn' ),
-		'no_terms'                   => __( 'No learning pathways', 'wporg-learn' ),
-		'items_list'                 => __( 'Learning pathways list', 'wporg-learn' ),
-		'items_list_navigation'      => __( 'Learning pathways list navigation', 'wporg-learn' ),
-	);
-
-	$args = array(
-		'labels'            => $labels,
-		'hierarchical'      => false,
-		'public'            => true,
-		'query_var'         => 'wporg_learning_pathway', // Prevent collisions with query params in the archive
-		'show_ui'           => true,
-		'show_admin_column' => true,
-		'show_in_nav_menus' => true,
-		'show_tagcloud'     => false,
-		'show_in_rest'      => true,
-		'capabilities'      => array(
-			'assign_terms' => 'edit_others_posts',
-		),
-	);
-
-	register_taxonomy( 'learning-pathways', array( 'course' ), $args );
 }
 
 /**
