@@ -3,57 +3,6 @@
 namespace WordPressdotorg\Theme\Learn_2024;
 
 /**
- * Shortcut to the build directory.
- *
- * @return string
- */
-function get_build_path() {
-	return get_stylesheet_directory() . '/build/';
-}
-
-/**
- * Shortcut to the build URL.
- *
- * @return string
- */
-function get_build_url() {
-	return get_stylesheet_directory_uri() . '/build/';
-}
-
-/**
- * Shortcut to the includes directory.
- *
- * @return string
- */
-function get_includes_path() {
-	return get_stylesheet_directory() . '/inc/';
-}
-
-/**
- * Shortcut to the views directory.
- *
- * @return string
- */
-function get_views_path() {
-	return get_stylesheet_directory() . '/views/';
-}
-
-/**
- * Admin.
- */
-require get_includes_path() . 'admin.php';
-
-/**
- * Capabilities.
- */
-require get_includes_path() . 'capabilities.php';
-
-/**
- * Taxonomies.
- */
-require get_includes_path() . 'taxonomy.php';
-
-/**
  * Actions and filters.
  */
 add_action( 'after_setup_theme', __NAMESPACE__ . '\setup' );
@@ -111,9 +60,9 @@ function enqueue_assets() {
 	// stylesheet as a dependency.
 	wp_enqueue_style(
 		'wporg-learn-2024-style',
-		get_build_url() . 'style/style-index.css',
+		get_stylesheet_directory_uri() . '/build/style/style-index.css',
 		array( 'wporg-parent-2021-style', 'wporg-global-fonts' ),
-		filemtime( get_build_path() . 'style/style-index.css' )
+		filemtime( get_stylesheet_directory() . '/build/style/style-index.css' )
 	);
 
 	// Preload the heading font(s).

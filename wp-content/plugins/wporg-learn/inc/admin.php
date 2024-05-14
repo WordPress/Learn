@@ -6,6 +6,7 @@ use WP_Query;
 use function WordPressdotorg\Locales\get_locales_with_english_names;
 use function WordPressdotorg\Locales\get_locale_name_from_code;
 use function WPOrg_Learn\Post_Meta\get_available_post_type_locales;
+use function WPOrg_Learn\Taxonomy\get_available_taxonomy_terms;
 
 defined( 'WPINC' ) || die();
 
@@ -232,32 +233,71 @@ function add_workshop_list_table_sortable_columns( $sortable_columns ) {
  * @return void
  */
 function add_admin_list_table_filters( $post_type, $which ) {
-	if ( ( 'wporg_workshop' !== $post_type && 'lesson-plan' !== $post_type ) || 'top' !== $which ) {
+	if (
+		(
+			'wporg_workshop' !== $post_type &&
+			'lesson-plan' !== $post_type &&
+			'lesson' !== $post_type &&
+			'course' !== $post_type
+		)
+		|| 'top' !== $which
+	) {
 		return;
 	}
 
-	$post_status       = filter_input( INPUT_GET, 'post_status', FILTER_SANITIZE_STRING );
-	$available_locales = get_available_post_type_locales( 'language', $post_type, $post_status );
-	$language          = filter_input( INPUT_GET, 'language', FILTER_SANITIZE_STRING );
+	$audience    = filter_input( INPUT_GET, 'wporg_audience', FILTER_SANITIZE_STRING );
+	$language    = filter_input( INPUT_GET, 'language', FILTER_SANITIZE_STRING );
+	$level       = filter_input( INPUT_GET, 'wporg_experience_level', FILTER_SANITIZE_STRING );
+	$post_status = filter_input( INPUT_GET, 'post_status', FILTER_SANITIZE_STRING );
+
+	$available_audiences = get_available_taxonomy_terms( 'audience', $post_type, $post_status );
+	$available_levels    = get_available_taxonomy_terms( 'level', $post_type, $post_status );
+	$available_locales   = get_available_post_type_locales( 'language', $post_type, $post_status );
 
 	?>
-	<label for="filter-by-language" class="screen-reader-text">
-		<?php esc_html_e( 'Filter by language', 'wporg-learn' ); ?>
-	</label>
-	<select id="filter-by-language" name="language">
-		<option value=""<?php selected( ! $language ); ?>><?php esc_html_e( 'Any language', 'wporg-learn' ); ?></option>
-		<?php foreach ( $available_locales as $code => $name ) : ?>
-			<option value="<?php echo esc_attr( $code ); ?>"<?php selected( $code, $language ); ?>>
-				<?php
-				printf(
-					'%s [%s]',
-					esc_html( $name ),
-					esc_html( $code )
-				);
-				?>
-			</option>
-		<?php endforeach; ?>
-	</select>
+
+		<label for="filter-by-language" class="screen-reader-text">
+			<?php esc_html_e( 'Filter by language', 'wporg-learn' ); ?>
+		</label>
+		<select id="filter-by-language" name="language">
+			<option value=""<?php selected( ! $language ); ?>><?php esc_html_e( 'Any language', 'wporg-learn' ); ?></option>
+			<?php foreach ( $available_locales as $code => $name ) : ?>
+				<option value="<?php echo esc_attr( $code ); ?>"<?php selected( $code, $language ); ?>>
+					<?php
+					printf(
+						'%s [%s]',
+						esc_html( $name ),
+						esc_html( $code )
+					);
+					?>
+				</option>
+			<?php endforeach; ?>
+		</select>
+
+		<label for="filter-by-audience" class="screen-reader-text">
+			<?php esc_html_e( 'Filter by audience', 'wporg-learn' ); ?>
+		</label>
+		<select id="filter-by-audience" name="wporg_audience">
+			<option value=""<?php selected( ! $audience ); ?>><?php esc_html_e( 'Any audience', 'wporg-learn' ); ?></option>
+			<?php foreach ( $available_audiences as $code => $name ) : ?>
+				<option value="<?php echo esc_attr( $code ); ?>"<?php selected( $code, $audience ); ?>>
+					<?php echo esc_html( $name ); ?>
+				</option>
+			<?php endforeach; ?>
+		</select>
+
+		<label for="filter-by-level" class="screen-reader-text">
+			<?php esc_html_e( 'Filter by level', 'wporg-learn' ); ?>
+		</label>
+		<select id="filter-by-level" name="wporg_experience_level">
+			<option value=""<?php selected( ! $level ); ?>><?php esc_html_e( 'Any level', 'wporg-learn' ); ?></option>
+			<?php foreach ( $available_levels as $code => $name ) : ?>
+				<option value="<?php echo esc_attr( $code ); ?>"<?php selected( $code, $level ); ?>>
+					<?php echo esc_html( $name ); ?>
+				</option>
+			<?php endforeach; ?>
+		</select>
+
 	<?php
 }
 
