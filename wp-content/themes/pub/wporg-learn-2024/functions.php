@@ -62,14 +62,12 @@ add_filter( 'wporg_block_navigation_menus', __NAMESPACE__ . '\add_site_navigatio
 add_filter( 'single_template_hierarchy', __NAMESPACE__ . '\modify_single_template' );
 remove_filter( 'template_include', array( 'Sensei_Templates', 'template_loader' ), 10, 1 );
 add_filter( 'sensei_register_post_type_lesson', function( $args ) {
-	$args['has_archive'] = true;
+	$args['has_archive'] = 'lessons';
 	return $args;
 } );
-add_filter( 'sensei_lesson_slug', function( $slug ) {
-	return _x( 'lessons', 'post type single slug', 'wporg-learn' );
-} );
-add_filter( 'sensei_course_slug', function( $slug ) {
-	return _x( 'courses', 'post type single url base', 'wporg-learn' );
+add_filter( 'sensei_register_post_type_course', function( $args ) {
+	$args['has_archive'] = 'courses';
+	return $args;
 } );
 
 /**
