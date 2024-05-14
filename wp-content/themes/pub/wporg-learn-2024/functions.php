@@ -99,7 +99,7 @@ function setup() {
 	add_theme_support( 'responsive-embeds' );
 
 	add_filter( 'mkaz_code_syntax_force_loading', '__return_true' );
-	add_filter( 'mkaz_prism_css_path', '__return_empty_string' ); // Disable default styles to avoid conflicts.
+	add_filter( 'mkaz_prism_css_path', __NAMESPACE__ . '\update_prism_css_path' );
 }
 
 /**
@@ -123,6 +123,17 @@ function enqueue_assets() {
 		// All headings.
 		global_fonts_preload( 'EB Garamond, Inter', $subsets );
 	}
+}
+
+/**
+ * Customize the syntax highlighter style.
+ * See https://github.com/PrismJS/prism-themes.
+ *
+ * @param string $path Path to the file to override, relative to the theme.
+ * @return string
+ */
+function update_prism_css_path( $path ) {
+	return '/build/prism/style-index.css';
 }
 
 /**
