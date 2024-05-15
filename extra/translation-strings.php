@@ -429,6 +429,22 @@ _x( 'Using Themes', 'Topics term name', 'wporg-learn' );
 _x( 'Using WordPress', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/topic/wordpress/ */
 _x( 'WordPress', 'Topics term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/learning-pathway/contributor/ */
+_x( 'Contributing to WordPress', 'Learning Pathways term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/learning-pathway/contributor/ */
+_x( 'Help build WordPress.', 'Learning Pathways term description', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/learning-pathway/designer/ */
+_x( 'Designing with WordPress', 'Learning Pathways term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/learning-pathway/designer/ */
+_x( 'Learn about block themes, templates, and more.', 'Learning Pathways term description', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/learning-pathway/developer/ */
+_x( 'Developing with WordPress', 'Learning Pathways term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/learning-pathway/developer/ */
+_x( 'Get up to speed on WordPress development.', 'Learning Pathways term description', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/learning-pathway/user/ */
+_x( 'Using a WordPress site', 'Learning Pathways term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/learning-pathway/user/ */
+_x( 'A basic introduction to WordPress.', 'Learning Pathways term description', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/course-category/contributing-to-wordpress/ */
 _x( 'Contributing to WordPress', 'Course Categories term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/course-category/contributing-to-wordpress/ */
