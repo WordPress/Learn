@@ -302,7 +302,7 @@ function add_admin_list_table_filters( $post_type, $which ) {
 }
 
 /**
- * Alter the query to include tutorial and lesson plan list table filters.
+ * Alter the query to include tutorial, lesson plan, lesson and course list table filters.
  *
  * @param WP_Query $query
  *
@@ -319,9 +319,46 @@ function handle_admin_list_table_filters( WP_Query $query ) {
 		return;
 	}
 
-	if ( 'edit-wporg_workshop' === $current_screen->id || 'edit-lesson-plan' === $current_screen->id ) {
+	if (
+		'edit-wporg_workshop' === $current_screen->id ||
+		'edit-lesson-plan' === $current_screen->id ||
+		'edit-lesson' === $current_screen->id ||
+		'edit-course' === $current_screen->id
+	) {
+		$audience = filter_input( INPUT_GET, 'wporg_audience', FILTER_SANITIZE_STRING );
 		$language = filter_input( INPUT_GET, 'language', FILTER_SANITIZE_STRING );
+		$level    = filter_input( INPUT_GET, 'wporg_experience_level', FILTER_SANITIZE_STRING );
 
+		// Tax queries
+		$tax_query = $query->get( 'tax_query', array() );
+
+		if ( $audience ) {
+			$tax_query[] = array(
+				'relation' => 'AND',
+				array(
+					'taxonomy' => 'audience',
+					'field'    => 'slug',
+					'terms'    => $audience,
+				),
+			);
+		}
+
+		if ( $level ) {
+			$tax_query[] = array(
+				'relation' => 'AND',
+				array(
+					'taxonomy' => 'level',
+					'field'    => 'slug',
+					'terms'    => $level,
+				),
+			);
+		}
+
+		if ( ! empty( $tax_query ) ) {
+			$query->set( 'tax_query', $tax_query );
+		}
+
+		// Meta queries
 		if ( $language ) {
 			$meta_query = $query->get( 'meta_query', array() );
 
