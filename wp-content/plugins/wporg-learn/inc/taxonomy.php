@@ -684,16 +684,14 @@ function get_available_taxonomy_terms( $taxonomy, $post_type, $post_status = nul
 
 	$term_ids = array_unique( $term_ids );
 
-	$terms = get_terms( array(
+	$term_objects = get_terms( array(
 		'taxonomy'   => $taxonomy,
 		'include'    => $term_ids,
 		'hide_empty' => false,
 	) );
 
-	$levels = array();
-	foreach ( $terms as $term ) {
-		$levels[ $term->slug ] = $term->name;
-	}
-
-	return $levels;
+	return array_reduce( $term_objects, function( $terms, $term_object ) {
+		$terms[ $term_object->slug ] = $term_object->name;
+		return $terms;
+	}, array());
 }
