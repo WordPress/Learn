@@ -7,10 +7,6 @@
 
 ?>
 
-<!-- wp:query-no-results -->
-
-	<!-- wp:paragraph -->
-	<p><?php echo esc_html__( 'No Courses found.', 'wporg-learn' ); ?></p>
-	<!-- /wp:paragraph -->
-
-<!-- /wp:query-no-results -->
+<!-- wp:paragraph -->
+<p><?php echo esc_html__( 'No Courses found.', 'wporg-learn' ); ?></p>
+<!-- /wp:paragraph -->
