@@ -225,7 +225,7 @@ function add_workshop_list_table_sortable_columns( $sortable_columns ) {
 }
 
 /**
- * Add filtering controls for the tutorial and lesson plan list tables.
+ * Add filtering controls for the tutorial, lesson plan, lesson and course list tables.
  *
  * @param string $post_type
  * @param string $which
