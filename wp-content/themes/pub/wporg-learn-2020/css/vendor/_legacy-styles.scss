@@ -2947,15 +2947,17 @@ body, #pagebody {
 		display: flex !important;
 		align-items: center;
 		font-size: 14px;
-
+		flex-wrap: wrap;
+		justify-content: right;
 	}
 
 	.main-navigation ul li {
 		border: 0;
 		display: inline-block;
 		font-size: 1rem;
-		margin-right: 1rem;
-		padding: 0;
+		margin-left: 1rem;
+		margin-right: 0;
+		padding: 0.4rem 0;
 	}
 
 	.main-navigation ul li:last-of-type {
