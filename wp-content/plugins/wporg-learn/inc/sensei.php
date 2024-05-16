@@ -17,6 +17,20 @@ add_filter( 'sensei_load_default_supported_theme_wrappers', '__return_false' );
 add_action( 'sensei_before_main_content', __NAMESPACE__ . '\theme_wrapper_start' );
 add_action( 'sensei_after_main_content', __NAMESPACE__ . '\theme_wrapper_end' );
 add_action( 'init', __NAMESPACE__ . '\wporg_correct_sensei_slugs' );
+add_action( 'init', __NAMESPACE__ . '\wporg_correct_sensei_editor_permissions' );
+
+/**
+ * Remove Sensei's default module editor permissions.
+ * See https://github.com/WordPress/Learn/issues/2331
+ *
+ * @return void
+ */
+function wporg_correct_sensei_editor_permissions() {
+	if ( current_user_can( 'editor' ) ) {
+		remove_filter( 'get_terms', array( Sensei()->modules, 'filter_module_terms' ), 20, 3 );
+		remove_filter( 'get_object_terms', array( Sensei()->modules, 'filter_course_selected_terms' ), 20, 3 );
+	}
+}
 
 /**
  * Slugs in Sensei are translatable, which won't work for our site and the language switcher.
