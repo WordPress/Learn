@@ -1,0 +1,12 @@
+.components-modal__frame {
+	box-shadow: unset;
+	border-radius: unset;
+}
+
+.components-modal__content {
+	padding: 0 var(--wp--preset--spacing--30) var(--wp--preset--spacing--30);
+}
+
+.components-modal__header {
+	padding: var(--wp--preset--spacing--20) var(--wp--preset--spacing--30) 0;
+}
