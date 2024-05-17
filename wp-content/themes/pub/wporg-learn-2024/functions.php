@@ -89,40 +89,47 @@ function update_prism_css_path( $path ) {
  * Provide a list of local navigation menus.
  */
 function add_site_navigation_menus( $menus ) {
-	return array(
-		'learn' => array(
-			array(
-				'label' => __( 'Learning Pathways', 'wporg-learn' ),
-				'url'   => '/learning-pathways/',
-			),
-			array(
-				'label' => __( 'User', 'wporg-learn' ),
-				'url'   => '/learning-pathway/user/',
-			),
-			array(
-				'label' => __( 'Designer', 'wporg-learn' ),
-				'url'   => '/learning-pathway/designer/',
-			),
-			array(
-				'label' => __( 'Contributor', 'wporg-learn' ),
-				'url'   => '/learning-pathway/contributor/',
-			),
-			array(
-				'label' => __( 'Developer', 'wporg-learn' ),
-				'url'   => '/learning-pathway/developer/',
-			),
-			array(
-				'label' => __( 'Courses', 'wporg-learn' ),
-				'url'   => '/courses/',
-			),
-			array(
-				'label' => __( 'Lessons', 'wporg-learn' ),
-				'url'   => '/lessons/',
-			),
-			array(
-				'label' => __( 'Online Workshops', 'wporg-learn' ),
-				'url'   => '/online-workshops/',
-			),
+	$menu = array(
+		array(
+			'label' => __( 'Courses', 'wporg-learn' ),
+			'url'   => '/courses/',
+		),
+		array(
+			'label' => __( 'Lessons', 'wporg-learn' ),
+			'url'   => '/lessons/',
+		),
+		array(
+			'label' => __( 'Online Workshops', 'wporg-learn' ),
+			'url'   => '/online-workshops/',
 		),
 	);
+
+	$learning_pathways = get_terms(
+		array(
+			'taxonomy'   => 'learning-pathway',
+			'hide_empty' => true,
+		)
+	);
+
+	if ( empty( $learning_pathways ) || is_wp_error( $learning_pathways ) ) {
+		$menus['learn'] = $menu;
+
+		return $menus;
+	}
+
+	$learning_pathways_menu = array(
+		'label'   => __( 'Learning Pathways', 'wporg-learn' ),
+		'submenu' => array_map( function( $term ) {
+			return array(
+				'label' => $term->name,
+				'url'   => get_term_link( $term ),
+			);
+		}, $learning_pathways ),
+	);
+
+	array_unshift( $menu, $learning_pathways_menu );
+
+	$menus['learn'] = $menu;
+
+	return $menus;
 }
