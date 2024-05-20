@@ -10,11 +10,15 @@
 <!-- wp:group {"align":"wide","layout":{"type":"default"}} -->
 <div class="wp-block-group alignwide">
 
-	<!-- wp:heading {"style":{"typography":{"fontStyle":"normal","fontWeight":"600"}},"className":"is-style-short-text","fontSize":"heading-5"} -->
-	<h2 class="wp-block-heading is-style-short-text has-heading-5-font-size" style="font-style:normal;font-weight:600"><?php esc_html_e( 'Get Started', 'wporg-learn' ); ?></h2>
+	<!-- wp:heading {"style":{"spacing":{"margin":{"top":"0"}}}} -->
+	<h2 class="wp-block-heading" style="margin-top:0"><?php esc_html_e( 'Get Started', 'wporg-learn' ); ?></h2>
 	<!-- /wp:heading -->
 
-	<!-- wp:pattern {"slug":"wporg-learn-2024/learning-pathways-terms"} /-->
+	<!-- wp:paragraph -->
+	<p><?php esc_html_e( 'Dive into our learning pathways which will take you from beginner to expert at your own pace.', 'wporg-learn' ); ?></p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:wporg-learn/learning-pathway-cards {"isMini":true} /-->
 
 </div>
 <!-- /wp:group -->
