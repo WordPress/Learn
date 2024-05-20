@@ -41,7 +41,7 @@ function render( $attributes, $content, $block ) {
 		return __( 'No learning pathways found.', 'wporg-learn' );
 	}
 
-	$content = '<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"className":"is-style-cards-grid","layout":{"type":"grid","columnCount":"2","minimumColumnWidth":null}} --><div class="wp-block-group is-style-cards-grid">';
+	$content = '<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|50"}},"className":"is-style-cards-grid","layout":{"type":"grid","columnCount":"2","minimumColumnWidth":null}} --><div class="wp-block-group is-style-cards-grid">';
 
 	foreach ( $learning_pathways as $learning_pathway ) {
 		$content .= $is_mini ? render_mini_card( $learning_pathway ) : render_full_card( $learning_pathway );
@@ -81,15 +81,15 @@ function render_mini_card( $learning_pathway ) {
 			<!-- wp:group {"style":{"spacing":{"blockGap":"0"},"dimensions":{"minHeight":"100%%"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"stretch","justifyContent":"space-between"}} -->
 			<div class="wp-block-group" style="min-height:100%%">
 			
-				<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20","left":"20px","right":"20px"},"blockGap":"10px"},"layout":{"selfStretch":"fixed","flexSize":"55%%"},"border":{"right":{"color":"var:preset|color|light-grey-1","width":"1px"},"top":{},"bottom":{},"left":{}}},"layout":{"type":"flex","orientation":"vertical"}} -->
-				<div class="wp-block-group" style="border-right-color:var(--wp--preset--color--light-grey-1);border-right-width:1px;padding-top:var(--wp--preset--spacing--20);padding-right:20px;padding-bottom:var(--wp--preset--spacing--20);padding-left:20px">
+				<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|30","bottom":"var:preset|spacing|30","left":"30px","right":"30px"},"blockGap":"10px"},"layout":{"selfStretch":"fixed","flexSize":"55%%"},"border":{"right":{"color":"var:preset|color|light-grey-1","width":"1px"},"top":{},"bottom":{},"left":{}}},"layout":{"type":"flex","orientation":"vertical"}} -->
+				<div class="wp-block-group" style="border-right-color:var(--wp--preset--color--light-grey-1);border-right-width:1px;padding-top:var(--wp--preset--spacing--30);padding-right:30px;padding-bottom:var(--wp--preset--spacing--30);padding-left:30px">
 				
-					<!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0"}}},"fontSize":"small"} -->
-					<h3 class="wp-block-heading has-small-font-size" style="margin-top:0">%2$s</h3>
+					<!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|charcoal-1"}}}},"textColor":"charcoal-1","fontSize":"small"} -->
+					<h3 class="wp-block-heading has-charcoal-1-color has-text-color has-link-color has-small-font-size" style="margin-top:0">%2$s</h3>
 					<!-- /wp:heading -->
 
-					<!-- wp:paragraph {"fontSize":"small"} -->
-					<p class="has-small-font-size">%3$s</p>
+					<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|charcoal-4"}}}},"textColor":"charcoal-4","fontSize":"small"} -->
+					<p class="has-charcoal-4-color has-text-color has-link-color has-small-font-size">%3$s</p>
 					<!-- /wp:paragraph -->
 				
 				</div>
