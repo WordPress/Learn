@@ -64,7 +64,87 @@ function render( $attributes, $content, $block ) {
  * @return string Returns the full card markup.
  */
 function render_full_card( $learning_pathway ) {
-	return $learning_pathway->name;
+	$background_colors = array(
+		'user'        => '#f5fef8',
+		'designer'    => '#fef8f6',
+		'developer'   => '#fffff4',
+		'contributor' => '#fDf5fe',
+	);
+	$count             = $learning_pathway->count;
+
+	return sprintf(
+		'<!-- wp:group {"style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"},"blockGap":"0"}},"className":"%1$s","layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap","justifyContent":"stretch"}} -->
+		<div class="wp-block-group %1$s" style="padding-top:0;padding-right:0;padding-bottom:0;padding-left:0">
+
+			<!-- wp:group {"style":{"color":{"background":"%6$s"},"border":{"bottom":{"color":"var:preset|color|light-grey-1","width":"1px"}},"spacing":{"blockGap":"0"}},"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between","verticalAlignment":"stretch"}} -->
+			<div class="wp-block-group has-background" style="border-bottom-color:var(--wp--preset--color--light-grey-1);border-bottom-width:1px;background-color:%6$s">
+
+				<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|30","bottom":"var:preset|spacing|30","left":"30px","right":"0"},"blockGap":"0"},"className":"wporg-learn-learning-pathway-card-header-content","layout":{"selfStretch":"fixed","flexSize":"50%%"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch"}} -->
+				<div class="wp-block-group wporg-learn-learning-pathway-card-header-content" style="padding-top:var(--wp--preset--spacing--30);padding-right:0;padding-bottom:var(--wp--preset--spacing--30);padding-left:30px">
+
+					<!-- wp:heading {"style":{"spacing":{"margin":{"top":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|charcoal-1"}}},"typography":{"fontStyle":"normal","fontWeight":"400","lineHeight":"1.3"}},"textColor":"charcoal-1","fontSize":"huge","fontFamily":"eb-garamond"} -->
+					<h2 class="wp-block-heading has-charcoal-1-color has-text-color has-link-color has-eb-garamond-font-family has-huge-font-size" style="margin-top:0;font-style:normal;font-weight:400;line-height:1.3">%2$s</h2>
+					<!-- /wp:heading -->
+
+					<!-- wp:paragraph {"textColor":"charcoal-1","className":"is-style-short-text","fontSize":"small"} -->
+					<p class="is-style-short-text has-charcoal-1-color has-text-color has-small-font-size">%3$s</p>
+					<!-- /wp:paragraph -->
+
+				</div>
+				<!-- /wp:group -->
+
+				<!-- wp:image {"id":184,"sizeSlug":"full","linkDestination":"none","style":{"layout":{"selfStretch":"fixed","flexSize":"50%%"}}} -->
+				<figure class="wp-block-image size-full"><img src="%4$s" alt="" class="wp-image-184"/></figure>
+				<!-- /wp:image -->
+
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:query {"queryId":15,"query":{"perPage":5,"pages":0,"offset":0,"postType":"course","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false,"taxQuery":{"learning-pathway":[%5$s]},"parents":[]}} -->
+			<div class="wp-block-query">
+
+				<!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","verticalAlignment":"space-between"}} -->
+				<div class="wp-block-group">
+				
+					<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20","left":"30px","right":"30px"}},"border":{"bottom":{"color":"var:preset|color|light-grey-1","width":"1px"},"top":{},"right":{},"left":{}}},"layout":{"type":"default"}} -->
+					<div class="wp-block-group" style="border-bottom-color:var(--wp--preset--color--light-grey-1);border-bottom-width:1px;padding-top:var(--wp--preset--spacing--20);padding-right:30px;padding-bottom:var(--wp--preset--spacing--20);padding-left:30px">
+					
+						<!-- wp:post-template -->
+
+							<!-- wp:post-title {"level":3,"isLink":true,"style":{"typography":{"fontStyle":"normal","fontWeight":"400"},"spacing":{"margin":{"bottom":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|charcoal-1"}}}},"fontSize":"normal","fontFamily":"inter"} /-->
+
+						<!-- /wp:post-template -->
+					
+					</div>
+					<!-- /wp:group -->
+					
+					<!-- wp:paragraph {"align":"right","style":{"spacing":{"padding":{"top":"var:preset|spacing|10","bottom":"var:preset|spacing|10","left":"30px","right":"30px"}},"elements":{"link":{"color":{"text":"var:preset|color|charcoal-1"}}}},"textColor":"charcoal-1","fontSize":"small"} -->
+					<p class="has-text-align-right has-charcoal-1-color has-text-color has-link-color has-small-font-size" style="padding-top:var(--wp--preset--spacing--10);padding-right:30px;padding-bottom:var(--wp--preset--spacing--10);padding-left:30px"><a href="%7$s">%8$s</a></p>
+					<!-- /wp:paragraph -->
+				
+				</div>
+				<!-- /wp:group -->
+
+			</div>
+			<!-- /wp:query -->
+
+		</div>
+		<!-- /wp:group -->',
+		esc_attr( 'wporg-learn-learning-pathway-card-full wporg-learn-learning-pathway-card-' . $learning_pathway->slug ),
+		esc_html( $learning_pathway->name ),
+		esc_html( $learning_pathway->description ),
+		esc_url( get_stylesheet_directory_uri() . '/assets/learning-pathway-' . $learning_pathway->slug . '.svg' ),
+		esc_html( $learning_pathway->term_id ),
+		esc_attr( $background_colors[ $learning_pathway->slug ] ),
+		esc_url( get_term_link( $learning_pathway ) ),
+		$count > 1
+			? sprintf(
+				/* translators: %s: Learning Pathway course count  */
+				__( 'See all %s courses</a>', 'wporg-learn' ),
+				esc_html( $count ),
+			)
+			: __( 'See course', 'wporg-learn' ),
+	);
 }
 
 /**

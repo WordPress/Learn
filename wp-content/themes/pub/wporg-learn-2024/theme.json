@@ -3,6 +3,9 @@
 	"version": 2,
 	"settings": {
 		"custom": {
+			"alignment": {
+				"aligned-max-width": "unset"
+			},
 			"color": {
 				"border": "var(--wp--preset--color--light-grey-1)"
 			},
