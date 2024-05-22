@@ -9,10 +9,8 @@ on:
 
 jobs:
   check:
-    name: All
-
+    name: Lint
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
 
