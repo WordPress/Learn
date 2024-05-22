@@ -7,6 +7,7 @@ config.entry = {
 	'block-styles': './js/block-styles/index.js',
 	'duration-meta': './js/duration-meta/index.js',
 	'expiration-date': './js/expiration-date/index.js',
+	'course-grid': './js/course-grid/src/index.js',
 	'workshop-application-form': './js/workshop-application-form/src/index.js',
 	'workshop-details': './js/workshop-details/src/index.js',
 	event: './js/event.js',

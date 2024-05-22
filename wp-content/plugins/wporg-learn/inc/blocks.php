@@ -18,6 +18,7 @@ defined( 'WPINC' ) || die();
  */
 add_action( 'init', __NAMESPACE__ . '\register_types' );
 add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\enqueue_block_style_assets' );
+add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\enqueue_course_grid_assets' );
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_block_style_assets' );
 
 /**
@@ -435,5 +436,28 @@ function enqueue_block_style_assets() {
 		get_build_url() . 'style-block-styles.css',
 		array(),
 		filemtime( get_build_path() . 'style-block-styles.css' )
+	);
+}
+
+/**
+ * Enqueue course grid assets.
+ *
+ * @throws Error If the build files are not found.
+ */
+function enqueue_course_grid_assets() {
+	$script_asset_path = get_build_path() . 'course-grid.asset.php';
+	if ( ! is_readable( $script_asset_path ) ) {
+		throw new Error(
+			'You need to run `npm start` or `npm run build` for the "wporg-learn/course-grid" block first.'
+		);
+	}
+
+	$script_asset = require $script_asset_path;
+	wp_enqueue_script(
+		'course-grid-editor-script',
+		get_build_url() . 'course-grid.js',
+		$script_asset['dependencies'],
+		$script_asset['version'],
+		true
 	);
 }

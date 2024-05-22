@@ -74,3 +74,9 @@ body.sensei {
 		}
 	}
 }
+
+.course:not(body) {
+	border-bottom: unset;
+	margin: unset;
+	padding: unset;
+}
