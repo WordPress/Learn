@@ -1,0 +1,42 @@
+.wp-block-wporg-learn-learning-pathway-cards {
+	.is-style-cards-grid {
+		row-gap: var(--wp--preset--spacing--40);
+	}
+
+	.wporg-learn-learning-pathway-card-full {
+		.wporg-learn-learning-pathway-card-header {
+			min-height: 200px;
+		}
+
+		.wporg-learn-learning-pathway-card-header-content {
+
+			@media screen and (max-width: 768px) {
+				padding-left: var(--wp--preset--spacing--20) !important;
+				min-height: unset;
+
+				.wp-block-heading {
+					font-size: var(--wp--preset--font-size--small) !important;
+					font-family: var(--wp--preset--font-family--inter) !important;
+					font-weight: 600 !important;
+					line-height: var(--wp--custom--body--small--typography--line-height) !important;
+				}
+			}
+		}
+
+		.wp-block-query {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+
+			.wp-block-group {
+				flex: 1;
+			}
+		}
+
+		.course {
+			border-bottom: unset;
+			margin: unset;
+			padding: unset;
+		}
+	}
+}

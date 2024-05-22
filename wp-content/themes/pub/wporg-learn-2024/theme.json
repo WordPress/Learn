@@ -3,6 +3,9 @@
 	"version": 2,
 	"settings": {
 		"custom": {
+			"alignment": {
+				"aligned-max-width": "unset"
+			},
 			"color": {
 				"border": "var(--wp--preset--color--light-grey-1)"
 			},
@@ -92,7 +95,7 @@
 			}
 		},
 		"layout": {
-			"contentSize": "960px"
+			"contentSize": "1160px"
 		},
 		"typography": {
 			"fontSizes": [
