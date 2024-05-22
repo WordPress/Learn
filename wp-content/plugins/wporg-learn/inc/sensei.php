@@ -243,3 +243,18 @@ function wporg_learn_add_student_count_to_reports( $type ) {
 	<?php
 }
 add_action( 'sensei_reports_overview_before_top_filters', __NAMESPACE__ . '\wporg_learn_add_student_count_to_reports' );
+
+/**
+ * Get the URL of the "My Courses" page.
+ *
+ * @return string The URL of the "My Courses" page.
+ */
+function get_my_courses_page_url() {
+	$page_id = Sensei()->settings->get_my_courses_page_id();
+
+	if ( ! $page_id ) {
+		return '';
+	}
+
+	return get_permalink( $page_id );
+}

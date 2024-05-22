@@ -5,6 +5,7 @@
  * Inserter: no
  */
 
+use function WPOrg_Learn\Sensei\{get_my_courses_page_url}
 ?>
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0"}}}} -->
@@ -15,7 +16,7 @@
 <div class="wp-block-buttons" style="margin-bottom:var(--wp--preset--spacing--50)">
 
 	<!-- wp:button -->
-	<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/my-courses/"><?php esc_html_e( 'My Courses', 'wporg-learn' ); ?></a>
+	<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( get_my_courses_page_url() ); ?>"><?php esc_html_e( 'My Courses', 'wporg-learn' ); ?></a>
 	</div>
 	<!-- /wp:button -->
 
