@@ -25,7 +25,7 @@ registerBlockVariation( 'core/query', {
 		className: 'wporg-learn-course-grid',
 		namespace: VARIATION_NAME,
 		query: {
-			perPage: 3,
+			perPage: 6,
 			postType: 'course',
 			courseFeatured: false,
 		},
@@ -46,8 +46,10 @@ registerBlockVariation( 'core/query', {
 						style: {
 							border: { width: '1px', color: 'var:preset|color|light-grey-1', radius: '2px' },
 							spacing: { blockGap: '0' },
+							dimensions: { minHeight: '100%' },
 						},
-						layout: { type: 'constrained' },
+						backgroundColor: 'white',
+						layout: { type: 'flex', orientation: 'vertical' },
 					},
 					[
 						[ 'core/post-featured-image', { style: { spacing: { margin: { bottom: '0' } } } } ],
@@ -73,7 +75,11 @@ registerBlockVariation( 'core/query', {
 										level: 3,
 										isLink: true,
 										style: {
-											typography: { fontStyle: 'normal', fontWeight: '600' },
+											typography: {
+												fontStyle: 'normal',
+												fontWeight: '600',
+												lineHeight: 1.6,
+											},
 											spacing: { margin: { bottom: '0' } },
 											elements: {
 												link: { color: { text: 'var:preset|color|blueberry-1' } },
@@ -88,7 +94,10 @@ registerBlockVariation( 'core/query', {
 									{
 										showMoreOnNewLine: false,
 										excerptLength: 16,
-										style: { spacing: { margin: { top: 'var:preset|spacing|10' } } },
+										style: {
+											spacing: { margin: { top: 'var:preset|spacing|10' } },
+											typography: { lineHeight: 1.6 },
+										},
 									},
 								],
 							],

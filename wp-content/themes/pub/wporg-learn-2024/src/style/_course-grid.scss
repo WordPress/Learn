@@ -4,7 +4,6 @@
 		container-type: normal;
 
 		> .course {
-			display: flex;
 			position: relative;
 
 			&::before,
@@ -35,10 +34,14 @@
 			> .has-border-color {
 				overflow: hidden;
 			}
-
-			.sensei-lms-course-list-featured-label__text {
-				display: none;
-			}
 		}
+	}
+
+	.sensei-lms-course-list-featured-label__text {
+		display: none;
+	}
+
+	.wp-block-post-title a {
+		color: var(--wp--custom--link--color--text);
 	}
 }
