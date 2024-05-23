@@ -47,23 +47,3 @@
 		width: 100%;
 	}
 }
-
-.wporg-learn-course-grid {
-	.is-layout-grid {
-		grid-auto-rows: 1fr;
-		container-type: normal;
-
-		> .course {
-			display: flex;
-
-			> .has-border-color {
-				overflow: hidden;
-			}
-
-			.sensei-lms-course-list-featured-label__text {
-				display: none;
-			}
-		}
-	}
-}
-

@@ -21,8 +21,8 @@
 <h2 class="wp-block-heading" style="margin-top:var(--wp--preset--spacing--60);margin-bottom:var(--wp--preset--spacing--10)"><?php esc_html_e( 'Featured Courses', 'wporg-learn' ); ?></h2>
 <!-- /wp:heading -->
 
-<!-- wp:group {"style":{"spacing":{"margin":{"top":"0"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"}} -->
-<div class="wp-block-group" style="margin-top:0">
+<!-- wp:group {"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|40"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"}} -->
+<div class="wp-block-group" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--40)">
 
 	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|charcoal-4"}}}},"textColor":"charcoal-4"} -->
 	<p class="has-charcoal-4-color has-text-color has-link-color"><?php esc_html_e( 'Courses take you through a series of lessons.', 'wporg-learn' ); ?></p>
@@ -35,7 +35,7 @@
 </div>
 <!-- /wp:group -->
 
-<!-- wp:query {"queryId":1,"query":{"perPage":3,"postType":"course","courseFeatured":true},"namespace":"wporg-learn/course-grid","align":"wide","className":"wporg-learn-course-grid"} -->
+<!-- wp:query {"queryId":1,"query":{"perPage":6,"postType":"course","courseFeatured":true},"namespace":"wporg-learn/course-grid","align":"wide","className":"wporg-learn-course-grid"} -->
 <div class="wp-block-query alignwide wporg-learn-course-grid">
 
 	<!-- wp:post-template {"style":{"spacing":{"blockGap":"var:preset|spacing|50"}},"layout":{"type":"grid","columnCount":3}} -->
@@ -62,9 +62,9 @@
 
 	<!-- wp:query-no-results -->
 
-	<!-- wp:paragraph {"placeholder":"Add text or blocks that will display when a query returns no results."} -->
-			<p><?php esc_html_e( 'No featured courses found.', 'wporg-learn' ); ?></p>
-	<!-- /wp:paragraph -->
+		<!-- wp:paragraph {"placeholder":"Add text or blocks that will display when a query returns no results."} -->
+		<p><?php esc_html_e( 'No featured courses found.', 'wporg-learn' ); ?></p>
+		<!-- /wp:paragraph -->
 
 	<!-- /wp:query-no-results -->
 
