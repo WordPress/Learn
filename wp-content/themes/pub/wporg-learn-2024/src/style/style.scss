@@ -12,3 +12,15 @@ body {
 	--wp-components-color-accent: var(--wp--preset--color--blueberry-1);
 	--wp-components-color-accent-darker-10: var(--wp--preset--color--deep-blueberry);
 }
+
+// For all post grids, make the grid items the same height
+.wp-block-query > .is-layout-grid {
+	grid-auto-rows: 1fr;
+	container-type: normal;
+}
+
+// Ensure nested elements in containers with rounded corners are cropped to match
+// eg. card featured images
+[style*="border-radius:2px"] {
+	overflow: hidden;
+}
