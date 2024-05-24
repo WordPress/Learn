@@ -24,3 +24,12 @@ body {
 [style*="border-radius:2px"] {
 	overflow: hidden;
 }
+
+.wporg-learn-front-gage-signup {
+
+	@media screen and (max-width: 781px) {
+		border-left: none;
+		padding-left: unset !important;
+		padding-top: unset !important;
+	}
+}

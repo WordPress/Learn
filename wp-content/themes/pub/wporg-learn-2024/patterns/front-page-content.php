@@ -143,5 +143,70 @@
 </div>
 <!-- /wp:group -->
 
-<!-- wp:wporg-learn/upcoming-online-workshops {"style":{"spacing":{"margin":{"top":"var:preset|spacing|40"}}}} /-->
+<!-- wp:wporg-learn/upcoming-online-workshops {"style":{"spacing":{"margin":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|50"}}}} /-->
 
+<!-- wp:paragraph {"fontSize":"huge","fontFamily":"eb-garamond"} -->
+<p class="has-eb-garamond-font-family has-huge-font-size">[TBD. Paragraph about inviting users to join the Training team to contribute with content creation]</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|50"}}}} -->
+<div class="wp-block-buttons" style="margin-bottom:var(--wp--preset--spacing--50)">
+
+	<!-- wp:button -->
+	<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/contribute">Contribute</a></div>
+	<!-- /wp:button -->
+
+	<!-- wp:button {"className":"is-style-outline"} -->
+	<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="https://make.wordpress.org/training/handbook/"><?php esc_html_e( 'See the Training team\'s handbook', 'wporg-learn' ); ?></a></div>
+	<!-- /wp:button -->
+
+</div>
+<!-- /wp:buttons -->
+
+<!-- wp:group {"align":"full","style":{"border":{"bottom":{"color":"var:preset|color|white-opacity-15","width":"1px"}},"spacing":{"padding":{"right":"var:preset|spacing|edge-space","left":"var:preset|spacing|edge-space"}}},"backgroundColor":"charcoal-2","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull has-charcoal-2-background-color has-background" style="border-bottom-color:var(--wp--preset--color--white-opacity-15);border-bottom-width:1px;padding-right:var(--wp--preset--spacing--edge-space);padding-left:var(--wp--preset--spacing--edge-space)">
+
+	<!-- wp:columns {"style":{"elements":{"link":{"color":{"text":"var:preset|color|white"}}},"spacing":{"blockGap":{"left":"0"}}},"textColor":"white"} -->
+	<div class="wp-block-columns has-white-color has-text-color has-link-color">
+
+		<!-- wp:column {"style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50","right":"0"}}}} -->
+		<div class="wp-block-column" style="padding-top:var(--wp--preset--spacing--50);padding-right:0;padding-bottom:var(--wp--preset--spacing--50)">
+
+			<!-- wp:heading {"style":{"typography":{"fontStyle":"normal","fontWeight":"400"},"spacing":{"margin":{"top":"0"}}},"fontSize":"huge","fontFamily":"eb-garamond"} -->
+			<h2 class="wp-block-heading has-eb-garamond-font-family has-huge-font-size" style="margin-top:0;font-style:normal;font-weight:400">TBD heading</h2>
+			<!-- /wp:heading -->
+
+			<!-- wp:paragraph {"fontSize":"large"} -->
+			<p class="has-large-font-size"><a href="https://wordpress.org/documentation"><?php esc_html_e( 'Documentation', 'wporg-learn' ); ?></a></p>
+			<!-- /wp:paragraph -->
+
+			<!-- wp:paragraph {"fontSize":"large"} -->
+			<p class="has-large-font-size"><a href="https://developer.wordpress.org"><?php esc_html_e( 'Developer Resources', 'wporg-learn' ); ?></a></p>
+			<!-- /wp:paragraph -->
+
+			<!-- wp:paragraph {"fontSize":"large"} -->
+			<p class="has-large-font-size"><a href="https://wordpress.org/support/forums"><?php esc_html_e( 'Support Forums', 'wporg-learn' ); ?></a></p>
+			<!-- /wp:paragraph -->
+
+		</div>
+		<!-- /wp:column -->
+
+		<!-- wp:column {"style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50","left":"var:preset|spacing|edge-space","right":"0"}},"border":{"left":{"color":"var:preset|color|white-opacity-15","width":"1px"},"top":{},"right":{},"bottom":{}}},"className":"wporg-learn-front-gage-signup"} -->
+		<div class="wp-block-column wporg-learn-front-gage-signup" style="border-left-color:var(--wp--preset--color--white-opacity-15);border-left-width:1px;padding-top:var(--wp--preset--spacing--50);padding-right:0;padding-bottom:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--edge-space)">
+
+			<!-- wp:heading {"style":{"typography":{"fontStyle":"normal","fontWeight":"400"},"spacing":{"margin":{"top":"0"}}},"fontSize":"huge","fontFamily":"eb-garamond"} -->
+			<h2 class="wp-block-heading has-eb-garamond-font-family has-huge-font-size" style="margin-top:0;font-style:normal;font-weight:400">TBD heading</h2>
+			<!-- /wp:heading -->
+
+			<!-- wp:paragraph {"fontSize":"small"} -->
+			<p class="has-small-font-size"><?php esc_html_e( 'Sign up for the free Learn WordPress newsletter and get a monthly dose of what\'s new in the world of WordPress courses, lessons, and online workshops.', 'wporg-learn' ); ?></p>
+			<!-- /wp:paragraph -->
+
+		</div>
+		<!-- /wp:column -->
+
+	</div>
+	<!-- /wp:columns -->
+
+</div>
+<!-- /wp:group -->
