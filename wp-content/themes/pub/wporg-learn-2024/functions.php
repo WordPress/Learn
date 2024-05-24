@@ -4,6 +4,7 @@ namespace WordPressdotorg\Theme\Learn_2024;
 
 // Block files
 require_once __DIR__ . '/src/learning-pathway-cards/block.php';
+require_once __DIR__ . '/src/upcoming-online-workshops/block.php';
 
 /**
  * Actions and filters.
