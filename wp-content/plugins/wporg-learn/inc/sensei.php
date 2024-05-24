@@ -274,6 +274,10 @@ function modify_course_query( $pre_render, $parsed_block ) {
 		add_filter(
 			'query_loop_block_query_vars',
 			function( $query, $block ) use ( $parsed_block ) {
+				if ( 'course' !== $query['post_type'] ) {
+					return $query;
+				}
+
 				$course_featured = $parsed_block['attrs']['query']['courseFeatured'];
 
 				if ( true === $course_featured ) {
