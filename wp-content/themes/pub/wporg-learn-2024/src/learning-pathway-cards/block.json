@@ -23,7 +23,7 @@
 			]
 		}
 	},
-	"textdomain": "wporg",
+	"textdomain": "wporg-learn",
 	"editorScript": "file:./index.js",
 	"style": "file:./style-index.css"
 }
