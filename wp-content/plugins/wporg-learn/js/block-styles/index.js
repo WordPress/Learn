@@ -22,3 +22,8 @@ registerBlockStyle( 'core/button', {
 	name: 'secondary-full-width',
 	label: __( 'Secondary (Full-width)', 'wporg-learn' ),
 } );
+
+registerBlockStyle( 'core/post-terms', {
+	name: 'tag',
+	label: __( 'Tag', 'wporg-learn' ),
+} );

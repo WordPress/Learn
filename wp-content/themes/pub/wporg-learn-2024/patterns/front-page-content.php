@@ -106,6 +106,14 @@
 
 				<!-- wp:post-excerpt {"showMoreOnNewLine":false,"excerptLength":16,"style":{"spacing":{"margin":{"top":"var:preset|spacing|10"}},"typography":{"lineHeight":1.6}}} /-->
 
+				<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between"}} -->
+				<div class="wp-block-group">
+
+					<!-- wp:post-terms {"term":"level","separator":" ","className":"is-style-tag","fontSize":"extra-small"} /-->
+
+				</div>
+				<!-- /wp:group -->
+
 			</div>
 			<!-- /wp:group -->
 
