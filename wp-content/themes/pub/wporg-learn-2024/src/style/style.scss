@@ -3,10 +3,11 @@
  * templates or theme.json settings.
  */
 
-@import "components";
+@import "card";
 @import "course-grid";
 @import "sensei";
 @import "tag";
+@import "wp-components";
 @import "wporg-meeting-calendar";
 
 body {

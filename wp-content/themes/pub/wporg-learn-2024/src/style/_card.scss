@@ -1,0 +1,22 @@
+.is-layout-grid {
+	.course,
+	.lesson {
+		.wp-block-wporg-learn-learning-duration {
+			display: flex;
+			align-items: center;
+
+			&::before {
+				// 'clock' icon
+				content: "\f469";
+				/* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
+				font-family: dashicons;
+				display: block;
+				width: 24px;
+				height: 24px;
+				font-size: 24px;
+				line-height: 1;
+				margin-right: 6px;
+			}
+		}
+	}
+}
