@@ -184,6 +184,28 @@ function register_misc_meta() {
 			)
 		);
 	}
+
+	// Duration field.
+	$post_types = array( 'course', 'lesson' );
+	foreach ( $post_types as $post_type ) {
+		register_post_meta(
+			$post_type,
+			'_duration',
+			array(
+				'description'       => __( 'The time required to complete the Course or Lesson.', 'wporg_learn' ),
+				'type'              => 'number',
+				'single'            => true,
+				'default'           => 0,
+				'sanitize_callback' => function( $value ) {
+					return floatval( $value );
+				},
+				'show_in_rest'      => true,
+				'auth_callback'     => function() {
+					return current_user_can( 'edit_courses' ) || current_user_can( 'edit_lessons' );
+				},
+			)
+		);
+	}
 }
 
 /**
@@ -583,6 +605,7 @@ function render_locales_list() {
 function enqueue_editor_assets() {
 	enqueue_expiration_date_assets();
 	enqueue_language_meta_assets();
+	enqueue_duration_meta_assets();
 }
 
 /**
@@ -635,5 +658,31 @@ function enqueue_language_meta_assets() {
 		);
 
 		wp_set_script_translations( 'wporg-learn-language-meta', 'wporg-learn' );
+	}
+}
+
+/**
+ * Enqueue scripts for the duration meta block.
+ */
+function enqueue_duration_meta_assets() {
+	global $typenow;
+
+	$post_types_with_duration = array( 'course', 'lesson' );
+	if ( in_array( $typenow, $post_types_with_duration, true ) ) {
+		$script_asset_path = get_build_path() . 'duration-meta.asset.php';
+		if ( ! file_exists( $script_asset_path ) ) {
+			wp_die( 'You need to run `yarn start` or `yarn build` to build the required assets.' );
+		}
+
+		$script_asset = require( $script_asset_path );
+		wp_enqueue_script(
+			'wporg-learn-duration-meta',
+			get_build_url() . 'duration-meta.js',
+			$script_asset['dependencies'],
+			$script_asset['version'],
+			true
+		);
+
+		wp_set_script_translations( 'wporg-learn-duration-meta', 'wporg-learn' );
 	}
 }
