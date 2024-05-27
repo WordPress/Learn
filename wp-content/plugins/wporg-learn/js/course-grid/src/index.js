@@ -2,12 +2,13 @@ import { registerBlockVariation } from '@wordpress/blocks';
 import { addFilter } from '@wordpress/hooks';
 import { InspectorControls } from '@wordpress/block-editor';
 import { CheckboxControl, PanelBody } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
 
 const VARIATION_NAME = 'wporg-learn/course-grid';
 
 registerBlockVariation( 'core/query', {
 	name: VARIATION_NAME,
-	title: 'Learn Course Grid',
+	title: __( 'Learn Course Grid', 'wporg-learn' ),
 	icon: {
 		src: (
 			<svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" size="24">
@@ -20,7 +21,7 @@ registerBlockVariation( 'core/query', {
 			</svg>
 		),
 	},
-	description: 'Displays a cards grid of courses.',
+	description: __( 'Displays a cards grid of courses.', 'wporg-learn' ),
 	attributes: {
 		className: 'wporg-learn-course-grid',
 		namespace: VARIATION_NAME,
@@ -118,9 +119,9 @@ const CourseGridControls = ( {
 		setAttributes,
 	},
 } ) => (
-	<PanelBody title="Featured">
+	<PanelBody title={ __( 'Featured', 'wporg-learn' ) }>
 		<CheckboxControl
-			label="Featured only"
+			label={ __( 'Featured only', 'wporg-learn' ) }
 			checked={ query.courseFeatured || false }
 			onChange={ ( checked ) => {
 				setAttributes( {
