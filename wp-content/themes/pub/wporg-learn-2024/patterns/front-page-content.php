@@ -57,6 +57,8 @@
 
 					<!-- wp:wporg-learn/learning-duration {"style":{"elements":{"link":{"color":{"text":"var:preset|color|charcoal-4"}}}},"textColor":"charcoal-4","fontSize":"small"} /-->
 
+					<!-- wp:wporg-learn/lesson-count {"fontSize":"extra-small"} /-->
+
 				</div>
 				<!-- /wp:group -->
 

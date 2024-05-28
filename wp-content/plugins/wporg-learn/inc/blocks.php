@@ -17,6 +17,7 @@ defined( 'WPINC' ) || die();
  * Views.
  */
 require_once get_views_path() . 'block-learning-duration.php';
+require_once get_views_path() . 'block-lesson-count.php';
 
 /**
  * Actions and filters.
@@ -34,6 +35,7 @@ add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_block_style_assets' 
 function register_types() {
 	register_course_data();
 	register_learning_duration();
+	register_lesson_count();
 	register_lesson_plan_actions();
 	register_lesson_plan_details();
 	register_workshop_details();
@@ -477,6 +479,20 @@ function register_learning_duration() {
 		array(
 			'render_callback' => function( $attributes, $content, $block ) {
 				return \WPOrg_Learn\View\Blocks\Learning_Duration\render( $attributes, $content, $block );
+			},
+		)
+	);
+}
+
+/**
+ * Register the lesson count block.
+ */
+function register_lesson_count() {
+	register_block_type(
+		get_js_path() . 'lesson-count/',
+		array(
+			'render_callback' => function( $attributes, $content, $block ) {
+				return \WPOrg_Learn\View\Blocks\Lesson_Count\render( $attributes, $content, $block );
 			},
 		)
 	);

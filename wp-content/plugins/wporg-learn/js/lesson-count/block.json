@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "wporg-learn/lesson-count",
+	"version": "0.1.0",
+	"title": "Lesson Count",
+	"category": "widgets",
+	"icon": "editor-ul",
+	"description": "Displays the number of a lessons in a course.",
+	"usesContext": [ "postType", "postId" ],
+	"attributes": {},
+	"supports": {
+		"html": false,
+		"typography": {
+			"lineHeight": true,
+			"fontSize": true
+		},
+		"color": {
+			"text": true
+		}
+	},
+	"textdomain": "wporg-learn",
+	"editorScript": "file:../../build/lesson-count.js"
+}

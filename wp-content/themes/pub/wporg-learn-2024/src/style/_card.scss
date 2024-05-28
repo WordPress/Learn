@@ -18,5 +18,19 @@
 				margin-right: 6px;
 			}
 		}
+
+		.wp-block-wporg-learn-lesson-count {
+			display: flex;
+			align-items: center;
+
+			&::before {
+				content: "";
+				display: block;
+				width: 24px;
+				height: 24px;
+				margin-right: 6px;
+				background: url(../../assets/icon-lessons.svg) no-repeat;
+			}
+		}
 	}
 }
