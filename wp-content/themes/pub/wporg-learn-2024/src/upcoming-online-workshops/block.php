@@ -63,7 +63,7 @@ function render( $attributes, $content, $block ) {
 		
 				</a>
 				<!-- /wp:wporg/link-wrapper -->',
-				esc_html( $workshop['url'] ),
+				esc_url( $workshop['url'] ),
 				esc_html( $workshop['title'] ),
 				esc_html( gmdate( 'l F j, Y', $timestamp ) ),
 				esc_attr( gmdate( 'c', $timestamp ) ),
