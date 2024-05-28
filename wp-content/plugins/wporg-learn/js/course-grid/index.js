@@ -38,7 +38,7 @@ registerBlockVariation( 'core/query', {
 			'core/post-template',
 			{
 				style: { spacing: { blockGap: 'var:preset|spacing|50' } },
-				layout: { type: 'grid', columnCount: 3 },
+				layout: { type: 'grid', columnCount: null, minimumColumnWidth: '330px' },
 			},
 			[
 				[

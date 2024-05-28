@@ -40,7 +40,7 @@ function render( $attributes, $content, $block ) {
 		<!-- /wp:paragraph --></div>
 		<!-- /wp:group -->';
 	} else {
-		$content = '<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|50"}},"className":"is-style-cards-grid","layout":{"type":"grid","columnCount":"3","minimumColumnWidth":null}} --><div class="wp-block-group is-style-cards-grid">';
+		$content = '<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|50"}},"className":"is-style-cards-grid","layout":{"type":"grid","columnCount":null,"minimumColumnWidth":"330px"}} --><div class="wp-block-group is-style-cards-grid">';
 
 		foreach ( $upcoming_online_workshops as $workshop ) {
 			$timestamp = strtotime( $workshop['date_utc'] ) - (int) $workshop['date_utc_offset'];

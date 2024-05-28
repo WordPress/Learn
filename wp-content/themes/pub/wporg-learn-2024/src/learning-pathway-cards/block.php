@@ -41,7 +41,7 @@ function render( $attributes, $content, $block ) {
 		return __( 'No learning pathways found.', 'wporg-learn' );
 	}
 
-	$content = '<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|50"}},"className":"is-style-cards-grid","layout":{"type":"grid","columnCount":"2","minimumColumnWidth":null}} --><div class="wp-block-group is-style-cards-grid">';
+	$content = '<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|50"}},"className":"is-style-cards-grid","layout":{"type":"grid","columnCount":null,"minimumColumnWidth":"350px"}} --><div class="wp-block-group is-style-cards-grid">';
 
 	foreach ( $learning_pathways as $learning_pathway ) {
 		$content .= $is_mini ? render_mini_card( $learning_pathway ) : render_full_card( $learning_pathway );
