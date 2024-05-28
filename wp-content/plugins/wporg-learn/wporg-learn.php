@@ -50,6 +50,15 @@ function get_includes_path() {
 }
 
 /**
+ * Shortcut to the js directory.
+ *
+ * @return string
+ */
+function get_js_path() {
+	return PLUGIN_DIR . 'js/';
+}
+
+/**
  * Shortcut to the views directory.
  *
  * @return string

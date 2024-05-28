@@ -7,12 +7,16 @@ use Sensei_Lesson;
 use Sensei_Utils;
 use Sensei_Reports_Overview_Service_Courses;
 use function WordPressdotorg\Locales\get_locale_name_from_code;
-use function WPOrg_Learn\{get_build_path, get_build_url, get_views_path};
+use function WPOrg_Learn\{get_build_path, get_build_url, get_js_path, get_views_path};
 use function WPOrg_Learn\Form\render_workshop_application_form;
 use function WPOrg_Learn\Post_Meta\get_workshop_duration;
-use function WPOrg_Learn\Utils\ensure_float;
 
 defined( 'WPINC' ) || die();
+
+/**
+ * Views.
+ */
+require_once get_views_path() . 'block-learning-duration.php';
 
 /**
  * Actions and filters.
@@ -456,7 +460,7 @@ function enqueue_course_grid_assets() {
 
 	$script_asset = require $script_asset_path;
 	wp_enqueue_script(
-		'course-grid-editor-script',
+		'wporg-learn-course-grid',
 		get_build_url() . 'course-grid.js',
 		$script_asset['dependencies'],
 		$script_asset['version'],
@@ -469,45 +473,10 @@ function enqueue_course_grid_assets() {
  */
 function register_learning_duration() {
 	register_block_type(
-		dirname( __DIR__ ) . '/js/learning-duration/',
+		get_js_path() . 'learning-duration/',
 		array(
 			'render_callback' => function( $attributes, $content, $block ) {
-				$post_type = $block->context['postType'];
-
-				if ( 'course' !== $post_type && 'lesson' !== $post_type ) {
-					return '';
-				}
-
-				$duration = ensure_float( get_post_meta( $block->context['postId'], '_duration', true ) );
-
-				if ( empty( $duration ) ) {
-					return '';
-				}
-
-				if ( 1 === $duration ) {
-					$content = __( '1 hour', 'wporg-learn' );
-				} elseif ( $duration > 1 ) {
-					$content = sprintf(
-						/* translators: %s: duration in hours */
-						__( '%s hours', 'wporg-learn' ),
-						$duration
-					);
-				} else {
-					// Display it in minutes.
-					$minutes = round( $duration * 60 );
-					$content = sprintf(
-						/* translators: %s: duration in minutes */
-						__( '%s minutes', 'wporg-learn' ),
-						$minutes
-					);
-				}
-
-				$wrapper_attributes = get_block_wrapper_attributes();
-				return sprintf(
-					'<p %1$s>%2$s</p>',
-					$wrapper_attributes,
-					esc_html( $content )
-				);
+				return \WPOrg_Learn\View\Blocks\Learning_Duration\render( $attributes, $content, $block );
 			},
 		)
 	);
