@@ -101,6 +101,32 @@ registerBlockVariation( 'core/query', {
 										},
 									},
 								],
+								[
+									'core/group',
+									{ layout: { type: 'flex', flexWrap: 'wrap', justifyContent: 'left' } },
+									[
+										[
+											'wporg-learn/learning-duration',
+											{
+												style: {
+													elements: {
+														link: { color: { text: 'var:preset|color|charcoal-4' } },
+													},
+												},
+												textColor: 'charcoal-4',
+												fontSize: 'small',
+											},
+										],
+										[
+											'wporg-learn/lesson-count',
+											{
+												style: { layout: { selfStretch: 'fill', flexSize: null } },
+												fontSize: 'extra-small',
+											},
+										],
+										[ 'wporg-learn/course-status', { fontSize: 'extra-small' } ],
+									],
+								],
 							],
 						],
 					],
