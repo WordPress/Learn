@@ -1,14 +1,12 @@
-.wp-block-post-terms.is-style-tag {
-	a {
-		display: inline-block;
-		padding: 4px var(--wp--preset--spacing--10);
-		border-radius: 2px;
-		text-decoration: none;
-		color: var(--wp--preset--color--charcoal-1);
-		background-color: var(--wp--preset--color--blueberry-4);
+.wp-block-post-terms.is-style-tag a {
+	display: inline-block;
+	padding: 4px var(--wp--preset--spacing--10);
+	border-radius: 2px;
+	text-decoration: none;
+	color: var(--wp--preset--color--charcoal-1);
+	background-color: var(--wp--preset--color--blueberry-4);
 
-		&:hover {
-			text-decoration: underline;
-		}
+	&:hover {
+		text-decoration: underline;
 	}
 }
