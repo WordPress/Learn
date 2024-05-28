@@ -16,6 +16,7 @@ defined( 'WPINC' ) || die();
 /**
  * Views.
  */
+require_once get_views_path() . 'block-course-status.php';
 require_once get_views_path() . 'block-learning-duration.php';
 require_once get_views_path() . 'block-lesson-count.php';
 
@@ -34,6 +35,7 @@ add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_block_style_assets' 
  */
 function register_types() {
 	register_course_data();
+	register_course_status();
 	register_learning_duration();
 	register_lesson_count();
 	register_lesson_plan_actions();
@@ -497,3 +499,18 @@ function register_lesson_count() {
 		)
 	);
 }
+
+/**
+ * Register the course status block.
+ */
+function register_course_status() {
+	register_block_type(
+		get_js_path() . 'course-status/',
+		array(
+			'render_callback' => function( $attributes, $content, $block ) {
+				return \WPOrg_Learn\View\Blocks\Course_Status\render( $attributes, $content, $block );
+			},
+		)
+	);
+}
+
