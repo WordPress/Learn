@@ -50,6 +50,15 @@ function get_includes_path() {
 }
 
 /**
+ * Shortcut to the js directory.
+ *
+ * @return string
+ */
+function get_js_path() {
+	return PLUGIN_DIR . 'js/';
+}
+
+/**
  * Shortcut to the views directory.
  *
  * @return string
@@ -78,6 +87,7 @@ function load_files() {
 	require_once get_includes_path() . 'sensei.php';
 	require_once get_includes_path() . 'taxonomy.php';
 	require_once get_includes_path() . 'export.php';
+	require_once get_includes_path() . 'utils.php';
 }
 
 /**

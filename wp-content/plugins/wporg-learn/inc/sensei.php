@@ -17,6 +17,8 @@ add_filter( 'sensei_load_default_supported_theme_wrappers', '__return_false' );
 add_action( 'sensei_before_main_content', __NAMESPACE__ . '\theme_wrapper_start' );
 add_action( 'sensei_after_main_content', __NAMESPACE__ . '\theme_wrapper_end' );
 add_action( 'init', __NAMESPACE__ . '\wporg_correct_sensei_slugs' );
+add_filter( 'pre_render_block', __NAMESPACE__ . '\modify_course_query', 10, 2 );
+add_filter( 'rest_course_query', __NAMESPACE__ . '\modify_course_rest_query', 10, 2 );
 
 /**
  * Slugs in Sensei are translatable, which won't work for our site and the language switcher.
@@ -257,4 +259,59 @@ function get_my_courses_page_url() {
 	}
 
 	return get_permalink( $page_id );
+}
+
+/**
+ * Modify the course query to add the featured course meta query if set.
+ *
+ * @param mixed $pre_render The pre-render value.
+ * @param mixed $parsed_block The parsed block value.
+ * @return mixed The modified course query.
+ */
+function modify_course_query( $pre_render, $parsed_block ) {
+	if ( isset( $parsed_block['attrs']['namespace'] ) && 'wporg-learn/course-grid' === $parsed_block['attrs']['namespace']
+	) {
+		add_filter(
+			'query_loop_block_query_vars',
+			function( $query, $block ) use ( $parsed_block ) {
+				if ( 'course' !== $query['post_type'] || ! isset( $parsed_block['attrs']['query']['courseFeatured'] ) ) {
+					return $query;
+				}
+
+				$course_featured = $parsed_block['attrs']['query']['courseFeatured'];
+
+				if ( true === $course_featured ) {
+					$query['meta_key']   = '_course_featured';
+					$query['meta_value'] = 'featured';
+				}
+
+				return $query;
+			},
+			10,
+			2
+		);
+	}
+
+	return $pre_render;
+}
+
+/**
+ * Modify the course REST query to add the featured course meta query if set.
+ *
+ * @param array           $args The query arguments.
+ * @param WP_REST_Request $request The REST request object.
+ * @return array The modified query arguments.
+ */
+function modify_course_rest_query( $args, $request ) {
+	$course_featured = $request->get_param( 'courseFeatured' );
+
+	if ( 'true' === $course_featured ) {
+		$args['meta_query'][] = array(
+			'key'     => '_course_featured',
+			'value'   => 'featured',
+			'compare' => '=',
+		);
+	}
+
+	return $args;
 }

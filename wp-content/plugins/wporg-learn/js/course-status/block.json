@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "wporg-learn/course-status",
+	"version": "0.1.0",
+	"title": "Course Status",
+	"category": "widgets",
+	"icon": "saved",
+	"description": "Displays the completion status for a course.",
+	"usesContext": [ "postType", "postId" ],
+	"attributes": {},
+	"supports": {
+		"html": false,
+		"typography": {
+			"lineHeight": true,
+			"fontSize": true
+		}
+	},
+	"textdomain": "wporg-learn",
+	"editorScript": "file:../../build/course-status.js"
+}

@@ -5,12 +5,16 @@ const config = require( '@wordpress/scripts/config/webpack.config' );
  */
 config.entry = {
 	'block-styles': './js/block-styles/index.js',
+	'course-grid': './js/course-grid/index.js',
+	'course-status': './js/course-status/src/index.js',
 	'duration-meta': './js/duration-meta/index.js',
 	'expiration-date': './js/expiration-date/index.js',
+	'lesson-count': './js/lesson-count/src/index.js',
 	'workshop-application-form': './js/workshop-application-form/src/index.js',
 	'workshop-details': './js/workshop-details/src/index.js',
 	event: './js/event.js',
 	form: './js/form.js',
+	'learning-duration': './js/learning-duration/src/index.js',
 	'locale-notice': './js/locale-notice.js',
 	'lesson-plan-actions': './js/lesson-plan-actions/src/index.js',
 	'lesson-plan-details': './js/lesson-plan-details/src/index.js',

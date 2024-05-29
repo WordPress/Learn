@@ -1,19 +1,14 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 2,
-	"name": "wporg-learn/learning-pathway-cards",
+	"name": "wporg-learn/upcoming-online-workshops",
 	"version": "0.1.0",
-	"title": "Learning Pathway Cards",
+	"title": "Upcoming Online Workshop Cards",
 	"category": "widgets",
 	"icon": "smiley",
-	"description": "Show a cards grid of non-empty Learning Pathway terms",
+	"description": "Show a cards grid of upcoming online workshops.",
 	"usesContext": [],
-	"attributes": {
-		"isMini": {
-			"type": "boolean",
-			"default": false
-		}
-	},
+	"attributes": {},
 	"supports": {
 		"html": false,
 		"spacing": {
@@ -25,5 +20,6 @@
 	},
 	"textdomain": "wporg-learn",
 	"editorScript": "file:./index.js",
-	"style": "file:./style-index.css"
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js"
 }

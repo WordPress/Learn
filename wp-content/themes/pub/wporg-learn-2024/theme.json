@@ -7,7 +7,8 @@
 				"aligned-max-width": "unset"
 			},
 			"color": {
-				"border": "var(--wp--preset--color--light-grey-1)"
+				"border": "var(--wp--preset--color--light-grey-1)",
+				"green-70": "#005C12"
 			},
 			"heading": {
 				"typography": {
@@ -96,6 +97,15 @@
 		},
 		"layout": {
 			"contentSize": "1160px"
+		},
+		"spacing": {
+			"spacingSizes": [
+				{
+					"name": "Large",
+					"slug": "60",
+					"size": "clamp(40px, calc(10vw - 40px), 80px)"
+				}
+			]
 		},
 		"typography": {
 			"fontSizes": [

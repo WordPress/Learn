@@ -3,11 +3,36 @@
  * templates or theme.json settings.
  */
 
-@import "components";
+@import "card";
+@import "course-grid";
 @import "sensei";
+@import "tag";
+@import "wp-components";
 @import "wporg-meeting-calendar";
 
 body {
 	--wp-components-color-accent: var(--wp--preset--color--blueberry-1);
 	--wp-components-color-accent-darker-10: var(--wp--preset--color--deep-blueberry);
+}
+
+// For all post grids, make the grid items the same height
+.wp-block-query > .is-layout-grid {
+	grid-auto-rows: 1fr;
+	container-type: normal;
+	row-gap: var(--wp--preset--spacing--40);
+}
+
+// Ensure nested elements in containers with rounded corners are cropped to match
+// eg. card featured images
+[style*="border-radius:2px"] {
+	overflow: hidden;
+}
+
+.wporg-learn-footer-signup {
+
+	@media screen and (max-width: 781px) {
+		border-left: none;
+		padding-left: unset !important;
+		padding-top: unset !important;
+	}
 }
