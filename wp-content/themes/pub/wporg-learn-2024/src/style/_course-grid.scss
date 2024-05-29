@@ -1,4 +1,8 @@
 .wporg-learn-course-grid {
+	&.wp-block-query > .is-layout-grid {
+		row-gap: var(--wp--preset--spacing--50);
+	}
+
 	.course {
 		position: relative;
 

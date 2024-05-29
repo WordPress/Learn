@@ -19,6 +19,7 @@ body {
 .wp-block-query > .is-layout-grid {
 	grid-auto-rows: 1fr;
 	container-type: normal;
+	row-gap: var(--wp--preset--spacing--40);
 }
 
 // Ensure nested elements in containers with rounded corners are cropped to match

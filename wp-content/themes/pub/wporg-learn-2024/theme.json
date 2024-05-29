@@ -98,6 +98,15 @@
 		"layout": {
 			"contentSize": "1160px"
 		},
+		"spacing": {
+			"spacingSizes": [
+				{
+					"name": "Large",
+					"slug": "60",
+					"size": "clamp(40px, calc(10vw - 40px), 80px)"
+				}
+			]
+		},
 		"typography": {
 			"fontSizes": [
 				{
