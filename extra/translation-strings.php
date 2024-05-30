@@ -141,6 +141,8 @@ _x( '6.3', 'WordPress Version term name', 'wporg-learn' );
 _x( '6.4', 'WordPress Version term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_wp_version/6-5/ */
 _x( '6.5', 'WordPress Version term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/wporg_wp_version/6-6/ */
+_x( '6.6', 'WordPress Version term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/accessibility/ */
 _x( 'accessibility', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/add-new-plugin/ */
