@@ -97,8 +97,8 @@ $content = get_learning_pathway_level_content( $learning_pathway_slug );
 
 	<!-- wp:query-no-results -->
 
-		<!-- wp:paragraph {"placeholder":"Add text or blocks that will display when a query returns no results."} -->
-		<p><?php esc_html_e( 'No beginner Courses found.', 'wporg-learn' ); ?></p>
+		<!-- wp:paragraph {"placeholder":"Add text or blocks that will display when a query returns no results.","style":{"spacing":{"margin":{"top":"-20px"}}}} -->
+		<p style="margin-top:-20px"><?php esc_html_e( 'No beginner Courses found.', 'wporg-learn' ); ?></p>
 		<!-- /wp:paragraph -->
 
 	<!-- /wp:query-no-results -->
@@ -163,8 +163,8 @@ $content = get_learning_pathway_level_content( $learning_pathway_slug );
 
 	<!-- wp:query-no-results -->
 
-		<!-- wp:paragraph {"placeholder":"Add text or blocks that will display when a query returns no results."} -->
-		<p><?php esc_html_e( 'No intermediate Courses found.', 'wporg-learn' ); ?></p>
+		<!-- wp:paragraph {"placeholder":"Add text or blocks that will display when a query returns no results.","style":{"spacing":{"margin":{"top":"-20px"}}}} -->
+		<p style="margin-top:-20px"><?php esc_html_e( 'No intermediate Courses found.', 'wporg-learn' ); ?></p>
 		<!-- /wp:paragraph -->
 
 	<!-- /wp:query-no-results -->
@@ -229,8 +229,8 @@ $content = get_learning_pathway_level_content( $learning_pathway_slug );
 
 	<!-- wp:query-no-results -->
 
-		<!-- wp:paragraph {"placeholder":"Add text or blocks that will display when a query returns no results."} -->
-		<p><?php esc_html_e( 'No advanced Courses found.', 'wporg-learn' ); ?></p>
+		<!-- wp:paragraph {"placeholder":"Add text or blocks that will display when a query returns no results.","style":{"spacing":{"margin":{"top":"-20px"}}}} -->
+		<p style="margin-top:-20px"><?php esc_html_e( 'No advanced Courses found.', 'wporg-learn' ); ?></p>
 		<!-- /wp:paragraph -->
 
 	<!-- /wp:query-no-results -->
