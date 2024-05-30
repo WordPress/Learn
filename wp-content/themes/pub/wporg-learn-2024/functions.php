@@ -137,3 +137,73 @@ function add_site_navigation_menus( $menus ) {
 
 	return $menus;
 }
+
+/**
+ * Get the titles and descriptions for the learning pathway levels.
+ *
+ * @param string $learning_pathway The learning pathway name.
+ * @param string $level The level name.
+ * @return array The content for the learning pathway levels.
+ */
+function get_learning_pathway_level_content( $learning_pathway ) {
+	$content = array(
+		'developer' => array(
+			'beginner' => array(
+				'title' => 'Beginner developer title',
+				'description'  => 'Beginner developer description',
+			),
+			'intermediate' => array(
+				'title' => 'Intermediate developer title',
+				'description'  => 'Intermediate developer description',
+			),
+			'advanced' => array(
+				'title' => 'Advanced developer title',
+				'description'  => 'Advanced developer description',
+			),
+		),
+		'designer' => array(
+			'beginner' => array(
+				'title' => 'Begin exploring WordPress',
+				'description'  => 'Discover the design potential of WordPress.',
+			),
+			'intermediate' => array(
+				'title' => 'Customize your site',
+				'description'  => 'Personalize and own all the details of your WordPress site.',
+			),
+			'advanced' => array(
+				'title' => 'Elevate your site to stunning levels',
+				'description'  => 'For advanced users that are familiar with code.',
+			),
+		),
+		'user' => array(
+			'beginner' => array(
+				'title' => 'Beginner user title',
+				'description'  => 'Beginner user description',
+			),
+			'intermediate' => array(
+				'title' => 'Intermediate user title',
+				'description'  => 'Intermediate user description',
+			),
+			'advanced' => array(
+				'title' => 'Advanced user title',
+				'description'  => 'Advanced user description',
+			),
+		),
+		'contributor' => array(
+			'beginner' => array(
+				'title' => 'Beginner contributor title',
+				'description'  => 'Beginner contributor description',
+			),
+			'intermediate' => array(
+				'title' => 'Intermediate contributor title',
+				'description'  => 'Intermediate contributor description',
+			),
+			'advanced' => array(
+				'title' => 'Advanced contributor title',
+				'description'  => 'Advanced contributor description',
+			),
+		),
+	);
+
+	return $content[ $learning_pathway ];
+}
