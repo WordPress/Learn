@@ -81,16 +81,6 @@ $content = get_learning_pathway_level_content( $learning_pathway_slug );
 
 	<!-- /wp:query-no-results -->
 
-	<!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"center"}} -->
-
-		<!-- wp:query-pagination-previous {"label":"Previous"} /-->
-
-		<!-- wp:query-pagination-numbers /-->
-
-		<!-- wp:query-pagination-next {"label":"Next"} /-->
-
-	<!-- /wp:query-pagination -->
-
 </div>
 <!-- /wp:query -->
 
@@ -157,16 +147,6 @@ $content = get_learning_pathway_level_content( $learning_pathway_slug );
 
 	<!-- /wp:query-no-results -->
 
-	<!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"center"}} -->
-
-		<!-- wp:query-pagination-previous {"label":"Previous"} /-->
-
-		<!-- wp:query-pagination-numbers /-->
-
-		<!-- wp:query-pagination-next {"label":"Next"} /-->
-
-	<!-- /wp:query-pagination -->
-
 </div>
 <!-- /wp:query -->
 
@@ -232,16 +212,6 @@ $content = get_learning_pathway_level_content( $learning_pathway_slug );
 		<!-- /wp:paragraph -->
 
 	<!-- /wp:query-no-results -->
-
-	<!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"center"}} -->
-
-		<!-- wp:query-pagination-previous {"label":"Previous"} /-->
-
-		<!-- wp:query-pagination-numbers /-->
-
-		<!-- wp:query-pagination-next {"label":"Next"} /-->
-
-	<!-- /wp:query-pagination -->
 
 </div>
 <!-- /wp:query -->
