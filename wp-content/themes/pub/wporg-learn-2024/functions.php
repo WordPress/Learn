@@ -142,7 +142,6 @@ function add_site_navigation_menus( $menus ) {
  * Get the titles and descriptions for the learning pathway levels.
  *
  * @param string $learning_pathway The learning pathway name.
- * @param string $level The level name.
  * @return array The content for the learning pathway levels.
  */
 function get_learning_pathway_level_content( $learning_pathway ) {
