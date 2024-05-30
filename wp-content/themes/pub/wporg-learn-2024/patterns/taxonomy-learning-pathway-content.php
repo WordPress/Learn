@@ -18,6 +18,28 @@ $advanced_level_id = get_term_by( 'slug', 'advanced', 'level' )->term_id;
 $content = get_learning_pathway_level_content( $learning_pathway_slug );
 ?>
 
+<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"right":"var:preset|spacing|edge-space","left":"var:preset|spacing|edge-space","top":"0","bottom":"0"}},"border":{"bottom":{"color":"var:preset|color|light-grey-1","width":"1px"}}},"backgroundColor":"<?php echo esc_attr( $learning_pathway_slug ); ?>","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull has-<?php echo esc_attr( $learning_pathway_slug ); ?>-background-color has-background" style="border-bottom-color:var(--wp--preset--color--light-grey-1);border-bottom-width:1px;padding-top:0;padding-right:var(--wp--preset--spacing--edge-space);padding-bottom:0;padding-left:var(--wp--preset--spacing--edge-space)">
+
+	<!-- wp:group {"style":{"spacing":{"blockGap":"0"},"background":{"backgroundImage":{"url":"<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/learning-pathway-' . $learning_pathway_slug . '.svg' ); ?>","source":"file"},"backgroundRepeat":"no-repeat","backgroundSize":"contain","backgroundPosition":"100% 50%"}},"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between","verticalAlignment":"stretch"}} -->
+	<div class="wp-block-group">
+		
+		<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60"}},"layout":{"selfStretch":"fixed","flexSize":"60%"}},"layout":{"type":"constrained"}} -->
+		<div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60)">
+
+			<!-- wp:query-title {"type":"archive","showPrefix":false,"style":{"typography":{"fontSize":"50px"}}} /-->
+
+			<!-- wp:term-description /-->
+
+		</div>
+		<!-- /wp:group -->
+
+	</div>
+	<!-- /wp:group -->
+
+</div>
+<!-- /wp:group -->
+
 <!-- wp:heading {"style":{"spacing":{"margin":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|10"}}}} -->
 <h2 class="wp-block-heading" style="margin-top:var(--wp--preset--spacing--60);margin-bottom:var(--wp--preset--spacing--10)"><?php echo esc_html( $content['beginner']['title'] ); ?></h2>
 <!-- /wp:heading -->
