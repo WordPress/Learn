@@ -2,6 +2,30 @@
 	"$schema": "https://schemas.wp.org/trunk/theme.json",
 	"version": 2,
 	"settings": {
+		"color": {
+			"palette": [
+				{
+					"slug": "user",
+					"color": "#f5fef8",
+					"name": "User"
+				},
+				{
+					"slug": "designer",
+					"color": "#fef8f6",
+					"name": "Designer"
+				},
+				{
+					"slug": "developer",
+					"color": "#fffff4",
+					"name": "Developer"
+				},
+				{
+					"slug": "contributor",
+					"color": "#fDf5fe",
+					"name": "Contributor"
+				}
+			]
+		},
 		"custom": {
 			"alignment": {
 				"aligned-max-width": "unset"

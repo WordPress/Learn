@@ -64,20 +64,14 @@ function render( $attributes, $content, $block ) {
  * @return string Returns the full card markup.
  */
 function render_full_card( $learning_pathway ) {
-	$background_colors = array(
-		'user'        => '#f5fef8',
-		'designer'    => '#fef8f6',
-		'developer'   => '#fffff4',
-		'contributor' => '#fDf5fe',
-	);
-	$count             = $learning_pathway->count;
+	$count = $learning_pathway->count;
 
 	return sprintf(
 		'<!-- wp:group {"style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"},"blockGap":"0"}},"className":"wporg-learn-learning-pathway-card-full","layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap","justifyContent":"stretch"}} -->
 		<div class="wp-block-group wporg-learn-learning-pathway-card-full" style="padding-top:0;padding-right:0;padding-bottom:0;padding-left:0">
 
-			<!-- wp:group {"className":"wporg-learn-learning-pathway-card-header","style":{"color":{"background":"%1$s"},"border":{"bottom":{"color":"var:preset|color|light-grey-1","width":"1px"}},"spacing":{"blockGap":"0"}},"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between","verticalAlignment":"stretch"}} -->
-			<div class="wp-block-group wporg-learn-learning-pathway-card-header has-background" style="border-bottom-color:var(--wp--preset--color--light-grey-1);border-bottom-width:1px;background-color:%1$s">
+			<!-- wp:group {"className":"wporg-learn-learning-pathway-card-header","style":{"backgroundColor":"%1$s","border":{"bottom":{"color":"var:preset|color|light-grey-1","width":"1px"}},"spacing":{"blockGap":"0"}},"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between","verticalAlignment":"stretch"}} -->
+			<div class="wp-block-group wporg-learn-learning-pathway-card-header has-%1$s-background-color has-background" style="border-bottom-color:var(--wp--preset--color--light-grey-1);border-bottom-width:1px;background-color:var(--wp--custom--color--%1$s)">
 
 				<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|30","bottom":"var:preset|spacing|30","left":"30px","right":"0"},"blockGap":"0"},"className":"wporg-learn-learning-pathway-card-header-content","layout":{"selfStretch":"fixed","flexSize":"50%%"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch"}} -->
 				<div class="wp-block-group wporg-learn-learning-pathway-card-header-content" style="padding-top:var(--wp--preset--spacing--30);padding-right:0;padding-bottom:var(--wp--preset--spacing--30);padding-left:30px">
@@ -130,7 +124,7 @@ function render_full_card( $learning_pathway ) {
 
 		</div>
 		<!-- /wp:group -->',
-		esc_attr( $background_colors[ $learning_pathway->slug ] ),
+		esc_attr( $learning_pathway->slug ),
 		esc_html( $learning_pathway->name ),
 		esc_html( $learning_pathway->description ),
 		esc_url( get_stylesheet_directory_uri() . '/assets/learning-pathway-' . $learning_pathway->slug . '.svg' ),
