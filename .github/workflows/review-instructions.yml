@@ -14,7 +14,7 @@ jobs:
         with:
           issue-number: ${{ github.event.issue.number }}
           body: |
-            This piece of content is ready to be reviewed. Copy and paste the following check list into a new comment and tick the iteams as you review them. This checklist can also be found on [Guidelines for Revieweing Content](https://make.wordpress.org/training/handbook/training-team-how-to-guides/guidelines-for-reviewing-content-on-learn/#are-you-reviewing-content-before-it-is-published).
+            This piece of content is ready to be reviewed. Copy and paste the following check list into a new comment and tick the items as you review them. This checklist can also be found on [Guidelines for Revieweing Content](https://make.wordpress.org/training/handbook/training-team-how-to-guides/guidelines-for-reviewing-content-on-learn/#are-you-reviewing-content-before-it-is-published).
             ## Content Review Checklist
             - [ ] Learning outcomes/objectives are clear.
             - [ ] Technical concepts introduced in the content are accurate.
