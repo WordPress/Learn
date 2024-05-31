@@ -2,6 +2,8 @@
 
 namespace WordPressdotorg\Theme\Learn_2024;
 
+use function WPOrg_Learn\Sensei\{get_my_courses_page_url};
+
 // Block files
 require_once __DIR__ . '/src/learning-pathway-cards/block.php';
 require_once __DIR__ . '/src/upcoming-online-workshops/block.php';
@@ -105,6 +107,10 @@ function add_site_navigation_menus( $menus ) {
 		array(
 			'label' => __( 'Online Workshops', 'wporg-learn' ),
 			'url'   => '/online-workshops/',
+		),
+		array(
+			'label' => __( 'My courses', 'wporg-learn' ),
+			'url'   => get_my_courses_page_url(),
 		),
 	);
 

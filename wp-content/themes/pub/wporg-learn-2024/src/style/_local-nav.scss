@@ -1,0 +1,15 @@
+.wp-block-wporg-local-navigation-bar {
+	&:not(.wporg-show-collapsed-nav) {
+		[href*="my-courses"] {
+			padding-left: var(--wp--style--block-gap);
+
+			&::before {
+				content: "\2022";
+				inset-inline-start: -5px;
+				opacity: 0.4;
+				position: absolute;
+			}
+
+		}
+	}
+}
