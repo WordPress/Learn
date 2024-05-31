@@ -11,7 +11,7 @@
 <div class="wp-block-group" style="margin-bottom:var(--wp--preset--spacing--50)">
 
 	<!-- wp:paragraph -->
-	<p>Introduction TBC.</p>
+	<p><?php esc_html_e( 'WordPress provides limitless ways for people to craft and grow their online presence. The content in these courses is delivered in multiple formats, with a focus on text and video, working towards practical learning objectives to help you become a better WordPress developer, designer, user, and contributor.', 'wporg-learn' ); ?></p>
 	<!-- /wp:paragraph -->
 
 </div>
