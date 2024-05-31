@@ -1,0 +1,13 @@
+.tax-learning-pathway {
+
+	@media screen and (min-width: 769px) {
+		--wp--preset--font-size--heading-1: 50px;
+	}
+
+	.wporg-learn-tax-learning-pathway-header {
+
+		@media screen and (max-width: 1024px) {
+			padding-right: unset !important;
+		}
+	}
+}
