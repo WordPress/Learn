@@ -245,5 +245,17 @@ function set_site_breadcrumbs( $breadcrumbs ) {
 		}
 	}
 
+	if ( is_singular() && 'page' !== $post_type ) {
+		$archive_url = get_post_type_archive_link( $post_type );
+
+		$archive_breadcrumb = array(
+			'url' => $archive_url,
+			'title' => ucwords( $post_type ),
+		);
+
+		// Insert the post type into the second position.
+		array_splice( $breadcrumbs, 1, 0, array( $archive_breadcrumb ) );
+	}
+
 	return $breadcrumbs;
 }
