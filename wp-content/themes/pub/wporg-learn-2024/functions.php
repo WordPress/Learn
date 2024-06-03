@@ -242,7 +242,7 @@ function set_site_breadcrumbs( $breadcrumbs ) {
 	}
 
 	// Add the post type archive to the breadcrumbs.
-	if ( is_singular() && 'page' !== $post_type ) {
+	if ( is_singular() && 'page' !== $post_type && 'post' !== $post_type ) {
 		$archive_url = get_post_type_archive_link( $post_type );
 
 		$archive_breadcrumb = array(
