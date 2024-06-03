@@ -245,6 +245,7 @@ function set_site_breadcrumbs( $breadcrumbs ) {
 		}
 	}
 
+	// Add the post type archive to the breadcrumbs.
 	if ( is_singular() && 'page' !== $post_type ) {
 		$archive_url = get_post_type_archive_link( $post_type );
 
@@ -255,6 +256,19 @@ function set_site_breadcrumbs( $breadcrumbs ) {
 
 		// Insert the post type into the second position.
 		array_splice( $breadcrumbs, 1, 0, array( $archive_breadcrumb ) );
+	}
+
+	// Add the ancestors of the current page to the breadcrumbs.
+	$ancestors = get_post_ancestors( get_the_ID() );
+	foreach ( $ancestors as $ancestor ) {
+		$ancestor_post = get_post( $ancestor );
+
+		$ancestor_breadcrumb = array(
+			'url' => get_permalink( $ancestor_post ),
+			'title' => get_the_title( $ancestor_post ),
+		);
+
+		array_splice( $breadcrumbs, 1, 0, array( $ancestor_breadcrumb ) );
 	}
 
 	return $breadcrumbs;
