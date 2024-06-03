@@ -237,17 +237,19 @@ function set_site_breadcrumbs( $breadcrumbs ) {
 	if ( is_archive() ) {
 		if ( isset( $breadcrumbs[1] ) ) {
 			// Change the title of the second breadcrumb from the post title to the post type.
-			$breadcrumbs[1]['title'] = ucwords( pluralize_post_type( $post_type ) );
+			$breadcrumbs[1]['title'] = get_the_archive_title();
 		}
 	}
 
-	// Add the post type archive to the breadcrumbs.
+	// Add the archive of a post type to the breadcrumbs.
 	if ( is_singular() && 'page' !== $post_type && 'post' !== $post_type ) {
+		$post_type_object = get_post_type_object( $post_type );
+		$archive_title = $post_type_object->labels->name;
 		$archive_url = get_post_type_archive_link( $post_type );
 
 		$archive_breadcrumb = array(
 			'url' => $archive_url,
-			'title' => ucwords( pluralize_post_type( $post_type ) ),
+			'title' => $archive_title,
 		);
 
 		// Insert the post type into the second position.
@@ -268,20 +270,4 @@ function set_site_breadcrumbs( $breadcrumbs ) {
 	}
 
 	return $breadcrumbs;
-}
-
-/**
- * Pluralize the designated post types.
- *
- * @param string $post_type The post type.
- *
- * @return string The pluralized post type.
- */
-function pluralize_post_type( $post_type ) {
-	// Pluralize the post type lesson and course.
-	if ( 'lesson' === $post_type || 'course' === $post_type ) {
-		$post_type = $post_type . 's';
-	}
-
-	return $post_type;
 }
