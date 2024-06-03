@@ -228,8 +228,21 @@ function set_site_breadcrumbs( $breadcrumbs ) {
 	}
 
 	if ( isset( $breadcrumbs[0] ) ) {
-		// Change the title of the first breadcrumb to 'Home'
+		// Change the title of the first breadcrumb to 'Home'.
 		$breadcrumbs[0]['title'] = 'Home';
+	}
+
+	$post_type = get_post_type();
+	// Pluralize the post type lesson and course.
+	if ( 'lesson' === $post_type || 'course' === $post_type ) {
+		$post_type = $post_type . 's';
+	}
+
+	if ( is_archive() ) {
+		if ( isset( $breadcrumbs[1] ) ) {
+			// Change the title of the second breadcrumb from the post title to the post type.
+			$breadcrumbs[1]['title'] = ucwords( $post_type );
+		}
 	}
 
 	return $breadcrumbs;
