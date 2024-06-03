@@ -233,15 +233,11 @@ function set_site_breadcrumbs( $breadcrumbs ) {
 	}
 
 	$post_type = get_post_type();
-	// Pluralize the post type lesson and course.
-	if ( 'lesson' === $post_type || 'course' === $post_type ) {
-		$post_type = $post_type . 's';
-	}
 
 	if ( is_archive() ) {
 		if ( isset( $breadcrumbs[1] ) ) {
 			// Change the title of the second breadcrumb from the post title to the post type.
-			$breadcrumbs[1]['title'] = ucwords( $post_type );
+			$breadcrumbs[1]['title'] = ucwords( pluralize_post_type( $post_type ) );
 		}
 	}
 
@@ -251,7 +247,7 @@ function set_site_breadcrumbs( $breadcrumbs ) {
 
 		$archive_breadcrumb = array(
 			'url' => $archive_url,
-			'title' => ucwords( $post_type ),
+			'title' => ucwords( pluralize_post_type( $post_type ) ),
 		);
 
 		// Insert the post type into the second position.
@@ -272,4 +268,20 @@ function set_site_breadcrumbs( $breadcrumbs ) {
 	}
 
 	return $breadcrumbs;
+}
+
+/**
+ * Pluralize the designated post types.
+ *
+ * @param string $post_type The post type.
+ *
+ * @return string The pluralized post type.
+ */
+function pluralize_post_type( $post_type ) {
+	// Pluralize the post type lesson and course.
+	if ( 'lesson' === $post_type || 'course' === $post_type ) {
+		$post_type = $post_type . 's';
+	}
+
+	return $post_type;
 }
