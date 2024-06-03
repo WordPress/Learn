@@ -14,6 +14,7 @@ require_once __DIR__ . '/src/upcoming-online-workshops/index.php';
  */
 add_action( 'after_setup_theme', __NAMESPACE__ . '\setup' );
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_assets' );
+add_filter( 'wporg_block_site_breadcrumbs', __NAMESPACE__ . '\set_site_breadcrumbs' );
 add_filter( 'wporg_block_navigation_menus', __NAMESPACE__ . '\add_site_navigation_menus' );
 add_filter( 'single_template_hierarchy', __NAMESPACE__ . '\modify_single_template' );
 remove_filter( 'template_include', array( 'Sensei_Templates', 'template_loader' ), 10, 1 );
@@ -212,4 +213,19 @@ function get_learning_pathway_level_content( $learning_pathway ) {
 	);
 
 	return $content[ $learning_pathway ];
+}
+
+/**
+ * Filters breadcrumb items for the site-breadcrumb block.
+ *
+ * @param array $breadcrumbs
+ *
+ * @return array
+ */
+function set_site_breadcrumbs( $breadcrumbs ) {
+	if ( is_tax( 'learning-pathway' ) ) {
+		return array();
+	}
+
+	return $breadcrumbs;
 }
