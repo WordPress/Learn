@@ -227,5 +227,10 @@ function set_site_breadcrumbs( $breadcrumbs ) {
 		return array();
 	}
 
+	if ( isset( $breadcrumbs[0] ) ) {
+		// Change the title of the first breadcrumb to 'Home'
+		$breadcrumbs[0]['title'] = 'Home';
+	}
+
 	return $breadcrumbs;
 }
