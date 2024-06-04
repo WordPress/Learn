@@ -25,7 +25,7 @@
 <div class="wp-block-group" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--40)">
 
 	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|charcoal-4"}}}},"textColor":"charcoal-4"} -->
-	<p class="has-charcoal-4-color has-text-color has-link-color">Courses take you through a series of lessons.</p>
+	<p class="has-charcoal-4-color has-text-color has-link-color">[TBD Courses take you through a series of lessons.]</p>
 	<!-- /wp:paragraph -->
 
 	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|blueberry-1"}}}},"textColor":"charcoal-4"} -->
@@ -88,7 +88,7 @@
 <div class="wp-block-group" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--40)">
 
 	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|charcoal-4"}}}},"textColor":"charcoal-4"} -->
-	<p class="has-charcoal-4-color has-text-color has-link-color"><?php esc_html_e( 'Lessons are short video tutorials that teach you about a specific topic.', 'wporg-learn' ); ?></p>
+	<p class="has-charcoal-4-color has-text-color has-link-color">[TBD Lessons are short video tutorials that teach you about a specific topic.]</p>
 	<!-- /wp:paragraph -->
 
 	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|blueberry-1"}}}},"textColor":"charcoal-4"} -->
