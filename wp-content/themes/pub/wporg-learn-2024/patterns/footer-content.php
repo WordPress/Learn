@@ -46,8 +46,8 @@
 			<p class="has-small-font-size"><?php esc_html_e( 'Sign up for the free Learn WordPress newsletter and get a monthly dose of what\'s new in the world of WordPress courses, lessons, and online workshops.', 'wporg-learn' ); ?></p>
 			<!-- /wp:paragraph -->
 
-			<!-- wp:jetpack/subscriptions /-->
-
+			<!-- wp:jetpack/subscriptions {"className":"is-style-compact"} /-->
+			
 		</div>
 		<!-- /wp:column -->
 
