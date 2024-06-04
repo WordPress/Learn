@@ -155,58 +155,58 @@ function get_learning_pathway_level_content( $learning_pathway ) {
 	$content = array(
 		'developer' => array(
 			'beginner' => array(
-				'title' => __( '[TBD Beginner developer title]', 'wporg-learn' ),
-				'description' => __( '[TBD Beginner developer description]', 'wporg-learn' ),
+				'title' => '[TBD Beginner developer title]',
+				'description' => '[TBD Beginner developer description]',
 			),
 			'intermediate' => array(
-				'title' => __( '[TBD Intermediate developer title]', 'wporg-learn' ),
-				'description' => __( '[TBD Intermediate developer description]', 'wporg-learn' ),
+				'title' => '[TBD Intermediate developer title]',
+				'description' => '[TBD Intermediate developer description]',
 			),
 			'advanced' => array(
-				'title' => __( '[TBD Advanced developer title]', 'wporg-learn' ),
-				'description' => __( '[TBD Advanced developer description]', 'wporg-learn' ),
+				'title' => '[TBD Advanced developer title]',
+				'description' => '[TBD Advanced developer description]',
 			),
 		),
 		'designer' => array(
 			'beginner' => array(
-				'title' => __( 'Begin exploring WordPress', 'wporg-learn' ),
-				'description' => __( 'Discover the design potential of WordPress.', 'wporg-learn' ),
+				'title' => 'Begin exploring WordPress',
+				'description' => 'Discover the design potential of WordPress.',
 			),
 			'intermediate' => array(
-				'title' => __( 'Customize your site', 'wporg-learn' ),
-				'description' => __( 'Personalize and own all the details of your WordPress site.', 'wporg-learn' ),
+				'title' => 'Customize your site',
+				'description' => 'Personalize and own all the details of your WordPress site.',
 			),
 			'advanced' => array(
-				'title' => __( 'Elevate your site to stunning levels', 'wporg-learn' ),
-				'description' => __( 'For advanced users that are familiar with code.', 'wporg-learn' ),
+				'title' => 'Elevate your site to stunning levels',
+				'description' => 'For advanced users that are familiar with code.',
 			),
 		),
 		'user' => array(
 			'beginner' => array(
-				'title' => __( '[TBD Beginner user title]', 'wporg-learn' ),
-				'description' => __( '[TBD Beginner user description]', 'wporg-learn' ),
+				'title' => '[TBD Beginner user title]',
+				'description' => '[TBD Beginner user description]',
 			),
 			'intermediate' => array(
-				'title' => __( '[TBD Intermediate user title]', 'wporg-learn' ),
-				'description' => __( '[TBD Intermediate user description]', 'wporg-learn' ),
+				'title' => '[TBD Intermediate user title]',
+				'description' => '[TBD Intermediate user description]',
 			),
 			'advanced' => array(
-				'title' => __( '[TBD Advanced user title]', 'wporg-learn' ),
-				'description' => __( '[TBD Advanced user description]', 'wporg-learn' ),
+				'title' => '[TBD Advanced user title]',
+				'description' => '[TBD Advanced user description]',
 			),
 		),
 		'contributor' => array(
 			'beginner' => array(
-				'title' => __( '[TBD Beginner contributor title]', 'wporg-learn' ),
-				'description' => __( '[TBD Beginner contributor description]', 'wporg-learn' ),
+				'title' => '[TBD Beginner contributor title]',
+				'description' => '[TBD Beginner contributor description]',
 			),
 			'intermediate' => array(
-				'title' => __( '[TBD Intermediate contributor title]', 'wporg-learn' ),
-				'description' => __( '[TBD Intermediate contributor description]', 'wporg-learn' ),
+				'title' => '[TBD Intermediate contributor title]',
+				'description' => '[TBD Intermediate contributor description]',
 			),
 			'advanced' => array(
-				'title' => __( '[TBD Advanced contributor title]', 'wporg-learn' ),
-				'description' => __( '[TBD Advanced contributor description]', 'wporg-learn' ),
+				'title' => '[TBD Advanced contributor title]',
+				'description' => '[TBD Advanced contributor description]',
 			),
 		),
 	);

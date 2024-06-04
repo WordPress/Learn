@@ -25,7 +25,7 @@
 <div class="wp-block-group" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--40)">
 
 	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|charcoal-4"}}}},"textColor":"charcoal-4"} -->
-	<p class="has-charcoal-4-color has-text-color has-link-color"><?php esc_html_e( 'Courses take you through a series of lessons.', 'wporg-learn' ); ?></p>
+	<p class="has-charcoal-4-color has-text-color has-link-color">Courses take you through a series of lessons.</p>
 	<!-- /wp:paragraph -->
 
 	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|blueberry-1"}}}},"textColor":"charcoal-4"} -->
@@ -165,18 +165,18 @@
 <!-- wp:wporg-learn/upcoming-online-workshops {"style":{"spacing":{"margin":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|50"}}}} /-->
 
 <!-- wp:paragraph {"fontSize":"huge","fontFamily":"eb-garamond"} -->
-<p class="has-eb-garamond-font-family has-huge-font-size">[TBD. Paragraph about inviting users to join the Training team to contribute with content creation]</p>
+<p class="has-eb-garamond-font-family has-huge-font-size">[TBD Paragraph about inviting users to join the Training team to contribute with content creation]</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|50"}}}} -->
 <div class="wp-block-buttons" style="margin-bottom:var(--wp--preset--spacing--50)">
 
 	<!-- wp:button -->
-	<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/contribute">Contribute</a></div>
+	<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/contribute"><?php esc_html_e( 'Contribute', 'wporg-learn' ); ?></a></div>
 	<!-- /wp:button -->
 
 	<!-- wp:button {"className":"is-style-outline"} -->
-	<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="https://make.wordpress.org/training/handbook/"><?php esc_html_e( 'See the Training team\'s handbook', 'wporg-learn' ); ?></a></div>
+	<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="https://make.wordpress.org/training/handbook/"><?php esc_html_e( "See the Training team's handbook", 'wporg-learn' ); ?></a></div>
 	<!-- /wp:button -->
 
 </div>

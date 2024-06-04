@@ -11,7 +11,7 @@
 <div class="wp-block-group" style="margin-bottom:var(--wp--preset--spacing--50)">
 
 	<!-- wp:paragraph -->
-	<p>Introduction TBC.</p>
+	<p>[TBD Introduction]</p>
 	<!-- /wp:paragraph -->
 
 </div>
