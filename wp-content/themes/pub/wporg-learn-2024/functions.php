@@ -254,6 +254,23 @@ function set_site_breadcrumbs( $breadcrumbs ) {
 
 		// Insert the post type into the second position.
 		array_splice( $breadcrumbs, 1, 0, array( $archive_breadcrumb ) );
+
+		if ( is_singular( 'lesson' ) ) {
+			$lesson_course_id = get_post_meta( get_the_ID(), '_lesson_course', true );
+
+			if ( empty( $lesson_course_id ) ) {
+				return $breadcrumbs;
+			}
+
+			$lesson_course_title = get_the_title( $lesson_course_id );
+			$lesson_course_link = get_permalink( $lesson_course_id );
+			$lesson_course_breadcrumb = array(
+				'url' => $lesson_course_link,
+				'title' => $lesson_course_title,
+			);
+
+			$breadcrumbs[1] = $lesson_course_breadcrumb;
+		}
 	}
 
 	// Add the ancestors of the current page to the breadcrumbs.
