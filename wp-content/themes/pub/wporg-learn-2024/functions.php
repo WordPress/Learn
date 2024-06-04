@@ -252,13 +252,23 @@ function set_site_breadcrumbs( $breadcrumbs ) {
 
 		array_splice( $breadcrumbs, 1, 0, array( $archive_breadcrumb ) );
 
-		// If it's a lesson, change the second breadcrumb from archive title (ie. 'Courses') to the course title.
+		// If it's a lesson single page, change the second breadcrumb to the course archive
+		// and insert the lesson course breadcrumb into the third position.
 		if ( is_singular( 'lesson' ) ) {
 			$lesson_course_id = get_post_meta( get_the_ID(), '_lesson_course', true );
 
 			if ( empty( $lesson_course_id ) ) {
 				return $breadcrumbs;
 			}
+
+			$post_type_object = get_post_type_object( 'course' );
+			$archive_title = $post_type_object->labels->name;
+			$archive_url = get_post_type_archive_link( $post_type );
+
+			$archive_breadcrumb = array(
+				'url' => $archive_url,
+				'title' => $archive_title,
+			);
 
 			$lesson_course_title = get_the_title( $lesson_course_id );
 			$lesson_course_link = get_permalink( $lesson_course_id );
@@ -267,7 +277,8 @@ function set_site_breadcrumbs( $breadcrumbs ) {
 				'title' => $lesson_course_title,
 			);
 
-			$breadcrumbs[1] = $lesson_course_breadcrumb;
+			$breadcrumbs[1] = $archive_breadcrumb;
+			array_splice( $breadcrumbs, 2, 0, array( $lesson_course_breadcrumb ) );
 		}
 	} else {
 		// Page: Add the ancestors of the current page to the breadcrumbs.
