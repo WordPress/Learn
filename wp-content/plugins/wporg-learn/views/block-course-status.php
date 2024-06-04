@@ -27,7 +27,7 @@ function render( $attributes, $content, $block ) {
 
 	if ( $is_completed ) {
 		$content = __( 'Completed', 'wporg-learn' );
-	} elseif ( Sensei_Utils::user_started_course( $course_id, $user_id ) ) {
+	} elseif ( Sensei_Utils::has_started_course( $course_id, $user_id ) ) {
 		$content = __( 'In progress', 'wporg-learn' );
 	} else {
 		return '';
