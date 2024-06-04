@@ -12,6 +12,11 @@ if ( ! is_tax( 'learning-pathway' ) ) {
 }
 
 $learning_pathway_object = get_queried_object();
+
+if ( ! $learning_pathway_object ) {
+	return;
+}
+
 $learning_pathway_id = $learning_pathway_object->term_id;
 $learning_pathway_slug = $learning_pathway_object->slug;
 
