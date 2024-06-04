@@ -235,14 +235,12 @@ function set_site_breadcrumbs( $breadcrumbs ) {
 	$post_type = get_post_type();
 
 	if ( is_archive() ) {
+		// Archive page: Change the title of the second breadcrumb from the first post title to the archive title.
 		if ( isset( $breadcrumbs[1] ) ) {
-			// Change the title of the second breadcrumb from the post title to the post type.
 			$breadcrumbs[1]['title'] = get_the_archive_title();
 		}
-	}
-
-	// Add the archive of a post type to the breadcrumbs.
-	if ( is_singular() && 'page' !== $post_type && 'post' !== $post_type ) {
+	} elseif ( is_singular() && 'page' !== $post_type && 'post' !== $post_type ) {
+		// CPT single page: Insert the archive breadcrumb into the second position.
 		$post_type_object = get_post_type_object( $post_type );
 		$archive_title = $post_type_object->labels->name;
 		$archive_url = get_post_type_archive_link( $post_type );
@@ -252,9 +250,9 @@ function set_site_breadcrumbs( $breadcrumbs ) {
 			'title' => $archive_title,
 		);
 
-		// Insert the post type into the second position.
 		array_splice( $breadcrumbs, 1, 0, array( $archive_breadcrumb ) );
 
+		// If it's a lesson, change the second breadcrumb from archive title (ie. 'Courses') to the course title.
 		if ( is_singular( 'lesson' ) ) {
 			$lesson_course_id = get_post_meta( get_the_ID(), '_lesson_course', true );
 
@@ -271,19 +269,19 @@ function set_site_breadcrumbs( $breadcrumbs ) {
 
 			$breadcrumbs[1] = $lesson_course_breadcrumb;
 		}
-	}
+	} else {
+		// Page: Add the ancestors of the current page to the breadcrumbs.
+		$ancestors = get_post_ancestors( get_the_ID() );
+		foreach ( $ancestors as $ancestor ) {
+			$ancestor_post = get_post( $ancestor );
 
-	// Add the ancestors of the current page to the breadcrumbs.
-	$ancestors = get_post_ancestors( get_the_ID() );
-	foreach ( $ancestors as $ancestor ) {
-		$ancestor_post = get_post( $ancestor );
+			$ancestor_breadcrumb = array(
+				'url' => get_permalink( $ancestor_post ),
+				'title' => get_the_title( $ancestor_post ),
+			);
 
-		$ancestor_breadcrumb = array(
-			'url' => get_permalink( $ancestor_post ),
-			'title' => get_the_title( $ancestor_post ),
-		);
-
-		array_splice( $breadcrumbs, 1, 0, array( $ancestor_breadcrumb ) );
+			array_splice( $breadcrumbs, 1, 0, array( $ancestor_breadcrumb ) );
+		}
 	}
 
 	return $breadcrumbs;
