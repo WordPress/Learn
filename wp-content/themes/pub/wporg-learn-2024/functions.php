@@ -223,7 +223,7 @@ function get_learning_pathway_level_content( $learning_pathway ) {
  * @return array
  */
 function set_site_breadcrumbs( $breadcrumbs ) {
-	if ( is_tax( 'learning-pathway' ) ) {
+	if ( is_tax( 'learning-pathway' ) || is_page( 'learning-pathways' ) ) {
 		return array();
 	}
 
