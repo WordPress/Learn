@@ -10,9 +10,19 @@
 <!-- wp:group {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|50"}}},"layout":{"type":"constrained","justifyContent":"left","contentSize":"730px"}} -->
 <div class="wp-block-group" style="margin-bottom:var(--wp--preset--spacing--50)">
 
+	<!-- wp:query-title {"type":"archive","showPrefix":false} /-->
+
 	<!-- wp:paragraph -->
 	<p><?php esc_html_e( 'WordPress provides limitless ways for people to craft and grow their online presence. The content in these courses is delivered in multiple formats, with a focus on text and video, working towards practical learning objectives to help you become a better WordPress developer, designer, user, and contributor.', 'wporg-learn' ); ?></p>
 	<!-- /wp:paragraph -->
+
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"align":"wide","style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|50"}}}} -->
+<div id="wporg-search" class="wp-block-group alignwide" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--50)">
+
+	<!-- wp:search {"label":"<?php esc_attr_e( 'Search', 'wporg-learn' ); ?>","showLabel":false,"placeholder":"<?php esc_attr_e( 'Search courses', 'wporg-learn' ); ?>","width":290,"widthUnit":"px","buttonText":"<?php esc_attr_e( 'Search', 'wporg-learn' ); ?>","buttonPosition":"button-inside","buttonUseIcon":true,"query":{"post_type":"course"}} /-->
 
 </div>
 <!-- /wp:group -->

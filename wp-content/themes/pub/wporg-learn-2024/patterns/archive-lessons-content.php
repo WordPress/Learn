@@ -10,9 +10,19 @@
 <!-- wp:group {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|50"}}},"layout":{"type":"constrained","justifyContent":"left","contentSize":"730px"}} -->
 <div class="wp-block-group" style="margin-bottom:var(--wp--preset--spacing--50)">
 
+	<!-- wp:query-title {"type":"archive","showPrefix":false} /-->
+
 	<!-- wp:paragraph -->
 	<p>[TBD Introduction]</p>
 	<!-- /wp:paragraph -->
+
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"align":"wide","style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|50"}}}} -->
+<div id="wporg-search" class="wp-block-group alignwide" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--50)">
+
+	<!-- wp:search {"label":"<?php esc_attr_e( 'Search', 'wporg-learn' ); ?>","showLabel":false,"placeholder":"<?php esc_attr_e( 'Search lessons', 'wporg-learn' ); ?>","width":290,"widthUnit":"px","buttonText":"<?php esc_attr_e( 'Search', 'wporg-learn' ); ?>","buttonPosition":"button-inside","buttonUseIcon":true,"query":{"post_type":"lesson"}} /-->
 
 </div>
 <!-- /wp:group -->
