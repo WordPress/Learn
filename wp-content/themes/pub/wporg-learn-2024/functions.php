@@ -5,8 +5,8 @@ namespace WordPressdotorg\Theme\Learn_2024;
 use function WPOrg_Learn\Sensei\{get_my_courses_page_url};
 
 // Block files
-require_once __DIR__ . '/src/learning-pathway-cards/block.php';
-require_once __DIR__ . '/src/upcoming-online-workshops/block.php';
+require_once __DIR__ . '/src/learning-pathway-cards/index.php';
+require_once __DIR__ . '/src/upcoming-online-workshops/index.php';
 
 /**
  * Actions and filters.
