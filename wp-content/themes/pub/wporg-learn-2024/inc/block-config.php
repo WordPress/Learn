@@ -36,12 +36,12 @@ function get_course_level_options( $options ) {
 	$count = count( $selected );
 	$label = sprintf(
 		/* translators: The dropdown label for filtering, %s is the selected term count. */
-		_n( 'Experience levels <span>%s</span>', 'Experience levels <span>%s</span>', $count, 'wporg-learn' ),
+		_n( 'Level <span>%s</span>', 'Level <span>%s</span>', $count, 'wporg-learn' ),
 		$count
 	);
 	return array(
 		'label' => $label,
-		'title' => __( 'Experience levels', 'wporg-learn' ),
+		'title' => __( 'Level', 'wporg-learn' ),
 		'key' => 'wporg_lesson_level',
 		'action' => home_url( '/courses/' ),
 		'options' => array_combine( wp_list_pluck( $levels, 'slug' ), wp_list_pluck( $levels, 'name' ) ),
@@ -76,12 +76,12 @@ function get_course_topic_options( $options ) {
 	$count = count( $selected );
 	$label = sprintf(
 		/* translators: The dropdown label for filtering, %s is the selected term count. */
-		_n( 'Topics <span>%s</span>', 'Topics <span>%s</span>', $count, 'wporg-learn' ),
+		_n( 'Topic <span>%s</span>', 'Topic <span>%s</span>', $count, 'wporg-learn' ),
 		$count
 	);
 	return array(
 		'label' => $label,
-		'title' => __( 'Topics', 'wporg-learn' ),
+		'title' => __( 'Topic', 'wporg-learn' ),
 		'key' => 'wporg_workshop_topic',
 		'action' => home_url( '/courses/' ),
 		'options' => array_combine( wp_list_pluck( $topics, 'slug' ), wp_list_pluck( $topics, 'name' ) ),
