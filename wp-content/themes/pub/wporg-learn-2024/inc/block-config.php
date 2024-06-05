@@ -7,6 +7,7 @@ namespace WordPressdotorg\Theme\Learn_2024\Block_Config;
 
 add_filter( 'wporg_query_filter_options_level', __NAMESPACE__ . '\get_course_level_options' );
 add_filter( 'wporg_query_filter_options_topic', __NAMESPACE__ . '\get_course_topic_options' );
+add_action( 'wporg_query_filter_in_form', __NAMESPACE__ . '\inject_other_filters' );
 
 /**
  * Get the list of levels for the course filters.
@@ -86,4 +87,31 @@ function get_course_topic_options( $options ) {
 		'options' => array_combine( wp_list_pluck( $topics, 'slug' ), wp_list_pluck( $topics, 'name' ) ),
 		'selected' => $selected,
 	);
+}
+
+/**
+ * Add in the other existing filters as hidden inputs in the filter form.
+ *
+ * Enables combining filters by building up the correct URL on submit,
+ * for example courses using a topic and a level:
+ *   ?wporg_workshop_topic[]=extending-wordpress&wporg_lesson_level[]=beginner`
+ *
+ * @param string $key The key for the current filter.
+ */
+function inject_other_filters( $key ) {
+	global $wp_query;
+
+	$query_vars = array( 'wporg_workshop_topic', 'wporg_lesson_level' );
+	foreach ( $query_vars as $query_var ) {
+		if ( ! isset( $wp_query->query[ $query_var ] ) ) {
+			continue;
+		}
+		if ( $key === $query_var ) {
+			continue;
+		}
+		$values = (array) $wp_query->query[ $query_var ];
+		foreach ( $values as $value ) {
+			printf( '<input type="hidden" name="%s[]" value="%s" />', esc_attr( $query_var ), esc_attr( $value ) );
+		}
+	}
 }
