@@ -15,7 +15,7 @@ npm run wp-env run cli wp db import wp-content/uploads/wporg_events.sql
 npm run wp-env run cli wp db import wp-content/uploads/wporg_locales.sql
 
 # Activate plugins
-npm run wp-env run cli wp plugin activate edit-flow jetpack wordpress-importer sensei-lms gutenberg locale-detection code-syntax-block
+npm run wp-env run cli wp plugin activate edit-flow jetpack wordpress-importer sensei-lms gutenberg locale-detection code-syntax-block wporg-learn
 
 # Activate jetpack modules
 npm run wp-env run cli wp jetpack module activate contact-form
