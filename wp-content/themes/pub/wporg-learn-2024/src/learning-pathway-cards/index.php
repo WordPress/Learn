@@ -38,16 +38,16 @@ function render( $attributes, $content, $block ) {
 	$is_mini           = isset( $attributes['isMini'] ) && $attributes['isMini'];
 
 	if ( empty( $learning_pathways ) || is_wp_error( $learning_pathways ) ) {
-		return __( 'No learning pathways found.', 'wporg-learn' );
+		$content = __( 'No learning pathways found.', 'wporg-learn' );
+	} else {
+		$content = '<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|50"}},"className":"is-style-cards-grid","layout":{"type":"grid","columnCount":null,"minimumColumnWidth":"350px"}} --><div class="wp-block-group is-style-cards-grid">';
+
+		foreach ( $learning_pathways as $learning_pathway ) {
+			$content .= $is_mini ? render_mini_card( $learning_pathway ) : render_full_card( $learning_pathway );
+		}
+
+		$content .= '</div><!-- /wp:group -->';
 	}
-
-	$content = '<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|50"}},"className":"is-style-cards-grid","layout":{"type":"grid","columnCount":null,"minimumColumnWidth":"350px"}} --><div class="wp-block-group is-style-cards-grid">';
-
-	foreach ( $learning_pathways as $learning_pathway ) {
-		$content .= $is_mini ? render_mini_card( $learning_pathway ) : render_full_card( $learning_pathway );
-	}
-
-	$content .= '</div><!-- /wp:group -->';
 
 	$wrapper_attributes = get_block_wrapper_attributes();
 	return sprintf(
