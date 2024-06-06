@@ -174,9 +174,8 @@ function get_language_options( $options ) {
 function modify_query( $query ) {
 	// Ensure this code runs only for the main query on archive pages
 	if ( ! is_admin() && $query->is_main_query() && $query->is_archive() ) {
-		$language = $_GET['language'];
-		if ( isset( $language ) && is_array( $language ) ) {
-			$languages = array_map( 'sanitize_text_field', $language );
+		if ( isset( $_GET['language'] ) && is_array( $_GET['language'] ) ) {
+			$languages = array_map( 'sanitize_text_field', $_GET['language'] );
 
 			$meta_query = array( 'relation' => 'OR' );
 
