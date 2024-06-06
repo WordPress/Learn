@@ -14,6 +14,7 @@ require_once __DIR__ . '/src/upcoming-online-workshops/index.php';
  */
 add_action( 'after_setup_theme', __NAMESPACE__ . '\setup' );
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_assets' );
+add_filter( 'wporg_block_site_breadcrumbs', __NAMESPACE__ . '\set_site_breadcrumbs' );
 add_filter( 'wporg_block_navigation_menus', __NAMESPACE__ . '\add_site_navigation_menus' );
 add_filter( 'single_template_hierarchy', __NAMESPACE__ . '\modify_single_template' );
 remove_filter( 'template_include', array( 'Sensei_Templates', 'template_loader' ), 10, 1 );
@@ -212,4 +213,65 @@ function get_learning_pathway_level_content( $learning_pathway ) {
 	);
 
 	return $content[ $learning_pathway ];
+}
+
+/**
+ * Filters breadcrumb items for the site-breadcrumb block.
+ *
+ * @param array $breadcrumbs
+ *
+ * @return array
+ */
+function set_site_breadcrumbs( $breadcrumbs ) {
+	if ( isset( $breadcrumbs[0] ) ) {
+		// Change the title of the first breadcrumb to 'Home'.
+		$breadcrumbs[0]['title'] = 'Home';
+	}
+
+	$post_type = get_post_type();
+
+	if ( is_singular() && 'page' !== $post_type && 'post' !== $post_type ) {
+		// CPT single page: Insert the archive breadcrumb into the second position.
+		$post_type_object = get_post_type_object( $post_type );
+		$archive_title = $post_type_object->labels->name;
+		$archive_url = get_post_type_archive_link( $post_type );
+
+		$archive_breadcrumb = array(
+			'url' => $archive_url,
+			'title' => $archive_title,
+		);
+
+		array_splice( $breadcrumbs, 1, 0, array( $archive_breadcrumb ) );
+
+		// If it's a lesson single page, change the second breadcrumb to the course archive
+		// and insert the lesson course breadcrumb into the third position.
+		if ( is_singular( 'lesson' ) ) {
+			$lesson_course_id = get_post_meta( get_the_ID(), '_lesson_course', true );
+
+			if ( empty( $lesson_course_id ) ) {
+				return $breadcrumbs;
+			}
+
+			$post_type_object = get_post_type_object( 'course' );
+			$archive_title = $post_type_object->labels->name;
+			$archive_url = get_post_type_archive_link( $post_type );
+
+			$archive_breadcrumb = array(
+				'url' => $archive_url,
+				'title' => $archive_title,
+			);
+
+			$lesson_course_title = get_the_title( $lesson_course_id );
+			$lesson_course_link = get_permalink( $lesson_course_id );
+			$lesson_course_breadcrumb = array(
+				'url' => $lesson_course_link,
+				'title' => $lesson_course_title,
+			);
+
+			$breadcrumbs[1] = $archive_breadcrumb;
+			array_splice( $breadcrumbs, 2, 0, array( $lesson_course_breadcrumb ) );
+		}
+	}
+
+	return $breadcrumbs;
 }

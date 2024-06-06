@@ -14,17 +14,9 @@
 	<!-- wp:group {"style":{"spacing":{"padding":{"left":"var:preset|spacing|edge-space","right":"var:preset|spacing|edge-space","top":"0px","bottom":"0px"}}},"className":"sensei-course-theme-header-content","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between"}} -->
 	<div class="wp-block-group sensei-course-theme-header-content" style="padding-top:0px;padding-right:var(--wp--preset--spacing--edge-space);padding-bottom:0px;padding-left:var(--wp--preset--spacing--edge-space)">
 
-		<!-- wp:group {"style":{"spacing":{"blockGap":"15px"}},"layout":{"type":"flex","flexWrap":"wrap"}} -->
-		<div class="wp-block-group">
-
-			<!-- wp:site-title {"level":2,"style":{"elements":{"link":{"color":{"text":"var:preset|color|charcoal-4"}}},"typography":{"fontStyle":"normal","fontWeight":"400"}},"textColor":"charcoal-4","fontSize":"small"} /-->
-
-			<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|light-grey-1"}}}},"textColor":"light-grey-1"} -->
-			<p class="has-light-grey-1-color has-text-color has-link-color" aria-hidden="true">/</p>
-			<!-- /wp:paragraph -->
-
-			<!-- wp:sensei-lms/course-title {"style":{"typography":{"fontStyle":"normal","fontWeight":"400"},"spacing":{"margin":{"top":"0"},"padding":{"right":"0","left":"0"}}},"fontSize":"small"} /-->
-
+		<!-- wp:group {"className":"wporg-breadcrumbs","align":"full","style":{"spacing":{"padding":{"top":"18px","bottom":"18px","right":"var:preset|spacing|edge-space"}}},"backgroundColor":"white","layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"}} -->
+		<div class="wporg-breadcrumbs wp-block-group alignfull has-white-background-color has-background" style="padding-top:18px;padding-right:var(--wp--preset--spacing--edge-space);padding-bottom:18px;">
+			<!-- wp:wporg/site-breadcrumbs {"fontSize":"small"} /-->
 		</div>
 		<!-- /wp:group -->
 
