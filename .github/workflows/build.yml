@@ -46,7 +46,7 @@ jobs:
       - name: yarn install and build
         run: |
           yarn
-          yarn build
+          yarn workspaces run build
 
       - name: Trim the repo down to just the source and built files
         run: |
