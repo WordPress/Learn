@@ -22,9 +22,10 @@
 		]
 	},
 	"scripts": {
-		"build": "yarn workspaces run build",
-		"create": "composer install && yarn setup:tools && yarn workspace wporg-learn-2024 run build && yarn run install:env",
-		"create:old": "composer install && yarn setup:tools && yarn workspaces run build && yarn run install:env:old",
+		"build": "yarn workspace wporg-learn-2024 run build && yarn workspace wporg-learn-plugin run build",
+		"build:old": "yarn workspace wporg-learn-theme run build && yarn workspace wporg-learn-plugin run build",
+		"create": "composer install && yarn setup:tools && yarn build && yarn run install:env",
+		"create:old": "composer install && yarn setup:tools && yarn build:old && yarn run install:env:old",
 		"format:php": "composer run format",
 		"install:env": "./bin/index.sh",
 		"install:env:old": "./bin/index.old.sh",

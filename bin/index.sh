@@ -27,4 +27,4 @@ npm run wp-env run cli wp theme activate pub/wporg-learn-2024
 npm run wp-env run cli wp rewrite structure '/%postname%/'
 
 # Import content
-# npm run wp-env run cli php bin/import-test-content.php
+npm run wp-env run cli php bin/import-test-content.php
