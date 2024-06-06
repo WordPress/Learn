@@ -566,5 +566,11 @@ function add_sensei_course_custom_navigation_tabs( $tabs ) {
 		'screen_id' => 'edit-learning-pathway',
 	);
 
+	$tabs['topics'] = array(
+		'label'     => __( 'Topics', 'wporg-learn' ),
+		'url'       => admin_url( 'edit-tags.php?taxonomy=topic&post_type=course' ),
+		'screen_id' => 'edit-topic',
+	);
+
 	return $tabs;
 }
