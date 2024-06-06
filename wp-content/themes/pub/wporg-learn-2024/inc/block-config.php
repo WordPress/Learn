@@ -116,7 +116,7 @@ function get_topic_options( $options ) {
  *
  * @param WP_Query $query The query.
  * @param string   $key The meta key.
- * @return mixed   The meta query values.
+ * @return array   The meta query values.
  */
 function get_meta_query_values_by_key( $query, $key ) {
 	if ( isset( $query->query_vars['meta_query'] ) ) {
@@ -223,6 +223,20 @@ function inject_other_filters( $key ) {
 		$values = (array) $wp_query->query[ $query_var ];
 		foreach ( $values as $value ) {
 			printf( '<input type="hidden" name="%s[]" value="%s" />', esc_attr( $query_var ), esc_attr( $value ) );
+		}
+	}
+
+	$meta_query_vars = array( 'language' );
+	foreach ( $meta_query_vars as $meta_query_var ) {
+		$values = (array) get_meta_query_values_by_key( $wp_query, $meta_query_var );
+		if ( empty( $values ) ) {
+			continue;
+		}
+		if ( $key === $meta_query_var ) {
+			continue;
+		}
+		foreach ( $values as $value ) {
+			printf( '<input type="hidden" name="%s[]" value="%s" />', esc_attr( $meta_query_var ), esc_attr( $value ) );
 		}
 	}
 }
