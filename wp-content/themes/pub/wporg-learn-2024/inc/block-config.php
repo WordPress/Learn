@@ -31,7 +31,15 @@ function get_current_url() {
  */
 function get_level_options( $options ) {
 	global $wp_query;
-	// Get top 10 levels ordered by count, then sort them alphabetically.
+	// Get top 10 levels ordered by count, not empty, filtered by post_type, then sort them alphabetically.
+	$object_ids = get_posts(
+		array(
+			'post_type' => get_post_type(),
+			'fields' => 'ids',
+			'numberposts' => -1,
+			'status' => 'publish',
+		)
+	);
 	$levels = get_terms(
 		array(
 			'taxonomy' => 'level',
@@ -39,8 +47,13 @@ function get_level_options( $options ) {
 			'order' => 'DESC',
 			'number' => 10,
 			'hide_empty' => true,
+			'object_ids' => $object_ids,
 		)
 	);
+	// If there are no levels, or less than 2, don't show the filter.
+	if ( empty( $levels ) || count( $levels ) < 2 ) {
+		return array();
+	}
 
 	usort(
 		$levels,
@@ -48,6 +61,21 @@ function get_level_options( $options ) {
 			return strcmp( strtolower( $a->name ), strtolower( $b->name ) );
 		}
 	);
+	// Move the level with value 'Any' to the top, if it exists.
+	$any_level = array_filter(
+		$levels,
+		function ( $level ) {
+			return 'Any' === $level->name;
+		}
+	);
+	if ( ! empty( $any_level ) ) {
+		$target_key = key( $any_level );
+		$target_element = array( $target_key => $levels[ $target_key ] );
+
+		unset( $levels[ $target_key ] );
+
+		$levels = $target_element + $levels;
+	}
 
 	$selected = isset( $wp_query->query['wporg_lesson_level'] ) ? (array) $wp_query->query['wporg_lesson_level'] : array();
 	$count = count( $selected );
@@ -75,7 +103,15 @@ function get_level_options( $options ) {
  */
 function get_topic_options( $options ) {
 	global $wp_query;
-	// Get top 20 topics ordered by count, then sort them alphabetically.
+	// Get top 20 topics ordered by count, not empty, filtered by post_type, then sort them alphabetically.
+	$object_ids = get_posts(
+		array(
+			'post_type' => get_post_type(),
+			'fields' => 'ids',
+			'numberposts' => -1,
+			'status' => 'publish',
+		)
+	);
 	$topics = get_terms(
 		array(
 			'taxonomy' => 'topic',
@@ -83,8 +119,14 @@ function get_topic_options( $options ) {
 			'order' => 'DESC',
 			'number' => 20,
 			'hide_empty' => true,
+			'object_ids' => $object_ids,
 		)
 	);
+	// If there are no topics, or less than 2, don't show the filter.
+	if ( empty( $topics ) || count( $topics ) < 2 ) {
+		return array();
+	}
+
 	usort(
 		$topics,
 		function ( $a, $b ) {
@@ -142,7 +184,11 @@ function get_language_options( $options ) {
 	global $wp_query;
 
 	$languages = get_available_post_type_locales( 'language', get_post_type(), 'publish' );
-	// if en_US is not in the list of languages, add it to the top
+	// If there are no languages, or the only language is en_US, don't show the filter.
+	if ( empty( $languages ) || ( 1 === count( $languages ) && isset( $languages['en_US'] ) ) ) {
+		return array();
+	}
+	// Otherwise if there are other languages and en_US is not listed, add it to the top,
 	// as this is the default value for the meta field.
 	if ( ! isset( $languages['en_US'] ) ) {
 		$languages = array_merge( array( 'en_US' => 'English' ), $languages );
