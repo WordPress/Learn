@@ -64,6 +64,9 @@ function render( $attributes, $content, $block ) {
 		// Get the average number of days it takes to complete a course
 		$average_days = $course_service->get_average_days_to_completion( array( $course_id ) );
 
+		// Get the last updated time
+		$last_updated = get_last_updated_time( $course_id );
+
 		// Set up array of data to be used
 		$meta_fields = array(
 			array(
@@ -80,6 +83,11 @@ function render( $attributes, $content, $block ) {
 				'label' => __( 'Average days to completion', 'wporg-learn' ),
 				'value' => $average_days,
 				'key'   => 'average-days',
+			),
+			array(
+				'label' => __( 'Last updated', 'wporg-learn' ),
+				'value' => $last_updated,
+				'key'   => 'last-updated',
 			),
 		);
 	}
@@ -102,4 +110,27 @@ function render( $attributes, $content, $block ) {
 		$wrapper_attributes,
 		join( '', $list_items )
 	);
+}
+
+/**
+ * Get the last updated time for a course.
+ *
+ * @param int $course_id The ID of the course.
+ *
+ * @return string The last updated time.
+ */
+function get_last_updated_time( $course_id ) {
+	$last_updated_time = get_post_modified_time( 'U', false, $course_id );
+	$current_time = current_time( 'timestamp' );
+
+	$time_diff = human_time_diff( $last_updated_time, $current_time );
+
+	// If the time difference is greater than 30 days, display the specific date
+	if ( $current_time - $last_updated_time > 30 * DAY_IN_SECONDS ) {
+		$last_updated = get_post_modified_time( 'M jS, Y', false, $course_id );
+	} else {
+		$last_updated = sprintf( '%s ago', $time_diff );
+	}
+
+	return $last_updated;
 }
