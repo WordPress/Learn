@@ -53,4 +53,14 @@ body {
 	.wporg-learn-sidebar-playground  a {
 		line-height: 1;
 	}
+
+	.wporg-learn-sidebar-all-courses {
+		a {
+			text-decoration: none;
+		}
+
+		+ * {
+			margin-top: 16px;
+		}
+	}
 }

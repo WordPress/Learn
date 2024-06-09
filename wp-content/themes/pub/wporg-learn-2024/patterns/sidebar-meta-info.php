@@ -5,10 +5,18 @@
  * Inserter: no
  */
 
+ use function WPOrg_Learn\Sensei\{get_my_courses_page_url}
+
 ?>
 
 <!-- wp:group {"align":"full","className":"wporg-learn-sidebar-meta-info","layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull wporg-learn-sidebar-meta-info">
+
+	<?php if ( Sensei_Course::is_user_enrolled( get_the_ID() ) ) : ?>
+	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|blueberry-1"}}},"typography":{"fontStyle":"normal","fontWeight":"400","lineHeight":26px}},"textColor":"blueberry-1","fontSize":"normal","fontFamily":"inter","className":""wporg-learn-sidebar-all-courses"} -->
+	<p class="has-blueberry-1-color has-text-color has-link-color has-inter-font-family has-normal-font-size wporg-learn-sidebar-all-courses" style="font-style:normal;font-weight:400;line-height:26px"><a href="<?php echo esc_url( get_my_courses_page_url() ); ?>">All My Courses</a></p>
+	<!-- /wp:paragraph -->
+	<?php endif; ?>
 
 	<!-- wp:sensei-lms/course-progress {"defaultBarColor":"blueberry-1"} /-->
 
