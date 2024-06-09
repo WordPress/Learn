@@ -24,20 +24,20 @@
 
 	<!-- wp:wporg-learn/course-data /-->
 
-	<!-- wp:paragraph -->
-	<p id="suggestions"><strong>Suggestions</strong></p>
+	<!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"400","lineHeight":"34px"}},"fontSize":"large","fontFamily":"inter"} -->
+	<p class="has-inter-font-family has-large-font-size" id="suggestions" style="font-style:normal;font-weight:400;line-height:34px">Suggestions</p>
 	<!-- /wp:paragraph -->
 
-	<!-- wp:paragraph -->
-	<p>Found a typo, grammar error or outdated screenshot? <a href="https://learn.wordpress.org/report-content-errors/">Contact us</a></p>
+	<!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"400,"lineHeight":"26px"},"spacing":{"margin":{"bottom":"40px"}}},"fontSize":"normal","fontFamily":"inter"} -->
+	<p class="has-inter-font-family has-normal-font-size" style="margin-bottom:40px;font-style:normal;font-weight:400;line-height:26px">Found a typo, grammar error or outdated screenshot? <a href="https://learn.wordpress.org/report-content-errors/">Contact us</a></p>
 	<!-- /wp:paragraph -->
 
-	<!-- wp:paragraph -->
-	<p id="suggestions"><strong>License</strong></p>
+	<!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"400","lineHeight":"34px"}},"fontSize":"large","fontFamily":"inter"} -->
+	<p class="has-inter-font-family has-large-font-size" id="suggestions" style="font-style:normal;font-weight:400;line-height:34px">License</p>
 	<!-- /wp:paragraph -->
 
-	<!-- wp:paragraph -->
-	<p>This work is licensed under a <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.</p>
+	<!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"400,"lineHeight":"26px"}},"fontSize":"normal","fontFamily":"inter"} -->
+	<p class="has-inter-font-family has-normal-font-size" style="font-style:normal;font-weight:400;line-height:26px">This work is licensed under a <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.</p>
 	<!-- /wp:paragraph -->
 
 </div>
