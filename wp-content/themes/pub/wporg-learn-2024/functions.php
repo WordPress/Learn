@@ -255,7 +255,7 @@ function set_site_breadcrumbs( $breadcrumbs ) {
 
 			$post_type_object = get_post_type_object( 'course' );
 			$archive_title = $post_type_object->labels->name;
-			$archive_url = get_post_type_archive_link( $post_type );
+			$archive_url = get_post_type_archive_link( 'course' );
 
 			$archive_breadcrumb = array(
 				'url' => $archive_url,
