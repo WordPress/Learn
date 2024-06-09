@@ -39,3 +39,14 @@ body {
 		padding-top: unset !important;
 	}
 }
+
+.wporg-learn-sidebar-meta-info {
+	.wp-block-sensei-lms-button-take-course {
+		margin-top: 0;
+		margin-bottom: var(--wp--preset--spacing--20);
+
+		> button {
+			line-height: 1;
+		}
+	}
+}
