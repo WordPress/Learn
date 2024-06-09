@@ -22,7 +22,7 @@
 	<!-- /wp:button --></div>
 	<!-- /wp:buttons -->
 
-	<!-- wp:wporg-learn/course-data /-->
+	<!-- wp:wporg-learn/sensei-meta-list {"type":"course","fontSize":"normal"} /-->
 
 	<!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"400","lineHeight":"34px"}},"fontSize":"large","fontFamily":"inter"} -->
 	<p class="has-inter-font-family has-large-font-size" id="suggestions" style="font-style:normal;font-weight:400;line-height:34px">Suggestions</p>
