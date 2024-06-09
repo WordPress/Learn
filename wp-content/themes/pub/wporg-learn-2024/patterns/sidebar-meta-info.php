@@ -1,0 +1,44 @@
+<?php
+/**
+ * Title: Sidebar Meta Info
+ * Slug: wporg-learn-2024/sidebar-meta-info
+ * Inserter: no
+ */
+
+?>
+
+<!-- wp:group {"align":"full","className":"wporg-learn-sidebar-meta-info","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull wporg-learn-sidebar-meta-info"><!-- wp:sensei-lms/button-take-course {"align":"full","borderRadius":2,"className":"is-style-default"} -->
+
+	<!-- wp:sensei-lms/button-take-course {"align":"full","borderRadius":2,"className":"is-style-default"} -->
+	<div class="wp-block-sensei-lms-button-take-course is-style-default wp-block-sensei-button wp-block-button has-text-align-full">
+	<button class="wp-block-button__link" style="border-radius:2px">Take this Course</button>
+	</div>
+	<!-- /wp:sensei-lms/button-take-course -->
+
+	<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
+	<div class="wp-block-buttons"><!-- wp:button {"textAlign":"center","width":100,"style":{"border":{"radius":"2px"},"spacing":{"padding":{"left":"32px","right":"32px","top":"17px","bottom":"17px"}},"typography":{"lineHeight":1.6,"fontStyle":"normal","fontWeight":"400"}},"className":"aligncenter is-style-outline","fontSize":"normal","fontFamily":"inter"} -->
+	<div class="wp-block-button has-custom-width wp-block-button__width-100 has-custom-font-size aligncenter is-style-outline has-inter-font-family has-normal-font-size" style="font-style:normal;font-weight:400;line-height:1.6"><a class="wp-block-button__link has-text-align-center wp-element-button" href="https://wordpress.org/playground/demo/?step=playground&amp;theme=twentytwentythree" style="border-radius:2px;padding-top:17px;padding-right:32px;padding-bottom:17px;padding-left:32px" target="_blank" rel="noreferrer noopener">Practice on a private demo site</a></div>
+	<!-- /wp:button --></div>
+	<!-- /wp:buttons -->
+
+	<!-- wp:wporg-learn/course-data /-->
+
+	<!-- wp:paragraph -->
+	<p id="suggestions"><strong>Suggestions</strong></p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:paragraph -->
+	<p>Found a typo, grammar error or outdated screenshot? <a href="https://learn.wordpress.org/report-content-errors/">Contact us</a></p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:paragraph -->
+	<p id="suggestions"><strong>License</strong></p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:paragraph -->
+	<p>This work is licensed under a <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.</p>
+	<!-- /wp:paragraph -->
+
+</div>
+<!-- /wp:group -->
