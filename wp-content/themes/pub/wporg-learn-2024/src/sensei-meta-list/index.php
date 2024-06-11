@@ -45,7 +45,7 @@ function render( $attributes, $content, $block ) {
 
 	$list_items = array();
 
-	if ( get_post_type() === 'course' ) {
+	if ( 'course' === $block->context['postType'] ) {
 		$course_service = new Sensei_Reports_Overview_Service_Courses();
 		$course_id = $block->context['postId'];
 
