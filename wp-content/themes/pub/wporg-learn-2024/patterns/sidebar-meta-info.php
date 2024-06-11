@@ -54,7 +54,7 @@
 
 	<!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"400,"lineHeight":"26px"},"spacing":{"margin":{"bottom":"40px"}}},"fontSize":"normal","fontFamily":"inter"} -->
 	<p class="has-inter-font-family has-normal-font-size" style="margin-bottom:40px;font-style:normal;font-weight:400;line-height:26px">
-		<?php esc_html_e( 'Found a typo, grammar error or outdated screenshot? ', 'wporg-learn' ); ?><a href="https://learn.wordpress.org/report-content-errors/"><?php esc_html_e( 'Contact us', 'wporg-learn' ); ?></a>
+		<?php esc_html_e( 'Found a typo, grammar error or outdated screenshot? ', 'wporg-learn' ); ?><a href="https://learn.wordpress.org/report-content-feedback/"><?php esc_html_e( 'Contact us', 'wporg-learn' ); ?></a>
 	</p>
 	<!-- /wp:paragraph -->
 
