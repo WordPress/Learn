@@ -24,6 +24,27 @@ function get_current_url() {
 }
 
 /**
+ * Get the tax query for filtering.
+ * Filter by learning pathway if that is the current base taxonomy.
+ *
+ * @return array The tax query.
+ */
+function get_tax_query() {
+	global $wp_query;
+	return isset( $wp_query->query_vars['wporg_learning_pathway'] )
+		? array(
+			'taxonomy' => 'learning-pathway',
+			'field' => 'slug',
+			'terms' => $wp_query->query_vars['wporg_learning_pathway'],
+		)
+		: array(
+			'taxonomy' => $wp_query->queried_object->taxonomy,
+			'field' => 'slug',
+			'terms' => $wp_query->queried_object->slug,
+		);
+}
+
+/**
  * Get the list of levels for the course and lesson filters.
  *
  * @param array $options The options for this filter.
@@ -31,16 +52,29 @@ function get_current_url() {
  */
 function get_level_options( $options ) {
 	global $wp_query;
+
 	$post_type = $wp_query->query_vars['post_type'];
+	$is_learning_pathway_tax = isset( $wp_query->query_vars['wporg_learning_pathway'] );
+	if ( ! $post_type && $is_learning_pathway_tax ) {
+		$post_type = 'course';
+	}
+
 	// Get top 10 levels ordered by count, not empty, filtered by post_type, then sort them alphabetically.
-	$object_ids = get_posts(
-		array(
-			'post_type' => $post_type,
-			'fields' => 'ids',
-			'numberposts' => -1,
-			'status' => 'publish',
-		)
+	$args = array(
+		'fields' => 'ids',
+		'numberposts' => -1,
+		'status' => 'publish',
 	);
+
+	if ( $post_type ) {
+		$args['post_type'] = $post_type;
+	}
+
+	if ( is_tax() ) {
+		$args['tax_query'] = array( get_tax_query() );
+	}
+
+	$object_ids = get_posts( $args );
 	$levels = get_terms(
 		array(
 			'taxonomy' => 'level',
@@ -104,29 +138,29 @@ function get_level_options( $options ) {
  */
 function get_topic_options( $options ) {
 	global $wp_query;
+
 	$post_type = $wp_query->query_vars['post_type'];
 	$is_learning_pathway_tax = isset( $wp_query->query_vars['wporg_learning_pathway'] );
 	if ( ! $post_type && $is_learning_pathway_tax ) {
 		$post_type = 'course';
 	}
+
 	// Get top 20 topics ordered by count, not empty, filtered by post_type, then sort them alphabetically.
-	$object_ids = get_posts(
-		array(
-			'post_type' => $post_type,
-			'fields' => 'ids',
-			'numberposts' => -1,
-			'status' => 'publish',
-			'tax_query' => $is_learning_pathway_tax
-				? array(
-					array(
-						'taxonomy' => 'learning-pathway',
-						'field' => 'slug',
-						'terms' => $wp_query->query_vars['wporg_learning_pathway'],
-					),
-				)
-				: array(),
-		)
+	$args = array(
+		'fields' => 'ids',
+		'numberposts' => -1,
+		'status' => 'publish',
 	);
+
+	if ( $post_type ) {
+		$args['post_type'] = $post_type;
+	}
+
+	if ( is_tax() ) {
+		$args['tax_query'] = array( get_tax_query() );
+	}
+
+	$object_ids = get_posts( $args );
 	$topics = get_terms(
 		array(
 			'taxonomy' => 'topic',
