@@ -31,10 +31,11 @@ function get_current_url() {
  */
 function get_level_options( $options ) {
 	global $wp_query;
+	$post_type = $wp_query->query_vars['post_type'];
 	// Get top 10 levels ordered by count, not empty, filtered by post_type, then sort them alphabetically.
 	$object_ids = get_posts(
 		array(
-			'post_type' => get_post_type(),
+			'post_type' => $post_type,
 			'fields' => 'ids',
 			'numberposts' => -1,
 			'status' => 'publish',
@@ -103,10 +104,11 @@ function get_level_options( $options ) {
  */
 function get_topic_options( $options ) {
 	global $wp_query;
+	$post_type = $wp_query->query_vars['post_type'];
 	// Get top 20 topics ordered by count, not empty, filtered by post_type, then sort them alphabetically.
 	$object_ids = get_posts(
 		array(
-			'post_type' => get_post_type(),
+			'post_type' => $post_type,
 			'fields' => 'ids',
 			'numberposts' => -1,
 			'status' => 'publish',
@@ -182,8 +184,8 @@ function get_meta_query_values_by_key( $query, $key ) {
  */
 function get_language_options( $options ) {
 	global $wp_query;
-
-	$languages = get_available_post_type_locales( 'language', get_post_type(), 'publish' );
+	$post_type = $wp_query->query_vars['post_type'];
+	$languages = get_available_post_type_locales( 'language', $post_type, 'publish' );
 	// If there are no languages, or the only language is en_US, don't show the filter.
 	if ( empty( $languages ) || ( 1 === count( $languages ) && isset( $languages['en_US'] ) ) ) {
 		return array();
