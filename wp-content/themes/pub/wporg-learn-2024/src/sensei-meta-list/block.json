@@ -1,0 +1,31 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "wporg-learn/sensei-meta-list",
+	"version": "0.1.0",
+	"title": "Sensei Meta List",
+	"category": "design",
+	"icon": "",
+	"description": "Display the site meta data of a learn or course as a list.",
+	"textdomain": "wporg-learn",
+	"supports": {
+		"align": true,
+		"html": false,
+		"color": {
+			"text": true,
+			"background": true,
+			"link": true
+		},
+		"spacing": {
+			"margin": true,
+			"padding": true
+		},
+		"typography": {
+			"fontSize": true,
+			"lineHeight": true
+		}
+	},
+	"usesContext": [ "postId", "postType" ],
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css"
+}

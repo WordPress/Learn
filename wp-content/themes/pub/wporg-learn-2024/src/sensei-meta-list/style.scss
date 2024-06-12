@@ -1,0 +1,55 @@
+.wp-block-wporg-learn-sensei-meta-list {
+	margin-block-start: 40px;
+	margin-block-end: 40px;
+
+	table {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		border-spacing: 0;
+		border-collapse: collapse;
+	}
+
+	tr {
+		vertical-align: baseline;
+
+		&:not(:last-of-type) {
+			border-bottom: 1px solid var(--wp--preset--color--light-grey-1);
+		}
+
+		th,
+		td {
+			padding-top: var(--wp--preset--spacing--10);
+			padding-bottom: var(--wp--preset--spacing--10);
+		}
+
+		th {
+			font-weight: 400;
+			text-align: start;
+			min-width: 100px;
+		}
+
+		td {
+			text-align: end;
+			white-space: nowrap;
+		}
+
+		@media (max-width: 380px) {
+			display: block;
+
+			th,
+			td {
+				display: block;
+			}
+
+			th {
+				padding-bottom: 0;
+			}
+
+			td {
+				text-align: start;
+				padding-top: 0;
+			}
+		}
+	}
+}
