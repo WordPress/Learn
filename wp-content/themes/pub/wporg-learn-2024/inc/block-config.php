@@ -105,6 +105,10 @@ function get_level_options( $options ) {
 function get_topic_options( $options ) {
 	global $wp_query;
 	$post_type = $wp_query->query_vars['post_type'];
+	$is_learning_pathway_tax = isset( $wp_query->query_vars['wporg_learning_pathway'] );
+	if ( ! $post_type && $is_learning_pathway_tax ) {
+		$post_type = 'course';
+	}
 	// Get top 20 topics ordered by count, not empty, filtered by post_type, then sort them alphabetically.
 	$object_ids = get_posts(
 		array(
@@ -112,6 +116,15 @@ function get_topic_options( $options ) {
 			'fields' => 'ids',
 			'numberposts' => -1,
 			'status' => 'publish',
+			'tax_query' => $is_learning_pathway_tax
+				? array(
+					array(
+						'taxonomy' => 'learning-pathway',
+						'field' => 'slug',
+						'terms' => $wp_query->query_vars['wporg_learning_pathway'],
+					),
+				)
+				: array(),
 		)
 	);
 	$topics = get_terms(
