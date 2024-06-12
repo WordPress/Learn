@@ -214,6 +214,13 @@
 				}
 			}
 
+			div:first-child {
+
+				@media (min-width: 600px) {
+					padding-left: unset;
+				}
+			}
+
 			.wporg-meeting-calendar__list-event-title {
 				font-size: inherit;
 				font-weight: 400;
