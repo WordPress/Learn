@@ -131,11 +131,11 @@ function get_level_options( $options ) {
 
 	return array(
 		'label' => $label,
-		'title' => __( 'Level', 'wporg-learn' ),
+		'title' => __( 'Filter', 'wporg-learn' ),
 		'key' => 'wporg_lesson_level',
 		'action' => get_current_url(),
 		'options' => array_combine( wp_list_pluck( $levels, 'slug' ), wp_list_pluck( $levels, 'name' ) ),
-		'selected' => $selected_slug,
+		'selected' => array( $selected_slug ),
 	);
 }
 
@@ -202,7 +202,7 @@ function get_topic_options( $options ) {
 
 	return array(
 		'label' => $label,
-		'title' => __( 'Topic', 'wporg-learn' ),
+		'title' => __( 'Filter', 'wporg-learn' ),
 		'key' => 'wporg_workshop_topic',
 		'action' => get_current_url(),
 		'options' => array_combine( wp_list_pluck( $topics, 'slug' ), wp_list_pluck( $topics, 'name' ) ),
@@ -262,7 +262,7 @@ function get_language_options( $options ) {
 
 	return array(
 		'label' => $label,
-		'title' => __( 'Language', 'wporg-learn' ),
+		'title' => __( 'Filter', 'wporg-learn' ),
 		'key' => 'language',
 		'action' => get_current_url(),
 		'options' => $languages,
