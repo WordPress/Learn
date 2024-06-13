@@ -381,8 +381,6 @@ _x( 'Getting Started', 'Topics term name', 'wporg-learn' );
 _x( 'Gutenberg', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/topic/hosting/ */
 _x( 'Hosting', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/logo/ */
-_x( 'logo', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/topic/media/ */
 _x( 'Media', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/topic/meetups/ */
@@ -403,8 +401,6 @@ _x( 'Security', 'Topics term name', 'wporg-learn' );
 _x( 'Site Editor', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/topic/site-management/ */
 _x( 'Site Management', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/site-title/ */
-_x( 'site title', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/topic/speaking-at-events/ */
 _x( 'Speaking at Events', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/topic/theme-development/ */
