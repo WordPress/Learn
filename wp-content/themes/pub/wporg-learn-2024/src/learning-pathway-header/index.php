@@ -94,7 +94,7 @@ function render( $attributes, $content, $block ) {
 			<!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"flex","flexWrap":"nowrap"},"className":"wporg-query-filters"} -->
 			<div class="wp-block-group wporg-query-filters">
 				<!-- wp:wporg/query-filter {"key":"language"} /-->
-				<!-- wp:wporg/query-filter {"key":"topic"} /-->
+				<!-- wp:wporg/query-filter {"key":"learning-pathway-topic"} /-->
 				<!-- wp:wporg/query-filter {"key":"learning-pathway-level","multiple":false} /-->
 			</div>
 			<!-- /wp:group -->
