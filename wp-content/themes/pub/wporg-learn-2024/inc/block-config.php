@@ -112,13 +112,22 @@ function get_level_options( $options ) {
 		$levels = $target_element + $levels;
 	}
 
-	$selected = isset( $wp_query->query['wporg_lesson_level'] ) ? (array) $wp_query->query['wporg_lesson_level'] : array();
-	$count = count( $selected );
-	$label = sprintf(
-		/* translators: The dropdown label for filtering, %s is the selected term count. */
-		_n( 'Level <span>%s</span>', 'Level <span>%s</span>', $count, 'wporg-learn' ),
-		$count
-	);
+	$label = __( 'Level', 'wporg-learn' );
+
+	$selected_slug = $wp_query->get( 'wporg_lesson_level' );
+	if ( $selected_slug ) {
+		// Find the selected level from $levels by slug and then get the name.
+		$selected_level = array_filter(
+			$levels,
+			function ( $level ) use ( $selected_slug ) {
+				return $level->slug === $selected_slug;
+			}
+		);
+		if ( ! empty( $selected_level ) ) {
+			$selected_level = array_shift( $selected_level );
+			$label = $selected_level->name;
+		}
+	}
 
 	return array(
 		'label' => $label,
@@ -126,7 +135,7 @@ function get_level_options( $options ) {
 		'key' => 'wporg_lesson_level',
 		'action' => get_current_url(),
 		'options' => array_combine( wp_list_pluck( $levels, 'slug' ), wp_list_pluck( $levels, 'name' ) ),
-		'selected' => $selected,
+		'selected' => $selected_slug,
 	);
 }
 
