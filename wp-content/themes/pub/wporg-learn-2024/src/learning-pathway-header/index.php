@@ -95,7 +95,7 @@ function render( $attributes, $content, $block ) {
 			<div class="wp-block-group wporg-query-filters">
 				<!-- wp:wporg/query-filter {"key":"language"} /-->
 				<!-- wp:wporg/query-filter {"key":"topic"} /-->
-				<!-- wp:wporg/query-filter {"key":"level","multiple":false} /-->
+				<!-- wp:wporg/query-filter {"key":"learning-pathway-level","multiple":false} /-->
 			</div>
 			<!-- /wp:group -->
 

@@ -41,7 +41,7 @@ if ( isset( $wp_query->query_vars['wporg_learning_pathway'] ) ) {
 			<div class="wp-block-group wporg-query-filters">
 				<!-- wp:wporg/query-filter {"key":"language"} /-->
 				<!-- wp:wporg/query-filter {"key":"topic"} /-->
-				<!-- wp:wporg/query-filter {"key":"level","multiple":false} /-->
+				<!-- wp:wporg/query-filter {"key":"taxonomy-level","multiple":false} /-->
 			</div>
 			<!-- /wp:group -->
 
