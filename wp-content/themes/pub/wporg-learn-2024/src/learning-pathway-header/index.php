@@ -106,10 +106,6 @@ function render( $attributes, $content, $block ) {
 	<!-- /wp:group -->';
 
 	$wrapper_attributes = get_block_wrapper_attributes();
-	$align = $attributes['align'];
-	if ( $align ) {
-		$wrapper_attributes = str_replace( 'class="', 'class="align' . $align . ' ', $wrapper_attributes );
-	}
 	return sprintf(
 		'<div %1$s>%2$s</div>',
 		$wrapper_attributes,

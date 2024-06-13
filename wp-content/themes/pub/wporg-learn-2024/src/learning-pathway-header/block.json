@@ -19,9 +19,12 @@
 		"spacing": {
 			"margin": [
 				"bottom"
-			],
-			"align": true
-		}
+			]
+		},
+		"align": [
+			"wide",
+			"full"
+		]
 	},
 	"textdomain": "wporg-learn",
 	"editorScript": "file:./index.js",
