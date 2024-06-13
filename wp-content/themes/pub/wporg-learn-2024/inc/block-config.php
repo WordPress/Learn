@@ -36,8 +36,8 @@ function get_current_url() {
 function create_level_options( $levels ) {
 	global $wp_query;
 
-	// If there are no levels, or less than 2, don't show the filter.
-	if ( empty( $levels ) || count( $levels ) < 2 ) {
+	// If there are no levels, don't show the filter.
+	if ( empty( $levels ) ) {
 		return array();
 	}
 
