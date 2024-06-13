@@ -22,7 +22,7 @@ if ( isset( $wp_query->query_vars['wporg_learning_pathway'] ) ) {
 <!-- wp:group {"align":"full","style":{"spacing":{"padding":{"left":"var:preset|spacing|edge-space","right":"var:preset|spacing|edge-space","bottom":"var:preset|spacing|60"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull" style="padding-right:var(--wp--preset--spacing--edge-space);padding-left:var(--wp--preset--spacing--edge-space);padding-bottom:var(--wp--preset--spacing--60)">
 
-	<?php if ( ! $learning_pathway_slug ) { ?>
+	<?php if ( ! isset( $learning_pathway_slug ) ) { ?>
 
 		<!-- wp:group {"style":{"spacing":{"margin":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|40"}}},"layout":{"type":"constrained","justifyContent":"left","contentSize":"730px"}} -->
 		<div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--50);margin-bottom:var(--wp--preset--spacing--40)">
@@ -90,7 +90,7 @@ if ( isset( $wp_query->query_vars['wporg_learning_pathway'] ) ) {
 		<!-- wp:query-no-results -->
 
 			<!-- wp:paragraph {"placeholder":"Add text or blocks that will display when a query returns no results."} -->
-			<p><?php $learning_pathway_slug ? esc_html_e( 'No pathways found.', 'wporg-learn' ) : esc_html_e( 'Nothing found.', 'wporg-learn' ); ?></p>
+			<p><?php isset( $learning_pathway_slug ) ? esc_html_e( 'No pathways found.', 'wporg-learn' ) : esc_html_e( 'Nothing found.', 'wporg-learn' ); ?></p>
 			<!-- /wp:paragraph -->
 
 		<!-- /wp:query-no-results -->
