@@ -381,17 +381,29 @@ function modify_query( $query ) {
 function inject_other_filters( $key ) {
 	global $wp_query;
 
-	$query_vars = array( 'wporg_workshop_topic', 'wporg_lesson_level' );
-	foreach ( $query_vars as $query_var ) {
-		if ( ! isset( $wp_query->query[ $query_var ] ) ) {
+	$single_query_vars = array( 'wporg_lesson_level' );
+	foreach ( $single_query_vars as $single_query_var ) {
+		if ( ! isset( $wp_query->query[ $single_query_var ] ) ) {
 			continue;
 		}
-		if ( $key === $query_var ) {
+		if ( $key === $single_query_var ) {
 			continue;
 		}
-		$values = (array) $wp_query->query[ $query_var ];
+		$value = $wp_query->query[ $single_query_var ];
+		printf( '<input type="hidden" name="%s" value="%s" />', esc_attr( $single_query_var ), esc_attr( $value ) );
+	}
+
+	$multi_query_vars = array( 'wporg_workshop_topic' );
+	foreach ( $multi_query_vars as $multi_query_var ) {
+		if ( ! isset( $wp_query->query[ $multi_query_var ] ) ) {
+			continue;
+		}
+		if ( $key === $multi_query_var ) {
+			continue;
+		}
+		$values = (array) $wp_query->query[ $multi_query_var ];
 		foreach ( $values as $value ) {
-			printf( '<input type="hidden" name="%s[]" value="%s" />', esc_attr( $query_var ), esc_attr( $value ) );
+			printf( '<input type="hidden" name="%s[]" value="%s" />', esc_attr( $multi_query_var ), esc_attr( $value ) );
 		}
 	}
 
