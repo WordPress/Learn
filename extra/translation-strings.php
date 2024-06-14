@@ -8,6 +8,30 @@
  * ⚠️ Do not require or include this file anywhere.
  */
 
+/* translators: https://learn.wordpress.org/course-category/contributing-to-wordpress/ */
+_x( 'Contributing to WordPress', 'Course Categories term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/course-category/contributing-to-wordpress/ */
+_x( 'WordPress is built and managed by a wide community of individuals from all over the world. These courses will help you find your feet in the project and help you get involved in the mission to democratize publishing.', 'Course Categories term description', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/course-category/developing-with-wordpress/ */
+_x( 'Developing with WordPress', 'Course Categories term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/course-category/developing-with-wordpress/ */
+_x( 'WordPress opens up opportunities for developers to modify, extend, and experiment beyond its publishing capabilities. These courses will teach you the more technical aspects of working with WordPress, from theme development to building plugins and more.', 'Course Categories term description', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/course-category/introduction-to-wordpress/ */
+_x( 'Introduction to WordPress', 'Course Categories term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/course-category/introduction-to-wordpress/ */
+_x( 'WordPress is a powerful content management system with a range of innovative features. In the following courses, you\'ll get an introduction to WordPress and learn everything you need to know to get going with your website. So whether you\'re a novice or simply want to know how to set up a new site, we have you covered.', 'Course Categories term description', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/course-category/using-the-site-editor/ */
+_x( 'Using the Site Editor', 'Course Categories term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/course-category/using-the-site-editor/ */
+_x( 'If you\'ve ever wanted to edit all parts of your site easily, the Site Editor makes that possible. First launched in WordPress 5.9, the Site Editor includes features like templates, template parts, theme blocks, and more. The courses below will teach you all about using the Site Editor and its features to help you build your perfect site.', 'Course Categories term description', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/lesson-tag/deputies/ */
+_x( 'deputies', 'Lesson Tags term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/lesson-tag/gpl/ */
+_x( 'GPL', 'Lesson Tags term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/lesson-tag/homepage/ */
+_x( 'homepage', 'Lesson Tags term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/lesson-tag/licensing/ */
+_x( 'licensing', 'Lesson Tags term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/audience/all/ */
 _x( 'All', 'Audiences term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/audience/contributors/ */
@@ -443,27 +467,3 @@ _x( 'Get up to speed on WordPress development.', 'Learning Pathways term descrip
 _x( 'Using a WordPress site', 'Learning Pathways term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/learning-pathway/user/ */
 _x( 'A basic introduction to WordPress.', 'Learning Pathways term description', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/course-category/contributing-to-wordpress/ */
-_x( 'Contributing to WordPress', 'Course Categories term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/course-category/contributing-to-wordpress/ */
-_x( 'WordPress is built and managed by a wide community of individuals from all over the world. These courses will help you find your feet in the project and help you get involved in the mission to democratize publishing.', 'Course Categories term description', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/course-category/developing-with-wordpress/ */
-_x( 'Developing with WordPress', 'Course Categories term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/course-category/developing-with-wordpress/ */
-_x( 'WordPress opens up opportunities for developers to modify, extend, and experiment beyond its publishing capabilities. These courses will teach you the more technical aspects of working with WordPress, from theme development to building plugins and more.', 'Course Categories term description', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/course-category/introduction-to-wordpress/ */
-_x( 'Introduction to WordPress', 'Course Categories term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/course-category/introduction-to-wordpress/ */
-_x( 'WordPress is a powerful content management system with a range of innovative features. In the following courses, you\'ll get an introduction to WordPress and learn everything you need to know to get going with your website. So whether you\'re a novice or simply want to know how to set up a new site, we have you covered.', 'Course Categories term description', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/course-category/using-the-site-editor/ */
-_x( 'Using the Site Editor', 'Course Categories term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/course-category/using-the-site-editor/ */
-_x( 'If you\'ve ever wanted to edit all parts of your site easily, the Site Editor makes that possible. First launched in WordPress 5.9, the Site Editor includes features like templates, template parts, theme blocks, and more. The courses below will teach you all about using the Site Editor and its features to help you build your perfect site.', 'Course Categories term description', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/lesson-tag/deputies/ */
-_x( 'deputies', 'Lesson Tags term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/lesson-tag/gpl/ */
-_x( 'GPL', 'Lesson Tags term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/lesson-tag/homepage/ */
-_x( 'homepage', 'Lesson Tags term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/lesson-tag/licensing/ */
-_x( 'licensing', 'Lesson Tags term name', 'wporg-learn' );
