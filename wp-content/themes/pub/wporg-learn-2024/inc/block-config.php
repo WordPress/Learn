@@ -11,9 +11,11 @@ add_filter( 'wporg_query_filter_options_language', __NAMESPACE__ . '\get_languag
 add_filter( 'wporg_query_filter_options_level', __NAMESPACE__ . '\get_level_options' );
 add_filter( 'wporg_query_filter_options_taxonomy-level', __NAMESPACE__ . '\get_taxonomy_level_options' );
 add_filter( 'wporg_query_filter_options_learning-pathway-level', __NAMESPACE__ . '\get_learning_pathway_level_options' );
+add_filter( 'wporg_query_filter_options_search-level', __NAMESPACE__ . '\get_search_level_options' );
 add_filter( 'wporg_query_filter_options_topic', __NAMESPACE__ . '\get_topic_options' );
 add_filter( 'wporg_query_filter_options_taxonomy-topic', __NAMESPACE__ . '\get_taxonomy_topic_options' );
 add_filter( 'wporg_query_filter_options_learning-pathway-topic', __NAMESPACE__ . '\get_learning_pathway_topic_options' );
+add_filter( 'wporg_query_filter_options_search-topic', __NAMESPACE__ . '\get_search_topic_options' );
 add_action( 'pre_get_posts', __NAMESPACE__ . '\modify_query' );
 add_action( 'wporg_query_filter_in_form', __NAMESPACE__ . '\inject_other_filters' );
 
@@ -187,6 +189,43 @@ function get_learning_pathway_level_options( $options ) {
 }
 
 /**
+ * Get the list of levels for the search filters.
+ *
+ * @param array $options The options for this filter.
+ * @return array New list of level options.
+ */
+function get_search_level_options( $options ) {
+	global $wp_query;
+
+	if ( ! isset( $wp_query->query_vars['s'] ) ) {
+		return array();
+	}
+
+	// Get top 10 levels ordered by count, not empty, filtered by post_type.
+	$object_ids = get_posts(
+		array(
+			's' => $wp_query->query_vars['s'],
+			'post_type' => 'all',
+			'fields' => 'ids',
+			'posts_per_page' => -1,
+			'post_status' => 'publish',
+		)
+	);
+	$levels = get_terms(
+		array(
+			'taxonomy' => 'level',
+			'orderby' => 'count',
+			'order' => 'DESC',
+			'number' => 10,
+			'hide_empty' => true,
+			'object_ids' => $object_ids,
+		)
+	);
+
+	return create_level_options( $levels );
+}
+
+/**
  * Create topic options.
  *
  * @param array $topics The filtered topics for a view.
@@ -306,6 +345,43 @@ function get_learning_pathway_topic_options( $options ) {
 					'terms' => $wp_query->query_vars['wporg_learning_pathway'],
 				),
 			),
+		)
+	);
+	$topics = get_terms(
+		array(
+			'taxonomy' => 'topic',
+			'orderby' => 'count',
+			'order' => 'DESC',
+			'number' => 20,
+			'hide_empty' => true,
+			'object_ids' => $object_ids,
+		)
+	);
+
+	return create_topic_options( $topics );
+}
+
+/**
+ * Get the list of topics for the search filters.
+ *
+ * @param array $options The options for this filter.
+ * @return array New list of topic options.
+ */
+function get_search_topic_options( $options ) {
+	global $wp_query;
+
+	if ( ! isset( $wp_query->query_vars['s'] ) ) {
+		return array();
+	}
+
+	// Get top 20 topics ordered by count, not empty, filtered by post_type.
+	$object_ids = get_posts(
+		array(
+			's' => $wp_query->query_vars['s'],
+			'post_type' => 'all',
+			'fields' => 'ids',
+			'posts_per_page' => -1,
+			'post_status' => 'publish',
 		)
 	);
 	$topics = get_terms(
@@ -464,5 +540,10 @@ function inject_other_filters( $key ) {
 		foreach ( $values as $value ) {
 			printf( '<input type="hidden" name="%s[]" value="%s" />', esc_attr( $meta_query_var ), esc_attr( $value ) );
 		}
+	}
+
+	// Pass through search query.
+	if ( isset( $wp_query->query['s'] ) ) {
+		printf( '<input type="hidden" name="s" value="%s" />', esc_attr( $wp_query->query['s'] ) );
 	}
 }

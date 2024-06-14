@@ -45,6 +45,30 @@ function render( $attributes ) {
 		esc_html( $wp_query->query['s'] ),
 	);
 
+	$filters = '';
+	if ( ! empty( $wp_query->query_vars['wporg_lesson_level'] ) || ! empty( $wp_query->query_vars['wporg_workshop_topic'] ) ) {
+		$filters_count = 0;
+		if ( ! empty( $wp_query->query_vars['wporg_lesson_level'] ) ) {
+			// Level is a single value filter
+			$filters_count++;
+		}
+		if ( ! empty( $wp_query->query_vars['wporg_workshop_topic'] ) ) {
+			// Topic is a multiple value filter
+			$filters_count += count( $wp_query->query_vars['wporg_workshop_topic'] );
+		}
+
+		$filters = sprintf(
+			/* translators: %s number of filters applied. */
+			_n(
+				'%s filter applied.',
+				'%s filters applied.',
+				$filters_count,
+				'wporg-learn'
+			),
+			number_format_i18n( $filters_count ),
+		);
+	}
+
 	$showing = sprintf(
 		/* translators: %1$s number of first displayed result, %2$s number of last displayed result. */
 		'Showing results %1$s to %2$s.',
@@ -55,10 +79,11 @@ function render( $attributes ) {
 	$wrapper_attributes = get_block_wrapper_attributes();
 
 	return sprintf(
-		'<%1$s %2$s>%3$s %4$s</%1$s>',
+		'<%1$s %2$s>%3$s %4$s %5$s</%1$s>',
 		esc_attr( $attributes['tagName'] ),
 		$wrapper_attributes,
 		$content,
+		$filters,
 		$showing,
 	);
 }
