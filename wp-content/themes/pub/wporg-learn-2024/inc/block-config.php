@@ -104,8 +104,8 @@ function get_level_options( $options ) {
 		array(
 			'post_type' => $post_type,
 			'fields' => 'ids',
-			'numberposts' => -1,
-			'status' => 'publish',
+			'posts_per_page' => -1,
+			'post_status' => 'publish',
 		)
 	);
 	$levels = get_terms(
@@ -160,8 +160,8 @@ function get_learning_pathway_level_options( $options ) {
 	$object_ids = get_posts(
 		array(
 			'fields' => 'ids',
-			'numberposts' => -1,
-			'status' => 'publish',
+			'posts_per_page' => -1,
+			'post_status' => 'publish',
 			'post_type' => 'course',
 			'tax_query' => array(
 				array(
@@ -240,8 +240,8 @@ function get_topic_options( $options ) {
 	// Get top 20 topics ordered by count, not empty, filtered by post_type.
 	$object_ids = get_posts( array(
 		'fields' => 'ids',
-		'numberposts' => -1,
-		'status' => 'publish',
+		'posts_per_page' => -1,
+		'post_status' => 'publish',
 		'post_type' => $post_type,
 	) );
 	$topics = get_terms(
@@ -296,8 +296,8 @@ function get_learning_pathway_topic_options( $options ) {
 	$object_ids = get_posts(
 		array(
 			'fields' => 'ids',
-			'numberposts' => -1,
-			'status' => 'publish',
+			'posts_per_page' => -1,
+			'post_status' => 'publish',
 			'post_type' => 'course',
 			'tax_query' => array(
 				array(
