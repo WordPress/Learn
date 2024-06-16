@@ -68,6 +68,14 @@
 	&.quiz #main-content .sensei-breadcrumb {
 		padding: 1rem;
 	}
+
+	/* My Courses login responsive layout fix */
+
+	@media screen and (max-width: 782px) {
+		#my-courses #customer_login .col-1 {
+			width: unset;
+		}
+	}
 }
 
 .single-course {
