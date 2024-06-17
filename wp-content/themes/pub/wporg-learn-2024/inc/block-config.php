@@ -101,11 +101,15 @@ function create_level_options( $levels ) {
  */
 function get_level_options( $options ) {
 	global $wp_query;
-	$post_type = $wp_query->query_vars['post_type'];
+
+	if ( ! isset( $wp_query->query_vars['post_type'] ) ) {
+		return array();
+	}
+
 	// Get top 10 levels ordered by count, not empty, filtered by post_type.
 	$object_ids = get_posts(
 		array(
-			'post_type' => $post_type,
+			'post_type' => $wp_query->query_vars['post_type'],
 			'fields' => 'ids',
 			'posts_per_page' => -1,
 			'post_status' => 'publish',
@@ -277,14 +281,16 @@ function create_topic_options( $topics ) {
 function get_topic_options( $options ) {
 	global $wp_query;
 
-	$post_type = $wp_query->query_vars['post_type'];
+	if ( ! isset( $wp_query->query_vars['post_type'] ) ) {
+		return array();
+	}
 
 	// Get top 20 topics ordered by count, not empty, filtered by post_type.
 	$object_ids = get_posts( array(
 		'fields' => 'ids',
 		'posts_per_page' => -1,
 		'post_status' => 'publish',
-		'post_type' => $post_type,
+		'post_type' => $wp_query->query_vars['post_type'],
 	) );
 	$topics = get_terms(
 		array(
