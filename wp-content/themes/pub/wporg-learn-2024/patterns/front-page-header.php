@@ -34,5 +34,9 @@
 	</div>
 	<!-- /wp:group -->
 
+	<!-- wp:wporg/language-suggest {"align":"full","style":{"color":{"background":"#ebebeb"}}} -->
+	<div class="wp-block-wporg-language-suggest alignfull has-background" style="background-color:#ebebeb"></div>
+	<!-- /wp:wporg/language-suggest -->
+
 </div>
 <!-- /wp:group -->
