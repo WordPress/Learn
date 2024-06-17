@@ -45,29 +45,7 @@ function render( $attributes ) {
 		esc_html( $wp_query->query['s'] ),
 	);
 
-	$filters = '';
-	if ( ! empty( $wp_query->query_vars['wporg_lesson_level'] ) || ! empty( $wp_query->query_vars['wporg_workshop_topic'] ) ) {
-		$filters_count = 0;
-		if ( ! empty( $wp_query->query_vars['wporg_lesson_level'] ) ) {
-			// Level is a single value filter
-			$filters_count++;
-		}
-		if ( ! empty( $wp_query->query_vars['wporg_workshop_topic'] ) ) {
-			// Topic is a multiple value filter
-			$filters_count += count( $wp_query->query_vars['wporg_workshop_topic'] );
-		}
-
-		$filters = sprintf(
-			/* translators: %s number of filters applied. */
-			_n(
-				'%s filter applied.',
-				'%s filters applied.',
-				$filters_count,
-				'wporg-learn'
-			),
-			number_format_i18n( $filters_count ),
-		);
-	}
+	$filters = get_applied_filter_info( $wp_query );
 
 	$showing = sprintf(
 		/* translators: %1$s number of first displayed result, %2$s number of last displayed result. */
@@ -86,6 +64,56 @@ function render( $attributes ) {
 		$filters,
 		$showing,
 	);
+}
+
+/**
+ * Get a description of the number of filters applied.
+ *
+ * @param WP_Query $query The WP_Query object.
+ * @return string Returns the filter information.
+ */
+function get_applied_filter_info( $query ) {
+	$filters_count = 0;
+
+	// Add the level filter count
+	if (
+		isset( $query->query_vars['wporg_lesson_level'] )
+		&& ! empty( $query->query_vars['wporg_lesson_level']
+		&& 'all' !== $query->query_vars['wporg_lesson_level'] )
+	) {
+		// Level is a single value filter
+		$filters_count++;
+	}
+
+	// Add the topic filter count
+	if ( isset( $query->query_vars['wporg_workshop_topic'] ) && ! empty( $query->query_vars['wporg_workshop_topic'] ) ) {
+		// Topic is a multiple value filter
+		$filters_count += count( $query->query_vars['wporg_workshop_topic'] );
+	}
+
+	// Add the language filter count
+	if ( isset( $query->query_vars['meta_query'] ) && is_array( $query->query_vars['meta_query'] ) ) {
+		foreach ( $query->query_vars['meta_query'] as $meta_query ) {
+			if (
+				isset( $meta_query['key'] ) && 'language' === $meta_query['key']
+				&& isset( $meta_query['value'] ) && is_array( $meta_query['value'] )
+				) {
+				// Language is a multiple value filter
+				$filters_count += count( $meta_query['value'] );
+			}
+		}
+	}
+
+	return $filters_count > 0 ? sprintf(
+		/* translators: %s number of filters. */
+		_n(
+			'%s filter applied.',
+			'%s filters applied.',
+			$filters_count,
+			'wporg-learn'
+		),
+		number_format_i18n( $filters_count )
+	) : '';
 }
 
 /**

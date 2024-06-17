@@ -5,9 +5,10 @@
 
 namespace WordPressdotorg\Theme\Learn_2024\Block_Config;
 
-use function WPOrg_Learn\Post_Meta\{get_available_post_type_locales};
+use function WPOrg_Learn\Post_Meta\{get_available_post_type_locales, get_available_locales_for_posts_by_id};
 
 add_filter( 'wporg_query_filter_options_language', __NAMESPACE__ . '\get_language_options' );
+add_filter( 'wporg_query_filter_options_search-language', __NAMESPACE__ . '\get_search_language_options' );
 add_filter( 'wporg_query_filter_options_level', __NAMESPACE__ . '\get_level_options' );
 add_filter( 'wporg_query_filter_options_taxonomy-level', __NAMESPACE__ . '\get_taxonomy_level_options' );
 add_filter( 'wporg_query_filter_options_learning-pathway-level', __NAMESPACE__ . '\get_learning_pathway_level_options' );
@@ -201,11 +202,13 @@ function get_search_level_options( $options ) {
 		return array();
 	}
 
+	$post_types = get_post_types( array( 'public' => true ), 'names' );
+
 	// Get top 10 levels ordered by count, not empty, filtered by post_type.
 	$object_ids = get_posts(
 		array(
 			's' => $wp_query->query_vars['s'],
-			'post_type' => 'all',
+			'post_type' => $post_types,
 			'fields' => 'ids',
 			'posts_per_page' => -1,
 			'post_status' => 'publish',
@@ -420,15 +423,13 @@ function get_meta_query_values_by_key( $query, $key ) {
 }
 
 /**
- * Get the list of languages for the course and lesson filters.
+ * Create language options.
  *
- * @param array $options The options for this filter.
- * @return array New list of language options.
+ * @param array $languages The array of filtered languages for a view.
+ * @return array The language options for a filter.
  */
-function get_language_options( $options ) {
+function create_language_options( $languages ) {
 	global $wp_query;
-	$post_type = $wp_query->query_vars['post_type'];
-	$languages = get_available_post_type_locales( 'language', $post_type, 'publish' );
 	// If there are no languages, or the only language is en_US, don't show the filter.
 	if ( empty( $languages ) || ( 1 === count( $languages ) && isset( $languages['en_US'] ) ) ) {
 		return array();
@@ -458,13 +459,63 @@ function get_language_options( $options ) {
 }
 
 /**
+ * Get the list of languages for the course and lesson filters.
+ *
+ * @param array $options The options for this filter.
+ * @return array New list of language options.
+ */
+function get_language_options( $options ) {
+	global $wp_query;
+
+	if ( ! isset( $wp_query->query_vars['post_type'] ) ) {
+		return array();
+	}
+
+	// Get all languages for the post_type.
+	$languages = get_available_post_type_locales( 'language', $wp_query->query_vars['post_type'], 'publish' );
+
+	return create_language_options( $languages );
+}
+
+/**
+ * Get the list of languages for the search filters.
+ *
+ * @param array $options The options for this filter.
+ * @return array New list of language options.
+ */
+function get_search_language_options( $options ) {
+	global $wp_query;
+
+	if ( ! isset( $wp_query->query_vars['s'] ) ) {
+		return array();
+	}
+
+	$post_types = get_post_types( array( 'public' => true ), 'names' );
+
+	// Get all languages for the posts matching the search query.
+	$object_ids = get_posts(
+		array(
+			's' => $wp_query->query_vars['s'],
+			'post_type' => $post_types,
+			'fields' => 'ids',
+			'posts_per_page' => -1,
+			'post_status' => 'publish',
+		)
+	);
+
+	$languages = get_available_locales_for_posts_by_id( $object_ids );
+
+	return create_language_options( $languages );
+}
+
+/**
  * Modify the query by adding meta query for language if set.
  *
  * @param WP_Query $query The query object.
  */
 function modify_query( $query ) {
-	// Ensure this code runs only for the main query on archive pages
-	if ( ! is_admin() && $query->is_main_query() && $query->is_archive() ) {
+	// Ensure this code runs only for the main query on archive pages and search results.
+	if ( ! is_admin() && $query->is_main_query() && ( $query->is_archive() || $query->is_search() ) ) {
 		if ( isset( $_GET['language'] ) && is_array( $_GET['language'] ) ) {
 			$languages = array_map( 'sanitize_text_field', $_GET['language'] );
 

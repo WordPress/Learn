@@ -322,6 +322,42 @@ function get_available_post_type_locales( $meta_key, $post_type, $post_status, $
 }
 
 /**
+ * Get the available locales for posts by ID.
+ *
+ * @param array  $object_ids     The array of post IDs.
+ * @param string $label_language The label language.
+ *
+ * @return array The available locales.
+ */
+function get_available_locales_for_posts_by_id( $object_ids, $label_language = 'english' ) {
+	global $wpdb;
+
+	// Ensure object_ids is an array of integers
+	$object_ids = array_map( 'intval', $object_ids );
+
+	$placeholders = implode( ',', array_fill( 0, count( $object_ids ), '%d' ) );
+	$results = $wpdb->get_col( $wpdb->prepare(
+		"SELECT meta_value 
+			FROM $wpdb->postmeta 
+			WHERE meta_key = 'language' 
+			AND post_id IN ($placeholders)", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $placeholders is a generated list of placeholder strings.
+		$object_ids
+	) );
+
+	if ( empty( $results ) ) {
+		return array();
+	}
+
+	$available_locales = array_fill_keys( $results, '' );
+
+	$locale_fn = "\WordPressdotorg\Locales\get_locales_with_{$label_language}_names";
+	$locales   = $locale_fn();
+
+	return array_intersect_key( $locales, $available_locales );
+}
+
+
+/**
  * Add meta boxes to the Edit Lesson Plan screen.
  *
  * Todo these should be replaced with block editor panels.

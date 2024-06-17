@@ -14,6 +14,7 @@
 
 	<!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"flex","flexWrap":"nowrap"},"className":"wporg-query-filters"} -->
 	<div class="wp-block-group wporg-query-filters">
+		<!-- wp:wporg/query-filter {"key":"search-language"} /-->
 		<!-- wp:wporg/query-filter {"key":"search-topic"} /-->
 		<!-- wp:wporg/query-filter {"key":"search-level","multiple":false} /-->
 	</div>
