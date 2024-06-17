@@ -22,7 +22,7 @@
 
 	<!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"flex","flexWrap":"nowrap"},"className":"wporg-query-filters"} -->
 	<div class="wp-block-group wporg-query-filters">
-		<!-- wp:wporg/query-filter {"key":"student-course","multiple":false} /-->
+		<!-- wp:wporg/query-filter {"key":"student_course","multiple":false} /-->
 	</div>
 	<!-- /wp:group -->
 
