@@ -377,11 +377,13 @@ function get_search_topic_options( $options ) {
 		return array();
 	}
 
+	$post_types = get_post_types( array( 'public' => true ), 'names' );
+
 	// Get top 20 topics ordered by count, not empty, filtered by post_type.
 	$object_ids = get_posts(
 		array(
 			's' => $wp_query->query_vars['s'],
-			'post_type' => 'all',
+			'post_type' => $post_types,
 			'fields' => 'ids',
 			'posts_per_page' => -1,
 			'post_status' => 'publish',
