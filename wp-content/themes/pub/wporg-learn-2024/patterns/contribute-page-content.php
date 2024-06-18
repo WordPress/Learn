@@ -27,9 +27,20 @@
 
 <!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"400"},"spacing":{"margin":{"bottom":"var:preset|spacing|20","top":"var:preset|spacing|20"}}},"fontSize":"small","fontFamily":"inter"} -->
 <p class="has-inter-font-family has-small-font-size" style="margin-top:var(--wp--preset--spacing--20);margin-bottom:var(--wp--preset--spacing--20);font-style:normal;font-weight:400">
-	<?php esc_html_e( 'Tutorials can be on any topic related to WordPress, can be for any level of experience, and in any language. To get started, check out this ', 'wporg-learn' ); ?>
-	<a href="https://learn.wordpress.org/workshop/how-to-submit-a-workshop/"><?php esc_html_e( 'tutorial about creating tutorials', 'wporg-learn' ); ?></a><?php esc_html_e( '. Then ', 'wporg-learn' ); ?>
-	<a href="https://learn.wordpress.org/workshop-presenter-application/"><?php esc_html_e( 'submit your tutorial presenter application', 'wporg-learn' ); ?></a><?php esc_html_e( '.', 'wporg-learn' ); ?>
+	<?php
+	/* translators: 1: opening a tag for a URL, 2: closing a tag, 3: opening a tag for a URL, 4: closing a tag */
+	printf(
+		esc_html__(
+			'Tutorials can be on any topic related to WordPress, can be for any level of experience, and in any language. 
+			To get started, check out this %1$s tutorial about creating tutorials%2$s. Then %3$s submit your tutorial presenter application%4$s.',
+			'wporg-learn'
+		),
+		'<a href="https://learn.wordpress.org/workshop/how-to-submit-a-workshop/">',
+		'</a>',
+		'<a href="https://learn.wordpress.org/workshop-presenter-application/">',
+		'</a>'
+	);
+	?>
 </p>
 <!-- /wp:paragraph -->
 
@@ -47,10 +58,22 @@ https://videopress.com/v/52hW5V7s
 
 <!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"400"},"spacing":{"margin":{"bottom":"0","top":"var:preset|spacing|20"}}},"fontSize":"small","fontFamily":"inter"} -->
 <p class="has-inter-font-family has-small-font-size" style="margin-top:var(--wp--preset--spacing--20);margin-bottom:0;font-style:normal;font-weight:400">
-	<?php esc_html_e( 'To learn more about online workshop facilitators, ', 'wporg-learn' ); ?>
-	<a href="https://make.wordpress.org/community/2020/08/11/tuesday-trainings-how-to-be-an-excellent-discussion-group-leader/"><?php esc_html_e( 'read this post', 'wporg-learn' ); ?></a><?php esc_html_e( '. You can ', 'wporg-learn' ); ?>
-	<a href="https://learn.wordpress.org/social-learning/"><?php esc_html_e( 'apply to become an online workshop facilitator here', 'wporg-learn' ); ?></a><?php esc_html_e( ', or you can even ', 'wporg-learn' ); ?>
-	<a href="https://make.wordpress.org/community/handbook/virtual-events/organize-learn-wordpress-discussion-groups-for-your-wordpress-meetup/"><?php esc_html_e( 'organize an online workshop for your local WordPress meetup', 'wporg-learn' ); ?></a><?php esc_html_e( '.', 'wporg-learn' ); ?>
+	<?php
+	/* translators: 1: opening a tag for a URL, 2: closing a tag, 3: opening a tag for a URL, 4: closing a tag, 5: opening a tag for a URL, 6: closing a tag */
+	printf(
+		esc_html__(
+			'To learn more about online workshop facilitators, %1$s read this post%2$s. You can %3$s apply to become an online workshop facilitator here%4$s, 
+			or you can even %5$s organize an online workshop for your local WordPress meetup%6$s.',
+			'wporg-learn'
+		),
+		'<a href="https://make.wordpress.org/community/2020/08/11/tuesday-trainings-how-to-be-an-excellent-discussion-group-leader/">',
+		'</a>',
+		'<a href="https://learn.wordpress.org/social-learning/">',
+		'</a>',
+		'<a href="https://make.wordpress.org/community/handbook/virtual-events/organize-learn-wordpress-discussion-groups-for-your-wordpress-meetup/">',
+		'</a>'
+	);
+	?>
 </p>
 <!-- /wp:paragraph -->
 
@@ -62,10 +85,26 @@ https://videopress.com/v/52hW5V7s
 
 <!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"400"},"spacing":{"margin":{"bottom":"var:preset|spacing|20","top":"var:preset|spacing|20"}}},"fontSize":"small","fontFamily":"inter"} -->
 <p class="has-inter-font-family has-small-font-size" style="margin-top:var(--wp--preset--spacing--20);margin-bottom:var(--wp--preset--spacing--20);font-style:normal;font-weight:400">
-	<a href="https://learn.wordpress.org/lesson-plans/">Lesson Plans</a><?php esc_html_e( ' provide an outline and complete script for anyone wanting to run their own classes at in-person or virtual events. View our video about submitting Lesson Plans. You can even use these lesson plans for the Tutorials that you submit! The Training team meets weekly in ', 'wporg-learn' ); ?>
-	<a href="http://wordpress.slack.com/messages/training/">#training channel</a><?php esc_html_e( ' in Slack. See their ', 'wporg-learn' ); ?>
-	<a href="https://make.wordpress.org/training/handbook/getting-started/how-we-work-together/"><?php esc_html_e( 'Welcome page for meeting times', 'wporg-learn' ); ?></a><?php esc_html_e( ". Learn more on the Training team's ", 'wporg-learn' ); ?>
-	<a href="https://make.wordpress.org/training/handbook/getting-started/"><?php esc_html_e( 'Get Started page', 'wporg-learn' ); ?></a><?php esc_html_e( '.', 'wporg-learn' ); ?>
+	<?php
+	/* translators: 1: opening a tag for a URL, 2: closing a tag, 3: opening a tag for a URL, 4: closing a tag, 5: opening a tag for a URL, 6: closing a tag, 7: opening a tag for a URL, 8: closing a tag */
+	printf(
+		esc_html__(
+			'%1$s Lesson Plans%2$s provide an outline and complete script for anyone wanting to run their own classes at in-person or virtual events. 
+			View our video about submitting Lesson Plans. You can even use these lesson plans for the Tutorials that you submit! 
+			The Training team meets weekly in %3$s #training channel%4$s in Slack. See their %5$s Welcome page for meeting times%6$s. 
+			Learn more on the Training team\'s %7$s Get Started page%8$s.',
+			'wporg-learn'
+		),
+		'<a href="https://learn.wordpress.org/lesson-plans/">',
+		'</a>',
+		'<a href="http://wordpress.slack.com/messages/training/">',
+		'</a>',
+		'<a href="https://make.wordpress.org/training/handbook/getting-started/how-we-work-together/">',
+		'</a>',
+		'<a href="https://make.wordpress.org/training/handbook/getting-started/">',
+		'</a>'
+	);
+	?>
 </p>
 <!-- /wp:paragraph -->
 
@@ -83,10 +122,26 @@ https://videopress.com/v/qkmHo4ug
 
 <!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"400"},"spacing":{"margin":{"bottom":"var:preset|spacing|20","top":"var:preset|spacing|20"}}},"fontSize":"small","fontFamily":"inter"} -->
 <p class="has-inter-font-family has-small-font-size" style="margin-top:var(--wp--preset--spacing--20);margin-bottom:var(--wp--preset--spacing--20);font-style:normal;font-weight:400">
-	<a href="https://learn.wordpress.org/courses/"><?php esc_html_e( 'Courses', 'wporg-learn' ); ?></a><?php esc_html_e( ' consist of long-form lessons in multiple media formats - they can include text, video and images. The Training team meets weekly in ', 'wporg-learn' ); ?>
-	<a href="http://wordpress.slack.com/messages/training/"><?php esc_html_e( '#training channel', 'wporg-learn' ); ?></a><?php esc_html_e( ' in Slack. See their ', 'wporg-learn' ); ?>
-	<a href="https://make.wordpress.org/training/handbook/getting-started/how-we-work-together/"><?php esc_html_e( 'Welcome page for meeting times', 'wporg-learn' ); ?></a><?php esc_html_e( ". Learn more on the Training team's ", 'wporg-learn' ); ?>
-	<a href="https://make.wordpress.org/training/handbook/getting-started/"><?php esc_html_e( 'Get Started page', 'wporg-learn' ); ?></a><?php esc_html_e( '.', 'wporg-learn' ); ?>
+	<?php
+	/* translators: 1: opening a tag for a URL, 2: closing a tag, 3: opening a tag for a URL, 4: closing a tag, 5: opening a tag for a URL, 6: closing a tag, 7: opening a tag a URL, 8: closing a tag */
+	printf(
+		esc_html__(
+			'%1$s Courses%2$s consist of long-form lessons in multiple media formats - they can include text, video and images. 
+			The Training team meets weekly in %3$s #training channel%4$s in Slack. See their %5$s Welcome page for meeting times%6$s. 
+			Learn more on the Training team\'s %7$s Get Started page%8$s.',
+			'wporg-learn'
+		),
+		'<a href="https://learn.wordpress.org/courses/">',
+		'</a>',
+		'<a href="http://wordpress.slack.com/messages/training/">',
+		'</a>',
+		'<a href="https://make.wordpress.org/training/handbook/getting-started/how-we-work-together/">',
+		'</a>',
+		'<a href="https://make.wordpress.org/training/handbook/getting-started/">',
+		'</a>'
+	);
+	?>
+
 </p>
 <!-- /wp:paragraph -->
 
@@ -102,8 +157,23 @@ https://videopress.com/v/qkmHo4ug
 
 <!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"400"},"spacing":{"margin":{"bottom":"0","top":"0"}}},"fontSize":"small","fontFamily":"inter"} -->
 <p class="has-inter-font-family has-small-font-size" style="margin-top:0;margin-bottom:0;font-style:normal;font-weight:400">
-	<?php esc_html_e( 'To get even more involved, ', 'wporg-learn' ); ?><strong><?php esc_html_e( 'join the Training Team, ', 'wporg-learn' ); ?></strong><?php esc_html_e( " to help build the platform, review workshop applications, decide on future content, and more. If you're interested in helping, share your interest in the ", 'wporg-learn' ); ?>
-	<a href="http://wordpress.slack.com/messages/training/"><?php esc_html_e( '#training', 'wporg-learn' ); ?></a><?php esc_html_e( ' channel, join one of the Training team meetings, or follow ', 'wporg-learn' ); ?>
-	<a href="https://make.wordpress.org/training/"><?php esc_html_e( 'the Training team', 'wporg-learn' ); ?></a><?php esc_html_e( ' for news on working group-specific meetings.', 'wporg-learn' ); ?>
+	<?php
+	/* translators: 1: opening strong tag, 2: closing strong tag, 3: opening a tag for a URL, 4: closing a tag */
+	printf(
+		esc_html__(
+			'To get even more involved, %1$s join the Training Team%2$s to help build the platform, review workshop applications, decide on future content, and more. 
+			If you\'re interested in helping, share your interest in the %3$s #training%4$s channel, join one of the Training team meetings, 
+			or follow %5$s the Training team%6$s for news on working group-specific meetings.',
+			'wporg-learn'
+		),
+		'<strong>',
+		'</strong>',
+		'<a href="http://wordpress.slack.com/messages/training/">',
+		'</a>',
+		'<a href="https://make.wordpress.org/training/">',
+		'</a>'
+	);
+	?>
+
 </p>
 <!-- /wp:paragraph -->
