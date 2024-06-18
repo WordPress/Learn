@@ -7,6 +7,8 @@ namespace WordPressdotorg\Theme\Learn_2024\Query;
 
 add_action( 'pre_get_posts', __NAMESPACE__ . '\modify_archive_queries' );
 add_action( 'pre_get_posts', __NAMESPACE__ . '\modify_learning_pathways_query' );
+add_action( 'pre_get_posts', __NAMESPACE__ . '\modify_search_query' );
+
 
 /**
  * Modify the query by adding meta query for language if set.
@@ -58,6 +60,34 @@ function modify_learning_pathways_query( $query ) {
 	if ( 'all' === $level ) {
 		$query->set( 'wporg_lesson_level', '' );
 	}
+
+	return $query;
+}
+
+/**
+ * Get a list of the searchable Learn post types.
+ *
+ * @return array The searchable post types.
+ */
+function get_searchable_post_types() {
+	return array( 'course', 'lesson', 'quiz', 'meeting', 'page', 'post', 'lesson-plan' );
+}
+
+/**
+ * Modify the search query to filter to only Learn post types if no post type is set.
+ *
+ * @param WP_Query $query The search query.
+ */
+function modify_search_query( $query ) {
+	if ( is_admin() || ! $query->is_search() ) {
+		return;
+	}
+
+	if ( isset( $query->query_vars['post_type'] ) ) {
+		return $query;
+	}
+
+	$query->set( 'post_type', get_searchable_post_types() );
 
 	return $query;
 }
