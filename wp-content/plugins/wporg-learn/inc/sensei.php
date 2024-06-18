@@ -16,7 +16,7 @@ add_action( 'sensei_single_course_content_inside_after', __NAMESPACE__ . '\remov
 add_filter( 'sensei_load_default_supported_theme_wrappers', '__return_false' );
 add_action( 'sensei_before_main_content', __NAMESPACE__ . '\theme_wrapper_start' );
 add_action( 'sensei_after_main_content', __NAMESPACE__ . '\theme_wrapper_end' );
-add_action( 'init', __NAMESPACE__ . '\wporg_correct_sensei_slugs' );
+add_action( 'init', __NAMESPACE__ . '\wporg_correct_sensei_slugs', 9 );
 add_filter( 'pre_render_block', __NAMESPACE__ . '\modify_course_query', 10, 2 );
 add_filter( 'rest_course_query', __NAMESPACE__ . '\modify_course_rest_query', 10, 2 );
 
