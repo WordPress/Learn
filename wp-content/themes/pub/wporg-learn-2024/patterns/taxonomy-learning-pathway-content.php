@@ -19,6 +19,7 @@ if ( ! $learning_pathway_object ) {
 
 $learning_pathway_id = $learning_pathway_object->term_id;
 $learning_pathway_slug = $learning_pathway_object->slug;
+$learning_pathway_url = get_term_link( $learning_pathway_object );
 
 $beginner_level_id = get_term_by( 'slug', 'beginner', 'level' )->term_id;
 $intermediate_level_id = get_term_by( 'slug', 'intermediate', 'level' )->term_id;
@@ -44,7 +45,7 @@ $content = get_learning_pathway_level_content( $learning_pathway_slug );
 		<!-- /wp:paragraph -->
 
 		<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|blueberry-1"}}}},"textColor":"charcoal-4"} -->
-		<p class="has-charcoal-4-color has-text-color has-link-color"><a href="<?php echo esc_url( site_url( '/courses/?wporg_learning_pathway=' . $learning_pathway_slug . '&wporg_lesson_level=beginner' ) ); ?>"><?php esc_html_e( 'See all', 'wporg-learn' ); ?></a></p>
+		<p class="has-charcoal-4-color has-text-color has-link-color"><a href="<?php echo esc_url( $learning_pathway_url . '?wporg_lesson_level=beginner' ); ?>"><?php esc_html_e( 'See all', 'wporg-learn' ); ?></a></p>
 		<!-- /wp:paragraph -->
 
 	</div>
@@ -110,7 +111,7 @@ $content = get_learning_pathway_level_content( $learning_pathway_slug );
 		<!-- /wp:paragraph -->
 
 		<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|blueberry-1"}}}},"textColor":"charcoal-4"} -->
-		<p class="has-charcoal-4-color has-text-color has-link-color"><a href="<?php echo esc_url( site_url( '/courses/?wporg_learning_pathway=' . $learning_pathway_slug . '&wporg_lesson_level=intermediate' ) ); ?>"><?php esc_html_e( 'See all', 'wporg-learn' ); ?></a></p>
+		<p class="has-charcoal-4-color has-text-color has-link-color"><a href="<?php echo esc_url( $learning_pathway_url . '?wporg_lesson_level=intermediate' ); ?>"><?php esc_html_e( 'See all', 'wporg-learn' ); ?></a></p>
 		<!-- /wp:paragraph -->
 
 	</div>
@@ -176,7 +177,7 @@ $content = get_learning_pathway_level_content( $learning_pathway_slug );
 		<!-- /wp:paragraph -->
 
 		<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|blueberry-1"}}}},"textColor":"charcoal-4"} -->
-		<p class="has-charcoal-4-color has-text-color has-link-color"><a href="<?php echo esc_url( site_url( '/courses/?wporg_learning_pathway=' . $learning_pathway_slug . '&wporg_lesson_level=advanced' ) ); ?>"><?php esc_html_e( 'See all', 'wporg-learn' ); ?></a></p>
+		<p class="has-charcoal-4-color has-text-color has-link-color"><a href="<?php echo esc_url( $learning_pathway_url . '?wporg_lesson_level=advanced' ); ?>"><?php esc_html_e( 'See all', 'wporg-learn' ); ?></a></p>
 		<!-- /wp:paragraph -->
 
 	</div>
