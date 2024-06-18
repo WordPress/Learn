@@ -17,7 +17,6 @@ add_filter( 'wporg_query_filter_options_topic', __NAMESPACE__ . '\get_topic_opti
 add_filter( 'wporg_query_filter_options_taxonomy-topic', __NAMESPACE__ . '\get_taxonomy_topic_options' );
 add_filter( 'wporg_query_filter_options_learning-pathway-topic', __NAMESPACE__ . '\get_learning_pathway_topic_options' );
 add_filter( 'wporg_query_filter_options_search-topic', __NAMESPACE__ . '\get_search_topic_options' );
-add_action( 'pre_get_posts', __NAMESPACE__ . '\modify_query' );
 add_action( 'wporg_query_filter_in_form', __NAMESPACE__ . '\inject_other_filters' );
 
 /**
@@ -514,39 +513,9 @@ function get_search_language_options( $options ) {
 	$languages = get_available_locales_for_posts_by_id( $object_ids );
 
 	return create_language_options( $languages );
-}
-
-/**
- * Modify the query by adding meta query for language if set.
- *
- * @param WP_Query $query The query object.
- */
-function modify_query( $query ) {
-	// Ensure this code runs only for the main query on archive pages and search results.
-	if ( ! is_admin() && $query->is_main_query() && ( $query->is_archive() || $query->is_search() ) ) {
-		if ( isset( $_GET['language'] ) && is_array( $_GET['language'] ) ) {
-			$languages = array_map( 'sanitize_text_field', $_GET['language'] );
-
-			$meta_query = array( 'relation' => 'OR' );
-
-			$meta_query[] = array(
-				'key'     => 'language',
-				'value'   => $languages,
-				'compare' => 'IN',
-			);
-
-			// If 'en_US' is included, include posts with no language defined
-			// as this is the default value for the meta field.
-			if ( in_array( 'en_US', $languages ) ) {
-				$meta_query[] = array(
-					'key'     => 'language',
-					'compare' => 'NOT EXISTS',
-				);
-			}
-
-			$query->set( 'meta_query', $meta_query );
-		}
 	}
+
+
 }
 
 /**
