@@ -53,8 +53,8 @@ function render( $attributes, $content, $block ) {
 	$learning_pathway_name = $learning_pathway_object->name;
 	$learning_pathway_description = $learning_pathway_object->description;
 
-	$content = '<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"right":"var:preset|spacing|edge-space","left":"var:preset|spacing|edge-space","top":"0","bottom":"0"}},"border":{"bottom":{"color":"var:preset|color|light-grey-1","width":"1px"}}},"backgroundColor":"' . esc_attr( $learning_pathway_slug ) . '","layout":{"type":"constrained"}} -->
-	<div class="wp-block-group alignfull has-' . esc_attr( $learning_pathway_slug ) . '-background-color has-background" style="border-bottom-color:var(--wp--preset--color--light-grey-1);border-bottom-width:1px;padding-top:0;padding-right:var(--wp--preset--spacing--edge-space);padding-bottom:0;padding-left:var(--wp--preset--spacing--edge-space)">
+	$content = '<!-- wp:group {"className":"wp-block-wporg-learn-learning-pathway-header-content","align":"full","style":{"spacing":{"padding":{"right":"var:preset|spacing|edge-space","left":"var:preset|spacing|edge-space","top":"0","bottom":"0"}},"border":{"bottom":{"color":"var:preset|color|light-grey-1","width":"1px"}}},"backgroundColor":"' . esc_attr( $learning_pathway_slug ) . '","layout":{"type":"constrained"}} -->
+	<div class="wp-block-wporg-learn-learning-pathway-header-content wp-block-group alignfull has-' . esc_attr( $learning_pathway_slug ) . '-background-color has-background" style="border-bottom-color:var(--wp--preset--color--light-grey-1);border-bottom-width:1px;padding-top:0;padding-right:var(--wp--preset--spacing--edge-space);padding-bottom:0;padding-left:var(--wp--preset--spacing--edge-space)">
 
 		<!-- wp:group {"style":{"spacing":{"blockGap":"0"},"background":{"backgroundRepeat":"no-repeat","backgroundSize":"contain","backgroundPosition":"100% 50%"}},"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between","verticalAlignment":"stretch"}} -->
 		<div class="wp-block-group">
