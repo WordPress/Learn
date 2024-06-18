@@ -6,6 +6,7 @@ use function WPOrg_Learn\Sensei\{get_my_courses_page_url};
 
 // Block files
 require_once __DIR__ . '/src/learning-pathway-cards/index.php';
+require_once __DIR__ . '/src/learning-pathway-header/index.php';
 require_once __DIR__ . '/src/search-results-context/index.php';
 require_once __DIR__ . '/src/upcoming-online-workshops/index.php';
 require_once __DIR__ . '/src/sensei-meta-list/index.php';
@@ -28,6 +29,7 @@ add_filter( 'sensei_register_post_type_course', function( $args ) {
 	$args['has_archive'] = 'courses';
 	return $args;
 } );
+add_action( 'pre_get_posts', __NAMESPACE__ . '\modify_learning_pathways_query' );
 
 /**
  * Modify the single template hierarchy to use customised copies of the Sensei Course Theme templates.
@@ -276,4 +278,25 @@ function set_site_breadcrumbs( $breadcrumbs ) {
 	}
 
 	return $breadcrumbs;
+}
+
+/**
+ * Modify the main query.
+ * If the 'all' level filter is set in the query, remove it to return all posts.
+ *
+ * @param WP_Query $query The main query.
+ * @return WP_Query
+ */
+function modify_learning_pathways_query( $query ) {
+	if ( is_admin() || ! $query->is_main_query() ) {
+		return;
+	}
+
+	$level = $query->get( 'wporg_lesson_level' );
+
+	if ( 'all' === $level ) {
+		$query->set( 'wporg_lesson_level', '' );
+	}
+
+	return $query;
 }

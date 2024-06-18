@@ -9,7 +9,11 @@ use function WPOrg_Learn\Post_Meta\{get_available_post_type_locales};
 
 add_filter( 'wporg_query_filter_options_language', __NAMESPACE__ . '\get_language_options' );
 add_filter( 'wporg_query_filter_options_level', __NAMESPACE__ . '\get_level_options' );
+add_filter( 'wporg_query_filter_options_taxonomy-level', __NAMESPACE__ . '\get_taxonomy_level_options' );
+add_filter( 'wporg_query_filter_options_learning-pathway-level', __NAMESPACE__ . '\get_learning_pathway_level_options' );
 add_filter( 'wporg_query_filter_options_topic', __NAMESPACE__ . '\get_topic_options' );
+add_filter( 'wporg_query_filter_options_taxonomy-topic', __NAMESPACE__ . '\get_taxonomy_topic_options' );
+add_filter( 'wporg_query_filter_options_learning-pathway-topic', __NAMESPACE__ . '\get_learning_pathway_topic_options' );
 add_action( 'pre_get_posts', __NAMESPACE__ . '\modify_query' );
 add_action( 'wporg_query_filter_in_form', __NAMESPACE__ . '\inject_other_filters' );
 
@@ -24,6 +28,69 @@ function get_current_url() {
 }
 
 /**
+ * Create level options.
+ *
+ * @param array $levels The filtered levels for a view.
+ * @return array The options for a level filter.
+ */
+function create_level_options( $levels ) {
+	global $wp_query;
+
+	// If there are no levels, don't show the filter.
+	if ( empty( $levels ) ) {
+		return array();
+	}
+
+	// Sort the levels alphabetically.
+	usort(
+		$levels,
+		function ( $a, $b ) {
+			return strcmp( strtolower( $a->name ), strtolower( $b->name ) );
+		}
+	);
+
+	// Add an 'All' option to the top.
+	$levels = array_merge(
+		array(
+			'all' => (object) array(
+				'slug' => 'all',
+				'name' => __( 'All', 'wporg-learn' ),
+			),
+		),
+		$levels,
+	);
+
+	$label = __( 'Level', 'wporg-learn' );
+
+	$selected_slug = $wp_query->get( 'wporg_lesson_level' );
+	if ( $selected_slug ) {
+		// Find the selected level from $levels by slug and then get the name.
+		$selected_level = array_filter(
+			$levels,
+			function ( $level ) use ( $selected_slug ) {
+				return $level->slug === $selected_slug;
+			}
+		);
+		if ( ! empty( $selected_level ) ) {
+			$selected_level = array_shift( $selected_level );
+			$label = $selected_level->name;
+		}
+	} else {
+		$selected_slug = 'all';
+		$label = __( 'All', 'wporg-learn' );
+	}
+
+	return array(
+		'label' => $label,
+		'title' => __( 'Level', 'wporg-learn' ),
+		'key' => 'wporg_lesson_level',
+		'action' => get_current_url(),
+		'options' => array_combine( wp_list_pluck( $levels, 'slug' ), wp_list_pluck( $levels, 'name' ) ),
+		'selected' => array( $selected_slug ),
+	);
+}
+
+/**
  * Get the list of levels for the course and lesson filters.
  *
  * @param array $options The options for this filter.
@@ -31,14 +98,18 @@ function get_current_url() {
  */
 function get_level_options( $options ) {
 	global $wp_query;
-	$post_type = $wp_query->query_vars['post_type'];
-	// Get top 10 levels ordered by count, not empty, filtered by post_type, then sort them alphabetically.
+
+	if ( ! isset( $wp_query->query_vars['post_type'] ) ) {
+		return array();
+	}
+
+	// Get top 10 levels ordered by count, not empty, filtered by post_type.
 	$object_ids = get_posts(
 		array(
-			'post_type' => $post_type,
+			'post_type' => $wp_query->query_vars['post_type'],
 			'fields' => 'ids',
-			'numberposts' => -1,
-			'status' => 'publish',
+			'posts_per_page' => -1,
+			'post_status' => 'publish',
 		)
 	);
 	$levels = get_terms(
@@ -51,84 +122,89 @@ function get_level_options( $options ) {
 			'object_ids' => $object_ids,
 		)
 	);
-	// If there are no levels, or less than 2, don't show the filter.
-	if ( empty( $levels ) || count( $levels ) < 2 ) {
-		return array();
-	}
 
-	usort(
-		$levels,
-		function ( $a, $b ) {
-			return strcmp( strtolower( $a->name ), strtolower( $b->name ) );
-		}
-	);
-	// Move the level with value 'Any' to the top, if it exists.
-	$any_level = array_filter(
-		$levels,
-		function ( $level ) {
-			return 'Any' === $level->name;
-		}
-	);
-	if ( ! empty( $any_level ) ) {
-		$target_key = key( $any_level );
-		$target_element = array( $target_key => $levels[ $target_key ] );
-
-		unset( $levels[ $target_key ] );
-
-		$levels = $target_element + $levels;
-	}
-
-	$selected = isset( $wp_query->query['wporg_lesson_level'] ) ? (array) $wp_query->query['wporg_lesson_level'] : array();
-	$count = count( $selected );
-	$label = sprintf(
-		/* translators: The dropdown label for filtering, %s is the selected term count. */
-		_n( 'Level <span>%s</span>', 'Level <span>%s</span>', $count, 'wporg-learn' ),
-		$count
-	);
-
-	return array(
-		'label' => $label,
-		'title' => __( 'Level', 'wporg-learn' ),
-		'key' => 'wporg_lesson_level',
-		'action' => get_current_url(),
-		'options' => array_combine( wp_list_pluck( $levels, 'slug' ), wp_list_pluck( $levels, 'name' ) ),
-		'selected' => $selected,
-	);
+	return create_level_options( $levels );
 }
 
 /**
- * Get the list of topics for the course and lesson filters.
+ * Get the list of levels for the taxonomy filters.
  *
  * @param array $options The options for this filter.
- * @return array New list of topic options.
+ * @return array New list of level options.
  */
-function get_topic_options( $options ) {
-	global $wp_query;
-	$post_type = $wp_query->query_vars['post_type'];
-	// Get top 20 topics ordered by count, not empty, filtered by post_type, then sort them alphabetically.
-	$object_ids = get_posts(
+function get_taxonomy_level_options( $options ) {
+	// Get top 10 levels ordered by count, not empty.
+	$levels = get_terms(
 		array(
-			'post_type' => $post_type,
-			'fields' => 'ids',
-			'numberposts' => -1,
-			'status' => 'publish',
-		)
-	);
-	$topics = get_terms(
-		array(
-			'taxonomy' => 'topic',
+			'taxonomy' => 'level',
 			'orderby' => 'count',
 			'order' => 'DESC',
-			'number' => 20,
+			'number' => 10,
+			'hide_empty' => true,
+		)
+	);
+
+	return create_level_options( $levels );
+}
+
+/**
+ * Get the list of levels for the learning pathway filters.
+ *
+ * @param array $options The options for this filter.
+ * @return array New list of level options.
+ */
+function get_learning_pathway_level_options( $options ) {
+	global $wp_query;
+
+	if ( ! isset( $wp_query->query_vars['wporg_learning_pathway'] ) ) {
+		return array();
+	}
+
+	// Get top 10 levels ordered by count, not empty, filtered by post_type.
+	$object_ids = get_posts(
+		array(
+			'fields' => 'ids',
+			'posts_per_page' => -1,
+			'post_status' => 'publish',
+			'post_type' => 'course',
+			'tax_query' => array(
+				array(
+					'taxonomy' => 'learning-pathway',
+					'field' => 'slug',
+					'terms' => $wp_query->query_vars['wporg_learning_pathway'],
+				),
+			),
+		)
+	);
+	$levels = get_terms(
+		array(
+			'taxonomy' => 'level',
+			'orderby' => 'count',
+			'order' => 'DESC',
+			'number' => 10,
 			'hide_empty' => true,
 			'object_ids' => $object_ids,
 		)
 	);
+
+	return create_level_options( $levels );
+}
+
+/**
+ * Create topic options.
+ *
+ * @param array $topics The filtered topics for a view.
+ * @return array The options for a topic filter.
+ */
+function create_topic_options( $topics ) {
+	global $wp_query;
+
 	// If there are no topics, or less than 2, don't show the filter.
 	if ( empty( $topics ) || count( $topics ) < 2 ) {
 		return array();
 	}
 
+	// Sort the topics alphabetically.
 	usort(
 		$topics,
 		function ( $a, $b ) {
@@ -146,7 +222,7 @@ function get_topic_options( $options ) {
 
 	return array(
 		'label' => $label,
-		'title' => __( 'Topic', 'wporg-learn' ),
+		'title' => __( 'Filter', 'wporg-learn' ),
 		'key' => 'wporg_workshop_topic',
 		'action' => get_current_url(),
 		'options' => array_combine( wp_list_pluck( $topics, 'slug' ), wp_list_pluck( $topics, 'name' ) ),
@@ -154,6 +230,103 @@ function get_topic_options( $options ) {
 	);
 }
 
+/**
+ * Get the list of topics for the course and lesson filters.
+ *
+ * @param array $options The options for this filter.
+ * @return array New list of topic options.
+ */
+function get_topic_options( $options ) {
+	global $wp_query;
+
+	if ( ! isset( $wp_query->query_vars['post_type'] ) ) {
+		return array();
+	}
+
+	// Get top 20 topics ordered by count, not empty, filtered by post_type.
+	$object_ids = get_posts( array(
+		'fields' => 'ids',
+		'posts_per_page' => -1,
+		'post_status' => 'publish',
+		'post_type' => $wp_query->query_vars['post_type'],
+	) );
+	$topics = get_terms(
+		array(
+			'taxonomy' => 'topic',
+			'orderby' => 'count',
+			'order' => 'DESC',
+			'number' => 20,
+			'hide_empty' => true,
+			'object_ids' => $object_ids,
+		)
+	);
+
+	return create_topic_options( $topics );
+}
+
+/**
+ * Get the list of topics for the taxonomy filters.
+ *
+ * @param array $options The options for this filter.
+ * @return array New list of topic options.
+ */
+function get_taxonomy_topic_options( $options ) {
+	// Get top 20 topics ordered by count, not empty.
+	$topics = get_terms(
+		array(
+			'taxonomy' => 'topic',
+			'orderby' => 'count',
+			'order' => 'DESC',
+			'number' => 20,
+			'hide_empty' => true,
+		)
+	);
+
+	return create_topic_options( $topics );
+}
+
+/**
+ * Get the list of topics for the learning pathway filters.
+ *
+ * @param array $options The options for this filter.
+ * @return array New list of topic options.
+ */
+function get_learning_pathway_topic_options( $options ) {
+	global $wp_query;
+
+	if ( ! isset( $wp_query->query_vars['wporg_learning_pathway'] ) ) {
+		return array();
+	}
+
+	// Get top 20 topics ordered by count, not empty, filtered by post_type.
+	$object_ids = get_posts(
+		array(
+			'fields' => 'ids',
+			'posts_per_page' => -1,
+			'post_status' => 'publish',
+			'post_type' => 'course',
+			'tax_query' => array(
+				array(
+					'taxonomy' => 'learning-pathway',
+					'field' => 'slug',
+					'terms' => $wp_query->query_vars['wporg_learning_pathway'],
+				),
+			),
+		)
+	);
+	$topics = get_terms(
+		array(
+			'taxonomy' => 'topic',
+			'orderby' => 'count',
+			'order' => 'DESC',
+			'number' => 20,
+			'hide_empty' => true,
+			'object_ids' => $object_ids,
+		)
+	);
+
+	return create_topic_options( $topics );
+}
 
 /**
  * Get the meta query values by key.
@@ -206,7 +379,7 @@ function get_language_options( $options ) {
 
 	return array(
 		'label' => $label,
-		'title' => __( 'Language', 'wporg-learn' ),
+		'title' => __( 'Filter', 'wporg-learn' ),
 		'key' => 'language',
 		'action' => get_current_url(),
 		'options' => $languages,
@@ -259,17 +432,29 @@ function modify_query( $query ) {
 function inject_other_filters( $key ) {
 	global $wp_query;
 
-	$query_vars = array( 'wporg_workshop_topic', 'wporg_lesson_level' );
-	foreach ( $query_vars as $query_var ) {
-		if ( ! isset( $wp_query->query[ $query_var ] ) ) {
+	$single_query_vars = array( 'wporg_lesson_level' );
+	foreach ( $single_query_vars as $single_query_var ) {
+		if ( ! isset( $wp_query->query[ $single_query_var ] ) ) {
 			continue;
 		}
-		if ( $key === $query_var ) {
+		if ( $key === $single_query_var ) {
 			continue;
 		}
-		$values = (array) $wp_query->query[ $query_var ];
+		$value = $wp_query->query[ $single_query_var ];
+		printf( '<input type="hidden" name="%s" value="%s" />', esc_attr( $single_query_var ), esc_attr( $value ) );
+	}
+
+	$multi_query_vars = array( 'wporg_workshop_topic' );
+	foreach ( $multi_query_vars as $multi_query_var ) {
+		if ( ! isset( $wp_query->query[ $multi_query_var ] ) ) {
+			continue;
+		}
+		if ( $key === $multi_query_var ) {
+			continue;
+		}
+		$values = (array) $wp_query->query[ $multi_query_var ];
 		foreach ( $values as $value ) {
-			printf( '<input type="hidden" name="%s[]" value="%s" />', esc_attr( $query_var ), esc_attr( $value ) );
+			printf( '<input type="hidden" name="%s[]" value="%s" />', esc_attr( $multi_query_var ), esc_attr( $value ) );
 		}
 	}
 
