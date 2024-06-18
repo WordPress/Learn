@@ -30,6 +30,26 @@ function get_current_url() {
 }
 
 /**
+ * Get the IDs of the searched posts.
+ *
+ * @param WP_Query $query The WP_Query object.
+ * @return array The IDs of the searched posts.
+ */
+function get_searched_posts_ids( $query ) {
+	$args = array(
+		's' => $query->query_vars['s'],
+		'fields' => 'ids',
+		'posts_per_page' => -1,
+		'post_status' => 'publish',
+		'post_type' => $query->query_vars['post_type'],
+	);
+
+	$ids_query = new \WP_Query( $args );
+
+	return $ids_query->posts;
+}
+
+/**
  * Create level options.
  *
  * @param array $levels The filtered levels for a view.
@@ -205,18 +225,13 @@ function get_search_level_options( $options ) {
 		return array();
 	}
 
-	$post_types = get_post_types( array( 'public' => true ), 'names' );
-
 	// Get top 10 levels ordered by count, not empty, filtered by post_type.
-	$object_ids = get_posts(
-		array(
-			's' => $wp_query->query_vars['s'],
-			'post_type' => $post_types,
-			'fields' => 'ids',
-			'posts_per_page' => -1,
-			'post_status' => 'publish',
-		)
-	);
+	$object_ids = get_searched_posts_ids( $wp_query );
+
+	if ( ! $object_ids ) {
+		return array();
+	}
+
 	$levels = get_terms(
 		array(
 			'taxonomy' => 'level',
@@ -382,18 +397,13 @@ function get_search_topic_options( $options ) {
 		return array();
 	}
 
-	$post_types = get_post_types( array( 'public' => true ), 'names' );
-
 	// Get top 20 topics ordered by count, not empty, filtered by post_type.
-	$object_ids = get_posts(
-		array(
-			's' => $wp_query->query_vars['s'],
-			'post_type' => $post_types,
-			'fields' => 'ids',
-			'posts_per_page' => -1,
-			'post_status' => 'publish',
-		)
-	);
+	$object_ids = get_searched_posts_ids( $wp_query );
+
+	if ( ! $object_ids ) {
+		return array();
+	}
+
 	$topics = get_terms(
 		array(
 			'taxonomy' => 'topic',
@@ -497,25 +507,16 @@ function get_search_language_options( $options ) {
 		return array();
 	}
 
-	$post_types = get_post_types( array( 'public' => true ), 'names' );
-
 	// Get all languages for the posts matching the search query.
-	$object_ids = get_posts(
-		array(
-			's' => $wp_query->query_vars['s'],
-			'post_type' => $post_types,
-			'fields' => 'ids',
-			'posts_per_page' => -1,
-			'post_status' => 'publish',
-		)
-	);
+	$object_ids = get_searched_posts_ids( $wp_query );
+
+	if ( ! $object_ids ) {
+		return array();
+	}
 
 	$languages = get_available_locales_for_posts_by_id( $object_ids );
 
 	return create_language_options( $languages );
-	}
-
-
 }
 
 /**
