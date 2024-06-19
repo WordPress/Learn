@@ -8,8 +8,12 @@
 use function WPOrg_Learn\Sensei\{get_my_courses_page_url}
 ?>
 
-<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0"}}}} -->
-<p style="margin-top:0"><?php esc_html_e( 'Dive into our learning pathways which will take you from beginner to expert at your own pace.', 'wporg-learn' ); ?></p>
+<!-- wp:heading {"level":1} -->
+<h1 class="wp-block-heading"><?php esc_html_e( 'Learning Pathways', 'wporg-learn' ); ?></h1>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|10"}}}} -->
+<p style="margin-top:var(--wp--preset--spacing--10)"><?php esc_html_e( 'Dive into our learning pathways which will take you from beginner to expert at your own pace.', 'wporg-learn' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|50"}}}} -->

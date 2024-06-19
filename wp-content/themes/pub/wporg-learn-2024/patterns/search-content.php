@@ -7,6 +7,16 @@
 
 ?>
 
+<!-- wp:group {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|50"}}},"layout":{"type":"constrained","justifyContent":"left","contentSize":"730px"}} -->
+<div class="wp-block-group" style="margin-bottom:var(--wp--preset--spacing--50)">
+
+	<!-- wp:heading {"level":1} -->
+	<h1 class="wp-block-heading"><?php esc_html_e( 'Search results', 'wporg-learn' ); ?></h1>
+	<!-- /wp:heading -->
+
+</div>
+<!-- /wp:group -->
+
 <!-- wp:group {"align":"wide","layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"},"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|50"}}}} -->
 <div class="wp-block-group alignwide" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--50)">
 
@@ -56,8 +66,8 @@
 
 	<!-- wp:query-no-results -->
 
-		<!-- wp:heading {"level":1,"fontFamily":"eb-garamond"} -->
-		<h1 class="wp-block-heading has-eb-garamond-font-family"><?php esc_html_e( 'No results found', 'wporg-learn' ); ?></h1>
+		<!-- wp:heading {"level":2} -->
+		<h2 class="wp-block-heading"><?php esc_html_e( 'No results found', 'wporg-learn' ); ?></h2>
 		<!-- /wp:heading -->
 
 		<!-- wp:paragraph {"placeholder":"Add text or blocks that will display when a query returns no results."} -->

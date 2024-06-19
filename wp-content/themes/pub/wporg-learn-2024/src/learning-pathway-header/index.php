@@ -49,10 +49,6 @@ function render( $attributes, $content, $block ) {
 		return '';
 	}
 
-	$learning_pathway_id = $learning_pathway_object->term_id;
-	$learning_pathway_name = $learning_pathway_object->name;
-	$learning_pathway_description = $learning_pathway_object->description;
-
 	$content = '<!-- wp:group {"className":"wp-block-wporg-learn-learning-pathway-header-content","align":"full","style":{"spacing":{"padding":{"right":"var:preset|spacing|edge-space","left":"var:preset|spacing|edge-space","top":"0","bottom":"0"}},"border":{"bottom":{"color":"var:preset|color|light-grey-1","width":"1px"}}},"backgroundColor":"' . esc_attr( $learning_pathway_slug ) . '","layout":{"type":"constrained"}} -->
 	<div class="wp-block-wporg-learn-learning-pathway-header-content wp-block-group alignfull has-' . esc_attr( $learning_pathway_slug ) . '-background-color has-background" style="border-bottom-color:var(--wp--preset--color--light-grey-1);border-bottom-width:1px;padding-top:0;padding-right:var(--wp--preset--spacing--edge-space);padding-bottom:0;padding-left:var(--wp--preset--spacing--edge-space)">
 
@@ -62,12 +58,10 @@ function render( $attributes, $content, $block ) {
 			<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60"}},"layout":{"selfStretch":"fill","flexSize":null}},"layout":{"type":"constrained"}} -->
 			<div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60)">
 
-				<!-- wp:heading {"level":1,"fontSize":"heading-1","fontFamily":"eb-garamond"} -->
-				<h1 class="wp-block-heading has-eb-garamond-font-family has-heading-1-font-size">' . esc_html( $learning_pathway_name ) . '</h1>
-				<!-- /wp:heading -->
+				<!-- wp:query-title {"type":"archive","showPrefix":false} /-->
 
 				<!-- wp:paragraph {"style":{"typography":{"lineHeight":1.6}}} -->
-				<p style="line-height:1.6">' . esc_html( $learning_pathway_description ) . '</p>
+				<p style="line-height:1.6">' . esc_html( $learning_pathway_object->description ) . '</p>
 				<!-- /wp:paragraph -->
 
 			</div>

@@ -10,6 +10,10 @@
 <!-- wp:group {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|50"}}},"layout":{"type":"constrained","justifyContent":"left","contentSize":"730px"}} -->
 <div class="wp-block-group" style="margin-bottom:var(--wp--preset--spacing--50)">
 
+	<!-- wp:heading {"level":1} -->
+	<h1 class="wp-block-heading"><?php esc_html_e( 'Online Workshops', 'wporg-learn' ); ?></h1>
+	<!-- /wp:heading -->
+
 	<!-- wp:paragraph -->
 	<p><?php esc_html_e( 'Online workshops are live sessions where you can learn alongside other WordPress enthusiasts. They are a safe zone where you can come as you are, develop new ideas, explore issues, ask questions, network over shared interests, exchange theories, collaborate on work, and thrive in uncertainty.', 'wporg-learn' ); ?></p>
 	<!-- /wp:paragraph -->
