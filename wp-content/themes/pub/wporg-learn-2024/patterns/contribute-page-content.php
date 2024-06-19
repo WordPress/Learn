@@ -27,20 +27,15 @@
 
 <!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"400"},"spacing":{"margin":{"bottom":"var:preset|spacing|20","top":"var:preset|spacing|20"}}},"fontSize":"small","fontFamily":"inter"} -->
 <p class="has-inter-font-family has-small-font-size" style="margin-top:var(--wp--preset--spacing--20);margin-bottom:var(--wp--preset--spacing--20);font-style:normal;font-weight:400">
-	<?php
-	/* translators: 1: opening a tag for a URL, 2: closing a tag, 3: opening a tag for a URL, 4: closing a tag */
-	printf(
-		esc_html__(
-			'Tutorials can be on any topic related to WordPress, can be for any level of experience, and in any language. 
-			To get started, check out this %1$s tutorial about creating tutorials%2$s. Then %3$s submit your tutorial presenter application%4$s.',
-			'wporg-learn'
-		),
-		'<a href="https://learn.wordpress.org/workshop/how-to-submit-a-workshop/">',
-		'</a>',
-		'<a href="https://learn.wordpress.org/workshop-presenter-application/">',
-		'</a>'
-	);
-	?>
+	<?php echo wp_kses_post(
+		sprintf(
+			/* translators: 1: tutorial link, 2: application link */
+			__( 'Tutorials can be on any topic related to WordPress, can be for any level of experience, and in any language. 
+			To get started, check out this <a href="%1$s">tutorial about creating tutorials</a>. Then <a href="%2$s">submit your tutorial presenter application</a>.', 'wporg-learn' ),
+			site_url( '/tutorial/how-to-submit-a-workshop/' ),
+			site_url( '/tutorial-presenter-application/' ),
+		)
+	); ?>
 </p>
 <!-- /wp:paragraph -->
 
@@ -58,22 +53,16 @@ https://videopress.com/v/52hW5V7s
 
 <!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"400"},"spacing":{"margin":{"bottom":"0","top":"var:preset|spacing|20"}}},"fontSize":"small","fontFamily":"inter"} -->
 <p class="has-inter-font-family has-small-font-size" style="margin-top:var(--wp--preset--spacing--20);margin-bottom:0;font-style:normal;font-weight:400">
-	<?php
-	/* translators: 1: opening a tag for a URL, 2: closing a tag, 3: opening a tag for a URL, 4: closing a tag, 5: opening a tag for a URL, 6: closing a tag */
-	printf(
-		esc_html__(
-			'To learn more about online workshop facilitators, %1$s read this post%2$s. You can %3$s apply to become an online workshop facilitator here%4$s, 
-			or you can even %5$s organize an online workshop for your local WordPress meetup%6$s.',
-			'wporg-learn'
-		),
-		'<a href="https://make.wordpress.org/community/2020/08/11/tuesday-trainings-how-to-be-an-excellent-discussion-group-leader/">',
-		'</a>',
-		'<a href="https://learn.wordpress.org/social-learning/">',
-		'</a>',
-		'<a href="https://make.wordpress.org/community/handbook/virtual-events/organize-learn-wordpress-discussion-groups-for-your-wordpress-meetup/">',
-		'</a>'
-	);
-	?>
+	<?php echo wp_kses_post(
+		sprintf(
+			/* translators: 1: read this post link, 2: apply link, 3: organize an online workshop link */
+			__( 'To learn more about online workshop facilitators, <a href="%1$s">read this post</a>. You can <a href="%2$s">apply to become an online workshop facilitator here</a>, 
+			or you can even <a href="%3$s">organize an online workshop for your local WordPress meetup</a>.', 'wporg-learn' ),
+			'https://make.wordpress.org/community/2020/08/11/tuesday-trainings-how-to-be-an-excellent-discussion-group-leader/',
+			site_url( '/social-learning/' ),
+			'https://make.wordpress.org/community/handbook/virtual-events/organize-learn-wordpress-discussion-groups-for-your-wordpress-meetup/',
+		)
+	); ?>
 </p>
 <!-- /wp:paragraph -->
 
@@ -85,26 +74,19 @@ https://videopress.com/v/52hW5V7s
 
 <!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"400"},"spacing":{"margin":{"bottom":"var:preset|spacing|20","top":"var:preset|spacing|20"}}},"fontSize":"small","fontFamily":"inter"} -->
 <p class="has-inter-font-family has-small-font-size" style="margin-top:var(--wp--preset--spacing--20);margin-bottom:var(--wp--preset--spacing--20);font-style:normal;font-weight:400">
-	<?php
-	/* translators: 1: opening a tag for a URL, 2: closing a tag, 3: opening a tag for a URL, 4: closing a tag, 5: opening a tag for a URL, 6: closing a tag, 7: opening a tag for a URL, 8: closing a tag */
-	printf(
-		esc_html__(
-			'%1$s Lesson Plans%2$s provide an outline and complete script for anyone wanting to run their own classes at in-person or virtual events. 
+	<?php echo wp_kses_post(
+		sprintf(
+			/* translators: 1: lesson plans link, 2: training channel link, 3: welcome page link, 4: get started page link */
+			__( '<a href="%1$s">Lesson Plans</a> provide an outline and complete script for anyone wanting to run their own classes at in-person or virtual events. 
 			View our video about submitting Lesson Plans. You can even use these lesson plans for the Tutorials that you submit! 
-			The Training team meets weekly in %3$s #training channel%4$s in Slack. See their %5$s Welcome page for meeting times%6$s. 
-			Learn more on the Training team\'s %7$s Get Started page%8$s.',
-			'wporg-learn'
-		),
-		'<a href="https://learn.wordpress.org/lesson-plans/">',
-		'</a>',
-		'<a href="http://wordpress.slack.com/messages/training/">',
-		'</a>',
-		'<a href="https://make.wordpress.org/training/handbook/getting-started/how-we-work-together/">',
-		'</a>',
-		'<a href="https://make.wordpress.org/training/handbook/getting-started/">',
-		'</a>'
-	);
-	?>
+			The Training team meets weekly in <a href="%2$s">#training channel</a> in Slack. See their <a href="%3$s">Welcome page for meeting times</a>. 
+			Learn more on the Training team\'s <a href="%4$s">Get Started page</a>.', 'wporg-learn' ),
+			site_url( '/lesson-plans/' ),
+			'http://wordpress.slack.com/messages/training/',
+			'https://make.wordpress.org/training/handbook/getting-started/how-we-work-together/',
+			'https://make.wordpress.org/training/handbook/getting-started/',
+		)
+	); ?>
 </p>
 <!-- /wp:paragraph -->
 
@@ -122,26 +104,18 @@ https://videopress.com/v/qkmHo4ug
 
 <!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"400"},"spacing":{"margin":{"bottom":"var:preset|spacing|20","top":"var:preset|spacing|20"}}},"fontSize":"small","fontFamily":"inter"} -->
 <p class="has-inter-font-family has-small-font-size" style="margin-top:var(--wp--preset--spacing--20);margin-bottom:var(--wp--preset--spacing--20);font-style:normal;font-weight:400">
-	<?php
-	/* translators: 1: opening a tag for a URL, 2: closing a tag, 3: opening a tag for a URL, 4: closing a tag, 5: opening a tag for a URL, 6: closing a tag, 7: opening a tag a URL, 8: closing a tag */
-	printf(
-		esc_html__(
-			'%1$s Courses%2$s consist of long-form lessons in multiple media formats - they can include text, video and images. 
-			The Training team meets weekly in %3$s #training channel%4$s in Slack. See their %5$s Welcome page for meeting times%6$s. 
-			Learn more on the Training team\'s %7$s Get Started page%8$s.',
-			'wporg-learn'
-		),
-		'<a href="https://learn.wordpress.org/courses/">',
-		'</a>',
-		'<a href="http://wordpress.slack.com/messages/training/">',
-		'</a>',
-		'<a href="https://make.wordpress.org/training/handbook/getting-started/how-we-work-together/">',
-		'</a>',
-		'<a href="https://make.wordpress.org/training/handbook/getting-started/">',
-		'</a>'
-	);
-	?>
-
+	<?php echo wp_kses_post(
+		sprintf(
+			/* translators: 1: courses link, 2: training channel link, 3: welcome page link, 4: get started page link */
+			__( '<a href="%1$s">Courses</a> consist of long-form lessons in multiple media formats - they can include text, video and images. 
+			The Training team meets weekly in <a href="%2$s">#training channel</a> in Slack. See their <a href="%3$s">Welcome page for meeting times</a>. 
+			Learn more on the Training team\'s <a href="%4$s">Get Started page</a>.', 'wporg-learn' ),
+			site_url( '/courses/' ),
+			'http://wordpress.slack.com/messages/training/',
+			'https://make.wordpress.org/training/handbook/getting-started/how-we-work-together/',
+			'https://make.wordpress.org/training/handbook/getting-started/',
+		)
+	); ?>
 </p>
 <!-- /wp:paragraph -->
 
@@ -157,23 +131,15 @@ https://videopress.com/v/qkmHo4ug
 
 <!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"400"},"spacing":{"margin":{"bottom":"0","top":"0"}}},"fontSize":"small","fontFamily":"inter"} -->
 <p class="has-inter-font-family has-small-font-size" style="margin-top:0;margin-bottom:0;font-style:normal;font-weight:400">
-	<?php
-	/* translators: 1: opening strong tag, 2: closing strong tag, 3: opening a tag for a URL, 4: closing a tag */
-	printf(
-		esc_html__(
-			'To get even more involved, %1$s join the Training Team%2$s to help build the platform, review workshop applications, decide on future content, and more. 
-			If you\'re interested in helping, share your interest in the %3$s #training%4$s channel, join one of the Training team meetings, 
-			or follow %5$s the Training team%6$s for news on working group-specific meetings.',
-			'wporg-learn'
-		),
-		'<strong>',
-		'</strong>',
-		'<a href="http://wordpress.slack.com/messages/training/">',
-		'</a>',
-		'<a href="https://make.wordpress.org/training/">',
-		'</a>'
-	);
-	?>
-
+	<?php echo wp_kses_post(
+		sprintf(
+			/* translators: 1: training channel link, 2: training team link */
+			__( 'To get even more involved, <strong>join the Training Team</strong> to help build the platform, review workshop applications, decide on future content, and more. 
+			If you\'re interested in helping, share your interest in the <a href="%1$s">#training channel</a>, join one of the Training team meetings, 
+			or follow <a href="%2$s">the Training team</a> for news on working group-specific meetings.', 'wporg-learn' ),
+			'http://wordpress.slack.com/messages/training/',
+			'https://make.wordpress.org/training/',
+		)
+	); ?>
 </p>
 <!-- /wp:paragraph -->
