@@ -6,7 +6,7 @@
 namespace WordPressdotorg\Theme\Learn_2024\Query;
 
 add_action( 'pre_get_posts', __NAMESPACE__ . '\modify_archive_queries' );
-add_action( 'pre_get_posts', __NAMESPACE__ . '\modify_learning_pathways_query' );
+add_action( 'pre_get_posts', __NAMESPACE__ . '\modify_level_query' );
 add_action( 'pre_get_posts', __NAMESPACE__ . '\modify_search_query' );
 
 
@@ -50,7 +50,7 @@ function modify_archive_queries( $query ) {
  * @param WP_Query $query The main query.
  * @return WP_Query
  */
-function modify_learning_pathways_query( $query ) {
+function modify_level_query( $query ) {
 	if ( is_admin() || ! $query->is_main_query() ) {
 		return;
 	}
