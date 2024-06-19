@@ -31,6 +31,13 @@
 				"border": "var(--wp--preset--color--light-grey-1)",
 				"green-70": "#005C12"
 			},
+			"form": {
+				"border": {
+					"color": "var(--wp--preset--color--charcoal-5)",
+					"width": "1px",
+					"radius": "2px"
+				}
+			},
 			"heading": {
 				"typography": {
 					"fontFamily": "var(--wp--preset--font-family--inter)",
