@@ -17,6 +17,8 @@
 
 	.course {
 		position: relative;
+		margin-bottom: unset;
+		padding-bottom: unset;
 
 		&::before,
 		&::after {
