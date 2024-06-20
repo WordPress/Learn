@@ -17,6 +17,7 @@ function setup() {
 	add_theme_support( 'sensei' );
 
 	add_theme_support( 'responsive-embeds' );
+	add_theme_support( 'align-wide' );
 
 	global $woothemes_sensei;
 	if ( $woothemes_sensei ) {
