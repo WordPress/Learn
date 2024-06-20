@@ -423,18 +423,9 @@ function get_student_course_options( $options ) {
 	$key = get_student_course_filter_query_var_name();
 
 	$options = array(
-		'all' => (object) array(
-			'slug' => 'all',
-			'name' => __( 'All', 'wporg-learn' ),
-		),
-		'active' => (object) array(
-			'slug' => 'active',
-			'name' => __( 'Active', 'wporg-learn' ),
-		),
-		'completed' => (object) array(
-			'slug' => 'completed',
-			'name' => __( 'Completed', 'wporg-learn' ),
-		),
+		'all' => __( 'All', 'wporg-learn' ),
+		'active' => __( 'Active', 'wporg-learn' ),
+		'completed' => __( 'Completed', 'wporg-learn' ),
 	);
 
 	$selected_slug = $wp_query->get( $key );
@@ -442,13 +433,13 @@ function get_student_course_options( $options ) {
 		// Find the selected option from $options by slug and then get the name.
 		$selected_option = array_filter(
 			$options,
-			function ( $option ) use ( $selected_slug ) {
-				return $option->slug === $selected_slug;
-			}
+			function ( $option, $slug ) use ( $selected_slug ) {
+				return $slug === $selected_slug;
+			},
+			ARRAY_FILTER_USE_BOTH
 		);
 		if ( ! empty( $selected_option ) ) {
-			$selected_option = array_shift( $selected_option );
-			$label = $selected_option->name;
+			$label = array_shift( $selected_option );
 		}
 	} else {
 		$selected_slug = 'all';
@@ -460,7 +451,7 @@ function get_student_course_options( $options ) {
 		'title' => __( 'Completion status', 'wporg-learn' ),
 		'key' => $key,
 		'action' => get_current_url(),
-		'options' => array_combine( wp_list_pluck( $options, 'slug' ), wp_list_pluck( $options, 'name' ) ),
+		'options' => $options,
 		'selected' => array( $selected_slug ),
 	);
 }
