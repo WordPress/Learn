@@ -14,6 +14,8 @@ add_filter( 'wporg_query_filter_options_learning-pathway-level', __NAMESPACE__ .
 add_filter( 'wporg_query_filter_options_topic', __NAMESPACE__ . '\get_topic_options' );
 add_filter( 'wporg_query_filter_options_taxonomy-topic', __NAMESPACE__ . '\get_taxonomy_topic_options' );
 add_filter( 'wporg_query_filter_options_learning-pathway-topic', __NAMESPACE__ . '\get_learning_pathway_topic_options' );
+add_filter( 'query_vars', __NAMESPACE__ . '\add_student_course_filter_query_vars' );
+add_filter( 'wporg_query_filter_options_student-course', __NAMESPACE__ . '\get_student_course_options' );
 add_action( 'wporg_query_filter_in_form', __NAMESPACE__ . '\inject_other_filters' );
 
 /**
@@ -383,6 +385,74 @@ function get_language_options( $options ) {
 		'action' => get_current_url(),
 		'options' => $languages,
 		'selected' => $selected,
+	);
+}
+
+/**
+ * Get the query variable name for the student course filter, used by Sensei to filter the My Courses page.
+ * This is the PARAM_KEY defined in the Sensei plugin + the query id on the query loop in my-courses-content.php
+ * See class Sensei_Course_List_Student_Course_Filter.
+ *
+ * @return string The query variable name.
+ */
+function get_student_course_filter_query_var_name() {
+	return 'course-list-student-course-filter-0';
+}
+
+/**
+ * Add student course filter query var.
+ *
+ * @param array $query_vars The query vars.
+ * @return array The updated query vars.
+ */
+function add_student_course_filter_query_vars( $query_vars ) {
+	$query_vars[] = get_student_course_filter_query_var_name();
+
+	return $query_vars;
+}
+
+/**
+ * Get the options for the student course completion status filter.
+ *
+ * @param array $options The options for this filter.
+ * @return array New list of student course filter options.
+ */
+function get_student_course_options( $options ) {
+	global $wp_query;
+
+	$key = get_student_course_filter_query_var_name();
+
+	$options = array(
+		'all' => __( 'All', 'wporg-learn' ),
+		'active' => __( 'Active', 'wporg-learn' ),
+		'completed' => __( 'Completed', 'wporg-learn' ),
+	);
+
+	$selected_slug = $wp_query->get( $key );
+	if ( $selected_slug ) {
+		// Find the selected option from $options by slug and then get the name.
+		$selected_option = array_filter(
+			$options,
+			function ( $option, $slug ) use ( $selected_slug ) {
+				return $slug === $selected_slug;
+			},
+			ARRAY_FILTER_USE_BOTH
+		);
+		if ( ! empty( $selected_option ) ) {
+			$label = array_shift( $selected_option );
+		}
+	} else {
+		$selected_slug = 'all';
+		$label = __( 'All', 'wporg-learn' );
+	}
+
+	return array(
+		'label' => $label,
+		'title' => __( 'Completion status', 'wporg-learn' ),
+		'key' => $key,
+		'action' => get_current_url(),
+		'options' => $options,
+		'selected' => array( $selected_slug ),
 	);
 }
 

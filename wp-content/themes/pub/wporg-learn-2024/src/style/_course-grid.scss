@@ -1,10 +1,24 @@
 .wporg-learn-course-grid {
 	&.wp-block-query > .is-layout-grid {
 		row-gap: var(--wp--preset--spacing--50);
+
+		.wp-block-post-featured-image {
+			margin-bottom: unset;
+		}
+
+		.sensei-lms-course-list-featured-label__text {
+			display: none;
+		}
+
+		.sensei-cta .wp-block-button__link {
+			float: unset;
+		}
 	}
 
 	.course {
 		position: relative;
+		margin-bottom: unset;
+		padding-bottom: unset;
 
 		&::before,
 		&::after {
@@ -30,10 +44,6 @@
 			width: calc(100% - 48px);
 			left: 24px;
 		}
-	}
-
-	.sensei-lms-course-list-featured-label__text {
-		display: none;
 	}
 
 	.wp-block-post-title a {
