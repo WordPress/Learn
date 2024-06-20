@@ -13,20 +13,20 @@
 </h1>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"400"},"spacing":{"margin":{"bottom":"40px"}}},"fontSize":"normal","fontFamily":"inter"} -->
-<p class="has-inter-font-family has-normal-font-size" style="margin-bottom:40px;font-style:normal;font-weight:400">
+<!-- wp:paragraph {"fontSize":"normal","fontFamily":"inter"} -->
+<p class="has-inter-font-family has-normal-font-size">
 	<?php esc_html_e( "Here's how you can get involved and create content for Learn WordPress", 'wporg-learn' ); ?>
 </p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"style":{"typography":{"fontStyle":"normal","fontWeight":"600"},"spacing":{"margin":{"top":"50px"}}},"fontSize":"extra-large","fontFamily":"inter"} -->
-<h2 class="wp-block-heading has-inter-font-family has-extra-large-font-size" style="margin-top:50px;font-style:normal;font-weight:600">
+<!-- wp:heading {"style":{"spacing":{"margin":{"top":"40px"}}},"fontSize":"extra-large","fontFamily":"inter"} -->
+<h2 class="wp-block-heading has-inter-font-family has-extra-large-font-size" style="margin-top:40px">
 	<?php esc_html_e( 'Facilitate an online workshop', 'wporg-learn' ); ?>
 </h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"400"},"spacing":{"margin":{"bottom":"0","top":"var:preset|spacing|20"}}},"fontSize":"small","fontFamily":"inter"} -->
-<p class="has-inter-font-family has-small-font-size" style="margin-top:var(--wp--preset--spacing--20);margin-bottom:0;font-style:normal;font-weight:400">
+<!-- wp:paragraph {"fontSize":"small","fontFamily":"inter"} -->
+<p class="has-inter-font-family has-small-font-size">
 	<?php echo wp_kses_post(
 		sprintf(
 			/* translators: 1: read this post link, 2: apply link, 3: organize an online workshop link */
@@ -40,14 +40,14 @@
 </p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"style":{"typography":{"fontStyle":"normal","fontWeight":"600"},"spacing":{"margin":{"top":"50px"}}},"fontSize":"extra-large","fontFamily":"inter"} -->
-<h2 class="wp-block-heading has-inter-font-family has-extra-large-font-size" style="margin-top:50px;font-style:normal;font-weight:600">
+<!-- wp:heading {"style":{"spacing":{"margin":{"top":""var:preset|spacing|40""}}},"fontSize":"extra-large","fontFamily":"inter"} -->
+<h2 class="wp-block-heading has-inter-font-family has-extra-large-font-size" style="margin-top:var(--wp--preset--spacing--40)">
 	<?php esc_html_e( 'Update and contribute courses', 'wporg-learn' ); ?>
 </h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"400"},"spacing":{"margin":{"bottom":"var:preset|spacing|20","top":"var:preset|spacing|20"}}},"fontSize":"small","fontFamily":"inter"} -->
-<p class="has-inter-font-family has-small-font-size" style="margin-top:var(--wp--preset--spacing--20);margin-bottom:var(--wp--preset--spacing--20);font-style:normal;font-weight:400">
+<!-- wp:paragraph {"fontSize":"small","fontFamily":"inter"} -->
+<p class="has-inter-font-family has-small-font-size">
 	<?php echo wp_kses_post(
 		sprintf(
 			/* translators: 1: courses link, 2: training channel link, 3: welcome page link, 4: get started page link */
@@ -67,14 +67,14 @@
 [videopress 9hC1sT88]
 <!-- /wp:shortcode -->
 
-<!-- wp:heading {"style":{"typography":{"fontStyle":"normal","fontWeight":"600"},"spacing":{"margin":{"top":"50px"}}},"fontSize":"extra-large","fontFamily":"inter"} -->
-<h2 class="wp-block-heading has-inter-font-family has-extra-large-font-size" style="margin-top:50px;font-style:normal;font-weight:600">
+<!-- wp:heading {"style":{"spacing":{"margin":{"top":""var:preset|spacing|40""}}},"fontSize":"extra-large","fontFamily":"inter"} -->
+<h2 class="wp-block-heading has-inter-font-family has-extra-large-font-size" style="margin-top:var(--wp--preset--spacing--40)">
 	<?php esc_html_e( 'Join the Training Team', 'wporg-learn' ); ?>
 </h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"400"},"spacing":{"margin":{"bottom":"0","top":"0"}}},"fontSize":"small","fontFamily":"inter"} -->
-<p class="has-inter-font-family has-small-font-size" style="margin-top:0;margin-bottom:0;font-style:normal;font-weight:400">
+<!-- wp:paragraph {"fontSize":"small","fontFamily":"inter"} -->
+<p class="has-inter-font-family has-small-font-size">
 	<?php echo wp_kses_post(
 		sprintf(
 			/* translators: 1: training channel link, 2: training team link */
