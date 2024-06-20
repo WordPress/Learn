@@ -70,7 +70,7 @@ function modify_level_query( $query ) {
  * @return array The searchable post types.
  */
 function get_searchable_post_types() {
-	return array( 'course', 'lesson', 'quiz', 'meeting', 'page', 'post', 'lesson-plan' );
+	return array( 'course', 'lesson', 'quiz', 'meeting', 'page', 'post', 'wporg_workshop' );
 }
 
 /**
