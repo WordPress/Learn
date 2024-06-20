@@ -17,8 +17,10 @@ require_once __DIR__ . '/inc/query.php';
  * Actions and filters.
  */
 add_action( 'after_setup_theme', __NAMESPACE__ . '\setup' );
+add_action( 'jetpack_open_graph_image_default', __NAMESPACE__ . '\default_open_graph_image', 15, 1 );
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_assets' );
 
+add_filter( 'post_thumbnail_html', __NAMESPACE__ . '\set_default_featured_image', 10, 5 );
 add_filter( 'sensei_register_post_type_course', function( $args ) {
 	$args['has_archive'] = 'courses';
 	return $args;
@@ -32,6 +34,35 @@ add_filter( 'wporg_block_navigation_menus', __NAMESPACE__ . '\add_site_navigatio
 add_filter( 'wporg_block_site_breadcrumbs', __NAMESPACE__ . '\set_site_breadcrumbs' );
 
 remove_filter( 'template_include', array( 'Sensei_Templates', 'template_loader' ), 10, 1 );
+
+/**
+ * Set the default featured image.
+ *
+ * @param string       $html The HTML for the featured image.
+ * @param int          $post_id The post ID.
+ * @param int          $post_thumbnail_id The post thumbnail ID.
+ * @param string|array $size The image size.
+ * @param string|array $attr The image attributes.
+ * @return string The modified HTML for the featured image.
+ */
+function set_default_featured_image( $html, $post_id, $post_thumbnail_id, $size, $attr ) {
+	if ( ! $html ) {
+		return '<img src="https://s.w.org/images/learn-thumbnail-fallback-2024.jpg?v=1" alt="" />';
+	}
+
+	return $html;
+}
+
+/**
+ * Add fallback image to Jetpack when no featured image exists.
+ *
+ * @param string $default_image The default image URL.
+ *
+ * @return string Image URL.
+ */
+function default_open_graph_image( $default_image ) {
+	return 'https://s.w.org/images/learn-thumbnail-fallback-2024.jpg?v=1';
+}
 
 /**
  * Modify the single template hierarchy to use customised copies of the Sensei Course Theme templates.
