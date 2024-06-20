@@ -7,14 +7,14 @@
 
 ?>
  
-<!-- wp:heading {"style":{"typography":{"fontSize":"36px","fontStyle":"normal","fontWeight":"400"}},"fontFamily":"eb-garamond"} -->
-<h2 class="wp-block-heading has-eb-garamond-font-family" style="font-size:36px;font-style:normal;font-weight:400">
+<!-- wp:heading {"level":1} -->
+<h1 class="wp-block-heading">
 	<?php esc_html_e( 'Contribute', 'wporg-learn' ); ?>
-</h2>
+</h1>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"400"},"spacing":{"margin":{"bottom":"40px","top":"0px"}}},"fontSize":"normal","fontFamily":"inter"} -->
-<p class="has-inter-font-family has-normal-font-size" style="margin-top:0px;margin-bottom:40px;font-style:normal;font-weight:400">
+<!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"400"},"spacing":{"margin":{"bottom":"40px"}}},"fontSize":"normal","fontFamily":"inter"} -->
+<p class="has-inter-font-family has-normal-font-size" style="margin-bottom:40px;font-style:normal;font-weight:400">
 	<?php esc_html_e( "Here's how you can get involved and create content for Learn WordPress", 'wporg-learn' ); ?>
 </p>
 <!-- /wp:paragraph -->
