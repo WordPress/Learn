@@ -47,7 +47,7 @@ remove_filter( 'template_include', array( 'Sensei_Templates', 'template_loader' 
  */
 function set_default_featured_image( $html, $post_id, $post_thumbnail_id, $size, $attr ) {
 	if ( ! $html ) {
-		return '<img src="https://s.w.org/images/learn-thumbnail-fallback-2024.jpg?v=1" alt="" />';
+		return '<img src="https://s.w.org/images/learn-thumbnail-fallback.jpg?v=4" alt="" />';
 	}
 
 	return $html;
@@ -61,7 +61,7 @@ function set_default_featured_image( $html, $post_id, $post_thumbnail_id, $size,
  * @return string Image URL.
  */
 function default_open_graph_image( $default_image ) {
-	return 'https://s.w.org/images/learn-thumbnail-fallback-2024.jpg?v=1';
+	return 'https://s.w.org/images/learn-thumbnail-fallback.jpg?v=4';
 }
 
 /**
