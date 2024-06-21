@@ -2,3 +2,18 @@
 .wp-block-jetpack-subscriptions.wp-block-jetpack-subscriptions__supports-newline:not(.wp-block-jetpack-subscriptions__use-newline) p#subscribe-submit {
 	justify-content: start;
 }
+
+.contact-form {
+	.grunion-checkbox-multiple-options legend,
+	.grunion-radio-options legend,
+	label {
+		font-weight: 400;
+	}
+
+	label span.required,
+	.grunion-label-required {
+		color: var(--wp--preset--color--charcoal-4);
+		opacity: unset;
+		font-size: inherit;
+	}
+}
