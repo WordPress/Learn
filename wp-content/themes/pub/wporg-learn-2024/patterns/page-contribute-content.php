@@ -1,7 +1,7 @@
 <?php
 /**
  * Title: Contribute Page Content
- * Slug: wporg-learn-2024/contribute-page-content
+ * Slug: wporg-learn-2024/page-contribute-content
  * Inserter: no
  */
 

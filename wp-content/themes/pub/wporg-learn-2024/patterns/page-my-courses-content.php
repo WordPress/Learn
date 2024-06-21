@@ -1,7 +1,7 @@
 <?php
 /**
- * Title: Courses Archive Content
- * Slug: wporg-learn-2024/my-courses-content
+ * Title: My Courses Page Content
+ * Slug: wporg-learn-2024/page-my-courses-content
  * Inserter: no
  */
 
