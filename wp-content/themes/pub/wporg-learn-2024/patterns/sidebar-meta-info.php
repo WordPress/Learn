@@ -12,25 +12,41 @@
 <!-- wp:group {"align":"full","className":"wporg-learn-sidebar-meta-info","layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull wporg-learn-sidebar-meta-info">
 
-	<?php if ( Sensei_Course::is_user_enrolled( get_the_ID() ) ) : ?>
-	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|blueberry-1"}}},"typography":{"fontStyle":"normal","fontWeight":"400","lineHeight":26px}},"textColor":"blueberry-1","fontSize":"normal","fontFamily":"inter","className":""wporg-learn-sidebar-all-courses"} -->
-	<p class="has-blueberry-1-color has-text-color has-link-color has-inter-font-family has-normal-font-size wporg-learn-sidebar-all-courses" style="font-style:normal;font-weight:400;line-height:26px">
-		<a href="<?php echo esc_url( get_my_courses_page_url() ); ?>">
-			<?php esc_html_e( 'All My Courses', 'wporg-learn' ); ?>
-		</a>
-	</p>
-	<!-- /wp:paragraph -->
+	<?php if ( 'course' === get_post_type() ) : ?>
+		<?php if ( Sensei_Course::is_user_enrolled( get_the_ID() ) ) : ?>
+		<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|blueberry-1"}}},"typography":{"fontStyle":"normal","fontWeight":"400","lineHeight":26px}},"textColor":"blueberry-1","fontSize":"normal","fontFamily":"inter","className":""wporg-learn-sidebar-all-courses"} -->
+		<p class="has-blueberry-1-color has-text-color has-link-color has-inter-font-family has-normal-font-size wporg-learn-sidebar-all-courses" style="font-style:normal;font-weight:400;line-height:26px">
+			<a href="<?php echo esc_url( get_my_courses_page_url() ); ?>">
+				<?php esc_html_e( 'All My Courses', 'wporg-learn' ); ?>
+			</a>
+		</p>
+		<!-- /wp:paragraph -->
+		<?php endif; ?>
+
+		<!-- wp:sensei-lms/course-progress {"barColor":"blueberry-1","barBackgroundColor":"blueberry-3","height":8,"className":"wporg-learn-sidebar-course-progress"} /-->
+
+		<!-- wp:sensei-lms/button-take-course {"align":"full","borderRadius":2,"className":"is-style-default"} -->
+		<div class="wp-block-sensei-lms-button-take-course is-style-default wp-block-sensei-button wp-block-button has-text-align-full">
+			<button class="wp-block-button__link" style="border-radius:2px">
+				<?php esc_html_e( 'Take this Course', 'wporg-learn' ); ?>
+			</button>
+		</div>
+		<!-- /wp:sensei-lms/button-take-course -->
 	<?php endif; ?>
 
-	<!-- wp:sensei-lms/course-progress {"barColor":"blueberry-1","barBackgroundColor":"blueberry-3","height":8,"className":"wporg-learn-sidebar-course-progress"} /-->
-
-	<!-- wp:sensei-lms/button-take-course {"align":"full","borderRadius":2,"className":"is-style-default"} -->
-	<div class="wp-block-sensei-lms-button-take-course is-style-default wp-block-sensei-button wp-block-button has-text-align-full">
-		<button class="wp-block-button__link" style="border-radius:2px">
-			<?php esc_html_e( 'Take this Course', 'wporg-learn' ); ?>
-		</button>
-	</div>
-	<!-- /wp:sensei-lms/button-take-course -->
+	<?php if ( 'lesson-plan' === get_post_type() ) : ?>
+		<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
+		<div class="wp-block-buttons">
+			<!-- wp:button {"textAlign":"center","width":100,"style":{"border":{"radius":"2px"},"spacing":{"padding":{"left":"13px","right":"13px","top":"16px","bottom":"16px"}},"typography":{"lineHeight":0,"fontStyle":"normal","fontWeight":"400"}},"className":"aligncenter is-style-fill","fontSize":"normal","fontFamily":"inter"} -->
+			<div class="wp-block-button has-custom-width wp-block-button__width-100 has-custom-font-size aligncenter is-style-fill has-inter-font-family has-normal-font-size" style="font-style:normal;font-weight:400;line-height:0">
+				<a class="wp-block-button__link has-text-align-center wp-element-button" onclick="window.print()" style="border-radius:2px;padding-top:16px;padding-right:13px;padding-bottom:16px;padding-left:13px" target="_blank" rel="noreferrer noopener">
+					<?php esc_html_e( 'Print Lesson Plan', 'wporg-learn' ); ?>
+				</a>				
+			</div>
+			<!-- /wp:button -->
+		</div>
+		<!-- /wp:buttons -->
+	<?php endif; ?>
 
 	<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
 	<div class="wp-block-buttons">
