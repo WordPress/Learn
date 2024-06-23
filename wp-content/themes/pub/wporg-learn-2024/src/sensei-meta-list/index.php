@@ -134,6 +134,7 @@ function render( $attributes, $content, $block ) {
 		$audience = get_post_taxonomy_terms_links( $lesson_plan_id, 'audience' );
 		$level = get_post_taxonomy_terms_links( $lesson_plan_id, 'level' );
 		$instruction_type = get_post_taxonomy_terms_links( $lesson_plan_id, 'instruction_type' );
+		$wporg_wp_version = get_post_taxonomy_terms_links( $lesson_plan_id, 'wporg_wp_version' );
 		$last_updated = get_last_updated_time( $lesson_plan_id );
 
 		$meta_fields = array(
@@ -155,6 +156,11 @@ function render( $attributes, $content, $block ) {
 			array(
 				'label' => __( 'Type', 'wporg-learn' ),
 				'value' => $instruction_type,
+				'key'   => 'type',
+			),
+			array(
+				'label' => __( 'WordPress Version', 'wporg-learn' ),
+				'value' => $wporg_wp_version,
 				'key'   => 'type',
 			),
 			array(
