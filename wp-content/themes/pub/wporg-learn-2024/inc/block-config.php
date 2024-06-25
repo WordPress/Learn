@@ -7,7 +7,8 @@ namespace WordPressdotorg\Theme\Learn_2024\Block_Config;
 
 use function WPOrg_Learn\Post_Meta\{get_available_post_type_locales};
 
-add_filter( 'wporg_query_filter_options_archive_language', __NAMESPACE__ . '\get_language_options' );
+add_filter( 'wporg_query_filter_options_language', __NAMESPACE__ . '\get_language_options' );
+add_filter( 'wporg_query_filter_options_archive_language', __NAMESPACE__ . '\get_language_options_by_post_type' );
 
 add_filter( 'wporg_query_filter_options_level', __NAMESPACE__ . '\get_level_options' );
 add_filter( 'wporg_query_filter_options_archive_level', __NAMESPACE__ . '\get_level_options_by_post_type' );
@@ -356,15 +357,14 @@ function get_meta_query_values_by_key( $query, $key ) {
 }
 
 /**
- * Get the list of languages for the course and lesson filters.
+ * Create language options.
  *
- * @param array $options The options for this filter.
- * @return array New list of language options.
+ * @param array $languages The filtered languages for a view.
+ * @return array The options for a language filter.
  */
-function get_language_options( $options ) {
+function create_language_options( $languages ) {
 	global $wp_query;
-	$post_type = $wp_query->query_vars['post_type'];
-	$languages = get_available_post_type_locales( 'language', $post_type, 'publish' );
+
 	// If there are no languages, or the only language is en_US, don't show the filter.
 	if ( empty( $languages ) || ( 1 === count( $languages ) && isset( $languages['en_US'] ) ) ) {
 		return array();
@@ -391,6 +391,34 @@ function get_language_options( $options ) {
 		'options' => $languages,
 		'selected' => $selected,
 	);
+}
+
+/**
+ * Get the full list of available languages that have content.
+ *
+ * @param array $options The options for this filter.
+ * @return array New list of language options.
+ */
+function get_language_options( $options ) {
+	global $wp_query;
+
+	$languages = get_available_post_type_locales( 'language', null, 'publish' );
+
+	return create_language_options( $languages );
+}
+
+/**
+ * Get the list of languages for the post_type archive filters.
+ *
+ * @param array $options The options for this filter.
+ * @return array New list of language options.
+ */
+function get_language_options_by_post_type( $options ) {
+	global $wp_query;
+	$post_type = $wp_query->query_vars['post_type'];
+	$languages = get_available_post_type_locales( 'language', $post_type, 'publish' );
+
+	return create_language_options( $languages );
 }
 
 /**
