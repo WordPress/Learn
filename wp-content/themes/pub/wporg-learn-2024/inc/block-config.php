@@ -6,6 +6,7 @@
 namespace WordPressdotorg\Theme\Learn_2024\Block_Config;
 
 use function WPOrg_Learn\Post_Meta\{get_available_post_type_locales};
+use function WordPressdotorg\Theme\Learn_2024\Query\{get_searchable_post_types};
 
 add_filter( 'wporg_query_filter_options_language', __NAMESPACE__ . '\get_language_options' );
 add_filter( 'wporg_query_filter_options_archive_language', __NAMESPACE__ . '\get_language_options_by_post_type' );
@@ -17,6 +18,8 @@ add_filter( 'wporg_query_filter_options_learning_pathway_level', __NAMESPACE__ .
 add_filter( 'wporg_query_filter_options_topic', __NAMESPACE__ . '\get_topic_options' );
 add_filter( 'wporg_query_filter_options_archive_topic', __NAMESPACE__ . '\get_topic_options_by_post_type' );
 add_filter( 'wporg_query_filter_options_learning_pathway_topic', __NAMESPACE__ . '\get_learning_pathway_topic_options' );
+
+add_filter( 'wporg_query_filter_options_post_type', __NAMESPACE__ . '\get_post_type_options' );
 
 add_filter( 'query_vars', __NAMESPACE__ . '\add_student_course_filter_query_vars' );
 add_filter( 'wporg_query_filter_options_student_course', __NAMESPACE__ . '\get_student_course_options' );
@@ -422,6 +425,88 @@ function get_language_options_by_post_type( $options ) {
 }
 
 /**
+ * Create post_type options for a filter.
+ *
+ * @options array $options The options for a filter.
+ * @return array The options for a post_type filter.
+ */
+function get_post_type_options( $options ) {
+	global $wp_query;
+
+	$post_types = get_searchable_post_types();
+
+	// If there are no post_types, don't show the filter.
+	if ( empty( $post_types ) ) {
+		return array();
+	}
+
+	// Sort the post_types alphabetically.
+	usort(
+		$post_types,
+		function ( $a, $b ) {
+			return strcmp( strtolower( $a ), strtolower( $b ) );
+		}
+	);
+
+	// For each post_type slug, get the WP_Post_Type object and transform it into a simple object with name and slug.
+	$post_types = array_map(
+		function ( $post_type ) {
+			$post_type_object = get_post_type_object( $post_type );
+			return (object) array(
+				'slug' => $post_type,
+				'name' => $post_type_object->labels->singular_name,
+			);
+		},
+		$post_types
+	);
+
+	// Add an 'All' option to the top.
+	$post_types = array_merge(
+		array(
+			'all' => (object) array(
+				'slug' => 'all',
+				'name' => __( 'All', 'wporg-learn' ),
+			),
+		),
+		$post_types,
+	);
+
+	$label = __( 'Type', 'wporg-learn' );
+
+	$selected_slug = $wp_query->get( 'post_type' );
+	// If $selected_slug is an array, get the first item.
+	if ( is_array( $selected_slug ) ) {
+		$selected_slug = array_shift( $selected_slug );
+	}
+
+	if ( $selected_slug ) {
+		// Find the selected post_type from $post_types by slug and then get the name.
+		$selected_post_type = array_filter(
+			$post_types,
+			function ( $post_type ) use ( $selected_slug ) {
+				return $post_type->slug === $selected_slug;
+			}
+		);
+		if ( ! empty( $selected_post_type ) ) {
+			$selected_post_type = array_shift( $selected_post_type );
+			$label = $selected_post_type->name;
+		}
+	} else {
+		$selected_slug = 'all';
+		$label = __( 'All', 'wporg-learn' );
+	}
+
+	return array(
+		'label' => $label,
+		'title' => __( 'Type', 'wporg-learn' ),
+		'key' => 'post_type',
+		'action' => get_current_url(),
+		'options' => array_combine( wp_list_pluck( $post_types, 'slug' ), wp_list_pluck( $post_types, 'name' ) ),
+		'selected' => array( $selected_slug ),
+	);
+}
+
+/**
  * Get the query variable name for the student course filter, used by Sensei to filter the My Courses page.
  * This is the PARAM_KEY defined in the Sensei plugin + the query id on the query loop in my-courses-content.php
  * See class Sensei_Course_List_Student_Course_Filter.
@@ -501,7 +586,7 @@ function get_student_course_options( $options ) {
 function inject_other_filters( $key ) {
 	global $wp_query;
 
-	$single_query_vars = array( 'wporg_lesson_level' );
+	$single_query_vars = array( 'wporg_lesson_level', 'post_type' );
 	foreach ( $single_query_vars as $single_query_var ) {
 		if ( ! isset( $wp_query->query[ $single_query_var ] ) ) {
 			continue;

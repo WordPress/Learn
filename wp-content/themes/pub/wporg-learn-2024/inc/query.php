@@ -61,6 +61,12 @@ function modify_level_query( $query ) {
 		$query->set( 'wporg_lesson_level', '' );
 	}
 
+	$post_type = $query->get( 'post_type' );
+
+	if ( 'all' === $post_type ) {
+		$query->set( 'post_type', '' );
+	}
+
 	return $query;
 }
 
