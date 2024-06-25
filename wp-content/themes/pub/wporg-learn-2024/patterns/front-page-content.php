@@ -12,7 +12,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|charcoal-4"}}}},"textColor":"charcoal-4"} -->
-<p class="has-charcoal-4-color has-text-color has-link-color" style="margin-top:0"><?php esc_html_e( 'Dive into our learning pathways which will take you from beginner to expert at your own pace.', 'wporg-learn' ); ?></p>
+<p class="has-charcoal-4-color has-text-color has-link-color" style="margin-top:0"><?php esc_html_e( 'Learning Pathways help you build your skills progressively so you can go from beginner to advanced at your own pace.', 'wporg-learn' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:wporg-learn/learning-pathway-cards {"isMini":true,"style":{"spacing":{"margin":{"top":"var:preset|spacing|40"}}}} /-->
@@ -25,7 +25,7 @@
 <div class="wp-block-group" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--40)">
 
 	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|charcoal-4"}}}},"textColor":"charcoal-4"} -->
-	<p class="has-charcoal-4-color has-text-color has-link-color">[TBD Courses take you through a series of lessons.]</p>
+	<p class="has-charcoal-4-color has-text-color has-link-color"><?php esc_html_e( 'Focus on building your skills through a series of lessons in various formats.', 'wporg-learn' ); ?></p>
 	<!-- /wp:paragraph -->
 
 	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|blueberry-1"}}}},"textColor":"charcoal-4"} -->
@@ -88,7 +88,7 @@
 <div class="wp-block-group" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--40)">
 
 	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|charcoal-4"}}}},"textColor":"charcoal-4"} -->
-	<p class="has-charcoal-4-color has-text-color has-link-color">[TBD Lessons are short video tutorials that teach you about a specific topic.]</p>
+	<p class="has-charcoal-4-color has-text-color has-link-color"><?php esc_html_e( 'Improve your WordPress expertise with versatile lessons featuring a blend of videos, practical exercises, quizzes, and text-based content.', 'wporg-learn' ); ?></p>
 	<!-- /wp:paragraph -->
 
 	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|blueberry-1"}}}},"textColor":"charcoal-4"} -->
@@ -152,7 +152,7 @@
 <div class="wp-block-group" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--40)">
 
 	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|charcoal-4"}}}},"textColor":"charcoal-4"} -->
-	<p class="has-charcoal-4-color has-text-color has-link-color"><?php esc_html_e( 'Hands-on learning experiences where you can learn about a WordPress topic with fellow WordPress enthusiasts.', 'wporg-learn' ); ?></p>
+	<p class="has-charcoal-4-color has-text-color has-link-color"><?php esc_html_e( 'Join a live session alongside other learners, led by experienced WordPress professionals.', 'wporg-learn' ); ?></p>
 	<!-- /wp:paragraph -->
 
 	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|blueberry-1"}}}},"textColor":"charcoal-4"} -->
@@ -164,19 +164,23 @@
 
 <!-- wp:wporg-learn/upcoming-online-workshops {"style":{"spacing":{"margin":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|50"}}}} /-->
 
-<!-- wp:paragraph {"fontSize":"huge","fontFamily":"eb-garamond"} -->
-<p class="has-eb-garamond-font-family has-huge-font-size">[TBD Paragraph about inviting users to join the Training team to contribute with content creation]</p>
+<!-- wp:paragraph {"style":{"typography":{"lineHeight":"1.3","fontSize":"30px"}},"fontFamily":"eb-garamond"} -->
+<p class="has-eb-garamond-font-family" style="font-size:30px;line-height:1.3"><?php esc_html_e( 'Behind every course, lesson, and live workshop is a passionate collective of professionals working to bring the highest-quality educational content directly to you.', 'wporg-learn' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:buttons {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|50"}}}} -->
-<div class="wp-block-buttons" style="margin-bottom:var(--wp--preset--spacing--50)">
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|40"}}}} -->
+<p style="margin-bottom:var(--wp--preset--spacing--40)"><?php esc_html_e( 'If you love WordPress, have knowledge to share, and want to contribute to a thriving open source community—get involved with the Training team.', 'wporg-learn' ); ?></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons -->
+<div class="wp-block-buttons">
 
 	<!-- wp:button -->
-	<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/contribute"><?php esc_html_e( 'Contribute', 'wporg-learn' ); ?></a></div>
+	<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/contribute"><?php esc_html_e( 'Get involved', 'wporg-learn' ); ?></a></div>
 	<!-- /wp:button -->
 
 	<!-- wp:button {"className":"is-style-outline"} -->
-	<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="https://make.wordpress.org/training/handbook/"><?php esc_html_e( "See the Training team's handbook", 'wporg-learn' ); ?></a></div>
+	<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="https://make.wordpress.org/training/handbook/"><?php esc_html_e( 'Read the Training team handbook', 'wporg-learn' ); ?></a></div>
 	<!-- /wp:button -->
 
 </div>

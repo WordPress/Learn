@@ -13,7 +13,7 @@
 	<!-- wp:query-title {"type":"archive","showPrefix":false} /-->
 
 	<!-- wp:paragraph -->
-	<p>[TBD Introduction]</p>
+	<p><?php esc_html_e( 'Lessons can be taken as part of a course or whenever you want to learn deeply about a specific subject or concept. They come in a range of formats, including how-to videos, quizzes, text-based content, and other activities.', 'wporg-learn' ); ?></p>
 	<!-- /wp:paragraph -->
 
 </div>

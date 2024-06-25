@@ -161,60 +161,32 @@ function add_site_navigation_menus( $menus ) {
  */
 function get_learning_pathway_level_content( $learning_pathway ) {
 	$content = array(
-		'developer' => array(
-			'beginner' => array(
-				'title' => '[TBD Beginner developer title]',
-				'description' => '[TBD Beginner developer description]',
-			),
-			'intermediate' => array(
-				'title' => '[TBD Intermediate developer title]',
-				'description' => '[TBD Intermediate developer description]',
-			),
-			'advanced' => array(
-				'title' => '[TBD Advanced developer title]',
-				'description' => '[TBD Advanced developer description]',
-			),
-		),
-		'designer' => array(
-			'beginner' => array(
-				'title' => 'Begin exploring WordPress',
-				'description' => 'Discover the design potential of WordPress.',
-			),
-			'intermediate' => array(
-				'title' => 'Customize your site',
-				'description' => 'Personalize and own all the details of your WordPress site.',
-			),
-			'advanced' => array(
-				'title' => 'Elevate your site to stunning levels',
-				'description' => 'For advanced users that are familiar with code.',
-			),
-		),
 		'user' => array(
 			'beginner' => array(
-				'title' => '[TBD Beginner user title]',
-				'description' => '[TBD Beginner user description]',
+				'title' => __( 'Beginner WordPress users', 'wporg-learn' ),
+				'description' => __( 'You’re new to WordPress, or building websites, and want the essentials.', 'wporg-learn' ),
 			),
 			'intermediate' => array(
-				'title' => '[TBD Intermediate user title]',
-				'description' => '[TBD Intermediate user description]',
+				'title' => __( 'Intermediate WordPress users', 'wporg-learn' ),
+				'description' => __( 'You’re comfortable setting up your site and making small changes or you’ve already completed the Beginner course.', 'wporg-learn' ),
 			),
 			'advanced' => array(
-				'title' => '[TBD Advanced user title]',
-				'description' => '[TBD Advanced user description]',
+				'title' => __( 'Advanced WordPress users', 'wporg-learn' ),
+				'description' => __( 'You’re confident using multiple plugins and know how to customize a Block theme, or you’ve already completed the Intermediate course.', 'wporg-learn' ),
 			),
 		),
-		'contributor' => array(
+		'developer' => array(
 			'beginner' => array(
-				'title' => '[TBD Beginner contributor title]',
-				'description' => '[TBD Beginner contributor description]',
+				'title' => __( 'Beginner development concepts', 'wporg-learn' ),
+				'description' => __( 'You’re new to development or have experience using WordPress’s no-code features and want to do more.', 'wporg-learn' ),
 			),
 			'intermediate' => array(
-				'title' => '[TBD Intermediate contributor title]',
-				'description' => '[TBD Intermediate contributor description]',
+				'title' => __( 'Intermediate development concepts', 'wporg-learn' ),
+				'description' => __( 'You’re comfortable writing code and want to extend WordPress with your own plugin or theme.', 'wporg-learn' ),
 			),
 			'advanced' => array(
-				'title' => '[TBD Advanced contributor title]',
-				'description' => '[TBD Advanced contributor description]',
+				'title' => __( 'Advanced development concepts', 'wporg-learn' ),
+				'description' => __( 'You’re confident in the WordPress development environment or have already built your own plugin or theme.', 'wporg-learn' ),
 			),
 		),
 	);

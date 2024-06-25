@@ -13,7 +13,7 @@ use function WPOrg_Learn\Sensei\{get_my_courses_page_url}
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|10"}}}} -->
-<p style="margin-top:var(--wp--preset--spacing--10)"><?php esc_html_e( 'Dive into our learning pathways which will take you from beginner to expert at your own pace.', 'wporg-learn' ); ?></p>
+<p style="margin-top:var(--wp--preset--spacing--10)"><?php esc_html_e( 'Build your skills progressively with a complete program that can take you from beginner to advanced at your own pace.', 'wporg-learn' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|50"}}}} -->

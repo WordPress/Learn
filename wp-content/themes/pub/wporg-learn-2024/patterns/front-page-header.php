@@ -28,7 +28,7 @@
 		<!-- /wp:heading -->
 
 		<!-- wp:paragraph {"style":{"typography":{"lineHeight":"2.3"}},"textColor":"white"} -->
-		<p class="has-white-color has-text-color" style="line-height:2.3"><?php esc_html_e( 'Your free educational resource for how to use, extend, and build with WordPress', 'wporg-learn' ); ?></p>
+		<p class="has-white-color has-text-color" style="line-height:2.3"><?php esc_html_e( 'Grow your WordPress skills with free educational resources for all levels.', 'wporg-learn' ); ?></p>
 		<!-- /wp:paragraph -->
 
 	</div>

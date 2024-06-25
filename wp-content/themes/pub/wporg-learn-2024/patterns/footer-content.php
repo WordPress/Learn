@@ -17,7 +17,7 @@
 		<div class="wp-block-column" style="padding-top:var(--wp--preset--spacing--50);padding-right:var(--wp--preset--spacing--edge-space);padding-bottom:var(--wp--preset--spacing--50)">
 
 			<!-- wp:heading {"style":{"typography":{"fontStyle":"normal","fontWeight":"400"},"spacing":{"margin":{"top":"0"}}},"fontSize":"huge","fontFamily":"eb-garamond"} -->
-			<h2 class="wp-block-heading has-eb-garamond-font-family has-huge-font-size" style="margin-top:0;font-style:normal;font-weight:400">[TBD heading]</h2>
+			<h2 class="wp-block-heading has-eb-garamond-font-family has-huge-font-size" style="margin-top:0;font-style:normal;font-weight:400"><?php esc_html_e( 'More helpful resources', 'wporg-learn' ); ?></h2>
 			<!-- /wp:heading -->
 
 			<!-- wp:paragraph {"fontSize":"large"} -->
@@ -39,11 +39,11 @@
 		<div class="wp-block-column wporg-learn-footer-signup" style="border-left-color:var(--wp--preset--color--white-opacity-15);border-left-width:1px;padding-top:var(--wp--preset--spacing--50);padding-right:0;padding-bottom:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--edge-space)">
 
 			<!-- wp:heading {"style":{"typography":{"fontStyle":"normal","fontWeight":"400"},"spacing":{"margin":{"top":"0"}}},"fontSize":"huge","fontFamily":"eb-garamond"} -->
-			<h2 class="wp-block-heading has-eb-garamond-font-family has-huge-font-size" style="margin-top:0;font-style:normal;font-weight:400">[TBD heading]</h2>
+			<h2 class="wp-block-heading has-eb-garamond-font-family has-huge-font-size" style="margin-top:0;font-style:normal;font-weight:400"><?php esc_html_e( 'Sign up for updates', 'wporg-learn' ); ?></h2>
 			<!-- /wp:heading -->
 
 			<!-- wp:paragraph {"fontSize":"small"} -->
-			<p class="has-small-font-size">[TBD Sign up for the free Learn WordPress newsletter and get a monthly dose of what's new in the world of WordPress courses, lessons, and online workshops.]</p>
+			<p class="has-small-font-size"><?php esc_html_e( 'Get the latest news about everything Learn WordPress. Find out when new courses and lessons are available, and when registration opens for upcoming online workshops.', 'wporg-learn' ); ?></p>
 			<!-- /wp:paragraph -->
 
 			<!-- wp:jetpack/subscriptions {"className":"is-style-compact"} /-->
