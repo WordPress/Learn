@@ -10,6 +10,8 @@ namespace WordPressdotorg\Theme\Learn_2024\Sensei_Meta_List;
 
 use Sensei_Utils;
 use Sensei_Reports_Overview_Service_Courses;
+use function WPOrg_Learn\Post_Meta\{get_workshop_duration};
+use function WordPressdotorg\Locales\get_locale_name_from_code;
 
 add_action( 'init', __NAMESPACE__ . '\init' );
 
@@ -90,6 +92,41 @@ function render( $attributes, $content, $block ) {
 				'key'   => 'last-updated',
 			),
 		);
+	} else if ( 'wporg_workshop' === $block->context['postType'] ) {
+		$workshop = get_post( $block->context['postId'] );
+
+		if ( ! $workshop ) {
+			return '';
+		}
+
+		$meta_fields = array(
+			array(
+				'label' => __( 'Length', 'wporg-learn' ),
+				'value' => get_workshop_duration( $workshop, 'string' ),
+				'key'   => 'length',
+			),
+			array(
+				'label' => __( 'Language', 'wporg-learn' ),
+				'value' => esc_html( get_locale_name_from_code( $workshop->language, 'native' ) ),
+				'key'   => 'language',
+			),
+		);
+
+		$captions = get_post_meta( $block->context['postId'], 'video_caption_language' );
+		$subtitles = array_map(
+			function( $caption_lang ) {
+				return esc_html( get_locale_name_from_code( $caption_lang, 'native' ) );
+			},
+			$captions
+		);
+
+		if ( ! empty( $captions ) ) {
+			$meta_fields[] = array(
+				'label' => __( 'Subtitles', 'wporg-learn' ),
+				'value' => implode( ', ', $subtitles ),
+				'key'   => 'subtitles',
+			);
+		}
 	}
 
 	foreach ( $meta_fields as $field ) {
