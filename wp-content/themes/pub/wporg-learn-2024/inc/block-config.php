@@ -512,4 +512,9 @@ function inject_other_filters( $key ) {
 			printf( '<input type="hidden" name="%s[]" value="%s" />', esc_attr( $meta_query_var ), esc_attr( $value ) );
 		}
 	}
+
+	// Pass through search query.
+	if ( isset( $wp_query->query['s'] ) ) {
+		printf( '<input type="hidden" name="s" value="%s" />', esc_attr( $wp_query->query['s'] ) );
+	}
 }
