@@ -22,6 +22,14 @@
 
 	<!-- wp:search {"label":"<?php esc_attr_e( 'Search', 'wporg-learn' ); ?>","showLabel":false,"placeholder":"<?php esc_attr_e( 'Search learning resources', 'wporg-learn' ); ?>","width":255,"widthUnit":"px","buttonText":"<?php esc_attr_e( 'Search', 'wporg-learn' ); ?>","buttonPosition":"button-inside","buttonUseIcon":true,"className":"is-style-secondary-search-control wporg-filtered-search-form"} /-->
 
+	<!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"flex","flexWrap":"nowrap"},"className":"wporg-query-filters"} -->
+	<div class="wp-block-group wporg-query-filters">
+		<!-- wp:wporg/query-filter {"key":"language"} /-->
+		<!-- wp:wporg/query-filter {"key":"topic"} /-->
+		<!-- wp:wporg/query-filter {"key":"level","multiple":false} /-->
+	</div>
+	<!-- /wp:group -->
+
 </div>
 <!-- /wp:group -->
 
