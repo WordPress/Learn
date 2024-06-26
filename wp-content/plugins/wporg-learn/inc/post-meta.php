@@ -296,15 +296,23 @@ function get_available_post_type_locales( $meta_key, $post_type, $post_status, $
 		$and_post_status = "AND posts.post_status = '$post_status'";
 	}
 
+	$and_post_type = '';
+	if ( isset( $post_type ) ) {
+		$public_post_types = get_post_types( array( 'public' => true ), 'names' );
+
+		if ( in_array( $post_type, $public_post_types ) ) {
+			$and_post_type = "AND posts.post_type = '$post_type'";
+		}
+	}
+
 	$results = $wpdb->get_col( $wpdb->prepare(
-		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $and_post_status only includes $post_status if it matches an allowed string.
-		"
-		SELECT DISTINCT postmeta.meta_value
-		FROM {$wpdb->postmeta} postmeta
-			JOIN {$wpdb->posts} posts ON posts.ID = postmeta.post_id AND posts.post_type = %s $and_post_status
-		WHERE postmeta.meta_key = %s
-	",
-		$post_type,
+		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $and_post_status and $and_post_type only include $post_status and $post_type if they match an allowed string.
+		"SELECT DISTINCT postmeta.meta_value
+			FROM {$wpdb->postmeta} postmeta
+			JOIN {$wpdb->posts} posts ON posts.ID = postmeta.post_id
+			$and_post_type
+			$and_post_status
+			WHERE postmeta.meta_key = %s",
 		$meta_key
 		// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 	) );

@@ -10,7 +10,9 @@
 <!-- wp:group {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|50"}}},"layout":{"type":"constrained","justifyContent":"left","contentSize":"730px"}} -->
 <div class="wp-block-group" style="margin-bottom:var(--wp--preset--spacing--50)">
 
-	<!-- wp:query-title {"type":"archive","showPrefix":false} /-->
+	<!-- wp:heading {"level":1} -->
+	<h1 class="wp-block-heading"><?php esc_html_e( 'Lesson Plans', 'wporg-learn' ); ?></h1>
+	<!-- /wp:heading -->
 
 	<!-- wp:paragraph -->
 	<p><?php esc_html_e( 'Want to help others learn about WordPress? Read through, use, and remix these lesson plans.', 'wporg-learn' ); ?></p>
@@ -26,9 +28,9 @@
 
 	<!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"flex","flexWrap":"nowrap"},"className":"wporg-query-filters"} -->
 	<div class="wp-block-group wporg-query-filters">
-		<!-- wp:wporg/query-filter {"key":"language"} /-->
-		<!-- wp:wporg/query-filter {"key":"topic"} /-->
-		<!-- wp:wporg/query-filter {"key":"level","multiple":false} /-->
+		<!-- wp:wporg/query-filter {"key":"archive_language"} /-->
+		<!-- wp:wporg/query-filter {"key":"archive_topic"} /-->
+		<!-- wp:wporg/query-filter {"key":"archive_level","multiple":false} /-->
 	</div>
 	<!-- /wp:group -->
 

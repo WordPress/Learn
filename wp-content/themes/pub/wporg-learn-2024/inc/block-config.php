@@ -8,14 +8,18 @@ namespace WordPressdotorg\Theme\Learn_2024\Block_Config;
 use function WPOrg_Learn\Post_Meta\{get_available_post_type_locales};
 
 add_filter( 'wporg_query_filter_options_language', __NAMESPACE__ . '\get_language_options' );
+add_filter( 'wporg_query_filter_options_archive_language', __NAMESPACE__ . '\get_language_options_by_post_type' );
+
 add_filter( 'wporg_query_filter_options_level', __NAMESPACE__ . '\get_level_options' );
-add_filter( 'wporg_query_filter_options_taxonomy-level', __NAMESPACE__ . '\get_taxonomy_level_options' );
-add_filter( 'wporg_query_filter_options_learning-pathway-level', __NAMESPACE__ . '\get_learning_pathway_level_options' );
+add_filter( 'wporg_query_filter_options_archive_level', __NAMESPACE__ . '\get_level_options_by_post_type' );
+add_filter( 'wporg_query_filter_options_learning_pathway_level', __NAMESPACE__ . '\get_learning_pathway_level_options' );
+
 add_filter( 'wporg_query_filter_options_topic', __NAMESPACE__ . '\get_topic_options' );
-add_filter( 'wporg_query_filter_options_taxonomy-topic', __NAMESPACE__ . '\get_taxonomy_topic_options' );
-add_filter( 'wporg_query_filter_options_learning-pathway-topic', __NAMESPACE__ . '\get_learning_pathway_topic_options' );
+add_filter( 'wporg_query_filter_options_archive_topic', __NAMESPACE__ . '\get_topic_options_by_post_type' );
+add_filter( 'wporg_query_filter_options_learning_pathway_topic', __NAMESPACE__ . '\get_learning_pathway_topic_options' );
+
 add_filter( 'query_vars', __NAMESPACE__ . '\add_student_course_filter_query_vars' );
-add_filter( 'wporg_query_filter_options_student-course', __NAMESPACE__ . '\get_student_course_options' );
+add_filter( 'wporg_query_filter_options_student_course', __NAMESPACE__ . '\get_student_course_options' );
 add_action( 'wporg_query_filter_in_form', __NAMESPACE__ . '\inject_other_filters' );
 
 /**
@@ -29,7 +33,7 @@ function get_current_url() {
 }
 
 /**
- * Create level options.
+ * Create the options for a level filter.
  *
  * @param array $levels The filtered levels for a view.
  * @return array The options for a level filter.
@@ -92,12 +96,13 @@ function create_level_options( $levels ) {
 }
 
 /**
- * Get the list of levels for the course and lesson filters.
+ * Get the top 10 level options for a post type.
+ * Used for the archive filters.
  *
  * @param array $options The options for this filter.
  * @return array New list of level options.
  */
-function get_level_options( $options ) {
+function get_level_options_by_post_type( $options ) {
 	global $wp_query;
 
 	if ( ! isset( $wp_query->query_vars['post_type'] ) ) {
@@ -128,12 +133,13 @@ function get_level_options( $options ) {
 }
 
 /**
- * Get the list of levels for the taxonomy filters.
+ * Get the top 10 level options.
+ * Used for the taxonomy and search filters.
  *
  * @param array $options The options for this filter.
  * @return array New list of level options.
  */
-function get_taxonomy_level_options( $options ) {
+function get_level_options( $options ) {
 	// Get top 10 levels ordered by count, not empty.
 	$levels = get_terms(
 		array(
@@ -149,7 +155,7 @@ function get_taxonomy_level_options( $options ) {
 }
 
 /**
- * Get the list of levels for the learning pathway filters.
+ * Get the top 10 level options for a learning pathway.
  *
  * @param array $options The options for this filter.
  * @return array New list of level options.
@@ -192,7 +198,7 @@ function get_learning_pathway_level_options( $options ) {
 }
 
 /**
- * Create topic options.
+ * Create the options for a topic filter.
  *
  * @param array $topics The filtered topics for a view.
  * @return array The options for a topic filter.
@@ -232,12 +238,13 @@ function create_topic_options( $topics ) {
 }
 
 /**
- * Get the list of topics for the course and lesson filters.
+ * Get the top 20 topic options for a post type.
+ * Used for the archive filters.
  *
  * @param array $options The options for this filter.
  * @return array New list of topic options.
  */
-function get_topic_options( $options ) {
+function get_topic_options_by_post_type( $options ) {
 	global $wp_query;
 
 	if ( ! isset( $wp_query->query_vars['post_type'] ) ) {
@@ -266,12 +273,13 @@ function get_topic_options( $options ) {
 }
 
 /**
- * Get the list of topics for the taxonomy filters.
+ * Get the top 20 topic options.
+ * Used for the taxonomy and search filters.
  *
  * @param array $options The options for this filter.
  * @return array New list of topic options.
  */
-function get_taxonomy_topic_options( $options ) {
+function get_topic_options( $options ) {
 	// Get top 20 topics ordered by count, not empty.
 	$topics = get_terms(
 		array(
@@ -287,7 +295,7 @@ function get_taxonomy_topic_options( $options ) {
 }
 
 /**
- * Get the list of topics for the learning pathway filters.
+ * Get the top 20 topic options for a learning pathway.
  *
  * @param array $options The options for this filter.
  * @return array New list of topic options.
@@ -351,15 +359,14 @@ function get_meta_query_values_by_key( $query, $key ) {
 }
 
 /**
- * Get the list of languages for the course and lesson filters.
+ * Create the options for a language filter.
  *
- * @param array $options The options for this filter.
- * @return array New list of language options.
+ * @param array $languages The filtered languages for a view.
+ * @return array The options for a language filter.
  */
-function get_language_options( $options ) {
+function create_language_options( $languages ) {
 	global $wp_query;
-	$post_type = $wp_query->query_vars['post_type'];
-	$languages = get_available_post_type_locales( 'language', $post_type, 'publish' );
+
 	// If there are no languages, or the only language is en_US, don't show the filter.
 	if ( empty( $languages ) || ( 1 === count( $languages ) && isset( $languages['en_US'] ) ) ) {
 		return array();
@@ -386,6 +393,43 @@ function get_language_options( $options ) {
 		'options' => $languages,
 		'selected' => $selected,
 	);
+}
+
+/**
+ * Get the full list of available languages that have content.
+ * Used for the taxonomy filters.
+ *
+ * @param array $options The options for this filter.
+ * @return array New list of language options.
+ */
+function get_language_options( $options ) {
+	$languages = get_available_post_type_locales( 'language', null, 'publish', 'native' );
+
+	return create_language_options( $languages );
+}
+
+/**
+ * Get the list of languages for a post_type.
+ * Used for the archive filters.
+ *
+ * @param array $options The options for this filter.
+ * @return array New list of language options.
+ */
+function get_language_options_by_post_type( $options ) {
+	global $wp_query;
+	$post_type = $wp_query->get( 'post_type' );
+	// Convert post type from array to string if possible.
+	if ( is_array( $post_type ) && count( $post_type ) === 1 ) {
+		$post_type = reset( $post_type );
+	}
+
+	if ( ! is_string( $post_type ) ) {
+		return array();
+	}
+
+	$languages = get_available_post_type_locales( 'language', $post_type, 'publish', 'native' );
+
+	return create_language_options( $languages );
 }
 
 /**
@@ -468,7 +512,7 @@ function get_student_course_options( $options ) {
 function inject_other_filters( $key ) {
 	global $wp_query;
 
-	$single_query_vars = array( 'wporg_lesson_level' );
+	$single_query_vars = array( 'wporg_lesson_level', 'wporg_learning_pathway', 'post_type' );
 	foreach ( $single_query_vars as $single_query_var ) {
 		if ( ! isset( $wp_query->query[ $single_query_var ] ) ) {
 			continue;
@@ -506,5 +550,10 @@ function inject_other_filters( $key ) {
 		foreach ( $values as $value ) {
 			printf( '<input type="hidden" name="%s[]" value="%s" />', esc_attr( $meta_query_var ), esc_attr( $value ) );
 		}
+	}
+
+	// Pass through search query.
+	if ( isset( $wp_query->query['s'] ) ) {
+		printf( '<input type="hidden" name="s" value="%s" />', esc_attr( $wp_query->query['s'] ) );
 	}
 }

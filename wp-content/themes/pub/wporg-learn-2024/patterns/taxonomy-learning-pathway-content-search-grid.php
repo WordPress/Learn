@@ -1,29 +1,11 @@
 <?php
 /**
- * Title: Search Content
- * Slug: wporg-learn-2024/search-content
+ * Title: Taxonomy Learning Pathway Search Grid
+ * Slug: wporg-learn-2024/taxonomy-learning-pathway-content-search-grid
  * Inserter: no
  */
 
 ?>
-
-<!-- wp:group {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|50"}}},"layout":{"type":"constrained","justifyContent":"left","contentSize":"730px"}} -->
-<div class="wp-block-group" style="margin-bottom:var(--wp--preset--spacing--50)">
-
-	<!-- wp:heading {"level":1} -->
-	<h1 class="wp-block-heading"><?php esc_html_e( 'Search results', 'wporg-learn' ); ?></h1>
-	<!-- /wp:heading -->
-
-</div>
-<!-- /wp:group -->
-
-<!-- wp:group {"align":"wide","layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"},"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|50"}}}} -->
-<div class="wp-block-group alignwide" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--50)">
-
-	<!-- wp:search {"label":"<?php esc_attr_e( 'Search', 'wporg-learn' ); ?>","showLabel":false,"placeholder":"<?php esc_attr_e( 'Search learning resources', 'wporg-learn' ); ?>","width":255,"widthUnit":"px","buttonText":"<?php esc_attr_e( 'Search', 'wporg-learn' ); ?>","buttonPosition":"button-inside","buttonUseIcon":true,"className":"is-style-secondary-search-control wporg-filtered-search-form"} /-->
-
-</div>
-<!-- /wp:group -->
 
 <!-- wp:wporg-learn/search-results-context {"style":{"spacing":{"padding":{"bottom":"var:preset|spacing|20"}},"elements":{"link":{"color":{"text":"var:preset|color|charcoal-4"}}}},"textColor":"charcoal-4","fontSize":"small"} /-->
 
@@ -66,12 +48,8 @@
 
 	<!-- wp:query-no-results -->
 
-		<!-- wp:heading {"level":2} -->
-		<h2 class="wp-block-heading"><?php esc_html_e( 'No results found', 'wporg-learn' ); ?></h2>
-		<!-- /wp:heading -->
-
 		<!-- wp:paragraph {"placeholder":"Add text or blocks that will display when a query returns no results."} -->
-		<p><?php esc_html_e( 'Try a different search, or clearing filters.', 'wporg-learn' ); ?></p>
+		<p><?php esc_html_e( 'No pathways found.', 'wporg-learn' ); ?></p>
 		<!-- /wp:paragraph -->
 
 	<!-- /wp:query-no-results -->
