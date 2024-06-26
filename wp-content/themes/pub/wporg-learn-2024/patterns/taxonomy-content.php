@@ -50,6 +50,8 @@ if ( isset( $wp_query->query_vars['wporg_learning_pathway'] ) ) {
 
 	<?php } ?>
 
+	<!-- wp:wporg-learn/search-results-context {"style":{"spacing":{"padding":{"bottom":"var:preset|spacing|20"}},"elements":{"link":{"color":{"text":"var:preset|color|charcoal-4"}}}},"textColor":"charcoal-4","fontSize":"small"} /-->
+
 	<!-- wp:query {"queryId":1,"query":{"perPage":12,"postType":"course","courseFeatured":false,"inherit":true},"namespace":"wporg-learn/course-grid","align":"wide","className":"wporg-learn-course-grid"} -->
 	<div class="wp-block-query alignwide wporg-learn-course-grid">
 

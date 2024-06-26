@@ -85,15 +85,7 @@ function modify_search_query( $query ) {
 
 	$post_type = $query->get( 'post_type' );
 
-	// if post type is a string and not 'all' return early.
-	if ( is_string( $post_type ) && 'all' !== $post_type ) {
-		return $query;
-	}
-
-	// if post type is an array with 1 item and that item is not 'all', set the post type to that item
-	if ( is_array( $post_type ) && 1 === count( $post_type ) && 'all' !== $post_type[0] ) {
-		$query->set( 'post_type', $post_type[0] );
-
+	if ( is_string( $post_type ) ) {
 		return $query;
 	}
 

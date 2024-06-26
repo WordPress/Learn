@@ -47,12 +47,14 @@ function render( $attributes ) {
 
 	$filters = get_applied_filter_info( $wp_query );
 
-	$showing = sprintf(
-		/* translators: %1$s number of first displayed result, %2$s number of last displayed result. */
-		'Showing results %1$s to %2$s.',
-		number_format_i18n( $first_result ),
-		number_format_i18n( $last_result ),
-	);
+	$showing = $results_count > 1
+		? sprintf(
+			/* translators: %1$s number of first displayed result, %2$s number of last displayed result. */
+			'Showing results %1$s to %2$s.',
+			number_format_i18n( $first_result ),
+			number_format_i18n( $last_result ),
+		)
+		: '';
 
 	$wrapper_attributes = get_block_wrapper_attributes();
 
@@ -74,17 +76,6 @@ function render( $attributes ) {
  */
 function get_applied_filter_info( $query ) {
 	$filters_count = 0;
-
-	// Add the post_type count
-	if (
-		isset( $query->query_vars['post_type'] )
-		&& ! empty( $query->query_vars['post_type']
-		&& 'all' !== $query->query_vars['post_type'] )
-		&& ! is_array( $query->query_vars['post_type'] )
-	) {
-		// Post type is a single value filter
-		$filters_count++;
-	}
 
 	// Add the level filter count
 	if (
