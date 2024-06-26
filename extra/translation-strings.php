@@ -451,19 +451,11 @@ _x( 'Using Themes', 'Topics term name', 'wporg-learn' );
 _x( 'Using WordPress', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/topic/wordpress/ */
 _x( 'WordPress', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/learning-pathway/contributor/ */
-_x( 'Contributing to WordPress', 'Learning Pathways term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/learning-pathway/contributor/ */
-_x( 'Help build WordPress.', 'Learning Pathways term description', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/learning-pathway/designer/ */
-_x( 'Designing with WordPress', 'Learning Pathways term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/learning-pathway/designer/ */
-_x( 'Learn about block themes, templates, and more.', 'Learning Pathways term description', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/learning-pathway/developer/ */
-_x( 'Developing with WordPress', 'Learning Pathways term name', 'wporg-learn' );
+_x( 'Develop with WordPress', 'Learning Pathways term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/learning-pathway/developer/ */
-_x( 'Get up to speed on WordPress development.', 'Learning Pathways term description', 'wporg-learn' );
+_x( 'Jump into the code and learn how to extend the software.', 'Learning Pathways term description', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/learning-pathway/user/ */
-_x( 'Using a WordPress site', 'Learning Pathways term name', 'wporg-learn' );
+_x( 'Start using WordPress', 'Learning Pathways term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/learning-pathway/user/ */
-_x( 'A basic introduction to WordPress.', 'Learning Pathways term description', 'wporg-learn' );
+_x( 'Get the basics to create and manage your own website.', 'Learning Pathways term description', 'wporg-learn' );
