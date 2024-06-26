@@ -405,7 +405,7 @@ function create_language_options( $languages ) {
 function get_language_options( $options ) {
 	global $wp_query;
 
-	$languages = get_available_post_type_locales( 'language', null, 'publish' );
+	$languages = get_available_post_type_locales( 'language', null, 'publish', 'native' );
 
 	return create_language_options( $languages );
 }
@@ -419,7 +419,7 @@ function get_language_options( $options ) {
 function get_language_options_by_post_type( $options ) {
 	global $wp_query;
 	$post_type = $wp_query->query_vars['post_type'];
-	$languages = get_available_post_type_locales( 'language', $post_type, 'publish' );
+	$languages = get_available_post_type_locales( 'language', $post_type, 'publish', 'native' );
 
 	return create_language_options( $languages );
 }
