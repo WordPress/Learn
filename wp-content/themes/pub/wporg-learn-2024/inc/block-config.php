@@ -6,7 +6,6 @@
 namespace WordPressdotorg\Theme\Learn_2024\Block_Config;
 
 use function WPOrg_Learn\Post_Meta\{get_available_post_type_locales};
-use function WordPressdotorg\Theme\Learn_2024\Query\{get_searchable_post_types};
 
 add_filter( 'wporg_query_filter_options_language', __NAMESPACE__ . '\get_language_options' );
 add_filter( 'wporg_query_filter_options_archive_language', __NAMESPACE__ . '\get_language_options_by_post_type' );
