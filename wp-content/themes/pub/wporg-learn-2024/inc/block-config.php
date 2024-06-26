@@ -33,7 +33,7 @@ function get_current_url() {
 }
 
 /**
- * Create level options.
+ * Create the options for a level filter.
  *
  * @param array $levels The filtered levels for a view.
  * @return array The options for a level filter.
@@ -96,7 +96,8 @@ function create_level_options( $levels ) {
 }
 
 /**
- * Get the list of levels for the post_type archive filters.
+ * Get the top 10 level options for a post type.
+ * Used for the archive filters.
  *
  * @param array $options The options for this filter.
  * @return array New list of level options.
@@ -132,7 +133,7 @@ function get_level_options_by_post_type( $options ) {
 }
 
 /**
- * Get the list of the top 10 levels
+ * Get the top 10 level options.
  * Used for the taxonomy and search filters.
  *
  * @param array $options The options for this filter.
@@ -154,7 +155,7 @@ function get_level_options( $options ) {
 }
 
 /**
- * Get the list of levels for the learning pathway filters.
+ * Get the top 10 level options for a learning pathway.
  *
  * @param array $options The options for this filter.
  * @return array New list of level options.
@@ -197,7 +198,7 @@ function get_learning_pathway_level_options( $options ) {
 }
 
 /**
- * Create topic options.
+ * Create the options for a topic filter.
  *
  * @param array $topics The filtered topics for a view.
  * @return array The options for a topic filter.
@@ -237,7 +238,8 @@ function create_topic_options( $topics ) {
 }
 
 /**
- * Get the list of topics for the post_type archive filters.
+ * Get the top 20 topic options for a post type.
+ * Used for the archive filters.
  *
  * @param array $options The options for this filter.
  * @return array New list of topic options.
@@ -271,7 +273,7 @@ function get_topic_options_by_post_type( $options ) {
 }
 
 /**
- * Get the list of the top 20 topics
+ * Get the top 20 topic options.
  * Used for the taxonomy and search filters.
  *
  * @param array $options The options for this filter.
@@ -293,7 +295,7 @@ function get_topic_options( $options ) {
 }
 
 /**
- * Get the list of topics for the learning pathway filters.
+ * Get the top 20 topic options for a learning pathway.
  *
  * @param array $options The options for this filter.
  * @return array New list of topic options.
@@ -357,7 +359,7 @@ function get_meta_query_values_by_key( $query, $key ) {
 }
 
 /**
- * Create language options.
+ * Create the options for a language filter.
  *
  * @param array $languages The filtered languages for a view.
  * @return array The options for a language filter.
@@ -395,6 +397,7 @@ function create_language_options( $languages ) {
 
 /**
  * Get the full list of available languages that have content.
+ * Used for the taxonomy filters.
  *
  * @param array $options The options for this filter.
  * @return array New list of language options.
@@ -408,7 +411,8 @@ function get_language_options( $options ) {
 }
 
 /**
- * Get the list of languages for the post_type archive filters.
+ * Get the list of languages for a post_type.
+ * Used for the archive filters.
  *
  * @param array $options The options for this filter.
  * @return array New list of language options.
