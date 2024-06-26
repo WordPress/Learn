@@ -474,12 +474,7 @@ function get_post_type_options( $options ) {
 	$label = __( 'Type', 'wporg-learn' );
 
 	$selected_slug = $wp_query->get( 'post_type' );
-	// If $selected_slug is an array, get the first item.
-	if ( is_array( $selected_slug ) ) {
-		$selected_slug = array_shift( $selected_slug );
-	}
-
-	if ( $selected_slug ) {
+	if ( $selected_slug && is_string( $selected_slug ) ) {
 		// Find the selected post_type from $post_types by slug and then get the name.
 		$selected_post_type = array_filter(
 			$post_types,

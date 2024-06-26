@@ -75,6 +75,17 @@ function render( $attributes ) {
 function get_applied_filter_info( $query ) {
 	$filters_count = 0;
 
+	// Add the post_type count
+	if (
+		isset( $query->query_vars['post_type'] )
+		&& ! empty( $query->query_vars['post_type']
+		&& 'all' !== $query->query_vars['post_type'] )
+		&& ! is_array( $query->query_vars['post_type'] )
+	) {
+		// Post type is a single value filter
+		$filters_count++;
+	}
+
 	// Add the level filter count
 	if (
 		isset( $query->query_vars['wporg_lesson_level'] )
