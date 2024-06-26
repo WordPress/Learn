@@ -7,17 +7,7 @@
 
 ?>
 
-<!-- wp:group {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|50"}}},"layout":{"type":"constrained","justifyContent":"left","contentSize":"730px"}} -->
-<div class="wp-block-group" style="margin-bottom:var(--wp--preset--spacing--50)">
-
-	<!-- wp:query-title {"type":"archive","showPrefix":false} /-->
-
-	<!-- wp:paragraph -->
-	<p><?php esc_html_e( 'Lessons can be taken as part of a course or whenever you want to learn deeply about a specific subject or concept. They come in a range of formats, including how-to videos, quizzes, text-based content, and other activities.', 'wporg-learn' ); ?></p>
-	<!-- /wp:paragraph -->
-
-</div>
-<!-- /wp:group -->
+<!-- wp:pattern {"slug":"wporg-learn-2024/archive-lessons-header"} /-->
 
 <!-- wp:group {"align":"wide","layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"},"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|50"}}}} -->
 <div class="wp-block-group alignwide" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--50)">

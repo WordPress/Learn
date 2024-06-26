@@ -5,17 +5,17 @@
  * Inserter: no
  */
 
+global $wp_query;
+$search_post_type = $wp_query->get( 'post_type' );
 ?>
 
-<!-- wp:group {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|50"}}},"layout":{"type":"constrained","justifyContent":"left","contentSize":"730px"}} -->
-<div class="wp-block-group" style="margin-bottom:var(--wp--preset--spacing--50)">
-
-	<!-- wp:heading {"level":1} -->
-	<h1 class="wp-block-heading"><?php esc_html_e( 'Search results', 'wporg-learn' ); ?></h1>
-	<!-- /wp:heading -->
-
-</div>
-<!-- /wp:group -->
+<?php if ( 'course' === $search_post_type ) { ?>
+	<!-- wp:pattern {"slug":"wporg-learn-2024/archive-courses-header"} /-->
+<?php } else if ( 'lesson' === $search_post_type ) { ?>
+	<!-- wp:pattern {"slug":"wporg-learn-2024/archive-lessons-header"} /-->
+<?php } else { ?>
+	<!-- wp:pattern {"slug":"wporg-learn-2024/search-header"} /-->
+<?php } ?>
 
 <!-- wp:group {"align":"wide","layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"},"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|50"}}}} -->
 <div class="wp-block-group alignwide" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--50)">
