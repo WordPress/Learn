@@ -1,0 +1,7 @@
+{
+	"name": "wporg-learn/course-grid",
+	"title": "Learn Course Grid",
+	"description": "A query loop block variation which displays a cards grid of courses, filterable by the 'featured' course post meta.",
+	"textdomain": "wporg-learn",
+	"editorScript": "file:./index.js"
+}
