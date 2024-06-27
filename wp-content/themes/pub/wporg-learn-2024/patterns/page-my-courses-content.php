@@ -29,8 +29,8 @@
 </div>
 <!-- /wp:group -->
 
-<!-- wp:query {"queryId":0,"query":{"postType":"course","perPage":12,"offset":0,"inherit":false,"sticky":"","pages":0,"order":"desc","orderBy":"date","author":"","search":"","exclude":[]},"className":"wp-block-sensei-lms-course-list wp-block-sensei-lms-course-list\u002d\u002dis-list-view wporg-learn-course-grid"} -->
-<div class="wp-block-query wp-block-sensei-lms-course-list wp-block-sensei-lms-course-list--is-list-view wporg-learn-course-grid">
+<!-- wp:query {"queryId":0,"query":{"postType":"course","perPage":12,"offset":0,"inherit":false,"sticky":"","pages":0,"order":"desc","orderBy":"date","author":"","search":"","exclude":[]},"className":"wp-block-sensei-lms-course-list wp-block-sensei-lms-course-list\u002d\u002dis-list-view wporg-learn-course-grid wporg-learn-card-grid"} -->
+<div class="wp-block-query wp-block-sensei-lms-course-list wp-block-sensei-lms-course-list--is-list-view wporg-learn-course-grid wporg-learn-card-grid">
 	
 	<!-- wp:post-template {"style":{"spacing":{"blockGap":"var:preset|spacing|50"}},"layout":{"type":"grid","columnCount":null,"minimumColumnWidth":"330px"}} -->
 

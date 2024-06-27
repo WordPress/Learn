@@ -1,0 +1,87 @@
+.wporg-learn-card-grid {
+	> .is-layout-grid {
+		grid-auto-rows: 1fr;
+		container-type: normal;
+	}
+
+	.wp-block-group,
+	.wp-block-post-title,
+	.wp-block-post-excerpt {
+		max-width: 100%;
+	}
+
+	.course,
+	.lesson {
+		.wp-block-wporg-learn-learning-duration {
+			display: flex;
+			align-items: center;
+
+			&::before {
+				// 'clock' icon
+				content: "\f469";
+				/* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
+				font-family: dashicons;
+				display: block;
+				width: 24px;
+				height: 24px;
+				font-size: 24px;
+				line-height: 1;
+				margin-right: 6px;
+			}
+		}
+
+		.wp-block-wporg-learn-lesson-count {
+			display: flex;
+			align-items: center;
+
+			&::before {
+				content: "";
+				display: block;
+				width: 24px;
+				height: 24px;
+				margin-right: 6px;
+				background: url(../../assets/icon-lessons.svg) no-repeat;
+			}
+		}
+	}
+
+	.course {
+		position: relative;
+		margin-bottom: unset;
+		padding-bottom: unset;
+
+		&::before,
+		&::after {
+			content: "";
+			position: absolute;
+			display: block;
+			border: 1px solid var(--wp--custom--color--border);
+			border-radius: 2px;
+			background: var(--wp--preset--color--white);
+			height: 10px;
+		}
+
+		&::before {
+			top: -6px;
+			z-index: -1;
+			width: calc(100% - 24px);
+			left: 12px;
+		}
+
+		&::after {
+			top: -12px;
+			z-index: -2;
+			width: calc(100% - 48px);
+			left: 24px;
+		}
+
+		.sensei-lms-course-list-featured-label__text,
+		.taxonomy-level {
+			display: none;
+		}
+	}
+
+	.wp-block-post-title a {
+		color: var(--wp--custom--link--color--text);
+	}
+}
