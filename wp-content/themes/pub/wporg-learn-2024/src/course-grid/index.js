@@ -23,7 +23,7 @@ registerBlockVariation( 'core/query', {
 	},
 	description: __( 'Displays a cards grid of courses.', 'wporg-learn' ),
 	attributes: {
-		className: 'wporg-learn-course-grid',
+		className: 'wporg-learn-course-grid wporg-learn-card-grid',
 		namespace: VARIATION_NAME,
 		query: {
 			perPage: 6,

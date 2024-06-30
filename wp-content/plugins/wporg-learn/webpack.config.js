@@ -5,7 +5,6 @@ const config = require( '@wordpress/scripts/config/webpack.config' );
  */
 config.entry = {
 	'block-styles': './js/block-styles/index.js',
-	'course-grid': './js/course-grid/index.js',
 	'course-status': './js/course-status/src/index.js',
 	'duration-meta': './js/duration-meta/index.js',
 	'expiration-date': './js/expiration-date/index.js',
