@@ -101,6 +101,16 @@ body.sensei {
 		.wp-block-sensei-lms-course-outline-module__lessons-title {
 			display: none;
 		}
+
+		.wp-block-sensei-lms-course-outline-lesson__status {
+			border: 1.5px solid var(--wp--preset--color--charcoal-1);
+		}
+
+		.wp-block-sensei-lms-course-outline-lesson__status:has(use) {
+			border: 1.5px solid var(--wp--custom--color--green-50);
+			background: var(--wp--preset--color--acid-green-3);
+			color: var(--wp--custom--color--green-50);
+		}
 	}
 }
 
