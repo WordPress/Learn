@@ -163,6 +163,12 @@ body.sensei {
 		.is-secondary.sensei-course-theme__button {
 			border: solid 1px var(--sensei-secondary-color);
 		}
+
+		.wp-block-sensei-lms-course-outline-lesson__status--in-progress {
+			width: 24px;
+			height: 24px;
+			margin-left: 16px;
+		}
 	}
 }
 

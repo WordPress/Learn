@@ -3,6 +3,7 @@
 namespace WordPressdotorg\Theme\Learn_2024;
 
 use function WPOrg_Learn\Sensei\{get_my_courses_page_url};
+use Sensei_Utils;
 
 // Block files
 require_once __DIR__ . '/src/course-grid/index.php';
@@ -89,6 +90,41 @@ function enqueue_assets() {
 		// All headings.
 		global_fonts_preload( 'EB Garamond, Inter', $subsets );
 	}
+
+	wp_enqueue_script(
+		'wporg-learn-2024-course-outline',
+		get_stylesheet_directory_uri() . '/js/course-outline.js',
+		array(),
+		filemtime( __DIR__ . '/js/course-outline.js' ),
+		true
+	);
+
+	$lesson_data = array();
+	$lesson_ids = Sensei()->course->course_lessons( get_the_ID(), 'publish', 'ids' );
+
+	foreach ( $lesson_ids as $lesson_id ) {
+		$user_lesson_status = Sensei_Utils::user_lesson_status( $lesson_id, get_current_user_id() );
+
+		if ( $user_lesson_status ) {
+			$lesson_status = $user_lesson_status->comment_approved;
+			$lesson_title = get_the_title( $lesson_id );
+
+			if ( 'in-progress' === $lesson_status ) {
+				$icon = Sensei()->assets->get_icon( 'half-filled-circle', 'wp-block-sensei-lms-course-outline-lesson__status--in-progress' );
+
+				$lesson_data[] = array(
+					'title' => $lesson_title,
+					'icon' => $icon,
+				);
+			}
+		}
+	}
+
+	wp_localize_script(
+		'wporg-learn-2024-course-outline',
+		'wporgCourseOutlineData',
+		$lesson_data
+	);
 }
 
 /**
