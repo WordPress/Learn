@@ -22,7 +22,7 @@
 	<!-- /wp:paragraph -->
 	<?php endif; ?>
 
-	<!-- wp:sensei-lms/course-progress {"barColor":"blueberry-1","barBackgroundColor":"blueberry-3","height":8,"className":"wporg-learn-sidebar-course-progress"} /-->
+	<!-- wp:sensei-lms/course-progress {"customBarColor":"var(--wp--custom--color--green-50)","height":8,"className":"wporg-learn-sidebar-course-progress"} /-->
 
 	<!-- wp:sensei-lms/button-take-course {"align":"full","borderRadius":2,"className":"is-style-default"} -->
 	<div class="wp-block-sensei-lms-button-take-course is-style-default wp-block-sensei-button wp-block-button has-text-align-full">
