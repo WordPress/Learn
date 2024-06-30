@@ -37,11 +37,7 @@
 </div>
 <!-- /wp:buttons -->
 
-<!-- wp:heading {"style":{"spacing":{"margin":{"top":"40px","bottom":"20px"}}},"fontSize":"large","fontFamily":"inter"} -->
-<h2 class="wp-block-heading has-inter-font-family has-large-font-size" style="margin-top:40px;margin-bottom:20px">
-	<?php esc_html_e( 'A Developers Guide to Block Themes - Part 3', 'wporg-learn' ); ?>
-</h2>
-<!-- /wp:heading -->
+<!-- wp:sensei-lms/course-results {"mainColor":"light-grey-2","textColor":"charcoal-1","borderColor":"light-grey-1","borderColorValue":"#d9d9d9","defaultTextColor":"black-opacity-15"} /-->
 
 <!-- wp:buttons -->
 <div class="wp-block-buttons">
