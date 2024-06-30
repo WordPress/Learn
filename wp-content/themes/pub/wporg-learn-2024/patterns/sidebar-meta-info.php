@@ -5,14 +5,16 @@
  * Inserter: no
  */
 
- use function WPOrg_Learn\Sensei\{get_my_courses_page_url}
+use function WPOrg_Learn\Sensei\{get_my_courses_page_url};
+
+$course_status = Sensei()->course_progress_repository->get( get_the_ID(), get_current_user_id() )->get_status();
 
 ?>
 
 <!-- wp:group {"align":"full","className":"wporg-learn-sidebar-meta-info","layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull wporg-learn-sidebar-meta-info">
 
-	<!-- wp:sensei-lms/course-progress {"customBarColor":"var(--wp--custom--color--green-50)","height":8,"className":"wporg-learn-sidebar-course-progress"} /-->
+	<!-- wp:sensei-lms/course-progress {<?php echo ( 'complete' === $course_status ? '"customTextColor":"var(--wp--custom--color--green-50)",' : '' ); ?>"customBarColor":"var(--wp--custom--color--green-50)","height":8,"className":"wporg-learn-sidebar-course-progress"} /-->
 
 	<?php if ( Sensei_Course::is_user_enrolled( get_the_ID() ) ) : ?>
 	<!-- wp:paragraph {"style":{"spacing":{"margin":{"bottom":"40px","top":"10px"}},"elements":{"link":{"color":{"text":"var:preset|color|blueberry-1"}}},"typography":{"fontStyle":"normal","fontWeight":"400","lineHeight":26px}},"textColor":"blueberry-1","fontSize":"normal","fontFamily":"inter","className":""wporg-learn-sidebar-all-courses"} -->
