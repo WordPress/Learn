@@ -111,6 +111,12 @@ body.sensei {
 			background: var(--wp--preset--color--acid-green-3);
 			color: var(--wp--custom--color--green-50);
 		}
+
+		.wp-block-sensei-lms-course-outline-lesson__status--in-progress {
+			width: 24px;
+			height: 24px;
+			margin-left: 16px;
+		}
 	}
 }
 
