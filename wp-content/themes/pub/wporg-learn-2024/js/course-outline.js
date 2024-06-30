@@ -3,7 +3,7 @@
 document.addEventListener( 'DOMContentLoaded', function () {
 	const lessonData = wporgCourseOutlineData;
 
-	lessonData.forEach( function ( lesson ) {
+	lessonData[ 'in-progress' ]?.forEach( function ( lesson ) {
 		const title = lesson.title;
 		const icon = lesson.icon;
 
@@ -17,6 +17,21 @@ document.addEventListener( 'DOMContentLoaded', function () {
 				if ( statusIcon ) {
 					statusIcon.outerHTML = icon;
 				}
+			}
+		} );
+	} );
+
+	lessonData.locked?.forEach( function ( lesson ) {
+		const title = lesson.title;
+		const icon = lesson.icon;
+
+		const lessonLinks = document.querySelectorAll( '.wp-block-sensei-lms-course-outline-lesson' );
+
+		lessonLinks.forEach( function ( link ) {
+			const span = link.querySelector( 'span' );
+
+			if ( span && span.textContent.trim() === title ) {
+				span.insertAdjacentHTML( 'afterend', icon );
 			}
 		} );
 	} );
