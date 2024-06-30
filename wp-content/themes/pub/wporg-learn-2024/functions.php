@@ -4,6 +4,8 @@ namespace WordPressdotorg\Theme\Learn_2024;
 
 use function WPOrg_Learn\Sensei\{get_my_courses_page_url};
 use Sensei_Utils;
+use Sensei_Course;
+use Sensei_Lesson;
 
 // Block files
 require_once __DIR__ . '/src/course-grid/index.php';
@@ -103,19 +105,29 @@ function enqueue_assets() {
 
 	foreach ( $lesson_ids as $lesson_id ) {
 		$user_lesson_status = Sensei_Utils::user_lesson_status( $lesson_id, get_current_user_id() );
+		$lesson_title = get_the_title( $lesson_id );
+		// $locked_lesson = ! Sensei_Lesson::is_prerequisite_complete( $lesson_id, get_current_user_id() );
+		$is_preview_lesson = Sensei_Utils::is_preview_lesson( $lesson_id );
 
 		if ( $user_lesson_status ) {
 			$lesson_status = $user_lesson_status->comment_approved;
-			$lesson_title = get_the_title( $lesson_id );
-
 			if ( 'in-progress' === $lesson_status ) {
 				$icon = Sensei()->assets->get_icon( 'half-filled-circle', 'wp-block-sensei-lms-course-outline-lesson__status--in-progress' );
-
-				$lesson_data[] = array(
+				$lesson_data['in-progress'][] = array(
 					'title' => $lesson_title,
 					'icon' => $icon,
 				);
 			}
+		}
+
+		if ( ( ! $is_preview_lesson && ! Sensei_Course::is_user_enrolled( get_the_ID() ) )
+			|| ! Sensei_Lesson::is_prerequisite_complete( $lesson_id, get_current_user_id() )
+		) {
+			$icon = Sensei()->assets->get_icon( 'lock', 'wp-block-sensei-lms-course-outline-lesson__status--locked' );
+			$lesson_data['locked'][] = array(
+				'title' => $lesson_title,
+				'icon' => $icon,
+			);
 		}
 	}
 
