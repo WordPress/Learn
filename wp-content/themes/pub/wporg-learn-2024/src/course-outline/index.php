@@ -1,7 +1,5 @@
 <?php
 
-add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_assets' );
-
 /**
  * Enqueue scripts and styles.
  */
@@ -14,6 +12,41 @@ function enqueue_assets() {
 		true
 	);
 
+	if ( is_singular( 'course' ) ) {
+		$lesson_data = get_lesson_data();
+		wp_localize_script(
+			'wporg-learn-2024-course-outline',
+			'wporgCourseOutlineData',
+			$lesson_data
+		);
+	}
+}
+add_action( 'wp_enqueue_scripts', 'enqueue_assets' );
+
+/**
+ * Get the titles and status icons of specific lessons.
+ *
+ * The returned array $lesson_data has the following structure:
+ * [
+ *     'in-progress' => [
+ *         [
+ *             'title' => (string) The title of the lesson,
+ *             'icon'  => (string) The icon HTML for in-progress status,
+ *         ],
+ *         ...
+ *     ],
+ *     'locked' => [
+ *         [
+ *             'title' => (string) The title of the lesson,
+ *             'icon'  => (string) The icon HTML for locked status,
+ *         ],
+ *         ...
+ *     ]
+ * ]
+ *
+ * @return array $lesson_data Array of lesson data.
+ */
+function get_lesson_data() {
 	$lesson_data = array();
 	$lesson_ids = Sensei()->course->course_lessons( get_the_ID(), 'publish', 'ids' );
 
@@ -22,6 +55,7 @@ function enqueue_assets() {
 		$lesson_title = get_the_title( $lesson_id );
 		$is_preview_lesson = Sensei_Utils::is_preview_lesson( $lesson_id );
 
+		// Add in-progress lesson title and icon to lesson data
 		if ( $user_lesson_status ) {
 			$lesson_status = $user_lesson_status->comment_approved;
 			if ( 'in-progress' === $lesson_status ) {
@@ -33,6 +67,7 @@ function enqueue_assets() {
 			}
 		}
 
+		// Add previewable and prerequisite-required lesson title and icon to lesson data
 		if ( ( ! $is_preview_lesson && ! Sensei_Course::is_user_enrolled( get_the_ID() ) )
 			|| ! Sensei_Lesson::is_prerequisite_complete( $lesson_id, get_current_user_id() )
 		) {
@@ -44,9 +79,5 @@ function enqueue_assets() {
 		}
 	}
 
-	wp_localize_script(
-		'wporg-learn-2024-course-outline',
-		'wporgCourseOutlineData',
-		$lesson_data
-	);
+	return $lesson_data;
 }
