@@ -24,24 +24,12 @@ function enqueue_assets() {
 add_action( 'wp_enqueue_scripts', 'enqueue_assets' );
 
 /**
- * Get the titles and status icons of specific lessons.
+ * Get the titles of specific status lessons.
  *
  * The returned array $lesson_data has the following structure:
  * [
- *     'in-progress' => [
- *         [
- *             'title' => (string) The title of the lesson,
- *             'icon'  => (string) The icon HTML for in-progress status,
- *         ],
- *         ...
- *     ],
- *     'locked' => [
- *         [
- *             'title' => (string) The title of the lesson,
- *             'icon'  => (string) The icon HTML for locked status,
- *         ],
- *         ...
- *     ]
+ *     'in-progress' => [ (string) The title of the lesson, ... ],
+ *     'locked' => [ (string) The title of the lesson, ... ],
  * ]
  *
  * @return array $lesson_data Array of lesson data.
@@ -55,27 +43,19 @@ function get_lesson_data() {
 		$lesson_title = get_the_title( $lesson_id );
 		$is_preview_lesson = Sensei_Utils::is_preview_lesson( $lesson_id );
 
-		// Add in-progress lesson title and icon to lesson data
+		// Add in-progress lesson title to lesson data
 		if ( $user_lesson_status ) {
 			$lesson_status = $user_lesson_status->comment_approved;
 			if ( 'in-progress' === $lesson_status ) {
-				$icon = Sensei()->assets->get_icon( 'half-filled-circle', 'wp-block-sensei-lms-course-outline-lesson__status--in-progress' );
-				$lesson_data['in-progress'][] = array(
-					'title' => $lesson_title,
-					'icon' => $icon,
-				);
+				$lesson_data['in-progress'][] = $lesson_title;
 			}
 		}
 
-		// Add previewable and prerequisite-required lesson title and icon to lesson data
+		// Add previewable and prerequisite-required lesson title to lesson data
 		if ( ( ! $is_preview_lesson && ! Sensei_Course::is_user_enrolled( get_the_ID() ) )
 			|| ! Sensei_Lesson::is_prerequisite_complete( $lesson_id, get_current_user_id() )
 		) {
-			$icon = Sensei()->assets->get_icon( 'lock', 'wp-block-sensei-lms-course-outline-lesson__status--locked' );
-			$lesson_data['locked'][] = array(
-				'title' => $lesson_title,
-				'icon' => $icon,
-			);
+			$lesson_data['locked'][] = $lesson_title;
 		}
 	}
 
