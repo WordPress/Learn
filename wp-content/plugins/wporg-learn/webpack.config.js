@@ -9,6 +9,7 @@ config.entry = {
 	'duration-meta': './js/duration-meta/index.js',
 	'expiration-date': './js/expiration-date/index.js',
 	'lesson-count': './js/lesson-count/src/index.js',
+	'lesson-featured-meta': './js/lesson-featured-meta/index.js',
 	'workshop-application-form': './js/workshop-application-form/src/index.js',
 	'workshop-details': './js/workshop-details/src/index.js',
 	event: './js/event.js',
