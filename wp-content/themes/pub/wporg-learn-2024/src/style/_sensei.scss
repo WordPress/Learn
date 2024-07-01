@@ -118,7 +118,7 @@ body.sensei {
 
 		// every lesson item
 		.wp-block-sensei-lms-course-outline-lesson {
-			> span {
+			> span:first-of-type {
 				line-height: var(--wp--custom--body--short-text--typography--line-height);
 				padding: 15px var(--wp--preset--spacing--10);
 			}
