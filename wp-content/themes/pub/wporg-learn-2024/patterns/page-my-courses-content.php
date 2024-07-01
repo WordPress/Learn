@@ -46,7 +46,7 @@
 
 				<!-- wp:post-excerpt {"showMoreOnNewLine":false,"excerptLength":16,"style":{"typography":{"lineHeight":1.6},"layout":{"selfStretch":"fill","flexSize":null}}} /-->
 
-				<!-- wp:sensei-lms/course-progress {"barColor":"blueberry-1","defaultBarColor":"blueberry-1","barBackgroundColor":"blueberry-3","height":8,"className":"wporg-learn-sidebar-course-progress"} /-->
+				<!-- wp:sensei-lms/course-progress {"customBarColor":"var(--wp--custom--color--green-50)","height":8,"className":"wporg-learn-sidebar-course-progress"} /-->
 
 				<!-- wp:spacer {"height":"0px","style":{"layout":{"selfStretch":"fixed","flexSize":"0px"}}} -->
 				<div style="height:0px" aria-hidden="true" class="wp-block-spacer"></div>
