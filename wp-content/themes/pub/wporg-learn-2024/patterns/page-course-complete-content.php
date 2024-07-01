@@ -43,7 +43,7 @@
 <div class="wp-block-buttons">
 	<!-- wp:button {"style":{"spacing":{"padding":{"left":"32px","right":"32px","top":"17px","bottom":"17px"}}},"className":"is-style-outline"} -->
 	<div class="wp-block-button is-style-outline">
-		<a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( site_url( '/courses-overview/' ) ); ?>" style="padding-top:17px;padding-right:32px;padding-bottom:17px;padding-left:32px">
+		<a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( site_url( '/courses/' ) ); ?>" style="padding-top:17px;padding-right:32px;padding-bottom:17px;padding-left:32px">
 			<?php esc_html_e( 'Find more courses', 'wporg-learn' ); ?>
 		</a>
 	</div>
