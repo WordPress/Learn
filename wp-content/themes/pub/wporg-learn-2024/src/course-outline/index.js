@@ -1,11 +1,14 @@
 /* global wporgCourseOutlineData */
 
+import { Icon, drafts, lockOutline } from '@wordpress/icons';
+import { renderToString } from 'react-dom/server';
+
 document.addEventListener( 'DOMContentLoaded', function () {
 	const lessonData = wporgCourseOutlineData;
 
-	lessonData[ 'in-progress' ]?.forEach( function ( lesson ) {
-		const title = lesson.title;
-		const icon = lesson.icon;
+	lessonData[ 'in-progress' ]?.forEach( function ( lessonTitle ) {
+		const title = lessonTitle;
+		const icon = renderToString( <Icon icon={ drafts } transform={ 'scale(1.5)' } /> );
 
 		const lessonLinks = document.querySelectorAll( '.wp-block-sensei-lms-course-outline-lesson' );
 
@@ -21,9 +24,9 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		} );
 	} );
 
-	lessonData.locked?.forEach( function ( lesson ) {
-		const title = lesson.title;
-		const icon = lesson.icon;
+	lessonData.locked?.forEach( function ( lessonTitle ) {
+		const title = lessonTitle;
+		const icon = renderToString( <Icon icon={ lockOutline } /> );
 
 		const lessonLinks = document.querySelectorAll( '.wp-block-sensei-lms-course-outline-lesson' );
 
