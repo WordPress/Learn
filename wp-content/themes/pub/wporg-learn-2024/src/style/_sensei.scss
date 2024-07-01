@@ -103,16 +103,16 @@ body.sensei {
 			.wp-block-sensei-lms-course-outline-module__lessons-title {
 				display: none;
 			}
-
-			h3.wp-block-sensei-lms-course-outline-lesson__status {
-				border: 1.5px solid var(--wp--preset--color--charcoal-1);
-			}
 		}
 
 		> .wp-block-sensei-lms-course-outline-lesson {
 			border: 1px solid var(--wp--preset--color--light-grey-1) !important;
 			margin-bottom: var(--wp--preset--spacing--20) !important;
 			border-radius: var(--wp--custom--button--border--radius);
+		}
+
+		.wp-block-sensei-lms-course-outline-lesson__status {
+			border: 1.5px solid var(--wp--preset--color--charcoal-1);
 		}
 
 		.wp-block-sensei-lms-course-outline-lesson__status:has(use) {
