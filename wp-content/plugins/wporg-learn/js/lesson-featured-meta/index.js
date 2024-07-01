@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { PanelRow, CheckboxControl } from '@wordpress/components';
+import { CheckboxControl, PanelRow } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { PluginDocumentSettingPanel } from '@wordpress/edit-post';
 import { useState } from '@wordpress/element';
