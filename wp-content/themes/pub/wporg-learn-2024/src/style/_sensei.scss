@@ -196,7 +196,7 @@ body.sensei {
 			margin: 0;
 
 			> li.wp-block-sensei-lms-course-results__lesson {
-				border: 1px solid #d9d9d9;
+				border: 1px solid var(--wp--custom--color--border);
 				margin-bottom: var(--wp--preset--spacing--20);
 				border-radius: var(--wp--custom--button--border--radius);
 			}
