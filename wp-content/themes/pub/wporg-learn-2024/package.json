@@ -7,7 +7,9 @@
 	"private": true,
 	"devDependencies": {
 		"@wordpress/scripts": "27.2.0",
-		"rtlcss-webpack-plugin": "4.0.7"
+		"rtlcss-webpack-plugin": "4.0.7",
+		"@wordpress/icons": "^10.2.0",
+		"react-dom": "^18.3.1"
 	},
 	"eslintConfig": {
 		"extends": "../../../../.eslintrc.js"
