@@ -56,7 +56,7 @@
 <!-- /wp:query -->
 
 <!-- wp:heading {"style":{"spacing":{"margin":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|10"}}}} -->
-<h2 class="wp-block-heading" style="margin-top:var(--wp--preset--spacing--60);margin-bottom:var(--wp--preset--spacing--10)"><?php esc_html_e( 'Lessons', 'wporg-learn' ); ?></h2>
+<h2 class="wp-block-heading" style="margin-top:var(--wp--preset--spacing--60);margin-bottom:var(--wp--preset--spacing--10)"><?php esc_html_e( 'Featured Lessons', 'wporg-learn' ); ?></h2>
 <!-- /wp:heading -->
 
 <!-- wp:group {"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|40"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"}} -->
@@ -73,13 +73,13 @@
 </div>
 <!-- /wp:group -->
 
-<!-- wp:query {"className":"wporg-learn-card-grid","queryId":1,"query":{"perPage":"6","pages":0,"offset":0,"postType":"lesson","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false,"parents":[]}} -->
-<div class="wp-block-query wporg-learn-card-grid">
-
+<!-- wp:query {"queryId":1,"query":{"perPage":6,"postType":"lesson","lessonFeatured":true},"namespace":"wporg-learn/lesson-grid","align":"wide","className":"wporg-learn-lesson-grid wporg-learn-card-grid"} -->
+<div class="wp-block-query alignwide wporg-learn-lesson-grid wporg-learn-card-grid">
+	
 	<!-- wp:post-template {"style":{"spacing":{"blockGap":"var:preset|spacing|50"}},"layout":{"type":"grid","columnCount":null,"minimumColumnWidth":"330px"}} -->
 
 		<!-- wp:template-part {"slug":"card-lesson-h3","className":"has-display-contents"} /-->
-
+		
 	<!-- /wp:post-template -->
 
 	<!-- wp:query-no-results -->
