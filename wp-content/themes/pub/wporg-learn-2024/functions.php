@@ -8,6 +8,7 @@ use function WPOrg_Learn\Sensei\{get_my_courses_page_url};
 require_once __DIR__ . '/src/course-grid/index.php';
 require_once __DIR__ . '/src/learning-pathway-cards/index.php';
 require_once __DIR__ . '/src/learning-pathway-header/index.php';
+require_once __DIR__ . '/src/lesson-grid/index.php';
 require_once __DIR__ . '/src/search-results-context/index.php';
 require_once __DIR__ . '/src/upcoming-online-workshops/index.php';
 require_once __DIR__ . '/src/sensei-meta-list/index.php';
