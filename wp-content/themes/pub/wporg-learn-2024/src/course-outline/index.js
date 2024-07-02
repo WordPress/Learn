@@ -3,38 +3,25 @@
 import { Icon, drafts, lockOutline } from '@wordpress/icons';
 import { renderToString } from '@wordpress/element';
 
-document.addEventListener( 'DOMContentLoaded', function () {
-	const lessonData = wporgCourseOutlineData;
-
-	lessonData[ 'in-progress' ]?.forEach( function ( lessonTitle ) {
-		const title = lessonTitle;
-		const icon = renderToString( <Icon icon={ drafts } transform={ 'scale(1.5)' } /> );
-
+document.addEventListener( 'DOMContentLoaded', () => {
+	wporgCourseOutlineData[ 'in-progress' ]?.forEach( ( title ) => {
 		const lessonLinks = document.querySelectorAll( '.wp-block-sensei-lms-course-outline-lesson' );
-
-		lessonLinks.forEach( function ( link ) {
+		lessonLinks.forEach( ( link ) => {
 			const span = link.querySelector( 'span' );
-
 			if ( span && span.textContent.trim() === title ) {
 				const statusIcon = link.querySelector( '.wp-block-sensei-lms-course-outline-lesson__status' );
 				if ( statusIcon ) {
-					statusIcon.outerHTML = icon;
+					statusIcon.outerHTML = renderToString( <Icon icon={ drafts } transform={ 'scale(1.5)' } /> );
 				}
 			}
 		} );
 	} );
-
-	lessonData.locked?.forEach( function ( lessonTitle ) {
-		const title = lessonTitle;
-		const icon = renderToString( <Icon icon={ lockOutline } /> );
-
+	wporgCourseOutlineData.locked?.forEach( ( title ) => {
 		const lessonLinks = document.querySelectorAll( '.wp-block-sensei-lms-course-outline-lesson' );
-
-		lessonLinks.forEach( function ( link ) {
+		lessonLinks.forEach( ( link ) => {
 			const span = link.querySelector( 'span' );
-
 			if ( span && span.textContent.trim() === title ) {
-				span.insertAdjacentHTML( 'afterend', icon );
+				span.insertAdjacentHTML( 'afterend', renderToString( <Icon icon={ lockOutline } /> ) );
 			}
 		} );
 	} );
