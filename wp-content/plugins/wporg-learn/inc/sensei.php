@@ -17,6 +17,7 @@ add_filter( 'sensei_load_default_supported_theme_wrappers', '__return_false' );
 add_action( 'sensei_before_main_content', __NAMESPACE__ . '\theme_wrapper_start' );
 add_action( 'sensei_after_main_content', __NAMESPACE__ . '\theme_wrapper_end' );
 add_action( 'init', __NAMESPACE__ . '\wporg_correct_sensei_slugs', 9 );
+add_action( 'template_redirect', __NAMESPACE__ . '\restrict_my_courses_page_access' );
 
 /**
  * Slugs in Sensei are translatable, which won't work for our site and the language switcher.
@@ -257,4 +258,16 @@ function get_my_courses_page_url() {
 	}
 
 	return get_permalink( $page_id );
+}
+
+/**
+ * Redirect requests for the "My Courses" page to the login page and back, if logged out.
+ */
+function restrict_my_courses_page_access() {
+	if ( ! is_user_logged_in() && is_page( Sensei()->settings->get_my_courses_page_id() ) ) {
+		$redirect_to = wp_unslash( $_GET['redirect_to'] ?? '' ) ?: sensei_get_current_page_url();
+
+		wp_redirect( wp_login_url( $redirect_to ) );
+		exit;
+	}
 }
