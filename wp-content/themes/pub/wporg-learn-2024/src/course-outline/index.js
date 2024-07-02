@@ -1,7 +1,7 @@
 /* global wporgCourseOutlineData */
 
 import { Icon, drafts, lockOutline } from '@wordpress/icons';
-import { renderToString } from 'react-dom/server';
+import { renderToString } from '@wordpress/element';
 
 document.addEventListener( 'DOMContentLoaded', function () {
 	const lessonData = wporgCourseOutlineData;
