@@ -233,6 +233,14 @@ body.sensei {
 			}
 		}
 	}
+
+	// This class indicates a freestanding lesson, not part of a course.
+	&.course-id- {
+		.wp-block-sensei-lms-exit-course,
+		.wp-block-sensei-lms-course-theme-notices {
+			display: none;
+		}
+	}
 }
 
 .course:not(body) {
