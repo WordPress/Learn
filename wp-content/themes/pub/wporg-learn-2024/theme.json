@@ -29,6 +29,7 @@
 		"custom": {
 			"color": {
 				"border": "var(--wp--preset--color--light-grey-1)",
+				"green-50": "#008A20",
 				"green-70": "#005C12"
 			},
 			"form": {

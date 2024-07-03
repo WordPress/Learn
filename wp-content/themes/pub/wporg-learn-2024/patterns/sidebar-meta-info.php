@@ -5,24 +5,26 @@
  * Inserter: no
  */
 
- use function WPOrg_Learn\Sensei\{get_my_courses_page_url}
+use function WPOrg_Learn\Sensei\{get_my_courses_page_url};
+
+$completed_course = Sensei_Utils::user_completed_course( get_the_ID() );
 
 ?>
 
 <!-- wp:group {"align":"full","className":"wporg-learn-sidebar-meta-info","layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull wporg-learn-sidebar-meta-info">
 
+	<!-- wp:sensei-lms/course-progress {<?php echo ( $completed_course ? '"customTextColor":"var(--wp--custom--color--green-50)",' : '' ); ?>"customBarColor":"var(--wp--custom--color--green-50)","height":10,"className":"wporg-learn-sidebar-course-progress"} /-->
+
 	<?php if ( Sensei_Course::is_user_enrolled( get_the_ID() ) ) : ?>
-	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|blueberry-1"}}},"typography":{"fontStyle":"normal","fontWeight":"400","lineHeight":26px}},"textColor":"blueberry-1","fontSize":"normal","fontFamily":"inter","className":""wporg-learn-sidebar-all-courses"} -->
-	<p class="has-blueberry-1-color has-text-color has-link-color has-inter-font-family has-normal-font-size wporg-learn-sidebar-all-courses" style="font-style:normal;font-weight:400;line-height:26px">
+	<!-- wp:paragraph {"style":{"spacing":{"margin":{"bottom":"40px","top":"10px"}},"elements":{"link":{"color":{"text":"var:preset|color|blueberry-1"}}},"typography":{"fontStyle":"normal","fontWeight":"400","lineHeight":26px}},"textColor":"blueberry-1","fontSize":"normal","fontFamily":"inter","className":""wporg-learn-sidebar-all-courses"} -->
+	<p class="has-blueberry-1-color has-text-color has-link-color has-inter-font-family has-normal-font-size wporg-learn-sidebar-all-courses" style="font-style:normal;font-weight:400;line-height:26px;margin-top:10px;margin-bottom:40px">
 		<a href="<?php echo esc_url( get_my_courses_page_url() ); ?>">
 			<?php esc_html_e( 'All My Courses', 'wporg-learn' ); ?>
 		</a>
 	</p>
 	<!-- /wp:paragraph -->
 	<?php endif; ?>
-
-	<!-- wp:sensei-lms/course-progress {"barColor":"blueberry-1","barBackgroundColor":"blueberry-3","height":8,"className":"wporg-learn-sidebar-course-progress"} /-->
 
 	<!-- wp:sensei-lms/button-take-course {"align":"full","borderRadius":2,"className":"is-style-default"} -->
 	<div class="wp-block-sensei-lms-button-take-course is-style-default wp-block-sensei-button wp-block-button has-text-align-full">
