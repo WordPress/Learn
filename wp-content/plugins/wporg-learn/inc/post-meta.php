@@ -27,9 +27,30 @@ add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\enqueue_editor_asse
  * Register all post meta keys.
  */
 function register() {
+	register_lesson_meta();
 	register_lesson_plan_meta();
 	register_workshop_meta();
 	register_misc_meta();
+}
+
+/**
+ * Register post meta keys for lessons.
+ */
+function register_lesson_meta() {
+	register_post_meta(
+		'lesson',
+		'_lesson_featured',
+		array(
+			'description'       => __( 'Whether the lesson is featured.', 'wporg-learn' ),
+			'type'              => 'string',
+			'single'            => true,
+			'sanitize_callback' => 'sanitize_text_field',
+			'show_in_rest'      => true,
+			'auth_callback'     => function( $allowed, $meta_key, $post_id ) {
+				return current_user_can( 'edit_post', $post_id );
+			},
+		),
+	);
 }
 
 /**
@@ -613,6 +634,7 @@ function render_locales_list() {
 function enqueue_editor_assets() {
 	enqueue_expiration_date_assets();
 	enqueue_language_meta_assets();
+	enqueue_lesson_featured_meta_assets();
 	enqueue_duration_meta_assets();
 }
 
@@ -666,6 +688,31 @@ function enqueue_language_meta_assets() {
 		);
 
 		wp_set_script_translations( 'wporg-learn-language-meta', 'wporg-learn' );
+	}
+}
+
+/**
+ * Enqueue scripts for the featured lesson meta block.
+ */
+function enqueue_lesson_featured_meta_assets() {
+	global $typenow;
+
+	if ( 'lesson' === $typenow ) {
+		$script_asset_path = get_build_path() . 'lesson-featured-meta.asset.php';
+		if ( ! file_exists( $script_asset_path ) ) {
+			wp_die( 'You need to run `yarn start` or `yarn build` to build the required assets.' );
+		}
+
+		$script_asset = require( $script_asset_path );
+		wp_enqueue_script(
+			'wporg-learn-lesson-featured-meta',
+			get_build_url() . 'lesson-featured-meta.js',
+			$script_asset['dependencies'],
+			$script_asset['version'],
+			true
+		);
+
+		wp_set_script_translations( 'wporg-learn-lesson-featured-meta', 'wporg-learn' );
 	}
 }
 
