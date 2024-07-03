@@ -13,7 +13,9 @@
 	<div class="wp-block-group has-light-grey-1-color has-text-color">
 		<!-- wp:site-title {"level":0,"fontSize":"small","textColor":"white"} /-->
 
-		<!-- wp:post-title {"level":0,"fontSize":"small","fontFamily":"inter","className":"wporg-local-navigation-bar__fade-in-scroll"} /-->
+		<?php if ( ! ( is_page( 'learning-pathways' ) || is_archive( 'course' ) || is_archive( 'lesson' ) || is_page( 'online-workshops' ) || is_page( 'my-courses' ) ) ) : ?>
+			<!-- wp:post-title {"level":0,"fontSize":"small","fontFamily":"inter","className":"wporg-local-navigation-bar__fade-in-scroll"} /-->
+		<?php endif; ?>
 	</div>
 	<!-- /wp:group -->
 
