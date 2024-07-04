@@ -234,11 +234,29 @@ body.sensei {
 		}
 	}
 
-	// This class indicates a freestanding lesson, not part of a course.
+	// This class missing an id indicates a freestanding lesson, not part of a course.
 	&.course-id- {
+		.sensei-course-theme-header-content {
+			border-bottom: 1px solid var(--wp--custom--color--border);
+		}
+
 		.wp-block-sensei-lms-exit-course,
 		.wp-block-sensei-lms-course-theme-notices {
 			display: none;
+		}
+
+		.sensei-course-theme__columns {
+			> div:not(.sensei-course-theme__main-content) {
+				display: none;
+			}
+
+			.sensei-course-theme__main-content {
+				margin-left: auto !important;
+				margin-right: auto !important;
+				max-width: var(--wp--style--global--content-size);
+				padding-left: var(--wp--preset--spacing--edge-space);
+				padding-right: var(--wp--preset--spacing--edge-space);
+			}
 		}
 	}
 }
