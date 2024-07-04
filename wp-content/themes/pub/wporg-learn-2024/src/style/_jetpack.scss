@@ -16,4 +16,9 @@
 		opacity: unset;
 		font-size: inherit;
 	}
+
+	.contact-form__select-wrapper::after {
+		inset-inline-end: calc(var(--jetpack--contact-form--input-padding-left) + 3px);
+		top: calc(var(--jetpack--contact-form--input-padding-top) + var(--jetpack--contact-form--line-height) / 2);
+	}
 }
