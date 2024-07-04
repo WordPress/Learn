@@ -1,7 +1,7 @@
 <?php
 /**
- * Title: Course Completed Page Content
- * Slug: wporg-learn-2024/page-course-completed-content
+ * Title: Course Complete Page Content
+ * Slug: wporg-learn-2024/page-course-complete-content
  * Inserter: no
  */
 
