@@ -27,6 +27,11 @@
 			]
 		},
 		"custom": {
+			"box": {
+				"border": {
+					"radius": "2px"
+				}
+			},
 			"color": {
 				"border": "var(--wp--preset--color--light-grey-1)",
 				"green-50": "#008A20",
