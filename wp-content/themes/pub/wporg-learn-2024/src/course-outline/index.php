@@ -4,6 +4,10 @@
  * Enqueue scripts and styles.
  */
 function enqueue_assets() {
+	if ( ! is_singular( 'course' ) ) {
+		return;
+	}
+
 	$script_asset_path = get_stylesheet_directory() . '/build/course-outline/index.asset.php';
 	if ( ! file_exists( $script_asset_path ) ) {
 		wp_die( 'You need to run `yarn start` or `yarn build` to build the required assets.' );
@@ -18,14 +22,12 @@ function enqueue_assets() {
 		true
 	);
 
-	if ( is_singular( 'course' ) ) {
-		$lesson_data = get_lesson_data();
-		wp_localize_script(
-			'wporg-learn-2024-course-outline',
-			'wporgCourseOutlineData',
-			$lesson_data
-		);
-	}
+	$lesson_data = get_lesson_data();
+	wp_localize_script(
+		'wporg-learn-2024-course-outline',
+		'wporgCourseOutlineData',
+		$lesson_data
+	);
 }
 add_action( 'wp_enqueue_scripts', 'enqueue_assets' );
 
