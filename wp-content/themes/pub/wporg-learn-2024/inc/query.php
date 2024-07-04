@@ -7,6 +7,7 @@ namespace WordPressdotorg\Theme\Learn_2024\Query;
 
 add_action( 'pre_get_posts', __NAMESPACE__ . '\modify_archive_queries' );
 add_action( 'pre_get_posts', __NAMESPACE__ . '\modify_level_query' );
+add_action( 'pre_get_posts', __NAMESPACE__ . '\exclude_password_protected_posts' );
 
 /**
  * Modify the query by adding meta query for language if set.
@@ -57,6 +58,20 @@ function modify_level_query( $query ) {
 
 	if ( 'all' === $level ) {
 		$query->set( 'wporg_lesson_level', '' );
+	}
+
+	return $query;
+}
+
+/**
+ * Exclude password protected posts from main queries.
+ *
+ * @param WP_Query $query The query object.
+ * @return WP_Query
+ */
+function exclude_password_protected_posts( $query ) {
+	if ( ! is_admin() && ( $query->is_main_query() || $query->is_search() ) ) {
+		$query->set( 'has_password', false );
 	}
 
 	return $query;
