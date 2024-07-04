@@ -184,6 +184,10 @@ body.sensei {
 			margin-bottom: var(--wp--preset--spacing--20);
 		}
 
+		> div.wp-block-sensei-lms-course-results__separator {
+			display: none;
+		}
+
 		> section.wp-block-sensei-lms-course-results__module {
 			margin-bottom: var(--wp--preset--spacing--20);
 			border-radius: var(--wp--custom--box--border--radius);
