@@ -4,6 +4,10 @@ import { Icon, drafts, lockOutline } from '@wordpress/icons';
 import { renderToString } from '@wordpress/element';
 
 document.addEventListener( 'DOMContentLoaded', () => {
+	if ( ! wporgCourseOutlineData ) {
+		return;
+	}
+
 	wporgCourseOutlineData[ 'in-progress' ]?.forEach( ( title ) => {
 		const lessonLinks = document.querySelectorAll( '.wp-block-sensei-lms-course-outline-lesson' );
 		lessonLinks.forEach( ( link ) => {
