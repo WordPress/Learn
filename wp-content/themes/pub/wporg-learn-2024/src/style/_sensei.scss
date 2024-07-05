@@ -71,7 +71,15 @@ body.sensei {
 
 	&.quiz {
 		#sensei-quiz-list .question-title {
-			font-size: var(--wp--preset--font-size--heading-2);
+			font-size: var(--wp--preset--font-size--heading-4);
+		}
+
+		.wp-block-sensei-lms-quiz .wp-block-sensei-lms-quiz-question {
+			margin-top: var(--wp--preset--spacing--40);
+		}
+
+		.wp-block-sensei-lms-quiz .sensei-lms-question-block__header {
+			margin-bottom: var(--wp--preset--spacing--20);
 		}
 	}
 
