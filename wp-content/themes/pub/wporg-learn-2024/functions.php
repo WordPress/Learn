@@ -98,7 +98,7 @@ function enqueue_assets() {
  * Enqueue the styles and add the required body class if needed.
  */
 function maybe_enqueue_sensei_assets() {
-	if ( is_singular( 'lesson' ) && ! wp_style_is( 'sensei-course-theme-style', 'enqueued' ) ) {
+	if ( ( is_singular( 'lesson' ) || is_singular( 'quiz' ) ) && ! wp_style_is( 'sensei-course-theme-style', 'enqueued' ) ) {
 		wp_enqueue_style( 'sensei-learning-mode' );
 
 		add_filter( 'body_class', function( $classes ) {
