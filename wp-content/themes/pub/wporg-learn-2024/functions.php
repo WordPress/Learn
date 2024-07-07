@@ -14,6 +14,7 @@ require_once __DIR__ . '/src/search-results-context/index.php';
 require_once __DIR__ . '/src/upcoming-online-workshops/index.php';
 require_once __DIR__ . '/src/sensei-meta-list/index.php';
 require_once __DIR__ . '/inc/block-config.php';
+require_once __DIR__ . '/inc/block-hooks.php';
 require_once __DIR__ . '/inc/query.php';
 
 /**
