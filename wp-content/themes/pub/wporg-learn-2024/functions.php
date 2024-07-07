@@ -200,9 +200,9 @@ function get_learning_pathway_level_content( $learning_pathway ) {
 /**
  * Filters breadcrumb items for the site-breadcrumb block.
  *
- * @param array $breadcrumbs
+ * @param array $breadcrumbs The current breadcrumbs.
  *
- * @return array
+ * @return array The modified breadcrumbs.
  */
 function set_site_breadcrumbs( $breadcrumbs ) {
 	if ( isset( $breadcrumbs[0] ) ) {
