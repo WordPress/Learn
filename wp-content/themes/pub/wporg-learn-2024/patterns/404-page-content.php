@@ -33,7 +33,7 @@
 	<?php
 	printf(
 		/* translators: 1: Learning Pathways URL, 2. Online Workshops URL, 3. Lessons Archive URL */
-		wp_kses_post( __( '<a href="%1$s">Learning Pathways</a>: Go from beginner to expert at your own pace.<br><a href="%2$s">Online Workshops</a>: Join a live session taught by experienced WordPress professionals.<br><a href="%3$s">Lessons</a>: Improve your WordPress expertise with versatile lessons featuring a blend of videos, exercises, quizzes, and more.', 'wporg-learn' ) ),
+		wp_kses_post( __( '<a href="%1$s">Learning Pathways</a>: Go from beginner to advanced at your own pace.<br><a href="%2$s">Online Workshops</a>: Join a live session taught by experienced WordPress professionals.<br><a href="%3$s">Lessons</a>: Improve your WordPress expertise with versatile lessons featuring a blend of videos, exercises, quizzes, and more.', 'wporg-learn' ) ),
 		esc_url( site_url( '/learning-pathways/' ) ),
 		esc_url( site_url( '/online-workshops/' ) ),
 		esc_url( site_url( '/lessons/' ) )
