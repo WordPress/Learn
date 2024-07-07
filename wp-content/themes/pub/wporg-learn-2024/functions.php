@@ -271,6 +271,12 @@ function set_site_breadcrumbs( $breadcrumbs ) {
 		}
 	}
 
+	// Ensure breadcrumbs are displayed only when there are at least 3 levels.
+	$breadcrumb_level = count( $breadcrumbs );
+	if ( $breadcrumb_level < 3 ) {
+		$breadcrumbs = array();
+	}
+
 	return $breadcrumbs;
 }
 
