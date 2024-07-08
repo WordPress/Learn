@@ -21,6 +21,7 @@ require_once __DIR__ . '/inc/query.php';
  */
 add_action( 'after_setup_theme', __NAMESPACE__ . '\setup' );
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_assets' );
+add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\maybe_enqueue_sensei_assets', 100 );
 
 add_filter( 'post_thumbnail_html', __NAMESPACE__ . '\set_default_featured_image', 10, 5 );
 add_filter( 'sensei_register_post_type_course', function( $args ) {
@@ -89,6 +90,26 @@ function enqueue_assets() {
 		$subsets = _x( 'Latin', 'Heading font subsets, comma separated', 'wporg-learn' );
 		// All headings.
 		global_fonts_preload( 'EB Garamond, Inter', $subsets );
+	}
+}
+
+/**
+ * Sensei doesn't enqueue learning mode styles for Lessons which are not part of a course.
+ * Enqueue the styles and add the required body class if needed.
+ */
+function maybe_enqueue_sensei_assets() {
+	if ( ( is_singular( 'lesson' ) || is_singular( 'quiz' ) ) && ! wp_style_is( 'sensei-course-theme-style', 'enqueued' ) ) {
+		wp_enqueue_style( 'sensei-learning-mode' );
+
+		add_filter( 'body_class', function( $classes ) {
+			$sensei_body_class = 'sensei-course-theme';
+
+			if ( ! in_array( $sensei_body_class, $classes, true ) ) {
+				$classes[] = $sensei_body_class;
+			}
+
+			return $classes;
+		} );
 	}
 }
 

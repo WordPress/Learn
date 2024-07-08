@@ -3,6 +3,7 @@ body.sensei {
 	--content-padding: var(--wp--preset--spacing--edge-space);
 	--sensei-lm-header-height: 60px;
 	--sensei-lm-sidebar-width: calc(280px + var(--wp--preset--spacing--edge-space));
+	--sensei-wpadminbar-offset: var(--wp-admin--admin-bar--height);
 
 	--border-color: var(--wp--custom--color--border);
 	--sensei-secondary-color: var(--wp--preset--color--blueberry-1);
@@ -70,7 +71,15 @@ body.sensei {
 
 	&.quiz {
 		#sensei-quiz-list .question-title {
-			font-size: var(--wp--preset--font-size--heading-2);
+			font-size: var(--wp--preset--font-size--heading-4);
+		}
+
+		.wp-block-sensei-lms-quiz .wp-block-sensei-lms-quiz-question {
+			margin-top: var(--wp--preset--spacing--40);
+		}
+
+		.wp-block-sensei-lms-quiz .sensei-lms-question-block__header {
+			margin-bottom: var(--wp--preset--spacing--20);
 		}
 	}
 
@@ -229,6 +238,32 @@ body.sensei {
 
 			> span.wp-block-sensei-lms-course-results__grade-score::before {
 				content: ": ";
+			}
+		}
+	}
+
+	// This class missing an id indicates a freestanding lesson, not part of a course.
+	&.course-id- {
+		.sensei-course-theme-header-content {
+			border-bottom: 1px solid var(--wp--custom--color--border);
+		}
+
+		.wp-block-sensei-lms-exit-course,
+		.wp-block-sensei-lms-course-theme-notices {
+			display: none;
+		}
+
+		.sensei-course-theme__columns {
+			> div:not(.sensei-course-theme__main-content) {
+				display: none;
+			}
+
+			.sensei-course-theme__main-content {
+				margin-left: auto !important;
+				margin-right: auto !important;
+				max-width: var(--wp--style--global--content-size);
+				padding-left: var(--wp--preset--spacing--edge-space);
+				padding-right: var(--wp--preset--spacing--edge-space);
 			}
 		}
 	}
