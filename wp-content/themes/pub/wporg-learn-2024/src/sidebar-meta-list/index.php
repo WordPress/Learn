@@ -1,12 +1,12 @@
 <?php
 /**
- * Block Name: Sensei Meta List
+ * Block Name: Sidebar Meta List
  * Description: Display the site meta data of a learn or course as a list.
  *
  * @package wporg
  */
 
-namespace WordPressdotorg\Theme\Learn_2024\Sensei_Meta_List;
+namespace WordPressdotorg\Theme\Learn_2024\Sidebar_Meta_List;
 
 use Sensei_Utils;
 use Sensei_Reports_Overview_Service_Courses;
@@ -24,7 +24,7 @@ add_action( 'init', __NAMESPACE__ . '\init' );
  */
 function init() {
 	register_block_type(
-		dirname( dirname( __DIR__ ) ) . '/build/sensei-meta-list',
+		dirname( dirname( __DIR__ ) ) . '/build/sidebar-meta-list',
 		array(
 			'render_callback' => __NAMESPACE__ . '\render',
 		)

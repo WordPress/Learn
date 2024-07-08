@@ -1,9 +1,9 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 2,
-	"name": "wporg-learn/sensei-meta-list",
+	"name": "wporg-learn/sidebar-meta-list",
 	"version": "0.1.0",
-	"title": "Sensei Meta List",
+	"title": "Sidebar Meta List",
 	"category": "design",
 	"icon": "",
 	"description": "Display the site meta data of a learn or course as a list.",
