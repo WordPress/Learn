@@ -55,15 +55,15 @@
 				<!-- wp:sensei-lms/course-actions -->
 
 					<!-- wp:sensei-lms/button-take-course {"align":"left"} -->
-					<div class="wp-block-sensei-lms-button-take-course is-style-default wp-block-sensei-button wp-block-button has-text-align-left"><button class="wp-block-button__link"><?php esc_html_e( 'Start Course', 'wporg-learn' ); ?></button></div>
+					<div class="wp-block-sensei-lms-button-take-course is-style-default is-small wp-block-sensei-button wp-block-button has-text-align-left"><button class="wp-block-button__link"><?php esc_html_e( 'Start Course', 'wporg-learn' ); ?></button></div>
 					<!-- /wp:sensei-lms/button-take-course -->
 
 					<!-- wp:sensei-lms/button-continue-course {"align":"left"} -->
-					<div class="wp-block-sensei-lms-button-continue-course is-style-default wp-block-sensei-button wp-block-button has-text-align-left"><a class="wp-block-button__link"><?php esc_html_e( 'Continue', 'wporg-learn' ); ?></a></div>
+					<div class="wp-block-sensei-lms-button-continue-course is-style-default is-small wp-block-sensei-button wp-block-button has-text-align-left"><a class="wp-block-button__link"><?php esc_html_e( 'Continue', 'wporg-learn' ); ?></a></div>
 					<!-- /wp:sensei-lms/button-continue-course -->
 
 					<!-- wp:sensei-lms/button-view-results {"align":"left","className":"is-style-default"} -->
-					<div class="wp-block-sensei-lms-button-view-results is-style-default wp-block-sensei-button wp-block-button has-text-align-left"><a class="wp-block-button__link"><?php esc_html_e( 'View Results', 'wporg-learn' ); ?></a></div>
+					<div class="wp-block-sensei-lms-button-view-results is-style-default is-small wp-block-sensei-button wp-block-button has-text-align-left"><a class="wp-block-button__link"><?php esc_html_e( 'View Results', 'wporg-learn' ); ?></a></div>
 					<!-- /wp:sensei-lms/button-view-results -->
 					
 				<!-- /wp:sensei-lms/course-actions -->
