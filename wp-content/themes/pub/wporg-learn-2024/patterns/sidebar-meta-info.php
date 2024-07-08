@@ -9,14 +9,16 @@
 
 use function WPOrg_Learn\Sensei\{get_my_courses_page_url};
 
-$completed_course = Sensei_Utils::user_completed_course( get_the_ID() );
+$completed_course  = Sensei_Utils::user_completed_course( get_the_ID() );
+$current_post      = get_post();
+$current_post_type = get_post_type();
 
 ?>
 
 <!-- wp:group {"align":"full","className":"wporg-learn-sidebar-meta-info","layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull wporg-learn-sidebar-meta-info">
 
-	<?php if ( 'course' === get_post_type() ) : ?>
+	<?php if ( 'course' === $current_post_type ) : ?>
 		<!-- wp:sensei-lms/course-progress {<?php echo ( $completed_course ? '"customTextColor":"var(--wp--custom--color--green-50)",' : '' ); ?>"customBarColor":"var(--wp--custom--color--green-50)","height":10,"className":"wporg-learn-sidebar-course-progress"} /-->
 
 		<?php if ( Sensei_Course::is_user_enrolled( get_the_ID() ) ) : ?>
@@ -38,7 +40,33 @@ $completed_course = Sensei_Utils::user_completed_course( get_the_ID() );
 		<!-- /wp:sensei-lms/button-take-course -->
 		<?php endif; ?>
 
-	<?php if ( 'lesson-plan' === get_post_type() ) : ?>
+	<?php if ( 'lesson-plan' === $current_post_type ) : ?>
+		<?php if ( $current_post->slides_view_url || $current_post->slides_download_url ) : ?>
+			<!-- wp:buttons {"style":{"spacing":{"blockGap":"0","margin":{"bottom":"40px"}}},"layout":{"type":"flex","justifyContent":"center"}} -->
+			<div class="wp-block-buttons" style="margin-bottom:40px">
+				<?php if ( $current_post->slides_view_url ) : ?>
+					<!-- wp:button {"textAlign":"center","width":100,"style":{"border":{"radius":"2px"},"spacing":{"padding":{"left":"13px","right":"13px","top":"16px","bottom":"16px"}},"typography":{"lineHeight":0,"fontStyle":"normal","fontWeight":"400"}},"className":"aligncenter is-style-text","fontSize":"normal","fontFamily":"inter"} -->
+					<div class="wp-block-button has-custom-width wp-block-button__width-100 has-custom-font-size aligncenter is-style-text has-inter-font-family has-normal-font-size" style="font-style:normal;font-weight:400;line-height:0">
+						<a class="wp-block-button__link has-text-align-center wp-element-button" href="<?php echo esc_attr( $current_post->slides_view_url ); ?>" style="border-radius:2px;padding-top:16px;padding-right:13px;padding-bottom:16px;padding-left:13px" target="_blank" rel="noreferrer noopener">
+							<?php esc_html_e( 'View slides', 'wporg-learn' ); ?>
+							<span aria-hidden="true" class="wp-exclude-emoji">↗</span>
+						</a>				
+					</div>
+					<!-- /wp:button -->
+				<?php endif; ?>
+				<?php if ( $current_post->slides_download_url ) : ?>
+					<!-- wp:button {"textAlign":"center","width":100,"style":{"border":{"radius":"2px"},"spacing":{"padding":{"left":"13px","right":"13px","top":"16px","bottom":"16px"}},"typography":{"lineHeight":0,"fontStyle":"normal","fontWeight":"400"}},"className":"aligncenter is-style-text","fontSize":"normal","fontFamily":"inter"} -->
+					<div class="wp-block-button has-custom-width wp-block-button__width-100 has-custom-font-size aligncenter is-style-text has-inter-font-family has-normal-font-size" style="font-style:normal;font-weight:400;line-height:0">
+						<a class="wp-block-button__link has-text-align-center wp-element-button" href="<?php echo esc_attr( $current_post->slides_download_url ); ?>" style="border-radius:2px;padding-top:16px;padding-right:13px;padding-bottom:16px;padding-left:13px" target="_blank" rel="noreferrer noopener">
+							<?php esc_html_e( 'Download slides', 'wporg-learn' ); ?>
+							<span aria-hidden="true" class="wp-exclude-emoji">↗</span>
+						</a>				
+					</div>
+					<!-- /wp:button -->
+				<?php endif; ?>
+			</div>
+			<!-- /wp:buttons -->
+		<?php endif; ?>
 		<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
 		<div class="wp-block-buttons">
 			<!-- wp:button {"textAlign":"center","width":100,"style":{"border":{"radius":"2px"},"spacing":{"padding":{"left":"13px","right":"13px","top":"16px","bottom":"16px"}},"typography":{"lineHeight":0,"fontStyle":"normal","fontWeight":"400"}},"className":"aligncenter is-style-fill","fontSize":"normal","fontFamily":"inter"} -->
