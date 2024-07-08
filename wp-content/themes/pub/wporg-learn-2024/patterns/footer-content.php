@@ -16,21 +16,27 @@
 		<!-- wp:column {"style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50","right":"var:preset|spacing|edge-space"}}}} -->
 		<div class="wp-block-column" style="padding-top:var(--wp--preset--spacing--50);padding-right:var(--wp--preset--spacing--edge-space);padding-bottom:var(--wp--preset--spacing--50)">
 
-			<!-- wp:heading {"style":{"typography":{"fontStyle":"normal","fontWeight":"400"},"spacing":{"margin":{"top":"0"}}},"fontSize":"huge","fontFamily":"eb-garamond"} -->
-			<h2 class="wp-block-heading has-eb-garamond-font-family has-huge-font-size" style="margin-top:0;font-style:normal;font-weight:400"><?php esc_html_e( 'More helpful resources', 'wporg-learn' ); ?></h2>
+			<!-- wp:heading {"style":{"typography":{"fontStyle":"normal","fontWeight":"400","fontSize":"30px"},"spacing":{"margin":{"top":"0"}}},"fontFamily":"eb-garamond"} -->
+			<h2 class="wp-block-heading has-eb-garamond-font-family" style="margin-top:0;font-size:30px;font-style:normal;font-weight:400"><?php esc_html_e( 'More helpful resources', 'wporg-learn' ); ?></h2>
 			<!-- /wp:heading -->
 
-			<!-- wp:paragraph {"fontSize":"large"} -->
-			<p class="has-large-font-size"><a href="https://wordpress.org/documentation"><?php esc_html_e( 'Documentation', 'wporg-learn' ); ?></a></p>
-			<!-- /wp:paragraph -->
+			<!-- wp:list {"className":"is-style-links-list","fontSize":"large"} -->
+			<ul class="is-style-links-list has-large-font-size">
+				
+				<!-- wp:list-item -->
+				<li><a href="https://wordpress.org/documentation"><?php esc_html_e( 'Documentation', 'wporg-learn' ); ?></a></li>
+				<!-- /wp:list-item -->
 
-			<!-- wp:paragraph {"fontSize":"large"} -->
-			<p class="has-large-font-size"><a href="https://developer.wordpress.org"><?php esc_html_e( 'Developer Resources', 'wporg-learn' ); ?></a></p>
-			<!-- /wp:paragraph -->
+				<!-- wp:list-item -->
+				<li><a href="https://developer.wordpress.org"><?php esc_html_e( 'Developer Resources', 'wporg-learn' ); ?></a></li>
+				<!-- /wp:list-item -->
 
-			<!-- wp:paragraph {"fontSize":"large"} -->
-			<p class="has-large-font-size"><a href="https://wordpress.org/support/forums"><?php esc_html_e( 'Support Forums', 'wporg-learn' ); ?></a></p>
-			<!-- /wp:paragraph -->
+				<!-- wp:list-item -->
+				<li><a href="https://wordpress.org/support/forums"><?php esc_html_e( 'Support Forums', 'wporg-learn' ); ?></a></li>
+				<!-- /wp:list-item -->
+			
+			</ul>
+			<!-- /wp:list -->
 
 		</div>
 		<!-- /wp:column -->
@@ -38,8 +44,8 @@
 		<!-- wp:column {"style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50","left":"var:preset|spacing|edge-space","right":"0"}},"border":{"left":{"color":"var:preset|color|white-opacity-15","width":"1px"},"top":{},"right":{},"bottom":{}}},"className":"wporg-learn-footer-signup"} -->
 		<div class="wp-block-column wporg-learn-footer-signup" style="border-left-color:var(--wp--preset--color--white-opacity-15);border-left-width:1px;padding-top:var(--wp--preset--spacing--50);padding-right:0;padding-bottom:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--edge-space)">
 
-			<!-- wp:heading {"style":{"typography":{"fontStyle":"normal","fontWeight":"400"},"spacing":{"margin":{"top":"0"}}},"fontSize":"huge","fontFamily":"eb-garamond"} -->
-			<h2 class="wp-block-heading has-eb-garamond-font-family has-huge-font-size" style="margin-top:0;font-style:normal;font-weight:400"><?php esc_html_e( 'Sign up for updates', 'wporg-learn' ); ?></h2>
+			<!-- wp:heading {"style":{"typography":{"fontStyle":"normal","fontWeight":"400","fontSize":"30px"},"spacing":{"margin":{"top":"0"}}},"fontFamily":"eb-garamond"} -->
+			<h2 class="wp-block-heading has-eb-garamond-font-family" style="margin-top:0;font-size:30px;font-style:normal;font-weight:400"><?php esc_html_e( 'Sign up for updates', 'wporg-learn' ); ?></h2>
 			<!-- /wp:heading -->
 
 			<!-- wp:paragraph {"fontSize":"small"} -->
