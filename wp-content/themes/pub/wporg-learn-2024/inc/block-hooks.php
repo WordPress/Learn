@@ -20,12 +20,10 @@ function modify_header_template_part( $parsed_block ) {
 	if (
 		'core/template-part' === $parsed_block['blockName'] &&
 		! empty( $parsed_block['attrs']['slug'] ) &&
-		str_starts_with( $parsed_block['attrs']['slug'], 'header' )
+		str_starts_with( $parsed_block['attrs']['slug'], 'header' ) &&
+		is_search()
 	) {
-		$template_slug = 'header-second-archive-title';
-		if ( is_search() ) {
-			$parsed_block['attrs']['slug'] = $template_slug;
-		}
+		$parsed_block['attrs']['slug'] = 'header-second-archive-title';
 	}
 	return $parsed_block;
 }
