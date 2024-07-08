@@ -326,8 +326,8 @@ function sensei_login_form_before() {
 			),
 			$html
 		);
-	
-		echo $html;
+
+		echo wp_kses_post( $html );
 	} );
 }
 
@@ -343,10 +343,10 @@ function sensei_register_form_start() {
 		ob_end_clean();
 
 		// Output a registration button.
-		printf(
+		echo sprintf(
 			'<div class="wp-block-button"><a href="%s" class="wp-block-button__link wp-element-button button button-secondary">%s</a></div>',
 			esc_url( wp_registration_url() ),
-			__( 'Register', 'wporg-learn' ),
+			esc_html__( 'Register', 'wporg-learn' ),
 		);
 
 		/*
@@ -360,7 +360,7 @@ function sensei_register_form_start() {
 
 /**
  * Forcibly disable Sensei user login & creation.
- * 
+ *
  * Even if registrations are disabled, sensei still processes the form, for security we don't want this.
  */
 function block_login_register_actions() {
@@ -369,13 +369,13 @@ function block_login_register_actions() {
 		remove_filter( 'init', array( Sensei()->frontend ?? false, 'sensei_handle_login_request' ), 10 ); // Yes, Sensei calls it a filter.
 	}
 
-	// We're also going to forcfully disable the POST'd fields, incase the above action names change.
+	// We're also going to forcefully disable the POST'd fields, incase the above action names change.
 
 	// By unsetting this, it forces Sensei not to be able to create a user.
-	unset( $_REQUEST['sensei_reg_password'], $_POST['sensei_reg_password'] );
+	unset( $_REQUEST['sensei_reg_password'], $_POST['sensei_reg_password'] ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
 	// By unsetting these, sensei can't process a login.
 	if ( 'sensei-login' == ( $_REQUEST['form'] ?? '' ) ) {
-		unset( $_REQUEST['_wpnonce'], $_REQUEST['log'], $_REQUEST['pwd'], $_POST['log'], $_POST['pwd'] );
+		unset( $_REQUEST['_wpnonce'], $_REQUEST['log'], $_REQUEST['pwd'], $_POST['log'], $_POST['pwd'] ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 	}
 }
