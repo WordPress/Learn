@@ -512,7 +512,7 @@ function get_student_course_options( $options ) {
 function inject_other_filters( $key ) {
 	global $wp_query;
 
-	$single_query_vars = array( 'wporg_lesson_level', 'wporg_learning_pathway', 'post_type' );
+	$single_query_vars = array( 'wporg_lesson_level', 'wporg_learning_pathway' );
 	foreach ( $single_query_vars as $single_query_var ) {
 		if ( ! isset( $wp_query->query[ $single_query_var ] ) ) {
 			continue;

@@ -251,6 +251,7 @@ function register_lesson_level() {
 		'show_in_nav_menus' => true,
 		'show_tagcloud'     => false,
 		'show_in_rest'      => true,
+		'rewrite'           => false,
 		'capabilities'      => array(
 			'assign_terms' => 'edit_lesson_plans',
 		),
@@ -386,6 +387,7 @@ function register_topic() {
 		'show_in_nav_menus' => true,
 		'show_tagcloud'     => false,
 		'show_in_rest'      => true,
+		'rewrite'           => false,
 		'capabilities'      => array(
 			'assign_terms' => 'edit_any_learn_content', // See \WPOrg_Learn\Capabilities\map_meta_caps.
 		),
