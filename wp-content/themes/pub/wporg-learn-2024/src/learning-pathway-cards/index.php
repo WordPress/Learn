@@ -80,8 +80,8 @@ function render_full_card( $learning_pathway ) {
 					<h2 class="wp-block-heading has-charcoal-1-color has-text-color has-link-color has-large-font-size" style="margin-top:0;line-height:1.3">%2$s</h2>
 					<!-- /wp:heading -->
 
-					<!-- wp:paragraph -->
-					<p>%3$s</p>
+					<!-- wp:paragraph {"className":"is-style-short-text"} -->
+					<p class="is-style-short-text">%3$s</p>
 					<!-- /wp:paragraph -->
 
 				</div>
