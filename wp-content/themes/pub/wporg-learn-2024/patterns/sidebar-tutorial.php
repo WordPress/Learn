@@ -7,11 +7,6 @@
  * @package wporg-learn-2024
  */
 
-use function WPOrg_Learn\Sensei\{get_my_courses_page_url};
-
-$completed_course = Sensei_Utils::user_completed_course( get_the_ID() );
-$current_post     = get_post();
-
 ?>
 
 <!-- wp:group {"align":"full","className":"wporg-learn-sidebar-meta-info","layout":{"type":"constrained"}} -->
