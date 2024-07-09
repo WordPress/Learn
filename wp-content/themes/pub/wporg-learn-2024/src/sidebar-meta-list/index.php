@@ -130,12 +130,12 @@ function render( $attributes, $content, $block ) {
 	} elseif ( 'lesson-plan' === $block->context['postType'] ) {
 		$lesson_plan_id = $block->context['postId'];
 
-		$duration = get_post_taxonomy_terms_links( $lesson_plan_id, 'duration' );
-		$audience = get_post_taxonomy_terms_links( $lesson_plan_id, 'audience' );
-		$level = get_post_taxonomy_terms_links( $lesson_plan_id, 'level' );
-		$instruction_type = get_post_taxonomy_terms_links( $lesson_plan_id, 'instruction_type' );
-		$wporg_wp_version = get_post_taxonomy_terms_links( $lesson_plan_id, 'wporg_wp_version' );
-		$last_updated = get_last_updated_time( $lesson_plan_id );
+		$duration         = get_post_taxonomy_terms( $lesson_plan_id, 'duration' );
+		$audience         = get_post_taxonomy_terms( $lesson_plan_id, 'audience' );
+		$level            = get_post_taxonomy_terms( $lesson_plan_id, 'level', true, 'lesson-plans' );
+		$instruction_type = get_post_taxonomy_terms( $lesson_plan_id, 'instruction_type' );
+		$wporg_wp_version = get_post_taxonomy_terms( $lesson_plan_id, 'wporg_wp_version' );
+		$last_updated     = get_last_updated_time( $lesson_plan_id );
 
 		$meta_fields = array(
 			array(
@@ -215,24 +215,31 @@ function get_last_updated_time( $post_id ) {
 }
 
 /**
- * Returns the taxonomy terms associated with a given post as HTML links.
+ * Returns taxonomy terms with or without links.
  *
- * @param int    $post_id Id of the post.
- * @param string $tax Taxonomy name.
+ * @param int    $post_id   Post ID.
+ * @param string $tax       Taxonomy.
+ * @param bool   $link      Whether to include term links.
+ * @param string $post_type Post type.
  *
- * @return array
+ * @return string Taxonomy terms with or without links.
  */
-function get_post_taxonomy_terms_links( $post_id, $tax ) {
-	$terms = get_the_terms( $post_id, $tax );
+function get_post_taxonomy_terms( $post_id, $tax, $link = false, $post_type = '' ) {
+	$terms     = get_the_terms( $post_id, $tax );
+	$query_var = get_taxonomy( $tax )->query_var;
 
 	$output = '';
 
 	if ( ! is_wp_error( $terms ) && ! empty( $terms ) ) {
 		foreach ( $terms as $term ) {
 			$term_name = $term->name;
-			$term_link = get_term_link( $term );
 
-			$output .= ( $output ? ', ' : '' ) . '<a href="' . $term_link . '">' . esc_html( $term_name ) . '</a>';
+			if ( $link ) {
+				$term_link = add_query_arg( array( $query_var => $term->slug ), home_url( "/$post_type/" ) );
+				$output   .= ( $output ? ', ' : '' ) . '<a href="' . $term_link . '">' . esc_html( $term_name ) . '</a>';
+			} else {
+				$output .= ( $output ? ', ' : '' ) . esc_html( $term_name );
+			}
 		}
 	}
 
