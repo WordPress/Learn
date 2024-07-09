@@ -11,15 +11,7 @@
 		.wporg-learn-learning-pathway-card-header-content {
 
 			@media screen and (max-width: 768px) {
-				padding-left: var(--wp--preset--spacing--20) !important;
 				min-height: unset;
-
-				.wp-block-heading {
-					font-size: var(--wp--preset--font-size--small) !important;
-					font-family: var(--wp--preset--font-family--inter) !important;
-					font-weight: 600 !important;
-					line-height: var(--wp--custom--body--small--typography--line-height) !important;
-				}
 			}
 		}
 
