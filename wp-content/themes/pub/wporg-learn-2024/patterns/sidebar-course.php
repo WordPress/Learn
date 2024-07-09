@@ -1,13 +1,16 @@
 <?php
 /**
- * Title: Sidebar Meta Info
- * Slug: wporg-learn-2024/sidebar-meta-info
+ * Title: Sidebar Course
+ * Slug: wporg-learn-2024/sidebar-course
  * Inserter: no
+ *
+ * @package wporg-learn-2024
  */
 
 use function WPOrg_Learn\Sensei\{get_my_courses_page_url};
 
 $completed_course = Sensei_Utils::user_completed_course( get_the_ID() );
+$current_post     = get_post();
 
 ?>
 
@@ -34,10 +37,10 @@ $completed_course = Sensei_Utils::user_completed_course( get_the_ID() );
 	</div>
 	<!-- /wp:sensei-lms/button-take-course -->
 
-	<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"},"className":""wporg-learn-sidebar-playground"} -->
+	<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
 	<div class="wp-block-buttons">
 		<!-- wp:button {"textAlign":"center","width":100,"style":{"border":{"radius":"2px"},"spacing":{"padding":{"left":"13px","right":"13px","top":"16px","bottom":"16px"}},"typography":{"lineHeight":0,"fontStyle":"normal","fontWeight":"400"}},"className":"aligncenter is-style-outline","fontSize":"normal","fontFamily":"inter"} -->
-		<div class="wp-block-button has-custom-width wp-block-button__width-100 has-custom-font-size aligncenter is-style-outline has-inter-font-family has-normal-font-size wporg-learn-sidebar-playground" style="font-style:normal;font-weight:400;line-height:0">
+		<div class="wp-block-button has-custom-width wp-block-button__width-100 has-custom-font-size aligncenter is-style-outline has-inter-font-family has-normal-font-size" style="font-style:normal;font-weight:400;line-height:0">
 			<a class="wp-block-button__link has-text-align-center wp-element-button" href="https://wordpress.org/playground/demo/?step=playground&amp;theme=twentytwentythree" style="border-radius:2px;padding-top:16px;padding-right:13px;padding-bottom:16px;padding-left:13px" target="_blank" rel="noreferrer noopener">
 				<?php esc_html_e( 'Practice on a private demo site', 'wporg-learn' ); ?>
 			</a>
@@ -46,31 +49,7 @@ $completed_course = Sensei_Utils::user_completed_course( get_the_ID() );
 	</div>
 	<!-- /wp:buttons -->
 
-	<!-- wp:wporg-learn/sensei-meta-list {"type":"course","fontSize":"normal"} /-->
-
-	<!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"400","lineHeight":"34px"}},"fontSize":"large","fontFamily":"inter"} -->
-	<p class="has-inter-font-family has-large-font-size" id="suggestions" style="font-style:normal;font-weight:400;line-height:34px">
-		<?php esc_html_e( 'Suggestions', 'wporg-learn' ); ?>
-	</p>
-	<!-- /wp:paragraph -->
-
-	<!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"400,"lineHeight":"26px"},"spacing":{"margin":{"bottom":"40px"}}},"fontSize":"normal","fontFamily":"inter"} -->
-	<p class="has-inter-font-family has-normal-font-size" style="margin-bottom:40px;font-style:normal;font-weight:400;line-height:26px">
-		<?php esc_html_e( 'Found a typo, grammar error or outdated screenshot? ', 'wporg-learn' ); ?><a href="https://learn.wordpress.org/report-content-feedback/"><?php esc_html_e( 'Contact us', 'wporg-learn' ); ?></a>
-	</p>
-	<!-- /wp:paragraph -->
-
-	<!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"400","lineHeight":"34px"}},"fontSize":"large","fontFamily":"inter"} -->
-	<p class="has-inter-font-family has-large-font-size" id="suggestions" style="font-style:normal;font-weight:400;line-height:34px">
-		<?php esc_html_e( 'License', 'wporg-learn' ); ?>
-	</p>
-	<!-- /wp:paragraph -->
-
-	<!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"400,"lineHeight":"26px"}},"fontSize":"normal","fontFamily":"inter"} -->
-	<p class="has-inter-font-family has-normal-font-size" style="font-style:normal;font-weight:400;line-height:26px">
-		<?php esc_html_e( 'This work is licensed under a ', 'wporg-learn' ); ?><a href="http://creativecommons.org/licenses/by-sa/4.0/"><?php esc_html_e( 'Creative Commons Attribution-ShareAlike 4.0 International License', 'wporg-learn' ); ?></a>.
-	</p>
-	<!-- /wp:paragraph -->
+	<!-- wp:pattern {"slug":"wporg-learn-2024/sidebar-details"} /-->
 
 </div>
 <!-- /wp:group -->

@@ -1,12 +1,12 @@
 <?php
 /**
- * Block Name: Sensei Meta List
+ * Block Name: Sidebar Meta List
  * Description: Display the site meta data of a learn or course as a list.
  *
  * @package wporg
  */
 
-namespace WordPressdotorg\Theme\Learn_2024\Sensei_Meta_List;
+namespace WordPressdotorg\Theme\Learn_2024\Sidebar_Meta_List;
 
 use Sensei_Utils;
 use Sensei_Reports_Overview_Service_Courses;
@@ -24,7 +24,7 @@ add_action( 'init', __NAMESPACE__ . '\init' );
  */
 function init() {
 	register_block_type(
-		dirname( dirname( __DIR__ ) ) . '/build/sensei-meta-list',
+		dirname( dirname( __DIR__ ) ) . '/build/sidebar-meta-list',
 		array(
 			'render_callback' => __NAMESPACE__ . '\render',
 		)
@@ -51,7 +51,7 @@ function render( $attributes, $content, $block ) {
 		$course_service = new Sensei_Reports_Overview_Service_Courses();
 		$course_id = $block->context['postId'];
 
-		// Get the total number of learners enrolled in the course
+		// Get the total number of learners enrolled in the course.
 		$learners = Sensei_Utils::sensei_check_for_activity(
 			array(
 				'type'     => 'sensei_course_status',
@@ -60,16 +60,16 @@ function render( $attributes, $content, $block ) {
 			)
 		);
 
-		// Get the average grade across all learners
+		// Get the average grade across all learners.
 		$average_grade = round( $course_service->get_courses_average_grade( array( $course_id ) ), 0 );
 
-		// Get the average number of days it takes to complete a course
+		// Get the average number of days it takes to complete a course.
 		$average_days = $course_service->get_average_days_to_completion( array( $course_id ) );
 
-		// Get the last updated time
+		// Get the last updated time.
 		$last_updated = get_last_updated_time( $course_id );
 
-		// Set up array of data to be used
+		// Set up array of data to be used.
 		$meta_fields = array(
 			array(
 				'label' => __( 'Enrolled learners', 'wporg-learn' ),
@@ -92,7 +92,7 @@ function render( $attributes, $content, $block ) {
 				'key'   => 'last-updated',
 			),
 		);
-	} else if ( 'wporg_workshop' === $block->context['postType'] ) {
+	} elseif ( 'wporg_workshop' === $block->context['postType'] ) {
 		$workshop = get_post( $block->context['postId'] );
 
 		if ( ! $workshop ) {
@@ -127,6 +127,48 @@ function render( $attributes, $content, $block ) {
 				'key'   => 'subtitles',
 			);
 		}
+	} elseif ( 'lesson-plan' === $block->context['postType'] ) {
+		$lesson_plan_id = $block->context['postId'];
+
+		$duration         = get_post_taxonomy_terms( $lesson_plan_id, 'duration' );
+		$audience         = get_post_taxonomy_terms( $lesson_plan_id, 'audience' );
+		$level            = get_post_taxonomy_terms( $lesson_plan_id, 'level', true, 'lesson-plans' );
+		$instruction_type = get_post_taxonomy_terms( $lesson_plan_id, 'instruction_type' );
+		$wporg_wp_version = get_post_taxonomy_terms( $lesson_plan_id, 'wporg_wp_version' );
+		$last_updated     = get_last_updated_time( $lesson_plan_id );
+
+		$meta_fields = array(
+			array(
+				'label' => __( 'Duration', 'wporg-learn' ),
+				'value' => $duration,
+				'key'   => 'duration',
+			),
+			array(
+				'label' => __( 'Audience', 'wporg-learn' ),
+				'value' => $audience,
+				'key'   => 'audience',
+			),
+			array(
+				'label' => __( 'Level', 'wporg-learn' ),
+				'value' => $level,
+				'key'   => 'level',
+			),
+			array(
+				'label' => __( 'Type', 'wporg-learn' ),
+				'value' => $instruction_type,
+				'key'   => 'type',
+			),
+			array(
+				'label' => __( 'WordPress Version', 'wporg-learn' ),
+				'value' => $wporg_wp_version,
+				'key'   => 'type',
+			),
+			array(
+				'label' => __( 'Last updated', 'wporg-learn' ),
+				'value' => $last_updated,
+				'key'   => 'last-updated',
+			),
+		);
 	}
 
 	foreach ( $meta_fields as $field ) {
@@ -150,24 +192,56 @@ function render( $attributes, $content, $block ) {
 }
 
 /**
- * Get the last updated time for a course.
+ * Get the last updated time for a post.
  *
- * @param int $course_id The ID of the course.
+ * @param int $post_id The ID of a post.
  *
  * @return string The last updated time.
  */
-function get_last_updated_time( $course_id ) {
-	$last_updated_time = get_post_modified_time( 'U', false, $course_id );
+function get_last_updated_time( $post_id ) {
+	$last_updated_time = get_post_modified_time( 'U', false, $post_id );
 	$current_time = current_time( 'timestamp' );
 
 	$time_diff = human_time_diff( $last_updated_time, $current_time );
 
-	// If the time difference is greater than 30 days, display the specific date
+	// If the time difference is greater than 30 days, display the specific date.
 	if ( $current_time - $last_updated_time > 30 * DAY_IN_SECONDS ) {
-		$last_updated = get_post_modified_time( 'M jS, Y', false, $course_id );
+		$last_updated = get_post_modified_time( 'M jS, Y', false, $post_id );
 	} else {
 		$last_updated = sprintf( '%s ago', $time_diff );
 	}
 
 	return $last_updated;
+}
+
+/**
+ * Returns taxonomy terms with or without links.
+ *
+ * @param int    $post_id   Post ID.
+ * @param string $tax       Taxonomy.
+ * @param bool   $link      Whether to include term links.
+ * @param string $post_type Post type.
+ *
+ * @return string Taxonomy terms with or without links.
+ */
+function get_post_taxonomy_terms( $post_id, $tax, $link = false, $post_type = '' ) {
+	$terms     = get_the_terms( $post_id, $tax );
+	$query_var = get_taxonomy( $tax )->query_var;
+
+	$output = '';
+
+	if ( ! is_wp_error( $terms ) && ! empty( $terms ) ) {
+		foreach ( $terms as $term ) {
+			$term_name = $term->name;
+
+			if ( $link ) {
+				$term_link = add_query_arg( array( $query_var => $term->slug ), home_url( "/$post_type/" ) );
+				$output   .= ( $output ? ', ' : '' ) . '<a href="' . $term_link . '">' . esc_html( $term_name ) . '</a>';
+			} else {
+				$output .= ( $output ? ', ' : '' ) . esc_html( $term_name );
+			}
+		}
+	}
+
+	return $output;
 }
