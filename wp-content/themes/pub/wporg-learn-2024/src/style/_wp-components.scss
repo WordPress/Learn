@@ -9,4 +9,9 @@
 
 .components-modal__header {
 	padding: var(--wp--preset--spacing--20) var(--wp--preset--spacing--30) 0;
+
+	.components-modal__header-heading {
+		font-family: var(--wp--preset--font-family--inter);
+		line-height: var(--wp--custom--heading--level-1--typography--line-height);
+	}
 }
