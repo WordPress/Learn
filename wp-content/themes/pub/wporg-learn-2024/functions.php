@@ -143,8 +143,9 @@ function add_site_navigation_menus( $menus ) {
 			'url'   => '/online-workshops/',
 		),
 		array(
-			'label' => __( 'My courses', 'wporg-learn' ),
-			'url'   => get_my_courses_page_url(),
+			'label'     => __( 'My courses', 'wporg-learn' ),
+			'url'       => get_my_courses_page_url(),
+			'className' => 'has-separator',
 		),
 	);
 
