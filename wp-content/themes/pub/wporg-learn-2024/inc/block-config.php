@@ -505,14 +505,14 @@ function get_student_course_options( $options ) {
  *
  * Enables combining filters by building up the correct URL on submit,
  * for example courses using a topic and a level:
- *   ?wporg_workshop_topic[]=extending-wordpress&wporg_lesson_level[]=beginner`
+ *   ?wporg_workshop_topic[]=extending-wordpress&wporg_lesson_level=beginner`
  *
  * @param string $key The key for the current filter.
  */
 function inject_other_filters( $key ) {
 	global $wp_query;
 
-	$single_query_vars = array( 'wporg_lesson_level', 'wporg_learning_pathway' );
+	$single_query_vars = array( 'wporg_lesson_level', 'wporg_learning_pathway', 'post_type' );
 	foreach ( $single_query_vars as $single_query_var ) {
 		if ( ! isset( $wp_query->query[ $single_query_var ] ) ) {
 			continue;
