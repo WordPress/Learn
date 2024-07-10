@@ -173,7 +173,7 @@ function render( $attributes, $content, $block ) {
 
 	foreach ( $meta_fields as $field ) {
 		$list_items[] = sprintf(
-			'<tr class="is-meta-%1$s">
+			'<tr class="is-meta-%1$s is-style-short-text">
 				<th scope="row">%2$s</th>
 				<td>%3$s</td>
 			</tr>',
