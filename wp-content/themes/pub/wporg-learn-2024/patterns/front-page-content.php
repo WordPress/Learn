@@ -113,24 +113,30 @@
 
 <!-- wp:wporg-learn/upcoming-online-workshops {"style":{"spacing":{"margin":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|50"}}}} /-->
 
-<!-- wp:paragraph {"style":{"typography":{"lineHeight":"1.3","fontSize":"30px"}},"fontFamily":"eb-garamond"} -->
-<p class="has-eb-garamond-font-family" style="font-size:30px;line-height:1.3"><?php esc_html_e( 'Behind every course, lesson, and live workshop is a passionate collective of professionals working to bring the highest-quality educational content directly to you.', 'wporg-learn' ); ?></p>
-<!-- /wp:paragraph -->
+<!-- wp:group {"layout":{"type":"constrained","justifyContent":"left","contentSize":"750px"}} -->
+<div class="wp-block-group">
+	
+	<!-- wp:heading {"style":{"typography":{"fontStyle":"normal","fontWeight":"400"},"spacing":{"margin":{"bottom":"var:preset|spacing|20"}}},"fontSize":"heading-1","fontFamily":"eb-garamond"} -->
+	<h2 class="wp-block-heading has-eb-garamond-font-family has-heading-1-font-size" style="margin-bottom:var(--wp--preset--spacing--20);font-style:normal;font-weight:400"><?php esc_html_e( 'Share your WordPress expertise', 'wporg-learn' ); ?></h2>
+	<!-- /wp:heading -->
 
-<!-- wp:paragraph {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|40"}}}} -->
-<p style="margin-bottom:var(--wp--preset--spacing--40)"><?php esc_html_e( 'If you love WordPress, have knowledge to share, and want to contribute to a thriving open source community—get involved with the Training team.', 'wporg-learn' ); ?></p>
-<!-- /wp:paragraph -->
+	<!-- wp:paragraph {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|40"}}}} -->
+	<p style="margin-bottom:var(--wp--preset--spacing--40)"><?php esc_html_e( 'Behind every course, lesson, and live workshop is a passionate collective of professionals working to offer the highest-quality educational content. If you love WordPress, have knowledge to share, and want to contribute to a thriving open source community—get involved with the Training team.', 'wporg-learn' ); ?></p>
+	<!-- /wp:paragraph -->
 
-<!-- wp:buttons -->
-<div class="wp-block-buttons">
+	<!-- wp:buttons -->
+	<div class="wp-block-buttons">
+		
+		<!-- wp:button -->
+		<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/contribute"><?php esc_html_e( 'Get involved', 'wporg-learn' ); ?></a></div>
+		<!-- /wp:button -->
 
-	<!-- wp:button -->
-	<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/contribute"><?php esc_html_e( 'Get involved', 'wporg-learn' ); ?></a></div>
-	<!-- /wp:button -->
+		<!-- wp:button {"className":"is-style-outline"} -->
+		<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="https://make.wordpress.org/training/handbook/"><?php esc_html_e( 'Read the Training team handbook', 'wporg-learn' ); ?></a></div>
+		<!-- /wp:button -->
 
-	<!-- wp:button {"className":"is-style-outline"} -->
-	<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="https://make.wordpress.org/training/handbook/"><?php esc_html_e( 'Read the Training team handbook', 'wporg-learn' ); ?></a></div>
-	<!-- /wp:button -->
+	</div>
+	<!-- /wp:buttons -->
 
 </div>
-<!-- /wp:buttons -->
+<!-- /wp:group -->
