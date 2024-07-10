@@ -71,20 +71,3 @@
 
 </div>
 <!-- /wp:columns -->
-
-<!-- wp:wporg/notice -->
-<div class="wp-block-wporg-notice is-tip-notice">
-	<div class="wp-block-wporg-notice__icon"></div>
-	<div class="wp-block-wporg-notice__content">
-		<p>
-			<?php echo wp_kses_post(
-				sprintf(
-					/* translators: %s: WordPress Playground link */
-					__( 'In order to enhance your learning experience, <a href="%s" target="_blank" rel="noreferrer noopener">click here to open a private and secure WordPress site that only you can access</a>', 'wporg-learn' ),
-					esc_url( 'https://developer.wordpress.org/playground/demo/?step=playground&amp;theme=twentytwentythree' ),
-				)
-			); ?>
-		</p>
-	</div>
-</div>
-<!-- /wp:wporg/notice -->
