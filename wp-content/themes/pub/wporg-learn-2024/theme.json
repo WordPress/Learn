@@ -32,6 +32,19 @@
 					"radius": "2px"
 				}
 			},
+			"button": {
+				"typography": {
+					"lineHeight": 1
+				},
+				"small": {
+					"spacing": {
+						"padding": {
+							"top": "12px",
+							"bottom": "12px"
+						}
+					}
+				}
+			},
 			"color": {
 				"border": "var(--wp--preset--color--light-grey-1)",
 				"green-50": "#008A20",
