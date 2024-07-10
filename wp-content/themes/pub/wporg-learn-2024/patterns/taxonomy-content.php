@@ -24,7 +24,7 @@ if ( isset( $wp_query->query_vars['wporg_learning_pathway'] ) ) {
 
 	<?php if ( ! isset( $learning_pathway_slug ) ) { ?>
 
-		<!-- wp:group {"style":{"spacing":{"margin":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|40"}}},"layout":{"type":"constrained","justifyContent":"left","contentSize":"730px"}} -->
+		<!-- wp:group {"style":{"spacing":{"margin":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|40"}}},"layout":{"type":"constrained","justifyContent":"left","contentSize":"750px"}} -->
 		<div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--50);margin-bottom:var(--wp--preset--spacing--40)">
 
 			<!-- wp:query-title {"type":"archive","showPrefix":true} /-->

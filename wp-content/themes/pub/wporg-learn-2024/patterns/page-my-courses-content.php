@@ -7,7 +7,7 @@
 
 ?>
 
-<!-- wp:group {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|20"}}},"layout":{"type":"constrained","justifyContent":"left","contentSize":"730px"}} -->
+<!-- wp:group {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|20"}}},"layout":{"type":"constrained","justifyContent":"left","contentSize":"750px"}} -->
 <div class="wp-block-group" style="margin-bottom:var(--wp--preset--spacing--20)">
 
 	<!-- wp:heading {"level":1} -->
