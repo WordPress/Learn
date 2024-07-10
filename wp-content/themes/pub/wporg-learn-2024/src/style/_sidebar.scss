@@ -1,27 +1,18 @@
 .wporg-learn-sidebar {
+	--wp--preset--spacing--40: 40px;
+
 	min-width: 280px;
+
+	.sensei-block-wrapper {
+		margin-top: unset;
+		margin-bottom: unset;
+	}
 }
 
 .wporg-learn-sidebar-meta-info {
-	> .wp-block-sensei-lms-button-take-course {
-		margin-bottom: var(--wp--preset--spacing--20);
-
-		button {
-			line-height: 1;
-		}
-	}
-
-	.wp-block-buttons  a {
-		line-height: 1;
-	}
-
 	.wporg-learn-sidebar-all-courses {
 		a {
 			text-decoration: none;
 		}
-	}
-
-	.wporg-learn-sidebar-course-progress {
-		margin-bottom: unset;
 	}
 }
