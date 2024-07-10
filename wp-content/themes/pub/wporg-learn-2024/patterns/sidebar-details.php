@@ -11,11 +11,11 @@
 
 <!-- wp:wporg-learn/sidebar-meta-list {"type":"course","fontSize":"normal"} /-->
 
-<!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"400","lineHeight":"34px"}},"fontSize":"large","fontFamily":"inter"} -->
-<p class="has-inter-font-family has-large-font-size" id="suggestions" style="font-style:normal;font-weight:400;line-height:34px">
+<!-- wp:heading {"level":2,"fontSize":"large"} -->
+<h2 class="wp-block-heading has-large-font-size">
 	<?php esc_html_e( 'Suggestions', 'wporg-learn' ); ?>
-</p>
-<!-- /wp:paragraph -->
+</h2>
+<!-- /wp:heading -->
 
 <!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"400,"lineHeight":"26px"},"spacing":{"margin":{"bottom":"40px"}}},"fontSize":"normal","fontFamily":"inter"} -->
 <p class="has-inter-font-family has-normal-font-size" style="margin-bottom:40px;font-style:normal;font-weight:400;line-height:26px">
@@ -23,11 +23,11 @@
 </p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"400","lineHeight":"34px"}},"fontSize":"large","fontFamily":"inter"} -->
-<p class="has-inter-font-family has-large-font-size" id="suggestions" style="font-style:normal;font-weight:400;line-height:34px">
+<!-- wp:heading {"level":2,"fontSize":"large"} -->
+<h2 class="wp-block-heading has-large-font-size">
 	<?php esc_html_e( 'License', 'wporg-learn' ); ?>
-</p>
-<!-- /wp:paragraph -->
+</h2>
+<!-- /wp:heading -->
 
 <!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"400,"lineHeight":"26px"}},"fontSize":"normal","fontFamily":"inter"} -->
 <p class="has-inter-font-family has-normal-font-size" style="font-style:normal;font-weight:400;line-height:26px">
