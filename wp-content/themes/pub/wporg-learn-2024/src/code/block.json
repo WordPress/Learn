@@ -1,0 +1,5 @@
+{
+	"name": "wporg/code",
+	"style": "file:./style-view.css",
+	"viewScript": "file:./view.js"
+}
