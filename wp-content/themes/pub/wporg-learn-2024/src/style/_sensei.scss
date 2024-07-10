@@ -267,6 +267,20 @@ body.sensei {
 			}
 		}
 	}
+
+	@media (min-width: 782px) {
+		.wp-block-sensei-lms-course-list--is-list-view {
+			.wp-block-sensei-lms-button-take-course,
+			.wp-block-sensei-lms-button-continue-course,
+			.wp-block-sensei-lms-button-view-results {
+				text-align: unset;
+
+				button {
+					float: unset;
+				}
+			}
+		}
+	}
 }
 
 .course:not(body) {

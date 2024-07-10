@@ -29,13 +29,27 @@ $current_post     = get_post();
 	<!-- /wp:paragraph -->
 	<?php endif; ?>
 
-	<!-- wp:sensei-lms/button-take-course {"align":"full","borderRadius":2,"className":"is-style-default"} -->
-	<div class="wp-block-sensei-lms-button-take-course is-style-default wp-block-sensei-button wp-block-button has-text-align-full">
-		<button class="wp-block-button__link" style="border-radius:2px">
-			<?php esc_html_e( 'Take this Course', 'wporg-learn' ); ?>
-		</button>
-	</div>
-	<!-- /wp:sensei-lms/button-take-course -->
+	<!-- wp:sensei-lms/course-actions -->
+
+		<!-- wp:sensei-lms/button-take-course {"align":"full"} -->
+		<div class="wp-block-sensei-lms-button-take-course is-style-default wp-block-sensei-button wp-block-button has-text-align-full">
+			<button class="wp-block-button__link"><?php esc_html_e( 'Take course', 'wporg-learn' ); ?></button>
+		</div>
+		<!-- /wp:sensei-lms/button-take-course -->
+
+		<!-- wp:sensei-lms/button-continue-course {"align":"full"} -->
+		<div class="wp-block-sensei-lms-button-continue-course is-style-default wp-block-sensei-button wp-block-button has-text-align-full">
+			<a class="wp-block-button__link"><?php esc_html_e( 'Continue', 'wporg-learn' ); ?></a>
+		</div>
+		<!-- /wp:sensei-lms/button-continue-course -->
+
+		<!-- wp:sensei-lms/button-view-results {"align":"full"} -->
+		<div class="wp-block-sensei-lms-button-view-results is-style-default wp-block-sensei-button wp-block-button has-text-align-full">
+			<a class="wp-block-button__link"><?php esc_html_e( 'View results', 'wporg-learn' ); ?></a>
+		</div>
+		<!-- /wp:sensei-lms/button-view-results -->
+		
+	<!-- /wp:sensei-lms/course-actions -->
 
 	<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
 	<div class="wp-block-buttons">
