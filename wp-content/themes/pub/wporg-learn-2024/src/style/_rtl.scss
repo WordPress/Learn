@@ -1,0 +1,44 @@
+/**
+ * Styles for RTL sites.
+ * Note, these styles are set here using the LTR layout keywords, so that when
+ * `rtlcss` runs it flips the right/left to the correct values.
+ */
+
+body.rtl {
+
+	// Override the inline styles on Learning Pathway Card content.
+	.wporg-learn-learning-pathway-card-header-content {
+		padding-right: 0 !important;
+		padding-left: 30px !important;
+	}
+
+	// Override the alignment on Sensei buttons.
+	.wp-block-sensei-lms-button-take-course.has-text-align-left {
+		text-align: unset;
+	}
+
+	// Flip the chevrons on Sensei lesson listings, "back to lesson".
+	.wp-block-sensei-lms-course-outline-lesson__chevron,
+	.sensei-lms-quiz-back-to-lesson svg {
+		transform: rotate(180deg);
+	}
+
+	// Override the space between quiz inputs and question labels.
+	&.quiz form #sensei-quiz-list li ul li input {
+		margin: 0 10px 0 0;
+	}
+
+	// Fix the border on the Sensei lesson page.
+	.wp-block-sensei-lms-course-theme-lesson-module {
+		border-left: 2px solid;
+		border-right: 0;
+		padding-left: 0.5em;
+		padding-right: 0;
+	}
+
+	// Fix the spacing of the locked lesson icon.
+	.sensei-course-theme-locked-lesson-notice__icon {
+		padding-right: 14px;
+		padding-left: 0;
+	}
+}
