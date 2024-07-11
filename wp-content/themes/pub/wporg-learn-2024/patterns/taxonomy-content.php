@@ -63,9 +63,11 @@ if ( isset( $wp_query->query_vars['wporg_learning_pathway'] ) ) {
 
 		<!-- wp:query-no-results -->
 
-			<!-- wp:paragraph {"placeholder":"Add text or blocks that will display when a query returns no results."} -->
-			<p><?php isset( $learning_pathway_slug ) ? esc_html_e( 'No pathways found.', 'wporg-learn' ) : esc_html_e( 'Nothing found.', 'wporg-learn' ); ?></p>
-			<!-- /wp:paragraph -->
+			<?php if ( isset( $learning_pathway_slug ) ) { ?>
+				<!-- wp:pattern {"slug":"wporg-learn-2024/query-no-pathways"} /-->
+			<?php } else { ?>
+				<!-- wp:pattern {"slug":"wporg-learn-2024/query-no-results"} /-->
+			<?php } ?>
 
 		<!-- /wp:query-no-results -->
 
