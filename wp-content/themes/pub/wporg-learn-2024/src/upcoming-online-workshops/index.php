@@ -34,11 +34,7 @@ function render( $attributes, $content, $block ) {
 	$upcoming_online_workshops = get_discussion_events();
 
 	if ( empty( $upcoming_online_workshops ) || is_wp_error( $upcoming_online_workshops ) ) {
-		$content = '<!-- wp:group {"layout":{"type":"constrained"}} -->
-		<div class="wp-block-group"><!-- wp:paragraph -->
-		<p>' . __( 'No upcoming online workshops found.', 'wporg-learn' ) . '</p>
-		<!-- /wp:paragraph --></div>
-		<!-- /wp:group -->';
+		$content = '<!-- wp:pattern {"slug":"wporg-learn-2024/query-no-online-workshops"} /-->';
 	} else {
 		$content = '<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|50"}},"className":"is-style-cards-grid","layout":{"type":"grid","columnCount":null,"minimumColumnWidth":"330px"}} --><div class="wp-block-group is-style-cards-grid">';
 

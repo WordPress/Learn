@@ -38,7 +38,7 @@ function render( $attributes, $content, $block ) {
 	$is_mini           = isset( $attributes['isMini'] ) && $attributes['isMini'];
 
 	if ( empty( $learning_pathways ) || is_wp_error( $learning_pathways ) ) {
-		$content = __( 'No learning pathways found.', 'wporg-learn' );
+		$content = '<!-- wp:pattern {"slug":"wporg-learn-2024/query-no-pathways"} /-->';
 	} else {
 		$content = '<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|50"}},"className":"is-style-cards-grid","layout":{"type":"grid","columnCount":null,"minimumColumnWidth":"350px"}} --><div class="wp-block-group is-style-cards-grid">';
 

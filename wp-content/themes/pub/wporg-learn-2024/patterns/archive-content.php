@@ -42,9 +42,7 @@
 
 	<!-- wp:query-no-results -->
 
-		<!-- wp:paragraph {"placeholder":"Add text or blocks that will display when a query returns no results."} -->
-		<p><?php esc_html_e( 'Nothing found.', 'wporg-learn' ); ?></p>
-		<!-- /wp:paragraph -->
+		<!-- wp:pattern {"slug":"wporg-learn-2024/query-no-results"} /-->
 
 	<!-- /wp:query-no-results -->
 
