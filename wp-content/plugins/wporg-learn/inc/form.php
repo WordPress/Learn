@@ -50,7 +50,7 @@ function get_workshop_application_field_schema() {
 			),
 			'online-presence'         => array(
 				'input_filters' => FILTER_SANITIZE_STRING,
-				'label'         => __( 'Where can we find you online? Please share links to your website(s) and as many social media accounts as applicable, including but not limited to Twitter, Linkedin, Facebook, Instagram, etc.', 'wporg-learn' ),
+				'label'         => __( 'Where can we find you online? Please share links to your website(s) and as many social media accounts as applicable, including but not limited to Twitter, LinkedIn, Facebook, Instagram, etc.', 'wporg-learn' ),
 				'type'          => 'string',
 				'required'      => true,
 				'default'       => '',
