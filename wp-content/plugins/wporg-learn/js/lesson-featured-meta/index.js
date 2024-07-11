@@ -19,7 +19,7 @@ const LessonFeaturedMeta = () => {
 		<PluginDocumentSettingPanel title={ __( 'Featured Lesson', 'wporg-learn' ) }>
 			<PanelRow>
 				<CheckboxControl
-					label={ __( 'Feature this lesson', 'wporg-learn' ) }
+					label={ __( 'Feature this lesson on the front page', 'wporg-learn' ) }
 					checked={ lessonFeatured }
 					onChange={ ( newLessonFeatured ) => {
 						setLessonFeatured( newLessonFeatured );
