@@ -159,6 +159,32 @@ function disable_caching( $headers ) {
 }
 
 /**
+ * Modify post type archive queries to prioritize content in the user's locale.
+ *
+ * @param array    $clauses
+ * @param WP_Query $query
+ *
+ * @return array
+ */
+function wporg_archive_query_prioritize_locale( $clauses, $query ) {
+	if ( is_admin() || is_feed() ) {
+		return $clauses;
+	}
+
+	$locale = get_locale();
+
+	if ( ! $locale ) {
+		return $clauses;
+	}
+
+	if ( $query->is_post_type_archive( 'wporg_workshop' ) ) {
+		return wporg_tutorials_query_prioritize_locale( $clauses, $locale );
+	}
+
+	return $clauses;
+}
+
+/**
  * Modify the workshop post type archive query to prioritize workshops in the user's locale.
  *
  * In order to show all workshops, but with the ones that are presented/captioned in the user's locale shown first, we
@@ -185,19 +211,14 @@ function disable_caching( $headers ) {
  * GROUP BY wp_posts.ID
  * ORDER BY has_language DESC, has_caption DESC, wp_posts.post_date DESC
  *
- * @param array    $clauses
- * @param WP_Query $query
+ * @param array  $clauses
+ * @param string $locale
  *
  * @return array
  */
-function wporg_archive_query_prioritize_locale( $clauses, $query ) {
-	if ( ! $query->is_post_type_archive( 'wporg_workshop' ) || is_admin() || is_feed() ) {
-		return $clauses;
-	}
-
+function wporg_tutorials_query_prioritize_locale( $clauses, $locale ) {
 	global $wpdb;
 
-	$locale      = get_locale();
 	$locale_root = preg_replace( '#^([a-z]{2,3}_?)[a-zA-Z_-]*#', '$1', $locale, -1, $count );
 
 	if ( $count ) {
