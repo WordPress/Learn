@@ -181,6 +181,10 @@ function wporg_archive_query_prioritize_locale( $clauses, $query ) {
 		return wporg_tutorials_query_prioritize_locale( $clauses, $locale );
 	}
 
+	if ( $query->is_post_type_archive( 'lesson' ) ) {
+		return wporg_lessons_query_prioritize_locale( $clauses, $locale );
+	}
+
 	return $clauses;
 }
 
@@ -239,6 +243,66 @@ function wporg_tutorials_query_prioritize_locale( $clauses, $locale ) {
 		$clauses['join']   .= " INNER JOIN {$wpdb->postmeta} pmeta ON ( {$wpdb->posts}.ID = pmeta.post_id )";
 		// This orderby clause ensures that the workshops are sorted by the values in the calculated columns first.
 		$clauses['orderby'] = 'has_language DESC, has_caption DESC, ' . $clauses['orderby'];
+
+		if ( false === strpos( $clauses['groupby'], "{$wpdb->posts}.ID" ) ) {
+			$clauses['groupby'] = "{$wpdb->posts}.ID";
+		}
+	}
+
+	return $clauses;
+}
+
+/**
+ * Modify the workshop post type archive query to prioritize workshops in the user's locale.
+ *
+ * In order to show all workshops, but with the ones that are presented in the user's locale shown first, we
+ * need to modify the posts query in ways that can't be done through the WP_Query or WP_Meta_Query APIs. Instead, here,
+ * we're filtering the individual clauses of the query to add the pieces we need.
+ *
+ * Examples, slightly truncated for simplicity:
+ *
+ * Before:
+ * SELECT SQL_CALC_FOUND_ROWS wp_posts.ID
+ * FROM wp_posts
+ * WHERE 1=1
+ * AND wp_posts.post_type = 'lesson'
+ * ORDER BY wp_posts.post_date DESC
+ *
+ * After:
+ * SELECT SQL_CALC_FOUND_ROWS wp_posts.*,
+ *   MAX( IF( pmeta.meta_key = 'language' AND pmeta.meta_value LIKE 'art_%', 1, 0 ) ) AS has_language,
+ * FROM wp_posts
+ * INNER JOIN wp_postmeta pmeta ON ( wp_posts.ID = pmeta.post_id )
+ * WHERE 1=1
+ * AND wp_posts.post_type = 'lesson'
+ * GROUP BY wp_posts.ID
+ * ORDER BY has_language DESC, wp_posts.post_date DESC
+ *
+ * @param array  $clauses
+ * @param string $locale
+ *
+ * @return array
+ */
+function wporg_lessons_query_prioritize_locale( $clauses, $locale ) {
+	global $wpdb;
+
+	$locale_root = preg_replace( '#^([a-z]{2,3}_?)[a-zA-Z_-]*#', '$1', $locale, -1, $count );
+
+	if ( $count ) {
+		/**
+		 * $clauses['fields'] contains the SELECT part of the query.
+		 *
+		 * The extra fields clauses are calculated fields that will contain a `1` if the lesson post row has a postmeta
+		 * value that matches the locale root. The MAX() and the groupby clause below ensure that all the rows for a
+		 * given lesson are consolidated into one with the highest value in the calculated column. Without the
+		 * grouping, there would be a separate row for each postmeta value for each lesson post.
+		 */
+		$clauses['fields'] .= ",
+			MAX( IF( pmeta.meta_key = 'language' AND pmeta.meta_value LIKE '{$locale_root}%', 1, 0 ) ) AS has_language
+		";
+		$clauses['join']   .= " INNER JOIN {$wpdb->postmeta} pmeta ON ( {$wpdb->posts}.ID = pmeta.post_id )";
+		// This orderby clause ensures that the lessons are sorted by the values in the calculated columns first.
+		$clauses['orderby'] = 'has_language DESC, ' . $clauses['orderby'];
 
 		if ( false === strpos( $clauses['groupby'], "{$wpdb->posts}.ID" ) ) {
 			$clauses['groupby'] = "{$wpdb->posts}.ID";
