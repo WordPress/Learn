@@ -293,20 +293,25 @@ function wporg_lessons_query_prioritize_locale( $clauses, $locale ) {
 		 * $clauses['fields'] contains the SELECT part of the query.
 		 *
 		 * The extra fields clauses are calculated fields that will contain a `1` if the lesson post row has a postmeta
-		 * value that matches the locale root. The MAX() and the groupby clause below ensure that all the rows for a
-		 * given lesson are consolidated into one with the highest value in the calculated column. Without the
-		 * grouping, there would be a separate row for each postmeta value for each lesson post.
+		 * value that matches the locale root, or if the locale is english and the postmeta value is empty or null.
+		 * The MAX() and the groupby clause below ensure that all the rows for a given lesson are consolidated into
+		 * one, with the highest value in the calculated column.
+		 * Without the grouping, there would be a separate row for each postmeta value for each lesson post.
 		 */
-		$clauses['fields'] .= ",
-			MAX( IF( pmeta.meta_key = 'language' AND pmeta.meta_value LIKE '{$locale_root}%', 1, 0 ) ) AS has_language
-		";
-		$clauses['join']   .= " INNER JOIN {$wpdb->postmeta} pmeta ON ( {$wpdb->posts}.ID = pmeta.post_id )";
-		// This orderby clause ensures that the lessons are sorted by the values in the calculated columns first.
-		$clauses['orderby'] = 'has_language DESC, ' . $clauses['orderby'];
+		$is_english = strpos( $locale_root, 'en_' ) === 0;
 
-		if ( false === strpos( $clauses['groupby'], "{$wpdb->posts}.ID" ) ) {
-			$clauses['groupby'] = "{$wpdb->posts}.ID";
-		}
+		$clauses['fields'] .= ",
+			MAX(
+				CASE
+					WHEN pmeta.meta_key = 'language' AND pmeta.meta_value LIKE '{$locale_root}%' THEN 1
+					WHEN (pmeta.meta_key = 'language' AND pmeta.meta_value = '') OR pmeta.meta_key IS NULL THEN " . ( $is_english ? '1' : '0' ) . '
+					ELSE 0
+				END
+			) AS has_language
+		';
+		$clauses['join']   .= " LEFT JOIN {$wpdb->postmeta} pmeta ON ( {$wpdb->posts}.ID = pmeta.post_id AND pmeta.meta_key = 'language' )";
+		$clauses['orderby'] = 'has_language DESC, ' . $clauses['orderby'];
+		$clauses['groupby'] = "{$wpdb->posts}.ID";
 	}
 
 	return $clauses;
