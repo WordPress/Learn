@@ -177,12 +177,12 @@ function wporg_archive_query_prioritize_locale( $clauses, $query ) {
 		return $clauses;
 	}
 
-	if ( $query->is_post_type_archive( 'wporg_workshop' ) ) {
-		return wporg_tutorials_query_prioritize_locale( $clauses, $locale );
+	if ( $query->is_post_type_archive( 'course' ) || $query->is_post_type_archive( 'lesson' ) ) {
+		return wporg_query_prioritize_locale( $clauses, $locale );
 	}
 
-	if ( $query->is_post_type_archive( 'lesson' ) ) {
-		return wporg_lessons_query_prioritize_locale( $clauses, $locale );
+	if ( $query->is_post_type_archive( 'wporg_workshop' ) ) {
+		return wporg_tutorials_query_prioritize_locale( $clauses, $locale );
 	}
 
 	return $clauses;
@@ -253,9 +253,9 @@ function wporg_tutorials_query_prioritize_locale( $clauses, $locale ) {
 }
 
 /**
- * Modify the workshop post type archive query to prioritize workshops in the user's locale.
+ * Modify the a post type archive query to prioritize posts in the user's locale.
  *
- * In order to show all workshops, but with the ones that are presented in the user's locale shown first, we
+ * In order to show all posts, but with the ones that are presented in the user's locale shown first, we
  * need to modify the posts query in ways that can't be done through the WP_Query or WP_Meta_Query APIs. Instead, here,
  * we're filtering the individual clauses of the query to add the pieces we need.
  *
@@ -283,7 +283,7 @@ function wporg_tutorials_query_prioritize_locale( $clauses, $locale ) {
  *
  * @return array
  */
-function wporg_lessons_query_prioritize_locale( $clauses, $locale ) {
+function wporg_query_prioritize_locale( $clauses, $locale ) {
 	global $wpdb;
 
 	$locale_root = preg_replace( '#^([a-z]{2,3}_?)[a-zA-Z_-]*#', '$1', $locale, -1, $count );
@@ -292,11 +292,11 @@ function wporg_lessons_query_prioritize_locale( $clauses, $locale ) {
 		/**
 		 * $clauses['fields'] contains the SELECT part of the query.
 		 *
-		 * The extra fields clauses are calculated fields that will contain a `1` if the lesson post row has a postmeta
+		 * The extra fields clauses are calculated fields that will contain a `1` if the post row has a postmeta
 		 * value that matches the locale root, or if the locale is english and the postmeta value is empty or null.
-		 * The MAX() and the groupby clause below ensure that all the rows for a given lesson are consolidated into
+		 * The MAX() and the groupby clause below ensure that all the rows for a given post are consolidated into
 		 * one, with the highest value in the calculated column.
-		 * Without the grouping, there would be a separate row for each postmeta value for each lesson post.
+		 * Without the grouping, there would be a separate row for each postmeta value for each post.
 		 */
 		$is_english = strpos( $locale_root, 'en_' ) === 0;
 
