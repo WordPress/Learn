@@ -177,12 +177,19 @@ function wporg_archive_query_prioritize_locale( $clauses, $query ) {
 		return $clauses;
 	}
 
-	if ( $query->is_post_type_archive( 'course' ) || $query->is_post_type_archive( 'lesson' ) || $query->is_post_type_archive( 'lesson-plan' ) ) {
-		return wporg_query_prioritize_locale( $clauses, $locale );
-	}
-
 	if ( $query->is_post_type_archive( 'wporg_workshop' ) ) {
 		return wporg_tutorials_query_prioritize_locale( $clauses, $locale );
+	}
+
+	$current_theme = wp_get_theme();
+	$theme_slug = $current_theme->get_stylesheet();
+
+	if ( 'pub/wporg-learn-2020' === $theme_slug ) {
+		return $clauses;
+	}
+
+	if ( $query->is_post_type_archive( 'course' ) || $query->is_post_type_archive( 'lesson' ) || $query->is_post_type_archive( 'lesson-plan' ) ) {
+		return wporg_query_prioritize_locale( $clauses, $locale );
 	}
 
 	return $clauses;
