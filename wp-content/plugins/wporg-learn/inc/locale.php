@@ -190,6 +190,7 @@ function wporg_archive_query_prioritize_locale( $clauses, $query ) {
 
 /**
  * Modify the workshop post type archive query to prioritize workshops in the user's locale.
+ * DEPRECATED: this function has been superseded by wporg_query_prioritize_locale, which handles language post meta being empty or null.
  *
  * In order to show all workshops, but with the ones that are presented/captioned in the user's locale shown first, we
  * need to modify the posts query in ways that can't be done through the WP_Query or WP_Meta_Query APIs. Instead, here,
@@ -259,6 +260,9 @@ function wporg_tutorials_query_prioritize_locale( $clauses, $locale ) {
  * need to modify the posts query in ways that can't be done through the WP_Query or WP_Meta_Query APIs. Instead, here,
  * we're filtering the individual clauses of the query to add the pieces we need.
  *
+ * Handles cases where the language post meta is empty or null and treats them as being english, if the locale is english.
+ * This matches the default value for the language post meta field.
+ *
  * Examples, slightly truncated for simplicity:
  *
  * Before:
@@ -270,13 +274,19 @@ function wporg_tutorials_query_prioritize_locale( $clauses, $locale ) {
  *
  * After:
  * SELECT SQL_CALC_FOUND_ROWS wp_posts.*,
- *   MAX( IF( pmeta.meta_key = 'language' AND pmeta.meta_value LIKE 'art_%', 1, 0 ) ) AS has_language,
+ *   MAX(
+ *     CASE
+ *       WHEN pmeta.meta_key = 'language' AND pmeta.meta_value LIKE 'en_%' THEN 1
+ *       WHEN (pmeta.meta_key = 'language' AND pmeta.meta_value = '') OR pmeta.meta_key IS NULL THEN 1
+ *       ELSE 0
+ *     END
+ *   ) AS has_language,
  * FROM wp_posts
- * INNER JOIN wp_postmeta pmeta ON ( wp_posts.ID = pmeta.post_id )
+ * LEFT JOIN wp_postmeta pmeta ON ( wp_posts.ID = pmeta.post_id AND pmeta.meta_key = 'language' )
  * WHERE 1=1
  * AND wp_posts.post_type = 'lesson'
- * GROUP BY wp_posts.ID
  * ORDER BY has_language DESC, wp_posts.post_date DESC
+ * GROUP BY wp_posts.ID
  *
  * @param array  $clauses
  * @param string $locale
@@ -292,7 +302,7 @@ function wporg_query_prioritize_locale( $clauses, $locale ) {
 		/**
 		 * $clauses['fields'] contains the SELECT part of the query.
 		 *
-		 * The extra fields clauses are calculated fields that will contain a `1` if the post row has a postmeta
+		 * The extra fields clause is calculated, and will contain a `1` if the post row has a postmeta
 		 * value that matches the locale root, or if the locale is english and the postmeta value is empty or null.
 		 * The MAX() and the groupby clause below ensure that all the rows for a given post are consolidated into
 		 * one, with the highest value in the calculated column.
