@@ -177,7 +177,7 @@ function wporg_archive_query_prioritize_locale( $clauses, $query ) {
 		return $clauses;
 	}
 
-	if ( $query->is_post_type_archive( 'course' ) || $query->is_post_type_archive( 'lesson' ) ) {
+	if ( $query->is_post_type_archive( 'course' ) || $query->is_post_type_archive( 'lesson' ) || $query->is_post_type_archive( 'lesson-plan' ) ) {
 		return wporg_query_prioritize_locale( $clauses, $locale );
 	}
 
