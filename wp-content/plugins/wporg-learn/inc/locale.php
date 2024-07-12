@@ -253,7 +253,7 @@ function wporg_tutorials_query_prioritize_locale( $clauses, $locale ) {
 }
 
 /**
- * Modify the a post type archive query to prioritize posts in the user's locale.
+ * Modify the post type archive query to prioritize posts in the user's locale.
  *
  * In order to show all posts, but with the ones that are presented in the user's locale shown first, we
  * need to modify the posts query in ways that can't be done through the WP_Query or WP_Meta_Query APIs. Instead, here,
