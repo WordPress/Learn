@@ -49,7 +49,7 @@
 		<?php echo wp_kses_post(
 			sprintf(
 				/* translators: 1: License link */
-				__( '<a href="%s">CC BY-SA 4.0 <span aria-hidden="true" class="wp-exclude-emoji">↗</span></a>', 'wporg-learn' ),
+				__( '<a href="%s">CC BY-SA 4.0 ↗</a>', 'wporg-learn' ),
 				'http://creativecommons.org/licenses/by-sa/4.0/',
 			)
 		); ?>
