@@ -6,6 +6,7 @@
 namespace WordPressdotorg\Theme\Learn_2024\Block_Config;
 
 use function WPOrg_Learn\Post_Meta\{get_available_post_type_locales};
+use Sensei_Learner;
 
 add_filter( 'wporg_query_filter_options_language', __NAMESPACE__ . '\get_language_options' );
 add_filter( 'wporg_query_filter_options_archive_language', __NAMESPACE__ . '\get_language_options_by_post_type' );
@@ -21,6 +22,7 @@ add_filter( 'wporg_query_filter_options_learning_pathway_topic', __NAMESPACE__ .
 add_filter( 'query_vars', __NAMESPACE__ . '\add_student_course_filter_query_vars' );
 add_filter( 'wporg_query_filter_options_student_course', __NAMESPACE__ . '\get_student_course_options' );
 add_action( 'wporg_query_filter_in_form', __NAMESPACE__ . '\inject_other_filters' );
+add_filter( 'render_block_data', __NAMESPACE__ . '\filter_student_course_list' );
 
 /**
  * Get the current URL.
@@ -556,4 +558,79 @@ function inject_other_filters( $key ) {
 	if ( isset( $wp_query->query['s'] ) ) {
 		printf( '<input type="hidden" name="s" value="%s" />', esc_attr( $wp_query->query['s'] ) );
 	}
+}
+
+/**
+ * Filter the block data for the student course list.
+ *
+ * @param array $parsed_block The parsed block data.
+ * @return array The updated block data.
+ */
+function filter_student_course_list( $parsed_block ) {
+	if (
+		'core/query' !== $parsed_block['blockName'] ||
+		'course' !== ( $parsed_block['attrs']['query']['postType'] ?? '' ) ||
+		! isset( $parsed_block['attrs']['queryId'] ) ||
+		! is_page( 'my-courses' )
+	) {
+		return $parsed_block;
+	}
+
+	if ( ! array_key_exists( 'exclude', $parsed_block['attrs']['query'] ) || ! is_array( $parsed_block['attrs']['query']['exclude'] ) ) {
+		$parsed_block['attrs']['query']['exclude'] = array();
+	}
+
+	$exclude_ids = get_course_ids_to_be_excluded( $parsed_block['attrs']['queryId'] );
+
+	$parsed_block['attrs']['query']['exclude'] = array_merge(
+		$parsed_block['attrs']['query']['exclude'],
+		$exclude_ids
+	);
+
+	return $parsed_block;
+}
+
+/**
+ * Get the course IDs to be excluded from the query.
+ */
+function get_course_ids_to_be_excluded( $query_id ): array {
+	$user_id = get_current_user_id();
+	if ( empty( $user_id ) ) {
+		return array();
+	}
+
+	$filter_param_key = get_student_course_filter_query_var_name();
+	$selected_option  = isset( $_GET[ $filter_param_key ] ) ? sanitize_text_field( wp_unslash( $_GET[ $filter_param_key ] ) ) : '';
+
+	$args           = array(
+		'post_type'      => 'course',
+		'posts_per_page' => -1,
+		'fields'         => 'ids',
+	);
+	$all_course_ids = get_posts( $args );
+
+	$args = array(
+		'posts_per_page' => -1,
+		'fields'         => 'ids',
+	);
+
+	$included_course_ids = array();
+	$learner_manager     = Sensei_Learner::instance();
+
+	switch ( $selected_option ) {
+		case 'active':
+			$courses_query       = $learner_manager->get_enrolled_active_courses_query( $user_id, $args );
+			$included_course_ids = $courses_query->posts;
+			break;
+		case 'completed':
+			$courses_query       = $learner_manager->get_enrolled_completed_courses_query( $user_id, $args );
+			$included_course_ids = $courses_query->posts;
+			break;
+		default:
+			$courses_query       = $learner_manager->get_enrolled_courses_query( $user_id, $args );
+			$included_course_ids = $courses_query->posts;
+			break;
+	}
+
+	return array_diff( $all_course_ids, $included_course_ids );
 }
