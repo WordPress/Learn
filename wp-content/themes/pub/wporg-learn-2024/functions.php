@@ -17,6 +17,7 @@ require_once __DIR__ . '/src/sidebar-meta-list/index.php';
 require_once __DIR__ . '/inc/block-config.php';
 require_once __DIR__ . '/inc/block-hooks.php';
 require_once __DIR__ . '/inc/query.php';
+require_once __DIR__ . '/inc/head.php';
 
 /**
  * Actions and filters.
