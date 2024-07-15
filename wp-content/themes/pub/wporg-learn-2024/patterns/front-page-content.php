@@ -21,15 +21,15 @@
 <h2 class="wp-block-heading" style="margin-top:var(--wp--preset--spacing--60);margin-bottom:var(--wp--preset--spacing--10)"><?php esc_html_e( 'Featured Courses', 'wporg-learn' ); ?></h2>
 <!-- /wp:heading -->
 
-<!-- wp:group {"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|40"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"}} -->
+<!-- wp:group {"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|40"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"top"}} -->
 <div class="wp-block-group" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--40)">
-
-	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|charcoal-4"}}}},"textColor":"charcoal-4"} -->
+	
+	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|charcoal-4"}}},"layout":{"selfStretch":"fixed","flexSize":"750px"}},"textColor":"charcoal-4"} -->
 	<p class="has-charcoal-4-color has-text-color has-link-color"><?php esc_html_e( 'Focus on building your skills through a series of lessons in various formats.', 'wporg-learn' ); ?></p>
 	<!-- /wp:paragraph -->
 
-	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|blueberry-1"}}}},"textColor":"charcoal-4"} -->
-	<p class="has-charcoal-4-color has-text-color has-link-color"><a href="<?php echo esc_url( site_url( '/courses/' ) ); ?>"><?php esc_html_e( 'See all Courses', 'wporg-learn' ); ?></a></p>
+	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|blueberry-1"}}}}} -->
+	<p class="has-link-color"><a href="<?php echo esc_url( get_post_type_archive_link( 'course' ) ); ?>"><?php esc_html_e( 'See all courses', 'wporg-learn' ); ?></a></p>
 	<!-- /wp:paragraph -->
 
 </div>
@@ -57,15 +57,15 @@
 <h2 class="wp-block-heading" style="margin-top:var(--wp--preset--spacing--60);margin-bottom:var(--wp--preset--spacing--10)"><?php esc_html_e( 'Featured Lessons', 'wporg-learn' ); ?></h2>
 <!-- /wp:heading -->
 
-<!-- wp:group {"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|40"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"}} -->
+<!-- wp:group {"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|40"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"top"}} -->
 <div class="wp-block-group" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--40)">
-
-	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|charcoal-4"}}}},"textColor":"charcoal-4"} -->
+	
+	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|charcoal-4"}}},"layout":{"selfStretch":"fixed","flexSize":"750px"}},"textColor":"charcoal-4"} -->
 	<p class="has-charcoal-4-color has-text-color has-link-color"><?php esc_html_e( 'Improve your WordPress expertise with versatile lessons featuring a blend of videos, practical exercises, quizzes, and text-based content.', 'wporg-learn' ); ?></p>
 	<!-- /wp:paragraph -->
 
-	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|blueberry-1"}}}},"textColor":"charcoal-4"} -->
-	<p class="has-charcoal-4-color has-text-color has-link-color"><a href="<?php echo esc_url( site_url( '/lessons/' ) ); ?>"><?php esc_html_e( 'See all Lessons', 'wporg-learn' ); ?></a></p>
+	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|blueberry-1"}}}}} -->
+	<p class="has-link-color"><a href="<?php echo esc_url( get_post_type_archive_link( 'lesson' ) ); ?>"><?php esc_html_e( 'See all lessons', 'wporg-learn' ); ?></a></p>
 	<!-- /wp:paragraph -->
 
 </div>
@@ -93,15 +93,15 @@
 <h2 class="wp-block-heading" style="margin-top:var(--wp--preset--spacing--60);margin-bottom:var(--wp--preset--spacing--10)"><?php esc_html_e( 'Upcoming Online Workshops', 'wporg-learn' ); ?></h2>
 <!-- /wp:heading -->
 
-<!-- wp:group {"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|40"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"}} -->
+<!-- wp:group {"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|40"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"top"}} -->
 <div class="wp-block-group" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--40)">
-
-	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|charcoal-4"}}}},"textColor":"charcoal-4"} -->
+	
+	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|charcoal-4"}}},"layout":{"selfStretch":"fixed","flexSize":"750px"}},"textColor":"charcoal-4"} -->
 	<p class="has-charcoal-4-color has-text-color has-link-color"><?php esc_html_e( 'Join a live session alongside other learners, led by experienced WordPress professionals.', 'wporg-learn' ); ?></p>
 	<!-- /wp:paragraph -->
 
-	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|blueberry-1"}}}},"textColor":"charcoal-4"} -->
-	<p class="has-charcoal-4-color has-text-color has-link-color"><a href="<?php echo esc_url( site_url( '/online-workshops' ) ); ?>"><?php esc_html_e( 'See all Online Workshops', 'wporg-learn' ); ?></a></p>
+	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|blueberry-1"}}}}} -->
+	<p class="has-link-color"><a href="<?php echo esc_url( site_url( '/online-workshops' ) ); ?>"><?php esc_html_e( 'See all online workshops', 'wporg-learn' ); ?></a></p>
 	<!-- /wp:paragraph -->
 
 </div>
