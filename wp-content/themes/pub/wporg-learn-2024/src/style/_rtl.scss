@@ -36,14 +36,6 @@ body.rtl {
 		}
 	}
 
-	// Fix the border on the Sensei lesson page.
-	.wp-block-sensei-lms-course-theme-lesson-module {
-		border-left: 2px solid;
-		border-right: 0;
-		padding-left: 0.5em;
-		padding-right: 0;
-	}
-
 	// Fix the spacing of the locked lesson icon.
 	.sensei-course-theme-locked-lesson-notice__icon {
 		padding-right: 14px;
