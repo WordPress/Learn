@@ -24,7 +24,7 @@ function init() {
 function document_title( $parts ) {
 	global $wp_query;
 
-	$parts['site']  = __( 'Learn WordPress', 'wporg-learn' );
+	$parts['site']  = __( 'Learn.WordPress.org', 'wporg-learn' );
 	$post_type      = get_query_var( 'post_type' );
 	$sep            = '–';
 
