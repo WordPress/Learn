@@ -1,4 +1,9 @@
 <?php
+/**
+ * HTML head markup and customizations.
+ */
+
+namespace WordPressdotorg\Theme\Learn_2024\Head;
 
 add_action( 'init', __NAMESPACE__ . '\init' );
 
