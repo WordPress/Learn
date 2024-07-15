@@ -56,7 +56,7 @@
 
 					<!-- wp:sensei-lms/button-take-course -->
 					<div class="wp-block-sensei-lms-button-take-course is-style-default is-small wp-block-sensei-button wp-block-button">
-						<button class="wp-block-button__link"><?php esc_html_e( 'Take course', 'wporg-learn' ); ?></button>
+						<button class="wp-block-button__link"><?php esc_html_e( 'Take this course', 'wporg-learn' ); ?></button>
 					</div>
 					<!-- /wp:sensei-lms/button-take-course -->
 
