@@ -571,7 +571,7 @@ function filter_student_course_list( $parsed_block ) {
 		'core/query' !== $parsed_block['blockName'] ||
 		'course' !== ( $parsed_block['attrs']['query']['postType'] ?? '' ) ||
 		! isset( $parsed_block['attrs']['queryId'] ) ||
-		! is_page( 'my-courses' )
+		! get_the_ID() === Sensei()->settings->get_my_courses_page_id()
 	) {
 		return $parsed_block;
 	}
