@@ -87,14 +87,14 @@ function render_full_card( $learning_pathway ) {
 				</div>
 				<!-- /wp:group -->
 
-				<!-- wp:group {"style":{"layout":{"selfStretch":"fixed","flexSize":"50%%"},"background":{"backgroundImage":{"url":"%4$s","id":184,"source":"file"},"backgroundPosition":"0%% 50%%"}},"layout":{"type":"constrained"}} -->
+				<!-- wp:group {"style":{"layout":{"selfStretch":"fixed","flexSize":"50%%"},"background":{"backgroundImage":{"url":"%4$s","id":184,"source":"file"},"backgroundPosition":"%5$s"}},"layout":{"type":"constrained"}} -->
 				<div class="wp-block-group" aria-hidden="true"></div>
 				<!-- /wp:group -->
 
 			</div>
 			<!-- /wp:group -->
 
-			<!-- wp:query {"queryId":15,"query":{"perPage":5,"pages":0,"offset":0,"postType":"course","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false,"taxQuery":{"learning-pathway":[%5$s]},"parents":[]}} -->
+			<!-- wp:query {"queryId":15,"query":{"perPage":5,"pages":0,"offset":0,"postType":"course","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false,"taxQuery":{"learning-pathway":[%6$s]},"parents":[]}} -->
 			<div class="wp-block-query">
 
 				<!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","verticalAlignment":"space-between"}} -->
@@ -113,7 +113,7 @@ function render_full_card( $learning_pathway ) {
 					<!-- /wp:group -->
 					
 					<!-- wp:paragraph {"align":"right","style":{"spacing":{"padding":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20","left":"30px","right":"30px"}},"elements":{"link":{"color":{"text":"var:preset|color|charcoal-1"}}}},"textColor":"charcoal-1","fontSize":"small"} -->
-					<p class="has-text-align-right has-charcoal-1-color has-text-color has-link-color has-small-font-size" style="padding-top:var(--wp--preset--spacing--20);padding-right:30px;padding-bottom:var(--wp--preset--spacing--20);padding-left:30px"><a href="%6$s">%7$s</a></p>
+					<p class="has-text-align-right has-charcoal-1-color has-text-color has-link-color has-small-font-size" style="padding-top:var(--wp--preset--spacing--20);padding-right:30px;padding-bottom:var(--wp--preset--spacing--20);padding-left:30px"><a href="%7$s">%8$s</a></p>
 					<!-- /wp:paragraph -->
 				
 				</div>
@@ -128,6 +128,7 @@ function render_full_card( $learning_pathway ) {
 		esc_html( $learning_pathway->name ),
 		esc_html( $learning_pathway->description ),
 		esc_url( get_stylesheet_directory_uri() . '/assets/learning-pathway-' . $learning_pathway->slug . '.svg' ),
+		is_rtl() ? '100% 50%' : '0% 50%',
 		esc_html( $learning_pathway->term_id ),
 		esc_url( get_term_link( $learning_pathway ) ),
 		$count > 1
