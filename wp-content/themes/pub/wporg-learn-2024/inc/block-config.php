@@ -561,7 +561,7 @@ function inject_other_filters( $key ) {
 }
 
 /**
- * Filter the block data for the student course list.
+ * Modifies the courses query for the My Courses page, by adding courses to be excluded.
  *
  * @param array $parsed_block The parsed block data.
  * @return array The updated block data.
@@ -591,9 +591,9 @@ function filter_student_course_list( $parsed_block ) {
 }
 
 /**
- * Get the course IDs to be excluded from the query.
+ * Get the course IDs to be excluded from the query, using the query filter value.
  */
-function get_course_ids_to_be_excluded( $query_id ): array {
+function get_course_ids_to_be_excluded(): array {
 	$user_id = get_current_user_id();
 	if ( empty( $user_id ) ) {
 		return array();
