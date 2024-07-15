@@ -28,11 +28,6 @@ function document_title( $parts ) {
 	$post_type      = get_query_var( 'post_type' );
 	$sep            = '–';
 
-	if ( is_front_page() ) {
-		$parts['title'] = 'There\'s always more to learn';
-		return $parts;
-	}
-
 	if ( is_singular() ) {
 		// Add post type to title if it's a parsed item.
 		if ( get_post_type_object( $post_type ) ) {
