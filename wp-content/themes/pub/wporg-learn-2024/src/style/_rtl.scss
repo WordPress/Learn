@@ -28,6 +28,14 @@ body.rtl {
 		margin: 0 10px 0 0;
 	}
 
+	&.quiz form #sensei-quiz-list .sensei-multiple-choice-answer-option-checkbox + label {
+		margin-left: 0;
+
+		&::before {
+			margin: 0 10px 0 0;
+		}
+	}
+
 	// Fix the border on the Sensei lesson page.
 	.wp-block-sensei-lms-course-theme-lesson-module {
 		border-left: 2px solid;
