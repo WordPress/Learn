@@ -22,7 +22,7 @@ add_filter( 'wporg_query_filter_options_learning_pathway_topic', __NAMESPACE__ .
 add_filter( 'query_vars', __NAMESPACE__ . '\add_student_course_filter_query_vars' );
 add_filter( 'wporg_query_filter_options_student_course', __NAMESPACE__ . '\get_student_course_options' );
 add_action( 'wporg_query_filter_in_form', __NAMESPACE__ . '\inject_other_filters' );
-add_filter( 'render_block_data', __NAMESPACE__ . '\filter_student_course_list' );
+add_filter( 'query_loop_block_query_vars', __NAMESPACE__ . '\modify_course_query' );
 
 /**
  * Get the current URL.
@@ -561,71 +561,39 @@ function inject_other_filters( $key ) {
 }
 
 /**
- * Modifies the courses query for the My Courses page, by adding courses to be excluded.
- *
- * @param array $parsed_block The parsed block data.
- * @return array The modified block data.
- */
-function filter_student_course_list( $parsed_block ) {
-	if (
-		'core/query' !== $parsed_block['blockName'] ||
-		'course' !== ( $parsed_block['attrs']['query']['postType'] ?? '' ) ||
-		get_the_ID() !== Sensei()->settings->get_my_courses_page_id()
-	) {
-		return $parsed_block;
-	}
-
-	if ( ! array_key_exists( 'exclude', $parsed_block['attrs']['query'] ) || ! is_array( $parsed_block['attrs']['query']['exclude'] ) ) {
-		$parsed_block['attrs']['query']['exclude'] = array();
-	}
-
-	$filter_param_key = get_student_course_filter_query_var_name();
-	$selected_option  = isset( $_GET[ $filter_param_key ] ) ? sanitize_text_field( wp_unslash( $_GET[ $filter_param_key ] ) ) : '';
-
-	// The courses query with active and completed statuses have already been filtered in Sensei LMS, and can correctly display the course lists.
-	// See https://github.com/Automattic/sensei/blob/trunk/includes/blocks/course-list/class-sensei-course-list-student-course-filter.php#L114-L123.
-	if ( ! empty( $selected_option ) && ( 'active' === $selected_option || 'completed' === $selected_option ) ) {
-		return $parsed_block;
-	}
-
-	$exclude_ids = get_course_ids_to_be_excluded();
-
-	$parsed_block['attrs']['query']['exclude'] = array_merge(
-		$parsed_block['attrs']['query']['exclude'],
-		$exclude_ids
-	);
-
-	return $parsed_block;
-}
-
-/**
- * Get a list of course IDs to be excluded from the course lists filtered by the 'all' status
- * or those that do not belong to the student course options.
- *
+ * Modify the course query on the 'My Courses' page to display courses according to the filter status.
  * Corresponds to https://github.com/Automattic/sensei/blob/trunk/includes/blocks/course-list/class-sensei-course-list-student-course-filter.php#L95
+ *
+ * @param array $query The course query.
+ * @return array The modified course query.
  */
-function get_course_ids_to_be_excluded() {
-	$user_id = get_current_user_id();
+function modify_course_query( $query ) {
+	if (
+		'course' === $query['post_type'] &&
+		get_the_ID() === Sensei()->settings->get_my_courses_page_id()
+	) {
+		$key             = get_student_course_filter_query_var_name();
+		$selected_option = isset( $_GET[ $key ] ) ? sanitize_text_field( wp_unslash( $_GET[ $key ] ) ) : '';
 
-	if ( empty( $user_id ) ) {
-		return array();
+		// The courses query with 'active' and 'completed' statuses have already been filtered in Sensei LMS, and can correctly display the course lists.
+		// See https://github.com/Automattic/sensei/blob/trunk/includes/blocks/course-list/class-sensei-course-list-student-course-filter.php#L114-L123.
+		if ( ! empty( $selected_option ) && ( 'active' === $selected_option || 'completed' === $selected_option ) ) {
+			return $query;
+		}
+
+		$learner_manager = Sensei_Learner::instance();
+		$user_id         = get_current_user_id();
+		$args            = array(
+			'posts_per_page' => -1,
+			'fields'         => 'ids',
+		);
+
+		// The courses query with 'all' or any other statuses.
+		$courses_query = $learner_manager->get_enrolled_courses_query( $user_id, $args );
+		$course_ids    = $courses_query->posts;
+
+		$query['post__in'] = $course_ids;
 	}
 
-	$args = array(
-		'posts_per_page' => -1,
-		'fields'         => 'ids',
-	);
-
-	$learner_manager     = Sensei_Learner::instance();
-	$courses_query       = $learner_manager->get_enrolled_courses_query( $user_id, $args );
-	$included_course_ids = $courses_query->posts;
-
-	$args           = array(
-		'post_type'      => 'course',
-		'posts_per_page' => -1,
-		'fields'         => 'ids',
-	);
-	$all_course_ids = get_posts( $args );
-
-	return array_diff( $all_course_ids, $included_course_ids );
+	return $query;
 }
