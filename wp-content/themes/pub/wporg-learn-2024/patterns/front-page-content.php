@@ -101,7 +101,7 @@
 	<!-- /wp:paragraph -->
 
 	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|blueberry-1"}}}}} -->
-	<p class="has-link-color"><a href="<?php echo esc_url( site_url( '/online-workshops' ) ); ?>"><?php esc_html_e( 'See all online workshops', 'wporg-learn' ); ?></a></p>
+	<p class="has-link-color"><a href="<?php echo esc_url( site_url( '/online-workshops' ) ); ?>"><?php esc_html_e( 'See all Online Workshops', 'wporg-learn' ); ?></a></p>
 	<!-- /wp:paragraph -->
 
 </div>

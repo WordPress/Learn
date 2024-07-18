@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: Online workshops query no results message
+ * Title: Online Workshops query no results message
  * Slug: wporg-learn-2024/query-no-online-workshops
  * Inserter: no
  */
@@ -14,7 +14,7 @@
 	<div class="wp-block-group has-border-color has-light-grey-1-border-color" style="border-width:1px;border-radius:2px;padding-top:var(--wp--preset--spacing--20);padding-right:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--20);padding-left:var(--wp--preset--spacing--20)">
 
 		<!-- wp:paragraph -->
-		<p><?php esc_html_e( 'No upcoming online workshops found.', 'wporg-learn' ); ?></p>
+		<p><?php esc_html_e( 'No upcoming Online Workshops found.', 'wporg-learn' ); ?></p>
 		<!-- /wp:paragraph -->
 
 	</div>

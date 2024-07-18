@@ -15,7 +15,7 @@
 	<!-- /wp:heading -->
 
 	<!-- wp:paragraph -->
-	<p><?php esc_html_e( 'Online workshops are live sessions where you can learn alongside other WordPress enthusiasts. They are a safe zone where you can come as you are, develop new ideas, explore issues, ask questions, network over shared interests, exchange theories, collaborate on work, and thrive in uncertainty.', 'wporg-learn' ); ?></p>
+	<p><?php esc_html_e( 'Online Workshops are live sessions where you can learn alongside other WordPress enthusiasts. They are a safe zone where you can come as you are, develop new ideas, explore issues, ask questions, network over shared interests, exchange theories, collaborate on work, and thrive in uncertainty.', 'wporg-learn' ); ?></p>
 	<!-- /wp:paragraph -->
 
 	<!-- wp:buttons -->
@@ -26,7 +26,7 @@
 		<!-- /wp:button -->
 
 		<!-- wp:button {"className":"is-style-fill"} -->
-		<div class="wp-block-button is-style-fill"><a class="wp-block-button__link wp-element-button" href="https://wordpress.tv/category/learn-wordpress-online-workshops/"><?php esc_html_e( 'View recorded online workshops', 'wporg-learn' ); ?></a></div>
+		<div class="wp-block-button is-style-fill"><a class="wp-block-button__link wp-element-button" href="https://wordpress.tv/category/learn-wordpress-online-workshops/"><?php esc_html_e( 'View recorded Online Workshops', 'wporg-learn' ); ?></a></div>
 		<!-- /wp:button -->
 
 	</div>
@@ -47,8 +47,8 @@
 		<p class="has-small-font-size">
 			<?php echo wp_kses_post(
 				sprintf(
-					/* translators: %1$s: meetup.com online workshops link, %2$s: code of conduct link */
-					__( 'RSVPs and communications are handled through <a href="%1$s">the Meetup.com group ↗</a>. Each event links to the RSVP page. Events are shown in your local time. You must agree to the <a href="%2$s">Code of Conduct</a> in order to participate in online workshops.', 'wporg-learn' ),
+					/* translators: %1$s: meetup.com Online Workshops link, %2$s: code of conduct link */
+					__( 'RSVPs and communications are handled through <a href="%1$s">the Meetup.com group ↗</a>. Each event links to the RSVP page. Events are shown in your local time. You must agree to the <a href="%2$s">Code of Conduct</a> in order to participate in Online Workshops.', 'wporg-learn' ),
 					esc_url( 'https://www.meetup.com/learn-wordpress-online-workshops/' ),
 					esc_url( 'https://learn.wordpress.org/online-workshops/code-of-conduct/' ),
 				)

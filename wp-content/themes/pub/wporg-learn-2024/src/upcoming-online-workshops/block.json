@@ -6,7 +6,7 @@
 	"title": "Upcoming Online Workshop Cards",
 	"category": "widgets",
 	"icon": "smiley",
-	"description": "Show a cards grid of upcoming online workshops.",
+	"description": "Show a cards grid of upcoming Online Workshops.",
 	"usesContext": [],
 	"attributes": {},
 	"supports": {
