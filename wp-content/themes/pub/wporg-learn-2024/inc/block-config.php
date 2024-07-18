@@ -6,6 +6,7 @@
 namespace WordPressdotorg\Theme\Learn_2024\Block_Config;
 
 use function WPOrg_Learn\Post_Meta\{get_available_post_type_locales};
+use Sensei_Learner;
 
 add_filter( 'wporg_query_filter_options_language', __NAMESPACE__ . '\get_language_options' );
 add_filter( 'wporg_query_filter_options_archive_language', __NAMESPACE__ . '\get_language_options_by_post_type' );
@@ -21,6 +22,7 @@ add_filter( 'wporg_query_filter_options_learning_pathway_topic', __NAMESPACE__ .
 add_filter( 'query_vars', __NAMESPACE__ . '\add_student_course_filter_query_vars' );
 add_filter( 'wporg_query_filter_options_student_course', __NAMESPACE__ . '\get_student_course_options' );
 add_action( 'wporg_query_filter_in_form', __NAMESPACE__ . '\inject_other_filters' );
+add_filter( 'query_loop_block_query_vars', __NAMESPACE__ . '\modify_course_query' );
 
 /**
  * Get the current URL.
@@ -556,4 +558,39 @@ function inject_other_filters( $key ) {
 	if ( isset( $wp_query->query['s'] ) ) {
 		printf( '<input type="hidden" name="s" value="%s" />', esc_attr( $wp_query->query['s'] ) );
 	}
+}
+
+/**
+ * Modify the course query on the 'My Courses' page to display courses according to the filter status.
+ * Corresponds to https://github.com/Automattic/sensei/blob/trunk/includes/blocks/course-list/class-sensei-course-list-student-course-filter.php#L95
+ *
+ * @param array $query The course query.
+ * @return array The modified course query.
+ */
+function modify_course_query( $query ) {
+	if ( get_the_ID() === Sensei()->settings->get_my_courses_page_id() ) {
+		$key             = get_student_course_filter_query_var_name();
+		$selected_option = isset( $_GET[ $key ] ) ? sanitize_text_field( wp_unslash( $_GET[ $key ] ) ) : '';
+
+		// The courses query with 'active' and 'completed' statuses have already been filtered in Sensei LMS, and can correctly display the course lists.
+		// See https://github.com/Automattic/sensei/blob/trunk/includes/blocks/course-list/class-sensei-course-list-student-course-filter.php#L114-L123.
+		if ( ! empty( $selected_option ) && ( 'active' === $selected_option || 'completed' === $selected_option ) ) {
+			return $query;
+		}
+
+		$learner_manager = Sensei_Learner::instance();
+		$user_id         = get_current_user_id();
+		$args            = array(
+			'posts_per_page' => -1,
+			'fields'         => 'ids',
+		);
+
+		// The courses query with 'all' or any other statuses.
+		$courses_query = $learner_manager->get_enrolled_courses_query( $user_id, $args );
+		$course_ids    = $courses_query->posts;
+
+		$query['post__in'] = $course_ids;
+	}
+
+	return $query;
 }
