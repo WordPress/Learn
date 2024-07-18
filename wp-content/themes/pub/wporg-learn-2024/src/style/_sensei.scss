@@ -283,6 +283,13 @@ body.sensei {
 	}
 }
 
+body.sensei-course-theme {
+	--wp--preset--font-family--body-font: var(--wp--preset--font-family--inter);
+
+	font-size: var(--wp--preset--font-size--normal);
+	line-height: var(--wp--custom--body--typography--line-height);
+}
+
 .course:not(body) {
 	border-bottom: unset;
 	margin: unset;
