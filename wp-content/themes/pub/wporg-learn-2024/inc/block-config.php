@@ -568,10 +568,7 @@ function inject_other_filters( $key ) {
  * @return array The modified course query.
  */
 function modify_course_query( $query ) {
-	if (
-		'course' === $query['post_type'] &&
-		get_the_ID() === Sensei()->settings->get_my_courses_page_id()
-	) {
+	if ( get_the_ID() === Sensei()->settings->get_my_courses_page_id() ) {
 		$key             = get_student_course_filter_query_var_name();
 		$selected_option = isset( $_GET[ $key ] ) ? sanitize_text_field( wp_unslash( $_GET[ $key ] ) ) : '';
 
