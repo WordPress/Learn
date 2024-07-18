@@ -18,6 +18,17 @@ body {
 	--wp-components-color-accent-darker-10: var(--wp--preset--color--deep-blueberry);
 }
 
+// Parent theme sets top margin on these headings, but this breaks
+// vertical alignment with the sidebar on the courses page
+.wp-block-post-content {
+	> h2,
+	> h3 {
+		&:first-child {
+			margin-top: unset;
+		}
+	}
+}
+
 // Ensure nested elements in containers with rounded corners are cropped to match
 // eg. card featured images
 [style*="border-radius:2px"] {
