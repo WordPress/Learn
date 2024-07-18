@@ -45,18 +45,30 @@ function render( $attributes, $content, $block ) {
 				'<!-- wp:wporg/link-wrapper -->
 				<a class="wp-block-wporg-link-wrapper" href="%1$s">
 
-					<!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|20"}},"typography":{"lineHeight":1.6}},"fontSize":"normal"} -->
-					<h3 class="wp-block-heading has-normal-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--20);line-height:1.6">%2$s</h3>
-					<!-- /wp:heading -->
-					
-					<!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"700"}},"className":"is-style-short-text","fontSize":"small"} -->
-					<p class="is-style-short-text has-small-font-size" style="font-style:normal;font-weight:700">%3$s</p>
-					<!-- /wp:paragraph -->
-					
-					<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|charcoal-4"}}}},"textColor":"charcoal-4","className":"is-style-short-text","fontSize":"small"} -->
-					<p class="is-style-short-text has-charcoal-4-color has-text-color has-link-color has-small-font-size" data-date-utc="%4$s"></p>
-					<!-- /wp:paragraph -->
-		
+					<!-- wp:group {"style":{"spacing":{"blockGap":"0"},"dimensions":{"minHeight":"100%%"}},"layout":{"type":"flex","orientation":"vertical","verticalAlignment":"space-between"}} -->
+					<div class="wp-block-group" style="min-height:100%%">
+
+						<!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|20"}},"typography":{"lineHeight":1.6}},"fontSize":"normal","layout":{"selfStretch":"fill","flexSize":null}} -->
+						<h3 class="wp-block-heading has-normal-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--20);line-height:1.6">%2$s</h3>
+						<!-- /wp:heading -->
+
+						<!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"constrained"}} -->
+						<div class="wp-block-group">
+						
+							<!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"700"}},"className":"is-style-short-text","fontSize":"small"} -->
+							<p class="is-style-short-text has-small-font-size" style="font-style:normal;font-weight:700">%3$s</p>
+							<!-- /wp:paragraph -->
+							
+							<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|charcoal-4"}}}},"textColor":"charcoal-4","className":"is-style-short-text","fontSize":"small"} -->
+							<p class="is-style-short-text has-charcoal-4-color has-text-color has-link-color has-small-font-size" data-date-utc="%4$s"></p>
+							<!-- /wp:paragraph -->
+
+						</div>
+						<!-- /wp:group -->
+
+					</div>
+					<!-- /wp:group -->
+
 				</a>
 				<!-- /wp:wporg/link-wrapper -->',
 				esc_url( $workshop['url'] ),
