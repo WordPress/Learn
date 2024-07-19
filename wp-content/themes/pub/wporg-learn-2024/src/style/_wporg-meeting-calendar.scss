@@ -11,6 +11,11 @@
 		}
 	}
 
+	.wporg-meeting-calendar__btn-group button:not(:last-child) {
+		margin-right: var(--wp--preset--spacing--10);
+		margin-left: unset;
+	}
+
 	// Calendar/List toggle
 	.components-button-group {
 		display: flex;
@@ -79,6 +84,11 @@
 		background: unset;
 		border: unset;
 		padding-left: unset;
+
+		.wporg-meeting-calendar__filter-label {
+			padding-left: unset;
+			padding-right: var(--wp--preset--spacing--10);
+		}
 
 		.wporg-meeting-calendar__filter-feed {
 			display: none;

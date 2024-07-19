@@ -87,14 +87,14 @@ function render_full_card( $learning_pathway ) {
 				</div>
 				<!-- /wp:group -->
 
-				<!-- wp:group {"style":{"layout":{"selfStretch":"fixed","flexSize":"50%%"},"background":{"backgroundImage":{"url":"%4$s","id":184,"source":"file"},"backgroundPosition":"0%% 50%%"}},"layout":{"type":"constrained"}} -->
+				<!-- wp:group {"style":{"layout":{"selfStretch":"fixed","flexSize":"50%%"},"background":{"backgroundImage":{"url":"%4$s","id":184,"source":"file"},"backgroundPosition":"%5$s"}},"layout":{"type":"constrained"}} -->
 				<div class="wp-block-group" aria-hidden="true"></div>
 				<!-- /wp:group -->
 
 			</div>
 			<!-- /wp:group -->
 
-			<!-- wp:query {"queryId":15,"query":{"perPage":5,"pages":0,"offset":0,"postType":"course","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false,"taxQuery":{"learning-pathway":[%5$s]},"parents":[]}} -->
+			<!-- wp:query {"queryId":15,"query":{"perPage":5,"pages":0,"offset":0,"postType":"course","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false,"taxQuery":{"learning-pathway":[%6$s]},"parents":[]}} -->
 			<div class="wp-block-query">
 
 				<!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","verticalAlignment":"space-between"}} -->
@@ -113,7 +113,7 @@ function render_full_card( $learning_pathway ) {
 					<!-- /wp:group -->
 					
 					<!-- wp:paragraph {"align":"right","style":{"spacing":{"padding":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20","left":"30px","right":"30px"}},"elements":{"link":{"color":{"text":"var:preset|color|charcoal-1"}}}},"textColor":"charcoal-1","fontSize":"small"} -->
-					<p class="has-text-align-right has-charcoal-1-color has-text-color has-link-color has-small-font-size" style="padding-top:var(--wp--preset--spacing--20);padding-right:30px;padding-bottom:var(--wp--preset--spacing--20);padding-left:30px"><a href="%6$s">%7$s</a></p>
+					<p class="has-text-align-right has-charcoal-1-color has-text-color has-link-color has-small-font-size" style="padding-top:var(--wp--preset--spacing--20);padding-right:30px;padding-bottom:var(--wp--preset--spacing--20);padding-left:30px"><a href="%7$s">%8$s</a></p>
 					<!-- /wp:paragraph -->
 				
 				</div>
@@ -128,6 +128,7 @@ function render_full_card( $learning_pathway ) {
 		esc_html( $learning_pathway->name ),
 		esc_html( $learning_pathway->description ),
 		esc_url( get_stylesheet_directory_uri() . '/assets/learning-pathway-' . $learning_pathway->slug . '.svg' ),
+		is_rtl() ? '100% 50%' : '0% 50%',
 		esc_html( $learning_pathway->term_id ),
 		esc_url( get_term_link( $learning_pathway ) ),
 		$count > 1
@@ -154,8 +155,8 @@ function render_mini_card( $learning_pathway ) {
 			<!-- wp:group {"style":{"spacing":{"blockGap":"0"},"dimensions":{"minHeight":"100%%"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"stretch","justifyContent":"space-between"}} -->
 			<div class="wp-block-group" style="min-height:100%%">
 			
-				<!-- wp:group {"style":{"spacing":{"padding":{"top":"40px","bottom":"40px","left":"30px","right":"40px"},"blockGap":"10px"},"layout":{"selfStretch":"fixed","flexSize":"53%%"},"border":{"right":{"color":"var:preset|color|light-grey-1","width":"1px"},"top":{},"bottom":{},"left":{}}},"layout":{"type":"flex","orientation":"vertical","verticalAlignment":"center"}} -->
-				<div class="wp-block-group" style="border-right-color:var(--wp--preset--color--light-grey-1);border-right-width:1px;padding-top:40px;padding-right:30px;padding-bottom:40px;padding-left:40px">
+				<!-- wp:group {"style":{"spacing":{"padding":{"top":"40px","bottom":"40px","left":"30px","right":"40px"},"blockGap":"10px"},"layout":{"selfStretch":"fixed","flexSize":"53%%"},"border":{"right":{"color":"var:preset|color|light-grey-1","width":"1px","style":"solid"},"top":{},"bottom":{},"left":{"width":"0px","style":"none"}}},"layout":{"type":"flex","orientation":"vertical","verticalAlignment":"center"}} -->
+				<div class="wp-block-group" style="border-right-color:var(--wp--preset--color--light-grey-1);border-right-style:solid;border-right-width:1px;border-left-style:none;border-left-width:0px;padding-top:40px;padding-right:40px;padding-bottom:40px;padding-left:30px">
 				
 					<!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|charcoal-1"}}}},"textColor":"charcoal-1","fontSize":"18px,"lineHeight":"1.3""} -->
 					<h3 class="wp-block-heading has-charcoal-1-color has-text-color has-link-color" style="margin-top:0;font-size:18px;line-height:1.3">%2$s</h3>

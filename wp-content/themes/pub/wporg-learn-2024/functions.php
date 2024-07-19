@@ -80,12 +80,21 @@ function enqueue_assets() {
 	// The parent style is registered as `wporg-parent-2021-style`, and will be loaded unless
 	// explicitly unregistered. We can load any child-theme overrides by declaring the parent
 	// stylesheet as a dependency.
+	$style_path = get_stylesheet_directory() . '/build/style/style-index.css';
+	$style_uri = get_stylesheet_directory_uri() . '/build/style/style-index.css';
 	wp_enqueue_style(
 		'wporg-learn-2024-style',
-		get_stylesheet_directory_uri() . '/build/style/style-index.css',
+		$style_uri,
 		array( 'wporg-parent-2021-style', 'wporg-global-fonts' ),
-		filemtime( get_stylesheet_directory() . '/build/style/style-index.css' )
+		filemtime( $style_path )
 	);
+	wp_style_add_data( 'wporg-learn-2024-style', 'path', $style_path );
+
+	$rtl_file = str_replace( '.css', '-rtl.css', $style_path );
+	if ( is_rtl() && file_exists( $rtl_file ) ) {
+		wp_style_add_data( 'wporg-learn-2024-style', 'rtl', 'replace' );
+		wp_style_add_data( 'wporg-learn-2024-style', 'path', $rtl_file );
+	}
 
 	// Preload the heading font(s).
 	if ( is_callable( 'global_fonts_preload' ) ) {
