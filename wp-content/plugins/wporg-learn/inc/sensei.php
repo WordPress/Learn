@@ -27,6 +27,7 @@ add_action( 'sensei_login_form_before', __NAMESPACE__ . '\sensei_login_form_befo
 add_action( 'sensei_register_form_start', __NAMESPACE__ . '\sensei_register_form_start' );
 // Disable Sensei user login & creation.
 add_filter( 'init', __NAMESPACE__ . '\block_login_register_actions', 1 );
+add_action( 'add_meta_boxes', __NAMESPACE__ . '\maybe_customize_sensei_module_metabox', 20 );
 
 /**
  * Slugs in Sensei are translatable, which won't work for our site and the language switcher.
@@ -378,4 +379,86 @@ function block_login_register_actions() {
 	if ( 'sensei-login' == ( $_REQUEST['form'] ?? '' ) ) {
 		unset( $_REQUEST['_wpnonce'], $_REQUEST['log'], $_REQUEST['pwd'], $_POST['log'], $_POST['pwd'] ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 	}
+}
+
+/**
+ * Allow selecting any module if the lesson is not associated with a course.
+ */
+function maybe_customize_sensei_module_metabox() {
+	$course_id = (int) get_post_meta( $post->ID, '_lesson_course', true );
+
+	if ( ! $course_id ) {
+		remove_meta_box( 'module_select', 'lesson', 'side' );
+
+		add_meta_box( 'module_select', __( 'Module', 'sensei-lms' ), __NAMESPACE__ . '\output_lesson_module_metabox', 'lesson', 'side', 'default' );
+	}
+}
+
+/**
+ * Outputs the lesson module meta box HTML.
+ *
+ * @param WP_Post $lesson_post The lesson post object.
+ */
+function output_lesson_module_metabox( $lesson_post ) {
+	$html  = '<div id="lesson-module-metabox-select">';
+	$html .= render_lesson_module_select_for_course();
+	$html .= '</div>';
+
+	echo wp_kses(
+		$html,
+		array_merge(
+			wp_kses_allowed_html( 'post' ),
+			array(
+				'input'  => array(
+					'id'    => array(),
+					'name'  => array(),
+					'type'  => array(),
+					'value' => array(),
+				),
+				'option' => array(
+					'selected' => array(),
+					'value'    => array(),
+				),
+				'select' => array(
+					'class' => array(),
+					'id'    => array(),
+					'name'  => array(),
+					'style' => array(),
+				),
+			)
+		)
+	);
+}
+
+/**
+ * Renders the lesson module select input, with all modules as options.
+ *
+ * @return string The lesson module select HTML.
+ */
+function render_lesson_module_select_for_course(): string {
+	$modules = get_terms(
+		array(
+			'taxonomy'   => 'module',
+			'hide_empty' => false,
+		)
+	);
+
+	// Build the HTML.
+	$input_name = 'lesson_module';
+
+	$html  = '';
+	$html .= '<input type="hidden" name="' . esc_attr( 'woo_lesson_module_nonce' ) . '" id="' . esc_attr( 'woo_lesson_module_nonce' ) . '" value="' . esc_attr( wp_create_nonce( 'module_select' ) ) . '" />';
+
+	if ( $modules ) {
+		$html .= '<select id="lesson-module-options" name="' . esc_attr( $input_name ) . '" class="widefat" style="width: 100%">' . "\n";
+		$html .= '<option value="">' . esc_html__( 'None', 'sensei-lms' ) . '</option>';
+		foreach ( $modules as $module ) {
+			$html .= '<option value="' . esc_attr( absint( $module->term_id ) ) . '"' . selected( $module->term_id, $current_module_id, false ) . '>' . esc_html( $module->name ) . '</option>' . "\n";
+		}
+		$html .= '</select>' . "\n";
+	} else {
+		$html .= '<p>' . esc_html__( 'No modules found.', 'wporg-learn' ) . '</p>';
+	}
+
+	return $html;
 }
