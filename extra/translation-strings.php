@@ -76,8 +76,6 @@ _x( 'Show &amp; Tell', 'Instruction Types term name', 'wporg-learn' );
 _x( 'Tutorial', 'Instruction Types term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/?wporg_lesson_level=advanced */
 _x( 'Advanced', 'Experience Levels term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/?wporg_lesson_level=any */
-_x( 'Any', 'Experience Levels term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/?wporg_lesson_level=beginner */
 _x( 'Beginner', 'Experience Levels term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/?wporg_lesson_level=intermediate */
