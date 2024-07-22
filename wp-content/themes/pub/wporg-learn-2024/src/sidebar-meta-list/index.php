@@ -63,9 +63,6 @@ function render( $attributes, $content, $block ) {
 		// Get the average grade across all learners.
 		$average_grade = round( $course_service->get_courses_average_grade( array( $course_id ) ), 0 );
 
-		// Get the average number of days it takes to complete a course.
-		$average_days = $course_service->get_average_days_to_completion( array( $course_id ) );
-
 		// Get the last updated time.
 		$last_updated = get_last_updated_time( $course_id );
 
@@ -80,11 +77,6 @@ function render( $attributes, $content, $block ) {
 				'label' => __( 'Average final grade', 'wporg-learn' ),
 				'value' => $average_grade . '%',
 				'key'   => 'average-grade',
-			),
-			array(
-				'label' => __( 'Average days to completion', 'wporg-learn' ),
-				'value' => $average_days,
-				'key'   => 'average-days',
 			),
 			array(
 				'label' => __( 'Last updated', 'wporg-learn' ),
