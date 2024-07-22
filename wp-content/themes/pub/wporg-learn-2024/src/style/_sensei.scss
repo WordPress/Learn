@@ -65,9 +65,23 @@ body.sensei {
 		}
 	}
 
+	// Hide the Lesson title breadcrumb as it's already displayed in the h1, and the leading slash.
 	@media screen and (max-width: 1024px) {
-		.wp-block-wporg-site-breadcrumbs span:not(:last-child):not(:first-child) {
-			display: none;
+		.wp-block-wporg-site-breadcrumbs span {
+			&:last-child,
+			&:nth-child(3)::after {
+				display: none;
+			}
+		}
+	}
+
+	// Leave only the 'Home' breadcrumb. The 'Exit Course' button enables navigating to the parent course.
+	@media screen and (max-width: 600px) {
+		.wp-block-wporg-site-breadcrumbs span {
+			&:not(:first-child),
+			&::after {
+				display: none;
+			}
 		}
 	}
 
@@ -260,6 +274,7 @@ body.sensei {
 			border-bottom: 1px solid var(--wp--custom--color--border);
 		}
 
+		.wp-block-sensei-lms-sidebar-toggle-button,
 		.wp-block-sensei-lms-exit-course,
 		.wp-block-sensei-lms-course-theme-notices {
 			display: none;
@@ -276,6 +291,13 @@ body.sensei {
 				max-width: var(--wp--style--global--content-size);
 				padding-left: var(--wp--preset--spacing--edge-space);
 				padding-right: var(--wp--preset--spacing--edge-space);
+			}
+		}
+
+		// Also hide the leading slash for the Lesson title breadcrumb when it is hidden.
+		@media screen and (max-width: 1024px) {
+			.wp-block-wporg-site-breadcrumbs span:nth-child(2)::after {
+				display: none;
 			}
 		}
 	}
