@@ -243,3 +243,9 @@
 		}
 	}
 }
+
+// 'Meets:', 'Location' and 'View Recording' details, in list and popup
+.wporg-meeting-calendar__list-event-copy,
+.wporg-meeting-calendar__modal .components-modal__content p:nth-of-type(2) {
+	display: none;
+}
