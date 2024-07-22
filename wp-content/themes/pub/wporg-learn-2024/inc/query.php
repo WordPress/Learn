@@ -73,22 +73,32 @@ function handle_all_level_query( $query ) {
 function add_excluded_to_lesson_archive_query( $query ) {
 	// Ensure this code runs only for the main query on lesson archive pages and search results.
 	if ( ! is_admin() && $query->is_main_query() && ( $query->is_archive( 'lesson' ) || $query->is_search() ) ) {
-		$query->set(
-			'meta_query',
-			array(
-				'relation' => 'OR',
-				array(
-					'key'     => '_lesson_archive_excluded',
-					'compare' => 'NOT EXISTS',
-				),
-				array(
-					'key'     => '_lesson_archive_excluded',
-					'value'   => 'excluded',
-					'compare' => '!=',
-				),
-			)
-		);
-	}
+		$meta_query = $query->get( 'meta_query', array() );
 
-	return $query;
+		$exclude_lesson_query = array(
+			'relation' => 'OR',
+			array(
+				'key'     => '_lesson_archive_excluded',
+				'compare' => 'NOT EXISTS',
+			),
+			array(
+				'key'     => '_lesson_archive_excluded',
+				'value'   => 'excluded',
+				'compare' => '!=',
+			),
+		);
+
+		// If there's an existing meta query, wrap both in an AND relation
+		if ( ! empty( $meta_query ) ) {
+			$meta_query = array(
+				'relation' => 'AND',
+				$meta_query,
+				$exclude_lesson_query,
+			);
+		} else {
+			$meta_query = $exclude_lesson_query;
+		}
+
+		$query->set( 'meta_query', $meta_query );
+	}
 }

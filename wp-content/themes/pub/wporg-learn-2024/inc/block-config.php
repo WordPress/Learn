@@ -340,6 +340,33 @@ function get_learning_pathway_topic_options( $options ) {
 }
 
 /**
+ * Find the value in a multidimensional array by key.
+ *
+ * @param array  $array The array to search.
+ * @param string $key The key to search for.
+ * @return mixed|null The value if found, null otherwise.
+ */
+function find_value_by_key( $array, $key ) {
+	if ( ! is_array( $array ) ) {
+		return null;
+	}
+
+	if ( isset( $array['key'] ) && $key === $array['key'] && isset( $array['value'] ) ) {
+		return $array['value'];
+	}
+
+	foreach ( $array as $element ) {
+		$result = find_value_by_key( $element, $key );
+
+		if ( null !== $result ) {
+			return $result;
+		}
+	}
+
+	return null;
+}
+
+/**
  * Get the meta query values by key.
  *
  * @param WP_Query $query The query.
@@ -348,13 +375,9 @@ function get_learning_pathway_topic_options( $options ) {
  */
 function get_meta_query_values_by_key( $query, $key ) {
 	if ( isset( $query->query_vars['meta_query'] ) ) {
-		$meta_query = $query->query_vars['meta_query'];
+		$values = find_value_by_key( $query->query_vars['meta_query'], $key );
 
-		foreach ( $meta_query as $meta ) {
-			if ( isset( $meta['key'] ) && $meta['key'] === $key && ! empty( $meta['value'] ) ) {
-				return $meta['value'];
-			}
-		}
+		return is_array( $values ) ? $values : array();
 	}
 
 	return array();
