@@ -65,6 +65,12 @@ body.sensei {
 		}
 	}
 
+	@media screen and (max-width: 1024px) {
+		.wp-block-wporg-site-breadcrumbs span:not(:last-child):not(:first-child) {
+			display: none;
+		}
+	}
+
 	@media screen and (max-width: 782px) {
 		.sensei-lesson-footer .wp-block-sensei-lms-button-lesson-completed {
 			display: flex;

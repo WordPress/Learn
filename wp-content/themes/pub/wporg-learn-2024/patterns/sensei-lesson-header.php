@@ -15,7 +15,7 @@
 	<!-- wp:group {"style":{"spacing":{"padding":{"left":"var:preset|spacing|edge-space","right":"var:preset|spacing|edge-space","top":"0px","bottom":"0px"}}},"backgroundColor":"white","className":"sensei-course-theme-header-content","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between"}} -->
 	<div class="wp-block-group sensei-course-theme-header-content has-white-background-color has-background" style="padding-top:0px;padding-right:var(--wp--preset--spacing--edge-space);padding-bottom:0px;padding-left:var(--wp--preset--spacing--edge-space)">
 
-		<!-- wp:wporg/site-breadcrumbs {"fontSize":"small","style":{"spacing":{"padding":{"top":"18px","bottom":"18px","right":"var:preset|spacing|edge-space"}}}} /-->
+		<!-- wp:wporg/site-breadcrumbs {"fontSize":"small","style":{"spacing":{"padding":{"top":"18px","bottom":"18px"}}}} /-->
 
 		<!-- wp:group {"style":{"spacing":{"blockGap":"12px"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
 		<div class="wp-block-group">
