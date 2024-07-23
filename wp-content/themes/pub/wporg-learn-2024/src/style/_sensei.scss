@@ -21,6 +21,10 @@ body.sensei {
 	.sensei-course-theme__columns .sensei-course-theme__sidebar ~ .sensei-course-theme__main-content {
 		--sensei-lm-sidebar-width: calc(280px + (var(--wp--preset--spacing--edge-space) * 2) - 24px);
 
+		@media (max-width: 782px) {
+			--sensei-lm-sidebar-width: 0;
+		}
+
 		@media (min-width: 890px) {
 			padding-right: calc(var(--wp--preset--spacing--edge-space) - 24px);
 		}
@@ -271,7 +275,6 @@ body.sensei {
 		}
 	}
 
-	// This class missing an id indicates a freestanding lesson, not part of a course.
 	.sensei-course-theme__header--standalone {
 		.sensei-course-theme-header-content {
 			border-bottom: 1px solid var(--wp--custom--color--border);
@@ -315,6 +318,15 @@ body.sensei-course-theme {
 
 	font-size: var(--wp--preset--font-size--normal);
 	line-height: var(--wp--custom--body--typography--line-height);
+
+	&.sensei-course-theme--sidebar-open .sensei-course-theme-course-progress-bar {
+
+		@media screen and (max-width: 782px) {
+			top: calc(var(--sensei-lm-header-height));
+			margin-left: unset;
+			margin-right: unset;
+		}
+	}
 }
 
 .course:not(body) {
