@@ -27,7 +27,9 @@ add_action( 'sensei_login_form_before', __NAMESPACE__ . '\sensei_login_form_befo
 add_action( 'sensei_register_form_start', __NAMESPACE__ . '\sensei_register_form_start' );
 // Disable Sensei user login & creation.
 add_filter( 'init', __NAMESPACE__ . '\block_login_register_actions', 1 );
-add_action( 'add_meta_boxes', __NAMESPACE__ . '\maybe_customize_sensei_module_metabox', 20 );
+// Add custom meta box and save for lesson module selection without selecting a course.
+add_action( 'add_meta_boxes', __NAMESPACE__ . '\maybe_customize_sensei_module_metabox', 20, 2 );
+add_action( 'save_post', __NAMESPACE__ . '\maybe_customize_save_lesson_module', 9, 3 );
 
 /**
  * Slugs in Sensei are translatable, which won't work for our site and the language switcher.
@@ -382,9 +384,15 @@ function block_login_register_actions() {
 }
 
 /**
- * Allow selecting any module if the lesson is not associated with a course.
+ * Replace the Sensei module selector with one that allows selecting any module,
+ * if the lesson is not associated with a course.
+ *
+ * @param string  $post_type
+ * @param WP_Post $post
+ *
+ * @return void
  */
-function maybe_customize_sensei_module_metabox() {
+function maybe_customize_sensei_module_metabox( $post_type, $post ) {
 	$course_id = (int) get_post_meta( $post->ID, '_lesson_course', true );
 
 	if ( ! $course_id ) {
@@ -395,13 +403,35 @@ function maybe_customize_sensei_module_metabox() {
 }
 
 /**
+ * Get the lesson module if it Exists. Defaults to 0 if none found.
+ *
+ * @param WP_Post $post The post.
+ * @return int
+ */
+function get_lesson_module_if_exists( $post ) {
+	// Get existing lesson module.
+	$lesson_module      = 0;
+	$lesson_module_list = wp_get_post_terms( $post->ID, 'module' );
+	if ( is_array( $lesson_module_list ) && count( $lesson_module_list ) > 0 ) {
+		foreach ( $lesson_module_list as $single_module ) {
+			$lesson_module = $single_module->term_id;
+			break;
+		}
+	}
+	return $lesson_module;
+}
+
+/**
  * Outputs the lesson module meta box HTML.
  *
  * @param WP_Post $lesson_post The lesson post object.
  */
 function output_lesson_module_metabox( $lesson_post ) {
+	// Get current lesson module.
+	$module_id = get_lesson_module_if_exists( $lesson_post );
+
 	$html  = '<div id="lesson-module-metabox-select">';
-	$html .= render_lesson_module_select_for_course();
+	$html .= render_lesson_module_select_for_course( $module_id );
 	$html .= '</div>';
 
 	echo wp_kses(
@@ -433,9 +463,11 @@ function output_lesson_module_metabox( $lesson_post ) {
 /**
  * Renders the lesson module select input, with all modules as options.
  *
+ * @param int|null $current_module_id The currently selected module post ID.
+ *
  * @return string The lesson module select HTML.
  */
-function render_lesson_module_select_for_course(): string {
+function render_lesson_module_select_for_course( int $current_module_id = null ): string {
 	$modules = get_terms(
 		array(
 			'taxonomy'   => 'module',
@@ -447,7 +479,7 @@ function render_lesson_module_select_for_course(): string {
 	$input_name = 'lesson_module';
 
 	$html  = '';
-	$html .= '<input type="hidden" name="' . esc_attr( 'woo_lesson_module_nonce' ) . '" id="' . esc_attr( 'woo_lesson_module_nonce' ) . '" value="' . esc_attr( wp_create_nonce( 'module_select' ) ) . '" />';
+	$html .= '<input type="hidden" name="' . esc_attr( 'wporg_lesson_module_nonce' ) . '" id="' . esc_attr( 'wporg_lesson_module_nonce' ) . '" value="' . esc_attr( wp_create_nonce( 'wporg_module_select' ) ) . '" />';
 
 	if ( $modules ) {
 		$html .= '<select id="lesson-module-options" name="' . esc_attr( $input_name ) . '" class="widefat" style="width: 100%">' . "\n";
@@ -461,4 +493,109 @@ function render_lesson_module_select_for_course(): string {
 	}
 
 	return $html;
+}
+
+/**
+ * Checks if the post is a lesson without a course id, and if so removes the Sensei save action,
+ * then runs our save which allows adding the lesson to a module without a course set.
+ *
+ * @param integer $post_id ID of post.
+ * @param WP_Post $post Post object.
+ * @return void
+ */
+function maybe_customize_save_lesson_module( $post_id, $post ) {
+	global $wp_filter;
+
+	if ( 'lesson' !== $post->post_type ) {
+		return;
+	}
+
+	$course_id = (int) get_post_meta( $post_id, '_lesson_course', true );
+
+	if ( ! $course_id && isset( $wp_filter['save_post'] ) ) {
+		foreach ( $wp_filter['save_post']->callbacks as $priority => $callbacks ) {
+			foreach ( $callbacks as $id => $callback ) {
+				if ( is_array( $callback['function'] ) &&
+					is_object( $callback['function'][0] ) &&
+					method_exists( $callback['function'][0], 'save_lesson_module' ) ) {
+					remove_action( 'save_post', $callback['function'], $priority );
+
+					wporg_save_lesson_module( $post_id, $post );
+
+					return;
+				}
+			}
+		}
+	}
+}
+
+/**
+ * Save module to lesson. This method checks for authorization, and checks the incoming nonce.
+ *
+ * @param  integer $post_id ID of post.
+ * @param WP_Post $post Post object.
+ * @return mixed            Post ID on permissions failure, boolean true on success
+ */
+function wporg_save_lesson_module( $post_id, $post ) {
+	// Verify post type and nonce
+	if ( ( get_post_type( $post ) != 'lesson' ) || ! isset( $_POST['wporg_lesson_module_nonce'] )
+		|| ! wp_verify_nonce( $_POST['wporg_lesson_module_nonce'], 'wporg_module_select' ) ) {
+		return $post_id;
+	}
+
+	// Check if user has permissions to edit lessons
+	$post_type = get_post_type_object( $post->post_type );
+	if ( ! current_user_can( $post_type->cap->edit_post, $post_id ) ) {
+		return $post_id;
+	}
+
+	// Check if user has permissions to edit this specific post
+	if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		return $post_id;
+	}
+
+	// Get module ID
+	$lesson_module_id_key = 'lesson_module';
+	$module_id            = isset( $_POST[ $lesson_module_id_key ] ) ? $_POST[ $lesson_module_id_key ] : null;
+
+	// Set the module on the lesson
+	set_module( $module_id, $post_id );
+
+	return true;
+}
+
+/**
+ * Set the module on the lesson in the DB.
+ *
+ * If the module is not associated with the course that the lesson belongs
+ * to, the lesson's module will instead be unset. The third argument may be
+ * used to change which course to check against. This is useful when the
+ * course and module are being updated at the same time.
+ *
+ * @param integer|string $module_id ID of the new module.
+ */
+function set_module( $module_id, $lesson_id ) {
+	$modules_taxonomy = Sensei()->modules->taxonomy;
+
+	// Convert IDs to integers
+	if ( $module_id || ! empty( $module_id ) ) {
+		$module_id = intval( $module_id );
+	}
+
+	// Check if the lesson is already assigned to a module.
+	// Modules and lessons have 1 -> 1 relationship.
+	// We delete existing module term relationships for this lesson if no module is selected
+	if ( ! $module_id || empty( $module_id ) ) {
+		wp_delete_object_term_relationships( $lesson_id, $modules_taxonomy );
+		return;
+	}
+
+	// Assign lesson to selected module
+	wp_set_object_terms( $lesson_id, $module_id, $modules_taxonomy, false );
+
+	// Set default order for lesson inside module
+	$order_module_key = '_order_module_' . $module_id;
+	if ( ! get_post_meta( $lesson_id, $order_module_key, true ) ) {
+		update_post_meta( $lesson_id, $order_module_key, 0 );
+	}
 }
