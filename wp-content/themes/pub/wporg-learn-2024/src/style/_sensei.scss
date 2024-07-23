@@ -65,22 +65,25 @@ body.sensei {
 		}
 	}
 
-	// Hide the Lesson title breadcrumb as it's already displayed in the h1, and the leading slash.
-	@media screen and (max-width: 1024px) {
-		.wp-block-wporg-site-breadcrumbs span {
-			&:last-child,
-			&:nth-child(3)::after {
-				display: none;
+	&.single-lesson {
+
+		// Hide the Lesson title breadcrumb as it's already displayed in the h1, and the leading slash.
+		@media screen and (max-width: 1024px) {
+			.wp-block-wporg-site-breadcrumbs span {
+				&:last-child,
+				&:nth-child(3)::after {
+					display: none;
+				}
 			}
 		}
-	}
 
-	// Leave only the 'Home' breadcrumb. The 'Exit Course' button enables navigating to the parent course.
-	@media screen and (max-width: 600px) {
-		.wp-block-wporg-site-breadcrumbs span {
-			&:not(:first-child),
-			&::after {
-				display: none;
+		// Leave only the 'Home' breadcrumb. The 'Exit Course' button enables navigating to the parent course.
+		@media screen and (max-width: 600px) {
+			.wp-block-wporg-site-breadcrumbs span {
+				&:not(:first-child),
+				&::after {
+					display: none;
+				}
 			}
 		}
 	}
