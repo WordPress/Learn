@@ -2,7 +2,7 @@
 
 namespace WordPressdotorg\Theme\Learn_2024;
 
-use function WPOrg_Learn\Sensei\{get_my_courses_page_url};
+use function WPOrg_Learn\Sensei\{get_my_courses_page_url, get_lesson_has_published_course};
 
 // Block files
 require_once __DIR__ . '/src/code/index.php';
@@ -263,10 +263,8 @@ function set_site_breadcrumbs( $breadcrumbs ) {
 		// and insert the lesson course breadcrumb into the third position.
 		if ( is_singular( 'lesson' ) ) {
 			$lesson_course_id = get_post_meta( get_the_ID(), '_lesson_course', true );
-			$lesson_course_status = get_post_status( $lesson_course_id );
-			$has_parent_course = ! empty( $lesson_course_id ) && 'publish' === $lesson_course_status;
 
-			if ( ! $has_parent_course ) {
+			if ( ! get_lesson_has_published_course( $lesson_course_id ) ) {
 				return $breadcrumbs;
 			}
 

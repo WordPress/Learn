@@ -379,3 +379,16 @@ function block_login_register_actions() {
 		unset( $_REQUEST['_wpnonce'], $_REQUEST['log'], $_REQUEST['pwd'], $_POST['log'], $_POST['pwd'] ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 	}
 }
+
+/**
+ * Check if a lesson has a published course.
+ *
+ * @param int $lesson_id The ID of the lesson.
+ * @return bool True if the lesson has a published course, false otherwise.
+ */
+function get_lesson_has_published_course( $lesson_id ) {
+	$course_id = get_post_meta( $lesson_id, '_lesson_course', true );
+	$course_status = get_post_status( $course_id );
+
+	return ! empty( $course_id ) && 'publish' === $course_status;
+}
