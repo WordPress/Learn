@@ -19,7 +19,7 @@
 		<div class="wp-block-group">
 
 			<!-- wp:paragraph {"className":"is-style-short-text","fontSize":"small"} -->
-			<p class="is-style-short-text has-small-font-size"><a href="<?php echo esc_url( get_post_type_archive_link( 'lesson' ) ); ?>">Exit lesson</a></p>
+			<p class="is-style-short-text has-small-font-size"><a href="<?php echo esc_url( get_post_type_archive_link( 'lesson' ) ); ?>"><?php echo esc_html_e( 'Exit lesson', 'wporg-learn' ); ?></a></p>
 			<!-- /wp:paragraph -->
 
 		</div>
