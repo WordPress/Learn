@@ -1,0 +1,4 @@
+{
+	"name": "wporg-learn/sensei-progress-bar",
+	"viewScript": "file:./view.js"
+}
