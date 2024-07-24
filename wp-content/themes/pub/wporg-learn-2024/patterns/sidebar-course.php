@@ -22,7 +22,7 @@ $current_post     = get_post();
 		<!-- wp:group {"layout":{"type":"constrained"}} -->
 		<div class="wp-block-group">
 
-			<!-- wp:sensei-lms/course-progress {<?php echo ( $completed_course ? '"customTextColor":"var(--wp--custom--color--green-50)",' : '' ); ?>"customBarColor":"var(--wp--custom--color--green-50)","height":10,"className":"wporg-learn-sidebar-course-progress"} /-->
+			<!-- wp:sensei-lms/course-progress {<?php echo ( $completed_course ? '"customTextColor":"var(--wp--custom--color--green-50)",' : '' ); ?>"customBarColor":"var(--wp--custom--color--green-50)","height":10} /-->
 
 			<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"10px"}},"elements":{"link":{"color":{"text":"var:preset|color|blueberry-1"}}},"typography":{"fontStyle":"normal","fontWeight":"400","lineHeight":26px}},"textColor":"blueberry-1","fontSize":"normal","fontFamily":"inter","className":""wporg-learn-sidebar-all-courses"} -->
 			<p class="has-blueberry-1-color has-text-color has-link-color has-inter-font-family has-normal-font-size wporg-learn-sidebar-all-courses" style="font-style:normal;font-weight:400;line-height:26px;margin-top:10px">
