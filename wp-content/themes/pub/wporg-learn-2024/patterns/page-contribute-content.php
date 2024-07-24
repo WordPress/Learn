@@ -15,7 +15,7 @@
 
 <!-- wp:paragraph {"fontSize":"normal","fontFamily":"inter"} -->
 <p class="has-inter-font-family has-normal-font-size">
-	<?php esc_html_e( "Here's how you can get involved and create content for Learn WordPress", 'wporg-learn' ); ?>
+	<?php esc_html_e( "Here's how you can get involved and create content for Learn WordPress.", 'wporg-learn' ); ?>
 </p>
 <!-- /wp:paragraph -->
 
@@ -25,8 +25,8 @@
 </h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"fontSize":"small","fontFamily":"inter"} -->
-<p class="has-inter-font-family has-small-font-size">
+<!-- wp:paragraph -->
+<p>
 	<?php echo wp_kses_post(
 		sprintf(
 			/* translators: 1: read this post link, 2: apply link, 3: organize an online workshop link */
@@ -46,8 +46,8 @@
 </h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"fontSize":"small","fontFamily":"inter"} -->
-<p class="has-inter-font-family has-small-font-size">
+<!-- wp:paragraph -->
+<p>
 	<?php echo wp_kses_post(
 		sprintf(
 			/* translators: 1: courses link, 2: training channel link, 3: welcome page link, 4: get started page link */
@@ -73,8 +73,8 @@
 </h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"fontSize":"small","fontFamily":"inter"} -->
-<p class="has-inter-font-family has-small-font-size">
+<!-- wp:paragraph -->
+<p>
 	<?php echo wp_kses_post(
 		sprintf(
 			/* translators: 1: training channel link, 2: training team link */
