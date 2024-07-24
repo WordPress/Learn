@@ -332,7 +332,7 @@ function set_site_breadcrumbs( $breadcrumbs ) {
  */
 function set_default_featured_image( $html, $post_id, $post_thumbnail_id, $size, $attr ) {
 	if ( ! $html ) {
-		return '<img src="https://s.w.org/images/learn-thumbnail-fallback.jpg?v=4" alt="" />';
+		return '<img src="https://s.w.org/images/learn-thumbnail-fallback.jpg?v=4" alt="' . esc_attr( get_the_title( $post_id ) ) . '" />';
 	}
 
 	return $html;
