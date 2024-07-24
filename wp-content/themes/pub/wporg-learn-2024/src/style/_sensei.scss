@@ -21,6 +21,10 @@ body.sensei {
 	.sensei-course-theme__columns .sensei-course-theme__sidebar ~ .sensei-course-theme__main-content {
 		--sensei-lm-sidebar-width: calc(280px + (var(--wp--preset--spacing--edge-space) * 2) - 24px);
 
+		@media (max-width: 782px) {
+			--sensei-lm-sidebar-width: 0;
+		}
+
 		@media (min-width: 890px) {
 			padding-right: calc(var(--wp--preset--spacing--edge-space) - 24px);
 		}
@@ -271,30 +275,9 @@ body.sensei {
 		}
 	}
 
-	// This class missing an id indicates a freestanding lesson, not part of a course.
-	&.course-id- {
+	.sensei-course-theme__header--standalone {
 		.sensei-course-theme-header-content {
 			border-bottom: 1px solid var(--wp--custom--color--border);
-		}
-
-		.wp-block-sensei-lms-sidebar-toggle-button,
-		.wp-block-sensei-lms-exit-course,
-		.wp-block-sensei-lms-course-theme-notices {
-			display: none;
-		}
-
-		.sensei-course-theme__columns {
-			> div:not(.sensei-course-theme__main-content) {
-				display: none;
-			}
-
-			.sensei-course-theme__main-content {
-				margin-left: auto !important;
-				margin-right: auto !important;
-				max-width: var(--wp--style--global--content-size);
-				padding-left: var(--wp--preset--spacing--edge-space);
-				padding-right: var(--wp--preset--spacing--edge-space);
-			}
 		}
 
 		// Also hide the leading slash for the Lesson title breadcrumb when it is hidden.
@@ -302,6 +285,16 @@ body.sensei {
 			.wp-block-wporg-site-breadcrumbs span:nth-child(2)::after {
 				display: none;
 			}
+		}
+	}
+
+	.sensei-course-theme__columns--standalone {
+		.sensei-course-theme__main-content {
+			margin-left: auto !important;
+			margin-right: auto !important;
+			max-width: var(--wp--style--global--content-size);
+			padding-left: var(--wp--preset--spacing--edge-space);
+			padding-right: var(--wp--preset--spacing--edge-space);
 		}
 	}
 
@@ -325,6 +318,15 @@ body.sensei-course-theme {
 
 	font-size: var(--wp--preset--font-size--normal);
 	line-height: var(--wp--custom--body--typography--line-height);
+
+	&.sensei-course-theme--sidebar-open .sensei-course-theme-course-progress-bar {
+
+		@media screen and (max-width: 782px) {
+			top: calc(var(--sensei-lm-header-height));
+			margin-left: unset;
+			margin-right: unset;
+		}
+	}
 }
 
 .course:not(body) {

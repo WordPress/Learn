@@ -2,7 +2,7 @@
 
 namespace WordPressdotorg\Theme\Learn_2024;
 
-use function WPOrg_Learn\Sensei\{get_my_courses_page_url};
+use function WPOrg_Learn\Sensei\{get_my_courses_page_url, get_lesson_has_published_course};
 
 // Block files
 require_once __DIR__ . '/src/code/index.php';
@@ -250,6 +250,7 @@ function set_site_breadcrumbs( $breadcrumbs ) {
 		$breadcrumbs[0]['title'] = 'Home';
 	}
 
+	$post_id = get_the_ID();
 	$post_type = get_post_type();
 
 	if ( is_singular() && 'page' !== $post_type && 'post' !== $post_type ) {
@@ -268,9 +269,7 @@ function set_site_breadcrumbs( $breadcrumbs ) {
 		// If it's a lesson single page, change the second breadcrumb to the course archive
 		// and insert the lesson course breadcrumb into the third position.
 		if ( is_singular( 'lesson' ) ) {
-			$lesson_course_id = get_post_meta( get_the_ID(), '_lesson_course', true );
-
-			if ( empty( $lesson_course_id ) ) {
+			if ( ! get_lesson_has_published_course( $post_id ) ) {
 				return $breadcrumbs;
 			}
 
@@ -283,6 +282,7 @@ function set_site_breadcrumbs( $breadcrumbs ) {
 				'title' => $archive_title,
 			);
 
+			$lesson_course_id = get_post_meta( $post_id, '_lesson_course', true );
 			$lesson_course_title = get_the_title( $lesson_course_id );
 			$lesson_course_link = get_permalink( $lesson_course_id );
 			$lesson_course_breadcrumb = array(
@@ -295,7 +295,7 @@ function set_site_breadcrumbs( $breadcrumbs ) {
 		}
 	} else {
 		// Add the ancestors of the current page to the breadcrumbs.
-		$ancestors = get_post_ancestors( get_the_ID() );
+		$ancestors = get_post_ancestors( $post_id );
 
 		if ( ! empty( $ancestors ) ) {
 			foreach ( $ancestors as $ancestor ) {
