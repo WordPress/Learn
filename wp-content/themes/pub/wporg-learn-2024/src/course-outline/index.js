@@ -4,10 +4,20 @@ import { Icon, drafts, lockOutline } from '@wordpress/icons';
 import { renderToString } from '@wordpress/element';
 
 document.addEventListener( 'DOMContentLoaded', () => {
+	/**
+	 * Allow the entire header to toggle, giving users a larger area to interact with.
+	 */
 	document
 		.querySelectorAll( 'section.wp-block-sensei-lms-course-outline-module-bordered >  header' )
 		.forEach( ( header ) => {
-			header.classList.add( 'sensei-collapsible__toggle' );
+			const button = header.querySelector( 'button' );
+			header.addEventListener( 'click', () => {
+				button.click();
+			} );
+
+			button.addEventListener( 'click', ( event ) => {
+				event.stopPropagation();
+			} );
 		} );
 
 	/**
