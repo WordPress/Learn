@@ -29,7 +29,8 @@ function init() {
 	add_action(
 		'render_block_core/template-part',
 		function( $block_content, $block ) use ( $script_handle ) {
-			if ( isset( $block['attrs']['slug'] ) && 'card-course' === $block['attrs']['slug'] ) {
+			$slugs = array( 'card-course-h3', 'card-course', 'card-lesson-h3', 'card-lesson', 'card' );
+			if ( isset( $block['attrs']['slug'] ) && in_array( $block['attrs']['slug'], $slugs, true ) ) {
 				wp_enqueue_script( $script_handle );
 			}
 			return $block_content;
