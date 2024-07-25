@@ -203,34 +203,34 @@ function get_learning_pathway_level_content( $learning_pathway ) {
 			'beginner' => array(
 				'title' => __( 'Beginner WordPress users', 'wporg-learn' ),
 				'description' => __( 'You’re new to WordPress, or building websites, and want the essentials.', 'wporg-learn' ),
-				'see_all_aria_label' => 'Beginner WordPress users: See all learning pathways',
+				'see_all_aria_label' => 'See all beginner WordPress user learning pathways',
 			),
 			'intermediate' => array(
 				'title' => __( 'Intermediate WordPress users', 'wporg-learn' ),
 				'description' => __( 'You’re comfortable setting up your site and making small changes or you’ve already completed the Beginner course.', 'wporg-learn' ),
-				'see_all_aria_label' => 'Intermediate WordPress users: See all learning pathways',
+				'see_all_aria_label' => 'See all intermediate WordPress user learning pathways',
 			),
 			'advanced' => array(
 				'title' => __( 'Advanced WordPress users', 'wporg-learn' ),
 				'description' => __( 'You’re confident using multiple plugins and know how to customize a Block theme, or you’ve already completed the Intermediate course.', 'wporg-learn' ),
-				'see_all_aria_label' => 'Advanced WordPress users: See all learning pathways',
+				'see_all_aria_label' => 'See all advanced WordPress user learning pathways',
 			),
 		),
 		'developer' => array(
 			'beginner' => array(
 				'title' => __( 'Beginner development concepts', 'wporg-learn' ),
 				'description' => __( 'You’re new to development or have experience using WordPress’s no-code features and want to do more.', 'wporg-learn' ),
-				'see_all_aria_label' => 'Beginner development concepts: See all learning pathways',
+				'see_all_aria_label' => 'See all beginner development concepts learning pathways',
 			),
 			'intermediate' => array(
 				'title' => __( 'Intermediate development concepts', 'wporg-learn' ),
 				'description' => __( 'You’re comfortable writing code and want to extend WordPress with your own plugin or theme.', 'wporg-learn' ),
-				'see_all_aria_label' => 'Intermediate development concepts: See all learning pathways',
+				'see_all_aria_label' => 'See all intermediate development concepts learning pathways',
 			),
 			'advanced' => array(
 				'title' => __( 'Advanced development concepts', 'wporg-learn' ),
 				'description' => __( 'You’re confident in the WordPress development environment or have already built your own plugin or theme.', 'wporg-learn' ),
-				'see_all_aria_label' => 'Advanced development concepts: See all learning pathways',
+				'see_all_aria_label' => 'See all advanced development concepts learning pathways',
 			),
 		),
 	);

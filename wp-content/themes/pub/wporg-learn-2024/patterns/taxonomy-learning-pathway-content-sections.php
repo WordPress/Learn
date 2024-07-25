@@ -41,7 +41,7 @@ $content = get_learning_pathway_level_content( $learning_pathway_slug );
 
 	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|blueberry-1"}}}},"textColor":"charcoal-4"} -->
 	<p class="has-charcoal-4-color has-text-color has-link-color">
-		<a href="<?php echo esc_url( $learning_pathway_url . '?wporg_lesson_level=beginner' ); ?>" aria-label="<?php echo esc_attr( $content['beginner']['see_all_aria_label'] ); ?>"><?php esc_html_e( 'See all', 'wporg-learn' ); ?></a>
+		<a href="<?php echo esc_url( $learning_pathway_url . '?wporg_lesson_level=beginner' ); ?>" aria-label="<?php echo esc_attr( $content['beginner']['see_all_aria_label'] ); ?>"><?php esc_html_e( 'See all beginner', 'wporg-learn' ); ?></a>
 	</p>
 	<!-- /wp:paragraph -->
 
@@ -79,7 +79,7 @@ $content = get_learning_pathway_level_content( $learning_pathway_slug );
 
 	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|blueberry-1"}}}},"textColor":"charcoal-4"} -->
 	<p class="has-charcoal-4-color has-text-color has-link-color">
-		<a href="<?php echo esc_url( $learning_pathway_url . '?wporg_lesson_level=intermediate' ); ?>" aria-label="<?php echo esc_attr( $content['intermediate']['see_all_aria_label'] ); ?>"><?php esc_html_e( 'See all', 'wporg-learn' ); ?></a>
+		<a href="<?php echo esc_url( $learning_pathway_url . '?wporg_lesson_level=intermediate' ); ?>" aria-label="<?php echo esc_attr( $content['intermediate']['see_all_aria_label'] ); ?>"><?php esc_html_e( 'See all intermediate', 'wporg-learn' ); ?></a>
 	</p>
 	<!-- /wp:paragraph -->
 
@@ -117,7 +117,7 @@ $content = get_learning_pathway_level_content( $learning_pathway_slug );
 
 	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|blueberry-1"}}}},"textColor":"charcoal-4"} -->
 	<p class="has-charcoal-4-color has-text-color has-link-color">
-		<a href="<?php echo esc_url( $learning_pathway_url . '?wporg_lesson_level=advanced' ); ?>" aria-label="<?php echo esc_attr( $content['advanced']['see_all_aria_label'] ); ?>"><?php esc_html_e( 'See all', 'wporg-learn' ); ?></a>
+		<a href="<?php echo esc_url( $learning_pathway_url . '?wporg_lesson_level=advanced' ); ?>" aria-label="<?php echo esc_attr( $content['advanced']['see_all_aria_label'] ); ?>"><?php esc_html_e( 'See all advanced', 'wporg-learn' ); ?></a>
 	</p>
 	<!-- /wp:paragraph -->
 
