@@ -687,7 +687,7 @@ function enqueue_expiration_date_assets() {
 function enqueue_language_meta_assets() {
 	global $typenow;
 
-	$post_types_with_language = array( 'lesson-plan', 'wporg_workshop', 'meeting', 'course', 'lesson' );
+	$post_types_with_language = array( 'lesson-plan', 'wporg_workshop', 'meeting' );
 	if ( in_array( $typenow, $post_types_with_language, true ) ) {
 		$script_asset_path = get_build_path() . 'language-meta.asset.php';
 		if ( ! file_exists( $script_asset_path ) ) {

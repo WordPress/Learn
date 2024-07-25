@@ -6,7 +6,7 @@ use WP_Query;
 use function WordPressdotorg\Locales\get_locales_with_english_names;
 use function WordPressdotorg\Locales\get_locale_name_from_code;
 use function WPOrg_Learn\Post_Meta\get_available_post_type_locales;
-use function WPOrg_Learn\Taxonomy\get_available_taxonomy_terms;
+use function WPOrg_Learn\Taxonomy\{get_available_taxonomy_terms, get_used_post_type_locales};
 
 defined( 'WPINC' ) || die();
 
@@ -16,12 +16,12 @@ defined( 'WPINC' ) || die();
 add_action( 'admin_notices', __NAMESPACE__ . '\show_term_translation_notice' );
 add_filter( 'manage_wporg_workshop_posts_columns', __NAMESPACE__ . '\add_workshop_list_table_columns' );
 add_filter( 'manage_edit-topic_columns', __NAMESPACE__ . '\add_topic_list_table_column' );
-foreach ( array( 'lesson-plan', 'meeting', 'course', 'lesson' ) as $pt ) {
+foreach ( array( 'lesson-plan', 'meeting' ) as $pt ) {
 	add_filter( 'manage_' . $pt . '_posts_columns', __NAMESPACE__ . '\add_list_table_language_column' );
 }
 add_action( 'manage_wporg_workshop_posts_custom_column', __NAMESPACE__ . '\render_workshop_list_table_columns', 10, 2 );
 add_action( 'manage_topic_custom_column', __NAMESPACE__ . '\render_topics_list_table_columns', 10, 3 );
-foreach ( array( 'lesson-plan', 'meeting', 'course', 'lesson' ) as $pt ) {
+foreach ( array( 'lesson-plan', 'meeting' ) as $pt ) {
 	add_filter( 'manage_' . $pt . '_posts_custom_column', __NAMESPACE__ . '\render_list_table_language_column', 10, 2 );
 }
 add_filter( 'manage_edit-wporg_workshop_sortable_columns', __NAMESPACE__ . '\add_workshop_list_table_sortable_columns' );
@@ -245,21 +245,25 @@ function add_admin_list_table_filters( $post_type, $which ) {
 		return;
 	}
 
+	// Course and Lesson use the language taxonomy, while Lesson Plan and Tutorial use language post meta.
+	$language_var = 'course' === $post_type || 'lesson' === $post_type ? 'wporg_language' : 'language';
+
 	$audience    = filter_input( INPUT_GET, 'wporg_audience', FILTER_SANITIZE_STRING );
-	$language    = filter_input( INPUT_GET, 'language', FILTER_SANITIZE_STRING );
+	$language    = filter_input( INPUT_GET, $language_var, FILTER_SANITIZE_STRING );
 	$level       = filter_input( INPUT_GET, 'wporg_experience_level', FILTER_SANITIZE_STRING );
 	$post_status = filter_input( INPUT_GET, 'post_status', FILTER_SANITIZE_STRING );
 
 	$available_audiences = get_available_taxonomy_terms( 'audience', $post_type, $post_status );
 	$available_levels    = get_available_taxonomy_terms( 'level', $post_type, $post_status );
-	$available_locales   = get_available_post_type_locales( 'language', $post_type, $post_status );
-
+	$available_locales   = 'language' === $language_var
+		? get_available_post_type_locales( $language_var, $post_type, $post_status )
+		: get_used_post_type_locales( $post_type, $post_status );
 	?>
 
 		<label for="filter-by-language" class="screen-reader-text">
 			<?php esc_html_e( 'Filter by language', 'wporg-learn' ); ?>
 		</label>
-		<select id="filter-by-language" name="language">
+		<select id="filter-by-language" name="<?php echo esc_attr( $language_var ); ?>">
 			<option value=""<?php selected( ! $language ); ?>><?php esc_html_e( 'Any language', 'wporg-learn' ); ?></option>
 			<?php foreach ( $available_locales as $code => $name ) : ?>
 				<option value="<?php echo esc_attr( $code ); ?>"<?php selected( $code, $language ); ?>>

@@ -744,3 +744,22 @@ function get_available_taxonomy_terms( $taxonomy, $post_type, $post_status = nul
 		return $terms;
 	}, array());
 }
+
+/**
+ * Get used post type locales.
+ *
+ * @param string $post_type The post type.
+ * @param string $post_status The post status.
+ * @param string $label_language The label language.
+ * @return array The used post type locales.
+ */
+function get_used_post_type_locales( $post_type, $post_status, $label_language = 'english' ) {
+	$languages_terms = get_available_taxonomy_terms( 'language', $post_type, $post_status );
+
+	$used_languages = array_fill_keys( array_values( $languages_terms ), '' );
+
+	$locale_fn = "\WordPressdotorg\Locales\get_locales_with_{$label_language}_names";
+	$locales   = $locale_fn();
+
+	return array_intersect_key( $locales, $used_languages );
+}
