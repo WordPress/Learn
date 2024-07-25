@@ -6,6 +6,7 @@
 namespace WordPressdotorg\Theme\Learn_2024\Block_Config;
 
 use function WPOrg_Learn\Post_Meta\{get_available_post_type_locales};
+use function WPOrg_Learn\Taxonomy\{get_used_post_type_locales};
 use Sensei_Learner;
 
 add_filter( 'wporg_query_filter_options_language', __NAMESPACE__ . '\get_language_options' );
@@ -413,7 +414,7 @@ function create_language_options( $languages ) {
 	return array(
 		'label' => $label,
 		'title' => __( 'Filter', 'wporg-learn' ),
-		'key' => 'language',
+		'key' => 'wporg_language',
 		'action' => get_current_url(),
 		'options' => $languages,
 		'selected' => $selected,
@@ -428,7 +429,7 @@ function create_language_options( $languages ) {
  * @return array New list of language options.
  */
 function get_language_options( $options ) {
-	$languages = get_available_post_type_locales( 'language', null, 'publish', 'native' );
+	$languages = get_used_post_type_locales( null, 'publish', 'native' );
 
 	return create_language_options( $languages );
 }
@@ -452,7 +453,7 @@ function get_language_options_by_post_type( $options ) {
 		return array();
 	}
 
-	$languages = get_available_post_type_locales( 'language', $post_type, 'publish', 'native' );
+	$languages = get_used_post_type_locales( $post_type, 'publish', 'native' );
 
 	return create_language_options( $languages );
 }
@@ -549,7 +550,7 @@ function inject_other_filters( $key ) {
 		printf( '<input type="hidden" name="%s" value="%s" />', esc_attr( $single_query_var ), esc_attr( $value ) );
 	}
 
-	$multi_query_vars = array( 'wporg_workshop_topic' );
+	$multi_query_vars = array( 'wporg_workshop_topic', 'wporg_language' );
 	foreach ( $multi_query_vars as $multi_query_var ) {
 		if ( ! isset( $wp_query->query[ $multi_query_var ] ) ) {
 			continue;
