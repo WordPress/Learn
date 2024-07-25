@@ -205,7 +205,7 @@ function register_misc_meta() {
 	}
 
 	// Language field.
-	$post_types = array( 'lesson-plan', 'wporg_workshop', 'meeting', 'course', 'lesson' );
+	$post_types = array( 'lesson-plan', 'wporg_workshop', 'meeting' );
 	foreach ( $post_types as $post_type ) {
 		register_post_meta(
 			$post_type,
