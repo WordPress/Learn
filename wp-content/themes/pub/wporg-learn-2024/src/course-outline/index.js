@@ -4,6 +4,12 @@ import { Icon, drafts, lockOutline } from '@wordpress/icons';
 import { renderToString } from '@wordpress/element';
 
 document.addEventListener( 'DOMContentLoaded', () => {
+	document
+		.querySelectorAll( 'section.wp-block-sensei-lms-course-outline-module-bordered >  header' )
+		.forEach( ( header ) => {
+			header.classList.add( 'sensei-collapsible__toggle' );
+		} );
+
 	/**
 	 * Find all in progress lessons, and replace the status icon with the Gutenberg-style `drafts` icon.
 	 */
