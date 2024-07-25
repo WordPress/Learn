@@ -33,6 +33,7 @@ function register() {
 	register_included_content();
 	register_topic();
 	register_learning_pathway();
+	register_language();
 }
 
 /**
@@ -574,6 +575,52 @@ function register_learning_pathway() {
 	);
 
 	register_taxonomy( 'learning-pathway', array( 'course' ), $args );
+}
+
+/**
+ * Register the Learning Pathway taxonomy.
+ */
+function register_language() {
+	$labels = array(
+		'name'                       => _x( 'Language', 'Taxonomy General Name', 'wporg-learn' ),
+		'singular_name'              => _x( 'Language', 'Taxonomy Singular Name', 'wporg-learn' ),
+		'menu_name'                  => __( 'Language', 'wporg-learn' ),
+		'all_items'                  => __( 'All languages', 'wporg-learn' ),
+		'parent_item'                => __( 'Parent language', 'wporg-learn' ),
+		'parent_item_colon'          => __( 'Parent language:', 'wporg-learn' ),
+		'new_item_name'              => __( 'New language name', 'wporg-learn' ),
+		'add_new_item'               => __( 'Add new language', 'wporg-learn' ),
+		'edit_item'                  => __( 'Edit language', 'wporg-learn' ),
+		'update_item'                => __( 'Update language', 'wporg-learn' ),
+		'view_item'                  => __( 'View language', 'wporg-learn' ),
+		'separate_items_with_commas' => __( 'Separate languages with commas', 'wporg-learn' ),
+		'add_or_remove_items'        => __( 'Add or remove languages', 'wporg-learn' ),
+		'choose_from_most_used'      => __( 'Choose from the most used', 'wporg-learn' ),
+		'popular_items'              => __( 'Popular languages', 'wporg-learn' ),
+		'search_items'               => __( 'Search languages', 'wporg-learn' ),
+		'not_found'                  => __( 'No language found', 'wporg-learn' ),
+		'no_terms'                   => __( 'No languages', 'wporg-learn' ),
+		'items_list'                 => __( 'Languages list', 'wporg-learn' ),
+		'items_list_navigation'      => __( 'Languages list navigation', 'wporg-learn' ),
+	);
+
+	$args = array(
+		'labels'            => $labels,
+		'hierarchical'      => false,
+		'public'            => true,
+		'query_var'         => 'wporg_language', // Prevent collisions with query params in the archive
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'show_in_nav_menus' => true,
+		'show_tagcloud'     => false,
+		'show_in_rest'      => true,
+		'capabilities'      => array(
+			'assign_terms' => 'edit_others_posts',
+		),
+		'rewrite'           => false,
+	);
+
+	register_taxonomy( 'language', array( 'course', 'lesson' ), $args );
 }
 
 /**
