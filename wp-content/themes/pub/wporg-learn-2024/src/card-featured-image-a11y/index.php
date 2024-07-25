@@ -25,7 +25,7 @@ function init() {
 
 	$script_handle = register_block_script_handle( $metadata, 'viewScript', 0 );
 
-	// Enqueue the assets when the card course template is on the page.
+	// Enqueue the assets when one of the card templates is on the page.
 	add_action(
 		'render_block_core/template-part',
 		function( $block_content, $block ) use ( $script_handle ) {
