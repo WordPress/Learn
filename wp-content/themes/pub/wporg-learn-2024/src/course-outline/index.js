@@ -8,7 +8,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 	 * Allow the entire header to toggle, giving users a larger area to interact with.
 	 */
 	document
-		.querySelectorAll( 'section.wp-block-sensei-lms-course-outline-module-bordered >  header' )
+		.querySelectorAll( 'section.wp-block-sensei-lms-course-outline-module-bordered > header' )
 		.forEach( ( header ) => {
 			const button = header.querySelector( 'button' );
 			header.addEventListener( 'click', () => {
