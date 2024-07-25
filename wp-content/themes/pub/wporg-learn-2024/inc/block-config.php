@@ -392,8 +392,8 @@ function get_meta_query_values_by_key( $query, $key ) {
 function create_language_options( $languages ) {
 	global $wp_query;
 
-	// If there are no languages, or the only language is en_US, don't show the filter.
-	if ( empty( $languages ) || ( 1 === count( $languages ) && isset( $languages['en_US'] ) ) ) {
+	// If there are no languages, or the only language is en_US, or a search is set, don't show the filter.
+	if ( empty( $languages ) || ( 1 === count( $languages ) && isset( $languages['en_US'] ) ) || $wp_query->get( 's' ) ) {
 		return array();
 	}
 	// Otherwise if there are other languages and en_US is not listed, add it to the top,
