@@ -7,15 +7,15 @@ function init() {
 	 */
 	function enhanceCardCourseAccessibility() {
 		document
-			.querySelectorAll( '.wporg-learn-card-grid figure.wp-block-post-featured-image' )
-			.forEach( ( featuredImg ) => {
-				featuredImg.setAttribute( 'aria-hidden', 'true' );
-				featuredImg.setAttribute( 'tabindex', '-1' );
+			.querySelectorAll( '.wporg-learn-card-grid figure.wp-block-post-featured-image > a' )
+			.forEach( ( featuredImgLink ) => {
+				featuredImgLink.setAttribute( 'aria-hidden', 'true' );
+				featuredImgLink.setAttribute( 'tabindex', '-1' );
 
-				const childLink = featuredImg.querySelector( 'a' );
-				if ( childLink ) {
-					childLink.setAttribute( 'aria-hidden', 'true' );
-					childLink.setAttribute( 'tabindex', '-1' );
+				const featuredImg = featuredImgLink.querySelector( 'img' );
+				if ( featuredImg ) {
+					featuredImg.setAttribute( 'role', 'presentation' );
+					featuredImg.setAttribute( 'alt', '' );
 				}
 			} );
 	}
