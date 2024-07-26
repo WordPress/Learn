@@ -32,10 +32,10 @@ $content = get_learning_pathway_level_content( $learning_pathway_slug );
 <h2 class="wp-block-heading" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--10)"><?php echo esc_html( $content['beginner']['title'] ); ?></h2>
 <!-- /wp:heading -->
 
-<!-- wp:group {"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|40"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"}} -->
+<!-- wp:group {"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|40"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"top"}} -->
 <div class="wp-block-group" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--40)">
 
-	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|charcoal-4"}}}},"textColor":"charcoal-4"} -->
+	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|charcoal-4"}}},"layout":{"selfStretch":"fixed","flexSize":"750px"}},"textColor":"charcoal-4"} -->
 	<p class="has-charcoal-4-color has-text-color has-link-color"><?php echo esc_html( $content['beginner']['description'] ); ?></p>
 	<!-- /wp:paragraph -->
 
@@ -70,10 +70,10 @@ $content = get_learning_pathway_level_content( $learning_pathway_slug );
 <h2 class="wp-block-heading" style="margin-top:var(--wp--preset--spacing--60);margin-bottom:var(--wp--preset--spacing--10)"><?php echo esc_html( $content['intermediate']['title'] ); ?></h2>
 <!-- /wp:heading -->
 
-<!-- wp:group {"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|40"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"}} -->
+<!-- wp:group {"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|40"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"top"}} -->
 <div class="wp-block-group" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--40)">
 
-	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|charcoal-4"}}}},"textColor":"charcoal-4"} -->
+	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|charcoal-4"}}},"layout":{"selfStretch":"fixed","flexSize":"750px"}},"textColor":"charcoal-4"} -->
 	<p class="has-charcoal-4-color has-text-color has-link-color"><?php echo esc_html( $content['intermediate']['description'] ); ?></p>
 	<!-- /wp:paragraph -->
 
@@ -108,10 +108,10 @@ $content = get_learning_pathway_level_content( $learning_pathway_slug );
 <h2 class="wp-block-heading" style="margin-top:var(--wp--preset--spacing--60);margin-bottom:var(--wp--preset--spacing--10)"><?php echo esc_html( $content['advanced']['title'] ); ?></h2>
 <!-- /wp:heading -->
 
-<!-- wp:group {"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|40"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"}} -->
+<!-- wp:group {"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|40"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"top"}} -->
 <div class="wp-block-group" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--40)">
 
-	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|charcoal-4"}}}},"textColor":"charcoal-4"} -->
+	<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|charcoal-4"}}},"layout":{"selfStretch":"fixed","flexSize":"750px"}},"textColor":"charcoal-4"} -->
 	<p class="has-charcoal-4-color has-text-color has-link-color"><?php echo esc_html( $content['advanced']['description'] ); ?></p>
 	<!-- /wp:paragraph -->
 
