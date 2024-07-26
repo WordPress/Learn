@@ -70,7 +70,14 @@ body.sensei {
 
 	&.single-lesson {
 		.sensei-lesson-footer .sensei-buttons-container {
+			margin: unset;
 			display: flex;
+			gap: var(--wp--preset--spacing--10);
+
+			> *,
+			.sensei-buttons-container__button-block {
+				padding: unset;
+			}
 		}
 
 		// Hide the Lesson title breadcrumb as it's already displayed in the h1, and the leading slash.
