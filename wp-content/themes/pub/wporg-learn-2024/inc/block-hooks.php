@@ -7,7 +7,7 @@
 
 namespace WordPressdotorg\Theme\Learn_2024\Block_Hooks;
 
-use WP_HTML_Tag_Processor, Sensei_Utils;
+use WP_HTML_Tag_Processor, Sensei_Utils, Sensei_Course, Sensei_Lesson;
 
 add_filter( 'render_block_data', __NAMESPACE__ . '\modify_header_template_part' );
 add_filter( 'render_block_data', __NAMESPACE__ . '\modify_course_outline_lesson_block_attrs' );
@@ -41,19 +41,33 @@ function modify_header_template_part( $parsed_block ) {
  * @return array The updated block.
  */
 function modify_course_outline_lesson_block_attrs( $parsed_block ) {
-	if ( 'sensei-lms/course-outline-lesson' !== $parsed_block['blockName'] ) {
+	if (
+		'sensei-lms/course-outline-lesson' !== $parsed_block['blockName'] ||
+		! isset( $parsed_block['attrs']['id'] )
+	) {
 		return $parsed_block;
 	}
 
+	$lesson_id = $parsed_block['attrs']['id'];
+	$classes = array();
+	$classes[] = $parsed_block['attrs']['className'] ?? '';
+
 	$status = 'not-started';
-	if ( isset( $parsed_block['attrs']['id'] ) ) {
-		$lesson_status = Sensei_Utils::user_lesson_status( $parsed_block['attrs']['id'] );
-		if ( $lesson_status ) {
-			$status = $lesson_status->comment_approved;
-		}
+	$lesson_status = Sensei_Utils::user_lesson_status( $lesson_id );
+	if ( $lesson_status ) {
+		$status = $lesson_status->comment_approved;
+	}
+	$classes[] = 'is-' . $status;
+
+	// Add previewable and prerequisite-required lesson title to lesson data
+	if (
+		( ! Sensei_Utils::is_preview_lesson( $lesson_id ) && ! Sensei_Course::is_user_enrolled( get_the_ID() ) )
+		|| ! Sensei_Lesson::is_prerequisite_complete( $lesson_id, get_current_user_id() )
+	) {
+		$classes[] = 'is-locked';
 	}
 
-	$parsed_block['attrs']['className'] = 'is-' . $status;
+	$parsed_block['attrs']['className'] = implode( ' ', $classes );
 
 	return $parsed_block;
 }
