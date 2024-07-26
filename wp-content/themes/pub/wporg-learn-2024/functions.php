@@ -5,6 +5,7 @@ namespace WordPressdotorg\Theme\Learn_2024;
 use function WPOrg_Learn\Sensei\{get_my_courses_page_url, get_lesson_has_published_course};
 
 // Block files
+require_once __DIR__ . '/src/card-featured-image-a11y/index.php';
 require_once __DIR__ . '/src/code/index.php';
 require_once __DIR__ . '/src/course-grid/index.php';
 require_once __DIR__ . '/src/course-outline/index.php';
