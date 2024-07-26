@@ -1,4 +1,4 @@
-/* global wporgCourseOutlineData */
+/* global wporgCourseOutlineData, wporgCourseOutlineL10n */
 
 import { Icon, drafts, lockOutline } from '@wordpress/icons';
 import { renderToString } from '@wordpress/element';
@@ -15,7 +15,12 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			if ( span && span.textContent.trim() === title ) {
 				const statusIcon = link.querySelector( '.wp-block-sensei-lms-course-outline-lesson__status' );
 				if ( statusIcon ) {
-					statusIcon.outerHTML = renderToString( <Icon icon={ drafts } transform={ 'scale(1.5)' } /> );
+					statusIcon.outerHTML = renderToString(
+						<>
+							<Icon icon={ drafts } style={ { transform: 'scale(1.5)' } } />
+							<span className="screen-reader-text">{ wporgCourseOutlineL10n.inProgress }</span>
+						</>
+					);
 				}
 			}
 		} );

@@ -28,6 +28,14 @@ function enqueue_assets() {
 		'wporgCourseOutlineData',
 		$lesson_data
 	);
+
+	wp_localize_script(
+		'wporg-learn-2024-course-outline',
+		'wporgCourseOutlineL10n',
+		array(
+			'inProgress' => __( 'In progress', 'wporg-learn' ),
+		)
+	);
 }
 add_action( 'wp_enqueue_scripts', 'enqueue_assets' );
 
