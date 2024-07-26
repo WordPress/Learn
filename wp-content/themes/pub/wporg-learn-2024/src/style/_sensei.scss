@@ -123,6 +123,11 @@ body.sensei {
 		.wp-block-sensei-lms-quiz .sensei-lms-question-block__header {
 			margin-bottom: var(--wp--preset--spacing--20);
 		}
+
+		#sensei-quiz-list li ul li input,
+		#sensei-quiz-list .sensei-multiple-choice-answer-option-checkbox + label::before {
+			flex-shrink: 0;
+		}
 	}
 
 	section.wp-block-sensei-lms-course-outline {
