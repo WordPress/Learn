@@ -40,6 +40,7 @@ add_filter( 'sensei_register_post_type_lesson', function( $args ) {
 add_filter( 'single_template_hierarchy', __NAMESPACE__ . '\modify_single_template' );
 add_filter( 'wporg_block_navigation_menus', __NAMESPACE__ . '\add_site_navigation_menus' );
 add_filter( 'wporg_block_site_breadcrumbs', __NAMESPACE__ . '\set_site_breadcrumbs' );
+add_filter( 'taxonomy_template_hierarchy', __NAMESPACE__ . '\modify_taxonomy_template_hierarchy' );
 
 remove_filter( 'template_include', array( 'Sensei_Templates', 'template_loader' ), 10, 1 );
 
@@ -338,4 +339,69 @@ function set_default_featured_image( $html, $post_id, $post_thumbnail_id, $size,
 	}
 
 	return $html;
+}
+
+/**
+ * Count the number of courses for a given learning pathway and level.
+ *
+ * @param int $learning_pathway_id The ID of the learning pathway.
+ * @param int $level_id The ID of the level.
+ * @return int The number of courses.
+ */
+function count_courses( $learning_pathway_id, $level_id ) {
+	if ( ! $learning_pathway_id || ! $level_id ) {
+		return 0;
+	}
+
+	$args = array(
+		'post_type' => 'course',
+		'post_status' => 'publish',
+		'fields' => 'ids',
+		'tax_query' => array(
+			'relation' => 'AND',
+			array(
+				'taxonomy' => 'learning-pathway',
+				'field'    => 'term_id',
+				'terms'    => $learning_pathway_id,
+			),
+			array(
+				'taxonomy' => 'level',
+				'field'    => 'term_id',
+				'terms'    => $level_id,
+			),
+		),
+	);
+
+	$query = new \WP_Query( $args );
+	return $query->found_posts;
+}
+
+/**
+ * Modify the taxonomy template hierarchy
+ * Only use the the custom Learning Pathway template with level sections if there are enough learning pathways to fill the sections.
+ * Minimum 3 learning pathways in one of the sections, and minimum 2 learning pathways in all sections.
+ *
+ * @param array $templates Array of template files.
+ * @return array $templates Modified array of template files.
+ */
+function modify_taxonomy_template_hierarchy( $templates ) {
+	if ( is_tax( 'learning-pathway' ) ) {
+		$learning_pathway_id = get_queried_object_id();
+
+		$beginner_course_count = count_courses( $learning_pathway_id, get_term_by( 'slug', 'beginner', 'level' )->term_id );
+		$intermediate_course_count = count_courses( $learning_pathway_id, get_term_by( 'slug', 'intermediate', 'level' )->term_id );
+		$advanced_course_count = count_courses( $learning_pathway_id, get_term_by( 'slug', 'advanced', 'level' )->term_id );
+
+		$all_sections_have_2 = $beginner_course_count >= 2 && $intermediate_course_count >= 2 && $advanced_course_count >= 2;
+		$a_section_has_3 = $beginner_course_count >= 3 || $intermediate_course_count >= 3 || $advanced_course_count >= 3;
+
+		$should_use_learning_pathway_sections = $all_sections_have_2 && $a_section_has_3;
+
+		if ( ! $should_use_learning_pathway_sections ) {
+			// Leave only the last template, which is the base taxonomy template.
+			$templates = array( array_pop( $templates ) );
+		}
+	}
+
+	return $templates;
 }
