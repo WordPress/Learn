@@ -163,11 +163,11 @@ body.sensei {
 				}
 			}
 
-			.wp-block-sensei-lms-course-outline-module__lessons-title {
-				display: none;
-			}
-
 			.wp-block-sensei-lms-collapsible {
+				h3.wp-block-sensei-lms-course-outline-module__lessons-title {
+					display: none;
+				}
+
 				// lesson item that belongs to a module
 				> .wp-block-sensei-lms-course-outline-lesson:first-of-type {
 					padding-top: 5px;
