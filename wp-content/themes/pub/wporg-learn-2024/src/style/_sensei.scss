@@ -124,6 +124,11 @@ body.sensei {
 			margin-bottom: var(--wp--preset--spacing--20);
 		}
 
+		.wp-block-sensei-lms-quiz-question fieldset {
+			padding: 0;
+			border: none;
+		}
+
 		#sensei-quiz-list li ul li input,
 		#sensei-quiz-list .sensei-multiple-choice-answer-option-checkbox + label::before {
 			flex-shrink: 0;
