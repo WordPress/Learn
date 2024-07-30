@@ -8,6 +8,8 @@ namespace WordPressdotorg\Theme\Learn_2024\Block_Config;
 use function WPOrg_Learn\Post_Meta\{get_available_post_type_locales};
 use Sensei_Learner;
 
+add_filter( 'wporg_query_filter_options_content_type', __NAMESPACE__ . '\get_content_type_options' );
+
 add_filter( 'wporg_query_filter_options_language', __NAMESPACE__ . '\get_language_options' );
 add_filter( 'wporg_query_filter_options_archive_language', __NAMESPACE__ . '\get_language_options_by_post_type' );
 
@@ -32,6 +34,54 @@ add_filter( 'query_loop_block_query_vars', __NAMESPACE__ . '\modify_course_query
 function get_current_url() {
 	global $wp;
 	return home_url( add_query_arg( array(), $wp->request ) );
+}
+
+/**
+ * Get the content type options.
+ * Used for the search filters and the archive filters.
+ *
+ * @param array $options The options for this filter.
+ * @return array New list of custom content type options.
+ */
+function get_content_type_options( $options ) {
+	// Define your custom post types
+	$content_types = array( 'any', 'course', 'lesson' );
+
+	// Create options for the dropdown
+	return create_content_type_options( $content_types );
+}
+
+/**
+ * Create the options for a content type filter.
+ *
+ * @param array $content_types The content types.
+ * @return array The options for a content type filter.
+ */
+function create_content_type_options( $content_types ) {
+	global $wp_query;
+
+	// If there are no post types, don't show the filter.
+	if ( empty( $content_types ) ) {
+		return array();
+	}
+
+	// Create options array
+	$options = array();
+	foreach ( $content_types as $content_type ) {
+		$options[ $content_type ] = ucfirst( $content_type );
+	}
+
+	$selected_content_type = $wp_query->get( 'post_type' );
+	$label = ucfirst( $selected_content_type );
+
+	return array(
+		'label' => $label,
+		'title' => __( 'Content Type', 'wporg-learn' ),
+		'key' => 'post_type',
+		'action' => get_current_url(),
+		'options' => $options,
+		'selected' => array( $selected_content_type ),
+	);
 }
 
 /**
