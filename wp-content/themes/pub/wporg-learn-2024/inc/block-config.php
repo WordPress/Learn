@@ -27,16 +27,6 @@ add_action( 'wporg_query_filter_in_form', __NAMESPACE__ . '\inject_other_filters
 add_filter( 'query_loop_block_query_vars', __NAMESPACE__ . '\modify_course_query' );
 
 /**
- * Get the current URL.
- *
- * @return string The current URL.
- */
-function get_current_url() {
-	global $wp;
-	return home_url( add_query_arg( array(), $wp->request ) );
-}
-
-/**
  * Get the content type options.
  * Used for the search filters and the archive filters.
  *
@@ -78,7 +68,7 @@ function create_content_type_options( $content_types ) {
 		'label' => $label,
 		'title' => __( 'Content Type', 'wporg-learn' ),
 		'key' => 'post_type',
-		'action' => get_current_url(),
+		'action' => home_url(),
 		'options' => $options,
 		'selected' => array( $selected_content_type ),
 	);
@@ -141,7 +131,7 @@ function create_level_options( $levels ) {
 		'label' => $label,
 		'title' => __( 'Level', 'wporg-learn' ),
 		'key' => 'wporg_lesson_level',
-		'action' => get_current_url(),
+		'action' => home_url(),
 		'options' => array_combine( wp_list_pluck( $levels, 'slug' ), wp_list_pluck( $levels, 'name' ) ),
 		'selected' => array( $selected_slug ),
 	);
@@ -283,7 +273,7 @@ function create_topic_options( $topics ) {
 		'label' => $label,
 		'title' => __( 'Filter', 'wporg-learn' ),
 		'key' => 'wporg_workshop_topic',
-		'action' => get_current_url(),
+		'action' => home_url(),
 		'options' => array_combine( wp_list_pluck( $topics, 'slug' ), wp_list_pluck( $topics, 'name' ) ),
 		'selected' => $selected,
 	);
@@ -464,7 +454,7 @@ function create_language_options( $languages ) {
 		'label' => $label,
 		'title' => __( 'Filter', 'wporg-learn' ),
 		'key' => 'language',
-		'action' => get_current_url(),
+		'action' => home_url(),
 		'options' => $languages,
 		'selected' => $selected,
 	);
@@ -569,7 +559,7 @@ function get_student_course_options( $options ) {
 		'label' => $label,
 		'title' => __( 'Completion status', 'wporg-learn' ),
 		'key' => $key,
-		'action' => get_current_url(),
+		'action' => home_url(),
 		'options' => $options,
 		'selected' => array( $selected_slug ),
 	);
