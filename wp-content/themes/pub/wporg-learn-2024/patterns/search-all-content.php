@@ -1,7 +1,7 @@
 <?php
 /**
- * Title: Search Content
- * Slug: wporg-learn-2024/search-content
+ * Title: Search All Content
+ * Slug: wporg-learn-2024/search-all-content
  * Inserter: no
  */
 

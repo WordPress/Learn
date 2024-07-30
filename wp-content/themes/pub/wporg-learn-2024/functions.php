@@ -65,7 +65,7 @@ function modify_single_template( $templates ) {
 }
 
 /**
- * Modify the search template hierarchy to use search-front-page templates.
+ * Modify the search template hierarchy to use search-all templates.
  *
  * @param array $templates Array of template files.
  * @return array
@@ -79,7 +79,7 @@ function modify_search_template( $templates ) {
 		! ( is_post_type_archive( 'course' ) || is_post_type_archive( 'lesson' ) ) &&
 		! is_tax( 'learning-pathway' )
 		) {
-			array_unshift( $templates, 'search-front-page' );
+			array_unshift( $templates, 'search-all' );
 	}
 
 	return $templates;
