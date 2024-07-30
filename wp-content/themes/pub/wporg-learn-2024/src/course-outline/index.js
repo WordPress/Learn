@@ -4,6 +4,9 @@ import { Icon, drafts, lockOutline } from '@wordpress/icons';
 import { renderToString } from '@wordpress/element';
 
 document.addEventListener( 'DOMContentLoaded', () => {
+	/**
+	 * Find all in progress lessons, and replace the status icon with the Gutenberg-style `drafts` icon.
+	 */
 	document.querySelectorAll( '.wp-block-sensei-lms-course-outline-lesson.is-in-progress' ).forEach( ( link ) => {
 		const statusIcon = link.querySelector( '.wp-block-sensei-lms-course-outline-lesson__status' );
 		if ( statusIcon ) {
@@ -21,6 +24,9 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		}
 	} );
 
+	/**
+	 * Find all locked lessons, and inject a `lock` icon after the title.
+	 */
 	document.querySelectorAll( '.wp-block-sensei-lms-course-outline-lesson.is-locked' ).forEach( ( link ) => {
 		const span = link.querySelector( 'span' );
 		if ( span ) {
