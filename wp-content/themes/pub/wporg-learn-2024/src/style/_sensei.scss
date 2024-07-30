@@ -124,9 +124,13 @@ body.sensei {
 			margin-bottom: var(--wp--preset--spacing--20);
 		}
 
-		.wp-block-sensei-lms-quiz-question fieldset {
+		#sensei-quiz-list fieldset {
 			padding: 0;
 			border: none;
+
+			ul {
+				margin-top: 0;
+			}
 		}
 
 		#sensei-quiz-list li ul li input,
