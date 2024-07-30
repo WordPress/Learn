@@ -2,6 +2,7 @@
 
 namespace WordPressdotorg\Theme\Learn_2024;
 
+use WP_HTML_Tag_Processor;
 use function WPOrg_Learn\Sensei\{get_my_courses_page_url, get_lesson_has_published_course};
 
 // Block files
@@ -41,6 +42,8 @@ add_filter( 'single_template_hierarchy', __NAMESPACE__ . '\modify_single_templat
 add_filter( 'wporg_block_navigation_menus', __NAMESPACE__ . '\add_site_navigation_menus' );
 add_filter( 'wporg_block_site_breadcrumbs', __NAMESPACE__ . '\set_site_breadcrumbs' );
 add_filter( 'taxonomy_template_hierarchy', __NAMESPACE__ . '\modify_taxonomy_template_hierarchy' );
+
+add_filter( 'sensei_learning_mode_lesson_status_icon', __NAMESPACE__ . '\modify_lesson_status_icon_add_aria', 10, 2 );
 
 remove_filter( 'template_include', array( 'Sensei_Templates', 'template_loader' ), 10, 1 );
 
@@ -404,4 +407,35 @@ function modify_taxonomy_template_hierarchy( $templates ) {
 	}
 
 	return $templates;
+}
+
+/**
+ * Filter the lesson status icon.
+ *
+ * @param string $icon   The icon HTML.
+ * @param string $status The lesson status.
+ *
+ * @return string The updated icon HTML with aria data.
+ */
+function modify_lesson_status_icon_add_aria( $icon, $status ) {
+	// These statuses have been copied from Sensei\Blocks\Course_Theme\Course_Navigation\ICONS.
+	$labels = array(
+		'not-started' => __( 'Not started', 'wporg-learn' ),
+		'in-progress' => __( 'In progress', 'wporg-learn' ),
+		'ungraded'    => __( 'Ungraded', 'wporg-learn' ),
+		'completed'   => __( 'Completed', 'wporg-learn' ),
+		'failed'      => __( 'Failed', 'wporg-learn' ),
+		'locked'      => __( 'Locked', 'wporg-learn' ),
+		'preview'     => __( 'Preview', 'wporg-learn' ),
+	);
+
+	if ( ! isset( $labels[ $status ] ) ) {
+		return $icon;
+	}
+
+	$html = new WP_HTML_Tag_Processor( $icon );
+	$html->next_tag( 'svg' );
+	$html->set_attribute( 'aria-label', $labels[ $status ] );
+	$html->set_attribute( 'role', 'img' );
+	return $html->get_updated_html();
 }

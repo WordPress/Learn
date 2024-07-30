@@ -1,32 +1,44 @@
-/* global wporgCourseOutlineData */
+/* global wporgCourseOutlineL10n */
 
 import { Icon, drafts, lockOutline } from '@wordpress/icons';
 import { renderToString } from '@wordpress/element';
 
 document.addEventListener( 'DOMContentLoaded', () => {
-	if ( ! wporgCourseOutlineData ) {
-		return;
-	}
+	/**
+	 * Find all in progress lessons, and replace the status icon with the Gutenberg-style `drafts` icon.
+	 */
+	document.querySelectorAll( '.wp-block-sensei-lms-course-outline-lesson.is-in-progress' ).forEach( ( link ) => {
+		const statusIcon = link.querySelector( '.wp-block-sensei-lms-course-outline-lesson__status' );
+		if ( statusIcon ) {
+			const iconString = renderToString(
+				<Icon
+					icon={ drafts }
+					style={ { transform: 'scale(1.5)' } }
+					aria-label={ wporgCourseOutlineL10n.inProgress }
+					role="img"
+				/>
+			);
 
-	wporgCourseOutlineData[ 'in-progress' ]?.forEach( ( title ) => {
-		const lessonLinks = document.querySelectorAll( '.wp-block-sensei-lms-course-outline-lesson' );
-		lessonLinks.forEach( ( link ) => {
-			const span = link.querySelector( 'span' );
-			if ( span && span.textContent.trim() === title ) {
-				const statusIcon = link.querySelector( '.wp-block-sensei-lms-course-outline-lesson__status' );
-				if ( statusIcon ) {
-					statusIcon.outerHTML = renderToString( <Icon icon={ drafts } transform={ 'scale(1.5)' } /> );
-				}
-			}
-		} );
+			// Remove the `aria-hidden` attribute from the icon, as it has a readable label.
+			statusIcon.outerHTML = iconString.replace( ' aria-hidden="true"', '' );
+		}
 	} );
-	wporgCourseOutlineData.locked?.forEach( ( title ) => {
-		const lessonLinks = document.querySelectorAll( '.wp-block-sensei-lms-course-outline-lesson' );
-		lessonLinks.forEach( ( link ) => {
-			const span = link.querySelector( 'span' );
-			if ( span && span.textContent.trim() === title ) {
-				span.insertAdjacentHTML( 'afterend', renderToString( <Icon icon={ lockOutline } /> ) );
-			}
-		} );
+
+	/**
+	 * Find all locked lessons, and inject a `lock` icon after the title.
+	 */
+	document.querySelectorAll( '.wp-block-sensei-lms-course-outline-lesson.is-locked' ).forEach( ( link ) => {
+		const span = link.querySelector( 'span' );
+		if ( span ) {
+			span.insertAdjacentHTML(
+				'afterend',
+				renderToString(
+					<>
+						<Icon icon={ lockOutline } />
+						<span className="screen-reader-text">{ wporgCourseOutlineL10n.locked }</span>
+					</>
+				)
+			);
+		}
 	} );
 } );
