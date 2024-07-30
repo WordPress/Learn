@@ -18,6 +18,15 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			button.addEventListener( 'click', ( event ) => {
 				event.stopPropagation();
 			} );
+
+			// To enable the entire header to be clickable for toggling without conflicts, remove the link.
+			// In fact, this link duplicates the first lesson link in the course outline.
+			// See https://github.com/WordPress/Learn/pull/2776#issuecomment-2258308422
+			const link = header.querySelector( 'h2 > a' );
+			if ( link ) {
+				const heading = link.parentElement;
+				heading.innerHTML = link.innerHTML;
+			}
 		} );
 
 	/**
