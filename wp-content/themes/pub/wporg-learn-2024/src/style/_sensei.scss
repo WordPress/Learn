@@ -138,7 +138,8 @@ body.sensei {
 			header {
 				background-color: var(--wp--preset--color--light-grey-2) !important;
 				color: var(--wp--preset--color--charcoal-1) !important;
-				padding: var(--wp--preset--spacing--20);
+				padding-left: var(--wp--preset--spacing--20);
+				padding-right: var(--wp--preset--spacing--20);
 				cursor: pointer;
 
 				h2 {
@@ -160,6 +161,11 @@ body.sensei {
 						line-height: var(--wp--custom--body--huge--typography--line-height);
 						margin: 4px 8px;
 					}
+				}
+
+				button.wp-block-sensei-lms-course-outline__arrow {
+					height: 32px;
+					align-items: center;
 				}
 			}
 
