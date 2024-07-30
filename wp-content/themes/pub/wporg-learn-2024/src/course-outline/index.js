@@ -7,12 +7,17 @@ document.addEventListener( 'DOMContentLoaded', () => {
 	document.querySelectorAll( '.wp-block-sensei-lms-course-outline-lesson.is-in-progress' ).forEach( ( link ) => {
 		const statusIcon = link.querySelector( '.wp-block-sensei-lms-course-outline-lesson__status' );
 		if ( statusIcon ) {
-			statusIcon.outerHTML = renderToString(
-				<>
-					<Icon icon={ drafts } style={ { transform: 'scale(1.5)' } } />
-					<span className="screen-reader-text">{ wporgCourseOutlineL10n.inProgress }</span>
-				</>
+			const iconString = renderToString(
+				<Icon
+					icon={ drafts }
+					style={ { transform: 'scale(1.5)' } }
+					aria-label={ wporgCourseOutlineL10n.inProgress }
+					role="img"
+				/>
 			);
+
+			// Remove the `aria-hidden` attribute from the icon, as it has a readable label.
+			statusIcon.outerHTML = iconString.replace( ' aria-hidden="true"', '' );
 		}
 	} );
 
