@@ -39,6 +39,7 @@ add_filter( 'sensei_register_post_type_lesson', function( $args ) {
 	return $args;
 } );
 add_filter( 'single_template_hierarchy', __NAMESPACE__ . '\modify_single_template' );
+add_filter( 'search_template_hierarchy', __NAMESPACE__ . '\modify_search_template' );
 add_filter( 'wporg_block_navigation_menus', __NAMESPACE__ . '\add_site_navigation_menus' );
 add_filter( 'wporg_block_site_breadcrumbs', __NAMESPACE__ . '\set_site_breadcrumbs' );
 add_filter( 'taxonomy_template_hierarchy', __NAMESPACE__ . '\modify_taxonomy_template_hierarchy' );
@@ -58,6 +59,27 @@ function modify_single_template( $templates ) {
 		array_unshift( $templates, 'single-lesson.html' );
 	} elseif ( is_singular( 'quiz' ) ) {
 		array_unshift( $templates, 'single-quiz.html' );
+	}
+
+	return $templates;
+}
+
+/**
+ * Modify the search template hierarchy to use search-all templates.
+ *
+ * @param array $templates Array of template files.
+ * @return array
+ */
+function modify_search_template( $templates ) {
+	// Should not change the search result template of course, lesson, and learning-pathway.
+	// Currently, they each use their specific templates: archive-course, archive-lesson, and taxonomy-learning-pathway,
+	// which have their own dedicated UI and filters.
+	if (
+		is_search() &&
+		! ( is_post_type_archive( 'course' ) || is_post_type_archive( 'lesson' ) ) &&
+		! is_tax( 'learning-pathway' )
+		) {
+			array_unshift( $templates, 'search-all' );
 	}
 
 	return $templates;

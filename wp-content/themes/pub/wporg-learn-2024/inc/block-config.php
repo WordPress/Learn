@@ -8,6 +8,8 @@ namespace WordPressdotorg\Theme\Learn_2024\Block_Config;
 use function WPOrg_Learn\Post_Meta\{get_available_post_type_locales};
 use Sensei_Learner;
 
+add_filter( 'wporg_query_filter_options_content_type', __NAMESPACE__ . '\get_content_type_options' );
+
 add_filter( 'wporg_query_filter_options_language', __NAMESPACE__ . '\get_language_options' );
 add_filter( 'wporg_query_filter_options_archive_language', __NAMESPACE__ . '\get_language_options_by_post_type' );
 
@@ -25,13 +27,44 @@ add_action( 'wporg_query_filter_in_form', __NAMESPACE__ . '\inject_other_filters
 add_filter( 'query_loop_block_query_vars', __NAMESPACE__ . '\modify_course_query' );
 
 /**
- * Get the current URL.
+ * Get the filtered URL by removing the page query var.
+ * If the path retains "page," the filtered result might be a 404 page.
  *
- * @return string The current URL.
+ * @return string The filtered URL.
  */
-function get_current_url() {
+function get_filtered_url() {
 	global $wp;
-	return home_url( add_query_arg( array(), $wp->request ) );
+	$filtered_path = preg_replace( '#page/\d+/?$#', '', $wp->request );
+	return home_url( $filtered_path );
+}
+
+/**
+ * Get the content type options.
+ * Used for the search filters and the archive filters.
+ *
+ * @param array $options The options for this filter.
+ * @return array New list of custom content type options.
+ */
+function get_content_type_options( $options ) {
+	global $wp_query;
+
+	$options = array(
+		'any' => __( 'Any', 'wporg-learn' ),
+		'course' => __( 'Course', 'wporg-learn' ),
+		'lesson' => __( 'Lesson', 'wporg-learn' ),
+	);
+
+	$selected_slug = $wp_query->get( 'post_type' ) ? $wp_query->get( 'post_type' ) : 'any';
+	$label = $options[ $selected_slug ] ?? $options['any'];
+
+	return array(
+		'label' => $label,
+		'title' => __( 'Content Type', 'wporg-learn' ),
+		'key' => 'post_type',
+		'action' => get_filtered_url(),
+		'options' => $options,
+		'selected' => array( $selected_slug ),
+	);
 }
 
 /**
@@ -91,7 +124,7 @@ function create_level_options( $levels ) {
 		'label' => $label,
 		'title' => __( 'Level', 'wporg-learn' ),
 		'key' => 'wporg_lesson_level',
-		'action' => get_current_url(),
+		'action' => get_filtered_url(),
 		'options' => array_combine( wp_list_pluck( $levels, 'slug' ), wp_list_pluck( $levels, 'name' ) ),
 		'selected' => array( $selected_slug ),
 	);
@@ -233,7 +266,7 @@ function create_topic_options( $topics ) {
 		'label' => $label,
 		'title' => __( 'Filter', 'wporg-learn' ),
 		'key' => 'wporg_workshop_topic',
-		'action' => get_current_url(),
+		'action' => get_filtered_url(),
 		'options' => array_combine( wp_list_pluck( $topics, 'slug' ), wp_list_pluck( $topics, 'name' ) ),
 		'selected' => $selected,
 	);
@@ -414,7 +447,7 @@ function create_language_options( $languages ) {
 		'label' => $label,
 		'title' => __( 'Filter', 'wporg-learn' ),
 		'key' => 'language',
-		'action' => get_current_url(),
+		'action' => get_filtered_url(),
 		'options' => $languages,
 		'selected' => $selected,
 	);
@@ -497,29 +530,14 @@ function get_student_course_options( $options ) {
 		'completed' => __( 'Completed', 'wporg-learn' ),
 	);
 
-	$selected_slug = $wp_query->get( $key );
-	if ( $selected_slug ) {
-		// Find the selected option from $options by slug and then get the name.
-		$selected_option = array_filter(
-			$options,
-			function ( $option, $slug ) use ( $selected_slug ) {
-				return $slug === $selected_slug;
-			},
-			ARRAY_FILTER_USE_BOTH
-		);
-		if ( ! empty( $selected_option ) ) {
-			$label = array_shift( $selected_option );
-		}
-	} else {
-		$selected_slug = 'all';
-		$label = __( 'All', 'wporg-learn' );
-	}
+	$selected_slug = $wp_query->get( $key ) ? $wp_query->get( $key ) : 'all';
+	$label = $options[ $selected_slug ] ?? $options['all'];
 
 	return array(
 		'label' => $label,
 		'title' => __( 'Completion status', 'wporg-learn' ),
 		'key' => $key,
-		'action' => get_current_url(),
+		'action' => get_filtered_url(),
 		'options' => $options,
 		'selected' => array( $selected_slug ),
 	);
