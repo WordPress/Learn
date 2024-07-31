@@ -27,6 +27,15 @@ document.addEventListener( 'DOMContentLoaded', () => {
 				const heading = link.parentElement;
 				heading.innerHTML = link.innerHTML;
 			}
+			// Also remove the link within the span with class "screen-reader-text" if it exists.
+			const span = header.querySelector( 'span.screen-reader-text' );
+			if ( span ) {
+				const spanLink = span.querySelector( 'a' );
+				if ( spanLink ) {
+					const spanContent = spanLink.innerHTML;
+					span.innerHTML = spanContent;
+				}
+			}
 		} );
 
 	/**
