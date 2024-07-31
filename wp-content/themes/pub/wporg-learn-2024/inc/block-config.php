@@ -55,7 +55,7 @@ function get_content_type_options( $options ) {
 	);
 
 	$selected_slug = $wp_query->get( 'post_type' ) ? $wp_query->get( 'post_type' ) : 'any';
-	$label = get_label_by_slug( $selected_slug, $options );
+	$label = $options[ $selected_slug ];
 
 	return array(
 		'label' => $label,
@@ -531,7 +531,7 @@ function get_student_course_options( $options ) {
 	);
 
 	$selected_slug = $wp_query->get( $key ) ? $wp_query->get( $key ) : 'all';
-	$label = get_label_by_slug( $selected_slug, $options );
+	$label = $options[ $selected_slug ];
 
 	return array(
 		'label' => $label,
@@ -634,24 +634,4 @@ function modify_course_query( $query ) {
 	}
 
 	return $query;
-}
-
-/**
- * Get the label by slug.
- *
- * @param string $selected_slug The selected slug.
- * @param array  $options The options for the filter.
- *
- * @return string The label.
- */
-function get_label_by_slug( $selected_slug, $options ) {
-	// Find the selected option from $options by slug and then get the name.
-	$selected_option = array_filter(
-		$options,
-		function ( $option, $slug ) use ( $selected_slug ) {
-			return $slug === $selected_slug;
-		},
-		ARRAY_FILTER_USE_BOTH
-	);
-	return ! empty( $selected_option ) ? array_shift( $selected_option ) : '';
 }
