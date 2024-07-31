@@ -53,35 +53,16 @@ function get_filtered_url() {
  * @return array New list of custom content type options.
  */
 function get_content_type_options( $options ) {
-	// Define your custom post types
-	$content_types = array( 'any', 'course', 'lesson' );
-
-	// Create options for the dropdown
-	return create_content_type_options( $content_types );
-}
-
-/**
- * Create the options for a content type filter.
- *
- * @param array $content_types The content types.
- * @return array The options for a content type filter.
- */
-function create_content_type_options( $content_types ) {
 	global $wp_query;
 
-	// If there are no post types, don't show the filter.
-	if ( empty( $content_types ) ) {
-		return array();
-	}
+	$options = array(
+		'any' => __( 'Any', 'wporg-learn' ),
+		'course' => __( 'Course', 'wporg-learn' ),
+		'lesson' => __( 'Lesson', 'wporg-learn' ),
+	);
 
-	// Create options array
-	$options = array();
-	foreach ( $content_types as $content_type ) {
-		$options[ $content_type ] = ucfirst( $content_type );
-	}
-
-	$selected_content_type = $wp_query->get( 'post_type' );
-	$label = ucfirst( $selected_content_type );
+	$selected_slug = $wp_query->get( 'post_type' ) ? $wp_query->get( 'post_type' ) : 'any';
+	$label = get_label_by_slug( $selected_slug, $options );
 
 	return array(
 		'label' => $label,
@@ -89,7 +70,7 @@ function create_content_type_options( $content_types ) {
 		'key' => 'post_type',
 		'action' => get_filtered_url(),
 		'options' => $options,
-		'selected' => array( $selected_content_type ),
+		'selected' => array( $selected_slug ),
 	);
 }
 
@@ -556,23 +537,8 @@ function get_student_course_options( $options ) {
 		'completed' => __( 'Completed', 'wporg-learn' ),
 	);
 
-	$selected_slug = $wp_query->get( $key );
-	if ( $selected_slug ) {
-		// Find the selected option from $options by slug and then get the name.
-		$selected_option = array_filter(
-			$options,
-			function ( $option, $slug ) use ( $selected_slug ) {
-				return $slug === $selected_slug;
-			},
-			ARRAY_FILTER_USE_BOTH
-		);
-		if ( ! empty( $selected_option ) ) {
-			$label = array_shift( $selected_option );
-		}
-	} else {
-		$selected_slug = 'all';
-		$label = __( 'All', 'wporg-learn' );
-	}
+	$selected_slug = $wp_query->get( $key ) ? $wp_query->get( $key ) : 'all';
+	$label = get_label_by_slug( $selected_slug, $options );
 
 	return array(
 		'label' => $label,
@@ -675,4 +641,24 @@ function modify_course_query( $query ) {
 	}
 
 	return $query;
+}
+
+/**
+ * Get the label by slug.
+ *
+ * @param string $selected_slug The selected slug.
+ * @param array  $options The options for the filter.
+ *
+ * @return string The label.
+ */
+function get_label_by_slug( $selected_slug, $options ) {
+	// Find the selected option from $options by slug and then get the name.
+	$selected_option = array_filter(
+		$options,
+		function ( $option, $slug ) use ( $selected_slug ) {
+			return $slug === $selected_slug;
+		},
+		ARRAY_FILTER_USE_BOTH
+	);
+	return ! empty( $selected_option ) ? array_shift( $selected_option ) : '';
 }
