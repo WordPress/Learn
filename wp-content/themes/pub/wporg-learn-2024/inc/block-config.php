@@ -55,7 +55,7 @@ function get_content_type_options( $options ) {
 	);
 
 	$selected_slug = $wp_query->get( 'post_type' ) ? $wp_query->get( 'post_type' ) : 'any';
-	$label = $options[ $selected_slug ];
+	$label = $options[ $selected_slug ] ?? $options['any'];
 
 	return array(
 		'label' => $label,
@@ -531,7 +531,7 @@ function get_student_course_options( $options ) {
 	);
 
 	$selected_slug = $wp_query->get( $key ) ? $wp_query->get( $key ) : 'all';
-	$label = $options[ $selected_slug ];
+	$label = $options[ $selected_slug ] ?? $options['all'];
 
 	return array(
 		'label' => $label,
