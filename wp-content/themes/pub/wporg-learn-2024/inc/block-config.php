@@ -42,7 +42,7 @@ function get_filtered_url() {
 	$path = isset( $parsed_url['path'] ) ? $parsed_url['path'] : '';
 	$filtered_path = preg_replace( '#/page/\d+/?$#', '', $path );
 
-	return home_url() . $filtered_path;
+	return home_url( $filtered_path );
 }
 
 /**
