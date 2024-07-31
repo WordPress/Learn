@@ -11,7 +11,7 @@
 <div class="wp-block-group" style="margin-bottom:var(--wp--preset--spacing--50)">
 
 	<!-- wp:heading {"level":1} -->
-	<h1 class="wp-block-heading"><?php esc_html_e( 'Search Learn WordPress', 'wporg-learn' ); ?></h1>
+	<h1 class="wp-block-heading"><?php esc_html_e( 'Search Results', 'wporg-learn' ); ?></h1>
 	<!-- /wp:heading -->
 
 </div>
