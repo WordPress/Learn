@@ -15,6 +15,8 @@ add_filter( 'render_block_sensei-lms/course-outline', __NAMESPACE__ . '\update_c
 
 /**
  * Update header template based on current query.
+ * Since the search results for courses and lessons still use their respective archive templates,
+ * we need to update the header template part to display the correct title.
  *
  * @param array $parsed_block The block being rendered.
  *
