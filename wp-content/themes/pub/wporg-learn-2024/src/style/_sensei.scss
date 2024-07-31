@@ -138,7 +138,9 @@ body.sensei {
 			header {
 				background-color: var(--wp--preset--color--light-grey-2) !important;
 				color: var(--wp--preset--color--charcoal-1) !important;
-				padding: var(--wp--preset--spacing--20);
+				padding-left: var(--wp--preset--spacing--20);
+				padding-right: var(--wp--preset--spacing--20);
+				cursor: pointer;
 
 				h2 {
 					font-size: var(--wp--preset--font-size--heading-6);
@@ -160,19 +162,26 @@ body.sensei {
 						margin: 4px 8px;
 					}
 				}
-			}
 
-			.wp-block-sensei-lms-course-outline-module__lessons-title {
-				display: none;
+				button.wp-block-sensei-lms-course-outline__arrow {
+					height: 32px;
+					align-items: center;
+				}
 			}
 
 			.wp-block-sensei-lms-collapsible {
+				overflow: unset;
+
+				h3.wp-block-sensei-lms-course-outline-module__lessons-title {
+					display: none;
+				}
+
 				// lesson item that belongs to a module
-				> .wp-block-sensei-lms-course-outline-lesson:first-of-type {
+				> a.wp-block-sensei-lms-course-outline-lesson:first-of-type {
 					padding-top: 5px;
 				}
 
-				> .wp-block-sensei-lms-course-outline-lesson:last-of-type {
+				> a.wp-block-sensei-lms-course-outline-lesson:last-of-type {
 					padding-bottom: 5px;
 				}
 			}
