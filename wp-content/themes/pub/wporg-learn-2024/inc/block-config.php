@@ -58,7 +58,7 @@ function get_content_type_options( $options ) {
 	$label = $options[ $selected_slug ] ?? $options['any'];
 
 	return array(
-		'label' => $label,
+		'label' => sprintf( __( 'Type: %s', 'wporg-learn' ), $label ),
 		'title' => __( 'Content Type', 'wporg-learn' ),
 		'key' => 'post_type',
 		'action' => get_filtered_url(),
@@ -121,7 +121,7 @@ function create_level_options( $levels ) {
 	}
 
 	return array(
-		'label' => $label,
+		'label' => sprintf( __( 'Level: %s', 'wporg-learn' ), $label ),
 		'title' => __( 'Level', 'wporg-learn' ),
 		'key' => 'wporg_lesson_level',
 		'action' => get_filtered_url(),
@@ -534,7 +534,7 @@ function get_student_course_options( $options ) {
 	$label = $options[ $selected_slug ] ?? $options['all'];
 
 	return array(
-		'label' => $label,
+		'label' => sprintf( __( 'Status: %s', 'wporg-learn' ), $label ),
 		'title' => __( 'Completion status', 'wporg-learn' ),
 		'key' => $key,
 		'action' => get_filtered_url(),
