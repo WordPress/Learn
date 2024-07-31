@@ -27,21 +27,14 @@ add_action( 'wporg_query_filter_in_form', __NAMESPACE__ . '\inject_other_filters
 add_filter( 'query_loop_block_query_vars', __NAMESPACE__ . '\modify_course_query' );
 
 /**
- * Get the current URL.
+ * Get the filtered URL by removing the page query var.
+ * If the path retains "page," the filtered result might be a 404 page.
  *
- * @return string The current URL.
+ * @return string The filtered URL.
  */
 function get_filtered_url() {
 	global $wp;
-
-	$current_url = home_url( add_query_arg( array(), $wp->request ) );
-
-	// Remove the page query var.
-	// If the path retains "page," the filtered result might be a 404 page.
-	$parsed_url = wp_parse_url( $current_url );
-	$path = isset( $parsed_url['path'] ) ? $parsed_url['path'] : '';
-	$filtered_path = preg_replace( '#/page/\d+/?$#', '', $path );
-
+	$filtered_path = preg_replace( '#page/\d+/?$#', '', $wp->request );
 	return home_url( $filtered_path );
 }
 
