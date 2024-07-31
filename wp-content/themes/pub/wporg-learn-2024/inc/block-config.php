@@ -27,6 +27,25 @@ add_action( 'wporg_query_filter_in_form', __NAMESPACE__ . '\inject_other_filters
 add_filter( 'query_loop_block_query_vars', __NAMESPACE__ . '\modify_course_query' );
 
 /**
+ * Get the current URL.
+ *
+ * @return string The current URL.
+ */
+function get_filtered_url() {
+	global $wp;
+
+	$current_url = home_url( add_query_arg( array(), $wp->request ) );
+
+	// Remove the page query var.
+	// If the path retains "page," the filtered result might be a 404 page.
+	$parsed_url = wp_parse_url( $current_url );
+	$path = isset( $parsed_url['path'] ) ? $parsed_url['path'] : '';
+	$filtered_path = preg_replace( '#/page/\d+/?$#', '', $path );
+
+	return home_url() . $filtered_path;
+}
+
+/**
  * Get the content type options.
  * Used for the search filters and the archive filters.
  *
@@ -68,7 +87,7 @@ function create_content_type_options( $content_types ) {
 		'label' => $label,
 		'title' => __( 'Content Type', 'wporg-learn' ),
 		'key' => 'post_type',
-		'action' => home_url(),
+		'action' => get_filtered_url(),
 		'options' => $options,
 		'selected' => array( $selected_content_type ),
 	);
@@ -131,7 +150,7 @@ function create_level_options( $levels ) {
 		'label' => $label,
 		'title' => __( 'Level', 'wporg-learn' ),
 		'key' => 'wporg_lesson_level',
-		'action' => home_url(),
+		'action' => get_filtered_url(),
 		'options' => array_combine( wp_list_pluck( $levels, 'slug' ), wp_list_pluck( $levels, 'name' ) ),
 		'selected' => array( $selected_slug ),
 	);
@@ -273,7 +292,7 @@ function create_topic_options( $topics ) {
 		'label' => $label,
 		'title' => __( 'Filter', 'wporg-learn' ),
 		'key' => 'wporg_workshop_topic',
-		'action' => home_url(),
+		'action' => get_filtered_url(),
 		'options' => array_combine( wp_list_pluck( $topics, 'slug' ), wp_list_pluck( $topics, 'name' ) ),
 		'selected' => $selected,
 	);
@@ -454,7 +473,7 @@ function create_language_options( $languages ) {
 		'label' => $label,
 		'title' => __( 'Filter', 'wporg-learn' ),
 		'key' => 'language',
-		'action' => home_url(),
+		'action' => get_filtered_url(),
 		'options' => $languages,
 		'selected' => $selected,
 	);
@@ -559,7 +578,7 @@ function get_student_course_options( $options ) {
 		'label' => $label,
 		'title' => __( 'Completion status', 'wporg-learn' ),
 		'key' => $key,
-		'action' => home_url(),
+		'action' => get_filtered_url(),
 		'options' => $options,
 		'selected' => array( $selected_slug ),
 	);
