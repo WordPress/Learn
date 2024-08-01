@@ -252,6 +252,9 @@ function jetpack_copy_post_post_types( $post_types ) {
 function jetpack_sitemap_post_types( $post_types ) {
 	$post_types[] = 'lesson-plan';
 	$post_types[] = 'wporg_workshop';
+	// The "lesson" has been excluded in Sensei LMS, but it is needed in Learn.
+	// See https://github.com/Automattic/sensei/blob/trunk/includes/class-sensei-posttypes.php#L25.
+	$post_types[] = 'lesson';
 
 	return $post_types;
 }
