@@ -6,8 +6,8 @@
 namespace WordPressdotorg\Theme\Learn_2024\Query;
 
 add_action( 'pre_get_posts', __NAMESPACE__ . '\add_language_to_archive_queries' );
-add_action( 'pre_get_posts', __NAMESPACE__ . '\handle_all_level_query' );
 add_action( 'pre_get_posts', __NAMESPACE__ . '\add_excluded_to_lesson_archive_query' );
+add_filter( 'request', __NAMESPACE__ . '\handle_all_level_query' );
 
 /**
  * Modify the query by adding meta query for language if set.
@@ -40,29 +40,6 @@ function add_language_to_archive_queries( $query ) {
 			$query->set( 'meta_query', $meta_query );
 		}
 	}
-
-	return $query;
-}
-
-/**
- * Modify the main query.
- * If the 'all' level filter is set in the query, remove it to return all posts.
- *
- * @param WP_Query $query The main query.
- * @return WP_Query
- */
-function handle_all_level_query( $query ) {
-	if ( is_admin() || ! $query->is_main_query() ) {
-		return;
-	}
-
-	$level = $query->get( 'wporg_lesson_level' );
-
-	if ( 'all' === $level ) {
-		$query->set( 'wporg_lesson_level', '' );
-	}
-
-	return $query;
 }
 
 /**
@@ -101,4 +78,27 @@ function add_excluded_to_lesson_archive_query( $query ) {
 
 		$query->set( 'meta_query', $meta_query );
 	}
+}
+
+/**
+ * Modify the request.
+ *
+ * Update the query_vars to reset 'all' to an empty string.
+ *
+ * @param array $query_vars The array of requested query variables.
+ *
+ * @return array
+ */
+function handle_all_level_query( $query_vars ) {
+	if ( is_admin() ) {
+		return;
+	}
+
+	$level = $query_vars['wporg_lesson_level'] ?? '';
+
+	if ( 'all' === $level ) {
+		$query_vars['wporg_lesson_level'] = '';
+	}
+
+	return $query_vars;
 }
