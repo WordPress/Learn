@@ -91,7 +91,7 @@ function add_excluded_to_lesson_archive_query( $query ) {
  */
 function handle_all_level_query( $query_vars ) {
 	if ( is_admin() ) {
-		return;
+		return $query_vars;
 	}
 
 	$level = $query_vars['wporg_lesson_level'] ?? '';
