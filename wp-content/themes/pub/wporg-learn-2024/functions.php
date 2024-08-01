@@ -43,8 +43,8 @@ add_filter( 'search_template_hierarchy', __NAMESPACE__ . '\modify_search_templat
 add_filter( 'wporg_block_navigation_menus', __NAMESPACE__ . '\add_site_navigation_menus' );
 add_filter( 'wporg_block_site_breadcrumbs', __NAMESPACE__ . '\set_site_breadcrumbs' );
 add_filter( 'taxonomy_template_hierarchy', __NAMESPACE__ . '\modify_taxonomy_template_hierarchy' );
-
 add_filter( 'sensei_learning_mode_lesson_status_icon', __NAMESPACE__ . '\modify_lesson_status_icon_add_aria', 10, 2 );
+add_filter( 'jetpack_sitemap_post_types', __NAMESPACE__ . '\jetpack_sitemap_post_types' );
 
 remove_filter( 'template_include', array( 'Sensei_Templates', 'template_loader' ), 10, 1 );
 
@@ -460,4 +460,20 @@ function modify_lesson_status_icon_add_aria( $icon, $status ) {
 	$html->set_attribute( 'aria-label', $labels[ $status ] );
 	$html->set_attribute( 'role', 'img' );
 	return $html->get_updated_html();
+}
+
+/**
+ * Register post types with Jetpack Sitemaps.
+ *
+ * @link https://developer.jetpack.com/hooks/jetpack_sitemap_post_types/
+ *
+ * @param array $post_types
+ * @return array
+ */
+function jetpack_sitemap_post_types( $post_types ) {
+	// The "lesson" has been excluded in Sensei LMS, but it is needed in Learn.
+	// See https://github.com/Automattic/sensei/blob/trunk/includes/class-sensei-posttypes.php#L25.
+	$post_types[] = 'lesson';
+
+	return $post_types;
 }
