@@ -1,0 +1,48 @@
+@media print {
+	// Hide stuff that's not relevant on print media
+	.wp-block-wporg-local-navigation-bar,
+	.wp-block-wporg-site-breadcrumbs,
+	.wporg-learn-sidebar,
+	footer.wp-block-template-part,
+	.global-header {
+		display: none !important;
+	}
+
+	@page {
+		margin-top: 0;
+	}
+
+	// Prevent image from bleeding over the edge
+	img {
+		max-width: 100% !important;
+	}
+
+	// Avoid page break right after heading
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		break-after: avoid;
+	}
+
+	// Avoid page break in mid of elements
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	ul,
+	pre,
+	img {
+		break-inside: avoid;
+	}
+
+	// Handle super-long piece of text, like URLs that are too big to fit on a single line,
+	// by breaking them instead of bleeding over the edge
+	p a {
+		word-wrap: break-word;
+	}
+}
