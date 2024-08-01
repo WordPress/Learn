@@ -58,8 +58,8 @@ function get_content_type_options( $options ) {
 	$label = $options[ $selected_slug ] ?? $options['any'];
 
 	return array(
-		'label' => $label,
-		'title' => __( 'Content Type', 'wporg-learn' ),
+		'label' => sprintf( __( 'Type: %s', 'wporg-learn' ), $label ),
+		'title' => __( 'Content type', 'wporg-learn' ),
 		'key' => 'post_type',
 		'action' => get_filtered_url(),
 		'options' => $options,
@@ -100,28 +100,22 @@ function create_level_options( $levels ) {
 		$levels,
 	);
 
-	$label = __( 'Level', 'wporg-learn' );
+	$label = __( 'All', 'wporg-learn' );
 
 	$selected_slug = $wp_query->get( 'wporg_lesson_level' );
 	if ( $selected_slug ) {
 		// Find the selected level from $levels by slug and then get the name.
-		$selected_level = array_filter(
-			$levels,
-			function ( $level ) use ( $selected_slug ) {
-				return $level->slug === $selected_slug;
-			}
-		);
+		$selected_level = wp_list_filter( $levels, array( 'slug' => $selected_slug ) );
 		if ( ! empty( $selected_level ) ) {
 			$selected_level = array_shift( $selected_level );
 			$label = $selected_level->name;
 		}
 	} else {
 		$selected_slug = 'all';
-		$label = __( 'All', 'wporg-learn' );
 	}
 
 	return array(
-		'label' => $label,
+		'label' => sprintf( __( 'Level: %s', 'wporg-learn' ), $label ),
 		'title' => __( 'Level', 'wporg-learn' ),
 		'key' => 'wporg_lesson_level',
 		'action' => get_filtered_url(),
@@ -534,7 +528,7 @@ function get_student_course_options( $options ) {
 	$label = $options[ $selected_slug ] ?? $options['all'];
 
 	return array(
-		'label' => $label,
+		'label' => sprintf( __( 'Status: %s', 'wporg-learn' ), $label ),
 		'title' => __( 'Completion status', 'wporg-learn' ),
 		'key' => $key,
 		'action' => get_filtered_url(),
