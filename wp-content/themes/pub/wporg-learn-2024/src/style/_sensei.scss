@@ -272,6 +272,7 @@ body.sensei {
 	.sensei-course-theme-locked-lesson-notice__actions {
 		.is-secondary.sensei-course-theme__button {
 			border: solid 1px var(--sensei-secondary-color);
+			font-size: var(--wp--custom--button--typography--font-size);
 		}
 	}
 
