@@ -41,12 +41,12 @@
 
 		<!-- wp:post-content {"layout":{"inherit":true}} /-->
 
-		<!-- wp:group {"style":{"spacing":{"margin":{"top":"40px"}}},"layout":{"type":"constrained"}} -->
-		<div class="wp-block-group" style="margin-top:40px">
+		<!-- wp:group {"style":{"spacing":{"margin":{"top":"40px"}}},"layout":{"type":"constrained"},"className":"sensei-lesson-footer"} -->
+		<div class="wp-block-group sensei-lesson-footer" style="margin-top:40px">
 			<!-- wp:sensei-lms/page-actions {"style":{"spacing":{"blockGap":"43px"}}} /-->
 
-			<!-- wp:group {"style":{"spacing":{"margin":{"top":"20px"}}},"className":"sensei-lesson-footer","layout":{"type":"flex","flexWrap":"nowrap"}} -->
-			<div class="wp-block-group sensei-lesson-footer" style="margin-top:20px">
+			<!-- wp:group {"style":{"spacing":{"margin":{"top":"20px"}}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+			<div class="wp-block-group" style="margin-top:20px">
 
 				<!-- wp:pattern {"slug":"wporg-learn-2024/sensei-lesson-actions"} /-->
 

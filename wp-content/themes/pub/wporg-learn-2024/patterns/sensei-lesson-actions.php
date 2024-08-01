@@ -7,6 +7,11 @@
  * Original source: https://github.com/Automattic/sensei/blob/af62fb1115daf2063bc56331a7d8b1b3ea805866/themes/sensei-course-theme/templates/default/lesson.php
  */
 
+$prev_next_lessons = sensei_get_prev_next_lessons( get_the_ID() );
+$prev_url = $prev_next_lessons['previous']['url'] ?? null;
+$next_url = $prev_next_lessons['next']['url'] ?? null;
+$is_completed = Sensei_Utils::user_completed_lesson( get_the_ID() );
+
 ?>
 
 <!-- wp:sensei-lms/lesson-actions {"toggledBlocks":{"sensei-lms/button-reset-lesson":false}} -->
@@ -28,21 +33,26 @@
 		</div>
 		<!-- /wp:sensei-lms/button-view-quiz -->
 
-		<!-- wp:sensei-lms/button-lesson-completed {"inContainer":true,"className":"is-style-outline"} -->
-		<div class="wp-block-sensei-lms-button-lesson-completed is-style-outline sensei-buttons-container__button-block wp-block-sensei-lms-button-lesson-completed__wrapper">
-			<div class="wp-block-sensei-lms-button-lesson-completed is-style-outline wp-block-sensei-button wp-block-button has-text-align-left">
-				<div class="wp-block-button__link"><?php esc_html_e( 'Completed', 'sensei-lms' ); ?></div>
+		<?php if ( $is_completed && ( $prev_url || $next_url ) ) : ?>
+			<!-- wp:buttons {"className":"sensei-lesson-actions-nav"} -->
+			<div class="wp-block-buttons sensei-lesson-actions-nav">
+				<?php if ( $prev_url ) : ?>
+					<!-- wp:button {"className":"is-style-outline"} -->
+					<div class="wp-block-button is-style-outline has-text-align-left">
+						<a class="wp-block-button__link wp-element-button" href="<?php echo esc_attr( $prev_url ); ?>"><?php esc_html_e( 'Previous Lesson', 'wporg-learn' ); ?></a>
+					</div>
+					<!-- /wp:button -->
+				<?php endif; ?>
+				<?php if ( $next_url ) : ?>
+					<!-- wp:button {"className":"is-style-fill"} -->
+					<div class="wp-block-button is-style-fill has-text-align-left">
+						<a class="wp-block-button__link wp-element-button" href="<?php echo esc_attr( $next_url ); ?>"><?php esc_html_e( 'Next Lesson', 'wporg-learn' ); ?></a>
+					</div>
+					<!-- /wp:button -->
+				<?php endif; ?>
 			</div>
-		</div>
-		<!-- /wp:sensei-lms/button-lesson-completed -->
-
-		<!-- wp:sensei-lms/button-next-lesson {"inContainer":true} -->
-		<div class="wp-block-sensei-lms-button-next-lesson is-style-default sensei-buttons-container__button-block wp-block-sensei-lms-button-next-lesson__wrapper">
-			<div class="wp-block-sensei-lms-button-next-lesson is-style-default wp-block-sensei-button wp-block-button has-text-align-left">
-				<div class="wp-block-button__link"><?php esc_html_e( 'Next lesson', 'sensei-lms' ); ?></div>
-			</div>
-		</div>
-		<!-- /wp:sensei-lms/button-next-lesson -->
+			<!-- /wp:buttons -->
+		<?php endif; ?>
 	</div>
 </div>
 <!-- /wp:sensei-lms/lesson-actions -->

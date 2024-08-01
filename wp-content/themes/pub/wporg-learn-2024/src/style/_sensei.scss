@@ -69,14 +69,20 @@ body.sensei {
 	}
 
 	&.single-lesson {
-		.sensei-lesson-footer .sensei-buttons-container {
-			margin: unset;
-			display: flex;
-			gap: var(--wp--preset--spacing--10);
+		.sensei-lesson-footer {
+			.screen-reader-text {
+				display: none;
+			}
 
-			> *,
-			.sensei-buttons-container__button-block {
-				padding: unset;
+			.sensei-buttons-container {
+				margin: unset;
+				display: flex;
+				gap: var(--wp--preset--spacing--10);
+
+				> *,
+				.sensei-buttons-container__button-block {
+					padding: unset;
+				}
 			}
 		}
 
@@ -102,12 +108,8 @@ body.sensei {
 	}
 
 	@media screen and (max-width: 782px) {
-		.sensei-lesson-footer .wp-block-sensei-lms-button-lesson-completed {
-			display: flex;
-
-			.wp-block-button__link {
-				flex: 1;
-			}
+		.sensei-lesson-footer .sensei-lesson-actions-nav {
+			width: 100%;
 		}
 	}
 
