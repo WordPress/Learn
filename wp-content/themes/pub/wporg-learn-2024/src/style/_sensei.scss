@@ -124,9 +124,46 @@ body.sensei {
 			margin-bottom: var(--wp--preset--spacing--20);
 		}
 
+		#sensei-quiz-list fieldset {
+			padding: 0;
+			border: none;
+
+			ul {
+				margin-top: 0;
+			}
+		}
+
 		#sensei-quiz-list li ul li input,
 		#sensei-quiz-list .sensei-multiple-choice-answer-option-checkbox + label::before {
 			flex-shrink: 0;
+		}
+
+		#sensei-quiz-list li ul li input:focus,
+		#sensei-quiz-list .sensei-multiple-choice-answer-option-checkbox:focus + label::before {
+			outline: 1.5px solid var(--wp--preset--color--blueberry-1);
+			outline-offset: 1.5px;
+		}
+
+		#sensei-quiz-list .sensei-multiple-choice-answer-option-checkbox {
+			// Checkboxes need to be displayed, otherwise keyboard nav will not work.
+			// The following code is copied from `screen-reader-text` so that the checkboxes
+			// exist on the page, but are not shown visually. The visual checkboxes are added
+			// by `::before` on the label.
+			display: initial !important;
+			clip: rect(1px, 1px, 1px, 1px);
+			word-wrap: normal !important;
+			border: 0;
+			clip-path: inset(50%);
+			height: 1px;
+			margin: -1px;
+			overflow: hidden;
+			padding: 0;
+			position: absolute;
+			width: 1px;
+
+			+ label {
+				margin-left: 0;
+			}
 		}
 	}
 

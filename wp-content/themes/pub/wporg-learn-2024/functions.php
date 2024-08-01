@@ -44,6 +44,9 @@ add_filter( 'wporg_block_navigation_menus', __NAMESPACE__ . '\add_site_navigatio
 add_filter( 'wporg_block_site_breadcrumbs', __NAMESPACE__ . '\set_site_breadcrumbs' );
 add_filter( 'taxonomy_template_hierarchy', __NAMESPACE__ . '\modify_taxonomy_template_hierarchy' );
 
+// Attached at 50 to inject after title, description, etc, so that only answers are in the fieldset.
+add_action( 'sensei_quiz_question_inside_before', __NAMESPACE__ . '\sensei_question_add_opening_fieldset', 50 );
+add_action( 'sensei_quiz_question_inside_after', __NAMESPACE__ . '\sensei_question_add_closing_fieldset' );
 add_filter( 'sensei_learning_mode_lesson_status_icon', __NAMESPACE__ . '\modify_lesson_status_icon_add_aria', 10, 2 );
 
 remove_filter( 'template_include', array( 'Sensei_Templates', 'template_loader' ), 10, 1 );
@@ -460,4 +463,24 @@ function modify_lesson_status_icon_add_aria( $icon, $status ) {
 	$html->set_attribute( 'aria-label', $labels[ $status ] );
 	$html->set_attribute( 'role', 'img' );
 	return $html->get_updated_html();
+}
+
+/**
+ * Use the "before question" hook to open a fieldset and add a ledgend to label the input options.
+ *
+ * @param int $question_id The question ID.
+ */
+function sensei_question_add_opening_fieldset( $question_id ) {
+	$title = strip_tags( get_the_title( $question_id ) );
+	?>
+	<fieldset>
+		<legend class="screen-reader-text"><?php echo esc_html( $title ); ?></legend>
+	<?php
+}
+
+/**
+ * Use the "after question" hook to close the fieldset opened in `sensei_question_add_opening_fieldset`.
+ */
+function sensei_question_add_closing_fieldset() {
+	echo '</fieldset>';
 }
