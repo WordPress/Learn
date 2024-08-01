@@ -69,14 +69,20 @@ body.sensei {
 	}
 
 	&.single-lesson {
-		.sensei-lesson-footer .sensei-buttons-container {
-			margin: unset;
-			display: flex;
-			gap: var(--wp--preset--spacing--10);
+		.sensei-lesson-footer {
+			.screen-reader-text {
+				display: none;
+			}
 
-			> *,
-			.sensei-buttons-container__button-block {
-				padding: unset;
+			.sensei-buttons-container {
+				margin: unset;
+				display: flex;
+				gap: var(--wp--preset--spacing--10);
+
+				> *,
+				.sensei-buttons-container__button-block {
+					padding: unset;
+				}
 			}
 		}
 
