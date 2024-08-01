@@ -7,6 +7,10 @@
 		display: none !important;
 	}
 
+	@page {
+		margin-top: 0;
+	}
+
 	// Prevent image from bleeding over the edge
 	img {
 		max-width: 100% !important;
