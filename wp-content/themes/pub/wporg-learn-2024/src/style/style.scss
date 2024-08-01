@@ -51,3 +51,9 @@ body {
 		padding-top: unset !important;
 	}
 }
+
+.disabled {
+	color: var(--wp--preset--color--charcoal-5) !important;
+	border-color: var(--wp--preset--color--charcoal-5) !important;
+	pointer-events: none;
+}

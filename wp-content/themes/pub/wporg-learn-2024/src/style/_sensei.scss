@@ -102,12 +102,8 @@ body.sensei {
 	}
 
 	@media screen and (max-width: 782px) {
-		.sensei-lesson-footer .wp-block-sensei-lms-button-lesson-completed {
-			display: flex;
-
-			.wp-block-button__link {
-				flex: 1;
-			}
+		.sensei-lesson-footer .sensei-lesson-actions-nav {
+			width: 100%;
 		}
 	}
 

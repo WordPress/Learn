@@ -36,19 +36,30 @@ $is_completed = Sensei_Utils::user_completed_lesson( get_the_ID() );
 		<?php if ( $is_completed ) : ?>
 			<!-- wp:buttons -->
 			<div class="wp-block-buttons">
-				<?php if ( $prev_url ) : ?>
-					<!-- wp:button {"className":"is-style-outline"} -->
-					<div class="wp-block-button is-style-outline has-text-align-left">
-						<a class="wp-block-button__link wp-element-button" href="<?php echo esc_attr( $prev_url ); ?>"><?php esc_html_e( 'Previous Lesson', 'wporg-learn' ); ?></a>
-					</div>
-					<!-- /wp:button -->
-				<?php endif; ?>
-				<?php if ( $next_url ) : ?>
-					<!-- wp:button {"className":"is-style-fill"} -->
-					<div class="wp-block-button is-style-fill has-text-align-left">
-						<a class="wp-block-button__link wp-element-button" href="<?php echo esc_attr( $next_url ); ?>"><?php esc_html_e( 'Next Lesson', 'wporg-learn' ); ?></a>
-					</div>
-					<!-- /wp:button -->
+				<!-- wp:button {"className":"is-style-outline"} -->
+				<div class="wp-block-button is-style-outline has-text-align-left disabled">
+					<a class="wp-block-button__link wp-element-button"><?php esc_html_e( 'Lesson completed', 'wporg-learn' ); ?></a>
+				</div>
+				<!-- /wp:button -->
+				<?php if ( $prev_url || $next_url ) : ?>
+				<!-- wp:buttons {"className":"sensei-lesson-actions-nav"} -->
+				<div class="wp-block-buttons sensei-lesson-actions-nav">
+					<?php if ( $prev_url ) : ?>
+						<!-- wp:button {"className":"is-style-outline"} -->
+						<div class="wp-block-button is-style-outline has-text-align-left">
+							<a class="wp-block-button__link wp-element-button" href="<?php echo esc_attr( $prev_url ); ?>"><?php esc_html_e( 'Previous Lesson', 'wporg-learn' ); ?></a>
+						</div>
+						<!-- /wp:button -->
+					<?php endif; ?>
+					<?php if ( $next_url ) : ?>
+						<!-- wp:button {"className":"is-style-fill"} -->
+						<div class="wp-block-button is-style-fill has-text-align-left">
+							<a class="wp-block-button__link wp-element-button" href="<?php echo esc_attr( $next_url ); ?>"><?php esc_html_e( 'Next Lesson', 'wporg-learn' ); ?></a>
+						</div>
+						<!-- /wp:button -->
+					<?php endif; ?>
+				</div>
+				<!-- /wp:buttons -->
 				<?php endif; ?>
 			</div>
 			<!-- /wp:buttons -->			
