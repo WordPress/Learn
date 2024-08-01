@@ -1,7 +1,9 @@
 @media print {
 	// Hide stuff that's not relevant on print media
 	.wp-block-wporg-local-navigation-bar,
-	.wp-block-wporg-site-breadcrumbs {
+	.wp-block-wporg-site-breadcrumbs,
+	.wporg-learn-sidebar,
+	footer.wp-block-template-part {
 		display: none !important;
 	}
 
