@@ -13,6 +13,7 @@ require_once __DIR__ . '/src/course-outline/index.php';
 require_once __DIR__ . '/src/learning-pathway-cards/index.php';
 require_once __DIR__ . '/src/learning-pathway-header/index.php';
 require_once __DIR__ . '/src/lesson-grid/index.php';
+require_once __DIR__ . '/src/lesson-standalone/index.php';
 require_once __DIR__ . '/src/search-results-context/index.php';
 require_once __DIR__ . '/src/sensei-progress-bar/index.php';
 require_once __DIR__ . '/src/sidebar-meta-list/index.php';

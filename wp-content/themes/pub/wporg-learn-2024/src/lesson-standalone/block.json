@@ -1,0 +1,4 @@
+{
+	"name": "wporg-learn/lesson-standalone",
+	"viewScript": "file:./view.js"
+}
