@@ -7,6 +7,7 @@ namespace WordPressdotorg\Theme\Learn_2024\Query;
 
 add_action( 'pre_get_posts', __NAMESPACE__ . '\add_language_to_archive_queries' );
 add_action( 'pre_get_posts', __NAMESPACE__ . '\add_excluded_to_lesson_archive_query' );
+add_action( 'pre_get_posts', __NAMESPACE__ . '\filter_search_queries_by_post_type' );
 add_filter( 'request', __NAMESPACE__ . '\handle_all_level_query' );
 
 /**
@@ -78,6 +79,23 @@ function add_excluded_to_lesson_archive_query( $query ) {
 
 		$query->set( 'meta_query', $meta_query );
 	}
+}
+
+/**
+ * Filter search queries by post type.
+ * Only include courses and lessons in search results unless post_type is set, eg. for an archive search.
+ *
+ * @param WP_Query $query The query object.
+ * @return WP_Query The modified query object.
+ */
+function filter_search_queries_by_post_type( $query ) {
+	if ( ! is_admin() && $query->is_search() && $query->is_main_query() ) {
+		if ( ! $query->get( 'post_type' ) ) {
+			$query->set( 'post_type', array( 'course', 'lesson' ) );
+		}
+	}
+
+	return $query;
 }
 
 /**

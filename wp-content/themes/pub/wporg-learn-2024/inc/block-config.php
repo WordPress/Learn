@@ -54,7 +54,8 @@ function get_content_type_options( $options ) {
 		'lesson' => __( 'Lesson', 'wporg-learn' ),
 	);
 
-	$selected_slug = $wp_query->get( 'post_type' ) ? $wp_query->get( 'post_type' ) : 'any';
+	$post_type = $wp_query->get( 'post_type' );
+	$selected_slug = is_string( $post_type ) ? $post_type : 'any';
 	$label = $options[ $selected_slug ] ?? $options['any'];
 
 	return array(
