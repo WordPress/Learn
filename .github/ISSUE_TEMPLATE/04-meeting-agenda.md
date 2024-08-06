@@ -64,7 +64,7 @@ _This week’s meeting will be hosted by MEETING_HOST._
 
 **[Validated feedback awaiting fix](https://github.com/orgs/WordPress/projects/78/views/4)**
 
-- Faculty Editors, see [Validating and Applying Content Feedback](https://make.wordpress.org/training/handbook/training-team-how-to-guides/how-we-use-github/validating-and-applying-content-feedback/) for step-by-step guidance on applying feedback that has been validated.
+- Contributors, see [Validating and Applying Content Feedback](https://make.wordpress.org/training/handbook/training-team-how-to-guides/how-we-use-github/validating-and-applying-content-feedback/) for step-by-step guidance on applying feedback that has been validated.
 - We have # issues awaiting a fix
 
 ## 3. Contribution Acknowledgement
@@ -79,12 +79,12 @@ _This week’s meeting will be hosted by MEETING_HOST._
 - Project_2
   - details
 
-## 5. Faculty Updates
+## 5. Contributor Updates
 
 - What have you been working on and how has it been going?
 - Anything you’ve accomplished since the last meeting?
 - Do you have any blockers?
-- Can other Faculty or Training Team members help you in some way?
+- Can other contributor or Training Team members help you in some way?
 
 ## 6. Open Discussions
 
