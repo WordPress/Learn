@@ -300,7 +300,10 @@ function register_lesson_visibility() {
 		'show_in_rest'      => true,
 		'rewrite'           => false,
 		'capabilities'      => array(
-			'assign_terms' => 'edit_others_posts',
+			'manage_terms' => 'manage_categories',
+			'edit_terms'   => 'manage_categories',
+			'delete_terms' => 'manage_categories',
+			'assign_terms' => 'edit_lessons',
 		),
 	);
 
