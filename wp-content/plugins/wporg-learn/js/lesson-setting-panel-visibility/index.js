@@ -4,37 +4,35 @@
 import { CheckboxControl, PanelRow } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { PluginDocumentSettingPanel } from '@wordpress/edit-post';
-import { useEffect, useState } from '@wordpress/element';
+import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { registerPlugin } from '@wordpress/plugins';
 
-const EXCLUDED_TERM_ID = 1; // Replace with the actual term ID for 'excluded'
+const EXCLUDED_TERM_SLUG = 'excluded';
 const TAXONOMY_NAME = 'hidden_from_ui';
 
-const LessonArchiveExcludedTaxonomy = () => {
-	const [ isExcluded, setIsExcluded ] = useState( false );
+const LessonSettingPanelVisibility = () => {
+	const { postTerms, excludedTermId } = useSelect( ( select ) => {
+		const terms = select( 'core/editor' ).getEditedPostAttribute( TAXONOMY_NAME ) || [];
+		const allTerms = select( 'core' ).getEntityRecords( 'taxonomy', TAXONOMY_NAME ) || [];
+		const excludedTerm = allTerms.find( ( term ) => term.slug === EXCLUDED_TERM_SLUG );
 
-	const postTerms = useSelect(
-		( select ) => select( 'core/editor' ).getEditedPostAttribute( TAXONOMY_NAME ) || []
-	);
-
+		return {
+			postTerms: terms,
+			excludedTermId: excludedTerm ? excludedTerm.id : null,
+		};
+	}, [] );
+	const [ isExcluded, setIsExcluded ] = useState( postTerms.includes( excludedTermId ) );
 	const { editPost } = useDispatch( 'core/editor' );
-
-	useEffect( () => {
-		setIsExcluded( postTerms.includes( EXCLUDED_TERM_ID ) );
-	}, [ postTerms ] );
 
 	const toggleExcluded = ( newIsExcluded ) => {
 		setIsExcluded( newIsExcluded );
 
-		let newTerms;
-		if ( newIsExcluded ) {
-			newTerms = [ ...postTerms, EXCLUDED_TERM_ID ];
-		} else {
-			newTerms = postTerms.filter( ( termId ) => termId !== EXCLUDED_TERM_ID );
-		}
+		const newTerms =
+			newIsExcluded && excludedTermId
+				? [ ...postTerms, excludedTermId ]
+				: postTerms.filter( ( termId ) => termId !== excludedTermId );
 
-		// Update the post's terms
 		editPost( { [ TAXONOMY_NAME ]: newTerms } );
 	};
 
@@ -52,5 +50,5 @@ const LessonArchiveExcludedTaxonomy = () => {
 };
 
 registerPlugin( 'wporg-learn-lesson-archive-excluded-taxonomy', {
-	render: LessonArchiveExcludedTaxonomy,
+	render: LessonSettingPanelVisibility,
 } );
