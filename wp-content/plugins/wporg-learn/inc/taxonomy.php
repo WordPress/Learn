@@ -285,7 +285,7 @@ function register_lesson_visibility() {
 		'choose_from_most_used'      => __( 'Choose from the most used', 'wporg-learn' ),
 		'popular_items'              => __( 'Popular Visibilities', 'wporg-learn' ),
 		'search_items'               => __( 'Search Visibilities', 'wporg-learn' ),
-		'not_found'                  => __( 'Not Experience Found', 'wporg-learn' ),
+		'not_found'                  => __( 'No Visibilities Found', 'wporg-learn' ),
 		'no_terms'                   => __( 'No visibilities', 'wporg-learn' ),
 		'items_list'                 => __( 'Visibilities list', 'wporg-learn' ),
 		'items_list_navigation'      => __( 'Visibilities list navigation', 'wporg-learn' ),
@@ -311,8 +311,8 @@ function register_lesson_visibility() {
 	);
 
 	// Use an existing taxonomy registered with Jetpack Search
-	// See https://github.com/Automattic/jetpack/blob/36b2d5232e2ec3a1ad14034ab673fddce3acab97/projects/packages/sync/src/modules/class-search.php#L298
-	register_taxonomy( 'hidden_from_ui', array( 'lesson' ), $args );
+	// See https://github.com/Automattic/jetpack/blob/36b2d5232e2ec3a1ad14034ab673fddce3acab97/projects/packages/sync/src/modules/class-search.php#L1479
+	register_taxonomy( 'show', array( 'lesson' ), $args );
 }
 
 /**

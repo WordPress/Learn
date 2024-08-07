@@ -79,9 +79,9 @@ function add_excluded_to_lesson_archive_query( $query ) {
 		}
 
 		$exclude_lessons_by_taxonomy = array(
-			'taxonomy' => 'hidden_from_ui',
+			'taxonomy' => 'show',
 			'field'    => 'slug',
-			'terms'    => 'excluded',
+			'terms'    => 'hidden',
 			'operator' => 'NOT IN',
 		);
 

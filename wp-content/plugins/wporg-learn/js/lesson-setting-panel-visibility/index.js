@@ -8,30 +8,30 @@ import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { registerPlugin } from '@wordpress/plugins';
 
-const EXCLUDED_TERM_SLUG = 'excluded';
-const TAXONOMY_NAME = 'hidden_from_ui';
+const HIDDEN_TERM_SLUG = 'hidden';
+const TAXONOMY_NAME = 'show';
 
 const LessonSettingPanelVisibility = () => {
-	const { postTerms, excludedTermId } = useSelect( ( select ) => {
+	const { postTerms, hiddenTermId } = useSelect( ( select ) => {
 		const terms = select( 'core/editor' ).getEditedPostAttribute( TAXONOMY_NAME ) || [];
 		const allTerms = select( 'core' ).getEntityRecords( 'taxonomy', TAXONOMY_NAME ) || [];
-		const excludedTerm = allTerms.find( ( term ) => term.slug === EXCLUDED_TERM_SLUG );
+		const hiddenTerm = allTerms.find( ( term ) => term.slug === HIDDEN_TERM_SLUG );
 
 		return {
 			postTerms: terms,
-			excludedTermId: excludedTerm ? excludedTerm.id : null,
+			hiddenTermId: hiddenTerm ? hiddenTerm.id : null,
 		};
 	}, [] );
-	const [ isExcluded, setIsExcluded ] = useState( postTerms.includes( excludedTermId ) );
+	const [ isHidden, setIsHidden ] = useState( postTerms.includes( hiddenTermId ) );
 	const { editPost } = useDispatch( 'core/editor' );
 
-	const toggleExcluded = ( newIsExcluded ) => {
-		setIsExcluded( newIsExcluded );
+	const toggleHidden = ( newIsHidden ) => {
+		setIsHidden( newIsHidden );
 
 		const newTerms =
-			newIsExcluded && excludedTermId
-				? [ ...postTerms, excludedTermId ]
-				: postTerms.filter( ( termId ) => termId !== excludedTermId );
+			newIsHidden && hiddenTermId
+				? [ ...postTerms, hiddenTermId ]
+				: postTerms.filter( ( termId ) => termId !== hiddenTermId );
 
 		editPost( { [ TAXONOMY_NAME ]: newTerms } );
 	};
@@ -40,15 +40,15 @@ const LessonSettingPanelVisibility = () => {
 		<PluginDocumentSettingPanel title={ __( 'Hidden Lesson', 'wporg-learn' ) }>
 			<PanelRow>
 				<CheckboxControl
-					label={ __( 'Exclude this lesson from the archive', 'wporg-learn' ) }
-					checked={ isExcluded }
-					onChange={ toggleExcluded }
+					label={ __( 'Exclude this lesson from archive and search', 'wporg-learn' ) }
+					checked={ isHidden }
+					onChange={ toggleHidden }
 				/>
 			</PanelRow>
 		</PluginDocumentSettingPanel>
 	);
 };
 
-registerPlugin( 'wporg-learn-lesson-archive-excluded-taxonomy', {
+registerPlugin( 'wporg-learn-lesson-visibility-settings', {
 	render: LessonSettingPanelVisibility,
 } );
