@@ -2,8 +2,6 @@
 
 namespace WPOrg_Learn\Taxonomy;
 
-use function WPOrg_Learn\{ get_build_path, get_build_url };
-
 defined( 'WPINC' ) || die();
 
 /**
@@ -18,7 +16,6 @@ add_action( 'created_audience', __NAMESPACE__ . '\tax_save_term_fields' );
 add_action( 'edited_audience', __NAMESPACE__ . '\tax_save_term_fields' );
 add_action( 'created_topic', __NAMESPACE__ . '\tax_save_term_fields' );
 add_action( 'edited_topic', __NAMESPACE__ . '\tax_save_term_fields' );
-add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\enqueue_lesson_setting_panel_visibility_assets' );
 
 /**
  * Register all the taxonomies.
@@ -265,7 +262,7 @@ function register_lesson_level() {
 }
 
 /**
- * Register the Lesson hidden taxonomy, used to hide lessons from the archive and search views.
+ * Register the Lesson visibility taxonomy, used to hide lessons from the archive and search views.
  */
 function register_lesson_visibility() {
 	$labels = array(
@@ -293,10 +290,10 @@ function register_lesson_visibility() {
 
 	$args = array(
 		'labels'            => $labels,
-		'hierarchical'      => false,
+		'hierarchical'      => true,
 		'public'            => true,
 		'query_var'         => 'wporg_lesson_visibility', // Prevent collisions with query params in the archive filter.
-		'show_ui'           => false,
+		'show_ui'           => true,
 		'show_admin_column' => true,
 		'show_in_nav_menus' => true,
 		'show_tagcloud'     => false,
@@ -751,29 +748,4 @@ function get_available_taxonomy_terms( $taxonomy, $post_type, $post_status = nul
 		$terms[ $term_object->slug ] = $term_object->name;
 		return $terms;
 	}, array());
-}
-
-/**
- * Enqueue scripts for the lesson visibility setting panel.
- */
-function enqueue_lesson_setting_panel_visibility_assets() {
-	global $typenow;
-
-	if ( 'lesson' === $typenow ) {
-		$script_asset_path = get_build_path() . 'lesson-setting-panel-visibility.asset.php';
-		if ( ! file_exists( $script_asset_path ) ) {
-			wp_die( 'You need to run `yarn start` or `yarn build` to build the required assets.' );
-		}
-
-		$script_asset = require( $script_asset_path );
-		wp_enqueue_script(
-			'wporg-learn-lesson-setting-panel-visibility',
-			get_build_url() . 'lesson-setting-panel-visibility.js',
-			$script_asset['dependencies'],
-			$script_asset['version'],
-			true
-		);
-
-		wp_set_script_translations( 'wporg-learn-lesson-setting-panel-visibility', 'wporg-learn' );
-	}
 }
