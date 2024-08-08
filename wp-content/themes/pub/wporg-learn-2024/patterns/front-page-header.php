@@ -13,7 +13,7 @@
 
 	<!-- wp:site-title {"level":0,"fontSize":"small","className":"wporg-local-navigation-bar__show-on-scroll"} /-->
 
-	<!-- wp:navigation {"icon":"menu","overlayBackgroundColor":"charcoal-2","overlayTextColor":"white","layout":{"type":"flex","orientation":"horizontal"},"fontSize":"small","menuSlug":"learn"} /-->
+	<!-- wp:navigation {"icon":"menu","overlayBackgroundColor":"charcoal-1","overlayTextColor":"white","layout":{"type":"flex","orientation":"horizontal"},"fontSize":"small","menuSlug":"learn"} /-->
 
 <!-- /wp:wporg/local-navigation-bar -->
 
