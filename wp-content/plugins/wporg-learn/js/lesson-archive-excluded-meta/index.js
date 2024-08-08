@@ -16,7 +16,7 @@ const LessonArchiveExcludedMeta = () => {
 	const [ lessonExcluded, setLessonFeatured ] = useState( postMetaData?._lesson_archive_excluded === EXCLUDED );
 
 	return (
-		<PluginDocumentSettingPanel title={ __( 'Hidden Lesson', 'wporg-learn' ) }>
+		<PluginDocumentSettingPanel title={ __( 'Hidden Lesson (deprecated)', 'wporg-learn' ) }>
 			<PanelRow>
 				<CheckboxControl
 					label={ __( 'Exclude this lesson from the archive', 'wporg-learn' ) }
