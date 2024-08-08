@@ -57,16 +57,6 @@
 						"url": "https://meta.svn.wordpress.org/sites/",
 						"reference": "trunk/wordpress.org/public_html/wp-content/mu-plugins/pub/"
 					}
-				},
-				{
-					"name": "wordpress-meta/wporg",
-					"type": "wordpress-theme",
-					"version": "1",
-					"source": {
-						"type": "svn",
-						"url": "https://meta.svn.wordpress.org/sites/",
-						"reference": "trunk/wordpress.org/public_html/wp-content/themes/pub/wporg/"
-					}
 				}
 			]
 		},
@@ -85,7 +75,6 @@
 		"wpackagist-plugin/wordpress-importer": "*",
 		"wordpress-meta/locale-detection": "1",
 		"wordpress-meta/pub": "1",
-		"wordpress-meta/wporg": "1",
 		"dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
 		"wp-coding-standards/wpcs": "2.*",
 		"phpcompatibility/phpcompatibility-wp": "*",
