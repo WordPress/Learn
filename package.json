@@ -7,7 +7,7 @@
 	"private": true,
 	"dependencies": {
 		"@wordpress/env": "9.3.0",
-		"@wordpress/scripts": "27.2.0",
+		"@wordpress/scripts": "27.9.0",
 		"@wordpress/stylelint-config": "21.34.0"
 	},
 	"workspaces": {
