@@ -4,7 +4,6 @@ const config = require( '@wordpress/scripts/config/webpack.config' );
  * Set up the custom entry points.
  */
 config.entry = {
-	'block-styles': './js/block-styles/index.js',
 	'course-status': './js/course-status/src/index.js',
 	'duration-meta': './js/duration-meta/index.js',
 	'expiration-date': './js/expiration-date/index.js',
