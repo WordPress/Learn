@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d2ecc3e83a7c9db5a0375a7a3af8b309",
+    "content-hash": "246bd7d68d1b8417737829e23713d6a9",
     "packages": [
         {
             "name": "composer/installers",
@@ -672,16 +672,6 @@
                 "reference": "trunk/wordpress.org/public_html/wp-content/mu-plugins/pub/"
             },
             "type": "wordpress-muplugin"
-        },
-        {
-            "name": "wordpress-meta/wporg",
-            "version": "1",
-            "source": {
-                "type": "svn",
-                "url": "https://meta.svn.wordpress.org/sites/",
-                "reference": "trunk/wordpress.org/public_html/wp-content/themes/pub/wporg/"
-            },
-            "type": "wordpress-theme"
         },
         {
             "name": "wp-coding-standards/wpcs",
