@@ -85,6 +85,6 @@ jobs:
         uses: actions-js/push@a52398fac807b0c1e5f1492c969b477c8560a0ba # 1.3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: build
+          branch: build-test
           force: true
           message: 'Build: ${{ github.sha }}'
