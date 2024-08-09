@@ -2,7 +2,7 @@ name: Build and push to build branch.
 
 on:
   push:
-    branches: [trunk]
+    branches: [trunk, fix/2832-remove-old-themes]
   workflow_dispatch:
 
 jobs:
