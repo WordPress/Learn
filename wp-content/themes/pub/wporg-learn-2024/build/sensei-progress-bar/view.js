@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",(function(){document.querySelectorAll(".sensei-progress-bar__bar").forEach(((e,s)=>{const r=e.closest(".sensei-block-wrapper");if(r){const t=r.querySelector(".sensei-progress-bar__label");if(t){const r=`sensei-progress-bar__label-${s}`;t.id=r,e.setAttribute("aria-labelledby",r)}}}))}));
