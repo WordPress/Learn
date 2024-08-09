@@ -2,7 +2,7 @@ name: Build and push to build branch.
 
 on:
   push:
-    branches: [trunk, fix/2832-remove-old-themes]
+    branches: [trunk]
   workflow_dispatch:
 
 jobs:
@@ -13,7 +13,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: fix/2832-remove-old-themes
+          ref: trunk
 
       - name: Install NodeJS
         uses: actions/setup-node@e33196f7422957bea03ed53f6fbb155025ffc7b8 # v3.7.0
@@ -85,6 +85,6 @@ jobs:
         uses: actions-js/push@a52398fac807b0c1e5f1492c969b477c8560a0ba # 1.3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: build-test
+          branch: build
           force: true
           message: 'Build: ${{ github.sha }}'
