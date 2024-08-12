@@ -34,13 +34,7 @@
 !/wp-content/plugins/sensei-pro
 !/wp-content/themes
 !/wp-content/themes/pub
-!/wp-content/themes/pub/wporg-learn-2020
 !/wp-content/themes/pub/wporg-learn-2024
 
 # Ignore subfolders in our custom code.
 /wp-content/plugins/wporg-learn/build
-
-# Ignore built CSS.
-/wp-content/themes/pub/wporg-learn-2020/css/print.css
-/wp-content/themes/pub/wporg-learn-2020/css/style-rtl.css
-/wp-content/themes/pub/wporg-learn-2020/css/style.css
