@@ -27,6 +27,7 @@ require_once __DIR__ . '/inc/head.php';
  * Actions and filters.
  */
 add_action( 'after_setup_theme', __NAMESPACE__ . '\setup' );
+add_filter( 'wp_get_attachment_image_attributes', __NAMESPACE__ . '\eager_load_first_card_row_images', 10, 3 );
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_assets' );
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\maybe_enqueue_sensei_assets', 100 );
 
@@ -135,6 +136,29 @@ function enqueue_assets() {
 		// All headings.
 		global_fonts_preload( 'EB Garamond, Inter', $subsets );
 	}
+}
+
+/**
+ * Eagerly load the images for the first row of cards, for performance (LCP metric).
+ *
+ * @param array   $attr       The image attributes.
+ * @param WP_Post $attachment The attachment post object.
+ * @param string  $size       The image size.
+ * @return array The modified image attributes.
+ */
+function eager_load_first_card_row_images( $attr, $attachment, $size ) {
+	static $image_count = 0;
+
+	if ( is_front_page() || is_archive() || is_search() || is_page( 'my-courses' ) ) {
+		$image_count++;
+
+		if ( $image_count <= 3 ) {
+			$attr['loading'] = 'eager';
+			$attr['fetchpriority'] = 'high';
+		}
+	}
+
+	return $attr;
 }
 
 /**
