@@ -15,22 +15,20 @@ If you're interested in contributing to the site, but aren't sure where to start
 - [SVN](https://subversion.apache.org/packages.html)
 - [NVM](https://github.com/nvm-sh/nvm) or [N](https://github.com/tj/n) (optional)
 
-## Setup 2020 version
-1. `yarn`
-2. `yarn run create:old`
-3. Visit site at `localhost:8888`
-
-## Setup 2024 version
-1. `yarn`
-2. `yarn run create`
-3. Visit site at `localhost:8888`
-4. To watch for changes `yarn start:theme`
+## Setup
+1. `nvm use` or ensure you are running the Node version specified in the `.nvmrc` file
+2. `yarn`
+3. `yarn run create`
+4. Visit site at `localhost:8888`
+5. To watch for changes `yarn start:theme`
 
 ## Stopping Environment
-run `yarn run wp-env stop`
+
+	yarn run wp-env stop`
 
 ## Removing Environment
-run `yarn run wp-env destroy`
+
+	yarn run wp-env destroy`
 
 ## Admin
 
@@ -46,15 +44,15 @@ To build all projects, you can run:
 
 To build one project at a time, run:
 
+	yarn workspace wporg-locale-switcher build
 	yarn workspace wporg-learn-2024 build
-	yarn workspace wporg-learn-theme build
 	yarn workspace wporg-learn-plugin build
 
-If you want to watch for changes, run `start`. This can only be run in one project at a time:
+If you want to watch for changes, run:
 
-	yarn workspace wporg-learn-2024 start
-	yarn workspace wporg-learn-theme start
-	yarn workspace wporg-learn-plugin start
+	yarn start:locale-switcher
+	yarn start:theme
+	yarn start:plugin
 
 ### Linting
 
@@ -72,9 +70,10 @@ To lint one language run one of:
 
 To check an individual project before pushing to the repo, run one of:
 
+	yarn workspace wporg-locale-switcher lint:css
+	yarn workspace wporg-locale-switcher lint:js
 	yarn workspace wporg-learn-2024 lint:css
 	yarn workspace wporg-learn-2024 lint:js
-	yarn workspace wporg-learn-theme lint:css
 	yarn workspace wporg-learn-plugin lint:css
 	yarn workspace wporg-learn-plugin lint:js
 	composer run lint

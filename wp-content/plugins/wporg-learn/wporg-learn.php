@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin name: WordPress.org Learn
- * Description: Functionality for learn.wordpress.org. See also the wporg-learn-2020 theme.
+ * Description: Functionality for learn.wordpress.org. See also the wporg-learn-2024 theme.
  * Version:     1.0.0
  * Author:      WordPress.org
  * Author URI:  http://wordpress.org/

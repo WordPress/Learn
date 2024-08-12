@@ -14,7 +14,6 @@
 		"packages": [
 			"wp-content/mu-plugins/pub/locale-switcher",
 			"wp-content/plugins/wporg-learn",
-			"wp-content/themes/pub/wporg-learn-2020",
 			"wp-content/themes/pub/wporg-learn-2024"
 		],
 		"nohoist": [
@@ -22,22 +21,19 @@
 		]
 	},
 	"scripts": {
-		"build": "yarn workspace wporg-learn-2024 run build && yarn workspace wporg-learn-plugin run build",
-		"build:old": "yarn workspace wporg-learn-theme run build && yarn workspace wporg-learn-plugin run build",
+		"build": "yarn workspace wporg-locale-switcher build && yarn workspace wporg-learn-2024 build && yarn workspace wporg-learn-plugin build",
 		"create": "composer install && yarn setup:tools && yarn build && yarn run install:env",
-		"create:old": "composer install && yarn setup:tools && yarn build:old && yarn run install:env:old",
 		"format:php": "composer run format",
 		"install:env": "./bin/index.sh",
-		"install:env:old": "./bin/index.old.sh",
 		"install:githooks": "mv .git/hooks .git/hooks_orig && ln -s ../.githooks .git/hooks",
 		"lint": "yarn lint:css && yarn lint:js && yarn lint:php",
 		"lint:css": "yarn workspaces run lint:css",
 		"lint:js": "yarn workspaces run lint:js",
 		"lint:php": "composer run lint",
 		"setup:tools": "TEXTDOMAIN=wporg-learn composer exec update-configs",
+		"start:locale-switcher": "yarn workspace wporg-locale-switcher start",
 		"start:plugin": "yarn workspace wporg-learn-plugin start",
 		"start:theme": "yarn workspace wporg-learn-2024 start",
-		"start:theme:old": "yarn workspace wporg-learn-theme start",
 		"wp-env": "wp-env"
 	},
 	"main": "index.js"

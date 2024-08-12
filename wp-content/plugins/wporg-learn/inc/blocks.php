@@ -24,8 +24,6 @@ require_once get_views_path() . 'block-lesson-count.php';
  * Actions and filters.
  */
 add_action( 'init', __NAMESPACE__ . '\register_types' );
-add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\enqueue_block_style_assets' );
-add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_block_style_assets' );
 
 /**
  * Register block types.
@@ -415,37 +413,6 @@ function register_workshop_application_form() {
  */
 function workshop_application_form_render_callback() {
 	return render_workshop_application_form();
-}
-
-/**
- * Enqueue scripts and stylesheets for custom block styles.
- *
- * @throws Error If the build files are not found.
- */
-function enqueue_block_style_assets() {
-	if ( is_admin() ) {
-		$script_asset_path = get_build_path() . 'block-styles.asset.php';
-		if ( ! file_exists( $script_asset_path ) ) {
-			throw new Error(
-				'You need to run `npm start` or `npm run build` for block styles first.'
-			);
-		}
-
-		$script_asset = require $script_asset_path;
-		wp_enqueue_script(
-			'wporg-learn-block-styles',
-			get_build_url() . 'block-styles.js',
-			$script_asset['dependencies'],
-			$script_asset['version']
-		);
-	}
-
-	wp_enqueue_style(
-		'wporg-learn-block-styles',
-		get_build_url() . 'style-block-styles.css',
-		array(),
-		filemtime( get_build_path() . 'style-block-styles.css' )
-	);
 }
 
 /**

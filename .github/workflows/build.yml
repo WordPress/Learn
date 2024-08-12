@@ -52,14 +52,12 @@ jobs:
         run: |
           rm -rf wp-content/mu-plugins/pub/locale-switcher/node_modules
           rm -rf wp-content/plugins/wporg-learn/node_modules
-          rm -rf wp-content/themes/pub/wporg-learn-2020/node_modules
           rm -rf wp-content/themes/pub/wporg-learn-2024/node_modules
           mv wp-content/mu-plugins/pub/locale-switcher $RUNNER_TEMP
           mv wp-content/mu-plugins/pub/class-validator.php $RUNNER_TEMP
           mv wp-content/mu-plugins/pub/locales.php $RUNNER_TEMP
           mv wp-content/plugins/sensei-pro $RUNNER_TEMP
           mv wp-content/plugins/wporg-learn $RUNNER_TEMP
-          mv wp-content/themes/pub/wporg-learn-2020 $RUNNER_TEMP
           mv wp-content/themes/pub/wporg-learn-2024 $RUNNER_TEMP
           git rm -rfq .
           rm -rf *
@@ -71,7 +69,6 @@ jobs:
           mv $RUNNER_TEMP/locales.php wp-content/mu-plugins/pub
           mv $RUNNER_TEMP/sensei-pro wp-content/plugins
           mv $RUNNER_TEMP/wporg-learn wp-content/plugins
-          mv $RUNNER_TEMP/wporg-learn-2020 wp-content/themes/pub
           mv $RUNNER_TEMP/wporg-learn-2024 wp-content/themes/pub
 
       - name: Add all the files

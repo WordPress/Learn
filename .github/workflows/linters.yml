@@ -14,11 +14,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Fetch wporg parent theme css
-      run: |
-        mkdir wp-content/themes/pub/wporg
-        svn export https://meta.svn.wordpress.org/sites/trunk/wordpress.org/public_html/wp-content/themes/pub/wporg/css wp-content/themes/pub/wporg/css
-
     - name: composer install
       run: |
         composer install
