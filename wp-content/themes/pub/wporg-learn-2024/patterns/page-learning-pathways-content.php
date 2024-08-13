@@ -5,7 +5,7 @@
  * Inserter: no
  */
 
-use function WPOrg_Learn\Sensei\{get_my_courses_page_url}
+use function WordPressdotorg\Theme\Learn_2024\Template_Helpers\{get_my_courses_page_url};
 ?>
 
 <!-- wp:heading {"level":1} -->

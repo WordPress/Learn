@@ -3,7 +3,8 @@
 namespace WordPressdotorg\Theme\Learn_2024;
 
 use WP_HTML_Tag_Processor;
-use function WPOrg_Learn\Sensei\{get_my_courses_page_url, get_lesson_has_published_course};
+use function WPOrg_Learn\Sensei\{get_lesson_has_published_course};
+use function WordPressdotorg\Theme\Learn_2024\Template_Helpers\{get_my_courses_page_url};
 
 // Block files
 require_once __DIR__ . '/src/card-featured-image-a11y/index.php';
@@ -20,8 +21,9 @@ require_once __DIR__ . '/src/sidebar-meta-list/index.php';
 require_once __DIR__ . '/src/upcoming-online-workshops/index.php';
 require_once __DIR__ . '/inc/block-config.php';
 require_once __DIR__ . '/inc/block-hooks.php';
-require_once __DIR__ . '/inc/query.php';
 require_once __DIR__ . '/inc/head.php';
+require_once __DIR__ . '/inc/query.php';
+require_once __DIR__ . '/inc/template-helpers.php';
 
 /**
  * Actions and filters.

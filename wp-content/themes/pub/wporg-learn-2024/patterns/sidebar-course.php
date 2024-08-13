@@ -7,7 +7,7 @@
  * @package wporg-learn-2024
  */
 
-use function WPOrg_Learn\Sensei\{get_my_courses_page_url};
+use function WordPressdotorg\Theme\Learn_2024\Template_Helpers\{get_my_courses_page_url};
 
 $completed_course = Sensei_Utils::user_completed_course( get_the_ID() );
 $current_post     = get_post();
