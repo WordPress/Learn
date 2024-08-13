@@ -30,11 +30,15 @@ require_once __DIR__ . '/inc/template-helpers.php';
  * Actions and filters.
  */
 add_action( 'after_setup_theme', __NAMESPACE__ . '\setup' );
-add_filter( 'wp_get_attachment_image_attributes', __NAMESPACE__ . '\eager_load_first_card_rows_images', 10, 3 );
+add_action( 'sensei_quiz_question_inside_after', __NAMESPACE__ . '\sensei_question_add_closing_fieldset' );
+// Attached at 50 to inject after title, description, etc, so that only answers are in the fieldset.
+add_action( 'sensei_quiz_question_inside_before', __NAMESPACE__ . '\sensei_question_add_opening_fieldset', 50 );
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_assets' );
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\maybe_enqueue_sensei_assets', 100 );
 
 add_filter( 'post_thumbnail_html', __NAMESPACE__ . '\set_default_featured_image', 10, 5 );
+add_filter( 'search_template_hierarchy', __NAMESPACE__ . '\modify_search_template' );
+add_filter( 'sensei_learning_mode_lesson_status_icon', __NAMESPACE__ . '\modify_lesson_status_icon_add_aria', 10, 2 );
 add_filter( 'sensei_register_post_type_course', function( $args ) {
 	$args['has_archive'] = 'courses';
 	return $args;
@@ -44,15 +48,10 @@ add_filter( 'sensei_register_post_type_lesson', function( $args ) {
 	return $args;
 } );
 add_filter( 'single_template_hierarchy', __NAMESPACE__ . '\modify_single_template' );
-add_filter( 'search_template_hierarchy', __NAMESPACE__ . '\modify_search_template' );
+add_filter( 'taxonomy_template_hierarchy', __NAMESPACE__ . '\modify_taxonomy_template_hierarchy' );
+add_filter( 'wp_get_attachment_image_attributes', __NAMESPACE__ . '\eager_load_first_card_rows_images', 10, 3 );
 add_filter( 'wporg_block_navigation_menus', __NAMESPACE__ . '\add_site_navigation_menus' );
 add_filter( 'wporg_block_site_breadcrumbs', __NAMESPACE__ . '\set_site_breadcrumbs' );
-add_filter( 'taxonomy_template_hierarchy', __NAMESPACE__ . '\modify_taxonomy_template_hierarchy' );
-
-// Attached at 50 to inject after title, description, etc, so that only answers are in the fieldset.
-add_action( 'sensei_quiz_question_inside_before', __NAMESPACE__ . '\sensei_question_add_opening_fieldset', 50 );
-add_action( 'sensei_quiz_question_inside_after', __NAMESPACE__ . '\sensei_question_add_closing_fieldset' );
-add_filter( 'sensei_learning_mode_lesson_status_icon', __NAMESPACE__ . '\modify_lesson_status_icon_add_aria', 10, 2 );
 
 remove_filter( 'template_include', array( 'Sensei_Templates', 'template_loader' ), 10, 1 );
 
