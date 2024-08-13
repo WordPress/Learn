@@ -36,6 +36,8 @@ add_action( 'sensei_quiz_question_inside_before', __NAMESPACE__ . '\sensei_quest
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_assets' );
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\maybe_enqueue_sensei_assets', 100 );
 
+// Remove Jetpack CSS on frontend
+add_filter( 'jetpack_implode_frontend_css', '__return_false', 99 );
 add_filter( 'post_thumbnail_html', __NAMESPACE__ . '\set_default_featured_image', 10, 5 );
 add_filter( 'search_template_hierarchy', __NAMESPACE__ . '\modify_search_template' );
 add_filter( 'sensei_learning_mode_lesson_status_icon', __NAMESPACE__ . '\modify_lesson_status_icon_add_aria', 10, 2 );
