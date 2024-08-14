@@ -33,6 +33,7 @@ add_action( 'after_setup_theme', __NAMESPACE__ . '\setup' );
 add_action( 'sensei_quiz_question_inside_after', __NAMESPACE__ . '\sensei_question_add_closing_fieldset' );
 // Attached at 50 to inject after title, description, etc, so that only answers are in the fieldset.
 add_action( 'sensei_quiz_question_inside_before', __NAMESPACE__ . '\sensei_question_add_opening_fieldset', 50 );
+add_action( 'wp', __NAMESPACE__ . '\dequeue_lesson_archive_video_scripts', 20 );
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_assets' );
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\maybe_enqueue_sensei_assets', 100 );
 
@@ -182,6 +183,41 @@ function maybe_enqueue_sensei_assets() {
 
 			return $classes;
 		} );
+	}
+}
+
+/**
+ * Dequeue Sensei video scripts loaded on lessons archive.
+ * Sensei LMS and Sensei Pro both enqueue video player scripts for lesson posts,
+ * but these are not needed on archives and cause performance issues.
+ *
+ * See class Sensei_Pro_Interactive_Blocks\Interactive_Blocks::enqueue_frontend_assets().
+ * See class Sensei_Course_Video_Settings::enqueue_frontend_scripts().
+ */
+function dequeue_lesson_archive_video_scripts() {
+	if ( is_admin() || ! is_post_type_archive( 'lesson' ) ) {
+		return;
+	}
+
+	global $wp_filter;
+
+	if ( isset( $wp_filter['wp_enqueue_scripts'] ) ) {
+		foreach ( $wp_filter['wp_enqueue_scripts']->callbacks as $priority => $callbacks ) {
+			foreach ( $callbacks as $key => $callback ) {
+				if ( is_array( $callback['function'] ) ) {
+					$caller = $callback['function'][0];
+					$name = $callback['function'][1];
+
+					if (
+						( 'enqueue_frontend_scripts' === $name || 'enqueue_frontend_assets' === $name )
+						&& is_object( $caller )
+						&& ( get_class( $caller ) === 'Sensei_Course_Video_Settings' || get_class( $caller ) === 'Sensei_Pro_Interactive_Blocks\Interactive_Blocks' )
+					) {
+						remove_action( 'wp_enqueue_scripts', $callback['function'], $priority );
+					}
+				}
+			}
+		}
 	}
 }
 
