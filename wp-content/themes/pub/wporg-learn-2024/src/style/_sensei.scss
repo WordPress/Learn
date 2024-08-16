@@ -29,6 +29,10 @@ body.sensei {
 		}
 	}
 
+	.sensei-course-theme__sidebar {
+		row-gap: 40px;
+	}
+
 	// Remove the border on module title.
 	.wp-block-sensei-lms-course-theme-lesson-module {
 		padding-left: unset;
