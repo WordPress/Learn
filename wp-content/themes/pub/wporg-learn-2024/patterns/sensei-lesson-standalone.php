@@ -34,8 +34,8 @@
 <!-- wp:sensei-lms/ui {"elementClass":"sensei-course-theme__columns","className":"sensei-version\u002d\u002d4-16-2 sensei-course-theme__columns--standalone"} -->
 <div class="wp-block-sensei-lms-ui sensei-course-theme__columns sensei-course-theme__columns--standalone sensei-version--4-16-2">
 
-	<!-- wp:sensei-lms/ui {"elementClass":"sensei-course-theme__main-content","lock":{"move":false,"remove":false},"style"={"spacing":{"margin":{"top":"var:preset|spacing|30"},"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|edge-space"}}}} -->
-	<div class="wp-block-sensei-lms-ui sensei-course-theme__main-content" style="margin-top:var(--wp--preset--spacing--30);padding-top:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--edge-space)">
+	<!-- wp:sensei-lms/ui {"elementClass":"sensei-course-theme__main-content","lock":{"move":false,"remove":false},"style"={"spacing":{"margin":{"top":"var:preset|spacing|30"},"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|60"}}}} -->
+	<div class="wp-block-sensei-lms-ui sensei-course-theme__main-content" style="margin-top:var(--wp--preset--spacing--30);padding-top:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--60)">
 
 		<!-- wp:post-title {"level":1,"fontSize":"heading-1"} /-->
 
@@ -58,3 +58,17 @@
 	<!-- /wp:sensei-lms/ui -->
 </div>
 <!-- /wp:sensei-lms/ui -->
+
+<!-- wp:group {"align":"full","style":{"border":{"top":{"color":"var:preset|color|light-grey-1","width":"1px"},"right":{},"bottom":{},"left":{}},"spacing":{"margin":{"top":"var:preset|spacing|20"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull" style="margin-top:var(--wp--preset--spacing--20);border-top-color:var(--wp--preset--color--light-grey-1);border-top-width:1px">
+	
+	<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|30","right":"var:preset|spacing|edge-space","left":"var:preset|spacing|edge-space","bottom":"var:preset|spacing|40"}}},"layout":{"type":"constrained"}} -->
+	<div class="wp-block-group alignwide" style="padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--edge-space);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--edge-space)">
+
+		<!-- wp:pattern {"slug":"wporg-learn-2024/content-feedback"} /-->
+
+	</div>
+	<!-- /wp:group -->
+
+</div>
+<!-- /wp:group -->
