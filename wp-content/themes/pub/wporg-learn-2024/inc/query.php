@@ -6,7 +6,7 @@
 namespace WordPressdotorg\Theme\Learn_2024\Query;
 
 add_action( 'pre_get_posts', __NAMESPACE__ . '\add_language_to_archive_queries' );
-add_action( 'pre_get_posts', __NAMESPACE__ . '\add_excluded_to_lesson_archive_query' );
+add_action( 'pre_get_posts', __NAMESPACE__ . '\filter_hidden_lessons_from_archive_and_search' );
 add_action( 'pre_get_posts', __NAMESPACE__ . '\filter_search_queries_by_post_type' );
 add_filter( 'request', __NAMESPACE__ . '\handle_all_level_query' );
 add_filter( 'jetpack_search_es_wp_query_args', __NAMESPACE__ . '\filter_jetpack_wp_search_query', 10, 2 );
@@ -46,11 +46,11 @@ function add_language_to_archive_queries( $query ) {
 }
 
 /**
- * Modify the query by adding meta query for excluding the lesson from the archive if set.
+ * Modify lessons archive and search queries by adding a taxonomy query for filtering out hidden lessons.
  *
  * @param WP_Query $query The query object.
  */
-function add_excluded_to_lesson_archive_query( $query ) {
+function filter_hidden_lessons_from_archive_and_search( $query ) {
 	// Ensure this code runs only for the main query on lesson archive pages and search results.
 	if ( ! is_admin() && $query->is_main_query() && ( $query->is_archive( 'lesson' ) || $query->is_search() ) ) {
 		$tax_query = $query->get( 'tax_query', array() );
