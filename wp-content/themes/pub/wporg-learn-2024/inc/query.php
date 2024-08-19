@@ -53,32 +53,7 @@ function add_language_to_archive_queries( $query ) {
 function add_excluded_to_lesson_archive_query( $query ) {
 	// Ensure this code runs only for the main query on lesson archive pages and search results.
 	if ( ! is_admin() && $query->is_main_query() && ( $query->is_archive( 'lesson' ) || $query->is_search() ) ) {
-		$meta_query = $query->get( 'meta_query', array() );
 		$tax_query = $query->get( 'tax_query', array() );
-
-		$exclude_lessons_by_post_meta = array(
-			'relation' => 'OR',
-			array(
-				'key'     => '_lesson_archive_excluded',
-				'compare' => 'NOT EXISTS',
-			),
-			array(
-				'key'     => '_lesson_archive_excluded',
-				'value'   => 'excluded',
-				'compare' => '!=',
-			),
-		);
-
-		// If there's an existing meta query, wrap both in an AND relation
-		if ( ! empty( $meta_query ) ) {
-			$meta_query = array(
-				'relation' => 'AND',
-				$meta_query,
-				$exclude_lessons_by_post_meta,
-			);
-		} else {
-			$meta_query = $exclude_lessons_by_post_meta;
-		}
 
 		$exclude_lessons_by_taxonomy = array(
 			'taxonomy' => 'show',
@@ -95,7 +70,6 @@ function add_excluded_to_lesson_archive_query( $query ) {
 			$tax_query = array( $exclude_lessons_by_taxonomy );
 		}
 
-		$query->set( 'meta_query', $meta_query );
 		$query->set( 'tax_query', $tax_query );
 	}
 }
