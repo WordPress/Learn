@@ -104,7 +104,7 @@
 		}
 
 		.wp-block-wporg-learn-learning-duration + .wp-block-post-terms {
-			margin-left: calc(var(--wp--preset--spacing--20) * -1);
+			margin-left: calc(var(--wp--style--block-gap) * -1);
 
 			&::before {
 				content: "•";
