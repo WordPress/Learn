@@ -61,7 +61,7 @@ function render( $attributes, $content, $block ) {
 		$wrapper_attributes,
 		wp_kses_post(
 			sprintf(
-				/* translators: 1: Courses link, 2: Course title */
+				/* translators: 1: Course link, 2: Course title */
 				__( 'Part of: <a href="%1$s">%2$s</a>', 'wporg-learn' ),
 				get_permalink( $course_id ),
 				get_the_title( $course_id ),
