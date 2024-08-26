@@ -17,6 +17,11 @@ body.sensei {
 		row-gap: 0;
 	}
 
+	.sensei-course-theme-course-progress-bar-inner {
+		border-top-right-radius: 5px;
+		border-bottom-right-radius: 5px;
+	}
+
 	.sensei-course-theme__columns .sensei-course-theme__sidebar ~ .sensei-course-theme__main-content {
 		--sensei-lm-sidebar-width: calc(280px + (var(--wp--preset--spacing--edge-space) * 2) - 24px);
 
