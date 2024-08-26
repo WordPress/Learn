@@ -14,7 +14,7 @@ add_filter( 'allowed_redirect_hosts', __NAMESPACE__ . '\wporg_learn_allowed_redi
  * @return array The updated array of allowed redirect hosts.
  */
 function wporg_learn_allowed_redirect_hosts( $hosts ) {
-	return array_merge( $hosts, array( 'wordpress.tv' ) );
+	return array_merge( $hosts, array( 'wordpress.tv', 'make.wordpress.org' ) );
 };
 
 /**
@@ -51,14 +51,15 @@ function wporg_learn_redirect_old_urls() {
 
 	$redirects = array(
 		// Source => Destination, any characters after the source will be appended to the destination.
-		'/workshop/'                             => '/tutorial/',
-		'/workshops'                             => '/tutorials',
-		'/social-learning'                       => '/online-workshops',
-		'/workshop-presenter-application'        => '/tutorial-presenter-application',
+		'/handbook'                              => 'https://make.wordpress.org/training/handbook/',
 		'/report-content-errors'                 => '/report-content-feedback',
+		'/social-learning'                       => '/online-workshops',
 		'/tutorial/block-editor-01-basics/'      => 'https://wordpress.tv/2021/06/18/shusei-toda-naoko-takano-block-editor-01-basics/',
 		'/tutorial/block-editor-02-text-blocks/' => 'https://wordpress.tv/2021/06/03/shusei-toda-block-editor-02-text-blocks/',
 		'/tutorial/ja-login-password-reset/'     => 'https://wordpress.tv/2021/02/16/login-password-reset/',
+		'/workshop/'                             => '/tutorial/',
+		'/workshop-presenter-application'        => '/tutorial-presenter-application',
+		'/workshops'                             => '/tutorials',
 	);
 
 	// Use `REQUEST_URI` rather than `$wp->request`, to get the entire source URI including url parameters.
