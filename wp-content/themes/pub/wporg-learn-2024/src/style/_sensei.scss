@@ -99,6 +99,10 @@ body.sensei {
 	}
 
 	&.single-lesson {
+		h1 {
+			font-weight: 500;
+		}
+
 		.sensei-lesson-footer {
 			.screen-reader-text {
 				display: none;
