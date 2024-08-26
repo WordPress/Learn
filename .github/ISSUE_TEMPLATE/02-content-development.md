@@ -1,8 +1,8 @@
 ---
-name: Content Development
-about: To be used by Training Team members when creating content for learn.wordpress.org
+name: Content Development (experienced author)
+about: To be used by experienced Training Team members when creating content for learn.wordpress.org
 title: "CONTENT_TYPE: CONTENT_TITLE"
-labels: Awaiting Triage, [Content] Faculty Author
+labels: Awaiting Triage, [Content] Experienced Author
 ---
 
 # Details
