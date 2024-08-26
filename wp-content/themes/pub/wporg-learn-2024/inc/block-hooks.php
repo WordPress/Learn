@@ -92,7 +92,7 @@ function update_course_outline_block_add_aria( $block_content, $block ) {
 
 	$label = '';
 	while ( $html->next_tag( array( 'class_name' => 'wp-block-sensei-lms-course-outline-lesson' ) ) ) {
-		if ( $html->has_class( 'is-complete' ) ) {
+		if ( $html->has_class( 'is-complete' ) || $html->has_class( 'is-passed' ) ) {
 			$label = __( 'Completed', 'wporg-learn' );
 		} else if ( $html->has_class( 'is-in-progress' ) ) {
 			$label = __( 'In progress', 'wporg-learn' );
