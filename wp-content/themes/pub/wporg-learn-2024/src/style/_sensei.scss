@@ -27,16 +27,23 @@ body.sensei {
 		@media (min-width: 890px) {
 			padding-right: calc(var(--wp--preset--spacing--edge-space) - 24px);
 		}
+
+		// Remove the border on module title.
+		h3.wp-block-sensei-lms-course-theme-lesson-module {
+			padding-left: unset;
+			border: none;
+			color: var(--wp--preset--color--charcoal-4);
+		}
+
+		h1 {
+			margin-block-start: var(--wp--preset--spacing--50);
+			margin-block-end: var(--wp--preset--spacing--30);
+			font-weight: 500;
+		}
 	}
 
 	.sensei-course-theme__sidebar {
 		row-gap: 40px;
-	}
-
-	// Remove the border on module title.
-	.wp-block-sensei-lms-course-theme-lesson-module {
-		padding-left: unset;
-		border: none;
 	}
 
 	.sensei-lms-course-navigation-module__header {
