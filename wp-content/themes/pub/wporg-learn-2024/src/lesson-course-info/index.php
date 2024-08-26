@@ -48,6 +48,12 @@ function render( $attributes, $content, $block ) {
 		return '';
 	}
 
+	$course_published = 'publish' === get_post_status( $course_id );
+
+	if ( ! $course_published ) {
+		return '';
+	}
+
 	$course_title = get_the_title( $course_id );
 	$course_permalink = get_permalink( $course_id );
 
