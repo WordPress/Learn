@@ -5,6 +5,18 @@ namespace WPOrg_Learn\Redirects;
 add_action( 'template_redirect', __NAMESPACE__ . '\wporg_learn_redirect_meetings' );
 add_action( 'template_redirect', __NAMESPACE__ . '\wporg_learn_redirect_old_urls' );
 
+add_filter( 'allowed_redirect_hosts', __NAMESPACE__ . '\wporg_learn_allowed_redirect_hosts' );
+
+/**
+ * Add allowed redirect hosts.
+ *
+ * @param array $hosts The array of allowed redirect hosts.
+ * @return array The updated array of allowed redirect hosts.
+ */
+function wporg_learn_allowed_redirect_hosts( $hosts ) {
+	return array_merge( $hosts, array( 'wordpress.tv' ) );
+};
+
 /**
  * Redirect meeting posts to associated link
  *
@@ -39,12 +51,11 @@ function wporg_learn_redirect_old_urls() {
 
 	$redirects = array(
 		// Source => Destination, any characters after the source will be appended to the destination.
-		'/workshop/'                      => '/tutorial/',
-		'/workshops'                      => '/tutorials',
-		'/social-learning'                => '/online-workshops',
-		'/workshop-presenter-application' => '/tutorial-presenter-application',
-		'/report-content-errors'          => '/report-content-feedback',
-		// External redirects.
+		'/workshop/'                             => '/tutorial/',
+		'/workshops'                             => '/tutorials',
+		'/social-learning'                       => '/online-workshops',
+		'/workshop-presenter-application'        => '/tutorial-presenter-application',
+		'/report-content-errors'                 => '/report-content-feedback',
 		'/tutorial/block-editor-01-basics/'      => 'https://wordpress.tv/2021/06/18/shusei-toda-naoko-takano-block-editor-01-basics/',
 		'/tutorial/block-editor-02-text-blocks/' => 'https://wordpress.tv/2021/06/03/shusei-toda-block-editor-02-text-blocks/',
 		'/tutorial/ja-login-password-reset/'     => 'https://wordpress.tv/2021/02/16/login-password-reset/',
@@ -63,9 +74,7 @@ function wporg_learn_redirect_old_urls() {
 				$redirect .= substr( $request, strlen( $source ) );
 			}
 
-			str_starts_with( $destination, 'https://' )
-				? wp_redirect( $redirect, $code, 'Learn WordPress' )
-				: wp_safe_redirect( $redirect, $code );
+			wp_safe_redirect( $redirect, $code, 'Learn WordPress' );
 			exit;
 		}
 	}
