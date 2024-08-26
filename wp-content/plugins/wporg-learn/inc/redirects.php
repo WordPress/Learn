@@ -44,6 +44,10 @@ function wporg_learn_redirect_old_urls() {
 		'/social-learning'                => '/online-workshops',
 		'/workshop-presenter-application' => '/tutorial-presenter-application',
 		'/report-content-errors'          => '/report-content-feedback',
+		// External redirects.
+		'/tutorial/block-editor-01-basics/'      => 'https://wordpress.tv/2021/06/18/shusei-toda-naoko-takano-block-editor-01-basics/',
+		'/tutorial/block-editor-02-text-blocks/' => 'https://wordpress.tv/2021/06/03/shusei-toda-block-editor-02-text-blocks/',
+		'/tutorial/ja-login-password-reset/'     => 'https://wordpress.tv/2021/02/16/login-password-reset/',
 	);
 
 	// Use `REQUEST_URI` rather than `$wp->request`, to get the entire source URI including url parameters.
@@ -52,14 +56,17 @@ function wporg_learn_redirect_old_urls() {
 	foreach ( $redirects as $source => $destination ) {
 		if ( str_starts_with( $request, $source ) ) {
 			$redirect = $destination;
+			$code = 301;
 
 			// Append any extra request parameters.
 			if ( strlen( $request ) > strlen( $source ) ) {
 				$redirect .= substr( $request, strlen( $source ) );
 			}
 
-			wp_safe_redirect( $redirect );
-			die();
+			str_starts_with( $destination, 'https://' )
+				? wp_redirect( $redirect, $code, 'Learn WordPress' )
+				: wp_safe_redirect( $redirect, $code );
+			exit;
 		}
 	}
 }
