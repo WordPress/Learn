@@ -19,7 +19,7 @@ function enqueue_assets() {
 		get_stylesheet_directory_uri() . '/build/course-outline/index.js',
 		$script_asset['dependencies'],
 		$script_asset['version'],
-		true
+		array( 'strategy' => 'defer' )
 	);
 
 	wp_localize_script(

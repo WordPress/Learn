@@ -64,10 +64,10 @@ function register_assets() {
 	// Locale notice script.
 	wp_enqueue_script(
 		'locale-notice',
-		get_build_url() . '/locale-notice.js',
+		get_build_url() . 'locale-notice.js',
 		array( 'jquery', 'utils' ),
 		filemtime( get_build_path() . '/locale-notice.js' ),
-		true
+		array( 'strategy' => 'defer' )
 	);
 
 	wp_localize_script(

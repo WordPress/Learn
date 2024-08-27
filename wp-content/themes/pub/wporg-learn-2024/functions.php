@@ -36,6 +36,7 @@ add_action( 'sensei_quiz_question_inside_before', __NAMESPACE__ . '\sensei_quest
 add_action( 'wp', __NAMESPACE__ . '\dequeue_lesson_archive_video_scripts', 20 );
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_assets' );
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\maybe_enqueue_sensei_assets', 100 );
+add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\defer_scripts', 11 );
 
 // Remove Jetpack CSS on frontend
 add_filter( 'jetpack_implode_frontend_css', '__return_false', 99 );
@@ -184,6 +185,27 @@ function maybe_enqueue_sensei_assets() {
 			return $classes;
 		} );
 	}
+}
+
+/**
+ * Defer frontend script loading for performance optimization.
+ */
+function defer_scripts() {
+	if ( is_admin() ) {
+		return;
+	}
+
+	wp_script_add_data( 'jquery-core', 'strategy', 'defer' );
+	wp_script_add_data( 'jquery-core', 'group', 0 );
+
+	wp_script_add_data( 'jquery-migrate', 'strategy', 'defer' );
+	wp_script_add_data( 'jquery-migrate', 'group', 0 );
+
+	wp_script_add_data( 'jetpack-block-subscriptions', 'strategy', 'defer' );
+	wp_script_add_data( 'jetpack-block-subscriptions', 'group', 0 );
+
+	wp_script_add_data( 'utils', 'strategy', 'defer' );
+	wp_script_add_data( 'utils', 'group', 0 );
 }
 
 /**
