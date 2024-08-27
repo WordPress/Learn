@@ -108,7 +108,7 @@ function enqueue_assets() {
 		plugins_url( 'build/index.js', __FILE__ ),
 		$script_data['dependencies'],
 		$script_data['version'],
-		true
+		array( 'strategy' => 'defer' )
 	);
 
 	$locale_options = get_locale_options();
