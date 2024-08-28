@@ -159,7 +159,7 @@ function eager_load_first_card_rows_images( $attr, $attachment, $size ) {
 	if ( is_front_page() || is_archive() || is_search() || is_page( 'my-courses' ) ) {
 		$image_count++;
 
-		if ( $image_count <= 6 ) {
+		if ( $image_count <= 3 ) {
 			$attr['loading'] = 'eager';
 			$attr['fetchpriority'] = 'high';
 		}
