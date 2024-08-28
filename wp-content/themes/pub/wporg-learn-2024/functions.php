@@ -146,7 +146,7 @@ function enqueue_assets() {
 }
 
 /**
- * Eagerly load the images for the first 2 rows of cards, for performance (LCP metric).
+ * Eagerly load the images for the first row of cards, for performance (LCP metric).
  *
  * @param array   $attr       The image attributes.
  * @param WP_Post $attachment The attachment post object.
