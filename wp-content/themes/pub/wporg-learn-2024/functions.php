@@ -36,6 +36,7 @@ add_action( 'sensei_quiz_question_inside_before', __NAMESPACE__ . '\sensei_quest
 add_action( 'wp', __NAMESPACE__ . '\dequeue_lesson_archive_video_scripts', 20 );
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_assets' );
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\maybe_enqueue_sensei_assets', 100 );
+// Attached at 11 to run after scripts are registered, but before they are enqueued.
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\defer_scripts', 11 );
 
 // Remove Jetpack CSS on frontend
@@ -195,17 +196,47 @@ function defer_scripts() {
 		return;
 	}
 
-	wp_script_add_data( 'jquery-core', 'strategy', 'defer' );
-	wp_script_add_data( 'jquery-core', 'group', 0 );
+	// Attempt to defer loading of all these scripts which are in the head.
+	// This is not guaranteed as it depends on the loading strategy of their dependant script.
+	$scripts = array(
+		'jetpack-block-subscriptions',
+		'jquery-core',
+		'jquery-migrate',
+		'lodash',
+		'moment',
+		'react',
+		'react-dom',
+		'react-jsx-runtime',
+		'utils',
+		'wp-a11y',
+		'wp-compose',
+		'wp-data',
+		'wp-date',
+		'wp-deprecated',
+		'wp-dom',
+		'wp-dom-ready',
+		'wp-element',
+		'wp-escape-html',
+		'wp-hooks',
+		'wp-html-entities',
+		'wp-i18n',
+		'wp-is-shallow-equal',
+		'wp-keycodes',
+		'wp-polyfill',
+		'wp-primitives',
+		'wp-priority-queue',
+		'wp-private-apis',
+		'wp-redux-routine',
+		'wp-rich-text',
+		'wp-url',
+		'wp-warning',
+		'wporg-calendar-script',
+	);
 
-	wp_script_add_data( 'jquery-migrate', 'strategy', 'defer' );
-	wp_script_add_data( 'jquery-migrate', 'group', 0 );
-
-	wp_script_add_data( 'jetpack-block-subscriptions', 'strategy', 'defer' );
-	wp_script_add_data( 'jetpack-block-subscriptions', 'group', 0 );
-
-	wp_script_add_data( 'utils', 'strategy', 'defer' );
-	wp_script_add_data( 'utils', 'group', 0 );
+	foreach ( $scripts as $script ) {
+		wp_script_add_data( $script, 'strategy', 'defer' );
+		wp_script_add_data( $script, 'group', 0 );
+	}
 }
 
 /**
