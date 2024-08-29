@@ -394,6 +394,11 @@ body.sensei-course-theme {
 			margin-right: unset;
 		}
 	}
+
+	// Allow alignfull blocks in the post content to expand beyond the contrained content width, eg. Playground blocks
+	&.sensei-default .sensei-course-theme__main-content > .entry-content {
+		max-width: unset !important;
+	}
 }
 
 .course:not(body) {
