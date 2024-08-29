@@ -1,6 +1,19 @@
 /* stylelint-disable-next-line max-line-length */
-.wp-block-jetpack-subscriptions.wp-block-jetpack-subscriptions__supports-newline:not(.wp-block-jetpack-subscriptions__use-newline) p#subscribe-submit {
-	justify-content: start;
+.wp-block-jetpack-subscriptions.wp-block-jetpack-subscriptions__supports-newline:not(.wp-block-jetpack-subscriptions__use-newline) {
+	#subscribe-email input {
+		border-top-left-radius: 2px !important;
+		border-bottom-left-radius: 2px !important;
+	}
+
+	p#subscribe-submit {
+		justify-content: start;
+
+		button {
+			border-top-right-radius: 2px !important;
+			border-bottom-right-radius: 2px !important;
+			font-weight: 600;
+		}
+	}
 }
 
 .wp-block-jetpack-contact-form-container .contact-form {
