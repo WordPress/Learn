@@ -52,7 +52,7 @@
 			<p class="has-small-font-size"><?php esc_html_e( 'Get the latest news about everything Learn WordPress. Find out when new courses and lessons are available, and when registration opens for upcoming Online Workshops.', 'wporg-learn' ); ?></p>
 			<!-- /wp:paragraph -->
 
-			<!-- wp:jetpack/subscriptions {"className":"is-style-compact"} /-->
+			<!-- wp:jetpack/subscriptions {"borderRadius":2,"borderWeight":0,"className":"is-style-compact"} /-->
 
 		</div>
 		<!-- /wp:column -->

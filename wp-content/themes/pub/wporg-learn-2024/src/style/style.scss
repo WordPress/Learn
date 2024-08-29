@@ -37,13 +37,6 @@ body {
 }
 
 .wporg-learn-footer-signup {
-	input[type="email"] {
-		border-color: var(--wp--custom--form--color--background);
-	}
-
-	button[type="submit"] {
-		font-weight: 400;
-	}
 
 	@media screen and (max-width: 781px) {
 		border-left: none;
