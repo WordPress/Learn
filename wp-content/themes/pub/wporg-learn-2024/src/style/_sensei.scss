@@ -359,9 +359,12 @@ body.sensei {
 		.sensei-course-theme__main-content {
 			margin-left: auto !important;
 			margin-right: auto !important;
-			max-width: var(--wp--style--global--content-size);
-			padding-left: var(--wp--preset--spacing--edge-space);
-			padding-right: var(--wp--preset--spacing--edge-space);
+
+			> *:not(.wp-block-post-content) {
+				margin-left: auto !important;
+				margin-right: auto !important;
+				max-width: var(--content-size);
+			}
 		}
 	}
 
