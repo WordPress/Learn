@@ -37,9 +37,15 @@ body.sensei {
 		}
 	}
 
-	.sensei-course-theme-course-progress-bar-inner {
-		border-top-right-radius: 5px;
-		border-bottom-right-radius: 5px;
+	.sensei-course-theme-course-progress-bar {
+		height: 1px !important;
+		display: flex;
+		align-items: center;
+
+		.sensei-course-theme-course-progress-bar-inner {
+			border-top-right-radius: 5px !important;
+			border-bottom-right-radius: 5px !important;
+		}
 	}
 
 	.sensei-course-theme__columns .sensei-course-theme__sidebar ~ .sensei-course-theme__main-content {
