@@ -21,7 +21,7 @@ $is_completed = Sensei_Utils::user_completed_lesson( get_the_ID() );
 		<!-- wp:sensei-lms/button-view-quiz {"inContainer":true} -->
 		<div class="wp-block-sensei-lms-button-view-quiz is-style-default sensei-buttons-container__button-block wp-block-sensei-lms-button-view-quiz__wrapper">
 			<div class="wp-block-sensei-lms-button-view-quiz is-style-default wp-block-sensei-button wp-block-button has-text-align-left">
-				<button class="wp-block-button__link"><?php esc_html_e( 'Take quiz', 'sensei-lms' ); ?></button>
+				<button class="wp-block-button__link"><?php esc_html_e( 'Take quiz to complete lesson', 'sensei-lms' ); ?></button>
 			</div>
 		</div>
 		<!-- /wp:sensei-lms/button-view-quiz -->
