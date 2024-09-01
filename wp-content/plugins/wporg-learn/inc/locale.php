@@ -13,7 +13,6 @@ add_action( 'plugins_loaded', __NAMESPACE__ . '\textdomain' );
 add_filter( 'wporg_learn_update_locale_data', __NAMESPACE__ . '\update_locale_data' );
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\register_assets' );
 add_filter( 'wporg_locale_switcher_options', __NAMESPACE__ . '\locale_switcher_options' );
-add_filter( 'wp_headers', __NAMESPACE__ . '\disable_caching' );
 add_filter( 'posts_clauses', __NAMESPACE__ . '\wporg_archive_query_prioritize_locale', 10, 2 );
 
 if ( ! wp_next_scheduled( 'wporg_learn_update_locale_data' ) ) {
@@ -129,33 +128,6 @@ function locale_switcher_options( $options ) {
 	);
 
 	return $options;
-}
-
-/**
- * Disable nginx caching when locale switching is available.
- *
- * The nginx cache currently doesn't vary on the value of the cookie that gets set when a locale other than en_US is
- * chosen. This causes problems when, e.g. a user visits the page with their browser language set to de_DE, which gets
- * cached by nginx, and then another user visits with their browser set to en_US, and they are served the page in
- * German regardless of they choose something else in the locale switcher.
- *
- * nginx does respect the Cache-Control header, though, so this offers a quick, hacky fix to the problem by turning
- * off caching altogether.
- *
- * This should be removed if a way is found to vary the cache by the cookie value, e.g. to include the cookie value
- * in the cache key as suggested in the discussion of this systems request:
- * https://make.wordpress.org/systems/2021/03/26/vary-nginx-cache-by-wporg_locale-cookie-value/
- *
- * @param array $headers
- *
- * @return array
- */
-function disable_caching( $headers ) {
-	if ( class_exists( '\WordPressdotorg\LocaleDetection\Detector' ) ) {
-		$headers['Cache-Control'] = 'no-cache';
-	}
-
-	return $headers;
 }
 
 /**
