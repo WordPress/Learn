@@ -55,6 +55,11 @@ body.sensei {
 
 		.sensei-lms-course-navigation-lesson__link {
 			color: var(--wp--preset--color--charcoal-4);
+			align-items: flex-start;
+
+			.sensei-lms-course-navigation-lesson__status {
+				margin-top: 6px;
+			}
 		}
 	}
 
