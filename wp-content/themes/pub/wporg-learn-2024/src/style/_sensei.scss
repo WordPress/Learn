@@ -85,6 +85,11 @@ body.sensei {
 						font-size: var(--wp--preset--font-size--small);
 						color: var(--wp--preset--color--charcoal-1);
 						margin-top: unset;
+						align-self: center;
+					}
+
+					.sensei-lms-course-navigation-module__collapsible-icon {
+						margin-top: -3px;
 					}
 				}
 			}
