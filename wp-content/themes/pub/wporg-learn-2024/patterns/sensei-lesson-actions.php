@@ -45,8 +45,8 @@ $is_completed = Sensei_Utils::user_completed_lesson( get_the_ID() );
 					<!-- /wp:button -->
 				<?php endif; ?>
 				<?php if ( $next_url ) : ?>
-					<!-- wp:button {"className":"is-style-fill"} -->
-					<div class="wp-block-button is-style-fill has-text-align-left">
+					<!-- wp:button {"className":"is-style-outline"} -->
+					<div class="wp-block-button is-style-outline has-text-align-left">
 						<a class="wp-block-button__link wp-element-button" href="<?php echo esc_attr( $next_url ); ?>"><?php esc_html_e( 'Next Lesson', 'wporg-learn' ); ?></a>
 					</div>
 					<!-- /wp:button -->
