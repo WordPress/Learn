@@ -17,24 +17,7 @@ $is_completed = Sensei_Utils::user_completed_lesson( get_the_ID() );
 <!-- wp:sensei-lms/lesson-actions {"toggledBlocks":{"sensei-lms/button-reset-lesson":false}} -->
 <div class="wp-block-sensei-lms-lesson-actions">
 	<div class="sensei-buttons-container">
-
-		<!-- wp:sensei-lms/button-view-quiz {"inContainer":true,"className":"is-style-default"} -->
-		<div class="wp-block-sensei-lms-button-view-quiz is-style-default sensei-buttons-container__button-block wp-block-sensei-lms-button-view-quiz__wrapper">
-			<div class="wp-block-sensei-lms-button-view-quiz is-style-default wp-block-sensei-button wp-block-button has-text-align-center has-inter-font-family has-normal-font-size">
-				<button class="wp-block-button__link" style="font-weight:600;line-height:1"><?php esc_html_e( 'Take quiz to complete lesson', 'sensei-lms' ); ?></button>
-			</div>
-		</div>
-		<!-- /wp:sensei-lms/button-view-quiz -->
-
-		<!-- wp:sensei-lms/button-complete-lesson {"inContainer":true,"className":"is-style-default"} -->
-		<div class="wp-block-sensei-lms-button-complete-lesson is-style-default sensei-buttons-container__button-block wp-block-sensei-lms-button-complete-lesson__wrapper">
-			<div class="wp-block-sensei-lms-button-complete-lesson is-style-default wp-block-sensei-button wp-block-button has-text-align-center has-inter-font-family has-normal-font-size">
-				<button class="wp-block-button__link sensei-stop-double-submission" style="font-weight:600;line-height:1"><?php esc_html_e( 'Complete lesson', 'sensei-lms' ); ?></button>
-			</div>
-		</div>
-		<!-- /wp:sensei-lms/button-complete-lesson -->
-
-		<?php if ( $is_completed && ( $prev_url || $next_url ) ) : ?>
+		<?php if ( $prev_url || $next_url ) : ?>
 			<!-- wp:buttons {"className":"sensei-lesson-actions-nav"} -->
 			<div class="wp-block-buttons sensei-lesson-actions-nav">
 				<?php if ( $prev_url ) : ?>
@@ -54,6 +37,22 @@ $is_completed = Sensei_Utils::user_completed_lesson( get_the_ID() );
 			</div>
 			<!-- /wp:buttons -->
 		<?php endif; ?>
+
+		<!-- wp:sensei-lms/button-view-quiz {"inContainer":true,"className":"is-style-default"} -->
+		<div class="wp-block-sensei-lms-button-view-quiz is-style-default sensei-buttons-container__button-block wp-block-sensei-lms-button-view-quiz__wrapper">
+			<div class="wp-block-sensei-lms-button-view-quiz is-style-default wp-block-sensei-button wp-block-button has-text-align-center has-inter-font-family has-normal-font-size">
+				<button class="wp-block-button__link" style="font-weight:600;line-height:1"><?php esc_html_e( 'Take quiz to complete lesson', 'sensei-lms' ); ?></button>
+			</div>
+		</div>
+		<!-- /wp:sensei-lms/button-view-quiz -->
+
+		<!-- wp:sensei-lms/button-complete-lesson {"inContainer":true,"className":"is-style-default"} -->
+		<div class="wp-block-sensei-lms-button-complete-lesson is-style-default sensei-buttons-container__button-block wp-block-sensei-lms-button-complete-lesson__wrapper">
+			<div class="wp-block-sensei-lms-button-complete-lesson is-style-default wp-block-sensei-button wp-block-button has-text-align-center has-inter-font-family has-normal-font-size">
+				<button class="wp-block-button__link sensei-stop-double-submission" style="font-weight:600;line-height:1"><?php esc_html_e( 'Complete lesson', 'sensei-lms' ); ?></button>
+			</div>
+		</div>
+		<!-- /wp:sensei-lms/button-complete-lesson -->
 	</div>
 </div>
 <!-- /wp:sensei-lms/lesson-actions -->
