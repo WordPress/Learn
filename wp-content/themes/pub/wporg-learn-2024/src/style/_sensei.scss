@@ -80,6 +80,11 @@ body.sensei {
 				margin-block-start: 0;
 			}
 
+			.wp-block-wporg-notice__icon {
+				background: url(../../assets/icon-check.svg);
+				height: 24px;
+			}
+
 			h1 {
 				margin-block-start: var(--wp--preset--spacing--50);
 				font-weight: 500;

@@ -7,6 +7,7 @@
 
 $lesson_id = Sensei_Utils::get_current_lesson();
 $module = Sensei()->modules->get_lesson_module( $lesson_id );
+$is_completed = Sensei_Utils::user_completed_lesson( $lesson_id );
 
 ?>
 
@@ -25,6 +26,17 @@ $module = Sensei()->modules->get_lesson_module( $lesson_id );
 	<div class="wp-block-sensei-lms-ui sensei-course-theme__main-content" style="padding-top:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--edge-space)">
 
 		<!-- wp:sensei-lms/course-theme-lesson-module /-->
+
+		<?php if ( $is_completed ) : ?>
+			<!-- wp:wporg/notice {"style":{"spacing":{"margin":{"top":"var:preset|spacing|20"}}}} -->
+			<div class="wp-block-wporg-notice is-tip-notice" style="margin-top:var(--wp--preset--spacing--20);width:100%">
+				<div class="wp-block-wporg-notice__icon"></div>
+				<div class="wp-block-wporg-notice__content">
+					<p><?php esc_html_e( 'You already completed this lesson', 'wporg-learn' ); ?></p>
+				</div>
+			</div>
+			<!-- /wp:wporg/notice -->
+		<?php endif; ?>
 
 		<?php if ( $module ) : ?>
 			<!-- wp:post-title {"level":1,"fontSize":"heading-1"} /-->
