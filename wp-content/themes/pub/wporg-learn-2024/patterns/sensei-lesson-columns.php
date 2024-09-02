@@ -14,8 +14,8 @@ $is_completed = Sensei_Utils::user_completed_lesson( $lesson_id );
 <!-- wp:sensei-lms/ui {"elementClass":"sensei-course-theme__columns","className":"sensei-version\u002d\u002d4-16-2"} -->
 <div class="wp-block-sensei-lms-ui sensei-course-theme__columns sensei-version--4-16-2">
 
-	<!-- wp:sensei-lms/ui {"elementClass":"sensei-course-theme__sidebar","style"={"spacing":{"padding":{"top":"var:preset|spacing|50","right":"var:preset|spacing|30","bottom":"var:preset|spacing|50","left":"var:preset|spacing|edge-space"}}}} -->
-	<div class="wp-block-sensei-lms-ui sensei-course-theme__frame sensei-course-theme__sidebar" style="padding-top:var(--wp--preset--spacing--50);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--edge-space)">
+	<!-- wp:sensei-lms/ui {"elementClass":"sensei-course-theme__sidebar","style"={"spacing":{"padding":{"top":"var:preset|spacing|50","right":"var:preset|spacing|30","bottom":"var:preset|spacing|50","left":"var:preset|spacing|50"}}}} -->
+	<div class="wp-block-sensei-lms-ui sensei-course-theme__frame sensei-course-theme__sidebar" style="padding-top:var(--wp--preset--spacing--50);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--50)">
 
 		<!-- wp:sensei-lms/course-navigation /-->
 
