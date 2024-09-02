@@ -29,7 +29,7 @@ $is_completed = Sensei_Utils::user_completed_lesson( $lesson_id );
 
 		<?php if ( $is_completed ) : ?>
 			<!-- wp:wporg/notice {"style":{"spacing":{"margin":{"top":"var:preset|spacing|20"}}}} -->
-			<div class="wp-block-wporg-notice is-tip-notice" style="margin-top:var(--wp--preset--spacing--20);width:100%">
+			<div class="wp-block-wporg-notice is-tip-notice" style="margin-top:var(--wp--preset--spacing--20)">
 				<div class="wp-block-wporg-notice__icon"></div>
 				<div class="wp-block-wporg-notice__content">
 					<p><?php esc_html_e( 'You already completed this lesson', 'wporg-learn' ); ?></p>
@@ -65,7 +65,7 @@ $is_completed = Sensei_Utils::user_completed_lesson( $lesson_id );
 		<?php endif; ?>
 
 		<!-- wp:group {"align":"full","style":{"border":{"top":{"color":"var:preset|color|light-grey-1","width":"1px"},"right":{},"bottom":{},"left":{}},"spacing":{"margin":{"top":"0"}},"layout":{"type":"constrained"}} -->
-		<div class="wp-block-group alignfull" style="margin-top:0;border-top-color:var(--wp--preset--color--light-grey-1);border-top-width:1px;width:100%!important">
+		<div class="wp-block-group alignfull" style="margin-top:0;border-top-color:var(--wp--preset--color--light-grey-1);border-top-width:1px">
 
 			<!-- wp:group {"layout":{"type":"constrained"},"spacing":{"margin":{"top":"var(--wp--preset--spacing--30)"}}} -->
 			<div class="wp-block-group alignwide" style="margin-top:var(--wp--preset--spacing--30)">

@@ -54,9 +54,6 @@ body.sensei {
 
 		.sensei-course-theme__sidebar ~ .sensei-course-theme__main-content {
 			--sensei-lm-sidebar-width: calc(280px + (var(--wp--preset--spacing--edge-space) * 2) - 24px);
-			display: flex;
-			flex-direction: column;
-			align-items: flex-start;
 			margin-top: 0;
 
 			> * {
@@ -93,7 +90,6 @@ body.sensei {
 			.wp-block-sensei-lms-course-theme-notices {
 				margin-block-end: 39px;
 				margin-block-start: 0;
-				width: 100% !important;
 
 				&:empty {
 					display: none;
@@ -229,7 +225,7 @@ body.sensei {
 		}
 
 		@media screen and (max-width: 782px) {
-			.sensei-lesson-footer .sensei-lesson-actions-nav {
+			.sensei-lesson-actions-nav {
 				width: 100%;
 			}
 		}
