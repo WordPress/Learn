@@ -192,9 +192,31 @@ body.sensei {
 		}
 	}
 
-	@media screen and (max-width: 782px) {
-		.sensei-lesson-footer .sensei-lesson-actions-nav {
-			width: 100%;
+	.wp-block-sensei-lms-lesson-actions {
+		.wp-block-sensei-lms-button-view-quiz,
+		.wp-block-sensei-lms-button-complete-lesson {
+			background-color: var(--wp--custom--color--green-50) !important;
+			border-color: transparent;
+
+			&:hover {
+				opacity: 0.9;
+			}
+
+			> button {
+				font-weight: 600 !important;
+				line-height: 1;
+
+				&:focus,
+				&:focus-visible {
+					outline: var(--wp--custom--color--green-50);
+				}
+			}
+		}
+
+		@media screen and (max-width: 782px) {
+			.sensei-lesson-footer .sensei-lesson-actions-nav {
+				width: 100%;
+			}
 		}
 	}
 
