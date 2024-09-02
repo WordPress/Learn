@@ -175,6 +175,10 @@ body.sensei {
 				gap: var(--wp--preset--spacing--10);
 				justify-content: space-between;
 
+				@media screen and (max-width: 782px) {
+					flex-direction: column;
+				}
+
 				> *,
 				.sensei-buttons-container__button-block {
 					padding: unset;
