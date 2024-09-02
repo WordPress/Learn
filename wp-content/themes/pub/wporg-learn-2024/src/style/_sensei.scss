@@ -49,41 +49,50 @@ body.sensei {
 		}
 	}
 
-	.sensei-course-theme__columns .sensei-course-theme__sidebar ~ .sensei-course-theme__main-content {
-		--sensei-lm-sidebar-width: calc(280px + (var(--wp--preset--spacing--edge-space) * 2) - 24px);
-		display: flex;
-		flex-direction: column;
-		align-items: normal;
+	.sensei-course-theme__columns {
+		margin-top: calc(var(--sensei-lm-header-height) + var(--sensei-wpadminbar-offset, 0px)) !important;
 
-		> * {
-			margin-left: unset;
-			margin-right: unset;
-		}
+		.sensei-course-theme__sidebar ~ .sensei-course-theme__main-content {
+			--sensei-lm-sidebar-width: calc(280px + (var(--wp--preset--spacing--edge-space) * 2) - 24px);
+			display: flex;
+			flex-direction: column;
+			align-items: normal;
+			margin-top: 0;
 
-		@media (max-width: 782px) {
-			--sensei-lm-sidebar-width: 0;
-		}
+			> * {
+				margin-left: unset;
+				margin-right: unset;
+			}
 
-		@media (min-width: 890px) {
-			padding-right: calc(var(--wp--preset--spacing--edge-space) - 24px);
-		}
+			@media (max-width: 782px) {
+				--sensei-lm-sidebar-width: 0;
+			}
 
-		// Remove the border on module title.
-		h3.wp-block-sensei-lms-course-theme-lesson-module {
-			padding-left: unset;
-			border: none;
-			color: var(--wp--preset--color--charcoal-4);
-			margin-top: revert-layer;
-		}
+			@media (min-width: 890px) {
+				padding-right: calc(var(--wp--preset--spacing--edge-space) - 24px);
+			}
 
-		h1 {
-			margin-block-start: var(--wp--preset--spacing--50);
-			margin-block-end: var(--wp--preset--spacing--30);
-			font-weight: 500;
-		}
+			// Remove the border on module title.
+			h3.wp-block-sensei-lms-course-theme-lesson-module {
+				padding-left: unset;
+				border: none;
+				color: var(--wp--preset--color--charcoal-4);
+				margin-block-start: 0;
+			}
 
-		.wp-block-sensei-lms-course-theme-notices {
-			order: 1;
+			h1 {
+				margin-block-start: var(--wp--preset--spacing--50);
+				font-weight: 500;
+			}
+
+			.wp-block-sensei-lms-course-theme-notices {
+				order: 1;
+				margin-bottom: 39px;
+
+				&:empty {
+					display: none;
+				}
+			}
 		}
 	}
 
