@@ -15,14 +15,6 @@
 
 		<!-- wp:sensei-lms/course-navigation /-->
 
-		<!-- wp:group {"style":{"border":{"top":{"color":"var:preset|color|light-grey-1","width":"1px"}},"spacing":{"padding":{"top":"var:preset|spacing|20"}}},"layout":{"type":"constrained"}} -->
-		<div class="wp-block-group" style="border-top-color:var(--wp--preset--color--light-grey-1);border-top-width:1px;padding-top:var(--wp--preset--spacing--20)">
-
-			<!-- wp:pattern {"slug":"wporg-learn-2024/content-feedback"} /-->
-
-		</div>
-		<!-- /wp:group -->
-
 	</div>
 	<!-- /wp:sensei-lms/ui -->
 
@@ -52,6 +44,21 @@
 			</div>
 			<!-- /wp:group -->
 		<?php endif; ?>
+
+		<!-- wp:group {"align":"full","style":{"border":{"top":{"color":"var:preset|color|light-grey-1","width":"1px"},"right":{},"bottom":{},"left":{}},"spacing":{"margin":{"top":"var:preset|spacing|20"},"padding":{"top":"var:preset|spacing|30","right":"var:preset|spacing|edge-space","left":"var:preset|spacing|edge-space","bottom":"var:preset|spacing|40"}}},"layout":{"type":"constrained"}} -->
+		<div class="wp-block-group alignfull" style="margin-top:var(--wp--preset--spacing--20);padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--edge-space);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--edge-space);border-top-color:var(--wp--preset--color--light-grey-1);border-top-width:1px">
+
+			<!-- wp:group {"layout":{"type":"constrained"}} -->
+			<div class="wp-block-group alignwide">
+
+				<!-- wp:pattern {"slug":"wporg-learn-2024/content-feedback"} /-->
+
+			</div>
+			<!-- /wp:group -->
+
+		</div>
+		<!-- /wp:group -->
+
 	</div>
 	<!-- /wp:sensei-lms/ui -->
 </div>
