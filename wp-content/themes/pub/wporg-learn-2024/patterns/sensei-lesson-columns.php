@@ -32,9 +32,9 @@ $module = Sensei()->modules->get_lesson_module( $lesson_id );
 			<!-- wp:post-title {"level":1,"fontSize":"heading-1","style":{"spacing":{"margin":{"top":"0"}},"typography":{"lineHeight":"1"}}} /-->	 
 		<?php endif; ?> 
 
-		<!-- wp:sensei-lms/course-theme-notices /-->
-
 		<!-- wp:post-content {"layout":{"inherit":true}} /-->
+
+		<!-- wp:sensei-lms/course-theme-notices /-->
 
 		<?php if ( is_user_logged_in() ) : ?>
 			<!-- wp:group {"style":{"spacing":{"margin":{"top":"0","bottom":"var(--wp--preset--spacing--50)"}}},"layout":{"type":"constrained"},"className":"sensei-lesson-footer"} -->
@@ -53,7 +53,7 @@ $module = Sensei()->modules->get_lesson_module( $lesson_id );
 		<?php endif; ?>
 
 		<!-- wp:group {"align":"full","style":{"border":{"top":{"color":"var:preset|color|light-grey-1","width":"1px"},"right":{},"bottom":{},"left":{}},"spacing":{"margin":{"top":"0"}},"layout":{"type":"constrained"}} -->
-		<div class="wp-block-group alignfull" style="margin-top:0;border-top-color:var(--wp--preset--color--light-grey-1);border-top-width:1px;order:2">
+		<div class="wp-block-group alignfull" style="margin-top:0;border-top-color:var(--wp--preset--color--light-grey-1);border-top-width:1px;width:100%!important">
 
 			<!-- wp:group {"layout":{"type":"constrained"},"spacing":{"margin":{"top":"var(--wp--preset--spacing--30)"}}} -->
 			<div class="wp-block-group alignwide" style="margin-top:var(--wp--preset--spacing--30)">
