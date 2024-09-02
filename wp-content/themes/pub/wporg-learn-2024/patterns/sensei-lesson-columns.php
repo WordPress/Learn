@@ -44,7 +44,7 @@ $is_completed = Sensei_Utils::user_completed_lesson( $lesson_id );
 			<!-- wp:post-title {"level":1,"fontSize":"heading-1","style":{"spacing":{"margin":{"top":"0"}},"typography":{"lineHeight":"1"}}} /-->	 
 		<?php endif; ?> 
 
-		<!-- wp:post-content {"layout":{"inherit":true}} /-->
+		<!-- wp:post-content {"layout":{"type":"constrained","justifyContent":"left"}} /-->
 
 		<!-- wp:sensei-lms/course-theme-notices /-->
 
