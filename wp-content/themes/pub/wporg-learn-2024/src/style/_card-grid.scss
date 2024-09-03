@@ -9,6 +9,7 @@
 	.wp-block-post-excerpt,
 	.wp-block-post-featured-image {
 		max-width: 100%;
+		min-width: 100%;
 	}
 
 	.course,
@@ -72,6 +73,10 @@
 			z-index: -2;
 			width: calc(100% - 48px);
 			left: 24px;
+		}
+
+		.sensei-lms-course-list-featured-label__image-wrapper {
+			min-width: 100%;
 		}
 
 		.sensei-lms-course-list-featured-label__text,

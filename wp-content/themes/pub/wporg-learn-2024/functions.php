@@ -54,6 +54,7 @@ add_filter( 'sensei_register_post_type_lesson', function( $args ) {
 } );
 add_filter( 'single_template_hierarchy', __NAMESPACE__ . '\modify_single_template' );
 add_filter( 'taxonomy_template_hierarchy', __NAMESPACE__ . '\modify_taxonomy_template_hierarchy' );
+add_filter( 'wp_calculate_image_sizes', __NAMESPACE__ . '\modify_grid_image_sizes', 10, 5 );
 add_filter( 'wp_get_attachment_image_attributes', __NAMESPACE__ . '\eager_load_first_card_rows_images', 10, 3 );
 add_filter( 'wporg_block_navigation_menus', __NAMESPACE__ . '\add_site_navigation_menus' );
 add_filter( 'wporg_block_site_breadcrumbs', __NAMESPACE__ . '\set_site_breadcrumbs' );
@@ -166,6 +167,17 @@ function eager_load_first_card_rows_images( $attr, $attachment, $size ) {
 	}
 
 	return $attr;
+}
+
+/**
+ * Modify the image sizes attribute to improve performance by loading the size that is closest to the grid column width.
+ */
+function modify_grid_image_sizes( $sizes, $size, $image_src, $image_meta, $attachment_id ) {
+	if ( is_front_page() || is_archive() || is_search() || is_page( 'my-courses' ) ) {
+		return '(max-width: 768px) 100vw, (max-width: 1270px) 50vw, 33vw';
+	}
+
+	return $sizes;
 }
 
 /**
