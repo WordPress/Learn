@@ -174,7 +174,7 @@ function eager_load_first_card_rows_images( $attr, $attachment, $size ) {
  */
 function modify_grid_image_sizes( $sizes, $size, $image_src, $image_meta, $attachment_id ) {
 	if ( is_front_page() || is_archive() || is_search() || is_page( 'my-courses' ) ) {
-		return '(max-width: 768px) 100vw, (max-width: 1270px) 50vw, 33vw';
+		return '(max-width: 750px) 100vw, (max-width: 1270px) 50vw, (max-width: 1320px) 33vw, 350px';
 	}
 
 	return $sizes;
