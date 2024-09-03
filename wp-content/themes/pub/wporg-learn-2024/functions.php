@@ -38,6 +38,7 @@ add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_assets' );
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\maybe_enqueue_sensei_assets', 100 );
 // Attached at 11 to run after scripts are registered, but before they are enqueued.
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\defer_scripts', 11 );
+add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\remove_sensei_course_archive_js', 100 );
 
 // Remove Jetpack CSS on frontend
 add_filter( 'jetpack_implode_frontend_css', '__return_false', 99 );
@@ -249,6 +250,19 @@ function defer_scripts() {
 		wp_script_add_data( $script, 'strategy', 'defer' );
 		wp_script_add_data( $script, 'group', 0 );
 	}
+}
+
+/**
+ * Remove Sensei course archive JavaScript for performance.
+ * Not needed as we don't display Sensei course order controls.
+ */
+function remove_sensei_course_archive_js() {
+	if ( is_admin() || ! is_post_type_archive( 'course' ) ) {
+		return;
+	}
+
+	wp_dequeue_script( 'sensei-course-archive-js' );
+	wp_deregister_script( 'sensei-course-archive-js' );
 }
 
 /**
