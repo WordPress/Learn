@@ -5,6 +5,9 @@
  * Inserter: no
  */
 
+// Workaround for the first lesson in the grid not having an automatic excerpt generated.
+get_the_excerpt();
+
 ?>
 
 <!-- wp:group {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|50"}}},"layout":{"type":"constrained","justifyContent":"left","contentSize":"750px"}} -->
