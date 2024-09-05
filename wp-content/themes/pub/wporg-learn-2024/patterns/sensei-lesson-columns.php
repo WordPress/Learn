@@ -39,9 +39,9 @@ $is_completed = Sensei_Utils::user_completed_lesson( $lesson_id );
 		<?php endif; ?>
 
 		<?php if ( $module ) : ?>
-			<!-- wp:post-title {"level":1,"fontSize":"heading-3"} /-->
+			<!-- wp:post-title {"level":1,"style":{"spacing":{"margin":{"top":"var:preset|spacing|50"}},"typography":{"fontStyle":"normal","fontWeight":"600"}},"fontSize":"heading-3","fontFamily":"inter"} /-->
 		<?php else : ?>
-			<!-- wp:post-title {"level":1,"fontSize":"heading-1","style":{"spacing":{"margin":{"top":"0"}},"typography":{"lineHeight":"1"}}} /-->	 
+			<!-- wp:post-title {"level":1,"fontSize":"heading-3","fontFamily":"inter","style":{"spacing":{"margin":{"top":"0"}},"typography":{"lineHeight":"1","fontStyle":"normal","fontWeight":"600"}}} /-->	 
 		<?php endif; ?> 
 
 		<!-- wp:post-content {"layout":{"type":"constrained","justifyContent":"left"}} /-->
