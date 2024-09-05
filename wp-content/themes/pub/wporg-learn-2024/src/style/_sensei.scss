@@ -121,7 +121,7 @@ body.sensei {
 			}
 		}
 
-		.sensei-lms-course-navigation-lesson__extra {
+		.sensei-lms-course-navigation-lesson__extra[aria-label^="Preview"] {
 			display: none;
 		}
 	}
