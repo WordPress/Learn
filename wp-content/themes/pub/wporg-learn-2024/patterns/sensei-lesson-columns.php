@@ -39,7 +39,7 @@ $is_completed = Sensei_Utils::user_completed_lesson( $lesson_id );
 		<?php endif; ?>
 
 		<?php if ( $module ) : ?>
-			<!-- wp:post-title {"level":1,"fontSize":"heading-1"} /-->
+			<!-- wp:post-title {"level":1,"fontSize":"heading-3"} /-->
 		<?php else : ?>
 			<!-- wp:post-title {"level":1,"fontSize":"heading-1","style":{"spacing":{"margin":{"top":"0"}},"typography":{"lineHeight":"1"}}} /-->	 
 		<?php endif; ?> 

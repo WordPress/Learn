@@ -84,7 +84,8 @@ body.sensei {
 
 			h1 {
 				margin-block-start: var(--wp--preset--spacing--50);
-				font-weight: 500;
+				font-weight: 600;
+				font-family: var(--wp--preset--font-family--inter);
 			}
 
 			.wp-block-sensei-lms-course-theme-notices {
@@ -161,7 +162,8 @@ body.sensei {
 
 	&.single-lesson {
 		h1 {
-			font-weight: 500;
+			font-weight: 600;
+			font-family: var(--wp--preset--font-family--inter);
 		}
 
 		.sensei-lesson-footer {

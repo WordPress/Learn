@@ -37,7 +37,7 @@
 	<!-- wp:sensei-lms/ui {"elementClass":"sensei-course-theme__main-content","lock":{"move":false,"remove":false},"style"={"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50","right":"var:preset|spacing|edge-space","left":"var:preset|spacing|edge-space"}}}} -->
 	<div class="wp-block-sensei-lms-ui sensei-course-theme__main-content" style="padding-top:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--50);padding-right:var(--wp--preset--spacing--edge-space);padding-left:var(--wp--preset--spacing--edge-space)">
 
-		<!-- wp:post-title {"level":1,"fontSize":"heading-1"} /-->
+		<!-- wp:post-title {"level":1,"fontSize":"heading-3"} /-->
 
 		<!-- wp:post-content {"layout":{"inherit":true}} /-->
 
