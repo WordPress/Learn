@@ -5,6 +5,8 @@
  * Inserter: no
  */
 
+get_the_excerpt();
+
 ?>
 
 <!-- wp:group {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|50"}}},"layout":{"type":"constrained","justifyContent":"left","contentSize":"750px"}} -->
