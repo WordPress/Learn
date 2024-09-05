@@ -513,8 +513,17 @@ body.sensei-course-theme {
 
 		@media screen and (max-width: 782px) {
 			top: calc(var(--sensei-lm-header-height));
+			left: 0;
+			right: 0;
 			margin-left: unset;
 			margin-right: unset;
+
+			.sensei-course-theme-course-progress-bar-inner {
+				border-top-left-radius: 0;
+				border-bottom-left-radius: 0;
+				position: relative;
+				top: -0.5px;
+			}
 		}
 	}
 
