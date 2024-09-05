@@ -5,6 +5,7 @@
  * Inserter: no
  */
 
+// Workaround for the first lesson in the grid not having an automatic excerpt generated.
 get_the_excerpt();
 
 ?>
