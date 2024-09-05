@@ -218,17 +218,27 @@ body.sensei {
 	.wp-block-sensei-lms-lesson-actions {
 		.wp-block-sensei-lms-button-view-quiz,
 		.wp-block-sensei-lms-button-complete-lesson {
+			> button {
+				font-weight: 600 !important;
+				line-height: 1;
+			}
+		}
+
+		.wp-block-sensei-lms-button-view-quiz {
+			&:hover {
+				background-color: var(--wp--preset--color--deep-blueberry) !important;
+			}
+		}
+
+		.wp-block-sensei-lms-button-complete-lesson {
 			background-color: var(--wp--custom--color--green-50) !important;
 			border-color: transparent;
 
 			&:hover {
-				opacity: 0.9;
+				background-color: var(--wp--custom--color--green-60) !important;
 			}
 
 			> button {
-				font-weight: 600 !important;
-				line-height: 1;
-
 				&:focus,
 				&:focus-visible {
 					outline: var(--wp--custom--color--green-50);
