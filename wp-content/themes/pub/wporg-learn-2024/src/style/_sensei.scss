@@ -231,8 +231,8 @@ body.sensei {
 		}
 
 		@media screen and (max-width: 782px) {
-			.sensei-lesson-actions-nav {
-				width: 100%;
+			.sensei-lesson-actions-nav a {
+				width: 100% !important;
 			}
 		}
 	}
