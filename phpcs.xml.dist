@@ -20,7 +20,7 @@
 	<exclude-pattern>*/build/*</exclude-pattern>
 
 	<!-- Exclude all themes except the learn theme -->
-	<exclude-pattern>/wp-content/themes/pub/(?!wporg-learn-2020)</exclude-pattern>
+	<exclude-pattern>/wp-content/themes/pub/(?!wporg-learn-2024)</exclude-pattern>
 
 	<!-- Exclude all plugins except the learn plugin -->
 	<exclude-pattern>/wp-content/plugins/(?!wporg-learn)</exclude-pattern>
@@ -147,7 +147,7 @@
 	     provided as a comma-delimited list. -->
 	<rule ref="WordPress.WP.I18n">
 		<properties>
-			<property name="text_domain" type="array" value="wporg-learn,wporg_learn" />
+			<property name="text_domain" type="array" value="wporg-learn,wporg_learn,sensei-lms" />
 		</properties>
 	</rule>
 </ruleset>

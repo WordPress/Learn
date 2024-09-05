@@ -7,18 +7,23 @@ use Sensei_Lesson;
 use Sensei_Utils;
 use Sensei_Reports_Overview_Service_Courses;
 use function WordPressdotorg\Locales\get_locale_name_from_code;
-use function WPOrg_Learn\{get_build_path, get_build_url, get_views_path};
+use function WPOrg_Learn\{get_build_path, get_build_url, get_js_path, get_views_path};
 use function WPOrg_Learn\Form\render_workshop_application_form;
 use function WPOrg_Learn\Post_Meta\get_workshop_duration;
 
 defined( 'WPINC' ) || die();
 
 /**
+ * Views.
+ */
+require_once get_views_path() . 'block-course-status.php';
+require_once get_views_path() . 'block-learning-duration.php';
+require_once get_views_path() . 'block-lesson-count.php';
+
+/**
  * Actions and filters.
  */
 add_action( 'init', __NAMESPACE__ . '\register_types' );
-add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\enqueue_block_style_assets' );
-add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_block_style_assets' );
 
 /**
  * Register block types.
@@ -26,9 +31,12 @@ add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_block_style_assets' 
  * @return void
  */
 function register_types() {
+	register_course_data();
+	register_course_status();
+	register_learning_duration();
+	register_lesson_count();
 	register_lesson_plan_actions();
 	register_lesson_plan_details();
-	register_course_data();
 	register_workshop_details();
 	register_workshop_application_form();
 }
@@ -408,32 +416,44 @@ function workshop_application_form_render_callback() {
 }
 
 /**
- * Enqueue scripts and stylesheets for custom block styles.
- *
- * @throws Error If the build files are not found.
+ * Register the learning duration block.
  */
-function enqueue_block_style_assets() {
-	if ( is_admin() ) {
-		$script_asset_path = get_build_path() . 'block-styles.asset.php';
-		if ( ! file_exists( $script_asset_path ) ) {
-			throw new Error(
-				'You need to run `npm start` or `npm run build` for block styles first.'
-			);
-		}
-
-		$script_asset = require $script_asset_path;
-		wp_enqueue_script(
-			'wporg-learn-block-styles',
-			get_build_url() . 'block-styles.js',
-			$script_asset['dependencies'],
-			$script_asset['version']
-		);
-	}
-
-	wp_enqueue_style(
-		'wporg-learn-block-styles',
-		get_build_url() . 'style-block-styles.css',
-		array(),
-		filemtime( get_build_path() . 'style-block-styles.css' )
+function register_learning_duration() {
+	register_block_type(
+		get_js_path() . 'learning-duration/',
+		array(
+			'render_callback' => function( $attributes, $content, $block ) {
+				return \WPOrg_Learn\View\Blocks\Learning_Duration\render( $attributes, $content, $block );
+			},
+		)
 	);
 }
+
+/**
+ * Register the lesson count block.
+ */
+function register_lesson_count() {
+	register_block_type(
+		get_js_path() . 'lesson-count/',
+		array(
+			'render_callback' => function( $attributes, $content, $block ) {
+				return \WPOrg_Learn\View\Blocks\Lesson_Count\render( $attributes, $content, $block );
+			},
+		)
+	);
+}
+
+/**
+ * Register the course status block.
+ */
+function register_course_status() {
+	register_block_type(
+		get_js_path() . 'course-status/',
+		array(
+			'render_callback' => function( $attributes, $content, $block ) {
+				return \WPOrg_Learn\View\Blocks\Course_Status\render( $attributes, $content, $block );
+			},
+		)
+	);
+}
+

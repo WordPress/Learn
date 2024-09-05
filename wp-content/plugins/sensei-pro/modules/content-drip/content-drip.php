@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Check for legacy Content Drip plugin.
-require_once dirname( __FILE__ ) . '/includes/class-sensei-content-drip-legacy-plugin-checker.php';
+require_once __DIR__ . '/includes/class-sensei-content-drip-legacy-plugin-checker.php';
 if ( Sensei_Content_Drip_Legacy_Plugin_Checker::legacy_plugin_is_active() ) {
 	Sensei_Content_Drip_Legacy_Plugin_Checker::show_notice();
 	return;
@@ -21,7 +21,7 @@ if ( Sensei_Content_Drip_Legacy_Plugin_Checker::legacy_plugin_is_active() ) {
 // TODO: Remove need for these plugins.
 define( 'SENSEI_CONTENT_DRIP_PLUGIN_FILE', __FILE__ );
 
-require_once dirname( __FILE__ ) . '/includes/class-sensei-content-drip.php';
+require_once __DIR__ . '/includes/class-sensei-content-drip.php';
 
 // Load the plugin after all the other plugins have loaded.
 add_action( 'plugins_loaded', [ 'Sensei_Content_Drip', 'init' ], 5 );

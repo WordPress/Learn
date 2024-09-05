@@ -175,4 +175,3 @@ class Scd_Ext_Utils {
 		return wp_timezone();
 	}
 }
-

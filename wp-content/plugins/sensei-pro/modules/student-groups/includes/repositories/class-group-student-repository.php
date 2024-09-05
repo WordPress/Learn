@@ -132,10 +132,10 @@ class Group_Student_Repository {
 	 *
 	 * @return int|boolean Number of rows affected or false on error.
 	 */
-	public function batch_delete( int $group_id, array $user_ids ) : int {
+	public function batch_delete( int $group_id, array $user_ids ): int {
 		if ( empty( $user_ids ) ) {
 			return 0;
-		};
+		}
 
 		$result = $this->wpdb->query(
 		// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared
@@ -166,7 +166,7 @@ class Group_Student_Repository {
 	 *
 	 * @return int Number of rows affected.
 	 */
-	public function delete_all_relations_for_group( int $group_id ) : int {
+	public function delete_all_relations_for_group( int $group_id ): int {
 		$query = $this->wpdb->prepare(
 		// phpcs:ignore WordPress.DB.PreparedSQLPlaceholders.UnquotedComplexPlaceholder
 			'SELECT student_id FROM %1s WHERE group_id = %d',
@@ -273,7 +273,7 @@ class Group_Student_Repository {
 	 *
 	 * @return int Count of students.
 	 */
-	public function get_count_for_group( int $group_id ) : int {
+	public function get_count_for_group( int $group_id ): int {
 		$query = $this->wpdb->prepare(
 		// phpcs:ignore WordPress.DB.PreparedSQLPlaceholders.UnquotedComplexPlaceholder
 			'SELECT COUNT( student_id ) FROM %1s WHERE group_id = %d',

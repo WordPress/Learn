@@ -45,7 +45,7 @@ class Sensei_Home_Notices_Provider {
 	 *
 	 * @return array
 	 */
-	private function local_only( $max_age = null ) : array {
+	private function local_only( $max_age = null ): array {
 		/**
 		 * This filter is documented in `class-sensei-admin-notices.php`.
 		 */
@@ -53,7 +53,7 @@ class Sensei_Home_Notices_Provider {
 
 		return array_filter(
 			$notices,
-			function( $notice_key ) {
+			function ( $notice_key ) {
 				// We only care about home notices for now.
 				return strpos( $notice_key, Sensei_Home_Notices::HOME_NOTICE_KEY_PREFIX ) === 0;
 			},

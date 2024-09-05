@@ -59,7 +59,6 @@ class Block_Visibility {
 		add_action( 'enqueue_block_editor_assets', [ $instance, 'enqueue_assets' ] );
 
 		$instance->init_dependencies();
-
 	}
 
 	/**

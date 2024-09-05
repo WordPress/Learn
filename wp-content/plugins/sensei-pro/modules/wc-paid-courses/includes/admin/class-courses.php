@@ -283,23 +283,17 @@ final class Courses {
 				$html .= '</p>' . "\n";
 
 			}
+		} elseif ( current_user_can( 'publish_product' ) ) {
+			$html .= '<p>' . "\n";
+			$html .= esc_html__( 'No products exist yet.', 'sensei-pro' ) . '&nbsp;<a href="' . esc_url( admin_url( 'post-new.php?post_type=product' ) ) . '" title="' . esc_attr( __( 'Add a Product', 'sensei-pro' ) ) . '">' . esc_html__( 'Please add some first', 'sensei-pro' ) . '</a>' . "\n";
+			$html .= '</p>' . "\n";
 		} else {
-
-			if ( current_user_can( 'publish_product' ) ) {
-
-				$html .= '<p>' . "\n";
-				$html .= esc_html__( 'No products exist yet.', 'sensei-pro' ) . '&nbsp;<a href="' . esc_url( admin_url( 'post-new.php?post_type=product' ) ) . '" title="' . esc_attr( __( 'Add a Product', 'sensei-pro' ) ) . '">' . esc_html__( 'Please add some first', 'sensei-pro' ) . '</a>' . "\n";
-				$html .= '</p>' . "\n";
-
-			} else {
-				foreach ( $select_course_woocommerce_products as $product_id ) {
-					$html .= '<input type="hidden" name="course_woocommerce_product[]" value="' . esc_attr( $product_id ) . '">';
-				}
-				$html .= '<p>' . "\n";
-				$html .= esc_html( __( 'No products exist yet.', 'sensei-pro' ) ) . "\n";
-				$html .= '</p>' . "\n";
-
+			foreach ( $select_course_woocommerce_products as $product_id ) {
+				$html .= '<input type="hidden" name="course_woocommerce_product[]" value="' . esc_attr( $product_id ) . '">';
 			}
+			$html .= '<p>' . "\n";
+			$html .= esc_html( __( 'No products exist yet.', 'sensei-pro' ) ) . "\n";
+			$html .= '</p>' . "\n";
 		}
 
 		echo wp_kses(
@@ -546,5 +540,4 @@ MODAL;
 		}
 		return self::$instance;
 	}
-
 }

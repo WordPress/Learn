@@ -150,7 +150,7 @@ class Data_Migrator {
 	 */
 	public function run_migration( string $file_path ) {
 		if ( ! $this->verify_migration_file( $file_path ) ) {
-			throw new Exception( __( 'Unknown migration file.', 'sensei-pro' ) );
+			throw new Exception( esc_html__( 'Unknown migration file.', 'sensei-pro' ) );
 		}
 
 		$migration = require $file_path;

@@ -10,8 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<!-- wp:paragraph {"placeholder":"<?php esc_html_e( 'Use the Tasklist block as a way of keeping track of assignments and activities in a lesson.', 'sensei-pro' ); ?>"} -->
-<p></p>
+<!-- wp:paragraph {"placeholder":"<?php esc_html_e( 'Use the Tasklist block as a way of keeping track of assignments and activities in a lesson.', 'sensei-pro' ); ?>","className":"sensei-content-description"} -->
+<p class="sensei-content-description"></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:sensei-pro/task-list -->

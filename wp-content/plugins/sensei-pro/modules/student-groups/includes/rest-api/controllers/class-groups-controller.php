@@ -295,5 +295,4 @@ class Groups_Controller extends WP_REST_Controller {
 
 		return $query->have_posts() ? $query->posts[0] : null;
 	}
-
 }

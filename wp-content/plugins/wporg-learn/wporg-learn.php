@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin name: WordPress.org Learn
- * Description: Functionality for learn.wordpress.org. See also the wporg-learn-2020 theme.
+ * Description: Functionality for learn.wordpress.org. See also the wporg-learn-2024 theme.
  * Version:     1.0.0
  * Author:      WordPress.org
  * Author URI:  http://wordpress.org/
@@ -50,6 +50,15 @@ function get_includes_path() {
 }
 
 /**
+ * Shortcut to the js directory.
+ *
+ * @return string
+ */
+function get_js_path() {
+	return PLUGIN_DIR . 'js/';
+}
+
+/**
  * Shortcut to the views directory.
  *
  * @return string
@@ -75,9 +84,11 @@ function load_files() {
 	require_once get_includes_path() . 'post-meta.php';
 	require_once get_includes_path() . 'post-type.php';
 	require_once get_includes_path() . 'profiles.php';
+	require_once get_includes_path() . 'redirects.php';
 	require_once get_includes_path() . 'sensei.php';
 	require_once get_includes_path() . 'taxonomy.php';
 	require_once get_includes_path() . 'export.php';
+	require_once get_includes_path() . 'utils.php';
 }
 
 /**

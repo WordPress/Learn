@@ -1,0 +1,29 @@
+name: Comment on issue with review instructions
+on:
+  issue_comment:
+    types:  [created, edited]
+
+jobs:
+  add-comment:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - uses: peter-evans/create-or-update-comment@v3
+        if: ${{ contains(github.event.comment.body, '//review') }}  
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            This piece of content is ready to be reviewed. Copy and paste the following check list into a new comment and tick the items as you review them. This checklist can also be found on [Guidelines for Reviewing Content](https://make.wordpress.org/training/handbook/training-team-how-to-guides/guidelines-for-reviewing-content-on-learn/#are-you-reviewing-content-before-it-is-published).
+            ## Content Review Checklist
+            - [ ] Learning outcomes/objectives are clear.
+            - [ ] Technical concepts introduced in the content are accurate.
+            - [ ] The speed of demonstrations are easy to follow.
+            - [ ] The narration audio matches what is shown visually.
+            - [ ] Spelling and grammar are correct.
+            - [ ] Sound quality is consistent throughout the video.
+            - [ ] [Brand Usage Guidelines](https://make.wordpress.org/training/handbook/guidelines/brand-usage-guidelines/) and [Promotional Guidelines](https://make.wordpress.org/training/handbook/guidelines/promotional-guidelines/) are being followed.
+            - [ ] Media assets are all in the public domain ([CC0](https://creativecommons.org/share-your-work/public-domain/cc0/)).
+            
+            Remember to also add a comment in your own words. This can be about something to improve in the content, or something you thought was really good about it.
+            

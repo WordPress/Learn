@@ -10,8 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<!-- wp:paragraph {"placeholder":"<?php esc_html_e( 'Write quiz introduction here. By default, the quiz timer is set for 5 minutes. Click on Quiz settings below to change the amount of time allowed.', 'sensei-pro' ); ?>"} -->
-<p></p>
+<!-- wp:paragraph {"placeholder":"<?php esc_html_e( 'Write quiz introduction here. By default, the quiz timer is set for 5 minutes. Click on Quiz settings below to change the amount of time allowed.', 'sensei-pro' ); ?>","className":"sensei-content-description"} -->
+<p class="sensei-content-description"></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:sensei-lms/lesson-actions -->

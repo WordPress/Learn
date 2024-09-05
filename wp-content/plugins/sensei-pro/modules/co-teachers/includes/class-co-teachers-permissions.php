@@ -59,7 +59,7 @@ class Co_Teachers_Permissions {
 
 		add_filter( 'user_has_cap', [ $instance, 'grant_access_to_coteachers' ], 10, 3 );
 		add_filter( 'posts_where', [ $instance, 'posts_where_filter' ], 10, 2 );
-		add_filter( 'sensei_filter_module_terms_by_owner', [ $instance, 'restore_module_terms_for_coteachers' ], 10, 3 );
+		add_filter( 'sensei_filter_module_terms_by_owner', [ $instance, 'restore_module_terms_for_coteachers' ], 10, 2 );
 		add_filter( 'wp_insert_post_data', [ $instance, 'keep_original_author_when_editing_as_coteacher' ], 10, 4 );
 		add_filter( 'sensei_filter_queries_set_author', [ $instance, 'set_query_author_for_coteachers' ], 10, 2 );
 		add_filter( 'sensei_grading_allowed_user_ids', [ $instance, 'allow_grading_for_coteachers' ], 10, 2 );
@@ -230,7 +230,6 @@ class Co_Teachers_Permissions {
 		}
 
 		return $allcaps;
-
 	}
 
 	/**
@@ -319,10 +318,9 @@ class Co_Teachers_Permissions {
 	 *
 	 * @param \WP_Term[]       $terms          The final terms after removing the unowned terms.
 	 * @param \WP_Term[]|int[] $original_terms The original list of all the terms previous to filtering.
-	 * @param int              $user_id        The user ID.
 	 * @return array
 	 */
-	public function restore_module_terms_for_coteachers( $terms, $original_terms, $user_id ) {
+	public function restore_module_terms_for_coteachers( $terms, $original_terms ) {
 
 		$coauthor_terms = [];
 

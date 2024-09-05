@@ -27,11 +27,13 @@ function register() {
 	register_lesson_instruction_type();
 	register_lesson_level();
 	register_lesson_plan_series();
+	register_lesson_visibility();
 	register_workshop_series();
 	register_workshop_type();
 	register_wp_version();
 	register_included_content();
 	register_topic();
+	register_learning_pathway();
 }
 
 /**
@@ -61,7 +63,7 @@ function register_lesson_audience() {
 		'items_list_navigation'      => __( 'Audiences list navigation', 'wporg-learn' ),
 	);
 
-	$args   = array(
+	$args = array(
 		'labels'            => $labels,
 		'hierarchical'      => true,
 		'public'            => true,
@@ -76,7 +78,7 @@ function register_lesson_audience() {
 		),
 	);
 
-	register_taxonomy( 'audience', array( 'lesson-plan' ), $args );
+	register_taxonomy( 'audience', array( 'lesson-plan', 'lesson', 'course' ), $args );
 }
 
 /**
@@ -240,7 +242,7 @@ function register_lesson_level() {
 		'items_list_navigation'      => __( 'Experience Levels list navigation', 'wporg-learn' ),
 	);
 
-	$args   = array(
+	$args = array(
 		'labels'            => $labels,
 		'hierarchical'      => true,
 		'public'            => true,
@@ -250,12 +252,64 @@ function register_lesson_level() {
 		'show_in_nav_menus' => true,
 		'show_tagcloud'     => false,
 		'show_in_rest'      => true,
+		'rewrite'           => false,
 		'capabilities'      => array(
 			'assign_terms' => 'edit_lesson_plans',
 		),
 	);
 
-	register_taxonomy( 'level', array( 'lesson-plan' ), $args );
+	register_taxonomy( 'level', array( 'lesson-plan', 'lesson', 'course' ), $args );
+}
+
+/**
+ * Register the Lesson visibility taxonomy, used to hide lessons from the archive and search views.
+ */
+function register_lesson_visibility() {
+	$labels = array(
+		'name'                       => _x( 'Visibility', 'Taxonomy General Name', 'wporg-learn' ),
+		'singular_name'              => _x( 'Visibility', 'Taxonomy Singular Name', 'wporg-learn' ),
+		'menu_name'                  => __( 'Visibility', 'wporg-learn' ),
+		'all_items'                  => __( 'All Visibilities', 'wporg-learn' ),
+		'parent_item'                => __( 'Parent Visibility', 'wporg-learn' ),
+		'parent_item_colon'          => __( 'Parent Visibility:', 'wporg-learn' ),
+		'new_item_name'              => __( 'New Visibility Name', 'wporg-learn' ),
+		'add_new_item'               => __( 'Add New Visibility', 'wporg-learn' ),
+		'edit_item'                  => __( 'Edit Visibility', 'wporg-learn' ),
+		'update_item'                => __( 'Update Visibility', 'wporg-learn' ),
+		'view_item'                  => __( 'View Visibility', 'wporg-learn' ),
+		'separate_items_with_commas' => __( 'Separate visibilities with commas', 'wporg-learn' ),
+		'add_or_remove_items'        => __( 'Add or remove visibilities', 'wporg-learn' ),
+		'choose_from_most_used'      => __( 'Choose from the most used', 'wporg-learn' ),
+		'popular_items'              => __( 'Popular Visibilities', 'wporg-learn' ),
+		'search_items'               => __( 'Search Visibilities', 'wporg-learn' ),
+		'not_found'                  => __( 'No Visibilities Found', 'wporg-learn' ),
+		'no_terms'                   => __( 'No visibilities', 'wporg-learn' ),
+		'items_list'                 => __( 'Visibilities list', 'wporg-learn' ),
+		'items_list_navigation'      => __( 'Visibilities list navigation', 'wporg-learn' ),
+	);
+
+	$args = array(
+		'labels'            => $labels,
+		'hierarchical'      => true,
+		'public'            => true,
+		'query_var'         => 'wporg_lesson_visibility', // Prevent collisions with query params in the archive filter.
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'show_in_nav_menus' => true,
+		'show_tagcloud'     => false,
+		'show_in_rest'      => true,
+		'rewrite'           => false,
+		'capabilities'      => array(
+			'manage_terms' => 'manage_categories',
+			'edit_terms'   => 'manage_categories',
+			'delete_terms' => 'manage_categories',
+			'assign_terms' => 'edit_lessons',
+		),
+	);
+
+	// Use an existing taxonomy registered with Jetpack Search
+	// See https://github.com/Automattic/jetpack/blob/36b2d5232e2ec3a1ad14034ab673fddce3acab97/projects/packages/sync/src/modules/class-search.php#L1479
+	register_taxonomy( 'show', array( 'lesson' ), $args );
 }
 
 /**
@@ -385,6 +439,7 @@ function register_topic() {
 		'show_in_nav_menus' => true,
 		'show_tagcloud'     => false,
 		'show_in_rest'      => true,
+		'rewrite'           => false,
 		'capabilities'      => array(
 			'assign_terms' => 'edit_any_learn_content', // See \WPOrg_Learn\Capabilities\map_meta_caps.
 		),
@@ -529,6 +584,51 @@ function register_included_content() {
 }
 
 /**
+ * Register the Learning Pathway taxonomy.
+ */
+function register_learning_pathway() {
+	$labels = array(
+		'name'                       => _x( 'Learning Pathways', 'Taxonomy General Name', 'wporg-learn' ),
+		'singular_name'              => _x( 'Learning Pathway', 'Taxonomy Singular Name', 'wporg-learn' ),
+		'menu_name'                  => __( 'Learning pathway', 'wporg-learn' ),
+		'all_items'                  => __( 'All learning pathways', 'wporg-learn' ),
+		'parent_item'                => __( 'Parent learning pathway', 'wporg-learn' ),
+		'parent_item_colon'          => __( 'Parent learning pathway:', 'wporg-learn' ),
+		'new_item_name'              => __( 'New learning pathway Name', 'wporg-learn' ),
+		'add_new_item'               => __( 'Add New learning pathway', 'wporg-learn' ),
+		'edit_item'                  => __( 'Edit learning pathway', 'wporg-learn' ),
+		'update_item'                => __( 'Update learning pathway', 'wporg-learn' ),
+		'view_item'                  => __( 'View learning pathway', 'wporg-learn' ),
+		'separate_items_with_commas' => __( 'Separate learning pathways with commas', 'wporg-learn' ),
+		'add_or_remove_items'        => __( 'Add or remove learning pathways', 'wporg-learn' ),
+		'choose_from_most_used'      => __( 'Choose from the most used', 'wporg-learn' ),
+		'popular_items'              => __( 'Popular learning pathways', 'wporg-learn' ),
+		'search_items'               => __( 'Search learning pathways', 'wporg-learn' ),
+		'not_found'                  => __( 'No learning pathway found', 'wporg-learn' ),
+		'no_terms'                   => __( 'No learning pathways', 'wporg-learn' ),
+		'items_list'                 => __( 'Learning pathways list', 'wporg-learn' ),
+		'items_list_navigation'      => __( 'Learning pathways list navigation', 'wporg-learn' ),
+	);
+
+	$args = array(
+		'labels'            => $labels,
+		'hierarchical'      => false,
+		'public'            => true,
+		'query_var'         => 'wporg_learning_pathway', // Prevent collisions with query params in the archive
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'show_in_nav_menus' => true,
+		'show_tagcloud'     => false,
+		'show_in_rest'      => true,
+		'capabilities'      => array(
+			'assign_terms' => 'edit_others_posts',
+		),
+	);
+
+	register_taxonomy( 'learning-pathway', array( 'course' ), $args );
+}
+
+/**
  * Add icon field for Category and Audience
  */
 function register_custom_fields( $taxonomy ) {
@@ -602,4 +702,50 @@ function tax_save_term_fields( $term_id ) {
 		'sticky',
 		rest_sanitize_boolean( $is_sticky )
 	);
+}
+
+/**
+ * Get available taxonomy terms for a post type.
+ *
+ * @param string $taxonomy The taxonomy.
+ * @param string $post_type The post type.
+ * @param string $post_status The post status.
+ * @return array The available taxonomy terms.
+ */
+function get_available_taxonomy_terms( $taxonomy, $post_type, $post_status = null ) {
+	$posts = get_posts( array(
+		'post_status'    => $post_status ?? 'any',
+		'post_type'      => $post_type,
+		'posts_per_page' => -1,
+	) );
+
+	if ( empty( $posts ) ) {
+		return array();
+	}
+
+	$term_ids = array();
+	foreach ( $posts as $post ) {
+		$post_terms = wp_get_post_terms( $post->ID, $taxonomy, array( 'fields' => 'ids' ) );
+
+		if ( ! is_wp_error( $post_terms ) ) {
+			$term_ids = array_merge( $term_ids, $post_terms );
+		}
+	}
+
+	if ( empty( $term_ids ) ) {
+		return array();
+	}
+
+	$term_ids = array_unique( $term_ids );
+
+	$term_objects = get_terms( array(
+		'taxonomy'   => $taxonomy,
+		'include'    => $term_ids,
+		'hide_empty' => false,
+	) );
+
+	return array_reduce( $term_objects, function( $terms, $term_object ) {
+		$terms[ $term_object->slug ] = $term_object->name;
+		return $terms;
+	}, array());
 }

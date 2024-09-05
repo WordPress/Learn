@@ -18,8 +18,7 @@ use Sensei_WC_Paid_Courses\Course_Enrolment_Providers;
  *
  * @since 2.0.0
  */
-class WooCommerce_Memberships
-	implements \Sensei_Course_Enrolment_Provider_Interface, \Sensei_Course_Enrolment_Provider_Debug_Interface {
+class WooCommerce_Memberships implements \Sensei_Course_Enrolment_Provider_Interface, \Sensei_Course_Enrolment_Provider_Debug_Interface {
 	const DATA_KEY_SIGNED_UP         = 'signed_up';
 	const WC_MEMBERSHIPS_PLUGIN_PATH = 'woocommerce-memberships/woocommerce-memberships.php';
 
@@ -734,7 +733,7 @@ class WooCommerce_Memberships
 
 		// An empty rule for membership plan means all contents for the post type or taxonomy.
 		if ( empty( $course_category_ids ) ) {
-			$course_category_ids = get_terms( 'course-category', [ 'hide_empty' => true ] );
+			$course_category_ids = get_terms( 'course-category' );
 		}
 
 		foreach ( $course_category_ids as $course_category_id ) {
@@ -850,7 +849,7 @@ class WooCommerce_Memberships
 		$membership_plan = wc_memberships_get_membership_plan( $post_id );
 
 		$rules_clone = array_map(
-			function( $rule ) {
+			function ( $rule ) {
 				return clone $rule;
 			},
 			$membership_plan->get_rules( 'content_restriction' )
@@ -1267,12 +1266,10 @@ class WooCommerce_Memberships
 			} else {
 				$messages['signed-up-without-membership'] = __( 'Learner has signed up for this course but does not have an active membership.', 'sensei-pro' );
 			}
-		} else {
-			if ( $has_active_membership ) {
+		} elseif ( $has_active_membership ) {
 				$messages['not-signed-up-with-membership'] = __( 'Learner has not signed up for this course but has an active membership so they should be able to sign up from the course page.', 'sensei-pro' );
-			} else {
-				$messages['not-signed-up-without-membership'] = __( 'Learner has not signed up for this course and is not able to without an active membership.', 'sensei-pro' );
-			}
+		} else {
+			$messages['not-signed-up-without-membership'] = __( 'Learner has not signed up for this course and is not able to without an active membership.', 'sensei-pro' );
 		}
 
 		return $messages;

@@ -50,11 +50,11 @@ class Course_Showcase {
 	 * Initialize the class.
 	 */
 	public static function init(): void {
-		require_once dirname( __FILE__ ) . '/class-course-showcase-senseilmscom-mapper.php';
-		require_once dirname( __FILE__ ) . '/class-course-showcase-promote-action.php';
-		require_once dirname( __FILE__ ) . '/class-course-showcase-feature-availability.php';
-		require_once dirname( __FILE__ ) . '/class-course-showcase-listing.php';
-		require_once dirname( __FILE__ ) . '/class-course-showcase-check-in-job.php';
+		require_once __DIR__ . '/class-course-showcase-senseilmscom-mapper.php';
+		require_once __DIR__ . '/class-course-showcase-promote-action.php';
+		require_once __DIR__ . '/class-course-showcase-feature-availability.php';
+		require_once __DIR__ . '/class-course-showcase-listing.php';
+		require_once __DIR__ . '/class-course-showcase-check-in-job.php';
 		Course_Showcase_Listing::init();
 		Course_Showcase_Check_In_Job::init();
 
@@ -82,5 +82,3 @@ class Course_Showcase {
 		update_option( 'sensei_pro_course_showcase_version', SENSEI_PRO_VERSION );
 	}
 }
-
-

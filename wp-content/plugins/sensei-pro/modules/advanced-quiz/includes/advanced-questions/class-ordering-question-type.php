@@ -95,7 +95,7 @@ class Ordering_Question_Type {
 	 *
 	 * @return array Modified types.
 	 */
-	public function add_question_type( array $types ) : array {
+	public function add_question_type( array $types ): array {
 		$new_types = [ 'ordering' => __( 'Ordering', 'sensei-pro' ) ];
 
 		return array_merge( $types, $new_types );
@@ -225,7 +225,7 @@ class Ordering_Question_Type {
 		}
 
 		$user_answers = array_map(
-			function( $answer, $index ) use ( $correct_orderings ) {
+			function ( $answer, $index ) use ( $correct_orderings ) {
 				$answer['correct'] = $correct_orderings[ $index ];
 				return $answer;
 			},

@@ -46,6 +46,8 @@ class Data_Cleaner {
 	private $options = [
 		'sensei-wc-paid-courses-memberships-cancelled-orders',
 		'sensei_pro_version',
+		'sensei_pro_home_task_created_first_product',
+		'sensei_pro_home_task_configured_to_sell_course_with_woocommerce',
 	];
 
 	/**

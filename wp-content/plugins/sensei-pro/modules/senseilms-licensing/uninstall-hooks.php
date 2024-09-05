@@ -15,8 +15,8 @@ if ( defined( 'SENSEI_COMPAT_PLUGIN' ) && SENSEI_COMPAT_PLUGIN ) {
 
 add_filter(
 	'sensei_pro_data_cleaner_options',
-	function( $options ) {
-		require_once dirname( __FILE__ ) . '/includes/class-license-manager.php';
+	function ( $options ) {
+		require_once __DIR__ . '/includes/class-license-manager.php';
 		$plugin_slug = basename( SENSEI_PRO_PLUGIN_FILE, '.php' );
 		return array_merge(
 			$options,
@@ -29,9 +29,9 @@ add_filter(
 
 add_filter(
 	'sensei_pro_data_cleaner_transients',
-	function( $transients ) {
-		require_once dirname( __FILE__ ) . '/includes/class-senseilms-plugin-updater.php';
-		require_once dirname( __FILE__ ) . '/includes/class-license-manager.php';
+	function ( $transients ) {
+		require_once __DIR__ . '/includes/class-senseilms-plugin-updater.php';
+		require_once __DIR__ . '/includes/class-license-manager.php';
 		$plugin_slug = basename( SENSEI_PRO_PLUGIN_FILE, '.php' );
 		return array_merge(
 			$transients,

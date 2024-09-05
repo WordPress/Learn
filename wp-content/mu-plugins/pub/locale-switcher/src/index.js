@@ -27,7 +27,7 @@ const LocaleSwitcher = ( props ) => {
 	const closeModal = () => setOpen( false );
 	const [ value, setValue ] = useState( false );
 
-	externalButton.addEventListener( 'click', ( event ) => {
+	externalButton?.addEventListener( 'click', ( event ) => {
 		event.preventDefault();
 		openModal();
 	} );
@@ -56,12 +56,8 @@ const LocaleSwitcher = ( props ) => {
 };
 
 const initLocaleSwitcher = () => {
-	const container = document.getElementById(
-		'wporg-locale-switcher-container'
-	);
-	const externalButton = document.getElementById(
-		'wp-admin-bar-locale-switcher'
-	);
+	const container = document.getElementById( 'wporg-locale-switcher-container' );
+	const externalButton = document.getElementById( 'wp-admin-bar-locale-switcher' );
 
 	const props = {
 		externalButton,

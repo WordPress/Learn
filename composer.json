@@ -32,6 +32,10 @@
 			"url": "git@github.com:WordPress/wporg-repo-tools.git"
 		},
 		{
+			"type": "vcs",
+			"url": "git@github.com:WordPress/wporg-parent-2021.git"
+		},
+		{
 			"type": "package",
 			"package": [
 				{
@@ -53,16 +57,6 @@
 						"url": "https://meta.svn.wordpress.org/sites/",
 						"reference": "trunk/wordpress.org/public_html/wp-content/mu-plugins/pub/"
 					}
-				},
-				{
-					"name": "wordpress-meta/wporg",
-					"type": "wordpress-theme",
-					"version": "1",
-					"source": {
-						"type": "svn",
-						"url": "https://meta.svn.wordpress.org/sites/",
-						"reference": "trunk/wordpress.org/public_html/wp-content/themes/pub/wporg/"
-					}
 				}
 			]
 		},
@@ -81,16 +75,19 @@
 		"wpackagist-plugin/wordpress-importer": "*",
 		"wordpress-meta/locale-detection": "1",
 		"wordpress-meta/pub": "1",
-		"wordpress-meta/wporg": "1",
 		"dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
 		"wp-coding-standards/wpcs": "2.*",
 		"phpcompatibility/phpcompatibility-wp": "*",
 		"rmccue/requests": "^1.7",
 		"wporg/wporg-mu-plugins": "dev-build",
+		"wporg/wporg-parent-2021": "dev-build",
 		"wporg/wporg-repo-tools": "dev-trunk"
 	},
 	"scripts": {
 		"format": "phpcbf -p",
 		"lint": "phpcs"
+	},
+	"require": {
+		"wpackagist-plugin/interactive-code-block": "^0.2.1"
 	}
 }

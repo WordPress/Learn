@@ -16,8 +16,7 @@ use Sensei_WC_Paid_Courses\Courses;
  *
  * @since 2.0.0
  */
-class WooCommerce_Subscriptions
-	implements \Sensei_Course_Enrolment_Provider_Interface, \Sensei_Course_Enrolment_Provider_Debug_Interface {
+class WooCommerce_Subscriptions implements \Sensei_Course_Enrolment_Provider_Interface, \Sensei_Course_Enrolment_Provider_Debug_Interface {
 	/**
 	 * Singleton instance.
 	 *

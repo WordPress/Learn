@@ -8,9 +8,6 @@
 
 namespace Sensei_WC_Paid_Courses\Frontend;
 
-use Sensei_Utils;
-use Sensei_WC;
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -55,7 +52,7 @@ final class Quizzes {
 	 * @param string $course_link Generated HTML link to the course.
 	 * @return string
 	 */
-	public function course_signup_notice_message( $message, $course_id, $course_link ) {
+	public function course_signup_notice_message( $message, $course_id, $course_link ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed -- This is a deprecated method.
 		_deprecated_function( __METHOD__, '2.0.0' );
 
 		return $message;

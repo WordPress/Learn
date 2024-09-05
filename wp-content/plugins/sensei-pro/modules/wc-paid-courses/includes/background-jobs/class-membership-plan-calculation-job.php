@@ -297,7 +297,7 @@ class Membership_Plan_Calculation_Job implements Completable_Job {
 		];
 
 		$active_statuses = array_map(
-			function( $status ) {
+			function ( $status ) {
 				return 'wcm-' . $status;
 			},
 			wc_memberships()->get_user_memberships_instance()->get_active_access_membership_statuses()

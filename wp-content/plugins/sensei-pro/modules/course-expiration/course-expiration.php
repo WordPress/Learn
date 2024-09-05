@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-require_once dirname( __FILE__ ) . '/includes/class-course-expiration.php';
+require_once __DIR__ . '/includes/class-course-expiration.php';
 
 // Load the plugin after all the other plugins have loaded.
 add_action( 'plugins_loaded', [ Course_Expiration::class, 'init' ], 5 );

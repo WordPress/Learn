@@ -66,7 +66,11 @@ const NewProductSidebar = ( {
 
 	if ( showCreateButton ) {
 		return (
-			<Button isTertiary onClick={ () => setFormActive( true ) }>
+			<Button
+				isTertiary
+				className="sensei-wcpc-new-product__create-new-product-button"
+				onClick={ () => setFormActive( true ) }
+			>
 				{ __( 'Create a new product', 'sensei-pro' ) }
 			</Button>
 		);

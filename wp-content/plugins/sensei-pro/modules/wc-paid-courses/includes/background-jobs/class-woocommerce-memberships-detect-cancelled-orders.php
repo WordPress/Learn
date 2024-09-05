@@ -42,7 +42,7 @@ class WooCommerce_Memberships_Detect_Cancelled_Orders implements Completable_Job
 
 		\add_action(
 			self::NAME,
-			function() {
+			function () {
 				Scheduler::instance()->handle_self_scheduling_job( new self() );
 			}
 		);

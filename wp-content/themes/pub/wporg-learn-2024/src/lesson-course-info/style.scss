@@ -1,0 +1,14 @@
+.wp-block-wporg-learn-lesson-course-info {
+	white-space: nowrap;
+	overflow-x: hidden;
+	text-overflow: ellipsis;
+	max-width: 100%;
+
+	> a {
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+}

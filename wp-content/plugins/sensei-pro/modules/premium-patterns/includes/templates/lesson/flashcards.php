@@ -10,6 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
+<!-- wp:paragraph {"placeholder":"<?php esc_html_e( 'Write lesson content...', 'sensei-pro' ); ?>","className":"sensei-content-description"} -->
+<p class="sensei-content-description"></p>
+<!-- /wp:paragraph -->
 <!-- wp:sensei-pro/flashcard -->
 <div class="sensei-lms-flashcards__card-wrapper wp-block-sensei-pro-flashcard" data-sensei-wp-block="{}">
 	<div class="sensei-lms-flip sensei-lms-flip--flipped-front">

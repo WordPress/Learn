@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "wporg-learn/learning-duration",
+	"version": "0.1.0",
+	"title": "Learning Duration",
+	"category": "widgets",
+	"icon": "clock",
+	"description": "Displays the duration of a learning resource.",
+	"usesContext": [ "postType", "postId" ],
+	"attributes": {},
+	"supports": {
+		"html": false,
+		"typography": {
+			"lineHeight": true,
+			"fontSize": true
+		},
+		"color": {
+			"text": true
+		}
+	},
+	"textdomain": "wporg-learn",
+	"editorScript": "file:../../build/learning-duration.js"
+}

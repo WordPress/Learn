@@ -19,6 +19,13 @@ class Hotspots_Block {
 	 * Hotspots_Block constructor.
 	 */
 	public function __construct() {
+		add_action( 'init', [ $this, 'init' ] );
+	}
+
+	/**
+	 * Initialize block.
+	 */
+	public function init() {
 		register_block_type_from_metadata(
 			SENSEI_IB_PLUGIN_DIR_PATH . 'assets/hotspots-block/',
 			[

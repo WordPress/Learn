@@ -30,7 +30,11 @@ import { ReactComponent as IconRequired } from '../../icons/required.svg';
  */
 function isSupportedVideoBlock( blockName, attributes ) {
 	// If it's not a video or video embed block then it does not get a required toggle.
-	if ( ! [ 'core/video', 'core/embed' ].includes( blockName ) ) {
+	if (
+		! [ 'core/video', 'videopress/video', 'core/embed' ].includes(
+			blockName
+		)
+	) {
 		return false;
 	}
 
@@ -60,7 +64,11 @@ function isSupportedVideoBlock( blockName, attributes ) {
  * @return {Object} Filtered block settings.
  */
 export function addVideoRequiredSupport( settings ) {
-	if ( ! [ 'core/video', 'core/embed' ].includes( settings.name ) ) {
+	if (
+		! [ 'core/video', 'videopress/video', 'core/embed' ].includes(
+			settings.name
+		)
+	) {
 		return settings;
 	}
 
@@ -191,6 +199,7 @@ export function addVideoSaveProps( extraProps, blockType, attributes ) {
 		return extraProps;
 	}
 
+	// Notice that it also has the same logic for the videopress/video in the PHP because the hook is not called for this block (the `save` is `null`).
 	if ( true === attributes.required ) {
 		extraProps[ 'data-sensei-is-required' ] = true;
 	}

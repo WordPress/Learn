@@ -91,5 +91,4 @@ class WPCOM_Marketplace_License_Manager {
 		// to the webhook for it.
 		return array_merge( $sensei_wpcom_product_slugs, self::SENSEI_WPCOM_PRODUCTS, [ 'woothemes-sensei' ] );
 	}
-
 }

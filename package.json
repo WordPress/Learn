@@ -6,33 +6,35 @@
 	"license": "GPL-2.0-or-later",
 	"private": true,
 	"dependencies": {
-		"@wordpress/env": "4.1.3"
+		"@wordpress/env": "9.3.0",
+		"@wordpress/scripts": "27.9.0",
+		"@wordpress/stylelint-config": "21.34.0"
 	},
 	"workspaces": {
 		"packages": [
 			"wp-content/mu-plugins/pub/locale-switcher",
 			"wp-content/plugins/wporg-learn",
-			"wp-content/themes/pub/wporg-learn-2020"
+			"wp-content/themes/pub/wporg-learn-2024"
 		],
 		"nohoist": [
 			"**/grunt-*"
 		]
 	},
 	"scripts": {
+		"build": "yarn workspace wporg-locale-switcher build && yarn workspace wporg-learn-2024 build && yarn workspace wporg-learn-plugin build",
+		"create": "composer install && yarn setup:tools && yarn build && yarn run install:env",
+		"format:php": "composer run format",
 		"install:env": "./bin/index.sh",
 		"install:githooks": "mv .git/hooks .git/hooks_orig && ln -s ../.githooks .git/hooks",
-		"create": "composer install && yarn workspaces run build && yarn run install:env",
-		"wp-env": "wp-env",
+		"lint": "yarn lint:css && yarn lint:js && yarn lint:php",
+		"lint:css": "yarn workspaces run lint:css",
+		"lint:js": "yarn workspaces run lint:js",
 		"lint:php": "composer run lint",
-		"format:php": "composer run format",
-		"lint:css": "yarn workspace wporg-learn-plugin lint:css && yarn workspace wporg-learn-theme lint:css",
-		"lint:js": "yarn workspace wporg-learn-plugin lint:js",
-		"watch:theme": "yarn workspace wporg-learn-theme start",
-		"watch:plugin": "yarn workspace wporg-learn-plugin start",
-		"setup:tools": "exit 0"
+		"setup:tools": "TEXTDOMAIN=wporg-learn composer exec update-configs",
+		"start:locale-switcher": "yarn workspace wporg-locale-switcher start",
+		"start:plugin": "yarn workspace wporg-learn-plugin start",
+		"start:theme": "yarn workspace wporg-learn-2024 start",
+		"wp-env": "wp-env"
 	},
-	"main": "index.js",
-	"devDependencies": {
-		"@wordpress/scripts": "^19.2.2"
-	}
+	"main": "index.js"
 }

@@ -159,7 +159,7 @@ class Course_Showcase_CPT_List {
 	public function hydrate_status_cache(): void {
 		global $wp_query;
 
-		if ( ! is_admin() ) {
+		if ( ! is_admin() || ! function_exists( 'get_current_screen' ) ) {
 			return;
 		}
 
@@ -220,5 +220,4 @@ class Course_Showcase_CPT_List {
 
 		return $actions;
 	}
-
 }

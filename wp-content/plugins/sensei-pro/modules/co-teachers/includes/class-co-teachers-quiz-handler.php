@@ -204,7 +204,7 @@ class Co_Teachers_Quiz_Handler {
 			[ 'lesson', 'course', 'quiz' ],
 			'is_coteacher',
 			[
-				'get_callback'    => function( $post ) {
+				'get_callback'    => function ( $post ) {
 					return Co_Teachers::instance()->is_coteacher( get_current_user_id(), get_post( $post['id'] ) );
 				},
 				'update_callback' => null,

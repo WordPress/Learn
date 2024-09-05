@@ -66,7 +66,6 @@ class Scd_Ext_Lesson_Admin {
 
 		// Admin notices.
 		add_action( 'admin_notices', [ $this, 'lesson_admin_notices' ], 80 );
-
 	}
 
 	/**
@@ -291,12 +290,10 @@ class Scd_Ext_Lesson_Admin {
 	 * Listens to the save_post hook and saves the data accordingly
 	 *
 	 * @since  1.0.0
-	 * @param string $post_id
-	 * @return string $post_id
+	 * @param int $post_id
+	 * @return int $post_id
 	 */
 	public function save_course_drip_meta_box_data( $post_id ) {
-		global $post, $messages;
-
 		// Verify if this is an auto save routine.
 		// If it is our form has not been submitted, so we dont want to do anything.
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
@@ -304,7 +301,7 @@ class Scd_Ext_Lesson_Admin {
 		}
 
 		// Verify the nonce before proceeding.
-		if ( get_post_type() !== 'lesson'
+		if ( get_post_type( $post_id ) !== 'lesson'
 			|| ! isset( $_POST[ 'woo_' . $this->token . '_noonce' ] )
 			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- nounce check
 			|| ! wp_verify_nonce( wp_unslash( $_POST[ 'woo_' . $this->token . '_noonce' ] ) )

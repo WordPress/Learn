@@ -206,7 +206,7 @@ class Wizard {
 			add_menu_page(
 				'Sensei',
 				'Sensei',
-				'install_plugin',
+				'install_plugins',
 				'sensei-pro',
 				'',
 				// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode -- Not obfuscating any sensitive data.
@@ -221,7 +221,7 @@ class Wizard {
 			'sensei-pro',
 			$locales['page_title'],
 			$locales['menu_title'],
-			'administrator',
+			'install_plugins',
 			self::get_licensing_page_slug( $this->setup_context->get_plugin_slug() ),
 			[ $this, 'render_wizard_page' ]
 		);

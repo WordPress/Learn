@@ -1,0 +1,41 @@
+# This workflow is based on the Community Team's similar workflow
+# https://github.com/WordPress/Community-Team/blob/trunk/.github/workflows/close-issue-on-publish.yml
+
+name: Close and label published issues
+
+on:
+  issue_comment:
+    types: [created, edited]
+
+jobs:
+  publish-commment:
+    runs-on: ubuntu-latest
+    if: contains(github.event.comment.body, '//publish')
+    steps:
+      - name: Remove co-host label
+        if: contains(github.event.issue.labels.*.name, '[Content] Needs Co-host')
+        shell: bash
+        run: |
+          gh issue edit -R "${{ github.repository }}" \
+          --remove-label "[Content] Needs Co-host" \
+          "${{ github.event.issue.number }}"
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Add published labels
+        shell: bash
+        run: |
+          gh issue edit -R "${{ github.repository }}" \
+          --add-label "[Content] Published" \
+          "${{ github.event.issue.number }}"
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Close Issue
+        shell: bash
+        run: |
+          gh issue close -R "${{ github.repository }}" \
+          --reason "completed" \
+          "${{ github.event.issue.number }}"
+        env:
+          GH_TOKEN: ${{ github.token }}

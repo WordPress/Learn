@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { Placeholder } from '@wordpress/components';
 
-import { useIsBlockInSidebar, useGetCurrentPostType } from '../../hooks';
+import { useGetCurrentPostType, useIsBlockInSidebar } from '../../hooks';
 import { getBlockPlaceholderMessage } from '../../utils';
 
 export default function Edit( { clientId } ) {

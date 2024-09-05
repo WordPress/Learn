@@ -143,14 +143,16 @@ const QuestionEdit = ( props ) => {
 						templateLock={ true }
 					/>
 				</QuestionContext.Provider>
-				<div className="wp-block-button sensei-lms-interactive-block-question__submit-button">
-					<button
-						type="button"
-						className="wp-block-button__link"
-						onClick={ ( e ) => e.preventDefault() }
-					>
-						{ __( 'Submit', 'sensei-pro' ) }
-					</button>
+				<div className="wp-block-buttons">
+					<div className="wp-block-button sensei-lms-interactive-block-question__submit-button">
+						<button
+							type="button"
+							className="wp-block-button__link"
+							onClick={ ( e ) => e.preventDefault() }
+						>
+							{ __( 'Submit', 'sensei-pro' ) }
+						</button>
+					</div>
 				</div>
 				<BlockControls>
 					<>

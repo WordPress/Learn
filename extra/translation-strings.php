@@ -8,6 +8,30 @@
  * ⚠️ Do not require or include this file anywhere.
  */
 
+/* translators: https://learn.wordpress.org/course-category/contributing-to-wordpress/ */
+_x( 'Contributing to WordPress', 'Course Categories term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/course-category/contributing-to-wordpress/ */
+_x( 'WordPress is built and managed by a wide community of individuals from all over the world. These courses will help you find your feet in the project and help you get involved in the mission to democratize publishing.', 'Course Categories term description', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/course-category/developing-with-wordpress/ */
+_x( 'Developing with WordPress', 'Course Categories term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/course-category/developing-with-wordpress/ */
+_x( 'WordPress opens up opportunities for developers to modify, extend, and experiment beyond its publishing capabilities. These courses will teach you the more technical aspects of working with WordPress, from theme development to building plugins and more.', 'Course Categories term description', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/course-category/introduction-to-wordpress/ */
+_x( 'Introduction to WordPress', 'Course Categories term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/course-category/introduction-to-wordpress/ */
+_x( 'WordPress is a powerful content management system with a range of innovative features. In the following courses, you\'ll get an introduction to WordPress and learn everything you need to know to get going with your website. So whether you\'re a novice or simply want to know how to set up a new site, we have you covered.', 'Course Categories term description', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/course-category/using-the-site-editor/ */
+_x( 'Using the Site Editor', 'Course Categories term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/course-category/using-the-site-editor/ */
+_x( 'If you\'ve ever wanted to edit all parts of your site easily, the Site Editor makes that possible. First launched in WordPress 5.9, the Site Editor includes features like templates, template parts, theme blocks, and more. The courses below will teach you all about using the Site Editor and its features to help you build your perfect site.', 'Course Categories term description', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/lesson-tag/deputies/ */
+_x( 'deputies', 'Lesson Tags term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/lesson-tag/gpl/ */
+_x( 'GPL', 'Lesson Tags term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/lesson-tag/homepage/ */
+_x( 'homepage', 'Lesson Tags term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/lesson-tag/licensing/ */
+_x( 'licensing', 'Lesson Tags term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/audience/all/ */
 _x( 'All', 'Audiences term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/audience/contributors/ */
@@ -50,16 +74,16 @@ _x( 'Lecture', 'Instruction Types term name', 'wporg-learn' );
 _x( 'Show &amp; Tell', 'Instruction Types term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/instruction_type/tutorial/ */
 _x( 'Tutorial', 'Instruction Types term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/level/advanced/ */
+/* translators: https://learn.wordpress.org/?wporg_lesson_level=advanced */
 _x( 'Advanced', 'Experience Levels term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/level/any/ */
-_x( 'Any', 'Experience Levels term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/level/beginner/ */
+/* translators: https://learn.wordpress.org/?wporg_lesson_level=beginner */
 _x( 'Beginner', 'Experience Levels term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/level/intermediate/ */
+/* translators: https://learn.wordpress.org/?wporg_lesson_level=intermediate */
 _x( 'Intermediate', 'Experience Levels term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/lesson-plan-series/test/ */
 _x( 'Test', 'Lesson Plan Series term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/?wporg_lesson_visibility=hidden */
+_x( 'Hidden from archives and search', 'Visibility term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/tutorials/como-contribuir-a-wordpress/ */
 _x( 'Cómo contribuir a WordPress', 'Tutorial Series term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/tutorials/como-usar-wordpress/ */
@@ -139,6 +163,12 @@ _x( '6.2', 'WordPress Version term name', 'wporg-learn' );
 _x( '6.3', 'WordPress Version term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_wp_version/6-4/ */
 _x( '6.4', 'WordPress Version term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/wporg_wp_version/6-5/ */
+_x( '6.5', 'WordPress Version term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/wporg_wp_version/6-6/ */
+_x( '6.6', 'WordPress Version term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/wporg_wp_version/6-7/ */
+_x( '6.7', 'WordPress Version term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/accessibility/ */
 _x( 'accessibility', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/add-new-plugin/ */
@@ -341,113 +371,93 @@ _x( 'social media', 'Included Content term name', 'wporg-learn' );
 _x( 'static block', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/sticky-posts/ */
 _x( 'sticky posts', 'Included Content term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/block-development/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=block-development */
 _x( 'Block Development', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/block-editor/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=block-editor */
 _x( 'Block Editor', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/community-team/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=community-team */
 _x( 'Community Team', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/content-templates/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=content-templates */
 _x( 'Content Templates', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/content-templates/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=content-templates */
 _x( 'How to get started writing lesson plans, templates for lessons, guidelines for Learn.', 'Topics term description', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/contributing/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=contributing */
 _x( 'Contributing', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/core/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=core */
 _x( 'Core', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/css/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=css */
 _x( 'CSS', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/dashboard/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=dashboard */
 _x( 'Dashboard', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/diversity/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=diversity */
 _x( 'Diversity', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/ecommerce/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=ecommerce */
 _x( 'eCommerce', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/extending-wordpress/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=extending-wordpress */
 _x( 'Extending WordPress', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/extending-wordpress/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=extending-wordpress */
 _x( 'Developing or customizing with code.', 'Topics term description', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/general/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=general */
 _x( 'General', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/general/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=general */
 _x( 'History of WordPress, About the Community, Open Source, or other broad overview topics.', 'Topics term description', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/getting-started/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=getting-started */
 _x( 'Getting Started', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/gutenberg/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=gutenberg */
 _x( 'Gutenberg', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/hosting/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=hosting */
 _x( 'Hosting', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/logo/ */
-_x( 'logo', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/media/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=media */
 _x( 'Media', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/meetups/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=meetups */
 _x( 'Meetups', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/open-source/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=open-source */
 _x( 'Open-Source', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/openverse/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=openverse */
 _x( 'Openverse', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/plugin-development/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=plugin-development */
 _x( 'Plugin Development', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/publishing/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=publishing */
 _x( 'Publishing', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/rss/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=rss */
 _x( 'RSS', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/security/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=security */
 _x( 'Security', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/site-editor/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=site-editor */
 _x( 'Site Editor', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/site-management/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=site-management */
 _x( 'Site Management', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/site-title/ */
-_x( 'site title', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/speaking-at-events/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=speaking-at-events */
 _x( 'Speaking at Events', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/theme-development/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=theme-development */
 _x( 'Theme Development', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/theme-json/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=theme-json */
 _x( 'theme.json', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/training-team/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=training-team */
 _x( 'Training Team', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/translation/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=translation */
 _x( 'Translation', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/troubleshooting/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=troubleshooting */
 _x( 'Troubleshooting', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/troubleshooting/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=troubleshooting */
 _x( 'Sessions on WordPress Troubleshooting.', 'Topics term description', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/tv-team/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=tv-team */
 _x( 'TV Team', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/ui/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=ui */
 _x( 'UI', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/using-plugins/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=using-plugins */
 _x( 'Using Plugins', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/using-themes/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=using-themes */
 _x( 'Using Themes', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/using-wordpress/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=using-wordpress */
 _x( 'Using WordPress', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/topic/wordpress/ */
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=wordpress */
 _x( 'WordPress', 'Topics term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/course-category/contributing-to-wordpress/ */
-_x( 'Contributing to WordPress', 'Course Categories term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/course-category/contributing-to-wordpress/ */
-_x( 'WordPress is built and managed by a wide community of individuals from all over the world. These courses will help you find your feet in the project and help you get involved in the mission to democratize publishing.', 'Course Categories term description', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/course-category/developing-with-wordpress/ */
-_x( 'Developing with WordPress', 'Course Categories term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/course-category/developing-with-wordpress/ */
-_x( 'WordPress opens up opportunities for developers to modify, extend, and experiment beyond its publishing capabilities. These courses will teach you the more technical aspects of working with WordPress, from theme development to building plugins and more.', 'Course Categories term description', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/course-category/introduction-to-wordpress/ */
-_x( 'Introduction to WordPress', 'Course Categories term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/course-category/introduction-to-wordpress/ */
-_x( 'WordPress is a powerful content management system with a range of innovative features. In the following courses, you\'ll get an introduction to WordPress and learn everything you need to know to get going with your website. So whether you\'re a novice or simply want to know how to set up a new site, we have you covered.', 'Course Categories term description', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/course-category/using-the-site-editor/ */
-_x( 'Using the Site Editor', 'Course Categories term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/course-category/using-the-site-editor/ */
-_x( 'If you\'ve ever wanted to edit all parts of your site easily, the Site Editor makes that possible. First launched in WordPress 5.9, the Site Editor includes features like templates, template parts, theme blocks, and more. The courses below will teach you all about using the Site Editor and its features to help you build your perfect site.', 'Course Categories term description', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/lesson-tag/deputies/ */
-_x( 'deputies', 'Lesson Tags term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/lesson-tag/gpl/ */
-_x( 'GPL', 'Lesson Tags term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/lesson-tag/homepage/ */
-_x( 'homepage', 'Lesson Tags term name', 'wporg-learn' );
-/* translators: https://learn.wordpress.org/lesson-tag/licensing/ */
-_x( 'licensing', 'Lesson Tags term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/learning-pathway/developer/ */
+_x( 'Develop with WordPress', 'Learning Pathways term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/learning-pathway/developer/ */
+_x( 'Jump into the code and learn how to extend the software.', 'Learning Pathways term description', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/learning-pathway/user/ */
+_x( 'Start using WordPress', 'Learning Pathways term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/learning-pathway/user/ */
+_x( 'Get the basics to create and manage your own website.', 'Learning Pathways term description', 'wporg-learn' );

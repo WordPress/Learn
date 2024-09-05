@@ -77,11 +77,11 @@ class Co_Teachers {
 		}
 
 		// Requirements.
-		require_once dirname( __FILE__ ) . '/class-co-teachers-meta-box.php';
-		require_once dirname( __FILE__ ) . '/class-co-teachers-permissions.php';
-		require_once dirname( __FILE__ ) . '/class-co-teachers-quiz-handler.php';
-		require_once dirname( __FILE__ ) . '/class-co-teachers-compat.php';
-		require_once dirname( __FILE__ ) . '/class-co-teachers-rest-api.php';
+		require_once __DIR__ . '/class-co-teachers-meta-box.php';
+		require_once __DIR__ . '/class-co-teachers-permissions.php';
+		require_once __DIR__ . '/class-co-teachers-quiz-handler.php';
+		require_once __DIR__ . '/class-co-teachers-compat.php';
+		require_once __DIR__ . '/class-co-teachers-rest-api.php';
 		Co_Teachers_Meta_Box::init();
 		Co_Teachers_Permissions::init();
 		Co_Teachers_Quiz_Handler::init();
@@ -259,10 +259,9 @@ class Co_Teachers {
 	/**
 	 * Check if current user can manage co-teachers or not.
 	 *
-	 * @param int $course_id The course ID.
 	 * @return bool
 	 */
-	public function can_current_user_manage_coteachers( $course_id ): bool {
+	public function can_current_user_manage_coteachers(): bool {
 		return current_user_can( 'manage_options' );
 	}
 

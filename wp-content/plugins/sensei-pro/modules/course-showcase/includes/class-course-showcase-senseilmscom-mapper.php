@@ -305,12 +305,12 @@ class Course_Showcase_SenseiLMSCom_Mapper {
 	/**
 	 * Get the error and status code label.
 	 *
-	 * @param string  $status_code The status code slug.
-	 * @param ?string $default The default value to return.
+	 * @param string  $status_code   The status code slug.
+	 * @param ?string $default_label The default label to return.
 	 *
 	 * @return string
 	 */
-	public function get_status_code_label( $status_code, $default = null ) {
+	public function get_status_code_label( $status_code, $default_label = null ) {
 		$labels = [
 			// System errors.
 			'failed-verification'         => __( 'The course could not be verified.', 'sensei-pro' ),
@@ -331,10 +331,10 @@ class Course_Showcase_SenseiLMSCom_Mapper {
 			'site_icon_download_error'    => __( 'The site icon could not be downloaded. Is it publicly available?', 'sensei-pro' ),
 		];
 
-		if ( null === $default ) {
-			$default = __( 'Unknown', 'sensei-pro' );
+		if ( null === $default_label ) {
+			$default_label = __( 'Unknown', 'sensei-pro' );
 		}
 
-		return $labels[ $status_code ] ?? $default;
+		return $labels[ $status_code ] ?? $default_label;
 	}
 }

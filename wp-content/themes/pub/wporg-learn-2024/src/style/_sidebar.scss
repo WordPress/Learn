@@ -1,0 +1,18 @@
+.wporg-learn-sidebar {
+	--wp--preset--spacing--40: 40px;
+
+	min-width: 280px;
+
+	.sensei-block-wrapper {
+		margin-top: unset;
+		margin-bottom: unset;
+	}
+}
+
+.wporg-learn-sidebar-meta-info {
+	.wporg-learn-sidebar-all-courses {
+		a {
+			text-decoration: none;
+		}
+	}
+}

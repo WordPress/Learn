@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-require_once dirname( __FILE__ ) . '/includes/class-premium-patterns.php';
+require_once __DIR__ . '/includes/class-premium-patterns.php';
 
 // Load the plugin after all the other plugins have loaded.
 add_action( 'plugins_loaded', [ Premium_Patterns::class, 'init' ], 5 );

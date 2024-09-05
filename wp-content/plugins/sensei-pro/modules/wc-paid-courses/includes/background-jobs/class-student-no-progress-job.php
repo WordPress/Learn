@@ -193,4 +193,3 @@ class Student_No_Progress_Job implements Completable_Job {
 		return 'default';
 	}
 }
-

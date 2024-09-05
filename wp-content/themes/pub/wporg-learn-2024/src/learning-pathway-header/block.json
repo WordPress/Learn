@@ -1,0 +1,32 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "wporg-learn/learning-pathway-header",
+	"version": "0.1.0",
+	"title": "Learning Pathway Header",
+	"category": "widgets",
+	"icon": "smiley",
+	"description": "Shows the header for a Learning Pathway taxonomy page",
+	"usesContext": [],
+	"attributes": {
+		"learningPathwaySlug": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"html": false,
+		"spacing": {
+			"margin": [
+				"bottom"
+			]
+		},
+		"align": [
+			"wide",
+			"full"
+		]
+	},
+	"textdomain": "wporg-learn",
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css"
+}

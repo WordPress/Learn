@@ -103,7 +103,7 @@ class Interactive_Video_Block {
 			$required_count = substr_count( $match, '"required":true' );
 
 			if ( $required_count > 0 ) {
-				$break_points_with_required_blocks++;
+				++$break_points_with_required_blocks;
 			}
 
 			$required_blocks_inside_break_point_count += $required_count;

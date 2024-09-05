@@ -6,6 +6,7 @@ use WP_Query;
 use function WordPressdotorg\Locales\get_locales_with_english_names;
 use function WordPressdotorg\Locales\get_locale_name_from_code;
 use function WPOrg_Learn\Post_Meta\get_available_post_type_locales;
+use function WPOrg_Learn\Taxonomy\get_available_taxonomy_terms;
 
 defined( 'WPINC' ) || die();
 
@@ -33,6 +34,7 @@ foreach ( array( 'lesson-plan', 'wporg_workshop', 'course', 'lesson' ) as $pt ) 
 add_action( 'pre_get_posts', __NAMESPACE__ . '\handle_list_table_views' );
 add_action( 'bulk_edit_custom_box', __NAMESPACE__ . '\add_language_bulk_edit_field', 10, 2 );
 add_action( 'save_post', __NAMESPACE__ . '\language_bulk_edit_save' );
+add_filter( 'sensei_course_custom_navigation_tabs', __NAMESPACE__ . '\add_sensei_course_custom_navigation_tabs' );
 
 /**
  * Show a notice on taxonomy term screens about terms being translatable.
@@ -223,7 +225,7 @@ function add_workshop_list_table_sortable_columns( $sortable_columns ) {
 }
 
 /**
- * Add filtering controls for the tutorial and lesson plan list tables.
+ * Add filtering controls for the tutorial, lesson plan, lesson and course list tables.
  *
  * @param string $post_type
  * @param string $which
@@ -231,37 +233,76 @@ function add_workshop_list_table_sortable_columns( $sortable_columns ) {
  * @return void
  */
 function add_admin_list_table_filters( $post_type, $which ) {
-	if ( ( 'wporg_workshop' !== $post_type && 'lesson-plan' !== $post_type ) || 'top' !== $which ) {
+	if (
+		(
+			'wporg_workshop' !== $post_type &&
+			'lesson-plan' !== $post_type &&
+			'lesson' !== $post_type &&
+			'course' !== $post_type
+		)
+		|| 'top' !== $which
+	) {
 		return;
 	}
 
-	$post_status       = filter_input( INPUT_GET, 'post_status', FILTER_SANITIZE_STRING );
-	$available_locales = get_available_post_type_locales( 'language', $post_type, $post_status );
-	$language          = filter_input( INPUT_GET, 'language', FILTER_SANITIZE_STRING );
+	$audience    = filter_input( INPUT_GET, 'wporg_audience', FILTER_SANITIZE_STRING );
+	$language    = filter_input( INPUT_GET, 'language', FILTER_SANITIZE_STRING );
+	$level       = filter_input( INPUT_GET, 'wporg_experience_level', FILTER_SANITIZE_STRING );
+	$post_status = filter_input( INPUT_GET, 'post_status', FILTER_SANITIZE_STRING );
+
+	$available_audiences = get_available_taxonomy_terms( 'audience', $post_type, $post_status );
+	$available_levels    = get_available_taxonomy_terms( 'level', $post_type, $post_status );
+	$available_locales   = get_available_post_type_locales( 'language', $post_type, $post_status );
 
 	?>
-	<label for="filter-by-language" class="screen-reader-text">
-		<?php esc_html_e( 'Filter by language', 'wporg-learn' ); ?>
-	</label>
-	<select id="filter-by-language" name="language">
-		<option value=""<?php selected( ! $language ); ?>><?php esc_html_e( 'Any language', 'wporg-learn' ); ?></option>
-		<?php foreach ( $available_locales as $code => $name ) : ?>
-			<option value="<?php echo esc_attr( $code ); ?>"<?php selected( $code, $language ); ?>>
-				<?php
-				printf(
-					'%s [%s]',
-					esc_html( $name ),
-					esc_html( $code )
-				);
-				?>
-			</option>
-		<?php endforeach; ?>
-	</select>
+
+		<label for="filter-by-language" class="screen-reader-text">
+			<?php esc_html_e( 'Filter by language', 'wporg-learn' ); ?>
+		</label>
+		<select id="filter-by-language" name="language">
+			<option value=""<?php selected( ! $language ); ?>><?php esc_html_e( 'Any language', 'wporg-learn' ); ?></option>
+			<?php foreach ( $available_locales as $code => $name ) : ?>
+				<option value="<?php echo esc_attr( $code ); ?>"<?php selected( $code, $language ); ?>>
+					<?php
+					printf(
+						'%s [%s]',
+						esc_html( $name ),
+						esc_html( $code )
+					);
+					?>
+				</option>
+			<?php endforeach; ?>
+		</select>
+
+		<label for="filter-by-audience" class="screen-reader-text">
+			<?php esc_html_e( 'Filter by audience', 'wporg-learn' ); ?>
+		</label>
+		<select id="filter-by-audience" name="wporg_audience">
+			<option value=""<?php selected( ! $audience ); ?>><?php esc_html_e( 'Any audience', 'wporg-learn' ); ?></option>
+			<?php foreach ( $available_audiences as $code => $name ) : ?>
+				<option value="<?php echo esc_attr( $code ); ?>"<?php selected( $code, $audience ); ?>>
+					<?php echo esc_html( $name ); ?>
+				</option>
+			<?php endforeach; ?>
+		</select>
+
+		<label for="filter-by-level" class="screen-reader-text">
+			<?php esc_html_e( 'Filter by level', 'wporg-learn' ); ?>
+		</label>
+		<select id="filter-by-level" name="wporg_experience_level">
+			<option value=""<?php selected( ! $level ); ?>><?php esc_html_e( 'Any level', 'wporg-learn' ); ?></option>
+			<?php foreach ( $available_levels as $code => $name ) : ?>
+				<option value="<?php echo esc_attr( $code ); ?>"<?php selected( $code, $level ); ?>>
+					<?php echo esc_html( $name ); ?>
+				</option>
+			<?php endforeach; ?>
+		</select>
+
 	<?php
 }
 
 /**
- * Alter the query to include tutorial and lesson plan list table filters.
+ * Alter the query to include tutorial, lesson plan, lesson and course list table filters.
  *
  * @param WP_Query $query
  *
@@ -278,9 +319,46 @@ function handle_admin_list_table_filters( WP_Query $query ) {
 		return;
 	}
 
-	if ( 'edit-wporg_workshop' === $current_screen->id || 'edit-lesson-plan' === $current_screen->id ) {
+	if (
+		'edit-wporg_workshop' === $current_screen->id ||
+		'edit-lesson-plan' === $current_screen->id ||
+		'edit-lesson' === $current_screen->id ||
+		'edit-course' === $current_screen->id
+	) {
+		$audience = filter_input( INPUT_GET, 'wporg_audience', FILTER_SANITIZE_STRING );
 		$language = filter_input( INPUT_GET, 'language', FILTER_SANITIZE_STRING );
+		$level    = filter_input( INPUT_GET, 'wporg_experience_level', FILTER_SANITIZE_STRING );
 
+		// Tax queries
+		$tax_query = $query->get( 'tax_query', array() );
+
+		if ( $audience ) {
+			$tax_query[] = array(
+				'relation' => 'AND',
+				array(
+					'taxonomy' => 'audience',
+					'field'    => 'slug',
+					'terms'    => $audience,
+				),
+			);
+		}
+
+		if ( $level ) {
+			$tax_query[] = array(
+				'relation' => 'AND',
+				array(
+					'taxonomy' => 'level',
+					'field'    => 'slug',
+					'terms'    => $level,
+				),
+			);
+		}
+
+		if ( ! empty( $tax_query ) ) {
+			$query->set( 'tax_query', $tax_query );
+		}
+
+		// Meta queries
 		if ( $language ) {
 			$meta_query = $query->get( 'meta_query', array() );
 
@@ -473,4 +551,26 @@ function language_bulk_edit_save( $post_id ) {
 	}
 
 	update_post_meta( $post_id, 'language', $_REQUEST['language'] );
+}
+
+/**
+ * Add custom navigation tabs for Sensei courses.
+ *
+ * @param array $tabs The existing navigation tabs.
+ * @return array The modified navigation tabs.
+ */
+function add_sensei_course_custom_navigation_tabs( $tabs ) {
+	$tabs['learning-pathways'] = array(
+		'label'     => __( 'Learning Pathways', 'wporg-learn' ),
+		'url'       => admin_url( 'edit-tags.php?taxonomy=learning-pathway&post_type=course' ),
+		'screen_id' => 'edit-learning-pathway',
+	);
+
+	$tabs['topics'] = array(
+		'label'     => __( 'Topics', 'wporg-learn' ),
+		'url'       => admin_url( 'edit-tags.php?taxonomy=topic&post_type=course' ),
+		'screen_id' => 'edit-topic',
+	);
+
+	return $tabs;
 }

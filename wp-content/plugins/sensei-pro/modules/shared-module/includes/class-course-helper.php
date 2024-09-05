@@ -47,5 +47,4 @@ class Course_Helper {
 		}
 		return null;
 	}
-
 }
