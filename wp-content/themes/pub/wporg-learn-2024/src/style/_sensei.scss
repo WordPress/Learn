@@ -105,7 +105,24 @@ body.sensei {
 
 			.sensei-lms-course-navigation-lesson__status {
 				margin-top: 6px;
+
+				&[aria-label="Preview"] {
+					display: none;
+
+					+ .sensei-lms-course-navigation-lesson__title {
+						padding-left: 0;
+						margin-left: 18px;
+						text-decoration: none;
+						display: list-item;
+						list-style-type: disc;
+						list-style-position: outside;
+					}
+				}
 			}
+		}
+
+		.sensei-lms-course-navigation-lesson__extra {
+			display: none;
 		}
 	}
 
