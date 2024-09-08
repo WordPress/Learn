@@ -337,47 +337,73 @@ body.sensei {
 				padding: 17px 32px !important;
 			}
 
-			.sensei-quiz-actions-primary .sensei-quiz-action {
-				background-color: var(--wp--custom--color--green-50);
-				border-color: transparent !important;
+			.wp-block-sensei-lms-quiz-actions {
 
-				&:hover {
-					background-color: var(--wp--custom--color--green-60);
+				@media screen and (max-width: 782px) {
+					flex-direction: column;
+					gap: var(--wp--preset--spacing--20);
 				}
 
-				> button {
-					&:focus,
-					&:focus-visible {
-						outline: var(--wp--custom--color--green-50);
+				.sensei-quiz-actions-primary {
+
+					@media screen and (max-width: 782px) {
+						width: 100%;
+					}
+
+					.sensei-quiz-action {
+						background-color: var(--wp--custom--color--green-50);
+						border-color: transparent !important;
+
+						&:hover {
+							background-color: var(--wp--custom--color--green-60);
+						}
+
+						> button {
+							&:focus,
+							&:focus-visible {
+								outline: var(--wp--custom--color--green-50);
+							}
+						}
 					}
 				}
-			}
 
-			.sensei-quiz-actions-secondary {
-				gap: var(--wp--preset--spacing--20);
+				.sensei-quiz-actions-secondary {
 
-				.sensei-quiz-action {
-					border: solid 1px var(--sensei-secondary-color);
-					border-radius: 2px;
-
-					&:hover {
-						background-color: var(--sensei-button-outline-hover-color);
+					@media screen and (max-width: 782px) {
+						flex-direction: column;
+						width: 100%;
 					}
+					gap: var(--wp--preset--spacing--20);
 
-					> button {
-						color: var(--sensei-primary-color);
-						text-decoration: none !important;
+					.sensei-quiz-action {
+						border: solid 1px var(--sensei-secondary-color);
+						border-radius: 2px;
+						text-align: center;
 
-						&:focus,
-						&:focus-visible {
-							background-color: var(--wp--custom--button--outline--focus--color--background);
-							outline: -webkit-focus-ring-color auto 1px;
-							color: var(--wp--custom--button--outline--hover--color--text);
-							box-shadow: inset 0 0 0 3px var(--wp--preset--color--white);
+						@media screen and (max-width: 782px) {
+							width: 100%;
+						}
 
-							&:hover {
-								background-color: var(--sensei-button-outline-hover-color);
-								color: var(--sensei-primary-color);
+						&:hover {
+							background-color: var(--sensei-button-outline-hover-color);
+						}
+
+						> button {
+							color: var(--sensei-primary-color);
+							text-decoration: none !important;
+							width: 100%;
+
+							&:focus,
+							&:focus-visible {
+								background-color: var(--wp--custom--button--outline--focus--color--background);
+								outline: -webkit-focus-ring-color auto 1px;
+								color: var(--wp--custom--button--outline--hover--color--text);
+								box-shadow: inset 0 0 0 3px var(--wp--preset--color--white);
+
+								&:hover {
+									background-color: var(--sensei-button-outline-hover-color);
+									color: var(--sensei-primary-color);
+								}
 							}
 						}
 					}
