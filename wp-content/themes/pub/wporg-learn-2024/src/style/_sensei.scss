@@ -12,6 +12,7 @@ body.sensei {
 	--sensei-course-progress-bar-inner-color: var(--wp--custom--color--green-50);
 	--sensei-lesson-meta-color: var(--wp--preset--color--charcoal-4);
 	--sensei-module-lesson-color: var(--wp--preset--color--charcoal-1);
+	--sensei-lm-mobile-header-height: 60px;
 
 	.wp-block-sensei-lms-course-theme-notices:empty {
 		display: none;
@@ -26,18 +27,18 @@ body.sensei {
 			gap: var(--wp--preset--spacing--30);
 		}
 
-		.sensei-course-theme-course-progress::after {
-			content: "";
-			display: inline-block;
-			height: 100%;
-			border-right: 1px solid var(--sensei-course-progress-bar-color);
-			position: absolute;
-			margin-left: 30px;
-			top: 0;
-		}
-
 		.wp-block-sensei-lms-exit-course {
 			margin-left: var(--wp--preset--spacing--30);
+
+			&::before {
+				content: "";
+				display: inline-block;
+				height: 100%;
+				border-right: 1px solid var(--sensei-course-progress-bar-color);
+				position: absolute;
+				margin-left: -30px;
+				top: 0;
+			}
 		}
 	}
 
@@ -692,6 +693,16 @@ body.sensei {
 	.sensei-course-theme__header--standalone {
 		.sensei-course-theme-header-content {
 			border-bottom: 1px solid var(--wp--custom--color--border);
+
+			div:nth-of-type(2)::before {
+				content: "";
+				display: inline-block;
+				height: 100%;
+				border-right: 1px solid var(--sensei-course-progress-bar-color);
+				position: absolute;
+				margin-left: -30px;
+				top: 0;
+			}
 		}
 
 		// Also hide the leading slash for the Lesson title breadcrumb when it is hidden.
