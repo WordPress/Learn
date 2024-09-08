@@ -254,15 +254,27 @@ body.sensei {
 	}
 
 	&.quiz {
-		entry-content {
-			#sensei-quiz-list .wp-block-sensei-lms-quiz-question {
-				margin-top: var(--wp--preset--spacing--40);
+		.entry-content {
+			margin-top: 0;
+
+			#sensei-quiz-list {
+				margin-block-end: 0;
+
+				.wp-block-sensei-lms-quiz-question {
+					margin-top: 0;
+
+					&:not(:first-of-type) {
+						margin-top: var(--wp--preset--spacing--40);
+					}
+				}
 
 				.sensei-lms-question-block__header {
 					margin-bottom: var(--wp--preset--spacing--20);
 
 					.question-title {
-						font-size: var(--wp--preset--font-size--heading-4);
+						font-size: var(--wp--preset--font-size--heading-6);
+						font-family: var(--wp--preset--font-family--inter);
+						font-weight: 600;
 					}
 				}
 
@@ -270,15 +282,21 @@ body.sensei {
 					padding: 0;
 					border: none;
 
-					ul {
+					.answers {
 						margin-top: 0;
 
-						li input,
+						li > label {
+							font-family: var(--wp--preset--font-family--inter);
+							font-size: 16px;
+							font-weight: 400;
+						}
+
+						li > input,
 						.sensei-multiple-choice-answer-option-checkbox + label::before {
 							flex-shrink: 0;
 						}
 
-						li input:focus,
+						li > input:focus,
 						.sensei-multiple-choice-answer-option-checkbox:focus + label::before {
 							outline: 1.5px solid var(--wp--preset--color--blueberry-1);
 							outline-offset: 1.5px;
