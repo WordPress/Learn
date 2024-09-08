@@ -17,6 +17,9 @@ const CourseCompletionMeta = () => {
 	return (
 		<PluginDocumentSettingPanel title={ __( 'Course Completion Settings', 'wporg-learn' ) }>
 			<PanelRow>
+				<p>{ __( 'If the fields are left blank, the default values will be applied.', 'wporg-learn' ) }</p>
+			</PanelRow>
+			<PanelRow>
 				<TextControl
 					label={ __( 'Success Message', 'wporg-learn' ) }
 					value={ message }
