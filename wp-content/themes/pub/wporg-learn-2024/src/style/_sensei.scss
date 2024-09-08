@@ -396,7 +396,7 @@ body.sensei {
 							&:focus,
 							&:focus-visible {
 								background-color: var(--wp--custom--button--outline--focus--color--background);
-								outline: -webkit-focus-ring-color auto 1px;
+								outline: var(--wp--custom--button--outline--focus--color--background) auto 1px;
 								color: var(--wp--custom--button--outline--hover--color--text);
 								box-shadow: inset 0 0 0 3px var(--wp--preset--color--white);
 
