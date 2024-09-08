@@ -259,6 +259,7 @@ body.sensei {
 
 			.sensei-course-theme-quiz-graded-notice {
 				padding: 40px;
+				margin-bottom: var(--wp--preset--spacing--40);
 
 				.sensei-course-theme-quiz-graded-notice__title {
 					font-size: var(--wp--preset--font-size--heading-5);
@@ -398,6 +399,11 @@ body.sensei {
 								margin-left: 0;
 							}
 						}
+					}
+
+					.sensei-lms-question__answer-feedback {
+						margin-bottom: 0;
+						font-size: var(--wp--preset--font-size--small);
 					}
 				}
 			}
