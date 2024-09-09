@@ -15,9 +15,14 @@ const CourseCompletionMeta = () => {
 	const link = postMetaData?._course_completion_survey_link || '';
 
 	return (
-		<PluginDocumentSettingPanel title={ __( 'Course Completion Settings', 'wporg-learn' ) }>
+		<PluginDocumentSettingPanel title={ __( 'Completed screen', 'wporg-learn' ) }>
 			<PanelRow>
-				<p>{ __( 'If the fields are left blank, the default values will be applied.', 'wporg-learn' ) }</p>
+				<p>
+					{ __(
+						'These fields customize what is displayed on the Course Completed screen. If left blank, the default values will be applied.',
+						'wporg-learn'
+					) }
+				</p>
 			</PanelRow>
 			<PanelRow>
 				<TextControl
