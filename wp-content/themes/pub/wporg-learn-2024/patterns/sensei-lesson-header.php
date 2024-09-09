@@ -7,6 +7,9 @@
  * Original source: https://github.com/Automattic/sensei/blob/af62fb1115daf2063bc56331a7d8b1b3ea805866/themes/sensei-course-theme/patterns/header.html
  */
 
+$course_id = Sensei()->lesson->get_course_id( get_the_ID() );
+$is_user_enrolled = Sensei_Course::is_user_enrolled( $course_id );
+
 ?>
 
 <!-- wp:sensei-lms/ui {"elementClass":"sensei-course-theme__header","className":"sensei-version\u002d\u002d4-16-2"} -->
@@ -22,7 +25,9 @@
 
 			<!-- wp:group {"style":{"spacing":{"blockGap":"16px"}},"className":"sensei-course-theme__header__info","layout":{"type":"flex","flexWrap":"nowrap"}} -->
 			<div class="wp-block-group sensei-course-theme__header__info">
-				<!-- wp:sensei-lms/course-theme-course-progress-counter {"fontSize":"small"} /-->
+				<?php if ( $is_user_enrolled ) : ?>
+					<!-- wp:sensei-lms/course-theme-course-progress-counter {"fontSize":"small"} /-->
+				<?php endif; ?>
 
 				<!-- wp:sensei-lms/exit-course {"fontSize":"small"} /-->
 			</div>
