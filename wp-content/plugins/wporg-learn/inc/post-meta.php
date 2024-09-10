@@ -36,7 +36,7 @@ function register() {
 }
 
 /**
- * Register post meta keys for lessons.
+ * Register post meta keys for courses.
  */
 function register_course_meta() {
 	register_post_meta(
