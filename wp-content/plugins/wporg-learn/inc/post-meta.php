@@ -28,10 +28,47 @@ add_action( 'wp_insert_post', __NAMESPACE__ . '\set_default_lesson_preview', 10,
  * Register all post meta keys.
  */
 function register() {
+	register_course_meta();
 	register_lesson_meta();
 	register_lesson_plan_meta();
 	register_workshop_meta();
 	register_misc_meta();
+}
+
+/**
+ * Register post meta keys for courses.
+ */
+function register_course_meta() {
+	register_post_meta(
+		'course',
+		'_course_completion_success_message',
+		array(
+			'description'       => __( 'The message displayed to users upon successful course completion.', 'wporg-learn' ),
+			'type'              => 'string',
+			'single'            => true,
+			'sanitize_callback' => 'sanitize_text_field',
+			'show_in_rest'      => true,
+			'auth_callback'     => function( $allowed, $meta_key, $post_id ) {
+				return current_user_can( 'edit_post', $post_id );
+			},
+		)
+	);
+
+	register_post_meta(
+		'course',
+		'_course_completion_survey_link',
+		array(
+			'description'       => __( 'The survey link to be shown alongside the completion message.', 'wporg-learn' ),
+			'type'              => 'string',
+			'single'            => true,
+			'default'           => '',
+			'sanitize_callback' => 'esc_url_raw',
+			'show_in_rest'      => true,
+			'auth_callback'     => function( $allowed, $meta_key, $post_id ) {
+				return current_user_can( 'edit_post', $post_id );
+			},
+		)
+	);
 }
 
 /**
@@ -655,6 +692,7 @@ function enqueue_editor_assets() {
 	enqueue_language_meta_assets();
 	enqueue_lesson_featured_meta_assets();
 	enqueue_duration_meta_assets();
+	enqueue_course_completion_meta_assets();
 }
 
 /**
@@ -758,5 +796,30 @@ function enqueue_duration_meta_assets() {
 		);
 
 		wp_set_script_translations( 'wporg-learn-duration-meta', 'wporg-learn' );
+	}
+}
+
+/**
+ * Enqueue scripts for the course completion meta block.
+ */
+function enqueue_course_completion_meta_assets() {
+	global $typenow;
+
+	if ( 'course' === $typenow ) {
+		$script_asset_path = get_build_path() . 'course-completion-meta.asset.php';
+		if ( ! file_exists( $script_asset_path ) ) {
+			wp_die( 'You need to run `yarn start` or `yarn build` to build the required assets.' );
+		}
+
+		$script_asset = require( $script_asset_path );
+		wp_enqueue_script(
+			'wporg-learn-course-completion-meta',
+			get_build_url() . 'course-completion-meta.js',
+			$script_asset['dependencies'],
+			$script_asset['version'],
+			true
+		);
+
+		wp_set_script_translations( 'wporg-learn-course-completion-meta', 'wporg-learn' );
 	}
 }

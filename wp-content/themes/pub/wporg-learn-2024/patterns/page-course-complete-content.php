@@ -5,6 +5,10 @@
  * Inserter: no
  */
 
+$course_id = isset( $_GET['course_id'] ) ? intval( $_GET['course_id'] ) : get_the_ID();
+$success_message = get_post_meta( $course_id, '_course_completion_success_message', true ) ?: __( 'Congratulations on completing this course!', 'wporg-learn' );
+$survey_link = get_post_meta( $course_id, '_course_completion_survey_link', true ) ?: 'https://docs.google.com/forms/d/e/1FAIpQLSf0QMflUedxjta0u5qS4_pl-9aY06BDBXgRn2PoZA1gRvD9jw/viewform';
+
 ?>
 
 <!-- wp:heading {"level":1} -->
@@ -15,7 +19,7 @@
 
 <!-- wp:heading {"style":{"spacing":{"margin":{"top":"40px","bottom":"10px"}}},"fontSize":"large","fontFamily":"inter"} -->
 <h2 class="wp-block-heading has-inter-font-family has-large-font-size" style="margin-top:40px;margin-bottom:10px">
-	<?php esc_html_e( 'Congratulations on completing this course!', 'wporg-learn' ); ?>
+	<?php echo esc_html( $success_message ); ?>
 </h2>
 <!-- /wp:heading -->
 
@@ -29,7 +33,7 @@
 <div class="wp-block-buttons">
 	<!-- wp:button {"style":{"spacing":{"padding":{"left":"32px","right":"32px","top":"17px","bottom":"17px"}}}} -->
 	<div class="wp-block-button">
-		<a class="wp-block-button__link wp-element-button" href="https://docs.google.com/forms/d/e/1FAIpQLSf0QMflUedxjta0u5qS4_pl-9aY06BDBXgRn2PoZA1gRvD9jw/viewform" style="padding-top:17px;padding-right:32px;padding-bottom:17px;padding-left:32px">
+		<a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( $survey_link ); ?>" style="padding-top:17px;padding-right:32px;padding-bottom:17px;padding-left:32px">
 			<?php esc_html_e( 'Complete the survey', 'wporg-learn' ); ?>
 		</a>
 	</div>
