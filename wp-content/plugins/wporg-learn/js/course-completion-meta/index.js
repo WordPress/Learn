@@ -28,6 +28,7 @@ const CourseCompletionMeta = () => {
 				<TextControl
 					label={ __( 'Success Message', 'wporg-learn' ) }
 					value={ message }
+					placeholder={ __( 'Congratulations on completing this course!', 'wporg-learn' ) }
 					onChange={ ( newMessage ) => {
 						editPost( {
 							meta: {
