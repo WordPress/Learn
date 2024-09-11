@@ -34,9 +34,7 @@ function init() {
 				$lesson_link = get_permalink( $lesson_id );
 
 				wp_enqueue_script( $script_handle );
-				wp_localize_script( $script_handle, 'lesson', array(
-					'link' => $lesson_link,
-				));
+				wp_localize_script( $script_handle, 'lesson', array( 'link' => $lesson_link ) );
 			}
 		}
 	);
