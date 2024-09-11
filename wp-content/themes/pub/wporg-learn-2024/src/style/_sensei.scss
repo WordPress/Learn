@@ -434,6 +434,10 @@ body.sensei {
 					gap: var(--wp--preset--spacing--20);
 				}
 
+				> .sensei-course-theme__button {
+					visibility: hidden;
+				}
+
 				.wp-block-button {
 
 					@media screen and (max-width: 782px) {

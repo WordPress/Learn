@@ -11,6 +11,8 @@ function init() {
 	button.addEventListener( 'click', function () {
 		window.location.href = lesson ? lesson.link : '';
 	} );
+
+	button.style.visibility = 'visible';
 }
 
 document.addEventListener( 'DOMContentLoaded', init );
