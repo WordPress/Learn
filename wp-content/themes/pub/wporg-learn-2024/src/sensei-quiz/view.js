@@ -3,11 +3,8 @@
 import { __ } from '@wordpress/i18n';
 
 function init() {
-	const actions = document.querySelector( '.sensei-quiz-actions' );
-	const noticeContent = document.querySelector( '.sensei-course-theme-lesson-quiz-notice__content' );
-	const grade = noticeContent.querySelector( '.sensei-course-theme-lesson-quiz-notice__grade' );
-
 	// Quiz page actions.
+	const actions = document.querySelector( '.sensei-quiz-actions' );
 	if ( actions ) {
 		const button = actions?.querySelector(
 			'.sensei-quiz-actions .wp-element-button.sensei-course-theme__button'
@@ -29,6 +26,8 @@ function init() {
 	}
 
 	// Lesson page quiz notice.
+	const noticeContent = document.querySelector( '.sensei-course-theme-lesson-quiz-notice__content' );
+	const grade = noticeContent?.querySelector( '.sensei-course-theme-lesson-quiz-notice__grade' );
 	if ( noticeContent && ! grade ) {
 		const newParagraph = document.createElement( 'p' );
 		const noticeText = noticeContent.querySelector( '.sensei-course-theme-lesson-quiz-notice__text' );
