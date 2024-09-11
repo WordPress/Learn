@@ -22,7 +22,7 @@ $is_from_lesson = strpos( $_SERVER['HTTP_REFERER'], '/lesson/' ) !== false;
 	<div class="wp-block-wporg-notice is-info-notice" style="margin-top:-10px;margin-bottom:var(--wp--preset--spacing--40)">
 		<div class="wp-block-wporg-notice__icon"></div>
 		<div class="wp-block-wporg-notice__content">
-			<p><?php esc_html_e( 'Your answers have been submitted and the quiz will be graded soon.', 'wporg-learn' ); ?></p>
+			<p><?php esc_html_e( '[TBD. User is waiting for a grade]', 'wporg-learn' ); ?></p>
 		</div>
 	</div>
 	<!-- /wp:wporg/notice -->
