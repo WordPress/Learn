@@ -18,6 +18,7 @@ require_once __DIR__ . '/src/lesson-grid/index.php';
 require_once __DIR__ . '/src/lesson-standalone/index.php';
 require_once __DIR__ . '/src/search-results-context/index.php';
 require_once __DIR__ . '/src/sensei-progress-bar/index.php';
+require_once __DIR__ . '/src/sensei-quiz/index.php';
 require_once __DIR__ . '/src/sidebar-meta-list/index.php';
 require_once __DIR__ . '/src/upcoming-online-workshops/index.php';
 require_once __DIR__ . '/inc/block-config.php';
