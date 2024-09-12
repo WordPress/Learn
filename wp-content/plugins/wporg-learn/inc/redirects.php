@@ -49,7 +49,7 @@ function wporg_learn_redirect_old_urls() {
 		return;
 	}
 
-	$redirects = array(
+	$pages = array(
 		// Source => Destination, any characters after the source will be appended to the destination.
 		'/handbook'                              => 'https://make.wordpress.org/training/handbook/',
 		'/report-content-errors'                 => '/report-content-feedback',
@@ -61,6 +61,18 @@ function wporg_learn_redirect_old_urls() {
 		'/workshop-presenter-application'        => '/tutorial-presenter-application',
 		'/workshops'                             => '/tutorials',
 	);
+
+	$courses = array(
+		'/course/simple-site-design-with-full-site-editing/'                                                   => '/learning-pathway/user/',
+		'/course/part-2-personalized-site-design-with-full-site-editing-and-theme-blocks/'                     => '/learning-pathway/user/',
+		'/course/part-3-advanced-site-design-with-full-site-editing-site-editor-templates-and-template-parts/' => '/learning-pathway/user/',
+		'/course/developing-with-the-wordpress-rest-api/'                                                      => '/course/beginner-wordpress-developer/',
+		'/course/converting-a-shortcode-to-a-block/'                                                           => '/course/beginner-wordpress-developer/',
+		'/course/a-developers-guide-to-block-themes-part-1/'                                                   => '/course/intermediate-theme-developer/',
+		'/course/a-developers-guide-to-block-themes-part-2/'                                                   => '/course/intermediate-theme-developer/',
+	);
+
+	$redirects = array_merge( $pages, $courses );
 
 	// Use `REQUEST_URI` rather than `$wp->request`, to get the entire source URI including url parameters.
 	$request = $_SERVER['REQUEST_URI'] ?? '';
