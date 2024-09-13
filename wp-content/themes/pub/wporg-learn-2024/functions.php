@@ -334,6 +334,14 @@ function add_site_navigation_menus( $menus ) {
 			'className' => 'has-separator',
 		),
 	);
+	if ( ! is_user_logged_in() ) {
+		global $wp;
+		$redirect_url = home_url( $wp->request );
+		$menu[] = array(
+			'label' => __( 'Log in', 'wporg-learn' ),
+			'url' => wp_login_url( $redirect_url ),
+		);
+	}
 
 	$learning_pathways = get_terms(
 		array(
