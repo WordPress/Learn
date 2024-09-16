@@ -32,6 +32,13 @@ function customize_lesson_quiz_notice_text( $block_content ) {
 		$quiz_progress = Sensei()->quiz_progress_repository->get( $quiz_id, $user_id );
 
 		if ( 'ungraded' === $quiz_progress->get_status() ) {
+			if ( $tag_processor->next_tag( array(
+				'tag_name' => 'div',
+				'class_name' => 'sensei-course-theme-lesson-quiz-notice__text',
+			) ) ) {
+				$tag_processor->set_attribute( 'style', 'display:none;' );
+			}
+
 			$new_p_tag = sprintf(
 				'<p class="sensei-course-theme-lesson-quiz-notice__description">%s</p>',
 				esc_html__( '[TBD. Sentence conveying that user is waiting for the teacher to assign a grade]', 'wporg-learn' )
