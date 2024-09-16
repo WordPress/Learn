@@ -85,7 +85,6 @@ function modify_course_outline_lesson_block_attrs( $parsed_block ) {
  * individually, so they cannot be independently filtered.
  *
  * @param string $block_content The block content.
- * @param array  $block         The full block, including name and attributes.
  *
  * @return string The updated icon HTML with aria data.
  */
