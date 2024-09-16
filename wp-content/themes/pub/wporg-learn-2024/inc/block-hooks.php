@@ -11,7 +11,9 @@ use WP_HTML_Tag_Processor, Sensei_Utils, Sensei_Course, Sensei_Lesson;
 
 add_filter( 'render_block_data', __NAMESPACE__ . '\modify_header_template_part' );
 add_filter( 'render_block_data', __NAMESPACE__ . '\modify_course_outline_lesson_block_attrs' );
-add_filter( 'render_block_sensei-lms/course-outline', __NAMESPACE__ . '\update_course_outline_block_add_aria', 10, 2 );
+add_filter( 'render_block_sensei-lms/course-outline', __NAMESPACE__ . '\update_course_outline_block_add_aria' );
+add_filter( 'render_block_sensei-lms/course-theme-notices', __NAMESPACE__ . '\update_lesson_quiz_notice_text' );
+add_filter( 'render_block_sensei-lms/quiz-actions', __NAMESPACE__ . '\update_quiz_actions' );
 
 /**
  * Update header template based on current query.
@@ -87,7 +89,7 @@ function modify_course_outline_lesson_block_attrs( $parsed_block ) {
  *
  * @return string The updated icon HTML with aria data.
  */
-function update_course_outline_block_add_aria( $block_content, $block ) {
+function update_course_outline_block_add_aria( $block_content ) {
 	$html = new WP_HTML_Tag_Processor( $block_content );
 
 	$label = '';
@@ -105,4 +107,93 @@ function update_course_outline_block_add_aria( $block_content, $block ) {
 		$html->set_attribute( 'role', 'img' );
 	}
 	return $html->get_updated_html();
+}
+
+/**
+ * Replace the text for the lesson quiz notice.
+ *
+ * @param string $block_content The block content.
+ *
+ * @return string
+ */
+function update_lesson_quiz_notice_text( $block_content ) {
+	if ( is_singular( 'lesson' ) && is_quiz_ungraded() ) {
+		$tag_processor = new \WP_HTML_Tag_Processor( $block_content );
+
+		// Hide the text "Awaiting grade" in the quiz notice.
+		if ( $tag_processor->next_tag( array(
+			'tag_name' => 'div',
+			'class_name' => 'sensei-course-theme-lesson-quiz-notice__text',
+		) ) ) {
+			$tag_processor->set_attribute( 'style', 'display:none;' );
+		}
+
+		// Add a new paragraph between the notice content and actions.
+		$new_p_tag = sprintf(
+			'<p class="sensei-course-theme-lesson-quiz-notice__description">%s</p>',
+			esc_html__( '[TBD. Sentence conveying that user is waiting for the teacher to assign a grade]', 'wporg-learn' )
+		);
+
+		$updated_html = str_replace(
+			'<div class="sensei-course-theme-lesson-quiz-notice__actions">',
+			$new_p_tag . '<div class="sensei-course-theme-lesson-quiz-notice__actions">',
+			$tag_processor->get_updated_html()
+		);
+
+		return $updated_html;
+	}
+
+	return $block_content;
+}
+
+/**
+ * Customize the quiz actions.
+ *
+ * @param string $block_content The block content.
+ *
+ * @return string
+ */
+function update_quiz_actions( $block_content ) {
+	if ( is_singular( 'quiz' ) && is_quiz_ungraded() ) {
+		$tag_processor = new \WP_HTML_Tag_Processor( $block_content );
+		$lesson_id = Sensei()->quiz->get_lesson_id();
+		$lesson_link = get_permalink( $lesson_id );
+
+		// Add a new button to go back to the lesson.
+		$new_button_block = do_blocks( '
+			<!-- wp:button {"className":"has-text-align-center is-style-fill","fontSize":"normal","fontFamily":"inter"} -->
+			<div class="wp-block-button has-custom-font-size has-text-align-center is-style-fill has-inter-font-family has-normal-font-size">
+				<a class="wp-block-button__link wp-element-button" style="font-weight:600;line-height:1;outline:unset" href="' . esc_attr( $lesson_link ) . '">' . esc_html__( 'Back to lesson', 'wporg-learn' ) . '</a>
+			</div>
+			<!-- /wp:button -->
+		');
+
+		$updated_html = str_replace(
+			'<div class="sensei-quiz-actions-secondary">',
+			$new_button_block . '<div class="sensei-quiz-actions-secondary">',
+			$tag_processor->get_updated_html()
+		);
+
+		return $updated_html;
+	}
+
+	return $block_content;
+}
+
+/**
+ * Check if the quiz is ungraded.
+ *
+ * @return bool
+ */
+function is_quiz_ungraded() {
+	$lesson_id = Sensei_Utils::get_current_lesson();
+	$quiz_id   = Sensei()->lesson->lesson_quizzes( $lesson_id );
+	$user_id   = get_current_user_id();
+	$quiz_progress = Sensei()->quiz_progress_repository->get( $quiz_id, $user_id );
+
+	if ( 'ungraded' === $quiz_progress->get_status() ) {
+		return true;
+	}
+
+	return false;
 }
