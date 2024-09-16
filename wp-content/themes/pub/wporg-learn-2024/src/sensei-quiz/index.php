@@ -21,38 +21,30 @@ add_filter( 'render_block_sensei-lms/quiz-actions', __NAMESPACE__ . '\customize_
  * @return string
  */
 function customize_lesson_quiz_notice_text( $block_content ) {
-	$tag_processor = new \WP_HTML_Tag_Processor( $block_content );
+	if ( is_singular( 'lesson' ) && is_quiz_ungraded() ) {
+		$tag_processor = new \WP_HTML_Tag_Processor( $block_content );
 
-	if ( $tag_processor->next_tag( array(
-		'tag_name' => 'div',
-		'class_name' => 'sensei-course-theme-lesson-quiz-notice',
-	) ) ) {
-		$lesson_id = \Sensei_Utils::get_current_lesson();
-		$quiz_id   = Sensei()->lesson->lesson_quizzes( $lesson_id );
-		$user_id   = get_current_user_id();
-		$quiz_progress = Sensei()->quiz_progress_repository->get( $quiz_id, $user_id );
-
-		if ( 'ungraded' === $quiz_progress->get_status() ) {
-			if ( $tag_processor->next_tag( array(
-				'tag_name' => 'div',
-				'class_name' => 'sensei-course-theme-lesson-quiz-notice__text',
-			) ) ) {
-				$tag_processor->set_attribute( 'style', 'display:none;' );
-			}
-
-			$new_p_tag = sprintf(
-				'<p class="sensei-course-theme-lesson-quiz-notice__description">%s</p>',
-				esc_html__( '[TBD. Sentence conveying that user is waiting for the teacher to assign a grade]', 'wporg-learn' )
-			);
-
-			$updated_html = str_replace(
-				'<div class="sensei-course-theme-lesson-quiz-notice__actions">',
-				$new_p_tag . '<div class="sensei-course-theme-lesson-quiz-notice__actions">',
-				$tag_processor->get_updated_html()
-			);
-
-			return $updated_html;
+		// Hide the text "Awaiting grade" in the quiz notice.
+		if ( $tag_processor->next_tag( array(
+			'tag_name' => 'div',
+			'class_name' => 'sensei-course-theme-lesson-quiz-notice__text',
+		) ) ) {
+			$tag_processor->set_attribute( 'style', 'display:none;' );
 		}
+
+		// Add a new paragraph between the notice content and actions.
+		$new_p_tag = sprintf(
+			'<p class="sensei-course-theme-lesson-quiz-notice__description">%s</p>',
+			esc_html__( '[TBD. Sentence conveying that user is waiting for the teacher to assign a grade]', 'wporg-learn' )
+		);
+
+		$updated_html = str_replace(
+			'<div class="sensei-course-theme-lesson-quiz-notice__actions">',
+			$new_p_tag . '<div class="sensei-course-theme-lesson-quiz-notice__actions">',
+			$tag_processor->get_updated_html()
+		);
+
+		return $updated_html;
 	}
 
 	return $block_content;
@@ -71,6 +63,7 @@ function customize_quiz_actions( $block_content ) {
 		$lesson_id = Sensei()->quiz->get_lesson_id();
 		$lesson_link = get_permalink( $lesson_id );
 
+		// Add a new button to go back to the lesson.
 		$new_button_block = do_blocks( '
 			<!-- wp:button {"className":"has-text-align-center is-style-fill","fontSize":"normal","fontFamily":"inter"} -->
 			<div class="wp-block-button has-custom-font-size has-text-align-center is-style-fill has-inter-font-family has-normal-font-size">
