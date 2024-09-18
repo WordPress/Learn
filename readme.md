@@ -22,6 +22,16 @@ If you're interested in contributing to the site, but aren't sure where to start
 4. Visit site at `localhost:8888`
 5. To watch for changes `yarn start:theme`
 
+## Apple Silicone machines and old MySQL versions
+
+If you are on a Mac using Apple Silicon processors (M1, M2, etc.) and you experience MySQL related errors on setup, you may need to [override the Docker MySQL config settings](https://github.com/WordPress/wordpress-develop/?tab=readme-ov-file#apple-silicone-machines-and-old-mysql-versions).
+
+## Starting Environment
+
+If you have already set up the environment using `yarn run create`, you can start it with:
+
+    yarn run wp-env start`
+
 ## Stopping Environment
 
 	yarn run wp-env stop`
