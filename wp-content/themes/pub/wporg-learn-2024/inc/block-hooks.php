@@ -130,7 +130,7 @@ function update_lesson_quiz_notice_text( $block_content ) {
 		// Add a new paragraph between the notice content and actions.
 		$new_p_tag = sprintf(
 			'<p class="sensei-course-theme-lesson-quiz-notice__description">%s</p>',
-			esc_html__( '[TBD. Sentence conveying that user is waiting for the teacher to assign a grade]', 'wporg-learn' )
+			esc_html__( 'This is an ungraded quiz. Use it to check your comfort level with what you’ve learned.', 'wporg-learn' )
 		);
 
 		$updated_html = str_replace(
