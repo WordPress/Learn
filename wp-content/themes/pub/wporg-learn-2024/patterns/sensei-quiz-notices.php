@@ -21,7 +21,7 @@ $is_from_lesson = strpos( $_SERVER['HTTP_REFERER'], '/lesson/' ) !== false;
 	<div class="wp-block-wporg-notice is-info-notice" style="margin-top:-10px;margin-bottom:var(--wp--preset--spacing--40)">
 		<div class="wp-block-wporg-notice__icon"></div>
 		<div class="wp-block-wporg-notice__content">
-			<p><?php esc_html_e( 'This quiz won’t be graded. If you found the questions easy, you likely have a good understanding of the lesson.', 'wporg-learn' ); ?></p>
+			<p><?php esc_html_e( 'This quiz won’t be graded. If you found the questions easy, you likely understand the lesson well.', 'wporg-learn' ); ?></p>
 		</div>
 	</div>
 	<!-- /wp:wporg/notice -->
