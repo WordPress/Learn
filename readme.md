@@ -30,15 +30,15 @@ If you are on a Mac using Apple Silicon processors (M1, M2, etc.) and you experi
 
 If you have already set up the environment using `yarn run create`, you can start it with:
 
-    yarn run wp-env start`
+    yarn run wp-env start
 
 ## Stopping Environment
 
-	yarn run wp-env stop`
+	yarn run wp-env stop
 
 ## Removing Environment
 
-	yarn run wp-env destroy`
+	yarn run wp-env destroy
 
 ## Admin
 
