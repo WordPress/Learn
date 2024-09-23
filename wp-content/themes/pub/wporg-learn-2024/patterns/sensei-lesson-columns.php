@@ -29,7 +29,8 @@ $is_completed = Sensei_Utils::user_completed_lesson( $lesson_id );
 
 		<?php if ( $is_completed ) : ?>
 			<!-- wp:wporg/notice {"style":{"spacing":{"margin":{"top":"var:preset|spacing|20"}}}} -->
-			<div class="wp-block-wporg-notice is-tip-notice" style="margin-top:var(--wp--preset--spacing--20)">
+			<div class="wp-block-wporg-notice is-tip-notice" 
+				style="<?php echo $module ? 'margin-top:var(--wp--preset--spacing--20)' : 'margin-bottom:var(--wp--preset--spacing--50)'; ?>">
 				<div class="wp-block-wporg-notice__icon"></div>
 				<div class="wp-block-wporg-notice__content">
 					<p><?php esc_html_e( 'You already completed this lesson', 'wporg-learn' ); ?></p>
