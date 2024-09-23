@@ -182,7 +182,7 @@ function is_quiz_ungraded() {
 	$user_id   = get_current_user_id();
 	$quiz_progress = Sensei()->quiz_progress_repository->get( $quiz_id, $user_id );
 
-	if ( 'ungraded' === $quiz_progress->get_status() ) {
+	if ( $quiz_progress && 'ungraded' === $quiz_progress->get_status() ) {
 		return true;
 	}
 
