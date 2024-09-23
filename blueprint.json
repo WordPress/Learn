@@ -2,13 +2,9 @@
 	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
 	"steps": [
 		{
-			"step": "activateTheme",
-			"themeFolderName": "pub/wporg-learn-2024"
-		},
-		{
-			"step": "activatePlugin",
-			"pluginName": "WordPress.org Learn",
-			"pluginPath": "wporg-learn/wporg-learn.php"
+			"step": "login",
+			"username": "admin",
+			"password": "password"
 		},
 		{
 			"step": "activatePlugin",
@@ -27,28 +23,12 @@
 		},
 		{
 			"step": "activatePlugin",
-			"pluginName": "Jetpack",
-			"pluginPath": "jetpack/jetpack.php"
+			"pluginName": "WordPress.org Learn",
+			"pluginPath": "wporg-learn/wporg-learn.php"
 		},
 		{
-			"step": "activatePlugin",
-			"pluginName": "Edit Flow",
-			"pluginPath": "edit-flow/edit_flow.php"
-		},
-		{
-			"step": "activatePlugin",
-			"pluginName": "Code Syntax Block",
-			"pluginPath": "code-syntax-block/index.php"
-		},
-		{
-			"step": "activatePlugin",
-			"pluginName": "Locale Detection",
-			"pluginPath": "locale-detection/locale-detection.php"
-		},
-		{
-			"step": "activatePlugin",
-			"pluginName": "WordPress Importer",
-			"pluginPath": "wordpress-importer/wordpress-importer.php"
+			"step": "activateTheme",
+			"themeFolderName": "pub/wporg-learn-2024"
 		}
 	]
 }
