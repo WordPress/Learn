@@ -117,15 +117,12 @@ function update_course_outline_block_add_aria( $block_content ) {
  */
 function update_lesson_quiz_notice_text( $block_content ) {
 	if ( is_singular( 'lesson' ) && is_quiz_ungraded() ) {
-		$tag_processor = new \WP_HTML_Tag_Processor( $block_content );
-
-		// Hide the text "Awaiting grade" in the quiz notice.
-		if ( $tag_processor->next_tag( array(
-			'tag_name' => 'div',
-			'class_name' => 'sensei-course-theme-lesson-quiz-notice__text',
-		) ) ) {
-			$tag_processor->set_attribute( 'style', 'display:none;' );
-		}
+		// Remove the text "Awaiting grade" in the quiz notice.
+		$block_content = str_replace(
+			'<div class="sensei-course-theme-lesson-quiz-notice__text">Awaiting grade</div>',
+			'',
+			$block_content
+		);
 
 		// Add a new paragraph between the notice content and actions.
 		$new_p_tag = sprintf(
@@ -133,13 +130,11 @@ function update_lesson_quiz_notice_text( $block_content ) {
 			esc_html__( 'This is an ungraded quiz. Use it to check your comfort level with what you’ve learned.', 'wporg-learn' )
 		);
 
-		$updated_html = str_replace(
+		$block_content = str_replace(
 			'<div class="sensei-course-theme-lesson-quiz-notice__actions">',
 			$new_p_tag . '<div class="sensei-course-theme-lesson-quiz-notice__actions">',
-			$tag_processor->get_updated_html()
+			$block_content
 		);
-
-		return $updated_html;
 	}
 
 	return $block_content;
@@ -154,7 +149,6 @@ function update_lesson_quiz_notice_text( $block_content ) {
  */
 function update_quiz_actions( $block_content ) {
 	if ( is_singular( 'quiz' ) && is_quiz_ungraded() ) {
-		$tag_processor = new \WP_HTML_Tag_Processor( $block_content );
 		$lesson_id = Sensei()->quiz->get_lesson_id();
 		$lesson_link = get_permalink( $lesson_id );
 
@@ -167,13 +161,11 @@ function update_quiz_actions( $block_content ) {
 			<!-- /wp:button -->
 		');
 
-		$updated_html = str_replace(
+		$block_content = str_replace(
 			'<div class="sensei-quiz-actions-secondary">',
 			$new_button_block . '<div class="sensei-quiz-actions-secondary">',
-			$tag_processor->get_updated_html()
+			$block_content
 		);
-
-		return $updated_html;
 	}
 
 	return $block_content;
