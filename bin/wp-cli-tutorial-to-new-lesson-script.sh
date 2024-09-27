@@ -31,15 +31,36 @@ process_url() {
 
     echo "Found post with ID: $post_id"
 
-    # Change post type directly
+    # Get post details
+    post_title=$(wp post get $post_id --field=post_title)
+    post_name=$(wp post get $post_id --field=post_name)
+    post_date=$(wp post get $post_id --field=post_date)
+    post_content=$(wp post get $post_id --field=post_content)
+
+    if ! check_success "Failed to get post details"; then
+        return 1
+    fi
+
+    # Create new lesson post
     if [ "$dry_run" = true ]; then
-        echo "Dry run: Would change post type of post (ID: $post_id) to 'lesson'"
+        echo "Dry run: Would create new 'lesson' post with title: $post_title"
     else
-        wp post update $post_id --post_type=lesson
-        if ! check_success "Failed to change post type to lesson"; then
+        new_post_id=$(wp post create --post_type=lesson --post_status=publish --post_title="$post_title" --post_name="$post_name" --post_date="$post_date" --post_content="$post_content" --porcelain)
+        if ! check_success "Failed to create new lesson post"; then
             return 1
         fi
-        echo "Changed post type of post (ID: $post_id) to 'lesson'"
+        echo "Created new lesson post with ID: $new_post_id"
+    fi
+
+    # Set original post to draft
+    if [ "$dry_run" = true ]; then
+        echo "Dry run: Would set original post (ID: $post_id) to draft"
+    else
+        wp post update $post_id --post_status=draft
+        if ! check_success "Failed to set original post to draft"; then
+            return 1
+        fi
+        echo "Set original post (ID: $post_id) to draft"
     fi
 
     echo "Processing completed for URL: $post_url"
