@@ -35,6 +35,7 @@ add_action( 'pre_get_posts', __NAMESPACE__ . '\handle_list_table_views' );
 add_action( 'bulk_edit_custom_box', __NAMESPACE__ . '\add_language_bulk_edit_field', 10, 2 );
 add_action( 'save_post', __NAMESPACE__ . '\language_bulk_edit_save' );
 add_filter( 'sensei_course_custom_navigation_tabs', __NAMESPACE__ . '\add_sensei_course_custom_navigation_tabs' );
+add_filter( 'post_row_actions', __NAMESPACE__ . '\remove_duplicate_post_row_action', 10, 2 );
 
 /**
  * Show a notice on taxonomy term screens about terms being translatable.
@@ -573,4 +574,31 @@ function add_sensei_course_custom_navigation_tabs( $tabs ) {
 	);
 
 	return $tabs;
+}
+
+/**
+ * Remove duplicate post actions for courses and lessons.
+ * Mitigates an issue with localized lesson content overwriting the original English lesson.
+ * See https://github.com/WordPress/Learn/issues/2805
+ *
+ * @param array   $actions An array of row action links.
+ * @param WP_Post $post    The post object.
+ * @return array $actions The filtered actions.
+ */
+function remove_duplicate_post_row_action( $actions, $post ) {
+	if ( ! is_admin() ) {
+		return $actions;
+	}
+
+	if ( 'lesson' === $post->post_type || 'course' === $post->post_type ) {
+		if ( isset( $actions['duplicate'] ) ) {
+			unset( $actions['duplicate'] );
+		}
+
+		if ( isset( $actions['duplicate_with_lessons'] ) ) {
+			unset( $actions['duplicate_with_lessons'] );
+		}
+	}
+
+	return $actions;
 }
