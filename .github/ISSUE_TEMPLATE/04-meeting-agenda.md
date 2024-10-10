@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-Training Team meetings start at [00:00 UTC weekly on Thursdays](https://make.wordpress.org/meetings/#training). Anyone is welcome to contribute to the meeting by commenting in Slack threads during the meeting and throughout the following days. Meeting notes will be published by the following Tuesday to also incorporate these asynchronous conversations.
+Training Team meetings start at [07:00 UTC weekly on Tuesdays](https://make.wordpress.org/meetings/#training). Anyone is welcome to contribute to the meeting by commenting in Slack threads during the meeting and throughout the following days. Meeting notes will be published by the following Tuesday to also incorporate these asynchronous conversations.
 
 _This week’s meeting will be hosted by MEETING_HOST._
 
