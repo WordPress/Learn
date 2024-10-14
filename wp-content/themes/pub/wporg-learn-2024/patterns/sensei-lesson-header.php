@@ -29,6 +29,13 @@ $is_user_enrolled = Sensei_Course::is_user_enrolled( $course_id );
 					<!-- wp:sensei-lms/course-theme-course-progress-counter {"fontSize":"small"} /-->
 				<?php endif; ?>
 
+				<input type="checkbox" id="wporg-learn-facilitator-notes-toggle">
+				<label for="wporg-learn-facilitator-notes-toggle" id="wporg-learn-facilitator-notes-label"><?php esc_html_e( 'Facilitator notes', 'wporg-learn' ); ?></label>
+
+				<div id="wporg-learn-facilitator-notes-content">
+					<p>Facilitator notes</p>
+				</div>
+
 				<!-- wp:sensei-lms/exit-course {"fontSize":"small"} /-->
 			</div>
 			<!-- /wp:group -->
