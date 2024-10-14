@@ -37,6 +37,8 @@ body.sensei {
 			.sensei-course-theme__sidebar {
 				top: calc(var(--sensei-lm-header-height) * 2 + var(--sensei-wpadminbar-offset, 0px)) !important;
 				background-color: var(--wp--preset--color--light-grey-2);
+				padding-left: var(--wp--preset--spacing--30) !important;
+				padding-right: var(--wp--preset--spacing--30) !important;
 			}
 		}
 	}
