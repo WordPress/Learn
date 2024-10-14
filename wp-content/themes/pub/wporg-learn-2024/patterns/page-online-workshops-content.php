@@ -48,7 +48,7 @@
 			<?php echo wp_kses_post(
 				sprintf(
 					/* translators: %1$s: meetup.com Online Workshops link, %2$s: code of conduct link */
-					__( 'RSVPs and communications are handled through <a href="%1$s">the Meetup.com group ↗</a>. Each event links to the RSVP page. Events are shown in your local time. You must agree to the <a href="%2$s">Code of Conduct</a> in order to participate in Online Workshops.', 'wporg-learn' ),
+					__( 'RSVPs and communications are handled through <a href="%1$s">the Meetup.com group ↗</a>. Each event links to the RSVP page. You must agree to the <a href="%2$s">Code of Conduct</a> in order to participate in Online Workshops.', 'wporg-learn' ),
 					esc_url( 'https://www.meetup.com/learn-wordpress-online-workshops/' ),
 					esc_url( 'https://learn.wordpress.org/online-workshops/code-of-conduct/' ),
 				)
@@ -60,13 +60,7 @@
 	<!-- /wp:column -->
 
 	<!-- wp:column -->
-	<div class="wp-block-column">
-
-		<!-- wp:paragraph {"align":"right","fontSize":"small"} -->
-		<p class="has-text-align-right has-small-font-size"><?php esc_html_e( 'Subscribe to this calendar:', 'wporg-learn' ); ?> <a href="https://calendar.google.com/calendar/u/0/embed?src=3f9k1go9k6bks9u41i20u2lje56hd1fv@import.calendar.google.com" target="_blank" rel="noreferrer noopener"><?php esc_html_e( 'Google Calendar ↗', 'wporg-learn' ); ?></a> &middot; <a href="https://learn.wordpress.org/meetings.ics" target="_blank" rel="noreferrer noopener"><?php esc_html_e( 'ICS', 'wporg-learn' ); ?></a> &middot; <a href="https://learn.wordpress.org/feed/?post_type=meeting" target="_blank" rel="noreferrer noopener"><?php esc_html_e( 'RSS', 'wporg-learn' ); ?></a></p>
-		<!-- /wp:paragraph -->
-
-	</div>
+	<div class="wp-block-column"></div>
 	<!-- /wp:column -->
 
 </div>
