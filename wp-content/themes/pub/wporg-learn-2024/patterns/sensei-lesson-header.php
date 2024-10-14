@@ -51,15 +51,11 @@ $is_user_enrolled = Sensei_Course::is_user_enrolled( $course_id );
 			<!-- wp:sensei-lms/course-theme-course-progress-counter {"fontSize":"small"} /-->
 		<?php endif; ?>
 
-		<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"}} -->
-		<div class="wp-block-group">
-			<!-- wp:pattern {"slug":"wporg-learn-2024/sensei-lesson-facilitator-note"} /-->
+		<!-- wp:pattern {"slug":"wporg-learn-2024/sensei-lesson-facilitator-note"} /-->
 
-			<!-- wp:group {"className":"wporg-learn-lesson-sidebar-toggle-wrapper","layout":{"type":"flex","flexWrap":"nowrap"}} -->
-			<div class="wp-block-group wporg-learn-lesson-sidebar-toggle-wrapper">
-				<!-- wp:sensei-lms/sidebar-toggle-button /-->
-			</div>
-			<!-- /wp:group -->
+		<!-- wp:group {"className":"wporg-learn-lesson-sidebar-toggle-wrapper","layout":{"type":"flex","flexWrap":"nowrap"}} -->
+		<div class="wp-block-group wporg-learn-lesson-sidebar-toggle-wrapper">
+			<!-- wp:sensei-lms/sidebar-toggle-button /-->
 		</div>
 		<!-- /wp:group -->
 	</div>
