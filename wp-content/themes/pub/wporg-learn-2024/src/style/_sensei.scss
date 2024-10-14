@@ -41,8 +41,11 @@ body.sensei {
 					display: block;
 					position: absolute;
 					top: calc(var(--sensei-lm-header-height));
+					right: 0;
 					width: 50%;
 					height: 100vh;
+					margin-top: 1px;
+					border-left: 1px solid var(--sensei-course-progress-bar-color);
 				}
 			}
 
