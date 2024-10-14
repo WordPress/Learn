@@ -1,7 +1,7 @@
 <?php
 /**
- * Title: Sensei Lesson Facilitator Note
- * Slug: wporg-learn-2024/sensei-lesson-facilitator-note
+ * Title: Sensei Lesson Facilitator Notes
+ * Slug: wporg-learn-2024/sensei-lesson-facilitator-notes
  * Inserter: no
  */
 
