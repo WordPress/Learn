@@ -428,11 +428,6 @@ function get_learning_pathway_level_content( $learning_pathway ) {
  * @return array The modified breadcrumbs.
  */
 function set_site_breadcrumbs( $breadcrumbs ) {
-	if ( isset( $breadcrumbs[0] ) ) {
-		// Change the title of the first breadcrumb to 'Home'.
-		$breadcrumbs[0]['title'] = 'Home';
-	}
-
 	$post_id = get_the_ID();
 	$post_type = get_post_type();
 
