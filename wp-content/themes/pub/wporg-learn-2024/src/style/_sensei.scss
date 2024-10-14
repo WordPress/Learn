@@ -25,7 +25,7 @@ body.sensei {
 				position: relative;
 				top: 1px;
 
-				div:last-child {
+				.wporg-learn-lesson-sidebar-toggle-wrapper {
 					background-color: var(--wp--preset--color--light-grey-2) !important;
 
 					> button {
@@ -141,18 +141,18 @@ body.sensei {
 					display: block;
 					opacity: 1;
 					position: unset;
+				}
 
-					+ div {
-						padding: 18px;
+				.wporg-learn-lesson-sidebar-toggle-wrapper {
+					padding: 18px;
 
-						> button {
-							background: url(../../assets/icon-chevron-down.svg) !important;
-							transform: scale(1.5);
-						}
+					> button {
+						background: url(../../assets/icon-chevron-down.svg) !important;
+						transform: scale(1.5);
+					}
 
-						svg {
-							display: none;
-						}
+					svg {
+						display: none;
 					}
 				}
 			}
