@@ -24,6 +24,19 @@ body.sensei {
 			.wporg-learn-lesson-header-mobile-view {
 				position: relative;
 				top: 1px;
+
+				div:last-child {
+					background-color: var(--wp--preset--color--light-grey-2) !important;
+
+					> button {
+						transform: rotate(180deg) scale(1.5) !important;
+					}
+				}
+			}
+
+			.sensei-course-theme__sidebar {
+				top: calc(var(--sensei-lm-header-height) * 2 + var(--sensei-wpadminbar-offset, 0px)) !important;
+				background-color: var(--wp--preset--color--light-grey-2);
 			}
 		}
 	}
@@ -120,12 +133,25 @@ body.sensei {
 				display: flex;
 				height: var(--sensei-lm-header-height);
 				justify-content: space-between;
-				padding: 0 var(--wp--preset--spacing--30);
+				padding: 0 0 0 var(--wp--preset--spacing--30);
 
 				.sensei-course-theme-course-progress {
 					display: block;
 					opacity: 1;
 					position: unset;
+
+					+ div {
+						padding: 18px;
+
+						> button {
+							background: url(../../assets/icon-chevron-down.svg) !important;
+							transform: scale(1.5);
+						}
+
+						svg {
+							display: none;
+						}
+					}
 				}
 			}
 		}
