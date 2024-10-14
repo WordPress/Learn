@@ -171,6 +171,10 @@ body.sensei {
 					display: block;
 					opacity: 1;
 					position: unset;
+
+					@media (max-width: 460px) {
+						width: 47%;
+					}
 				}
 
 				.wporg-learn-facilitator-notes-label {
