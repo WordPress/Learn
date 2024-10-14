@@ -16,7 +16,7 @@ body.sensei {
 
 	@media (max-width: 782px) {
 		&.sensei-course-theme--sidebar-open {
-			#wporg-learn-facilitator-notes-label {
+			.wporg-learn-facilitator-notes-label {
 				opacity: 1 !important;
 			}
 
@@ -57,7 +57,7 @@ body.sensei {
 	#wporg-learn-facilitator-notes-toggle {
 		display: none;
 
-		&:checked + #wporg-learn-facilitator-notes-label + #wporg-learn-facilitator-notes-content {
+		&:checked + .wporg-learn-facilitator-notes-label + .wporg-learn-facilitator-notes-content {
 			display: block;
 			position: absolute;
 			top: calc(var(--sensei-lm-header-height));
@@ -66,10 +66,43 @@ body.sensei {
 			height: 100vh;
 			margin-top: 1px;
 			border-left: 1px solid var(--sensei-course-progress-bar-color);
+
+			.wporg-learn-facilitator-notes-close {
+				background: url(../../assets/icon-close.svg);
+				background-repeat: no-repeat;
+				background-position: center;
+				width: 24px;
+				height: 24px;
+				position: absolute;
+				right: var(--wp--preset--spacing--40);
+				top: calc(var(--wp--preset--spacing--30) + var(--wp--preset--spacing--20));
+				cursor: pointer;
+			}
+
+			@media (max-width: 782px) {
+				position: absolute;
+				top: 40px;
+				left: 4%;
+				width: 92%;
+				height: 92vh;
+				border: 1px solid var(--sensei-course-progress-bar-color);
+				z-index: 2;
+				overflow: scroll;
+
+				+ .wporg-learn-facilitator-notes-backdrop {
+					content: "";
+					position: fixed;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					background-color: var(--wp--preset--color--charcoal-5);
+				}
+			}
 		}
 	}
 
-	#wporg-learn-facilitator-notes-label {
+	.wporg-learn-facilitator-notes-label {
 		cursor: pointer;
 		font-family: var(--wp--preset--font-family--inter);
 		font-size: var(--wp--preset--font-size--small);
@@ -88,7 +121,7 @@ body.sensei {
 		}
 	}
 
-	#wporg-learn-facilitator-notes-content {
+	.wporg-learn-facilitator-notes-content {
 		display: none;
 	}
 
@@ -98,7 +131,7 @@ body.sensei {
 		}
 
 		.sensei-course-theme__header__info {
-			gap: var(--wp--preset--spacing--30);
+			gap: 30px;
 
 			.wp-block-sensei-lms-exit-course {
 				text-decoration: none;
@@ -106,8 +139,6 @@ body.sensei {
 				opacity: 1;
 
 				@media (min-width: 783px) {
-					margin-left: var(--wp--preset--spacing--30);
-
 					&::before {
 						content: "";
 						display: inline-block;
@@ -141,7 +172,7 @@ body.sensei {
 					position: unset;
 				}
 
-				#wporg-learn-facilitator-notes-label {
+				.wporg-learn-facilitator-notes-label {
 					display: block;
 					position: absolute;
 					right: calc(60px + var(--wp--preset--spacing--20));
