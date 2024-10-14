@@ -81,10 +81,10 @@ body.sensei {
 
 			@media (max-width: 782px) {
 				position: absolute;
-				top: 40px;
+				top: var(--wp--preset--spacing--10);
 				left: 4%;
 				width: 92%;
-				height: 92vh;
+				height: 90vh;
 				border: 1px solid var(--sensei-course-progress-bar-color);
 				z-index: 2;
 				overflow: scroll;
