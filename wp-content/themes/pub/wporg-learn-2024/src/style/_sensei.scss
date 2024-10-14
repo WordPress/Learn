@@ -55,8 +55,12 @@ body.sensei {
 				font-size: var(--wp--preset--font-size--small);
 				color: var(--wp--custom--link--color--text);
 				text-decoration: underline;
-				text-underline-offset: 0.15em;
+				text-underline-offset: 0.12em;
 				white-space: nowrap;
+
+				&:hover {
+					text-decoration: none;
+				}
 			}
 
 			#wporg-learn-facilitator-notes-content {
