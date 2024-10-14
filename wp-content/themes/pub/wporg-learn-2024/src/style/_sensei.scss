@@ -86,7 +86,7 @@ body.sensei {
 				width: 92%;
 				height: 90vh;
 				border: 1px solid var(--sensei-course-progress-bar-color);
-				z-index: 2;
+				z-index: 5;
 				overflow: scroll;
 
 				+ .wporg-learn-facilitator-notes-backdrop {
