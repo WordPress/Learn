@@ -14,6 +14,20 @@ body.sensei {
 	--sensei-module-lesson-color: var(--wp--preset--color--charcoal-1);
 	--sensei-lm-mobile-header-height: 60px;
 
+	@media (max-width: 782px) {
+		&.sensei-course-theme--sidebar-open {
+			#wporg-learn-facilitator-notes-label {
+				opacity: 1 !important;
+			}
+
+			// The inner progress bar causes a 1px jitter when the sidebar is opened.
+			.wporg-learn-lesson-header-mobile-view {
+				position: relative;
+				top: 1px;
+			}
+		}
+	}
+
 	.is-tip-notice .wp-block-wporg-notice__icon {
 		background: url(../../assets/icon-check.svg);
 	}
@@ -114,12 +128,6 @@ body.sensei {
 					position: unset;
 				}
 			}
-		}
-	}
-
-	@media (max-width: 782px) {
-		&.sensei-course-theme--sidebar-open #wporg-learn-facilitator-notes-label {
-			opacity: 1 !important;
 		}
 	}
 
