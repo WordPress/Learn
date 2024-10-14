@@ -38,14 +38,16 @@ body.sensei {
 		.wp-block-sensei-lms-exit-course {
 			margin-left: var(--wp--preset--spacing--30);
 
-			&::before {
-				content: "";
-				display: inline-block;
-				height: 100%;
-				border-right: 1px solid var(--sensei-course-progress-bar-color);
-				position: absolute;
-				margin-left: -30px;
-				top: 0;
+			@media (min-width: 783px) {
+				&::before {
+					content: "";
+					display: inline-block;
+					height: 100%;
+					border-right: 1px solid var(--sensei-course-progress-bar-color);
+					position: absolute;
+					margin-left: -30px;
+					top: 0;
+				}
 			}
 		}
 	}
