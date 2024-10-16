@@ -4,8 +4,7 @@
 		"SCRIPT_DEBUG": true,
 		"WP_DEBUG_LOG": "/tmp/wp-errors.log",
 		"FS_METHOD": "direct",
-		"WP_ENVIRONMENT_TYPE": "local",
-		"FEATURE_2021_GLOBAL_HEADER_FOOTER": false
+		"WP_ENVIRONMENT_TYPE": "local"
 	},
 	"phpVersion": "7.4",
 	"core": "WordPress/WordPress#master",
