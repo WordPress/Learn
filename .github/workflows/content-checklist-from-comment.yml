@@ -4,7 +4,7 @@ name: Add the applicable content development checklist based on a command in the
 on:
   issue_comment:
     types:  created
-    # types: [opened, edited] <= Use this if we want the workflow to run when a comment is edited, too
+    # types: [created, edited] <= Use this if we want the workflow to run when a comment is edited, too
 
 jobs:
   tutorial-issue:
