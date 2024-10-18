@@ -3,7 +3,8 @@
 name: Add the applicable content development checklist based on a command in the issue body
 on:
   issues:
-    types:  [opened, edited]
+    types:  opened
+    # types: [opened, edited] <= Use this if we want the workflow to run when an issue is edited, too
 
 jobs:
   tutorial-issue:
