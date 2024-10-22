@@ -29,6 +29,8 @@ $is_user_enrolled = Sensei_Course::is_user_enrolled( $course_id );
 					<!-- wp:sensei-lms/course-theme-course-progress-counter {"fontSize":"small"} /-->
 				<?php endif; ?>
 
+				<!-- wp:pattern {"slug":"wporg-learn-2024/sensei-lesson-facilitator-notes"} /-->
+
 				<!-- wp:sensei-lms/exit-course {"fontSize":"small"} /-->
 			</div>
 			<!-- /wp:group -->
@@ -42,5 +44,21 @@ $is_user_enrolled = Sensei_Course::is_user_enrolled( $course_id );
 	<!-- /wp:group -->
 
 	<!-- wp:sensei-lms/course-theme-course-progress-bar /-->
+
+	<!-- wp:group {"className":"wporg-learn-lesson-header-mobile-view","style":{"spacing":{"blockGap":"16px"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+	<div class="wp-block-group wporg-learn-lesson-header-mobile-view">
+		<?php if ( $is_user_enrolled ) : ?>
+			<!-- wp:sensei-lms/course-theme-course-progress-counter {"fontSize":"small"} /-->
+		<?php endif; ?>
+
+		<!-- wp:pattern {"slug":"wporg-learn-2024/sensei-lesson-facilitator-notes"} /-->
+
+		<!-- wp:group {"className":"wporg-learn-lesson-sidebar-toggle-wrapper","layout":{"type":"flex","flexWrap":"nowrap"}} -->
+		<div class="wp-block-group wporg-learn-lesson-sidebar-toggle-wrapper">
+			<!-- wp:sensei-lms/sidebar-toggle-button /-->
+		</div>
+		<!-- /wp:group -->
+	</div>
+	<!-- /wp:group -->
 </div>
 <!-- /wp:sensei-lms/ui -->

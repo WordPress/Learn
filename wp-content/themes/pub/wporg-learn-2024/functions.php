@@ -14,6 +14,7 @@ require_once __DIR__ . '/src/course-outline/index.php';
 require_once __DIR__ . '/src/learning-pathway-cards/index.php';
 require_once __DIR__ . '/src/learning-pathway-header/index.php';
 require_once __DIR__ . '/src/lesson-course-info/index.php';
+require_once __DIR__ . '/src/lesson-facilitator-notes/index.php';
 require_once __DIR__ . '/src/lesson-grid/index.php';
 require_once __DIR__ . '/src/lesson-standalone/index.php';
 require_once __DIR__ . '/src/search-results-context/index.php';
@@ -428,11 +429,6 @@ function get_learning_pathway_level_content( $learning_pathway ) {
  * @return array The modified breadcrumbs.
  */
 function set_site_breadcrumbs( $breadcrumbs ) {
-	if ( isset( $breadcrumbs[0] ) ) {
-		// Change the title of the first breadcrumb to 'Home'.
-		$breadcrumbs[0]['title'] = 'Home';
-	}
-
 	$post_id = get_the_ID();
 	$post_type = get_post_type();
 
