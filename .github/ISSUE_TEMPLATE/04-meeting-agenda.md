@@ -30,7 +30,7 @@ _This week’s meeting will be hosted by MEETING_HOST._
 - item 1
 - item 2
 
-**4. Updates from last week's dev-squad triage session**
+**4. Updates from last week's Triage Squad session**
 
 - item 1
 - item 2
