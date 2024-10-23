@@ -1,0 +1,34 @@
+{
+	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
+	"steps": [
+		{
+			"step": "login",
+			"username": "admin",
+			"password": "password"
+		},
+		{
+			"step": "activatePlugin",
+			"pluginName": "Gutenberg",
+			"pluginPath": "gutenberg/gutenberg.php"
+		},
+		{
+			"step": "activatePlugin",
+			"pluginName": "Sensei LMS",
+			"pluginPath": "sensei-lms/sensei-lms.php"
+		},
+		{
+			"step": "activatePlugin",
+			"pluginName": "Sensei Pro",
+			"pluginPath": "sensei-pro/sensei-pro.php"
+		},
+		{
+			"step": "activatePlugin",
+			"pluginName": "WordPress.org Learn",
+			"pluginPath": "wporg-learn/wporg-learn.php"
+		},
+		{
+			"step": "activateTheme",
+			"themeFolderName": "pub/wporg-learn-2024"
+		}
+	]
+}
