@@ -14,14 +14,6 @@ body.sensei {
 	--sensei-module-lesson-color: var(--wp--preset--color--charcoal-1);
 	--sensei-lm-mobile-header-height: 60px;
 
-	.is-tip-notice .wp-block-wporg-notice__icon {
-		background: url(../../assets/icon-check.svg);
-	}
-
-	.wp-block-wporg-notice__icon {
-		height: 24px;
-	}
-
 	.wp-block-sensei-lms-course-theme-notices:empty {
 		display: none;
 	}

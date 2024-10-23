@@ -27,7 +27,7 @@ $is_from_lesson = strpos( $_SERVER['HTTP_REFERER'], '/lesson/' ) !== false;
 	<!-- /wp:wporg/notice -->
 <?php elseif ( $is_pending_grade ) : ?>
 	<!-- wp:wporg/notice {"style":{"spacing":{"margin":{"top":0,"bottom":"var:preset|spacing|40"}}}} -->
-	<div class="wp-block-wporg-notice is-tip-notice" style="margin-top:-10px;margin-bottom:var(--wp--preset--spacing--40)">
+	<div class="wp-block-wporg-notice is-success-notice" style="margin-top:-10px;margin-bottom:var(--wp--preset--spacing--40)">
 		<div class="wp-block-wporg-notice__icon"></div>
 		<div class="wp-block-wporg-notice__content">
 			<p><?php esc_html_e( 'Well done! You completed the quiz.', 'wporg-learn' ); ?></p>
