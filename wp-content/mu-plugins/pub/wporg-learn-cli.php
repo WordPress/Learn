@@ -24,11 +24,11 @@ class WPORG_Learn_Tutorial_To_Lesson_Command extends WP_CLI_Command {
 	 *
 	 * ## EXAMPLES
 	 *
-	 * wp wporg-learn-tutorial-to-lesson convert https://learn.wordpress.org/tutorial/slug
-	 * wp wporg-learn-tutorial-to-lesson convert urls.txt --file
-	 * wp wporg-learn-tutorial-to-lesson convert urls.txt --file --live
+	 * wp wporg-learn convert-tutorial-to-lesson https://learn.wordpress.org/tutorial/slug
+	 * wp wporg-learn convert-tutorial-to-lesson urls.txt --file
+	 * wp wporg-learn convert-tutorial-to-lesson urls.txt --file --live
 	 */
-	public function convert( $args, $assoc_args ) {
+	public function __invoke( $args, $assoc_args ) {
 		$source = $args[0];
 		$is_dry_run = ! isset( $assoc_args['live'] );
 		$is_file = isset( $assoc_args['file'] );
@@ -110,4 +110,4 @@ class WPORG_Learn_Tutorial_To_Lesson_Command extends WP_CLI_Command {
 	}
 }
 
-WP_CLI::add_command( 'wporg-learn-tutorial-to-lesson', 'WPORG_Learn_Tutorial_To_Lesson_Command' );
+WP_CLI::add_command( 'wporg-learn convert-tutorial-to-lesson', 'WPORG_Learn_Tutorial_To_Lesson_Command' );
