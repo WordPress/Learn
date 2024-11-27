@@ -29,6 +29,7 @@
 !/wp-content/mu-plugins/pub/class-validator.php
 !/wp-content/mu-plugins/pub/locale-switcher
 !/wp-content/mu-plugins/pub/locale-switcher/.eslintrc.js
+!/wp-content/mu-plugins/pub/wporg-learn-cli.php
 !/wp-content/plugins
 !/wp-content/plugins/wporg-learn
 !/wp-content/plugins/sensei-pro
