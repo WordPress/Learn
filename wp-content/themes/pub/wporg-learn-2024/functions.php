@@ -29,6 +29,7 @@ require_once __DIR__ . '/inc/template-helpers.php';
 /**
  * Actions and filters.
  */
+add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\enqueue_admin_assets' );
 add_action( 'after_setup_theme', __NAMESPACE__ . '\setup' );
 add_action( 'sensei_quiz_question_inside_after', __NAMESPACE__ . '\sensei_question_add_closing_fieldset' );
 // Attached at 50 to inject after title, description, etc, so that only answers are in the fieldset.
@@ -113,6 +114,20 @@ function setup() {
 
 	add_filter( 'mkaz_code_syntax_force_loading', '__return_true' );
 	add_filter( 'mkaz_prism_css_path', __NAMESPACE__ . '\update_prism_css_path' );
+}
+
+/**
+ * Enqueue scripts and styles.
+ */
+function enqueue_admin_assets() {
+	$style_path = get_stylesheet_directory() . '/build/style/index.css';
+	$style_uri = get_stylesheet_directory_uri() . '/build/style/index.css';
+	wp_enqueue_style(
+		'wporg-learn-2024-admin-style',
+		$style_uri,
+		array(),
+		filemtime( $style_path )
+	);
 }
 
 /**
