@@ -45,3 +45,11 @@ body {
 		padding-top: unset !important;
 	}
 }
+
+.wp-block-embed-wordpress-tv-embed {
+	iframe {
+		width: 100%;
+		height: auto;
+		aspect-ratio: 16 / 9;
+	}
+}
