@@ -1,5 +1,7 @@
 // Override Sensei Learning Mode styles, with default admin styles.
+.edit-post-meta-boxes-area input,
 .edit-post-meta-boxes-area textarea {
+	display: block;
 	border: 1px solid #8c8f94;
 	padding: 5px;
 	margin-top: 5px;

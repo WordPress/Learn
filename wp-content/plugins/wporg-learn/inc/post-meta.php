@@ -161,18 +161,6 @@ function register_workshop_meta() {
 
 	register_post_meta(
 		$post_type,
-		'video_url',
-		array(
-			'description'       => __( "The URL of the Workshop's video.", 'wporg_learn' ),
-			'type'              => 'string',
-			'single'            => true,
-			'sanitize_callback' => 'esc_url_raw',
-			'show_in_rest'      => true,
-		)
-	);
-
-	register_post_meta(
-		$post_type,
 		'duration',
 		array(
 			'description'       => __( 'The duration in seconds of the workshop. Should be converted to a human readable string for display.', 'wporg_learn' ),
@@ -298,6 +286,24 @@ function register_common_meta() {
 				'type'              => 'string',
 				'single'            => false,
 				'sanitize_callback' => 'sanitize_user',
+				'show_in_rest'      => true,
+			)
+		);
+	}
+
+	// Video URL field.
+	$post_types = array( 'wporg_workshop', 'lesson' );
+	foreach ( $post_types as $post_type ) {
+		register_post_meta(
+			$post_type,
+			'video_url',
+			array(
+				'description'       => 'wporg_workshop' === $post_type
+					? __( "The URL of the Workshop's video.", 'wporg_learn' )
+					: __( "The URL of the Lesson's video.", 'wporg_learn' ),
+				'type'              => 'string',
+				'single'            => true,
+				'sanitize_callback' => 'esc_url_raw',
 				'show_in_rest'      => true,
 			)
 		);
@@ -503,6 +509,14 @@ function add_lesson_metaboxes() {
 		'lesson',
 		'side'
 	);
+
+	add_meta_box(
+		'lesson-video-url',
+		__( 'Video URL (Reference only)', 'wporg_learn' ),
+		__NAMESPACE__ . '\render_metabox_lesson_video',
+		'lesson',
+		'side'
+	);
 }
 
 /**
@@ -568,6 +582,15 @@ function render_metabox_workshop_details( WP_Post $post ) {
 	$captions          = get_post_meta( $post->ID, 'video_caption_language' ) ?: array();
 
 	require get_views_path() . 'metabox-workshop-details.php';
+}
+
+/**
+ * Render the Lesson Video meta box.
+ *
+ * @param WP_Post $post
+ */
+function render_metabox_lesson_video( WP_Post $post ) {
+	require get_views_path() . 'metabox-lesson-video.php';
 }
 
 /**
