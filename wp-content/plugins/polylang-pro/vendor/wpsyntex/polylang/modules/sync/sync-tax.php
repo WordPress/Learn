@@ -1,0 +1,310 @@
+<?php
+/**
+ * @package Polylang
+ */
+
+/**
+ * A class to manage the synchronization of taxonomy terms across posts translations
+ *
+ * @since 2.3
+ */
+class PLL_Sync_Tax {
+
+	/**
+	 * Stores the plugin options.
+	 *
+	 * @var array
+	 */
+	protected $options;
+
+	/**
+	 * @var PLL_Model
+	 */
+	protected $model;
+
+	/**
+	 * Constructor.
+	 *
+	 * @since 2.3
+	 *
+	 * @param object $polylang The Polylang object.
+	 */
+	public function __construct( &$polylang ) {
+		$this->model   = &$polylang->model;
+		$this->options = &$polylang->options;
+
+		add_action( 'set_object_terms', array( $this, 'set_object_terms' ), 10, 5 );
+		add_action( 'pll_save_term', array( $this, 'create_term' ), 10, 3 );
+		add_action( 'pre_delete_term', array( $this, 'pre_delete_term' ) );
+		add_action( 'delete_term', array( $this, 'delete_term' ) );
+	}
+
+	/**
+	 * Get the list of taxonomies to copy or to synchronize.
+	 *
+	 * @since 1.7
+	 * @since 2.1 The `$from`, `$to`, `$lang` parameters were added.
+	 * @since 3.2 Changed visibility from protected to public.
+	 *
+	 * @param bool   $sync True if it is synchronization, false if it is a copy.
+	 * @param int    $from Id of the post from which we copy information, optional, defaults to null.
+	 * @param int    $to   Id of the post to which we paste information, optional, defaults to null.
+	 * @param string $lang Language slug, optional, defaults to null.
+	 * @return string[] List of taxonomy names.
+	 */
+	public function get_taxonomies_to_copy( $sync, $from = null, $to = null, $lang = null ) {
+		$taxonomies = ! $sync || in_array( 'taxonomies', $this->options['sync'] ) ? $this->model->get_translated_taxonomies() : array();
+		if ( ! $sync || in_array( 'post_format', $this->options['sync'] ) ) {
+			$taxonomies[] = 'post_format';
+		}
+
+		/**
+		 * Filters the taxonomies to copy or synchronize.
+		 *
+		 * @since 1.7
+		 * @since 2.1 The `$from`, `$to`, `$lang` parameters were added.
+		 *
+		 * @param string[] $taxonomies List of taxonomy names.
+		 * @param bool     $sync       True if it is synchronization, false if it is a copy.
+		 * @param int      $from       Id of the post from which we copy information.
+		 * @param int      $to         Id of the post to which we paste information.
+		 * @param string   $lang       Language slug.
+		 */
+		return array_unique( apply_filters( 'pll_copy_taxonomies', $taxonomies, $sync, $from, $to, $lang ) );
+	}
+
+	/**
+	 * When copying or synchronizing terms, translate terms in translatable taxonomies
+	 *
+	 * @since 2.3
+	 *
+	 * @param int    $object_id Object ID.
+	 * @param int[]  $terms     List of terms ids assigned to the source post.
+	 * @param string $taxonomy  Taxonomy name.
+	 * @param string $lang      Language slug.
+	 * @return int[] List of terms ids to assign to the target post.
+	 */
+	protected function maybe_translate_terms( $object_id, $terms, $taxonomy, $lang ) {
+		if ( is_array( $terms ) && $this->model->is_translated_taxonomy( $taxonomy ) ) {
+			$newterms = array();
+
+			// Convert to term ids if we got tag names
+			$strings = array_map( 'is_string', $terms );
+			if ( in_array( true, $strings, true ) ) {
+				$terms = get_the_terms( $object_id, $taxonomy );
+				$terms = wp_list_pluck( $terms, 'term_id' );
+			}
+
+			foreach ( $terms as $term ) {
+				/**
+				 * Filter the translated term when a post translation is created or synchronized
+				 *
+				 * @since 2.3
+				 *
+				 * @param int    $tr_term Translated term id
+				 * @param int    $term    Source term id
+				 * @param string $lang    Language slug
+				 */
+				if ( $term_id = apply_filters( 'pll_maybe_translate_term', (int) $this->model->term->get_translation( $term, $lang ), $term, $lang ) ) {
+					$newterms[] = (int) $term_id; // Cast is important otherwise we get 'numeric' tags
+				}
+			}
+
+			return $newterms;
+		}
+
+		return $terms; // Empty $terms or untranslated taxonomy
+	}
+
+	/**
+	 * Maybe copy taxonomy terms from one post to the other.
+	 *
+	 * @since 2.6
+	 *
+	 * @param int    $object_id Source object ID.
+	 * @param int    $tr_id     Target object ID.
+	 * @param string $lang      Target language.
+	 * @param array  $terms     An array of object terms.
+	 * @param string $taxonomy  Taxonomy slug.
+	 * @param bool   $append    Whether to append new terms to the old terms.
+	 * @return void
+	 */
+	protected function copy_object_terms( $object_id, $tr_id, $lang, $terms, $taxonomy, $append ) {
+		$to_copy = $this->get_taxonomies_to_copy( true, $object_id, $tr_id, $lang );
+
+		if ( in_array( $taxonomy, $to_copy ) ) {
+			$newterms = $this->maybe_translate_terms( $object_id, $terms, $taxonomy, $lang );
+
+			// For some reasons, the user may have untranslated terms in the translation. Don't forget them.
+			if ( $this->model->is_translated_taxonomy( $taxonomy ) ) {
+				$tr_terms = get_the_terms( $tr_id, $taxonomy );
+				if ( is_array( $tr_terms ) ) {
+					foreach ( $tr_terms as $term ) {
+						if ( ! $this->model->term->get_translation( $term->term_id, $this->model->post->get_language( $object_id ) ) ) {
+							$newterms[] = (int) $term->term_id;
+						}
+					}
+				}
+			}
+
+			wp_set_object_terms( $tr_id, $newterms, $taxonomy, $append );
+		}
+	}
+
+	/**
+	 * When assigning terms to a post, assign translated terms to the translated posts (synchronisation).
+	 *
+	 * @since 2.3
+	 *
+	 * @param int    $object_id Object ID.
+	 * @param array  $terms     An array of object terms.
+	 * @param int[]  $tt_ids    An array of term taxonomy IDs.
+	 * @param string $taxonomy  Taxonomy slug.
+	 * @param bool   $append    Whether to append new terms to the old terms.
+	 * @return void
+	 */
+	public function set_object_terms( $object_id, $terms, $tt_ids, $taxonomy, $append ) {
+		static $avoid_recursion = false;
+		$taxonomy_object = get_taxonomy( $taxonomy );
+
+		// Make sure that the taxonomy is registered for a post type
+		if ( ! $avoid_recursion && ! empty( $taxonomy_object ) && array_filter( $taxonomy_object->object_type, 'post_type_exists' ) ) {
+			$avoid_recursion = true;
+
+			$tr_ids = $this->model->post->get_translations( $object_id );
+
+			foreach ( $tr_ids as $lang => $tr_id ) {
+				if ( $tr_id !== $object_id ) {
+					if ( $this->model->post->current_user_can_synchronize( $object_id ) ) {
+						$this->copy_object_terms( $object_id, $tr_id, $lang, $terms, $taxonomy, $append );
+					} else {
+						// No permission to synchronize, so let's synchronize in reverse order
+						$orig_lang = array_search( $object_id, $tr_ids );
+						$tr_terms = get_the_terms( $tr_id, $taxonomy );
+
+						if ( false === $tr_terms ) {
+							$tr_terms = array();
+						}
+
+						if ( is_string( $orig_lang ) && is_array( $tr_terms ) ) {
+							$tr_terms = wp_list_pluck( $tr_terms, 'term_id' );
+							$this->copy_object_terms( $tr_id, $object_id, $orig_lang, $tr_terms, $taxonomy, $append );
+						}
+						break;
+					}
+				}
+			}
+
+			$avoid_recursion = false;
+		}
+	}
+
+	/**
+	 * Copy terms from one post to a translation, does not sync
+	 *
+	 * @since 2.3
+	 *
+	 * @param int    $from  Id of the source post
+	 * @param int    $to    Id of the target post
+	 * @param string $lang  Language slug
+	 * @return void
+	 */
+	public function copy( $from, $to, $lang ) {
+		remove_action( 'set_object_terms', array( $this, 'set_object_terms' ) );
+
+		// Get taxonomies to sync for this post type
+		$taxonomies = array_intersect( get_post_taxonomies( $from ), $this->get_taxonomies_to_copy( false, $from, $to, $lang ) );
+
+		// Update the term cache to reduce the number of queries in the loop
+		update_object_term_cache( array( $from ), get_post_type( $from ) );
+
+		// Copy
+		foreach ( $taxonomies as $tax ) {
+			if ( $terms = get_the_terms( $from, $tax ) ) {
+				$terms = array_map( 'intval', wp_list_pluck( $terms, 'term_id' ) );
+				$newterms = $this->maybe_translate_terms( $from, $terms, $tax, $lang );
+
+				if ( ! empty( $newterms ) ) {
+					wp_set_object_terms( $to, $newterms, $tax );
+				}
+			}
+		}
+
+		add_action( 'set_object_terms', array( $this, 'set_object_terms' ), 10, 5 );
+	}
+
+	/**
+	 * When creating a new term, associate it to posts having translations associated to the translated terms.
+	 *
+	 * @since 2.3
+	 *
+	 * @param int    $term_id      Id of the created term.
+	 * @param string $taxonomy     Taxonomy.
+	 * @param int[]  $translations Ids of the translations of the created term.
+	 * @return void
+	 */
+	public function create_term( $term_id, $taxonomy, $translations ) {
+		if ( doing_action( 'create_term' ) && in_array( $taxonomy, $this->get_taxonomies_to_copy( true ) ) ) {
+			// Get all posts associated to the translated terms
+			$tr_posts = get_posts(
+				array(
+					'numberposts' => -1,
+					'nopaging'    => true,
+					'post_type'   => 'any',
+					'post_status' => 'any',
+					'fields'      => 'ids',
+					'tax_query'   => array(
+						array(
+							'taxonomy'         => $taxonomy,
+							'field'            => 'id',
+							'terms'            => array_merge( array( $term_id ), array_values( $translations ) ),
+							'include_children' => false,
+						),
+					),
+				)
+			);
+
+			$lang = $this->model->term->get_language( $term_id ); // Language of the created term
+			$posts = array();
+
+			foreach ( $tr_posts as $post_id ) {
+				$post = $this->model->post->get_translation( $post_id, $lang );
+
+				if ( $post ) {
+					$posts[] = $post;
+				}
+			}
+
+			$posts = array_unique( $posts );
+
+			foreach ( $posts as $post_id ) {
+				if ( current_user_can( 'assign_term', $term_id ) ) {
+					wp_set_object_terms( $post_id, $term_id, $taxonomy, true );
+				}
+			}
+		}
+	}
+
+	/**
+	 * Deactivate the synchronization of terms before deleting a term
+	 * to avoid translated terms to be removed from translated posts
+	 *
+	 * @since 2.3.2
+	 *
+	 * @return void
+	 */
+	public function pre_delete_term() {
+		remove_action( 'set_object_terms', array( $this, 'set_object_terms' ) );
+	}
+
+	/**
+	 * Re-activate the synchronization of terms after a term is deleted
+	 *
+	 * @since 2.3.2
+	 *
+	 * @return void
+	 */
+	public function delete_term() {
+		add_action( 'set_object_terms', array( $this, 'set_object_terms' ), 10, 5 );
+	}
+}
