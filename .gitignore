@@ -17,7 +17,6 @@
 /wp-content/*
 /wp-content/mu-plugins/*
 /wp-content/mu-plugins/pub/*
-/wp-content/mu-plugins/pub/locale-switcher/build
 /wp-content/plugins/*
 /wp-content/themes/*
 /wp-content/themes/pub/*
@@ -34,9 +33,8 @@
 !/wp-content/plugins/wporg-learn
 !/wp-content/plugins/sensei-pro
 !/wp-content/plugins/polylang-pro
+!/wp-content/plugins/polylang-pro/css/build/
+!/wp-content/plugins/polylang-pro/js/build/
 !/wp-content/themes
 !/wp-content/themes/pub
 !/wp-content/themes/pub/wporg-learn-2024
-
-# Ignore subfolders in our custom code.
-/wp-content/plugins/wporg-learn/build
