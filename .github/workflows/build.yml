@@ -57,6 +57,7 @@ jobs:
           mv wp-content/mu-plugins/pub/class-validator.php $RUNNER_TEMP
           mv wp-content/mu-plugins/pub/locales.php $RUNNER_TEMP
           mv wp-content/mu-plugins/pub/wporg-learn-cli.php $RUNNER_TEMP
+          mv wp-content/plugins/polylang-pro $RUNNER_TEMP
           mv wp-content/plugins/sensei-pro $RUNNER_TEMP
           mv wp-content/plugins/wporg-learn $RUNNER_TEMP
           mv wp-content/themes/pub/wporg-learn-2024 $RUNNER_TEMP
@@ -69,6 +70,7 @@ jobs:
           mv $RUNNER_TEMP/class-validator.php wp-content/mu-plugins/pub
           mv $RUNNER_TEMP/locales.php wp-content/mu-plugins/pub
           mv $RUNNER_TEMP/wporg-learn-cli.php wp-content/mu-plugins/pub
+          mv $RUNNER_TEMP/polylang-pro wp-content/plugins
           mv $RUNNER_TEMP/sensei-pro wp-content/plugins
           mv $RUNNER_TEMP/wporg-learn wp-content/plugins
           mv $RUNNER_TEMP/wporg-learn-2024 wp-content/themes/pub
