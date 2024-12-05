@@ -60,7 +60,6 @@ registerBlockType( metadata.name, {
 				/>
 				{ lessonPlanId && (
 					<RichText
-						tagName="div"
 						label={ __( 'Edit Lesson Plan Content', 'wporg-learn' ) }
 						value={ lessonPlanContent }
 						onChange={ ( newContent ) => setAttributes( { lessonPlanContent: newContent } ) }
