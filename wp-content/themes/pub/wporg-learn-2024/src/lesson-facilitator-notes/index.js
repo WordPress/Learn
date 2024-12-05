@@ -51,11 +51,13 @@ registerBlockType( metadata.name, {
 			<div { ...useBlockProps() }>
 				<SelectControl
 					label={ __( 'Select Lesson Plan', 'wporg-learn' ) }
-					value={ lessonPlanId }
-					options={ [ { label: __( 'Select a plan', 'wporg-learn' ), value: null }, ...options ] }
+					value={ lessonPlanId || '' }
+					options={ [ { label: __( 'Select a plan', 'wporg-learn' ), value: '' }, ...options ] }
 					onChange={ ( newValue ) => {
-						setAttributes( { lessonPlanId: parseInt( newValue, 10 ) } );
-						fetchLessonPlanContent( newValue );
+						setAttributes( { lessonPlanId: newValue } );
+						if ( newValue ) {
+							fetchLessonPlanContent( newValue );
+						}
 					} }
 				/>
 				{ lessonPlanId && (
