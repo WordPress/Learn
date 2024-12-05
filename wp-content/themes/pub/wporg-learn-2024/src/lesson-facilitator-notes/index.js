@@ -48,6 +48,9 @@ registerBlockType( metadata.name, {
 			apiFetch( {
 				path: `/wp/v2/lesson-plan?search=${ encodeURIComponent( searchTerm ) }&per_page=10`,
 			} ).then( ( plans ) => {
+				if ( plans.length === 0 ) {
+					return;
+				}
 				const options = plans.map( ( plan ) => ( {
 					value: plan.id,
 					label: plan.title.rendered,
