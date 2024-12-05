@@ -16,6 +16,10 @@
       "lessonPlanContent": {
         "type": "string",
         "default": ""
+      },
+      "lessonPlanTitle": {
+        "type": "string",
+        "default": ""
       }
     },
     "textdomain": "wporg-learn",

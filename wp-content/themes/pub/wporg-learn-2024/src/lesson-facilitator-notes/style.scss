@@ -8,7 +8,7 @@
 		overflow: scroll;
 		border: 1px solid var(--wp--preset--color--charcoal-5);
 		margin: var(--wp--preset--spacing--10) 0;
-		padding: var(--wp--preset--spacing--10) 0;
+		padding: var(--wp--preset--spacing--10);
 
 		&.is-expanded {
 			max-height: none;
@@ -17,5 +17,9 @@
 		&.is-collapsed {
 			max-height: 300px;
 		}
+	}
+
+	h1.block-editor-rich-text__editable {
+		padding: 0 var(--wp--preset--spacing--10);
 	}
 }

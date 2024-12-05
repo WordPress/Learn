@@ -17,7 +17,7 @@ import './style.scss';
 
 registerBlockType( metadata.name, {
 	edit: function Edit( { attributes, setAttributes } ) {
-		const { lessonPlanId, lessonPlanContent } = attributes;
+		const { lessonPlanId, lessonPlanContent, lessonPlanTitle } = attributes;
 		const [ searchResults, setSearchResults ] = useState( [] );
 		const [ isExpanded, setIsExpanded ] = useState( false );
 
@@ -40,7 +40,10 @@ registerBlockType( metadata.name, {
 		const fetchLessonPlanContent = ( id ) => {
 			apiFetch( { path: `/wp/v2/lesson-plan/${ id }` } ).then( ( plan ) => {
 				const cleanedContent = plan.content.rendered.replace( /\s+/g, ' ' ).trim();
-				setAttributes( { lessonPlanContent: cleanedContent } );
+				setAttributes( {
+					lessonPlanContent: cleanedContent,
+					lessonPlanTitle: plan.title.rendered,
+				} );
 			} );
 		};
 
@@ -63,7 +66,10 @@ registerBlockType( metadata.name, {
 			apiFetch( {
 				path: `/wp/v2/lesson-plan/${ lessonPlanId }`,
 				method: 'POST',
-				data: { content: lessonPlanContent },
+				data: {
+					content: lessonPlanContent,
+					title: lessonPlanTitle,
+				},
 			} ).then( () => {
 				// Optionally, you can show a success message or update the UI
 			} );
@@ -90,6 +96,11 @@ registerBlockType( metadata.name, {
 				/>
 				{ lessonPlanId && (
 					<>
+						<RichText
+							tagName="h1"
+							value={ lessonPlanTitle }
+							onChange={ ( newTitle ) => setAttributes( { lessonPlanTitle: newTitle } ) }
+						/>
 						<Button variant="secondary" onClick={ () => setIsExpanded( ! isExpanded ) }>
 							{ isExpanded
 								? __( 'Collapse Content', 'wporg-learn' )
@@ -97,7 +108,6 @@ registerBlockType( metadata.name, {
 						</Button>
 						<RichText
 							className={ isExpanded ? 'is-expanded' : 'is-collapsed' }
-							label={ __( 'Edit Lesson Plan Content', 'wporg-learn' ) }
 							value={ lessonPlanContent }
 							onChange={ ( newContent ) => setAttributes( { lessonPlanContent: newContent } ) }
 						/>
