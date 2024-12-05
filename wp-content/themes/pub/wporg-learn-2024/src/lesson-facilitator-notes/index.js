@@ -95,19 +95,12 @@ registerBlockType( metadata.name, {
 								? __( 'Collapse Content', 'wporg-learn' )
 								: __( 'Expand Content', 'wporg-learn' ) }
 						</Button>
-						<div
-							style={ {
-								maxHeight: isExpanded ? 'none' : '100px', // Adjust the height as needed
-								overflow: 'hidden',
-								transition: 'max-height 0.3s ease',
-							} }
-						>
-							<RichText
-								label={ __( 'Edit Lesson Plan Content', 'wporg-learn' ) }
-								value={ lessonPlanContent }
-								onChange={ ( newContent ) => setAttributes( { lessonPlanContent: newContent } ) }
-							/>
-						</div>
+						<RichText
+							className={ isExpanded ? 'is-expanded' : 'is-collapsed' }
+							label={ __( 'Edit Lesson Plan Content', 'wporg-learn' ) }
+							value={ lessonPlanContent }
+							onChange={ ( newContent ) => setAttributes( { lessonPlanContent: newContent } ) }
+						/>
 					</>
 				) }
 				{ lessonPlanId && (
