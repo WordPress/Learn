@@ -3,7 +3,8 @@
  */
 import { registerBlockType } from '@wordpress/blocks';
 import { RichText, useBlockProps } from '@wordpress/block-editor';
-import { Button, ComboboxControl } from '@wordpress/components';
+import { Button, ComboboxControl, Icon, Spinner } from '@wordpress/components';
+import { check } from '@wordpress/icons';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import apiFetch from '@wordpress/api-fetch';
@@ -20,6 +21,9 @@ registerBlockType( metadata.name, {
 		const { lessonPlanId, lessonPlanContent, lessonPlanTitle } = attributes;
 		const [ searchResults, setSearchResults ] = useState( [] );
 		const [ isExpanded, setIsExpanded ] = useState( false );
+		const [ isSaving, setIsSaving ] = useState( false );
+		const [ saveSuccess, setSaveSuccess ] = useState( null );
+		const [ errorMessage, setErrorMessage ] = useState( null );
 
 		useEffect( () => {
 			// Fetch the initial lesson plan options if lessonPlanId is set
@@ -63,6 +67,8 @@ registerBlockType( metadata.name, {
 		}, 300 );
 
 		const saveLessonPlanContent = () => {
+			setIsSaving( true );
+			setSaveSuccess( null );
 			apiFetch( {
 				path: `/wp/v2/lesson-plan/${ lessonPlanId }`,
 				method: 'POST',
@@ -70,9 +76,39 @@ registerBlockType( metadata.name, {
 					content: lessonPlanContent,
 					title: lessonPlanTitle,
 				},
-			} ).then( () => {
-				// Optionally, you can show a success message or update the UI
-			} );
+			} )
+				.then( () => {
+					setIsSaving( false );
+					setSaveSuccess( true );
+					setTimeout( () => setSaveSuccess( null ), 2000 );
+				} )
+				.catch( ( error ) => {
+					setIsSaving( false );
+					setSaveSuccess( false );
+					setErrorMessage( error.message || __( 'An error occurred while saving', 'wporg-learn' ) );
+				} );
+		};
+
+		const getSaveButton = () => {
+			if ( isSaving ) {
+				return <Spinner />;
+			}
+			if ( saveSuccess === true ) {
+				return <Icon icon={ check } />;
+			}
+			if ( saveSuccess === false ) {
+				return errorMessage;
+			}
+			return __( 'Save Changes', 'wporg-learn' );
+		};
+
+		const getSaveButtonClassName = () => {
+			if ( saveSuccess === true ) {
+				return 'is-success';
+			}
+			if ( saveSuccess === false ) {
+				return 'is-failure';
+			}
 		};
 
 		return (
@@ -114,8 +150,13 @@ registerBlockType( metadata.name, {
 					</>
 				) }
 				{ lessonPlanId && (
-					<Button variant="primary" onClick={ saveLessonPlanContent }>
-						{ __( 'Save Changes', 'wporg-learn' ) }
+					<Button
+						variant="primary"
+						onClick={ saveLessonPlanContent }
+						disabled={ isSaving }
+						className={ getSaveButtonClassName() }
+					>
+						{ getSaveButton() }
 					</Button>
 				) }
 			</div>

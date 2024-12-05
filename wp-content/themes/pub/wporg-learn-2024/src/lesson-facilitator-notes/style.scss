@@ -22,4 +22,29 @@
 	h1.block-editor-rich-text__editable {
 		padding: 0 var(--wp--preset--spacing--10);
 	}
+
+	button {
+		min-width: 118px;
+		justify-content: center;
+
+		&.is-success {
+			background-color: var(--wp--custom--color--green-50) !important;
+
+			&:hover {
+				opacity: 0.9;
+			}
+		}
+
+		&.is-failure {
+			background-color: var(--wp--preset--color--vivid-red) !important;
+
+			&:hover {
+				opacity: 0.9;
+			}
+		}
+	}
+
+	.components-spinner {
+		margin-top: 0;
+	}
 }
