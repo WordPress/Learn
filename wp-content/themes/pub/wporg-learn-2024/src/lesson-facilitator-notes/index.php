@@ -8,6 +8,9 @@
 
 namespace WordPressdotorg\Theme\Learn_2024\Lesson_Facilitator_Notes;
 
+use Error;
+use function WPOrg_Learn\{get_build_path};
+
 defined( 'WPINC' ) || die();
 
 /**
@@ -37,9 +40,17 @@ function init() {
  * @param string   $content    Block default content.
  * @param WP_Block $block      Block instance.
  *
+ * @throws Error If the script asset file is not readable.
  * @return string Returns the block markup.
  */
 function render( $attributes, $content, $block ) {
+	$script_asset_path = get_stylesheet_directory() . '/build/lesson-facilitator-notes/index.asset.php';
+	if ( ! is_readable( $script_asset_path ) ) {
+		throw new Error(
+			'You need to run `yarn start` or `yarn run build` for the "wporg-learn/lesson-facilitator-notes" block first.'
+		);
+	}
+
 	if ( empty( $attributes['lessonPlanId'] ) ) {
 		return;
 	}
