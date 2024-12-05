@@ -3,10 +3,11 @@
  */
 import { registerBlockType } from '@wordpress/blocks';
 import { RichText, useBlockProps } from '@wordpress/block-editor';
-import { useSelect } from '@wordpress/data';
-import { Button, SelectControl } from '@wordpress/components';
+import { Button, ComboboxControl } from '@wordpress/components';
+import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import apiFetch from '@wordpress/api-fetch';
+import { debounce } from 'lodash';
 
 /**
  * Internal dependencies
@@ -17,18 +18,7 @@ import './style.scss';
 registerBlockType( metadata.name, {
 	edit: function Edit( { attributes, setAttributes } ) {
 		const { lessonPlanId, lessonPlanContent } = attributes;
-
-		const lessonPlans = useSelect(
-			( select ) => select( 'core' ).getEntityRecords( 'postType', 'lesson-plan', { per_page: -1 } ),
-			[]
-		);
-
-		const options = lessonPlans
-			? lessonPlans.map( ( plan ) => ( {
-					value: plan.id,
-					label: plan.title.rendered,
-			  } ) )
-			: [];
+		const [ searchResults, setSearchResults ] = useState( [] );
 
 		const fetchLessonPlanContent = ( id ) => {
 			apiFetch( { path: `/wp/v2/lesson-plan/${ id }` } ).then( ( plan ) => {
@@ -36,6 +26,18 @@ registerBlockType( metadata.name, {
 				setAttributes( { lessonPlanContent: cleanedContent } );
 			} );
 		};
+
+		const fetchLessonPlans = debounce( ( searchTerm ) => {
+			apiFetch( {
+				path: `/wp/v2/lesson-plan?search=${ encodeURIComponent( searchTerm ) }&per_page=10`,
+			} ).then( ( plans ) => {
+				const options = plans.map( ( plan ) => ( {
+					value: plan.id,
+					label: plan.title.rendered,
+				} ) );
+				setSearchResults( options );
+			} );
+		}, 300 );
 
 		const saveLessonPlanContent = () => {
 			apiFetch( {
@@ -49,16 +51,24 @@ registerBlockType( metadata.name, {
 
 		return (
 			<div { ...useBlockProps() }>
-				<SelectControl
+				<ComboboxControl
 					label={ __( 'Select Lesson Plan', 'wporg-learn' ) }
 					value={ lessonPlanId || '' }
-					options={ [ { label: __( 'Select a plan', 'wporg-learn' ), value: '' }, ...options ] }
+					options={ searchResults }
+					onFilterValueChange={ ( inputValue ) => {
+						if ( inputValue ) {
+							fetchLessonPlans( inputValue );
+						} else {
+							setSearchResults( [] );
+						}
+					} }
 					onChange={ ( newValue ) => {
 						setAttributes( { lessonPlanId: newValue } );
 						if ( newValue ) {
 							fetchLessonPlanContent( newValue );
 						}
 					} }
+					placeholder={ __( 'Search for a lesson plan…', 'wporg-learn' ) }
 				/>
 				{ lessonPlanId && (
 					<RichText
