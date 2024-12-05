@@ -12,6 +12,10 @@
       "lessonPlanId": {
         "type": "number",
         "default": null
+      },
+      "lessonPlanContent": {
+        "type": "string",
+        "default": ""
       }
     },
     "textdomain": "wporg-learn",
