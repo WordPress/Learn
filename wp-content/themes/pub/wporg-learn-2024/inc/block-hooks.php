@@ -179,6 +179,9 @@ function update_quiz_actions( $block_content ) {
 function is_quiz_ungraded() {
 	$lesson_id = Sensei_Utils::get_current_lesson();
 	$quiz_id   = Sensei()->lesson->lesson_quizzes( $lesson_id );
+	if ( ! $quiz_id ) {
+		return false;
+	}
 	$user_id   = get_current_user_id();
 	$quiz_progress = Sensei()->quiz_progress_repository->get( $quiz_id, $user_id );
 
