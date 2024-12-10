@@ -21,8 +21,9 @@
         "type": "string",
         "default": ""
       }
-    },
-    "textdomain": "wporg-learn",
-    "editorScript": "file:./index.js",
+	},
+	"textdomain": "wporg-learn",
+	"editorScript": "file:./index.js",
+	"viewScript": "file:./view.js",
 	"style": "file:./style-index.css"
 }

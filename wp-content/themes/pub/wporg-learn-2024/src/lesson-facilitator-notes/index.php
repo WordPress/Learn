@@ -63,7 +63,8 @@ function render( $attributes, $content, $block ) {
 
 	$lesson_plan_url = get_permalink( $lesson_plan->ID );
 	return sprintf(
-		'<div class="lesson-facilitator-notes"><a href="%s" target="_blank">%s</a></div>',
+		// If changing classname here, you'd also need to update it in style.scss and view.js.
+		'<div class="wporg-learn-lesson-facilitator-notes-label"><a href="%s" target="_blank">%s</a></div>',
 		esc_url( $lesson_plan_url ),
 		esc_html__( 'Facilitator Note', 'wporg-learn' )
 	);
