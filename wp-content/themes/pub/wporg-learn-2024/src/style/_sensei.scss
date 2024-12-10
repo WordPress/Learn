@@ -16,10 +16,6 @@ body.sensei {
 
 	@media (max-width: 782px) {
 		&.sensei-course-theme--sidebar-open {
-			.wporg-learn-facilitator-notes-label {
-				opacity: 1 !important;
-			}
-
 			// The inner progress bar causes a 1px jitter when the sidebar is opened.
 			.wporg-learn-lesson-header-mobile-view {
 				position: relative;
@@ -94,12 +90,6 @@ body.sensei {
 					@media (max-width: 460px) {
 						width: 47%;
 					}
-				}
-
-				.wporg-learn-facilitator-notes-label {
-					display: block;
-					position: absolute;
-					right: calc(60px + var(--wp--preset--spacing--20));
 				}
 
 				.wporg-learn-lesson-sidebar-toggle-wrapper {
