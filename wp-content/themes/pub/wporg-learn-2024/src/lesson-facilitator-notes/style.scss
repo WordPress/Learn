@@ -48,35 +48,3 @@
 		margin-top: 0;
 	}
 }
-
-// general styles
-.wporg-learn-lesson-facilitator-notes-label {
-	cursor: pointer;
-	font-family: var(--wp--preset--font-family--inter);
-	font-size: var(--wp--preset--font-size--small);
-	color: var(--wp--custom--link--color--text);
-	text-decoration: underline;
-	text-underline-offset: 0.13em;
-	user-select: none;
-	line-height: 1.1875;
-
-	&:hover {
-		text-decoration: none;
-	}
-
-	// mobile styles
-	position: absolute;
-	right: calc(60px + var(--wp--preset--spacing--20));
-}
-
-// desktop styles
-.sensei-course-theme-header-content {
-	.wporg-learn-lesson-facilitator-notes-label {
-		margin-left: -30px !important;
-		position: unset;
-
-		@media (max-width: 782px) {
-			display: none;
-		}
-	}
-}

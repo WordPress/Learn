@@ -1,14 +1,22 @@
 document.addEventListener( 'DOMContentLoaded', function () {
 	const facilitatorNotes = document.querySelector( '.wporg-learn-lesson-facilitator-notes-label' );
-	const headerInfos = document.querySelectorAll( '.sensei-course-theme-course-progress' );
-	const headerContent = document.querySelector( '.sensei-course-theme-header-content' );
+	const exitCourse = document.querySelector( '.wp-block-sensei-lms-exit-course' );
+	const exitLesson = document.querySelector( '.wp-block-sensei-lms-exit-lesson' );
+	const sidebarToggle = document.querySelector( '.wporg-learn-lesson-sidebar-toggle-wrapper' );
 
-	if ( facilitatorNotes && headerInfos.length > 0 ) {
-		headerInfos.forEach( ( headerInfo ) => {
-			headerInfo.insertAdjacentElement( 'afterend', facilitatorNotes.cloneNode( true ) );
-		} );
-	} else if ( facilitatorNotes && headerContent ) {
-		headerContent.firstElementChild.insertAdjacentElement( 'afterend', facilitatorNotes.cloneNode( true ) );
+	// for desktop view
+	if ( facilitatorNotes && exitCourse ) {
+		exitCourse.insertAdjacentElement( 'beforebegin', facilitatorNotes.cloneNode( true ) );
+	}
+
+	// for mobile view
+	if ( facilitatorNotes && sidebarToggle ) {
+		sidebarToggle.insertAdjacentElement( 'beforebegin', facilitatorNotes.cloneNode( true ) );
+	}
+
+	// for standalone lesson
+	if ( facilitatorNotes && exitLesson ) {
+		exitLesson.insertAdjacentElement( 'beforebegin', facilitatorNotes.cloneNode( true ) );
 	}
 
 	facilitatorNotes.remove();
