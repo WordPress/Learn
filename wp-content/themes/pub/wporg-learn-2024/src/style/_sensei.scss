@@ -864,6 +864,7 @@ body.sensei {
 			.wporg-learn-lesson-facilitator-notes-label {
 				right: calc(150px + var(--wp--preset--spacing--20));
 				position: absolute;
+				display: block;
 			}
 
 			@media (min-width: 783px) {
