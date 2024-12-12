@@ -855,6 +855,7 @@ body.sensei {
 	.sensei-course-theme__header--standalone {
 		.sensei-course-theme-header-content {
 			border-bottom: 1px solid var(--wp--custom--color--border);
+			gap: 0;
 
 			.wporg-site-breadcrumbs__wrapper {
 				white-space: pre-wrap;
@@ -862,8 +863,9 @@ body.sensei {
 
 			// standalone lesson styles
 			.wporg-learn-lesson-facilitator-notes-label {
-				right: calc(150px + var(--wp--preset--spacing--20));
-				position: absolute;
+				line-height: var(--wp--custom--body--small--typography--line-height);
+				margin-right: var(--wp--preset--spacing--30) !important;
+				margin-left: auto !important;
 				display: block;
 			}
 
