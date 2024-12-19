@@ -1,5 +1,5 @@
 <wpml-config>
-    <custom-fields>
-        <custom-field action="ignore">_lesson_course</custom-field>
-    </custom-fields>
+	<custom-fields>
+		<custom-field action="ignore">_lesson_course</custom-field>
+	</custom-fields>
 </wpml-config>
