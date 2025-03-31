@@ -40,6 +40,8 @@ _x( 'Contributors', 'Audiences term name', 'wporg-learn' );
 _x( 'Designers', 'Audiences term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/audience/developers/ */
 _x( 'Developers', 'Audiences term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/audience/fse/ */
+_x( 'FSE', 'Audiences term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/audience/speakers/ */
 _x( 'Speakers', 'Audiences term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/audience/users/ */
@@ -397,6 +399,8 @@ _x( 'eCommerce', 'Topics term name', 'wporg-learn' );
 _x( 'Extending WordPress', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/?wporg_workshop_topic=extending-wordpress */
 _x( 'Developing or customizing with code.', 'Topics term description', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=fse */
+_x( 'FSE', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/?wporg_workshop_topic=general */
 _x( 'General', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/?wporg_workshop_topic=general */
