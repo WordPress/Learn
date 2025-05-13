@@ -60,8 +60,14 @@ function render( $attributes, $content, $block ) {
 			)
 		);
 
-		// Get the average grade across all learners.
-		$average_grade = round( $course_service->get_courses_average_grade( array( $course_id ) ), 0 );
+		// Get the average grade across all learners and cache it.
+		$average_grade_cache_key   = 'course-average-grade-' . $course_id;
+		$average_grade_cache_group = 'wporg-learn';
+		$average_grade             = wp_cache_get( $average_grade_cache_key, $average_grade_cache_group );
+		if ( false === $average_grade ) {
+			$average_grade = round( $course_service->get_courses_average_grade( array( $course_id ) ), 0 );
+			wp_cache_set( $average_grade_cache_key, $average_grade, $average_grade_cache_group, DAY_IN_SECONDS );
+		}
 
 		// Get the last updated time.
 		$last_updated = get_last_updated_time( $course_id );
