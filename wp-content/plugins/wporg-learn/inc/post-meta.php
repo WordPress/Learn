@@ -664,6 +664,7 @@ function save_workshop_meta_fields( $post_id ) {
 
 	$duration = filter_input( INPUT_POST, 'duration', FILTER_SANITIZE_NUMBER_INT, FILTER_REQUIRE_ARRAY );
 	if ( isset( $duration['h'], $duration['m'], $duration['s'] ) ) {
+		$duration = array_map( 'absint', $duration );
 		$duration = $duration['h'] * HOUR_IN_SECONDS + $duration['m'] * MINUTE_IN_SECONDS + $duration['s'];
 		update_post_meta( $post_id, 'duration', $duration );
 	}
