@@ -213,9 +213,7 @@ function register_common_meta() {
 				'description'       => __( 'The date when the content of the post may be obsolete.', 'wporg_learn' ),
 				'type'              => 'string',
 				'single'            => true,
-				'sanitize_callback' => function( $value ) {
-					return filter_var( $value, FILTER_SANITIZE_STRING );
-				},
+				'sanitize_callback' => 'sanitize_text_field',
 				'show_in_rest'      => true,
 			)
 		);
