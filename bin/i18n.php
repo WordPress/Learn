@@ -50,11 +50,12 @@ function get_taxonomies( array $valid_post_types = array() ) {
  * Get data about a taxonomy's terms from a REST API endpoint.
  *
  * @param string $taxonomy
+ * @param int    $page Internal use only, do not pass. This function will recursively fetch all pages of terms.
  *
  * @return array
  */
-function get_taxonomy_terms( $taxonomy ) {
-	$endpoint = ENDPOINT_BASE . $taxonomy . '?per_page=100';
+function get_taxonomy_terms( $taxonomy, $page = 1 ) {
+	$endpoint = ENDPOINT_BASE . $taxonomy . '?per_page=100&page=' . $page;
 
 	$response = Requests::get( $endpoint );
 
@@ -72,6 +73,15 @@ function get_taxonomy_terms( $taxonomy ) {
 			'Terms request for %s returned unexpected data.',
 			$taxonomy // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		) );
+	}
+
+	// If there are more pages, recursively fetch them.
+	$max_pages = $response->headers['X-WP-TotalPages'] ?? 1;
+	if ( $max_pages > $page ) {
+		$terms = array_merge(
+			$terms,
+			get_taxonomy_terms( $taxonomy, $page + 1 )
+		);
 	}
 
 	return $terms;
@@ -113,6 +123,14 @@ function main() {
 	$file_content = '';
 	foreach ( $terms_by_tax as $tax_label => $terms ) {
 		$label = addcslashes( $tax_label, "'" );
+
+		// Sort the terms by slug for consistency.
+		usort(
+			$terms,
+			function( $a, $b ) {
+				return strcmp( $a['slug'], $b['slug'] );
+			}
+		);
 
 		foreach ( $terms as $term ) {
 
