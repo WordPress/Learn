@@ -18,7 +18,7 @@ if ( 'local' === wp_get_environment_type() ) {
 	return;
 }
 
-add_action( 'sensei_course_status_updated', __NAMESPACE__ . '\add_course_completed_activity', 9, 3 ); // Before `redirect_to_course_completed_page()`.
+add_action( 'sensei_course_status_updated', __NAMESPACE__ . '\add_course_completed_activity', 9, 5 ); // Before `redirect_to_course_completed_page()`.
 add_action( 'transition_post_status', __NAMESPACE__ . '\maybe_notify_new_published_post', 10, 3 );
 
 /**
@@ -29,7 +29,7 @@ add_action( 'transition_post_status', __NAMESPACE__ . '\maybe_notify_new_publish
  * @param WP_Post $post The post.
  */
 function maybe_notify_new_published_post( $new_status, $old_status, $post ) {
-	if ( 'publish' != $new_status ) {
+	if ( 'publish' != $new_status || 'publish' === $old_status ) {
 		return;
 	}
 
@@ -103,8 +103,8 @@ function notify_workshop_presenter( $post ) {
 /**
  * Add an activity to a user's profile when they complete a course.
  */
-function add_course_completed_activity( string $status, int $user_id, int $course_id ) : void {
-	if ( 'complete' !== $status ) {
+function add_course_completed_activity( string $status, int $user_id, int $course_id, int $comment_id, ?string $previous_status ) : void {
+	if ( 'complete' !== $status || 'complete' === $previous_status ) {
 		return;
 	}
 
