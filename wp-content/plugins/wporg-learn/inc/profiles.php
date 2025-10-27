@@ -126,4 +126,11 @@ function add_course_completed_activity( string $status, int $user_id, int $cours
 	);
 
 	Profiles_API\api( $request_body );
+
+	$course_slug = get_post( $course_id )->post_name;
+	switch ( $course_slug ) {
+		case 'wordpress-credits':
+			Profiles_API\assign_badge( 'credits-graduate', $user_id );
+			break;
+	}
 }
