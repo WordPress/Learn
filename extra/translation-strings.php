@@ -492,4 +492,4 @@ _x( 'Jump into the code and learn how to extend the software.', 'Learning Pathwa
 /* translators: https://learn.wordpress.org/learning-pathway/user/ */
 _x( 'Start using WordPress', 'Learning Pathways term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/learning-pathway/user/ */
-_x( 'Get the basics to create and manage your own website.', 'Learning Pathways term description', 'wporg-learn' );
+_x( 'Learn the basics to create and manage your own website.', 'Learning Pathways term description', 'wporg-learn' );
