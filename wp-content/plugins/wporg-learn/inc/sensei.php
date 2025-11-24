@@ -393,14 +393,18 @@ function disable_certificate_reservations() {
 
 	remove_action( 'sensei_course_status_updated', array( $instance, 'handle_course_completed' ), 9, 3 );
 
-	add_action( 'sensei_course_status_updated', static function ( $status, $user_id, $course_id ) use ( $instance ) {
+	add_action( 'sensei_course_status_updated', static function( $status, $user_id, $course_id ) use ( $instance ) {
 		/*
 		 * WPORG: Only generate certificates for templated certificates.
 		 *
 		 * The default behavior is to reserve a certificate hash and clutters the database.
 		 */
 		$template_id = get_post_meta( $course_id, '_course_certificate_template', true );
-		if ( ! $template_id ) {
+		if (
+			! $template_id ||
+			'publish' !== get_post_status( $template_id ) || // Draft templates
+			empty( get_post( $template_id )->post_author ?? 0 ) // System-generated default templates not edited by someone.
+		) {
 			return;
 		}
 
