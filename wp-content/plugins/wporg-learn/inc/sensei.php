@@ -402,7 +402,7 @@ function disable_certificate_reservations() {
 		$template_id = get_post_meta( $course_id, '_course_certificate_template', true );
 		if (
 			! $template_id ||
-			'publish' !== get_post_status( $template_id ) || // Draft templates
+			! in_array( get_post_status( $template_id ), array( 'publish', 'private' ) ) || // Exclude draft templates.
 			empty( get_post( $template_id )->post_author ?? 0 ) // System-generated default templates not edited by someone.
 		) {
 			return;
