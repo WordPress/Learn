@@ -89,7 +89,7 @@ _This week’s meeting will be hosted by MEETING_HOST._
 - What have you been working on and how has it been going?
 - Anything you’ve accomplished since the last meeting?
 - Do you have any blockers?
-- Can other contributor or Training Team members help you in some way?
+- Can other contributors or Training Team members help you in some way?
 
 ## 7. Open Discussions
 
