@@ -1,7 +1,7 @@
 ---
 name: Meeting Agenda
 about: Used by team reps to publish team meeting agendas
-title: Meeting Agenda MONTH DAY, 2024
+title: Meeting Agenda MONTH DAY, 2026
 labels: "[Admin] Agenda"
 assignees: ''
 
