@@ -20,28 +20,24 @@ function get_workshop_application_field_schema() {
 		'label'      => 'submission',
 		'properties' => array(
 			'wporg-user-name'         => array(
-				'input_filters' => FILTER_DEFAULT,
 				'label'         => __( 'WordPress.org User Name', 'wporg-learn' ),
 				'type'          => 'string',
 				'required'      => true,
 				'default'       => '',
 			),
 			'first-name'              => array(
-				'input_filters' => FILTER_DEFAULT,
 				'label'         => __( 'First Name', 'wporg-learn' ),
 				'type'          => 'string',
 				'required'      => false,
 				'default'       => '',
 			),
 			'last-name'               => array(
-				'input_filters' => FILTER_DEFAULT,
 				'label'         => __( 'Last Name', 'wporg-learn' ),
 				'type'          => 'string',
 				'required'      => false,
 				'default'       => '',
 			),
 			'email'                   => array(
-				'input_filters' => FILTER_SANITIZE_EMAIL,
 				'label'         => __( 'Email', 'wporg-learn' ),
 				'type'          => 'string',
 				'format'        => 'email',
@@ -49,52 +45,42 @@ function get_workshop_application_field_schema() {
 				'default'       => '',
 			),
 			'online-presence'         => array(
-				'input_filters' => FILTER_DEFAULT,
 				'label'         => __( 'Where can we find you online? Please share links to your website(s) and as many social media accounts as applicable, including but not limited to Twitter, LinkedIn, Facebook, Instagram, etc.', 'wporg-learn' ),
 				'type'          => 'string',
 				'required'      => true,
 				'default'       => '',
 			),
 			'workshop-title'          => array(
-				'input_filters' => FILTER_DEFAULT,
 				'label'         => __( 'Workshop Title', 'wporg-learn' ),
 				'type'          => 'string',
 				'required'      => true,
 				'default'       => '',
 			),
 			'description'             => array(
-				'input_filters' => FILTER_DEFAULT,
 				'label'         => __( 'Full workshop description', 'wporg-learn' ),
 				'type'          => 'string',
 				'required'      => true,
 				'default'       => '',
 			),
 			'description-short'       => array(
-				'input_filters' => FILTER_DEFAULT,
 				'label'         => __( 'Brief workshop description (less than 150 words)', 'wporg-learn' ),
 				'type'          => 'string',
 				'required'      => true,
 				'default'       => '',
 			),
 			'learning-objectives'     => array(
-				'input_filters' => FILTER_DEFAULT,
 				'label'         => __( 'What are the learning objectives for this workshop?', 'wporg-learn' ),
 				'type'          => 'string',
 				'required'      => true,
 				'default'       => '',
 			),
 			'comprehension-questions' => array(
-				'input_filters' => FILTER_DEFAULT,
 				'label'         => __( 'What comprehension questions should we ask at the end of your workshop? List at least 3 but no more than 10 questions for workshop viewers to answer on their own or discuss with a group to ensure they properly understood the material.', 'wporg-learn' ),
 				'type'          => 'string',
 				'required'      => true,
 				'default'       => '',
 			),
 			'audience'                => array(
-				'input_filters' => array(
-					'filter' => FILTER_DEFAULT,
-					'flags'  => FILTER_REQUIRE_ARRAY,
-				),
 				'label'         => __( 'Who is this workshop intended for?', 'wporg-learn' ),
 				'type'          => 'array',
 				'items'         => array(
@@ -105,10 +91,6 @@ function get_workshop_application_field_schema() {
 				'default'       => array(),
 			),
 			'experience-level'        => array(
-				'input_filters' => array(
-					'filter' => FILTER_DEFAULT,
-					'flags'  => FILTER_REQUIRE_ARRAY,
-				),
 				'label'         => __( 'What experience level is this workshop aimed at?', 'wporg-learn' ),
 				'type'          => 'array',
 				'items'         => array(
@@ -119,7 +101,6 @@ function get_workshop_application_field_schema() {
 				'default'       => array(),
 			),
 			'language'                => array(
-				'input_filters' => FILTER_DEFAULT,
 				'label'         => __( 'In what language will this workshop be presented?', 'wporg-learn' ),
 				'type'          => 'string',
 				'enum'          => array_keys( get_locales_with_english_names() ),
@@ -127,14 +108,12 @@ function get_workshop_application_field_schema() {
 				'default'       => 'en_US',
 			),
 			'comments'                => array(
-				'input_filters' => FILTER_DEFAULT,
 				'label'         => __( 'Is there anything else you think we should know?', 'wporg-learn' ),
 				'type'          => 'string',
 				'required'      => false,
 				'default'       => '',
 			),
 			'nonce'                   => array(
-				'input_filters' => FILTER_DEFAULT,
 				'label'         => '',
 				'type'          => 'string',
 				'required'      => true,
@@ -150,28 +129,26 @@ function get_workshop_application_field_schema() {
  * @return array
  */
 function get_workshop_application_form_submission() {
-	$schema = get_workshop_application_field_schema();
-
-	$submission = filter_input_array(
-		INPUT_POST,
-		wp_list_pluck( $schema['properties'], 'input_filters' ),
-		false
-	);
-
-	$submission = array_map(
-		function( $item ) {
-			// Ensure arrays don't contain items that are empty strings.
-			if ( is_array( $item ) ) {
-				$item = array_filter( $item );
-			}
-
-			return $item;
-		},
-		$submission
-	);
-
-	if ( empty( $submission ) ) {
+	if ( empty( $_POST ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		return array();
+	}
+
+	$schema     = get_workshop_application_field_schema();
+	$submission = array();
+
+	foreach ( $schema['properties'] as $key => $property ) {
+		if ( 'array' === ( $property['type'] ?? '' ) ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing
+			$raw   = isset( $_POST[ $key ] ) && is_array( $_POST[ $key ] ) ? wp_unslash( $_POST[ $key ] ) : array();
+			$value = array_filter( array_map( 'sanitize_text_field', $raw ) );
+		} elseif ( 'email' === ( $property['format'] ?? '' ) ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing
+			$value = sanitize_email( wp_unslash( $_POST[ $key ] ?? '' ) );
+		} else {
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing
+			$value = sanitize_text_field( wp_unslash( $_POST[ $key ] ?? '' ) );
+		}
+		$submission[ $key ] = $value;
 	}
 
 	$submission = array_merge( $submission, get_workshop_application_form_user_details() );
