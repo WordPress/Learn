@@ -246,10 +246,10 @@ function add_admin_list_table_filters( $post_type, $which ) {
 		return;
 	}
 
-	$audience    = filter_input( INPUT_GET, 'wporg_audience', FILTER_SANITIZE_STRING );
-	$language    = filter_input( INPUT_GET, 'language', FILTER_SANITIZE_STRING );
-	$level       = filter_input( INPUT_GET, 'wporg_experience_level', FILTER_SANITIZE_STRING );
-	$post_status = filter_input( INPUT_GET, 'post_status', FILTER_SANITIZE_STRING );
+	$audience    = sanitize_text_field( wp_unslash( $_GET['wporg_audience'] ?? '' ) );
+	$language    = sanitize_text_field( wp_unslash( $_GET['language'] ?? '' ) );
+	$level       = sanitize_text_field( wp_unslash( $_GET['wporg_experience_level'] ?? '' ) );
+	$post_status = sanitize_text_field( wp_unslash( $_GET['post_status'] ?? '' ) );
 
 	$available_audiences = get_available_taxonomy_terms( 'audience', $post_type, $post_status );
 	$available_levels    = get_available_taxonomy_terms( 'level', $post_type, $post_status );
@@ -326,9 +326,9 @@ function handle_admin_list_table_filters( WP_Query $query ) {
 		'edit-lesson' === $current_screen->id ||
 		'edit-course' === $current_screen->id
 	) {
-		$audience = filter_input( INPUT_GET, 'wporg_audience', FILTER_SANITIZE_STRING );
-		$language = filter_input( INPUT_GET, 'language', FILTER_SANITIZE_STRING );
-		$level    = filter_input( INPUT_GET, 'wporg_experience_level', FILTER_SANITIZE_STRING );
+		$audience = sanitize_text_field( wp_unslash( $_GET['wporg_audience'] ?? '' ) );
+		$language = sanitize_text_field( wp_unslash( $_GET['language'] ?? '' ) );
+		$level    = sanitize_text_field( wp_unslash( $_GET['wporg_experience_level'] ?? '' ) );
 
 		// Tax queries
 		$tax_query = $query->get( 'tax_query', array() );

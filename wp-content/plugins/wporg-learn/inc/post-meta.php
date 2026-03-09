@@ -214,7 +214,7 @@ function register_common_meta() {
 				'type'              => 'string',
 				'single'            => true,
 				'sanitize_callback' => function( $value ) {
-					return filter_var( $value, FILTER_SANITIZE_STRING );
+					return sanitize_text_field( $value );
 				},
 				'show_in_rest'      => true,
 			)
