@@ -3,7 +3,7 @@
 namespace WPOrg_Learn\Sensei;
 
 use Exception;
-use Sensei_Course, Sensei_Lesson, Sensei_Course_Enrolment_Manager;
+use Sensei_Course, Sensei_Lesson, Sensei_Course_Enrolment_Manager, WooThemes_Sensei_Certificates;
 
 defined( 'WPINC' ) || die();
 
@@ -27,6 +27,9 @@ add_action( 'sensei_login_form_before', __NAMESPACE__ . '\sensei_login_form_befo
 add_action( 'sensei_register_form_start', __NAMESPACE__ . '\sensei_register_form_start' );
 // Disable Sensei user login & creation.
 add_filter( 'init', __NAMESPACE__ . '\block_login_register_actions', 1 );
+
+// Don't create certificate reservations for non-templated certificates.
+add_action( 'init', __NAMESPACE__ . '\disable_certificate_reservations' );
 
 /**
  * Slugs in Sensei are translatable, which won't work for our site and the language switcher.
@@ -376,4 +379,36 @@ function get_lesson_has_published_course( $lesson_id ) {
 	$course_status = get_post_status( $course_id );
 
 	return ! empty( $course_id ) && 'publish' === $course_status;
+}
+
+/**
+ * Disable certificate reservations for non-templated certificates.
+ */
+function disable_certificate_reservations() {
+	if ( ! class_exists( 'WooThemes_Sensei_Certificates' ) ) {
+		return;
+	}
+
+	$instance = WooThemes_Sensei_Certificates::instance();
+
+	remove_action( 'sensei_course_status_updated', array( $instance, 'handle_course_completed' ), 9, 3 );
+
+	add_action( 'sensei_course_status_updated', static function( $status, $user_id, $course_id ) use ( $instance ) {
+		/*
+		 * WPORG: Only generate certificates for templated certificates.
+		 *
+		 * The default behavior is to reserve a certificate hash and clutters the database.
+		 */
+		$template_id = get_post_meta( $course_id, '_course_certificate_template', true );
+		if (
+			! $template_id ||
+			! in_array( get_post_status( $template_id ), array( 'publish', 'private' ) ) || // Exclude draft templates.
+			empty( get_post( $template_id )->post_author ?? 0 ) // System-generated default templates not edited by someone.
+		) {
+			return;
+		}
+
+		// Call the original handler.
+		$instance->handle_course_completed( $status, $user_id, $course_id );
+	}, 9, 3 );
 }
