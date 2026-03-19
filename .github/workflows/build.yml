@@ -29,7 +29,7 @@ jobs:
       - name: Setup PHP with PECL extension
         uses: shivammathur/setup-php@4bd44f22a98a19e0950cbad5f31095157cc9621b # v2.25.4 
         with:
-          php-version: "7.4"
+          php-version: "8.3"
         env:
           COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

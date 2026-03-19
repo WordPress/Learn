@@ -17,7 +17,7 @@ $current_post = get_post();
 	<!-- wp:group {"layout":{"type":"constrained"}} -->
 	<div class="wp-block-group">
 
-		<?php if ( $current_post->slides_view_url || $current_post->slides_download_url ) : ?>
+		<?php if ( $current_post && ( $current_post->slides_view_url || $current_post->slides_download_url ) ) : ?>
 			<!-- wp:buttons {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"flex","justifyContent":"center"}} -->
 			<div class="wp-block-buttons">
 				<?php if ( $current_post->slides_view_url ) : ?>
