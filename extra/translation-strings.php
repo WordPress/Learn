@@ -419,6 +419,10 @@ _x( 'Dashboard', 'Topics term name', 'wporg-learn' );
 _x( 'Diversity', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/?wporg_workshop_topic=ecommerce */
 _x( 'eCommerce', 'Topics term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=education */
+_x( 'Education', 'Topics term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=education */
+_x( 'Empowering the next generation of open web creators', 'Topics term description', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/?wporg_workshop_topic=extending-wordpress */
 _x( 'Extending WordPress', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/?wporg_workshop_topic=extending-wordpress */
@@ -481,6 +485,10 @@ _x( 'Using Themes', 'Topics term name', 'wporg-learn' );
 _x( 'Using WordPress', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/?wporg_workshop_topic=wordpress */
 _x( 'WordPress', 'Topics term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=wordpress-campus-connect */
+_x( 'WordPress Campus Connect', 'Topics term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=wordpress-credits */
+_x( 'WordPress Credits', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/learning-pathway/designer/ */
 _x( 'Design with WordPress', 'Learning Pathways term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/learning-pathway/designer/ */
