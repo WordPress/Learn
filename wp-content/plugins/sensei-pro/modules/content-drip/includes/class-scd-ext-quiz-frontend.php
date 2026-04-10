@@ -43,6 +43,13 @@ class Scd_Ext_Quiz_Frontend {
 	protected $drip_message;
 
 	/**
+	 * The message format string.
+	 *
+	 * @var string
+	 */
+	protected $message_format;
+
+	/**
 	 * Constructor function
 	 */
 	public function __construct() {

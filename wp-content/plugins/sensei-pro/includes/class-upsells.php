@@ -26,6 +26,13 @@ final class Upsells {
 	private static $instance;
 
 	/**
+	 * Assets instance.
+	 *
+	 * @var Assets
+	 */
+	public $assets;
+
+	/**
 	 * Initialize the singleton instance.
 	 *
 	 * @since 1.0.0

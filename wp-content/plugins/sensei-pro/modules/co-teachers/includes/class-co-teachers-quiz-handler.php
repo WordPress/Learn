@@ -33,6 +33,13 @@ class Co_Teachers_Quiz_Handler {
 	private $co_teachers;
 
 	/**
+	 * Assets loader instance.
+	 *
+	 * @var object
+	 */
+	public $assets;
+
+	/**
 	 * Retrieve the singleton instance.
 	 */
 	public static function instance(): Co_Teachers_Quiz_Handler {

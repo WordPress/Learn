@@ -29,6 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @property Scd_Ext_Quiz_Frontend $quiz_frontend
  * @property Scd_Ext_Drip_Email $drip_email
  * @property Scd_Ext_Manual_Drip $manual_drip
+ * @property \Sensei_Pro\Assets_Provider $assets
  *
  * Table Of Contents:
  * - __construct
@@ -110,6 +111,51 @@ class Sensei_Content_Drip {
 	 * @since  1.0.0
 	 */
 	private $cron_hook;
+
+	/**
+	 * @var Scd_Ext_Settings
+	 */
+	public $settings;
+
+	/**
+	 * @var Scd_Ext_Utils
+	 */
+	public $utils;
+
+	/**
+	 * @var Scd_Ext_Access_Control
+	 */
+	public $access_control;
+
+	/**
+	 * @var Scd_Ext_Lesson_Frontend
+	 */
+	public $lesson_frontend;
+
+	/**
+	 * @var Scd_Ext_Lesson_Admin
+	 */
+	public $lesson_admin;
+
+	/**
+	 * @var Scd_Ext_Quiz_Frontend
+	 */
+	public $quiz_frontend;
+
+	/**
+	 * @var Scd_Ext_Drip_Email
+	 */
+	public $drip_email;
+
+	/**
+	 * @var Scd_Ext_Manual_Drip
+	 */
+	public $manual_drip;
+
+	/**
+	 * @var object
+	 */
+	public $assets;
 
 	/**
 	 * Constructor function.
