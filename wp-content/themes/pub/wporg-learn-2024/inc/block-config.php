@@ -555,6 +555,9 @@ function inject_other_filters( $key ) {
 		if ( ! isset( $wp_query->query[ $single_query_var ] ) ) {
 			continue;
 		}
+		if ( ! is_string( $wp_query->query[ $single_query_var ] ) ) {
+			continue;
+		}
 		if ( $key === $single_query_var ) {
 			continue;
 		}
@@ -572,6 +575,9 @@ function inject_other_filters( $key ) {
 		}
 		$values = (array) $wp_query->query[ $multi_query_var ];
 		foreach ( $values as $value ) {
+			if ( ! is_string( $value ) ) {
+				continue;
+			}
 			printf( '<input type="hidden" name="%s[]" value="%s" />', esc_attr( $multi_query_var ), esc_attr( $value ) );
 		}
 	}
@@ -586,12 +592,15 @@ function inject_other_filters( $key ) {
 			continue;
 		}
 		foreach ( $values as $value ) {
+			if ( ! is_string( $value ) ) {
+				continue;
+			}
 			printf( '<input type="hidden" name="%s[]" value="%s" />', esc_attr( $meta_query_var ), esc_attr( $value ) );
 		}
 	}
 
 	// Pass through search query.
-	if ( isset( $wp_query->query['s'] ) ) {
+	if ( isset( $wp_query->query['s'] ) && is_string( $wp_query->query['s'] ) ) {
 		printf( '<input type="hidden" name="s" value="%s" />', esc_attr( $wp_query->query['s'] ) );
 	}
 }
