@@ -129,7 +129,9 @@ function add_course_completed_activity( string $status, int $user_id, int $cours
 
 	$course_slug = get_post( $course_id )->post_name;
 	switch ( $course_slug ) {
+		case '50-hours-wordpress-credits':
 		case 'wordpress-credits':
+		case 'wordpress-credits-self-onboarding-pilot':
 			Profiles_API\assign_badge( 'credits-graduate', $user_id );
 			break;
 	}
