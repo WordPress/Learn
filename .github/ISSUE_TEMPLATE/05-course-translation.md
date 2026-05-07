@@ -27,45 +27,45 @@ Please add all course modules by copying one of the sample module formats below 
 
 - [ ] **Introduction to WordPress**  
   Link of original lesson: https://learn.wordpress.org/lesson/introduction-to-wordpress-2/ 
-  Translation Issue: #101
+  Translation Issue: # 101
 
 - [ ] **WordPress essentials: Domains and hosting**  
   Learn WordPress: https://learn.wordpress.org/lesson/wordpress-essentials-domains-and-hosting/
-  Translation Issue: #102
+  Translation Issue: # 102
 
 - [ ] **Choosing and installing a theme**  
   Learn WordPress: https://learn.wordpress.org/lesson/choosing-and-installing-a-theme/ 
-  Translation Issue: #103
+  Translation Issue: # 103
 
 - [ ] **Choosing and installing a plugin**  
   Learn WordPress: https://learn.wordpress.org/lesson/choosing-and-installing-a-plugin/
-  Translation Issue: #104
+  Translation Issue: # 104
 
 - [ ] **Getting started with the WordPress dashboard**  
   Learn WordPress: https://learn.wordpress.org/lesson/getting-started-with-the-wordpress-dashboard/
-  Translation Issue: #105
+  Translation Issue: # 105
 
 ## Module 2 Title (Example: Gain a familiarity with the WordPress Interface)
 
 - [ ] **Understanding the difference between WordPress posts and pages**  
   Link of original lesson: https://learn.wordpress.org/lesson/understanding-the-difference-between-wordpress-posts-and-pages/
-  Translation Issue: #106
+  Translation Issue: # 106
 
 - [ ] **Using the media library**  
   Learn WordPress: https://learn.wordpress.org/lesson/using-the-media-library-2/
-  Translation Issue: #107
+  Translation Issue: # 107
 
 - [ ] **Creating posts and pages with the WordPress Block Editor**  
   Learn WordPress: https://learn.wordpress.org/lesson/creating-posts-and-pages-with-the-wordpress-block-editor/
-  Translation Issue: #108
+  Translation Issue: # 108
 
 - [ ] **Basic WordPress Settings**  
   Learn WordPress: https://learn.wordpress.org/lesson/basic-wordpress-settings/
-  Translation Issue: #109
+  Translation Issue: # 109
 
 - [ ] **What is the difference between the Block Editor and Site Editor?**  
   Learn WordPress: https://learn.wordpress.org/lesson/what-is-the-difference-between-the-block-editor-and-site-editor/
-  Translation Issue: #110
+  Translation Issue: # 110
 
 # Next Steps
 Once the entire course has been translated, please notify the Training Team admins on Slack using the @tt-admins tag for review and next steps.
