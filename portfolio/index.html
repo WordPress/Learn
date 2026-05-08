@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio von Max Mustermann – Webentwickler mit Fokus auf moderne Web-Anwendungen.">
+    <title>Max Mustermann – Webentwickler Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+    <header class="header" id="header">
+        <nav class="nav container" aria-label="Hauptnavigation">
+            <a href="#hero" class="nav__logo">
+                <span class="nav__logo-bracket">&lt;</span>MM<span class="nav__logo-bracket">/&gt;</span>
+            </a>
+
+            <button class="nav__toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="navMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <ul class="nav__menu" id="navMenu">
+                <li><a href="#hero" class="nav__link">Start</a></li>
+                <li><a href="#about" class="nav__link">Über mich</a></li>
+                <li><a href="#skills" class="nav__link">Skills</a></li>
+                <li><a href="#projects" class="nav__link">Projekte</a></li>
+                <li><a href="#experience" class="nav__link">Erfahrung</a></li>
+                <li><a href="#contact" class="nav__link nav__link--cta">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main">
+        <section class="hero" id="hero">
+            <div class="hero__bg" aria-hidden="true"></div>
+            <div class="container hero__container">
+                <p class="hero__greeting">Hallo, ich bin</p>
+                <h1 class="hero__title">Max Mustermann.</h1>
+                <h2 class="hero__subtitle">Ich baue Dinge fürs Web.</h2>
+                <p class="hero__description">
+                    Ich bin ein Full-Stack-Webentwickler mit Leidenschaft für saubere Architektur,
+                    performante Schnittstellen und durchdachte Nutzererlebnisse. Aktuell arbeite ich
+                    an skalierbaren Web-Anwendungen mit modernen JavaScript-Frameworks.
+                </p>
+                <div class="hero__cta">
+                    <a href="#projects" class="btn btn--primary">Meine Projekte</a>
+                    <a href="#contact" class="btn btn--ghost">Kontakt aufnehmen</a>
+                </div>
+                <div class="hero__socials" aria-label="Soziale Profile">
+                    <a href="#" aria-label="GitHub" class="hero__social">GitHub</a>
+                    <a href="#" aria-label="LinkedIn" class="hero__social">LinkedIn</a>
+                    <a href="#" aria-label="Twitter" class="hero__social">Twitter</a>
+                </div>
+            </div>
+            <a href="#about" class="hero__scroll" aria-label="Nach unten scrollen">
+                <span></span>
+            </a>
+        </section>
+
+        <section class="section about" id="about">
+            <div class="container">
+                <h2 class="section__title"><span class="section__number">01.</span> Über mich</h2>
+                <div class="about__grid">
+                    <div class="about__text">
+                        <p>
+                            Hallo! Mein Name ist Max und ich liebe es, Dinge zu bauen, die im Browser
+                            laufen. Mein Interesse an Webentwicklung begann 2017, als ich mein erstes
+                            Theme für eine kleine Vereinsseite umsetzte – seitdem hat mich das Thema
+                            nicht mehr losgelassen.
+                        </p>
+                        <p>
+                            Heute fokussiere ich mich auf die Entwicklung wartbarer, zugänglicher
+                            und schneller Web-Anwendungen. Hier ein paar Technologien, mit denen
+                            ich aktuell arbeite:
+                        </p>
+                        <ul class="about__tech">
+                            <li>JavaScript (ES2024+)</li>
+                            <li>TypeScript</li>
+                            <li>React &amp; Next.js</li>
+                            <li>Node.js</li>
+                            <li>PHP / WordPress</li>
+                            <li>PostgreSQL</li>
+                        </ul>
+                    </div>
+                    <div class="about__image">
+                        <div class="about__image-wrapper">
+                            <div class="about__image-placeholder" aria-label="Profilbild Platzhalter">
+                                <span>MM</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section skills" id="skills">
+            <div class="container">
+                <h2 class="section__title"><span class="section__number">02.</span> Skills</h2>
+                <div class="skills__grid">
+                    <article class="skill-card">
+                        <div class="skill-card__icon" aria-hidden="true">&lt;/&gt;</div>
+                        <h3 class="skill-card__title">Frontend</h3>
+                        <p class="skill-card__desc">
+                            Moderne, responsive Interfaces mit Fokus auf Performance und Accessibility.
+                        </p>
+                        <ul class="skill-card__tags">
+                            <li>HTML5</li>
+                            <li>CSS3</li>
+                            <li>JavaScript</li>
+                            <li>React</li>
+                            <li>Vue</li>
+                        </ul>
+                    </article>
+
+                    <article class="skill-card">
+                        <div class="skill-card__icon" aria-hidden="true">{ }</div>
+                        <h3 class="skill-card__title">Backend</h3>
+                        <p class="skill-card__desc">
+                            Robuste APIs und skalierbare Server-Anwendungen mit sauberer Architektur.
+                        </p>
+                        <ul class="skill-card__tags">
+                            <li>Node.js</li>
+                            <li>Express</li>
+                            <li>PHP</li>
+                            <li>REST</li>
+                            <li>GraphQL</li>
+                        </ul>
+                    </article>
+
+                    <article class="skill-card">
+                        <div class="skill-card__icon" aria-hidden="true">DB</div>
+                        <h3 class="skill-card__title">Datenbank &amp; DevOps</h3>
+                        <p class="skill-card__desc">
+                            Datenmodellierung, Deployment und Continuous Integration für stabile Releases.
+                        </p>
+                        <ul class="skill-card__tags">
+                            <li>PostgreSQL</li>
+                            <li>MySQL</li>
+                            <li>Docker</li>
+                            <li>GitHub Actions</li>
+                        </ul>
+                    </article>
+
+                    <article class="skill-card">
+                        <div class="skill-card__icon" aria-hidden="true">UI</div>
+                        <h3 class="skill-card__title">Tooling &amp; Design</h3>
+                        <p class="skill-card__desc">
+                            Vom Wireframe bis zum Pixel – ich arbeite an der Schnittstelle zwischen
+                            Design und Code.
+                        </p>
+                        <ul class="skill-card__tags">
+                            <li>Figma</li>
+                            <li>Vite</li>
+                            <li>Webpack</li>
+                            <li>Storybook</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section projects" id="projects">
+            <div class="container">
+                <h2 class="section__title"><span class="section__number">03.</span> Projekte</h2>
+                <div class="projects__grid">
+                    <article class="project-card">
+                        <div class="project-card__top">
+                            <div class="project-card__folder" aria-hidden="true">▣</div>
+                            <div class="project-card__links">
+                                <a href="#" aria-label="GitHub Repository">GH</a>
+                                <a href="#" aria-label="Live-Demo">↗</a>
+                            </div>
+                        </div>
+                        <h3 class="project-card__title"><a href="#">Task Flow App</a></h3>
+                        <p class="project-card__desc">
+                            Eine kollaborative Task-Management-Anwendung mit Echtzeit-Synchronisation,
+                            Drag-&amp;-Drop-Boards und integriertem Pomodoro-Timer.
+                        </p>
+                        <ul class="project-card__tags">
+                            <li>React</li>
+                            <li>Node.js</li>
+                            <li>WebSocket</li>
+                            <li>PostgreSQL</li>
+                        </ul>
+                    </article>
+
+                    <article class="project-card">
+                        <div class="project-card__top">
+                            <div class="project-card__folder" aria-hidden="true">▣</div>
+                            <div class="project-card__links">
+                                <a href="#" aria-label="GitHub Repository">GH</a>
+                                <a href="#" aria-label="Live-Demo">↗</a>
+                            </div>
+                        </div>
+                        <h3 class="project-card__title"><a href="#">Dev Blog Engine</a></h3>
+                        <p class="project-card__desc">
+                            Statischer Site-Generator mit Markdown-Support, Syntax-Highlighting und
+                            optimierter Build-Pipeline. Ladezeiten unter 200ms.
+                        </p>
+                        <ul class="project-card__tags">
+                            <li>Next.js</li>
+                            <li>TypeScript</li>
+                            <li>MDX</li>
+                            <li>Tailwind</li>
+                        </ul>
+                    </article>
+
+                    <article class="project-card">
+                        <div class="project-card__top">
+                            <div class="project-card__folder" aria-hidden="true">▣</div>
+                            <div class="project-card__links">
+                                <a href="#" aria-label="GitHub Repository">GH</a>
+                                <a href="#" aria-label="Live-Demo">↗</a>
+                            </div>
+                        </div>
+                        <h3 class="project-card__title"><a href="#">Weather Dashboard</a></h3>
+                        <p class="project-card__desc">
+                            Wetter-Dashboard mit interaktiven Charts, Geolocation-Support und
+                            7-Tage-Vorhersage über mehrere APIs.
+                        </p>
+                        <ul class="project-card__tags">
+                            <li>Vue 3</li>
+                            <li>Chart.js</li>
+                            <li>OpenWeather API</li>
+                        </ul>
+                    </article>
+
+                    <article class="project-card">
+                        <div class="project-card__top">
+                            <div class="project-card__folder" aria-hidden="true">▣</div>
+                            <div class="project-card__links">
+                                <a href="#" aria-label="GitHub Repository">GH</a>
+                                <a href="#" aria-label="Live-Demo">↗</a>
+                            </div>
+                        </div>
+                        <h3 class="project-card__title"><a href="#">E-Commerce Starter</a></h3>
+                        <p class="project-card__desc">
+                            Headless-Commerce-Boilerplate mit Stripe-Integration, Warenkorb,
+                            Checkout-Flow und Admin-Panel.
+                        </p>
+                        <ul class="project-card__tags">
+                            <li>Next.js</li>
+                            <li>Stripe</li>
+                            <li>Prisma</li>
+                        </ul>
+                    </article>
+
+                    <article class="project-card">
+                        <div class="project-card__top">
+                            <div class="project-card__folder" aria-hidden="true">▣</div>
+                            <div class="project-card__links">
+                                <a href="#" aria-label="GitHub Repository">GH</a>
+                                <a href="#" aria-label="Live-Demo">↗</a>
+                            </div>
+                        </div>
+                        <h3 class="project-card__title"><a href="#">CLI Code Stats</a></h3>
+                        <p class="project-card__desc">
+                            Ein Open-Source-Kommandozeilentool zur Analyse von Code-Repositories,
+                            inkl. Sprachverteilung und Commit-Trends.
+                        </p>
+                        <ul class="project-card__tags">
+                            <li>Node.js</li>
+                            <li>TypeScript</li>
+                            <li>Commander</li>
+                        </ul>
+                    </article>
+
+                    <article class="project-card">
+                        <div class="project-card__top">
+                            <div class="project-card__folder" aria-hidden="true">▣</div>
+                            <div class="project-card__links">
+                                <a href="#" aria-label="GitHub Repository">GH</a>
+                                <a href="#" aria-label="Live-Demo">↗</a>
+                            </div>
+                        </div>
+                        <h3 class="project-card__title"><a href="#">Portfolio Theme</a></h3>
+                        <p class="project-card__desc">
+                            Reduziertes WordPress-Theme für Entwickler-Portfolios. Voll
+                            anpassbar via Customizer und Block-Editor.
+                        </p>
+                        <ul class="project-card__tags">
+                            <li>PHP</li>
+                            <li>WordPress</li>
+                            <li>SCSS</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section experience" id="experience">
+            <div class="container">
+                <h2 class="section__title"><span class="section__number">04.</span> Erfahrung</h2>
+                <ol class="timeline">
+                    <li class="timeline__item">
+                        <div class="timeline__dot" aria-hidden="true"></div>
+                        <div class="timeline__content">
+                            <span class="timeline__date">2023 – Heute</span>
+                            <h3 class="timeline__title">Senior Frontend Developer <span class="timeline__company">@ Tech Studio GmbH</span></h3>
+                            <p class="timeline__desc">
+                                Entwicklung skalierbarer React-Anwendungen, Code-Reviews,
+                                Mentoring von Junior-Entwicklern und Aufbau eines Design-Systems.
+                            </p>
+                        </div>
+                    </li>
+                    <li class="timeline__item">
+                        <div class="timeline__dot" aria-hidden="true"></div>
+                        <div class="timeline__content">
+                            <span class="timeline__date">2021 – 2023</span>
+                            <h3 class="timeline__title">Full-Stack Developer <span class="timeline__company">@ Webagentur Beispiel</span></h3>
+                            <p class="timeline__desc">
+                                Umsetzung von Kundenprojekten mit WordPress, Laravel und Vue.js.
+                                Verantwortlich für Performance-Audits und Server-Deployments.
+                            </p>
+                        </div>
+                    </li>
+                    <li class="timeline__item">
+                        <div class="timeline__dot" aria-hidden="true"></div>
+                        <div class="timeline__content">
+                            <span class="timeline__date">2019 – 2021</span>
+                            <h3 class="timeline__title">Junior Webentwickler <span class="timeline__company">@ Digital Lab</span></h3>
+                            <p class="timeline__desc">
+                                Erste Schritte in einem Agentur-Umfeld: Frontend-Entwicklung,
+                                Bugfixing, Cross-Browser-Testing und CMS-Customizing.
+                            </p>
+                        </div>
+                    </li>
+                    <li class="timeline__item">
+                        <div class="timeline__dot" aria-hidden="true"></div>
+                        <div class="timeline__content">
+                            <span class="timeline__date">2017 – 2019</span>
+                            <h3 class="timeline__title">B.Sc. Medieninformatik <span class="timeline__company">@ Universität Beispiel</span></h3>
+                            <p class="timeline__desc">
+                                Bachelor-Studium mit Schwerpunkt auf Software-Engineering,
+                                Mensch-Computer-Interaktion und Web-Technologien.
+                            </p>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <section class="section contact" id="contact">
+            <div class="container contact__container">
+                <p class="contact__intro"><span class="section__number">05.</span> Lass uns reden</p>
+                <h2 class="contact__title">Hast du ein Projekt im Kopf?</h2>
+                <p class="contact__text">
+                    Ich freue mich über neue Anfragen, spannende Kooperationen oder einfach
+                    einen netten Austausch. Schreib mir – ich antworte üblicherweise innerhalb
+                    von 24 Stunden.
+                </p>
+
+                <form class="contact-form" id="contactForm" novalidate>
+                    <div class="contact-form__row">
+                        <div class="contact-form__field">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required autocomplete="name">
+                            <span class="contact-form__error" data-error-for="name"></span>
+                        </div>
+                        <div class="contact-form__field">
+                            <label for="email">E-Mail</label>
+                            <input type="email" id="email" name="email" required autocomplete="email">
+                            <span class="contact-form__error" data-error-for="email"></span>
+                        </div>
+                    </div>
+                    <div class="contact-form__field">
+                        <label for="subject">Betreff</label>
+                        <input type="text" id="subject" name="subject" required>
+                        <span class="contact-form__error" data-error-for="subject"></span>
+                    </div>
+                    <div class="contact-form__field">
+                        <label for="message">Nachricht</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                        <span class="contact-form__error" data-error-for="message"></span>
+                    </div>
+                    <button type="submit" class="btn btn--primary contact-form__submit">Nachricht senden</button>
+                    <p class="contact-form__status" id="formStatus" role="status" aria-live="polite"></p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer__inner">
+            <p class="footer__copy">© <span id="currentYear">2026</span> Max Mustermann. Mit ♥ in Berlin gebaut.</p>
+            <ul class="footer__socials">
+                <li><a href="#">GitHub</a></li>
+                <li><a href="#">LinkedIn</a></li>
+                <li><a href="mailto:hello@example.com">E-Mail</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <button id="scrollTopBtn" class="scroll-top" aria-label="Nach oben scrollen" hidden>↑</button>
+
+    <script src="js/main.js" defer></script>
+</body>
+</html>
