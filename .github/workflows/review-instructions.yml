@@ -15,7 +15,7 @@ jobs:
       issues: write # Required to post comments on issues
     steps:
       - uses: peter-evans/create-or-update-comment@v3
-        if: ${{ contains(github.event.comment.body, '//review') }}  
+        if: ${{ contains(github.event.comment.body, '//review') }}
         with:
           issue-number: ${{ github.event.issue.number }}
           body: |
