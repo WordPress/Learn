@@ -9,10 +9,18 @@ on:
     types:
       - labeled
       
+# Disable permissions for all available scopes by default.
+# Any needed permissions should be configured at the job level.
+permissions: {}
+
 jobs:
   add-to-web-development-project:
     name: Add issues labeled "[Type] Bug" to web development project
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      issues: read    # Required to read issue data
+      projects: write # Required to add issues to the GitHub project
     steps:
       - uses: actions/add-to-project@v0.5.0
         if: contains(github.event.issue.labels.*.name, 'Awaiting Triage')
@@ -24,6 +32,10 @@ jobs:
   add-to-content-feedback-project:
     name: Add issues labeled "Content Feedback" to LearnWP Content - Feedback project
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      issues: read    # Required to read issue data
+      projects: write # Required to add issues to the GitHub project
     steps:
       - uses: actions/add-to-project@v0.5.0
         if: contains(github.event.issue.labels.*.name, 'Awaiting Triage')
@@ -35,6 +47,10 @@ jobs:
   add-to-admin-project:
     name: Add handbook issues to Training Team Administration project
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      issues: read    # Required to read issue data
+      projects: write # Required to add issues to the GitHub project
     steps:
       - uses: actions/add-to-project@v0.5.0
         if: contains(github.event.issue.labels.*.name, 'Awaiting Triage') || contains(github.event.issue.labels.*.name, '[Admin] Meeting Agenda')

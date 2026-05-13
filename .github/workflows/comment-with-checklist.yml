@@ -8,11 +8,16 @@ on:
       content-type:
         type: string
 
+# Disable permissions for all available scopes by default.
+# Any needed permissions should be configured at the job level.
+permissions: {}
+
 jobs:
   add-comment:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     permissions:
-      issues: write
+      issues: write # Required to comment on issues and add labels
     steps:
       - uses: peter-evans/create-or-update-comment@v3
         if: contains(inputs.content-type, 'tutorial')  
