@@ -1,5 +1,5 @@
 ---
-name: Content Translation
+name: Lesson Translation
 about: Tracking content translation for learn.wordpress.org 
 title: LANGUAGE translation for "CONTENT_TITLE" 
 labels: Awaiting Triage, [Content] Translation, [Content] Needs Translation Reviewer
