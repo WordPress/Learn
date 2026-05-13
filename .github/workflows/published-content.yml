@@ -7,10 +7,16 @@ on:
   issue_comment:
     types: [created, edited]
 
+# Disable permissions for all available scopes by default.
+# Any needed permissions should be configured at the job level.
+permissions: {}
+
 jobs:
   publish-commment:
     runs-on: ubuntu-latest
     if: contains(github.event.comment.body, '//publish')
+    permissions:
+      issues: write # Required to add/remove labels and close issues
     steps:
       - name: Remove co-host label
         if: contains(github.event.issue.labels.*.name, '[Content] Needs Co-host')

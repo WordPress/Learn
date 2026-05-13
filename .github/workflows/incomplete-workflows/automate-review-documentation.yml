@@ -14,12 +14,17 @@ on:
   issues:
     types:
       - labeled
+
+# Disable permissions for all available scopes by default.
+# Any needed permissions should be configured at the job level.
+permissions: {}
+
 jobs:
   add-comment:
     if: github.event.label.name == 'Ready for Review'
     runs-on: ubuntu-latest
     permissions:
-      issues: write
+      issues: write # Required to post comments on issues
     steps:
       - name: Add comment
         uses: peter-evans/create-or-update-comment@5f728c3dae25f329afbe34ee4d08eef25569d79f

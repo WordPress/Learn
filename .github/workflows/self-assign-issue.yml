@@ -5,10 +5,16 @@ on:
   issue_comment:
     types: [created, edited]
 
+# Disable permissions for all available scopes by default.
+# Any needed permissions should be configured at the job level.
+permissions: {}
+
 jobs:
   assign-issue:
     if: contains(github.event.comment.body, '//assign')
     runs-on: ubuntu-latest
+    permissions:
+      issues: write # Required to assign issues, add labels, and post comments
     steps:
       - name: Assign the comment author
         uses: takanome-dev/assign-issue-action@v2.0.0
