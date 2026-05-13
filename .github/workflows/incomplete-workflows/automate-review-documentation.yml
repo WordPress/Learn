@@ -23,6 +23,7 @@ jobs:
   add-comment:
     if: github.event.label.name == 'Ready for Review'
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     permissions:
       issues: write # Required to post comments on issues
     steps:

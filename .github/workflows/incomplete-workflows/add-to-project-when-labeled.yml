@@ -17,6 +17,7 @@ jobs:
   add-to-web-development-project:
     name: Add issues labeled "[Type] Bug" to web development project
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     permissions:
       issues: read    # Required to read issue data
       projects: write # Required to add issues to the GitHub project
@@ -31,6 +32,7 @@ jobs:
   add-to-content-feedback-project:
     name: Add issues labeled "Content Feedback" to LearnWP Content - Feedback project
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     permissions:
       issues: read    # Required to read issue data
       projects: write # Required to add issues to the GitHub project
@@ -45,6 +47,7 @@ jobs:
   add-to-admin-project:
     name: Add handbook issues to Training Team Administration project
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     permissions:
       issues: read    # Required to read issue data
       projects: write # Required to add issues to the GitHub project

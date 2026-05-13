@@ -10,6 +10,7 @@ permissions: {}
 jobs:
   add-comment:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     permissions:
       issues: write # Required to post comments on issues
     steps:

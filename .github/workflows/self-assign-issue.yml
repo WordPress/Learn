@@ -13,6 +13,7 @@ jobs:
   assign-issue:
     if: contains(github.event.comment.body, '//assign')
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     permissions:
       issues: write # Required to assign issues, add labels, and post comments
     steps:
