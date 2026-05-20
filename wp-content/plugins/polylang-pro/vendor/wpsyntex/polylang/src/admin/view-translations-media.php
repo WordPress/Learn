@@ -1,0 +1,51 @@
+<?php
+/**
+ * Displays the translations fields for media
+ *
+ * @package Polylang
+ *
+ * @var PLL_Admin_Classic_Editor $this PLL_Admin_Classic_Editor object.
+ * @var PLL_Language             $lang The media language. Default language if no language assigned yet.
+ * @var WP_Post                  $post The media object.
+ */
+
+defined( 'ABSPATH' ) || exit;
+?>
+<p><strong><?php esc_html_e( 'Translations', 'polylang' ); ?></strong></p>
+<table>
+	<?php
+	foreach ( $this->model->get_languages_list() as $language ) {
+		if ( $language->term_id === $lang->term_id ) {
+			continue;
+		}
+
+		$translation_id = $this->model->post->get_translation( $post->ID, $language );
+		$translation    = null;
+
+		if ( ! empty( $translation_id ) && $translation_id !== $post->ID ) {
+			$translation = get_post( $translation_id );
+		}
+		?>
+		<tr>
+			<td class = "pll-media-language-column"><span class = "pll-translation-flag"><?php echo $language->flag; // phpcs:ignore WordPress.Security.EscapeOutput ?></span><?php echo esc_html( $language->name ); ?></td>
+			<td class = "pll-media-edit-column">
+				<?php
+				if ( $translation instanceof WP_Post ) {
+					// The translation exists.
+					printf(
+						'<input type="hidden" name="media_tr_lang[%s]" value="%d" />',
+						esc_attr( $language->slug ),
+						(int) $translation->ID
+					);
+					echo $this->links->get_edit_post_link_html( $translation ); // phpcs:ignore WordPress.Security.EscapeOutput
+				} else {
+					// The translation doesn't exist.
+					echo $this->links->get_new_post_link_html( $post, $language ); // phpcs:ignore WordPress.Security.EscapeOutput
+				}
+				?>
+			</td>
+		</tr>
+		<?php
+	} // End foreach
+	?>
+</table>

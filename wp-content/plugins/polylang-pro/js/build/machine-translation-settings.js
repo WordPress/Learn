@@ -12,11 +12,15 @@ const pllMachineTranslation = {
 		if ( document.readyState !== 'loading' ) {
 			pllMachineTranslation.ajaxButton.attachEvent();
 			pllMachineTranslation.dataUsage.fetchData();
+			pllMachineTranslation.glossaries.init();
 		} else {
 			document.addEventListener( 'DOMContentLoaded', pllMachineTranslation.ajaxButton.attachEvent );
 			document.addEventListener( 'DOMContentLoaded', pllMachineTranslation.dataUsage.fetchData );
+			document.addEventListener( 'DOMContentLoaded', pllMachineTranslation.glossaries.init );
 		}
 		addAction( 'pll_settings_saved', 'polylang-pro', pllMachineTranslation.saveSettings.highlightRow );
+		addAction( 'pll_settings_saved', 'polylang-pro', pllMachineTranslation.dataUsage.fetchData );
+		addAction( 'pll_settings_saved', 'polylang-pro', pllMachineTranslation.glossaries.fetchDataOnSave );
 	},
 
 	/**
@@ -169,52 +173,264 @@ const pllMachineTranslation = {
 
 	dataUsage: {
 		fetchData: () => {
-			document.querySelectorAll( '.pll-progress-bar-wrapper' ).forEach( ( el ) => {
-				const action   = el.getAttribute( 'data-action' );
-				const nonce    = el.getAttribute( 'data-nonce' );
-				const spinner  = el.querySelectorAll( '.spinner' ).item( 0 );
-				const progress = el.querySelectorAll( 'div' ).item( 0 );
+			document
+				.querySelectorAll( '.pll-progress-bar-wrapper' )
+				.forEach( ( el ) => {
+					const action = el.getAttribute( 'data-action' );
+					const nonce = el.getAttribute( 'data-nonce' );
+					const progress = el.querySelectorAll( 'div' ).item( 0 );
+					const dataUsageRow = el.closest( 'tr' );
 
-				if ( ! action || ! nonce || ! spinner || ! progress || ! el.parentElement ) {
-					return;
-				}
-
-				const description = el.parentElement.querySelectorAll( '.description' ).item( 0 );
-
-				if ( ! description ) {
-					return;
-				}
-
-				const urlParams = { 'action': action, '_pll_nonce': nonce, 'pll_ajax_settings': 1 };
-				const url       = wp.url.addQueryArgs( ajaxurl, urlParams );
-
-				fetch( url ).then( ( response ) => {
-					return response.json();
-				} ).then( ( json ) => {
-					if ( ! json.success || ! json.data.percent ) {
-						/*
-						 * 2 cases:
-						 * - Error while retrieving the data: display the error message.
-						 * - The character limit is 0: display only the character count.
-						 */
-						el.remove();
-						description.textContent = json.data.message;
+					if (
+						! action ||
+						! nonce ||
+						! progress ||
+						! dataUsageRow ||
+						! el.parentElement
+					) {
+						return;
+					}
+					const description = el.parentElement
+						.querySelectorAll( '.description' )
+						.item( 0 );
+					if ( ! description ) {
 						return;
 					}
 
-					// Display a graphic.
-					el.replaceChild( document.createTextNode( json.data.percent_formatted ), spinner );
-					progress.textContent    = json.data.percent_formatted;
-					progress.style.width    = json.data.percent;
-					description.textContent = json.data.message;
-				} ).catch( () => {
-					el.closest( 'tr' ).remove();
+					// Reset the progress bar.
+					progress.style.width = '0%';
+					progress.textContent = '';
+
+					let spinner = el.querySelectorAll( '.spinner' ).item( 0 );
+
+					// If the spinner no longer exists (replaced by text), recreate it.
+					if ( ! spinner ) {
+						spinner = document.createElement( 'span' );
+						spinner.className = 'spinner pll-spinner-inline';
+						// Delete the existing text (percentage) and add the spinner.
+						el.innerHTML = '';
+						el.appendChild( spinner );
+						el.appendChild( progress );
+					} else {
+						// Display the spinner while loading.
+						spinner.style.visibility = 'visible';
+					}
+
+					const apiKey = document
+						.getElementById( 'pll-deepl-api-key' )
+						.value.trim();
+					if ( '' === apiKey ) {
+						// Do not display the row and do not make the AJAX call if the API key is empty.
+						dataUsageRow.style.display = 'none';
+						return;
+					}
+
+					// Show the data usage row and the progress bar (in case it was hidden before).
+					el.style.display = '';
+					dataUsageRow.style.display = '';
+
+					const urlParams = {
+						action,
+						_pll_nonce: nonce,
+						pll_ajax_settings: 1,
+					};
+					const url = wp.url.addQueryArgs( ajaxurl, urlParams );
+
+					fetch( url )
+						.then( ( response ) => {
+							return response.json();
+						} )
+						.then( ( json ) => {
+							if ( ! json.success || ! json.data.percent ) {
+								// No data - show the message but keep the row visible.
+								el.style.display = 'none';
+								description.textContent = json.data.message;
+								return;
+							}
+
+							// Display a graphic.
+							el.replaceChild(
+								document.createTextNode(
+									json.data.percent_formatted
+								),
+								spinner
+							);
+							progress.textContent = json.data.percent_formatted;
+							progress.style.width = json.data.percent;
+							description.textContent = json.data.message;
+						} )
+						.catch( () => {
+							dataUsageRow.remove();
+						} );
 				} );
+		},
+	},
+
+	glossaries: {
+		/**
+		 * Init.
+		 */
+		init: () => {
+			const elems = pllMachineTranslation.glossaries.getElements();
+
+			if ( ! elems.action ) {
+				// Should not happen.
+				return;
+			}
+
+			// On page load, refresh the `<select>` tag.
+			pllMachineTranslation.glossaries.fetchData( elems );
+
+			// On API key input blur, refresh the `<select>` tag.
+			elems.apiKeyInput.addEventListener( 'blur', () => {
+				const newApiKey = elems.apiKeyInput.value.trim();
+				if ( newApiKey === elems.apiKey ) {
+					// The API key hasn't changed.
+					return;
+				}
+				elems.apiKey = newApiKey;
+				elems.hasNewApiKey = true;
+				pllMachineTranslation.glossaries.fetchData( elems );
 			} );
-		}
-	}
+		},
+
+		/**
+		 * Refreshes the `<select>` tag on option save.
+		 * Hooked to `'pll_settings_saved'`.
+		 */
+		fetchDataOnSave: () => {
+			const elems = pllMachineTranslation.glossaries.getElements();
+
+			if ( ! elems.action ) {
+				// Should not happen.
+				return;
+			}
+
+			pllMachineTranslation.glossaries.fetchData( elems );
+		},
+
+		/**
+		 * Returns data from the form.
+		 *
+		 * @return {Object} {
+		 *     An object containing data from the form. The object can be empty on failure.
+		 *
+		 *     @type {HTMLElement} glossaryInput The glossary selector.
+		 *     @type {string}      action        The AJAX action.
+		 *     @type {string}      nonce         The nonce for the AJAX request.
+		 *     @type {HTMLElement} apiKeyInput   The API key input.
+		 *     @type {string}      apiKey        The API key.
+		 * }
+		 */
+		getElements: () => {
+			const glossaryInput =
+				document.getElementById( 'pll-deepl-glossary' );
+
+			if ( ! glossaryInput ) {
+				return {};
+			}
+
+			const action = glossaryInput.getAttribute( 'data-action' );
+			const nonce = glossaryInput.getAttribute( 'data-nonce' );
+
+			if ( ! action || ! nonce ) {
+				return {};
+			}
+
+			const apiKeyInput = document.getElementById( 'pll-deepl-api-key' );
+
+			if ( ! apiKeyInput ) {
+				pllMachineTranslation.glossaries.removeOptions( glossaryInput );
+				return {};
+			}
+
+			const apiKey = apiKeyInput.value.trim();
+
+			return { glossaryInput, action, nonce, apiKeyInput, apiKey };
+		},
+
+		/**
+		 * Refreshes the `<select>` tag.
+		 *
+		 * @param {Object}      elems                      An object containing data from the form.
+		 * @param {HTMLElement} elems.glossaryInput        The glossary selector.
+		 * @param {string}      elems.action               The AJAX action.
+		 * @param {string}      elems.nonce                The nonce for the AJAX request.
+		 * @param {HTMLElement} elems.apiKeyInput          The API key input.
+		 * @param {string}      elems.apiKey               The API key.
+		 * @param {boolean}     [elems.hasNewApiKey=false] Optional. Tells if the given API key must be sent in the AJAX request. Default is `false`.
+		 */
+		fetchData: ( elems ) => {
+			if ( elems.hasNewApiKey && '' === elems.apiKey ) {
+				// No need to request the API.
+				pllMachineTranslation.glossaries.removeOptions(
+					elems.glossaryInput
+				);
+				return;
+			}
+
+			elems.glossaryInput.setAttribute( 'disabled', 'disabled' );
+
+			const urlParams = {
+				action: elems.action,
+				_pll_nonce: elems.nonce,
+				pll_ajax_settings: 1,
+			};
+			if ( elems.hasNewApiKey ) {
+				urlParams.api_key = elems.apiKey;
+			}
+			const url = wp.url.addQueryArgs( ajaxurl, urlParams );
+
+			fetch( url )
+				.then( ( response ) => {
+					return response.json();
+				} )
+				.then( ( json ) => {
+					// First, empty the selector.
+					pllMachineTranslation.glossaries.removeOptions(
+						elems.glossaryInput
+					);
+
+					if ( ! json.success || ! json.data.glossaries ) {
+						// `json.success` being `false` may mean the API key is invalid.
+						elems.glossaryInput.removeAttribute( 'disabled' );
+						return;
+					}
+
+					// Insert new choices.
+					Object.entries( json.data.glossaries ).forEach(
+						( [ key, value ] ) => {
+							const opt = document.createElement( 'option' );
+							opt.value = key;
+							opt.textContent = value;
+							if ( key === json.data.selected ) {
+								opt.selected = true;
+							}
+							elems.glossaryInput.appendChild( opt );
+						}
+					);
+
+					elems.glossaryInput.removeAttribute( 'disabled' );
+				} )
+				.catch( () => {
+					elems.glossaryInput.removeAttribute( 'disabled' );
+				} );
+		},
+
+		/**
+		 * Removes the `<option>` tags in the given `<select>` element, except the one with an empty value.
+		 *
+		 * @param {HTMLElement} select The parent element.
+		 */
+		removeOptions: ( select ) => {
+			Object.entries( select.children ).forEach( ( [ , option ] ) => {
+				if ( option.value.trim() !== '' ) {
+					option.remove();
+				}
+			} );
+		},
+	},
 };
 
 pllMachineTranslation.init();
-
 

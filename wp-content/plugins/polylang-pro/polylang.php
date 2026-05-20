@@ -10,18 +10,17 @@
  * Plugin Name:       Polylang Pro
  * Plugin URI:        https://polylang.pro
  * Description:       Adds multilingual capability to WordPress
- * Version:           3.6.5
- * Requires at least: 6.2
- * Requires PHP:      7.0
+ * Version:           3.8.4
+ * Requires at least: 6.5
+ * Requires PHP:      7.4
  * Author:            WP SYNTEX
  * Author URI:        https://polylang.pro
  * Text Domain:       polylang-pro
- * Domain Path:       /languages
  * License:           GPL v3 or later
  * License URI:       https://www.gnu.org/licenses/gpl-3.0.txt
  *
  * Copyright 2011-2019 Frédéric Demarle
- * Copyright 2019-2024 WP SYNTEX
+ * Copyright 2019-2026 WP SYNTEX
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,9 +36,9 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Don't access directly.
-}
+use WP_Syntex\Polylang_Pro\Options\Registry as Options_Registry;
+
+defined( 'ABSPATH' ) || exit;
 
 define( 'POLYLANG_PRO', true );
 define( 'POLYLANG_PRO_FILE', __FILE__ );
@@ -68,6 +67,10 @@ if ( defined( 'POLYLANG_BASENAME' ) ) {
 require __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/vendor/wpsyntex/polylang/polylang.php';
 
-if ( empty( $_GET['deactivate-polylang'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
-	add_action( 'pll_pre_init', array( new PLL_Pro(), 'init' ), 0 );
+if ( ! empty( $_GET['deactivate-polylang'] ) || ! defined( 'POLYLANG_ACTIVE' ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+	return;
 }
+
+// At this point, the WP version and php version are high enough.
+add_action( 'pll_init_options_for_blog', array( Options_Registry::class, 'register' ), 15 ); // After Polylang.
+add_action( 'pll_pre_init', array( new PLL_Pro(), 'init' ), 0 );

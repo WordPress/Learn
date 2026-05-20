@@ -2,43 +2,42 @@
     "packages": [
         {
             "name": "wpsyntex/polylang",
-            "version": "3.6.x-dev",
-            "version_normalized": "3.6.9999999.9999999-dev",
+            "version": "3.8.x-dev",
+            "version_normalized": "3.8.9999999.9999999-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/polylang/polylang.git",
-                "reference": "a3b0bdc67851fdf91f76ad00d4eb7f8bcaf5d87b"
+                "reference": "f49678e965b3e40c72dedeaf2a6ba3e2467c064b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/polylang/polylang/zipball/a3b0bdc67851fdf91f76ad00d4eb7f8bcaf5d87b",
-                "reference": "a3b0bdc67851fdf91f76ad00d4eb7f8bcaf5d87b",
+                "url": "https://api.github.com/repos/polylang/polylang/zipball/f49678e965b3e40c72dedeaf2a6ba3e2467c064b",
+                "reference": "f49678e965b3e40c72dedeaf2a6ba3e2467c064b",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.0"
+                "php": ">=7.4"
             },
             "require-dev": {
                 "automattic/vipwpcs": "*",
-                "behat/behat": "^3.7|^3.8",
                 "dealerdirect/phpcodesniffer-composer-installer": "*",
-                "phpcompatibility/phpcompatibility-wp": "*",
-                "wp-coding-standards/wpcs": "*",
-                "wpsyntex/polylang-phpstan": "^1.0",
+                "phpcompatibility/phpcompatibility-wp": "^3",
+                "rector/rector": "^2",
+                "wp-coding-standards/wpcs": "^3",
+                "wpsyntex/object-cache-annihilator": "dev-master",
+                "wpsyntex/polylang-phpstan": "^2.0",
+                "wpsyntex/wp-phpunit": "dev-master",
                 "yoast/wp-test-utils": "^1.0.0"
             },
-            "time": "2024-11-04T14:19:25+00:00",
+            "time": "2026-05-18T06:50:52+00:00",
             "type": "wordpress-plugin",
             "installation-source": "dist",
             "autoload": {
+                "psr-4": {
+                    "WP_Syntex\\Polylang\\Script\\": "bin/"
+                },
                 "classmap": [
-                    "admin/",
-                    "frontend/",
-                    "include/",
-                    "integrations/",
-                    "install/",
-                    "modules/",
-                    "settings/"
+                    "src/"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -49,9 +48,99 @@
             "homepage": "https://polylang.pro",
             "support": {
                 "issues": "https://github.com/polylang/polylang/issues",
-                "source": "https://github.com/polylang/polylang/tree/3.6.x"
+                "source": "https://github.com/polylang/polylang/tree/3.8.x"
             },
             "install-path": "../wpsyntex/polylang"
+        },
+        {
+            "name": "wpsyntex/updater",
+            "version": "1.0",
+            "version_normalized": "1.0.0.0",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:polylang/updater.git",
+                "reference": "116ba24b44bc5661991385df372480e07c4a6d5a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/polylang/updater/zipball/116ba24b44bc5661991385df372480e07c4a6d5a",
+                "reference": "116ba24b44bc5661991385df372480e07c4a6d5a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "automattic/vipwpcs": "*",
+                "composer/composer": "*",
+                "dealerdirect/phpcodesniffer-composer-installer": "*",
+                "phpcompatibility/phpcompatibility-wp": "*",
+                "rector/rector": "^1.1",
+                "wp-coding-standards/wpcs": "*",
+                "wpsyntex/polylang-phpstan": "^1.2",
+                "wpsyntex/polylang-stubs": "dev-master",
+                "wpsyntex/wp-phpunit": "dev-master",
+                "yoast/wp-test-utils": "^1.0.0"
+            },
+            "time": "2026-02-12T16:15:20+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "WP_Syntex\\Lib\\": "lib/"
+                }
+            },
+            "autoload-dev": {
+                "classmap": [
+                    "tests/phpunit"
+                ],
+                "psr-4": {
+                    "UPDATER_NAMESPACE\\": "src/"
+                }
+            },
+            "scripts": {
+                "install-suite": [
+                    "bash vendor/wpsyntex/wp-phpunit/bin/install-wp-suite.sh"
+                ],
+                "install-suite-with-db": [
+                    "bash vendor/wpsyntex/wp-phpunit/bin/install-wp-suite.sh latest true"
+                ],
+                "install-tests": [
+                    "@install-suite"
+                ],
+                "install-tests-with-db": [
+                    "@install-suite-with-db"
+                ],
+                "test": [
+                    "vendor/bin/phpunit"
+                ],
+                "cs": [
+                    "vendor/bin/phpcs"
+                ],
+                "stan": [
+                    "vendor/bin/phpstan analyze --memory-limit=512M"
+                ],
+                "rector-dry": [
+                    "vendor/bin/rector process --dry-run"
+                ],
+                "lint": [
+                    "@cs",
+                    "@stan",
+                    "@rector-dry"
+                ],
+                "rector": [
+                    "vendor/bin/rector process"
+                ]
+            },
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "description": "Library to manage licenses and update plugins and translations",
+            "homepage": "https://polylang.pro",
+            "support": {
+                "source": "https://github.com/polylang/updater/tree/1.0"
+            },
+            "install-path": "../wpsyntex/updater"
         }
     ],
     "dev": false,

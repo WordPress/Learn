@@ -2,10 +2,10 @@
 Contributors: Chouby, manooweb, raaaahman, marianne38, sebastienserre, greglone, hugod
 Donate link: https://polylang.pro
 Tags: multilingual, translate, translation, language, localization
-Requires at least: 6.2
-Tested up to: 6.7
-Requires PHP: 7.0
-Stable tag: 3.6.5
+Requires at least: 6.5
+Tested up to: 7.0
+Requires PHP: 7.4
+Stable tag: 3.8.4
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -28,7 +28,7 @@ Polylang and [Polylang Pro](https://polylang.pro) share the same core providing 
 * The language is either set by the language code in URL, or you can use a different sub-domain or domain per language.
 * Automatic copy of categories, post tags and other metas when creating a new post or page translation.
 * Translating classic menus and classic widgets. Also accessible with [Site Editor Classic Features](https://wordpress.org/plugins/fse-classic/) in block themes.
-* Customizable language switcher available as a classic widget or a classic navigation menu item.
+* Customizable language switchers available as blocks, classic widget or classic navigation menu item.
 * Compatibility with Yoast SEO.
 
 ### Polylang Pro
@@ -36,7 +36,6 @@ Polylang and [Polylang Pro](https://polylang.pro) share the same core providing 
 Helps optimizing the time spent translating your site with some very useful extra features such as:
 
 * Better integration in the new Block Editor.
-* Language switcher available as a block.
 * Language options available in the widget block editor.
 * Template parts translatable in the site editor (FSE).
 * Duplicate and/or synchronize content across post translations.
@@ -59,12 +58,9 @@ Helps optimizing the time spent translating your site with some very useful extr
 * Ability to use the WooCommerce REST API (available with Polylang Pro).
 * **Access to a Premium Support for personalized assistance.**
 
-Neither of them will allow to do automated translation.
-
 = Our other free plugins =
 
 * [WPML to Polylang](https://wordpress.org/plugins/wpml-to-polylang/) allows migrating from WPML to Polylang.
-* [DynaMo](https://wordpress.org/plugins/dynamo/) speeds up the translation of WordPress for all non-English sites.
 * [Site Editor Classic Features](https://wordpress.org/plugins/fse-classic/) allows to use classic widgets (including the Polylang language switcher) and menus in the site editor (FSE).
 
 = Credits =
@@ -76,17 +72,17 @@ Wherever third party code has been used, credit has been given in the code’s c
 
 == Installation ==
 
-1. Make sure you are using WordPress 6.2 or later and that your server is running PHP 7.0 or later (same requirement as WordPress itself).
+1. Make sure you are using WordPress 6.5 or later and that your server is running PHP 7.4 or later (same requirement as WordPress itself).
 1. If you tried other multilingual plugins, deactivate them before activating Polylang, otherwise, you may get unexpected results!
 1. Install and activate the plugin as usual from the 'Plugins' menu in WordPress.
-1. The [setup wizard](https://polylang.pro/doc/setup-wizard/) is automatically launched to help you get started more easily with Polylang by configuring the main features.
+1. The [setup wizard](https://polylang.pro/documentation/support/getting-started/setup-wizard/) is automatically launched to help you get started more easily with Polylang by configuring the main features.
 
 == Frequently Asked Questions ==
 
 = Where to find help ? =
 
-* First time users should read [Polylang - Getting started](https://polylang.pro/doc-category/getting-started/), which explains the basics and includes a lot of screenshots.
-* Read the [documentation](https://polylang.pro/doc/). It includes a [FAQ](https://polylang.pro/doc-category/faq/) and the [documentation for developers](https://polylang.pro/doc-category/developers/).
+* First time users should read [Polylang - Getting started](https://polylang.pro/documentation/support/getting-started/), which explains the basics and includes a lot of screenshots.
+* Read the [documentation](https://polylang.pro/documentation/support/). It includes a [FAQ](https://polylang.pro/documentation/support/faq/) and the [documentation for developers](https://polylang.pro/documentation/support/developers/).
 * Search the [community support forum](https://wordpress.org/search/). You will probably find your answers here.
 * Read the sticky posts in the [community support forum](http://wordpress.org/support/plugin/polylang).
 * If you still have a problem, open a new thread in the [community support forum](http://wordpress.org/support/plugin/polylang).
@@ -94,7 +90,11 @@ Wherever third party code has been used, credit has been given in the code’s c
 
 = Is Polylang compatible with WooCommerce? =
 
-* You need [Polylang for WooCommerce](https://polylang.pro/downloads/polylang-for-woocommerce/), premium addon described above, which will make both plugins work together.
+* You need [Polylang for WooCommerce](https://polylang.pro/pricing/polylang-for-woocommerce/), premium addon described above, which will make both plugins work together.
+
+= Where do I report security bugs found in this plugin? =
+
+* Please report security bugs found in the source code of the Polylang plugin through the [Patchstack Vulnerability Disclosure Program](https://patchstack.com/database/vdp/d83984d2-d748-43e3-88e2-6dd3bd2c881d). The Patchstack team will assist you with verification, CVE assignment, and notify the developers of this plugin.
 
 == Screenshots ==
 
@@ -105,63 +105,76 @@ Wherever third party code has been used, credit has been given in the code’s c
 
 == Changelog ==
 
-= 3.6.5 (2024-11-05) =
+= 3.8.4 (2026-05-18) =
 
-* Add compatibility with WP 6.7
-* Pro: Prevent infinite loop when the locale fallbacks reference each other
-* Pro: Set canResegment attribute to no in XLIFF files
-* Fix empty notice displayed if the plugin upgrade notice is set but empty
+* Security: Fix an XSS in the multilingual biography
+* Pro: Fix draft post translations not shown in the languages sidebar in the block editor #3006
+* Pro: Fix compatibility with libxml 2.15.1 #2920
+* Pro: Fix Allowed memory size exhausted with Divi 5 #3008
+* Improve accessibility of the multilingual biography on user profile page #1869
+* Prevent using unsupported block fields in wpml-config.xml #1868
 
-= 3.6.4 (2024-07-29) =
+= 3.8.3 (2026-04-27) =
 
-* Pro: Fix infinite loop with WP 6.6 when the locale fallbacks include the main locale of a language
-* Pro: Prevent saving the main locale among the locale fallbacks of a language
-* Pro: Hide the characters consumption graph when the DeepL cost control is deactivated
-* Add Yoast SEO social title and social description to the strings translations
-* Fix incorrect page on front and page for posts translations when the option is saved with admin language filter active
+* Pro: Improve performance of the languages sidebar in the block editor #2989
+* Pro: Fix impossibility to add more than one translation at once from the block editor sidebar #2985
+* Pro: Fix HTML entities displayed in translation inputs in the block editor sidebar #2984
+* Pro: Fix error when editing a pattern from the post editor #2990
+* Pro: Fix sync icon incorrectly shown as active on new posts #2995
+* Pro: Fix `pll_sync_post` REST API field returning an empty array instead of an empty object #2995
+* Pro: Fix ACF fields in a repeater nested in a flexible content overwritten with wrong values #2975
+* Fix language switcher block error in Widget screen #1856
+* Fix PHP warning in site health #1862
+* Fix wrong cookie sent in some cases #1863
+* Fix error with WordPress Importer when the imported file has synchronized posts #1853
 
-= 3.6.3 (2024-06-18) =
+= 3.8.2 (2026-04-07) =
 
-* Pro: Fix locale fallback for translations loaded just in time (requires WP 6.6)
-* Allow to pass an array as context to icl_register_string() #1497
-* Fix admin bar search menu in WP 6.6 #1496
-* Fix a regression in the usage of the filter pll_flag #1489
+* Pro: Fix refresh issues in block editor languages panel #2965
+* Pro: Fix error when unlinking 2 translations in block editor #2970
+* Pro: Fix fatal error when a repeater is previously created in ACF Pro but ACF is active #2972
+* Fix settings redirect in Playground #1840
+* Fix possible fatal error when the default language has been corrupted in DB #1843
 
-= 3.6.2 (2024-06-03) =
+= 3.8.1 (2026-03-19) =
 
-* Pro: Fix XLIFF files not correctly imported when exported from older version than 3.6
-* Pro: Fix translated categories not assigned to translated post when using machine translation
-* Pro: Fix 'lang' param not applied for secondary queries during a REST request
-* Pro: Fix newlines for content edited in classic editor and translated with DeepL
-* Pro: Fix a conflict with the Stream plugin on multisite
+* Fix fatal error when the cache is suspended #1837 #1839
 
-= 3.6.1 (2024-04-09) =
+= 3.8 (2026-03-17) =
 
-* Pro: Fix ACF fields not shown after a post was translated with DeepL
-* Remove rewrite when registering the language taxonomy #1457
-* Fix search block not filtered when displayed as button only #1459
-* Fix current language not kept when using switch_to_blog() in multisite #1458
-
-= 3.6 (2024-03-18) =
-
-* Requires WP 6.2 as minimum version
-* Add compatibility with WP 6.5
-* Pro: Add DeepL machine translation for posts
-* Pro: Add export and import in XLIFF 2.0/2.1 formats
-* Pro: Improve translator comments in exported PO files
-* Pro: Allow to export JSON encoded post and term metas in XLIFF files
-* Pro: Allow to export block sub-attributes in XLIFF files
-* Pro: Add footer notes block to XLIFF files
-* Pro: Single files are now exported directly instead of inside a zip
-* Pro: Reworked the language switcher navigation block
-* Pro: Fix language switcher navigation block justification not aligned with core settings in overlay menu (requires WP 6.5)
-* Pro: Fix a race condition which could lead to display a notice to the wrong user
-* Pro: Fix a conflict with ACF when rewrite rules are flushed with WP-CLI on a multisite
-* Pro: Fix import of several metas with same sources but different translations
-* Add filter `pll_cookie_args` to filter the Polylang cookie arguments #1406
-* Fix wrong translated post types and taxononies after a `switch_to_blog()` #1415
-* Fix a minor performance issue for the page for posts #1412
-* Fix a JS errors after quick edit. Props @mcguffin #1435, #1444
-* Fix a possible warning in view-translations-post.php #1439
+* Requires PHP 7.4 and WP 6.5 as minimum version
+* Pro: Use autonomous updater #2475
+* Pro: Add capabilities allowing to control permissions per language
+* Pro: Add capabilities to control access to languages and strings translations
+* Pro: Allow to manage languages and settings with WP CLI #2653
+* Pro: Add smart duplication in site editor #2559
+* Pro: Add support for DeepL glossaries #2687
+* Pro: Add locale fallback support to machine translation #2685
+* Pro: Add Support encoding for block attributes in wpml-config.xml #1683, #2660
+* Pro: Improve extensibility of the block editor languages panel #2553
+* Pro: Add support for new blocks introduced in WP 7.0 #2933 #2941
+* Pro: Hide language selector on inner blocks in Widget Block Editor #2900
+* Pro: Fix page template not copied when creating a new page translation in the block editor #2581
+* Pro: Fix SVG icons lost when using machine translation
+* Pro: Fix a performance issue with the translation of ACF labels #2670
+* Pro: Fix product status wrongly modified when updating a product with the REST API #2540
+* Pro: Fix inactive languages not displayed when they should in REST API #2791
+* Pro: Fix translation of ACF repeaters with pagination #2674
+* Pro: Fix ACF's layout fields instructions #2889
+* Pro: Fix ACF's taxonomy fields not synchronized #2948
+* Pro: Fix event dates of The Events Calendar not duplicated #2894
+* Add language switcher block and navigation language switcher block #1811
+* Add support for multiple encodings in wpml-config.xml #1679, #2655
+* Enforce transients in DB and in object cache are synchronized #1653, #2598
+* Enforce passing all translations when saving the translations of a post or term #1690
+* Hide the admin language filter when editing posts #1698
+* Improve performance by preventing DB queries to fetch the language terms #1650
+* Fix edge cases where the translation group could be corrupted #1690
+* Fix a fatal error on multisite when saving a post after having switched to a site without Polylang #1700
+* Fix a fatal error when translating a custom table #1730
+* Fix warning when requesting a non-existing language #1665
+* Fix strings translations import with WP Importer #1637
+* Fix edge cases leading to wrong languages order #1777
+* Fix a fatal error with the plugin Groups #1834
 
 See [changelog.txt](https://plugins.svn.wordpress.org/polylang/trunk/changelog.txt) for older changelog

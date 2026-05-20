@@ -6,4 +6,6 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'WP_Syntex\\Polylang\\Script\\' => array($vendorDir . '/wpsyntex/polylang/bin', $vendorDir . '/wpsyntex/polylang/bin'),
+    'WP_Syntex\\Lib\\' => array($vendorDir . '/wpsyntex/updater/lib'),
 );

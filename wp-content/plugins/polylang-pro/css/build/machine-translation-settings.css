@@ -93,11 +93,10 @@
 	margin-right: 0;
 }
 
-.pll-settings [type="password"] + .button + .spinner {
+.pll-settings .pll-spinner-inline {
 	float: none;
 }
 
 .pll-progress-bar-wrapper .spinner {
-	float: none;
 	margin: 0;
 }

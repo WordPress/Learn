@@ -32,6 +32,10 @@ jQuery(
 					// The hidden tr allows to keep the background color.
 					// HTML prepended is hardcoded. So prepend is safe and as no need to be escaped.
 					$( 'table.widefat tbody' ).prepend( $( '#pll-translate' ) ).prepend( '<tr class="hidden"></tr>' ); // phpcs:ignore WordPressVIPMinimum.JS.HTMLExecutingFunctions.prepend
+					// Set initial focus on the Bulk translate region.
+					$( '#pll-translate .inline-edit-wrapper' ).attr( 'tabindex', '-1' ).focus();
+					// Scrolls to the top of the table where the editor is rendered.
+					$('html, body').animate( { scrollTop: 0 }, 'fast' );
 				} else {
 					$( '#pll-translate' ).find( '.cancel' ).trigger( 'click' );
 				}

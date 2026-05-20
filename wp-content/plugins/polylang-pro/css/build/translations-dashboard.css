@@ -1,0 +1,63 @@
+/* Metaboxes holder in Strings translations screen */
+.languages_page_mlang_strings .metabox-holder > div {
+	display: flex;
+	flex-wrap: wrap;
+}
+.languages_page_mlang_strings .metabox-holder > div > div {
+	display: flex;
+	flex-direction: column;
+	flex-basis: 0;
+	flex-grow: 1;
+}
+.languages_page_mlang_strings .metabox-holder > div > div:not(:first-child) {
+	margin-left: 1rem;
+}
+.languages_page_mlang_strings .metabox-holder > div > div.closed {
+	border:0;
+	background: none;
+}
+.languages_page_mlang_strings .metabox-holder > div > div.closed .postbox-header{
+	border: 1px solid #ccd0d4;
+	background: #fff;
+}
+
+#pll-export-strings-box.postbox .submit, /* Override WordPress styles */
+#pll-import-translations-box.postbox .submit,
+#pll-machine-strings-translations.postbox .submit {
+	float: none;
+	padding: 0;
+}
+.postbox .inside {
+	margin: 0;
+}
+
+#pll-machine-strings-translations .pll-translation-flag, #export-string-translation .pll-translation-flag {
+	margin: auto 10px auto 7px;
+}
+
+#export-string-translation label,
+#export-string-translation label[for="pll-select-format"] span,
+#import-translation label,
+#pll-machine-strings-translations label {
+	display: block;
+	margin: 0.35em 0 0.5em;
+}
+
+.pll-legend {
+	display: block;
+	padding: 2px 0;
+	color: #1d2327;
+	font-weight: 400;
+	text-shadow: none;
+	margin: 0.35em 0 0.5em;
+}
+
+/* Narrow devices */
+@media screen and ( max-width: 1024px ) {
+	.languages_page_mlang_strings .metabox-holder > div {
+		flex-direction: column;
+	}
+	.languages_page_mlang_strings .metabox-holder > div > div:not(:first-child) {
+		margin-left: 0;
+	}
+}

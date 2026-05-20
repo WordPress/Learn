@@ -64,8 +64,13 @@ jQuery(
 											$.each(
 												terms,
 												function ( i ) {
-													id = '#' + tax + '-' + pll_term_languages[ lg ][ tax ][ i ];
-													lang == lg ? $( id ).show() : $( id ).hide();
+													// Backward compatibility with WordPress < 6.7.
+													// Support both old (WP < 6.7) and new (WP >= 6.7) ID formats.
+													// Old format: category-123 (WordPress < 6.7).
+													// New format: in-category-123-1 (WordPress >= 6.7).
+													const termId = pll_term_languages[ lg ][ tax ][ i ];
+													const selector = `#${tax}-${termId}, [id^="in-${tax}-${termId}-"]`;
+													$( selector ).toggle( lang === lg );
 												}
 											);
 										}
@@ -97,6 +102,11 @@ jQuery(
 				}
 		}
 		const table = document.getElementById( 'the-list' );
+
+		if ( ! table ) {
+			return;
+		}
+
 		const config = { childList: true, subtree: true };
 		const observer = new MutationObserver( handleQuickEditInsertion );
 
@@ -160,22 +170,6 @@ jQuery(
 					if ( 'undefined' != typeof( data['action'] ) && 'inline-save' == data['action'] ) {
 						update_rows( data['post_ID'] );
 					}
-				}
-			}
-		);
-	}
-);
-
-/**
- * Media list table
- * When clicking on attach link, filters find post list per media language
- */
-jQuery(
-	function ( $ ) {
-		$.ajaxPrefilter(
-			function ( options, originalOptions, jqXHR ) {
-				if ( 'string' === typeof options.data && -1 !== options.data.indexOf( 'action=find_posts' ) ) {
-					options.data = 'pll_post_id=' + $( '#affected' ).val() + '&' + options.data;
 				}
 			}
 		);
