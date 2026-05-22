@@ -34,6 +34,7 @@ function register() {
 	register_included_content();
 	register_topic();
 	register_learning_pathway();
+	register_activity_language();
 }
 
 /**
@@ -258,7 +259,7 @@ function register_lesson_level() {
 		),
 	);
 
-	register_taxonomy( 'level', array( 'lesson-plan', 'lesson', 'course' ), $args );
+	register_taxonomy( 'level', array( 'lesson-plan', 'lesson', 'course', 'activity_kit' ), $args );
 }
 
 /**
@@ -445,7 +446,7 @@ function register_topic() {
 		),
 	);
 
-	register_taxonomy( 'topic', array( 'lesson-plan', 'wporg_workshop', 'course', 'lesson', 'meeting' ), $args );
+	register_taxonomy( 'topic', array( 'lesson-plan', 'wporg_workshop', 'course', 'lesson', 'meeting', 'activity_kit' ), $args );
 }
 
 /**
@@ -682,6 +683,10 @@ function tax_edit_term_fields( $term, $taxonomy ) {
  * @param int $term_id the term id to update.
  */
 function tax_save_term_fields( $term_id ) {
+	if ( defined( 'WP_CLI' ) && WP_CLI ) {
+		return;
+	}
+
 	$wp_list_table = \_get_list_table( 'WP_Terms_List_Table' );
 
 	if ( 'add-tag' === $wp_list_table->current_action() ) {
@@ -748,4 +753,46 @@ function get_available_taxonomy_terms( $taxonomy, $post_type, $post_status = nul
 		$terms[ $term_object->slug ] = $term_object->name;
 		return $terms;
 	}, array());
+}
+
+/**
+ * Register the Activity Language taxonomy for activity kits.
+ */
+function register_activity_language() {
+	$labels = array(
+		'name'                       => _x( 'Languages', 'Taxonomy General Name', 'wporg-learn' ),
+		'singular_name'              => _x( 'Language', 'Taxonomy Singular Name', 'wporg-learn' ),
+		'menu_name'                  => __( 'Languages', 'wporg-learn' ),
+		'all_items'                  => __( 'All Languages', 'wporg-learn' ),
+		'parent_item'                => null,
+		'parent_item_colon'          => null,
+		'new_item_name'              => __( 'New Language Name', 'wporg-learn' ),
+		'add_new_item'               => __( 'Add Language', 'wporg-learn' ),
+		'edit_item'                  => __( 'Edit Language', 'wporg-learn' ),
+		'update_item'                => __( 'Update Language', 'wporg-learn' ),
+		'view_item'                  => __( 'View Language', 'wporg-learn' ),
+		'separate_items_with_commas' => __( 'Separate languages with commas', 'wporg-learn' ),
+		'add_or_remove_items'        => __( 'Add or remove languages', 'wporg-learn' ),
+		'choose_from_most_used'      => __( 'Choose from the most used', 'wporg-learn' ),
+		'popular_items'              => __( 'Popular Languages', 'wporg-learn' ),
+		'search_items'               => __( 'Search Languages', 'wporg-learn' ),
+		'not_found'                  => __( 'Not Found', 'wporg-learn' ),
+		'no_terms'                   => __( 'No Languages', 'wporg-learn' ),
+		'items_list'                 => __( 'Languages list', 'wporg-learn' ),
+		'items_list_navigation'      => __( 'Languages list navigation', 'wporg-learn' ),
+	);
+
+	$args = array(
+		'labels'            => $labels,
+		'hierarchical'      => false,
+		'public'            => true,
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'show_in_nav_menus' => true,
+		'show_tagcloud'     => false,
+		'show_in_rest'      => true,
+		'rewrite'           => array( 'slug' => 'activity-language' ),
+	);
+
+	register_taxonomy( 'activity_language', array( 'activity_kit' ), $args );
 }

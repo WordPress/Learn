@@ -602,3 +602,83 @@ function remove_duplicate_post_row_action( $actions, $post ) {
 
 	return $actions;
 }
+
+// Activity Kit admin hooks.
+add_filter( 'manage_activity_kit_posts_columns', __NAMESPACE__ . '\add_activity_kit_list_table_columns' );
+add_action( 'manage_activity_kit_posts_custom_column', __NAMESPACE__ . '\render_activity_kit_list_table_columns', 10, 2 );
+add_filter( 'manage_edit-activity_kit_sortable_columns', __NAMESPACE__ . '\add_activity_kit_sortable_columns' );
+add_action( 'pre_get_posts', __NAMESPACE__ . '\handle_activity_kit_sortable_columns' );
+add_action( 'admin_menu', __NAMESPACE__ . '\add_activity_kit_stats_submenu' );
+
+/**
+ * Add Views and Downloads columns to the Activity Kit list table.
+ *
+ * @param array $columns
+ * @return array
+ */
+function add_activity_kit_list_table_columns( $columns ) {
+	$columns['views']     = __( 'Views', 'wporg-learn' );
+	$columns['downloads'] = __( 'Downloads', 'wporg-learn' );
+	return $columns;
+}
+
+/**
+ * Render the Views and Downloads columns in the Activity Kit list table.
+ *
+ * @param string $column_name
+ * @param int    $post_id
+ */
+function render_activity_kit_list_table_columns( $column_name, $post_id ) {
+	if ( 'views' === $column_name ) {
+		echo absint( get_post_meta( $post_id, '_view_count', true ) );
+	} elseif ( 'downloads' === $column_name ) {
+		echo absint( get_post_meta( $post_id, '_download_count', true ) );
+	}
+}
+
+/**
+ * Make the Views and Downloads columns sortable.
+ *
+ * @param array $columns
+ * @return array
+ */
+function add_activity_kit_sortable_columns( $columns ) {
+	$columns['views']     = 'views';
+	$columns['downloads'] = 'downloads';
+	return $columns;
+}
+
+/**
+ * Handle sorting by Views and Downloads in the Activity Kit list table.
+ *
+ * @param \WP_Query $query
+ */
+function handle_activity_kit_sortable_columns( $query ) {
+	if ( ! is_admin() || 'activity_kit' !== $query->get( 'post_type' ) ) {
+		return;
+	}
+
+	$orderby = $query->get( 'orderby' );
+
+	if ( 'views' === $orderby ) {
+		$query->set( 'meta_key', '_view_count' );
+		$query->set( 'orderby', 'meta_value_num' );
+	} elseif ( 'downloads' === $orderby ) {
+		$query->set( 'meta_key', '_download_count' );
+		$query->set( 'orderby', 'meta_value_num' );
+	}
+}
+
+/**
+ * Add a Stats submenu page under the Activity Kits post type menu.
+ */
+function add_activity_kit_stats_submenu() {
+	add_submenu_page(
+		'edit.php?post_type=activity_kit',
+		__( 'Activity Kit Stats', 'wporg-learn' ),
+		__( 'Stats', 'wporg-learn' ),
+		'manage_options',
+		'activity-kit-stats',
+		'WPOrg_Learn\Activity_Kit_Stats\render_page'
+	);
+}

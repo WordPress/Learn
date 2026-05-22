@@ -7,6 +7,10 @@
  * Original source: https://github.com/Automattic/sensei/blob/af62fb1115daf2063bc56331a7d8b1b3ea805866/themes/sensei-course-theme/templates/default/lesson.php
  */
 
+if ( ! function_exists( 'sensei_get_prev_next_lessons' ) ) {
+	return;
+}
+
 $prev_next_lessons = sensei_get_prev_next_lessons( get_the_ID() );
 $prev_url = $prev_next_lessons['previous']['url'] ?? null;
 $next_url = $prev_next_lessons['next']['url'] ?? null;

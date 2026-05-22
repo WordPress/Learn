@@ -8,6 +8,7 @@ namespace WordPressdotorg\Theme\Learn_2024\Query;
 add_action( 'pre_get_posts', __NAMESPACE__ . '\add_language_to_archive_queries' );
 add_action( 'pre_get_posts', __NAMESPACE__ . '\filter_hidden_lessons_from_archive_and_search' );
 add_action( 'pre_get_posts', __NAMESPACE__ . '\filter_search_queries_by_post_type' );
+add_action( 'pre_get_posts', __NAMESPACE__ . '\filter_activity_kit_archive' );
 add_filter( 'request', __NAMESPACE__ . '\handle_all_level_query' );
 add_filter( 'jetpack_search_es_wp_query_args', __NAMESPACE__ . '\filter_jetpack_wp_search_query', 10, 2 );
 add_filter( 'jetpack_search_es_query_args', __NAMESPACE__ . '\filter_jetpack_es_search_query', 10, 2 );
@@ -157,4 +158,55 @@ function filter_jetpack_es_search_query( $es_query_args, $query ) {
 	);
 
 	return $es_query_args;
+}
+
+/**
+ * Filter the activity kit archive by taxonomy terms from URL query params.
+ *
+ * @param \WP_Query $query
+ */
+function filter_activity_kit_archive( $query ) {
+	if ( is_admin() || ! $query->is_main_query() ) {
+		return;
+	}
+
+	if ( ! is_post_type_archive( 'activity_kit' ) && ! ( $query->is_search() && isset( $_GET['post_type'] ) && 'activity_kit' === $_GET['post_type'] ) ) {
+		return;
+	}
+
+	$query->set( 'posts_per_page', 12 );
+
+	$tax_query = array();
+
+	if ( ! empty( $_GET['topic'] ) ) {
+		$tax_query[] = array(
+			'taxonomy' => 'topic',
+			'field'    => 'slug',
+			'terms'    => sanitize_text_field( wp_unslash( $_GET['topic'] ) ),
+		);
+	}
+
+	if ( ! empty( $_GET['level'] ) ) {
+		$tax_query[] = array(
+			'taxonomy' => 'level',
+			'field'    => 'slug',
+			'terms'    => sanitize_text_field( wp_unslash( $_GET['level'] ) ),
+		);
+	}
+
+	if ( ! empty( $_GET['language'] ) ) {
+		$tax_query[] = array(
+			'taxonomy' => 'activity_language',
+			'field'    => 'slug',
+			'terms'    => sanitize_text_field( wp_unslash( $_GET['language'] ) ),
+		);
+	}
+
+	if ( ! empty( $tax_query ) ) {
+		$query->set( 'tax_query', $tax_query );
+	}
+
+	if ( $query->is_search() && isset( $_GET['post_type'] ) && 'activity_kit' === $_GET['post_type'] ) {
+		$query->set( 'post_type', 'activity_kit' );
+	}
 }

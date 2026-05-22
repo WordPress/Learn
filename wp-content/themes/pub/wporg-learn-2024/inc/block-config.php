@@ -10,6 +10,10 @@ use Sensei_Learner;
 
 add_filter( 'wporg_query_filter_options_content_type', __NAMESPACE__ . '\get_content_type_options' );
 
+add_filter( 'wporg_query_filter_options_activity_kit_topic', __NAMESPACE__ . '\get_activity_kit_topic_options' );
+add_filter( 'wporg_query_filter_options_activity_kit_level', __NAMESPACE__ . '\get_activity_kit_level_options' );
+add_filter( 'wporg_query_filter_options_activity_kit_language', __NAMESPACE__ . '\get_activity_kit_language_options' );
+
 add_filter( 'wporg_query_filter_options_language', __NAMESPACE__ . '\get_language_options' );
 add_filter( 'wporg_query_filter_options_archive_language', __NAMESPACE__ . '\get_language_options_by_post_type' );
 
@@ -638,4 +642,84 @@ function modify_course_query( $query ) {
 	}
 
 	return $query;
+}
+
+/**
+ * Get topic filter options for the Activity Kit archive.
+ *
+ * @return array
+ */
+function get_activity_kit_topic_options() {
+	$terms = get_terms( array(
+		'taxonomy'   => 'topic',
+		'object_ids' => get_posts( array(
+			'post_type'      => 'activity_kit',
+			'posts_per_page' => -1,
+			'fields'         => 'ids',
+		) ),
+		'hide_empty' => true,
+		'number'     => 20,
+		'orderby'    => 'count',
+		'order'      => 'DESC',
+	) );
+
+	if ( is_wp_error( $terms ) || empty( $terms ) ) {
+		return array();
+	}
+
+	return array_combine(
+		wp_list_pluck( $terms, 'slug' ),
+		wp_list_pluck( $terms, 'name' )
+	);
+}
+
+/**
+ * Get level filter options for the Activity Kit archive.
+ *
+ * @return array
+ */
+function get_activity_kit_level_options() {
+	$terms = get_terms( array(
+		'taxonomy'   => 'level',
+		'object_ids' => get_posts( array(
+			'post_type'      => 'activity_kit',
+			'posts_per_page' => -1,
+			'fields'         => 'ids',
+		) ),
+		'hide_empty' => true,
+		'orderby'    => 'name',
+		'order'      => 'ASC',
+	) );
+
+	if ( is_wp_error( $terms ) || empty( $terms ) ) {
+		return array();
+	}
+
+	return array_combine(
+		wp_list_pluck( $terms, 'slug' ),
+		wp_list_pluck( $terms, 'name' )
+	);
+}
+
+/**
+ * Get language filter options for the Activity Kit archive.
+ *
+ * @return array
+ */
+function get_activity_kit_language_options() {
+	$terms = get_terms( array(
+		'taxonomy'   => 'activity_language',
+		'hide_empty' => true,
+		'orderby'    => 'name',
+		'order'      => 'ASC',
+	) );
+
+	if ( is_wp_error( $terms ) || empty( $terms ) ) {
+		return array();
+	}
+
+	return array_combine(
+		wp_list_pluck( $terms, 'slug' ),
+		wp_list_pluck( $terms, 'name' )
+	);
 }

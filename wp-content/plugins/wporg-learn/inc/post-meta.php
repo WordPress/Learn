@@ -35,6 +35,7 @@ function register() {
 	register_lesson_meta();
 	register_lesson_plan_meta();
 	register_workshop_meta();
+	register_activity_kit_meta();
 }
 
 /**
@@ -922,4 +923,97 @@ function enqueue_course_completion_meta_assets() {
 
 		wp_set_script_translations( 'wporg-learn-course-completion-meta', 'wporg-learn' );
 	}
+}
+
+/**
+ * Register post meta keys for activity kits.
+ */
+function register_activity_kit_meta() {
+	$auth_callback = function( $allowed, $meta_key, $post_id ) {
+		return current_user_can( 'edit_post', $post_id );
+	};
+
+	register_post_meta(
+		'activity_kit',
+		'_activity_duration',
+		array(
+			'description'       => __( 'Duration of the activity, e.g. "60–90 minutes".', 'wporg-learn' ),
+			'type'              => 'string',
+			'single'            => true,
+			'default'           => '',
+			'sanitize_callback' => 'sanitize_text_field',
+			'show_in_rest'      => true,
+			'auth_callback'     => $auth_callback,
+		)
+	);
+
+	register_post_meta(
+		'activity_kit',
+		'_activity_guide_pdf_id',
+		array(
+			'description'       => __( 'Attachment ID of the Facilitator Guide PDF.', 'wporg-learn' ),
+			'type'              => 'integer',
+			'single'            => true,
+			'default'           => 0,
+			'sanitize_callback' => 'absint',
+			'show_in_rest'      => true,
+			'auth_callback'     => $auth_callback,
+		)
+	);
+
+	register_post_meta(
+		'activity_kit',
+		'_activity_slides_pdf_id',
+		array(
+			'description'       => __( 'Attachment ID of the Slide Deck PDF.', 'wporg-learn' ),
+			'type'              => 'integer',
+			'single'            => true,
+			'default'           => 0,
+			'sanitize_callback' => 'absint',
+			'show_in_rest'      => true,
+			'auth_callback'     => $auth_callback,
+		)
+	);
+
+	register_post_meta(
+		'activity_kit',
+		'_activity_zip_url',
+		array(
+			'description'       => __( 'URL of the downloadable ZIP file for this activity kit.', 'wporg-learn' ),
+			'type'              => 'string',
+			'single'            => true,
+			'default'           => '',
+			'sanitize_callback' => 'esc_url_raw',
+			'show_in_rest'      => true,
+			'auth_callback'     => $auth_callback,
+		)
+	);
+
+	register_post_meta(
+		'activity_kit',
+		'_view_count',
+		array(
+			'description'       => __( 'Number of times this activity kit has been viewed.', 'wporg-learn' ),
+			'type'              => 'integer',
+			'single'            => true,
+			'default'           => 0,
+			'sanitize_callback' => 'absint',
+			'show_in_rest'      => true,
+			'auth_callback'     => $auth_callback,
+		)
+	);
+
+	register_post_meta(
+		'activity_kit',
+		'_download_count',
+		array(
+			'description'       => __( 'Number of times this activity kit has been downloaded.', 'wporg-learn' ),
+			'type'              => 'integer',
+			'single'            => true,
+			'default'           => 0,
+			'sanitize_callback' => 'absint',
+			'show_in_rest'      => true,
+			'auth_callback'     => $auth_callback,
+		)
+	);
 }
