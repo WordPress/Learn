@@ -8,7 +8,10 @@ const jQuery = window.jQuery || {};
 		const checkbox = container.querySelector( 'input[type="checkbox"]' ),
 			text = container.querySelector( 'input[type="text"]' );
 
-		text.addEventListener( 'input', ( event ) => ( checkbox.checked = !! event.target.value ) );
+		text.addEventListener(
+			'input',
+			( event ) => ( checkbox.checked = !! event.target.value )
+		);
 
 		checkbox.addEventListener( 'change', ( event ) => {
 			if ( event.target.checked ) {

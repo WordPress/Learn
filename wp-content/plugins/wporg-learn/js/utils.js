@@ -1,6 +1,11 @@
 import { errors } from './constants';
 
-export const getBlockPlaceholderMessage = ( blockPostType, currentPostType, isBlockInSidebar, defaultMessage ) => {
+export const getBlockPlaceholderMessage = (
+	blockPostType,
+	currentPostType,
+	isBlockInSidebar,
+	defaultMessage
+) => {
 	if ( currentPostType === null ) {
 		if ( ! isBlockInSidebar ) {
 			return errors.BLOCK_SIDEBAR_TYPE_INCOMPATIBLE;

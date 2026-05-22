@@ -8,14 +8,19 @@ import { __ } from '@wordpress/i18n';
 import { registerPlugin } from '@wordpress/plugins';
 
 const CourseCompletionMeta = () => {
-	const postMetaData = useSelect( ( select ) => select( 'core/editor' ).getEditedPostAttribute( 'meta' ) || {} );
+	const postMetaData = useSelect(
+		( select ) =>
+			select( 'core/editor' ).getEditedPostAttribute( 'meta' ) || {}
+	);
 	const { editPost } = useDispatch( 'core/editor' );
 
 	const message = postMetaData?._course_completion_success_message || '';
 	const link = postMetaData?._course_completion_survey_link || '';
 
 	return (
-		<PluginDocumentSettingPanel title={ __( 'Completed screen', 'wporg-learn' ) }>
+		<PluginDocumentSettingPanel
+			title={ __( 'Completed screen', 'wporg-learn' ) }
+		>
 			<PanelRow>
 				<p>
 					{ __(
@@ -28,7 +33,10 @@ const CourseCompletionMeta = () => {
 				<TextControl
 					label={ __( 'Success Message', 'wporg-learn' ) }
 					value={ message }
-					placeholder={ __( 'Congratulations on completing this course!', 'wporg-learn' ) }
+					placeholder={ __(
+						'Congratulations on completing this course!',
+						'wporg-learn'
+					) }
 					onChange={ ( newMessage ) => {
 						editPost( {
 							meta: {
