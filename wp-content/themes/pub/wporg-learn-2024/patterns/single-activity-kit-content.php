@@ -147,9 +147,7 @@ $icon_desk_lg  = '<svg width="20" height="20" viewBox="-2 -2 24 24" fill="curren
 			<a class="wporg-activity-kit-pdf-tabs__dl-btn"
 				href="<?php echo esc_url( $guide_url ? $guide_url : $slides_url ); ?>"
 				data-guide-url="<?php echo esc_url( $guide_url ); ?>"
-				data-slides-url="<?php echo esc_url( $slides_url ); ?>"
-				data-post-id="<?php echo absint( $kit_id ); ?>"
-				data-track-download="1">
+				data-slides-url="<?php echo esc_url( $slides_url ); ?>">
 				<?php echo $icon_download; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Static SVG markup. ?>
 				<?php esc_html_e( 'Download PDF', 'wporg-learn' ); ?>
 			</a>
@@ -334,9 +332,10 @@ if ( $feedback_url ) :
 
 <script>
 ( function () {
+	var trackUrl = '<?php echo esc_js( rest_url( 'activity-kits/v1/track' ) ); ?>';
 	document.querySelectorAll( '[data-track-download="1"]' ).forEach( function ( btn ) {
 		btn.addEventListener( 'click', function () {
-			fetch( '/wp-json/activity-kits/v1/track', {
+			fetch( trackUrl, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify( { post_id: parseInt( btn.dataset.postId, 10 ), action: 'download' } ),
@@ -350,7 +349,7 @@ if ( $feedback_url ) :
 
 <script>
 ( function () {
-	fetch( '/wp-json/activity-kits/v1/track', {
+	fetch( '<?php echo esc_js( rest_url( 'activity-kits/v1/track' ) ); ?>', {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify( { post_id: <?php echo absint( $kit_id ); ?>, action: 'view' } ),

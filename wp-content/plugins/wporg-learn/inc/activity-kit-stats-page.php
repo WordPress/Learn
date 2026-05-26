@@ -43,8 +43,6 @@ function enqueue_scripts( $hook ) {
 			'nonce'   => wp_create_nonce( 'wp_rest' ),
 		)
 	);
-
-	wp_add_inline_style( 'wp-admin', '' );
 }
 
 /**

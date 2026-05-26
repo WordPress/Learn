@@ -655,7 +655,7 @@ function add_activity_kit_sortable_columns( $columns ) {
  * @param \WP_Query $query
  */
 function handle_activity_kit_sortable_columns( $query ) {
-	if ( ! is_admin() || 'activity_kit' !== $query->get( 'post_type' ) ) {
+	if ( ! is_admin() || ! $query->is_main_query() || 'activity_kit' !== $query->get( 'post_type' ) ) {
 		return;
 	}
 

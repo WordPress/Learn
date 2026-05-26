@@ -15,8 +15,7 @@ import { useEffect } from '@wordpress/element';
 function ActivityKitDetailsPanel() {
 	const postMeta = useSelect(
 		( select ) =>
-			select( 'core/editor' ).getEditedPostAttribute( 'meta' ) || {},
-		[]
+			select( 'core/editor' ).getEditedPostAttribute( 'meta' ) || {}
 	);
 	const { editPost } = useDispatch( 'core/editor' );
 
@@ -211,8 +210,7 @@ function ActivityKitLevelPanel() {
 
 	const levelTermIds = useSelect(
 		( select ) =>
-			select( 'core/editor' ).getEditedPostAttribute( 'level' ) || [],
-		[]
+			select( 'core/editor' ).getEditedPostAttribute( 'level' ) || []
 	);
 	const { editPost } = useDispatch( 'core/editor' );
 

@@ -658,6 +658,7 @@ function get_activity_kit_topic_options() {
 			'object_ids' => get_posts(
 				array(
 					'post_type'      => 'activity_kit',
+					'post_status'    => 'publish',
 					'posts_per_page' => -1,
 					'fields'         => 'ids',
 				)
@@ -712,6 +713,7 @@ function get_activity_kit_level_options() {
 			'object_ids' => get_posts(
 				array(
 					'post_type'      => 'activity_kit',
+					'post_status'    => 'publish',
 					'posts_per_page' => -1,
 					'fields'         => 'ids',
 				)

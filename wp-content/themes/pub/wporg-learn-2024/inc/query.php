@@ -186,11 +186,13 @@ function filter_activity_kit_archive( $query ) {
 		);
 	}
 
-	if ( ! empty( $_GET['level'] ) && 'all' !== $_GET['level'] ) {
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	$level_slug = isset( $_GET['level'] ) ? sanitize_text_field( wp_unslash( $_GET['level'] ) ) : '';
+	if ( $level_slug && 'all' !== $level_slug ) {
 		$tax_query[] = array(
 			'taxonomy' => 'level',
 			'field'    => 'slug',
-			'terms'    => sanitize_text_field( wp_unslash( $_GET['level'] ) ),
+			'terms'    => $level_slug,
 		);
 	}
 
@@ -199,14 +201,22 @@ function filter_activity_kit_archive( $query ) {
 	}
 
 	if ( ! empty( $_GET['language'] ) ) {
-		$meta_query = array(
-			array(
-				'key'     => 'language',
-				'value'   => sanitize_text_field( wp_unslash( $_GET['language'] ) ),
-				'compare' => '=',
-			),
+		// Merge with any existing meta_query (e.g. set by add_language_to_archive_queries)
+		// rather than replacing it, to avoid discarding other meta conditions.
+		$existing_meta_query = $query->get( 'meta_query' );
+		$lang_clause         = array(
+			'key'     => 'language',
+			'value'   => sanitize_text_field( wp_unslash( $_GET['language'] ) ),
+			'compare' => '=',
 		);
-		$query->set( 'meta_query', $meta_query );
+
+		if ( ! empty( $existing_meta_query ) && is_array( $existing_meta_query ) ) {
+			$existing_meta_query[] = $lang_clause;
+		} else {
+			$existing_meta_query = array( $lang_clause );
+		}
+
+		$query->set( 'meta_query', $existing_meta_query );
 	}
 
 	if ( $query->is_search() && isset( $_GET['post_type'] ) && 'activity_kit' === $_GET['post_type'] ) {

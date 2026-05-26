@@ -11,7 +11,7 @@ defined( 'WPINC' ) || die();
 
 $kit_post_id = $block->context['postId'] ?? 0;
 
-if ( ! $kit_post_id ) {
+if ( ! $kit_post_id || 'activity_kit' !== get_post_type( $kit_post_id ) ) {
 	return '';
 }
 
@@ -90,7 +90,8 @@ if ( has_post_thumbnail( $kit_post_id ) ) {
 			<?php if ( $zip_url ) : ?>
 				<a class="wporg-activity-kit-card__download-btn button button-primary"
 					href="<?php echo esc_url( $zip_url ); ?>"
-					data-post-id="<?php echo absint( $kit_post_id ); ?>">
+					data-post-id="<?php echo absint( $kit_post_id ); ?>"
+					data-track-download="1">
 					<?php esc_html_e( 'Download ↓', 'wporg-learn' ); ?>
 				</a>
 			<?php endif; ?>
