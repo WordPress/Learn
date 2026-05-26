@@ -15,7 +15,7 @@
 	<!-- /wp:heading -->
 
 	<!-- wp:paragraph -->
-	<p><?php esc_html_e( 'Downloadable activity kits with facilitator guides and slide decks to help you run WordPress workshops and meetups.', 'wporg-learn' ); ?></p>
+	<p><?php esc_html_e( 'Download ready-to-use WordPress activity kits designed for educators, meetup organizers, and community facilitators. Each kit includes everything you need to run a hands-on WordPress learning session.', 'wporg-learn' ); ?></p>
 	<!-- /wp:paragraph -->
 
 </div>
@@ -30,7 +30,7 @@
 	<div class="wp-block-group wporg-query-filters">
 		<!-- wp:wporg/query-filter {"key":"activity_kit_topic"} /-->
 		<!-- wp:wporg/query-filter {"key":"activity_kit_level","multiple":false} /-->
-		<!-- wp:wporg/query-filter {"key":"activity_kit_language"} /-->
+		<!-- wp:wporg/query-filter {"key":"archive_language"} /-->
 	</div>
 	<!-- /wp:group -->
 
@@ -66,3 +66,29 @@
 
 </div>
 <!-- /wp:query -->
+
+<!-- wp:group {"align":"wide","style":{"border":{"width":"1px","style":"solid","color":"var(--wp--custom--color--border)"},"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50","left":"var:preset|spacing|50","right":"var:preset|spacing|50"},"margin":{"top":"var:preset|spacing|60"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignwide" style="border-color:var(--wp--custom--color--border);border-style:solid;border-width:1px;margin-top:var(--wp--preset--spacing--60);padding-top:var(--wp--preset--spacing--50);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--50)">
+
+	<!-- wp:heading {"textAlign":"center","level":2} -->
+	<h2 class="wp-block-heading has-text-align-center"><?php esc_html_e( 'Help create activity kits', 'wporg-learn' ); ?></h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:paragraph {"align":"center","style":{"layout":{"selfStretch":"fit","flexSize":null}},"fontSize":"normal"} -->
+	<p class="has-text-align-center"><?php esc_html_e( 'Behind every activity kit is a group of educators and community members working to make WordPress learning more accessible. If you\'d like to contribute a kit or improve an existing one, get involved with the Training team.', 'wporg-learn' ); ?></p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
+	<div class="wp-block-buttons">
+		<!-- wp:button {"className":"is-style-outline"} -->
+		<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="https://make.wordpress.org/training/"><?php esc_html_e( 'Get involved', 'wporg-learn' ); ?></a></div>
+		<!-- /wp:button -->
+
+		<!-- wp:button {"className":"is-style-outline"} -->
+		<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="https://make.wordpress.org/training/handbook/"><?php esc_html_e( 'Read the handbook', 'wporg-learn' ); ?></a></div>
+		<!-- /wp:button -->
+	</div>
+	<!-- /wp:buttons -->
+
+</div>
+<!-- /wp:group -->

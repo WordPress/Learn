@@ -34,62 +34,71 @@ class Activity_Kit_CLI {
 			array(
 				'title'  => 'Debugging for Developers',
 				'topics' => array( 'development' ),
-				'levels' => array( 'intermediate' ),
+				'levels' => array( 'Intermediate' ),
 			),
 			array(
 				'title'  => 'Debugging for Site Owners',
 				'topics' => array( 'site-management' ),
-				'levels' => array( 'beginner' ),
+				'levels' => array( 'Beginner' ),
 			),
 			array(
 				'title'  => 'eCommerce with WooCommerce',
 				'topics' => array( 'woocommerce', 'ecommerce' ),
-				'levels' => array( 'beginner' ),
+				'levels' => array( 'Beginner' ),
 			),
 			array(
 				'title'  => 'SEO Foundations',
 				'topics' => array( 'seo' ),
-				'levels' => array( 'beginner' ),
+				'levels' => array( 'Beginner' ),
 			),
 			array(
 				'title'  => 'WordPress Playground',
 				'topics' => array( 'playground' ),
-				'levels' => array( 'beginner' ),
+				'levels' => array( 'Beginner' ),
 			),
 			array(
 				'title'  => 'Content Creation',
 				'topics' => array( 'content-creation' ),
-				'levels' => array( 'beginner' ),
+				'levels' => array( 'Beginner' ),
 			),
 			array(
 				'title'  => 'Using AI in your WordPress Dashboard',
 				'topics' => array( 'ai', 'site-management' ),
-				'levels' => array( 'beginner' ),
+				'levels' => array( 'Beginner' ),
 			),
 			array(
 				'title'  => 'Managing your WordPress site with AI',
 				'topics' => array( 'ai', 'site-management' ),
-				'levels' => array( 'intermediate' ),
+				'levels' => array( 'Intermediate' ),
 			),
 			array(
 				'title'  => 'Contributor Onboarding',
 				'topics' => array( 'contributing' ),
-				'levels' => array( 'beginner' ),
+				'levels' => array( 'Beginner' ),
 			),
 			array(
 				'title'  => 'WordPress Security Essentials',
 				'topics' => array( 'security' ),
-				'levels' => array( 'beginner' ),
+				'levels' => array( 'Beginner' ),
 			),
 			array(
 				'title'  => 'Accessibility Testing in WordPress',
 				'topics' => array( 'accessibility' ),
-				'levels' => array( 'beginner' ),
+				'levels' => array( 'Beginner' ),
 			),
 		);
 
 		foreach ( $kits as $kit_data ) {
-			$existing = get_page_by_title( $kit_data['title'], OBJECT, 'activity_kit' );
+			$existing_query = new \WP_Query(
+				array(
+					'post_type'      => 'activity_kit',
+					'post_status'    => 'any',
+					'title'          => $kit_data['title'],
+					'posts_per_page' => 1,
+					'fields'         => 'ids',
+				)
+			);
+			$existing       = $existing_query->have_posts() ? get_post( $existing_query->posts[0] ) : null;
 
 			if ( $existing && ! $force ) {
 				\WP_CLI::log( sprintf( 'Skipping "%s" — already exists (ID %d). Use --force to re-import.', $kit_data['title'], $existing->ID ) );

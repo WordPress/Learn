@@ -42,19 +42,29 @@ function register_routes() {
 		array(
 			'methods'             => 'GET',
 			'callback'            => __NAMESPACE__ . '\handle_stats',
-			'permission_callback' => function() {
+			'permission_callback' => function () {
 				return current_user_can( 'manage_options' );
 			},
 			'args'                => array(
-				'metric' => array(
+				'metric'    => array(
 					'default' => 'both',
 					'enum'    => array( 'both', 'views', 'downloads' ),
 				),
-				'range'  => array(
+				'range'     => array(
 					'default' => 'all',
-					'enum'    => array( '7d', '30d', '90d', 'all' ),
+					'enum'    => array( '7d', '30d', '90d', 'all', 'custom' ),
 				),
-				'kit'    => array(
+				'kit'       => array(
+					'default'           => '',
+					'type'              => 'string',
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+				'date_from' => array(
+					'default'           => '',
+					'type'              => 'string',
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+				'date_to'   => array(
 					'default'           => '',
 					'type'              => 'string',
 					'sanitize_callback' => 'sanitize_text_field',
@@ -78,12 +88,20 @@ function handle_track( $request ) {
 		return new \WP_Error( 'invalid_post', __( 'Invalid activity kit.', 'wporg-learn' ), array( 'status' => 404 ) );
 	}
 
-	// Rate-limit: one increment per IP per post per action per 24 hours.
-	$rate_key = 'ak_rate_' . md5( $post_id . $action . ( $_SERVER['REMOTE_ADDR'] ?? '' ) );
-	if ( get_transient( $rate_key ) ) {
-		return rest_ensure_response( array( 'tracked' => false, 'reason' => 'rate_limited' ) );
+	// Downloads: rate-limit to one per IP per post per 24 hours.
+	// Views: count every page load (no rate limit).
+	if ( 'download' === $action ) {
+		$rate_key = 'ak_rate_dl_' . md5( $post_id . sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? '' ) ) );
+		if ( get_transient( $rate_key ) ) {
+			return rest_ensure_response(
+				array(
+					'tracked' => false,
+					'reason'  => 'rate_limited',
+				)
+			);
+		}
+		set_transient( $rate_key, 1, DAY_IN_SECONDS );
 	}
-	set_transient( $rate_key, 1, DAY_IN_SECONDS );
 
 	$meta_key = 'view' === $action ? '_view_count' : '_download_count';
 	$current  = (int) get_post_meta( $post_id, $meta_key, true );
@@ -101,17 +119,21 @@ function handle_track( $request ) {
  * @return \WP_REST_Response
  */
 function handle_stats( $request ) {
-	$metric = $request->get_param( 'metric' );
-	$range  = $request->get_param( 'range' );
-	$kit    = $request->get_param( 'kit' );
+	$metric    = $request->get_param( 'metric' );
+	$range     = $request->get_param( 'range' );
+	$kit       = $request->get_param( 'kit' );
+	$date_from = $request->get_param( 'date_from' );
+	$date_to   = $request->get_param( 'date_to' );
 
-	$kits = get_posts( array(
-		'post_type'      => 'activity_kit',
-		'posts_per_page' => -1,
-		'post_status'    => array( 'publish', 'draft' ),
-		'orderby'        => 'title',
-		'order'          => 'ASC',
-	) );
+	$kits = get_posts(
+		array(
+			'post_type'      => 'activity_kit',
+			'posts_per_page' => -1,
+			'post_status'    => 'publish',
+			'orderby'        => 'title',
+			'order'          => 'ASC',
+		)
+	);
 
 	$results = array();
 
@@ -121,12 +143,15 @@ function handle_stats( $request ) {
 		}
 
 		$data = array(
-			'id'    => $kit_post->ID,
-			'title' => $kit_post->post_title,
-			'slug'  => $kit_post->post_name,
+			'id'      => $kit_post->ID,
+			'title'   => $kit_post->post_title,
+			'slug'    => $kit_post->post_name,
+			'updated' => get_the_modified_date( 'Y-m-d', $kit_post->ID ),
 		);
 
-		if ( 'all' === $range ) {
+		if ( 'custom' === $range && $date_from && $date_to ) {
+			$data = array_merge( $data, get_stats_from_events_daterange( $kit_post->ID, $metric, $date_from, $date_to ) );
+		} elseif ( 'all' === $range ) {
 			if ( 'both' === $metric || 'views' === $metric ) {
 				$data['views'] = (int) get_post_meta( $kit_post->ID, '_view_count', true );
 			}
@@ -147,8 +172,8 @@ function handle_stats( $request ) {
  * Get stats from the events log table for a given kit, metric, and time range.
  *
  * @param int    $post_id
- * @param string $metric  'both', 'views', or 'downloads'
- * @param string $range   '7d', '30d', or '90d'
+ * @param string $metric  'both', 'views', or 'downloads'.
+ * @param string $range   '7d', '30d', or '90d'.
  * @return array
  */
 function get_stats_from_events( $post_id, $metric, $range ) {
@@ -159,19 +184,70 @@ function get_stats_from_events( $post_id, $metric, $range ) {
 	$data  = array();
 
 	if ( 'both' === $metric || 'views' === $metric ) {
-		$data['views'] = (int) $wpdb->get_var( $wpdb->prepare(
-			"SELECT COUNT(*) FROM `{$table}` WHERE post_id = %d AND action = 'view' AND created_at >= DATE_SUB(NOW(), INTERVAL %d DAY)",
-			$post_id,
-			$days
-		) );
+		$data['views'] = (int) $wpdb->get_var(
+			$wpdb->prepare(
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name cannot use a placeholder.
+				"SELECT COUNT(*) FROM `{$table}` WHERE post_id = %d AND action = 'view' AND created_at >= DATE_SUB(NOW(), INTERVAL %d DAY)",
+				$post_id,
+				$days
+			)
+		);
 	}
 
 	if ( 'both' === $metric || 'downloads' === $metric ) {
-		$data['downloads'] = (int) $wpdb->get_var( $wpdb->prepare(
-			"SELECT COUNT(*) FROM `{$table}` WHERE post_id = %d AND action = 'download' AND created_at >= DATE_SUB(NOW(), INTERVAL %d DAY)",
-			$post_id,
-			$days
-		) );
+		$data['downloads'] = (int) $wpdb->get_var(
+			$wpdb->prepare(
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name cannot use a placeholder.
+				"SELECT COUNT(*) FROM `{$table}` WHERE post_id = %d AND action = 'download' AND created_at >= DATE_SUB(NOW(), INTERVAL %d DAY)",
+				$post_id,
+				$days
+			)
+		);
+	}
+
+	return $data;
+}
+
+/**
+ * Get stats from the events log table for a given kit between two specific dates.
+ *
+ * @param int    $post_id
+ * @param string $metric    'both', 'views', or 'downloads'.
+ * @param string $date_from Start date in Y-m-d format.
+ * @param string $date_to   End date in Y-m-d format (inclusive).
+ * @return array
+ */
+function get_stats_from_events_daterange( $post_id, $metric, $date_from, $date_to ) {
+	global $wpdb;
+
+	$table = $wpdb->prefix . 'activity_kit_events';
+	$data  = array();
+
+	$from = sanitize_text_field( $date_from ) . ' 00:00:00';
+	$to   = sanitize_text_field( $date_to ) . ' 23:59:59';
+
+	if ( 'both' === $metric || 'views' === $metric ) {
+		$data['views'] = (int) $wpdb->get_var(
+			$wpdb->prepare(
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name cannot use a placeholder.
+				"SELECT COUNT(*) FROM `{$table}` WHERE post_id = %d AND action = 'view' AND created_at BETWEEN %s AND %s",
+				$post_id,
+				$from,
+				$to
+			)
+		);
+	}
+
+	if ( 'both' === $metric || 'downloads' === $metric ) {
+		$data['downloads'] = (int) $wpdb->get_var(
+			$wpdb->prepare(
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name cannot use a placeholder.
+				"SELECT COUNT(*) FROM `{$table}` WHERE post_id = %d AND action = 'download' AND created_at BETWEEN %s AND %s",
+				$post_id,
+				$from,
+				$to
+			)
+		);
 	}
 
 	return $data;
@@ -181,7 +257,7 @@ function get_stats_from_events( $post_id, $metric, $range ) {
  * Log a view or download event to the events table.
  *
  * @param int    $post_id
- * @param string $action 'view' or 'download'
+ * @param string $action 'view' or 'download'.
  */
 function log_event( $post_id, $action ) {
 	global $wpdb;

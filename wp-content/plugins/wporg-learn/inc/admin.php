@@ -158,7 +158,7 @@ function render_workshop_list_table_columns( $column_name, $post_id ) {
 			echo esc_html( implode(
 				', ',
 				array_map(
-					function( $caption_lang ) {
+					function ( $caption_lang ) {
 						return get_locale_name_from_code( $caption_lang, 'english' );
 					},
 					$captions
@@ -609,6 +609,7 @@ add_action( 'manage_activity_kit_posts_custom_column', __NAMESPACE__ . '\render_
 add_filter( 'manage_edit-activity_kit_sortable_columns', __NAMESPACE__ . '\add_activity_kit_sortable_columns' );
 add_action( 'pre_get_posts', __NAMESPACE__ . '\handle_activity_kit_sortable_columns' );
 add_action( 'admin_menu', __NAMESPACE__ . '\add_activity_kit_stats_submenu' );
+add_action( 'admin_menu', __NAMESPACE__ . '\remove_activity_kit_taxonomy_submenus', 99 );
 
 /**
  * Add Views and Downloads columns to the Activity Kit list table.
@@ -666,6 +667,28 @@ function handle_activity_kit_sortable_columns( $query ) {
 	} elseif ( 'downloads' === $orderby ) {
 		$query->set( 'meta_key', '_download_count' );
 		$query->set( 'orderby', 'meta_value_num' );
+	}
+}
+
+/**
+ * Remove shared taxonomy submenu items from under Activity Kits.
+ * Level and Topic are shared across post types; editing them from here is confusing.
+ */
+function remove_activity_kit_taxonomy_submenus() {
+	global $submenu;
+
+	$parent = 'edit.php?post_type=activity_kit';
+	if ( ! isset( $submenu[ $parent ] ) ) {
+		return;
+	}
+
+	foreach ( $submenu[ $parent ] as $key => $item ) {
+		if ( isset( $item[2] ) && (
+			false !== strpos( $item[2], 'taxonomy=level' ) ||
+			false !== strpos( $item[2], 'taxonomy=topic' )
+		) ) {
+			unset( $submenu[ $parent ][ $key ] );
+		}
 	}
 }
 

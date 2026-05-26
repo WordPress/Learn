@@ -66,7 +66,7 @@ function filter_hidden_lessons_from_archive_and_search( $query ) {
 		// If there's an existing tax query, add the new condition
 		if ( ! empty( $tax_query ) ) {
 			$tax_query['relation'] = 'AND';
-			$tax_query[] = $exclude_lessons_by_taxonomy;
+			$tax_query[]           = $exclude_lessons_by_taxonomy;
 		} else {
 			$tax_query = array( $exclude_lessons_by_taxonomy );
 		}
@@ -152,7 +152,7 @@ function filter_jetpack_es_search_query( $es_query_args, $query ) {
 	}
 	$es_query_args['query'] = array(
 		'bool' => array(
-			'must' => array( $es_query_args['query'] ),
+			'must'     => array( $es_query_args['query'] ),
 			'must_not' => $must_not,
 		),
 	);
@@ -182,11 +182,11 @@ function filter_activity_kit_archive( $query ) {
 		$tax_query[] = array(
 			'taxonomy' => 'topic',
 			'field'    => 'slug',
-			'terms'    => sanitize_text_field( wp_unslash( $_GET['topic'] ) ),
+			'terms'    => array_map( 'sanitize_text_field', (array) wp_unslash( $_GET['topic'] ) ),
 		);
 	}
 
-	if ( ! empty( $_GET['level'] ) ) {
+	if ( ! empty( $_GET['level'] ) && 'all' !== $_GET['level'] ) {
 		$tax_query[] = array(
 			'taxonomy' => 'level',
 			'field'    => 'slug',
@@ -194,16 +194,19 @@ function filter_activity_kit_archive( $query ) {
 		);
 	}
 
-	if ( ! empty( $_GET['language'] ) ) {
-		$tax_query[] = array(
-			'taxonomy' => 'activity_language',
-			'field'    => 'slug',
-			'terms'    => sanitize_text_field( wp_unslash( $_GET['language'] ) ),
-		);
-	}
-
 	if ( ! empty( $tax_query ) ) {
 		$query->set( 'tax_query', $tax_query );
+	}
+
+	if ( ! empty( $_GET['language'] ) ) {
+		$meta_query = array(
+			array(
+				'key'     => 'language',
+				'value'   => sanitize_text_field( wp_unslash( $_GET['language'] ) ),
+				'compare' => '=',
+			),
+		);
+		$query->set( 'meta_query', $meta_query );
 	}
 
 	if ( $query->is_search() && isset( $_GET['post_type'] ) && 'activity_kit' === $_GET['post_type'] ) {
