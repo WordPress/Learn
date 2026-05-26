@@ -85,7 +85,7 @@
 		<!-- /wp:button -->
 
 		<!-- wp:button {"className":"is-style-outline"} -->
-		<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="https://make.wordpress.org/training/handbook/"><?php esc_html_e( 'Read the handbook', 'wporg-learn' ); ?></a></div>
+		<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="https://make.wordpress.org/training/handbook/wordpress-activity-kits/"><?php esc_html_e( 'Read the handbook', 'wporg-learn' ); ?></a></div>
 		<!-- /wp:button -->
 	</div>
 	<!-- /wp:buttons -->
