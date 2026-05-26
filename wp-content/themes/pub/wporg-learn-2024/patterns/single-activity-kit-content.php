@@ -45,6 +45,7 @@ $icon_desktop  = '<svg width="16" height="16" viewBox="-2 -2 24 24" fill="curren
 $icon_download = '<svg width="16" height="16" viewBox="-2 -2 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M10 14.5l-5-5 1.1-1.1 3.15 3.15V3h1.5v9.55l3.15-3.15L15 9.5l-5 5zM3 17h14v-1.5H3V17z"/></svg>';
 $icon_back     = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>';
 $icon_clock    = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
+$icon_calendar = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>';
 $icon_file_lg  = '<svg width="20" height="20" viewBox="-2 -2 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M13 2H6C4.9 2 4 2.9 4 4v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7l-3-5zm-1 1.5L14.5 7H12V3.5zM14 16H6V4h5v4h3v8z"/></svg>';
 $icon_desk_lg  = '<svg width="20" height="20" viewBox="-2 -2 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M20 3H0v11h20V3zM18 12H2V5h16v7zM9 16h2v1H9zm-3 2h8v1H6z"/></svg>';
 ?>
@@ -80,6 +81,19 @@ $icon_desk_lg  = '<svg width="20" height="20" viewBox="-2 -2 24 24" fill="curren
 				<?php echo esc_html( implode( ', ', $topic_terms ) ); ?>
 			</span>
 		<?php endif; ?>
+
+		<span class="wporg-activity-kit-meta__updated">
+			<?php echo $icon_calendar; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Static SVG markup. ?>
+			<time datetime="<?php echo esc_attr( get_the_modified_date( 'Y-m-d', $kit_id ) ); ?>">
+				<?php
+				printf(
+					/* translators: %s: date the activity kit was last updated, e.g. "May 15, 2025" */
+					esc_html__( 'Updated %s', 'wporg-learn' ),
+					esc_html( get_the_modified_date( 'F j, Y', $kit_id ) )
+				);
+				?>
+			</time>
+		</span>
 	</div>
 </div>
 

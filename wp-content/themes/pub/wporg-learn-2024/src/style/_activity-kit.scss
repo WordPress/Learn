@@ -212,7 +212,8 @@
 	font-size: var(--wp--preset--font-size--small);
 	color: var(--wp--preset--color--charcoal-2);
 
-	&__duration {
+	&__duration,
+	&__updated {
 		display: flex;
 		align-items: center;
 		gap: 5px;
