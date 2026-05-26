@@ -60,16 +60,16 @@
 	const rangeBtns = document.querySelectorAll( '[data-ak-range]' );
 
 	// ── Helpers ──
-	function fmt( n ) {
-		return ( n ?? 0 ).toLocaleString();
+	function fmt( num ) {
+		return ( num ?? 0 ).toLocaleString();
 	}
 
-	function formatDate( ds ) {
-		if ( ! ds ) {
+	function formatDate( dateStr ) {
+		if ( ! dateStr ) {
 			return '—';
 		}
-		const d = new Date( ds + 'T00:00:00' );
-		return d.toLocaleDateString( 'en-US', {
+		const date = new Date( dateStr + 'T00:00:00' );
+		return date.toLocaleDateString( 'en-US', {
 			month: 'short',
 			day: 'numeric',
 			year: 'numeric',
