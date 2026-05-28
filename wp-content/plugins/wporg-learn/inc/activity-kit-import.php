@@ -109,7 +109,7 @@ class Activity_Kit_CLI {
 				array(
 					'post_title'  => $kit_data['title'],
 					'post_type'   => 'activity_kit',
-					'post_status' => 'publish',
+					'post_status' => 'draft',
 					'post_author' => 1,
 				),
 				true
