@@ -520,7 +520,7 @@ function enqueue_activity_kit_editor_assets() {
 /**
  * Map the wporg/activity-kits query variation namespace to the activity_kit post type.
  *
- * @param array    $query
+ * @param array     $query
  * @param \WP_Block $block
  * @return array
  */
