@@ -7,7 +7,7 @@ labels: Awaiting Triage, [Content] Experienced Author
 
 # Details
 
-- Content type (Online Workshop, Lesson, Course, or Facilitator Notes):
+- Content type (Online Workshop, Lesson, Course, Activity Kit, or Facilitator Notes):
 - Content title: 
 - Topic description: 
 - Audience (User, Developer, Designer, Contributor, etc.):
