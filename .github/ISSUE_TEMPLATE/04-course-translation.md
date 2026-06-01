@@ -1,7 +1,7 @@
 ---
 name: Course Translation
 about: Tracking course translation for learn.wordpress.org 
-title: LANGUAGE translation for "COURSE_TITLE" 
+title: LANGUAGE Course Translation for "COURSE_TITLE" 
 labels: Awaiting Triage
 assignees: ''
 ---
