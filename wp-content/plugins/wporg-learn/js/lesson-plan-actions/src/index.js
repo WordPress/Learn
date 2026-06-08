@@ -43,10 +43,7 @@ registerBlockType( 'wporg-learn/lesson-plan-actions', {
 	 * This is a short description for your block, can be translated with `i18n` functions.
 	 * It will be shown in the Block Tab in the Settings Sidebar.
 	 */
-	description: __(
-		'Show actions for the Lesson Plan, depending on post media.',
-		'wporg-learn'
-	),
+	description: __( 'Show actions for the Lesson Plan, depending on post media.', 'wporg-learn' ),
 
 	/**
 	 * Blocks are grouped into categories to help users browse and discover them.

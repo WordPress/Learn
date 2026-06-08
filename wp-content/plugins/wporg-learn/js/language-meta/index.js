@@ -14,10 +14,7 @@ import { registerPlugin } from '@wordpress/plugins';
 const locales = wporgLearnLocales;
 
 const LanguageMeta = () => {
-	const postMetaData = useSelect(
-		( select ) =>
-			select( 'core/editor' ).getEditedPostAttribute( 'meta' ) || {}
-	);
+	const postMetaData = useSelect( ( select ) => select( 'core/editor' ).getEditedPostAttribute( 'meta' ) || {} );
 	const { editPost } = useDispatch( 'core/editor' );
 	const [ language, setLanguage ] = useState( postMetaData?.language );
 

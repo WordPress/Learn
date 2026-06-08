@@ -46,9 +46,7 @@
 	const thViews = document.getElementById( 'ak-th-views' );
 	const thDownloads = document.getElementById( 'ak-th-downloads' );
 	const exportBtn = document.getElementById( 'ak-export-csv' );
-	const customRangePicker = document.getElementById(
-		'ak-custom-range-picker'
-	);
+	const customRangePicker = document.getElementById( 'ak-custom-range-picker' );
 	const dateFromInput = document.getElementById( 'ak-date-from' );
 	const dateToInput = document.getElementById( 'ak-date-to' );
 	const applyCustomRange = document.getElementById( 'ak-apply-custom-range' );
@@ -76,8 +74,8 @@
 		} );
 	}
 
-	function escHtml( s ) {
-		return String( s )
+	function escHtml( value ) {
+		return String( value )
 			.replace( /&/g, '&amp;' )
 			.replace( /</g, '&lt;' )
 			.replace( />/g, '&gt;' )
@@ -138,10 +136,9 @@
 	// ── Summary ──
 	function updateSummary( data ) {
 		const isSingle = !! activeKit;
-		const totalV = data.reduce( ( s, r ) => s + ( r.views ?? 0 ), 0 );
-		const totalD = data.reduce( ( s, r ) => s + ( r.downloads ?? 0 ), 0 );
-		const rate =
-			totalV > 0 ? ( ( totalD / totalV ) * 100 ).toFixed( 1 ) + '%' : '—';
+		const totalV = data.reduce( ( sum, row ) => sum + ( row.views ?? 0 ), 0 );
+		const totalD = data.reduce( ( sum, row ) => sum + ( row.downloads ?? 0 ), 0 );
+		const rate = totalV > 0 ? ( ( totalD / totalV ) * 100 ).toFixed( 1 ) + '%' : '—';
 
 		if ( summaryViews ) {
 			summaryViews.textContent = fmt( totalV );
@@ -183,15 +180,13 @@
 					legend: { display: false },
 					tooltip: {
 						callbacks: {
-							label: ( c ) =>
-								' ' +
-								c.dataset.label +
-								': ' +
-								c.parsed.y.toLocaleString(),
+							label: ( context ) =>
+								' ' + context.dataset.label + ': ' + context.parsed.y.toLocaleString(),
 						},
 					},
 				},
 				scales: {
+					// eslint-disable-next-line id-length
 					x: {
 						grid: { display: false },
 						ticks: {
@@ -201,6 +196,7 @@
 						},
 						border: { color: '#c3c4c7' },
 					},
+					// eslint-disable-next-line id-length
 					y: {
 						beginAtZero: true,
 						grid: { color: '#f0f0f1' },
@@ -219,9 +215,7 @@
 
 		const total = data.length;
 		const paged = total > CHART_PAGE;
-		const sliced = paged
-			? data.slice( chartOffset, chartOffset + CHART_PAGE )
-			: data;
+		const sliced = paged ? data.slice( chartOffset, chartOffset + CHART_PAGE ) : data;
 
 		// Slider visibility and state.
 		if ( chartSliderWrap ) {
@@ -234,12 +228,11 @@
 		}
 		if ( paged && chartSliderLabel ) {
 			const end = Math.min( chartOffset + CHART_PAGE, total );
-			chartSliderLabel.textContent =
-				chartOffset + 1 + '–' + end + ' of ' + total;
+			chartSliderLabel.textContent = chartOffset + 1 + '–' + end + ' of ' + total;
 		}
 
-		const labels = sliced.map( ( r ) =>
-			r.title.length > 20 ? r.title.slice( 0, 18 ) + '…' : r.title
+		const labels = sliced.map( ( row ) =>
+			row.title.length > 20 ? row.title.slice( 0, 18 ) + '…' : row.title
 		);
 		const datasets = [];
 
@@ -249,7 +242,7 @@
 				backgroundColor: '#3858e9',
 				barPercentage: 0.75,
 				categoryPercentage: 0.7,
-				data: sliced.map( ( r ) => r.views ?? 0 ),
+				data: sliced.map( ( row ) => row.views ?? 0 ),
 			} );
 		}
 		if ( activeMetric !== 'views' ) {
@@ -258,7 +251,7 @@
 				backgroundColor: '#9fb1ff',
 				barPercentage: 0.75,
 				categoryPercentage: 0.7,
-				data: sliced.map( ( r ) => r.downloads ?? 0 ),
+				data: sliced.map( ( row ) => row.downloads ?? 0 ),
 			} );
 		}
 
@@ -270,28 +263,27 @@
 	// ── Table ──
 	function renderTable( data ) {
 		if ( ! data.length ) {
-			tableBody.innerHTML =
-				'<tr><td colspan="5">No data found.</td></tr>';
+			tableBody.innerHTML = '<tr><td colspan="5">No data found.</td></tr>';
 			return;
 		}
 
 		const sorted = [ ...data ].sort( ( a, b ) => {
 			if ( sortCol === 'title' ) {
-				const na = a.title.toLowerCase();
-				const nb = b.title.toLowerCase();
+				const titleA = a.title.toLowerCase();
+				const titleB = b.title.toLowerCase();
 				if ( sortDir === 'asc' ) {
-					if ( na < nb ) {
+					if ( titleA < titleB ) {
 						return -1;
 					}
-					if ( na > nb ) {
+					if ( titleA > titleB ) {
 						return 1;
 					}
 					return 0;
 				}
-				if ( nb < na ) {
+				if ( titleB < titleA ) {
 					return -1;
 				}
-				if ( nb > na ) {
+				if ( titleB > titleA ) {
 					return 1;
 				}
 				return 0;
@@ -301,126 +293,100 @@
 					? ( a.updated || '' ).localeCompare( b.updated || '' )
 					: ( b.updated || '' ).localeCompare( a.updated || '' );
 			}
-			let va;
+			let valueA;
 			if ( sortCol === 'views' ) {
-				va = a.views ?? 0;
+				valueA = a.views ?? 0;
 			} else if ( sortCol === 'downloads' ) {
-				va = a.downloads ?? 0;
+				valueA = a.downloads ?? 0;
 			} else {
-				va =
-					( a.views ?? 0 ) > 0
-						? ( a.downloads ?? 0 ) / ( a.views ?? 0 )
-						: 0;
+				valueA = ( a.views ?? 0 ) > 0 ? ( a.downloads ?? 0 ) / ( a.views ?? 0 ) : 0;
 			}
-			let vb;
+			let valueB;
 			if ( sortCol === 'views' ) {
-				vb = b.views ?? 0;
+				valueB = b.views ?? 0;
 			} else if ( sortCol === 'downloads' ) {
-				vb = b.downloads ?? 0;
+				valueB = b.downloads ?? 0;
 			} else {
-				vb =
-					( b.views ?? 0 ) > 0
-						? ( b.downloads ?? 0 ) / ( b.views ?? 0 )
-						: 0;
+				valueB = ( b.views ?? 0 ) > 0 ? ( b.downloads ?? 0 ) / ( b.views ?? 0 ) : 0;
 			}
-			return sortDir === 'asc' ? va - vb : vb - va;
+			return sortDir === 'asc' ? valueA - valueB : valueB - valueA;
 		} );
 
 		tableBody.innerHTML = '';
 		sorted.forEach( ( row ) => {
-			const v = row.views ?? 0;
-			const d = row.downloads ?? 0;
-			const rate = v > 0 ? ( ( d / v ) * 100 ).toFixed( 1 ) + '%' : '—';
+			const views = row.views ?? 0;
+			const downloads = row.downloads ?? 0;
+			const rate = views > 0 ? ( ( downloads / views ) * 100 ).toFixed( 1 ) + '%' : '—';
 			const isSelected = row.slug === activeKit;
-			const tr = document.createElement( 'tr' );
+			const tableRow = document.createElement( 'tr' );
 			if ( isSelected ) {
-				tr.classList.add( 'is-selected' );
+				tableRow.classList.add( 'is-selected' );
 			}
 
-			const viewsClass =
-				'ak-col-number' +
-				( activeMetric === 'downloads' ? ' ak-hidden-col' : '' );
-			const dlClass =
-				'ak-col-number' +
-				( activeMetric === 'views' ? ' ak-hidden-col' : '' );
+			const viewsClass = 'ak-col-number' + ( activeMetric === 'downloads' ? ' ak-hidden-col' : '' );
+			const dlClass = 'ak-col-number' + ( activeMetric === 'views' ? ' ak-hidden-col' : '' );
 
-			tr.innerHTML = `
-				<td><a href="#" data-slug="${ escHtml( row.slug ) }">${ escHtml(
-					row.title
-				) }</a></td>
-				<td class="${ viewsClass }">${ fmt( v ) }</td>
-				<td class="${ dlClass }">${ fmt( d ) }</td>
+			tableRow.innerHTML = `
+				<td><a href="#" data-slug="${ escHtml( row.slug ) }">${ escHtml( row.title ) }</a></td>
+				<td class="${ viewsClass }">${ fmt( views ) }</td>
+				<td class="${ dlClass }">${ fmt( downloads ) }</td>
 				<td class="ak-col-number">${ rate }</td>
 				<td>${ formatDate( row.updated ) }</td>
 			`;
 
-			tr.querySelector( 'a' ).addEventListener( 'click', ( e ) => {
-				e.preventDefault();
-				setKit( e.currentTarget.dataset.slug );
+			tableRow.querySelector( 'a' ).addEventListener( 'click', ( event ) => {
+				event.preventDefault();
+				setKit( event.currentTarget.dataset.slug );
 			} );
-			tr.addEventListener( 'click', ( e ) => {
-				if ( e.target.tagName !== 'A' ) {
+			tableRow.addEventListener( 'click', ( event ) => {
+				if ( event.target.tagName !== 'A' ) {
 					setKit( row.slug );
 				}
 			} );
 
-			tableBody.appendChild( tr );
+			tableBody.appendChild( tableRow );
 		} );
 
 		// Update sort arrows.
-		document
-			.querySelectorAll( '#ak-stats-table thead th' )
-			.forEach( ( th ) => {
-				const col = th.dataset.col;
-				const arrow = th.querySelector( '.ak-sort-arrow' );
-				th.classList.remove( 'is-sorted' );
-				if ( arrow ) {
-					arrow.textContent = '';
-				}
-				if ( col === sortCol && arrow ) {
-					th.classList.add( 'is-sorted' );
-					arrow.textContent = sortDir === 'asc' ? ' ↑' : ' ↓';
-				}
-			} );
+		document.querySelectorAll( '#ak-stats-table thead th' ).forEach( ( tableHeader ) => {
+			const col = tableHeader.dataset.col;
+			const arrow = tableHeader.querySelector( '.ak-sort-arrow' );
+			tableHeader.classList.remove( 'is-sorted' );
+			if ( arrow ) {
+				arrow.textContent = '';
+			}
+			if ( col === sortCol && arrow ) {
+				tableHeader.classList.add( 'is-sorted' );
+				arrow.textContent = sortDir === 'asc' ? ' ↑' : ' ↓';
+			}
+		} );
 	}
 
 	// ── UI state ──
 	function updateUI() {
 		const isSingle = !! activeKit;
-		const kitObj = isSingle
-			? allData.find( ( r ) => r.slug === activeKit )
-			: null;
+		const kitObj = isSingle ? allData.find( ( row ) => row.slug === activeKit ) : null;
 
 		if ( chartTitle ) {
 			chartTitle.textContent =
-				metricLabel[ activeMetric ] +
-				' — ' +
-				( isSingle && kitObj ? kitObj.title : 'All Kits' );
+				metricLabel[ activeMetric ] + ' — ' + ( isSingle && kitObj ? kitObj.title : 'All Kits' );
 		}
 		if ( chartSubtitle ) {
 			chartSubtitle.textContent = rangeLabel();
 		}
 
 		if ( legendViews ) {
-			legendViews.style.display =
-				activeMetric === 'downloads' ? 'none' : '';
+			legendViews.style.display = activeMetric === 'downloads' ? 'none' : '';
 		}
 		if ( legendDownloads ) {
-			legendDownloads.style.display =
-				activeMetric === 'views' ? 'none' : '';
+			legendDownloads.style.display = activeMetric === 'views' ? 'none' : '';
 		}
 
 		if ( thViews ) {
-			thViews.classList.toggle(
-				'ak-hidden-col',
-				activeMetric === 'downloads'
-			);
+			thViews.classList.toggle( 'ak-hidden-col', activeMetric === 'downloads' );
 		}
 		if ( thDownloads ) {
-			thDownloads.classList.toggle(
-				'ak-hidden-col',
-				activeMetric === 'views'
-			);
+			thDownloads.classList.toggle( 'ak-hidden-col', activeMetric === 'views' );
 		}
 
 		if ( backLinkBar ) {
@@ -434,9 +400,7 @@
 		}
 
 		if ( tableSubtitle ) {
-			tableSubtitle.textContent = isSingle
-				? 'Showing single kit'
-				: 'Click a row to drill into a single kit';
+			tableSubtitle.textContent = isSingle ? 'Showing single kit' : 'Click a row to drill into a single kit';
 		}
 	}
 
@@ -446,42 +410,38 @@
 
 		try {
 			allData = await fetchStats();
-			const data = activeKit
-				? allData.filter( ( r ) => r.slug === activeKit )
-				: allData;
+			const data = activeKit ? allData.filter( ( row ) => row.slug === activeKit ) : allData;
 			updateSummary( data );
 			updateUI();
 			renderChart( data );
 			renderTable( data );
-		} catch ( e ) {
+		} catch ( error ) {
 			tableBody.innerHTML = `<tr><td colspan="5">Error loading stats: ${ escHtml(
-				e.message
+				error.message
 			) }</td></tr>`;
 		}
 	}
 
 	// ── Setters ──
-	function setMetric( m ) {
-		activeMetric = m;
-		metricBtns.forEach( ( b ) =>
-			b.classList.toggle( 'is-active', b.dataset.akMetric === m )
+	function setMetric( metric ) {
+		activeMetric = metric;
+		metricBtns.forEach( ( button ) =>
+			button.classList.toggle( 'is-active', button.dataset.akMetric === metric )
 		);
-		const data = activeKit
-			? allData.filter( ( r ) => r.slug === activeKit )
-			: allData;
+		const data = activeKit ? allData.filter( ( row ) => row.slug === activeKit ) : allData;
 		updateSummary( data );
 		updateUI();
 		renderChart( data );
 		renderTable( data );
 	}
 
-	function setRange( r ) {
-		activeRange = r;
-		rangeBtns.forEach( ( b ) =>
-			b.classList.toggle( 'is-active', b.dataset.akRange === r )
+	function setRange( range ) {
+		activeRange = range;
+		rangeBtns.forEach( ( button ) =>
+			button.classList.toggle( 'is-active', button.dataset.akRange === range )
 		);
 
-		const isCustom = r === 'custom';
+		const isCustom = range === 'custom';
 		if ( customRangePicker ) {
 			customRangePicker.classList.toggle( 'is-visible', isCustom );
 		}
@@ -511,30 +471,16 @@
 
 	// ── Export CSV ──
 	function exportCSV() {
-		const data = activeKit
-			? allData.filter( ( r ) => r.slug === activeKit )
-			: allData;
-		const rows = [
-			[
-				'Kit Name',
-				'Views',
-				'Downloads',
-				'Download Rate',
-				'Last Updated',
-			],
-		];
-		data.forEach( ( r ) => {
-			const v = r.views ?? 0;
-			const d = r.downloads ?? 0;
-			const rate = v > 0 ? ( ( d / v ) * 100 ).toFixed( 1 ) + '%' : '0%';
-			rows.push( [ r.title, v, d, rate, r.updated || '' ] );
+		const data = activeKit ? allData.filter( ( row ) => row.slug === activeKit ) : allData;
+		const rows = [ [ 'Kit Name', 'Views', 'Downloads', 'Download Rate', 'Last Updated' ] ];
+		data.forEach( ( row ) => {
+			const views = row.views ?? 0;
+			const downloads = row.downloads ?? 0;
+			const rate = views > 0 ? ( ( downloads / views ) * 100 ).toFixed( 1 ) + '%' : '0%';
+			rows.push( [ row.title, views, downloads, rate, row.updated || '' ] );
 		} );
 		const csv = rows
-			.map( ( row ) =>
-				row
-					.map( ( c ) => `"${ String( c ).replace( /"/g, '""' ) }"` )
-					.join( ',' )
-			)
+			.map( ( row ) => row.map( ( cell ) => `"${ String( cell ).replace( /"/g, '""' ) }"` ).join( ',' ) )
 			.join( '\n' );
 		const blob = new Blob( [ csv ], { type: 'text/csv' } );
 		const url = URL.createObjectURL( blob );
@@ -547,9 +493,7 @@
 
 	// ── Event listeners ──
 	metricBtns.forEach( ( btn ) => {
-		btn.addEventListener( 'click', () =>
-			setMetric( btn.dataset.akMetric )
-		);
+		btn.addEventListener( 'click', () => setMetric( btn.dataset.akMetric ) );
 	} );
 
 	rangeBtns.forEach( ( btn ) => {
@@ -590,9 +534,7 @@
 	if ( chartSlider ) {
 		chartSlider.addEventListener( 'input', () => {
 			chartOffset = parseInt( chartSlider.value, 10 );
-			const data = activeKit
-				? allData.filter( ( r ) => r.slug === activeKit )
-				: allData;
+			const data = activeKit ? allData.filter( ( row ) => row.slug === activeKit ) : allData;
 			renderChart( data );
 		} );
 	}
@@ -600,28 +542,28 @@
 	const backLink = document.getElementById( 'ak-back-link' );
 	const bannerBack = document.getElementById( 'ak-kit-banner-back' );
 	if ( backLink ) {
-		backLink.addEventListener( 'click', ( e ) => {
-			e.preventDefault();
+		backLink.addEventListener( 'click', ( event ) => {
+			event.preventDefault();
 			resetKit();
 		} );
 	}
 	if ( bannerBack ) {
-		bannerBack.addEventListener( 'click', ( e ) => {
-			e.preventDefault();
+		bannerBack.addEventListener( 'click', ( event ) => {
+			event.preventDefault();
 			resetKit();
 		} );
 	}
 	if ( exportBtn ) {
-		exportBtn.addEventListener( 'click', ( e ) => {
-			e.preventDefault();
+		exportBtn.addEventListener( 'click', ( event ) => {
+			event.preventDefault();
 			exportCSV();
 		} );
 	}
 
 	// Sortable column headers.
-	document.querySelectorAll( '#ak-stats-table thead th' ).forEach( ( th ) => {
-		th.addEventListener( 'click', () => {
-			const col = th.dataset.col;
+	document.querySelectorAll( '#ak-stats-table thead th' ).forEach( ( tableHeader ) => {
+		tableHeader.addEventListener( 'click', () => {
+			const col = tableHeader.dataset.col;
 			if ( ! col ) {
 				return;
 			}
@@ -629,11 +571,9 @@
 				sortDir = sortDir === 'asc' ? 'desc' : 'asc';
 			} else {
 				sortCol = col;
-				sortDir = th.dataset.type === 'number' ? 'desc' : 'asc';
+				sortDir = tableHeader.dataset.type === 'number' ? 'desc' : 'asc';
 			}
-			const data = activeKit
-				? allData.filter( ( r ) => r.slug === activeKit )
-				: allData;
+			const data = activeKit ? allData.filter( ( row ) => row.slug === activeKit ) : allData;
 			renderTable( data );
 		} );
 	} );

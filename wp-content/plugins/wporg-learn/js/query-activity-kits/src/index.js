@@ -4,10 +4,7 @@ import { __ } from '@wordpress/i18n';
 registerBlockVariation( 'core/query', {
 	name: 'wporg/activity-kits',
 	title: __( 'Activity Kits', 'wporg-learn' ),
-	description: __(
-		'Display a filterable grid of activity kits.',
-		'wporg-learn'
-	),
+	description: __( 'Display a filterable grid of activity kits.', 'wporg-learn' ),
 	isActive: [ 'namespace' ],
 	attributes: {
 		namespace: 'wporg/activity-kits',

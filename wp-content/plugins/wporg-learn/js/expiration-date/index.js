@@ -1,12 +1,7 @@
 /**
  * WordPress dependencies
  */
-import {
-	Button,
-	DateTimePicker,
-	Dropdown,
-	PanelRow,
-} from '@wordpress/components';
+import { Button, DateTimePicker, Dropdown, PanelRow } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 // eslint-disable-next-line @wordpress/no-unsafe-wp-apis -- Experimental is OK.
 import { __experimentalGetSettings, format } from '@wordpress/date';
@@ -18,18 +13,12 @@ import { registerPlugin } from '@wordpress/plugins';
 function ExpirationLabel( { date } ) {
 	const settings = __experimentalGetSettings();
 	return date
-		? format(
-				`${ settings.formats.date } ${ settings.formats.time }`,
-				date
-		  )
+		? format( `${ settings.formats.date } ${ settings.formats.time }`, date )
 		: __( 'No expiration date', 'wporg-learn' );
 }
 
 const ExpirationDate = () => {
-	const postMetaData = useSelect(
-		( select ) =>
-			select( 'core/editor' ).getEditedPostAttribute( 'meta' ) || {}
-	);
+	const postMetaData = useSelect( ( select ) => select( 'core/editor' ).getEditedPostAttribute( 'meta' ) || {} );
 	const { editPost } = useDispatch( 'core/editor' );
 	const [ expDate, setExpDate ] = useState( postMetaData?.expiration_date );
 	const anchorRef = useRef();
@@ -77,8 +66,7 @@ const ExpirationDate = () => {
 											},
 										} );
 
-										const { ownerDocument } =
-											pickerRef.current;
+										const { ownerDocument } = pickerRef.current;
 										ownerDocument.activeElement.blur();
 									} }
 								/>

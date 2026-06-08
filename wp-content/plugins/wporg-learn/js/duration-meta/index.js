@@ -9,17 +9,12 @@ import { __ } from '@wordpress/i18n';
 import { registerPlugin } from '@wordpress/plugins';
 
 const DurationMeta = () => {
-	const postMetaData = useSelect(
-		( select ) =>
-			select( 'core/editor' ).getEditedPostAttribute( 'meta' ) || {}
-	);
+	const postMetaData = useSelect( ( select ) => select( 'core/editor' ).getEditedPostAttribute( 'meta' ) || {} );
 	const { editPost } = useDispatch( 'core/editor' );
 	const [ duration, setDuration ] = useState( postMetaData?._duration );
 
 	return (
-		<PluginDocumentSettingPanel
-			title={ __( 'Time to complete', 'wporg-learn' ) }
-		>
+		<PluginDocumentSettingPanel title={ __( 'Time to complete', 'wporg-learn' ) }>
 			<PanelRow>
 				<TextControl
 					label={ __( 'Duration in hours', 'wporg-learn' ) }

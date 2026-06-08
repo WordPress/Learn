@@ -11,10 +11,7 @@ import Edit from './edit';
 
 registerBlockType( 'wporg-learn/workshop-application-form', {
 	title: __( 'Workshop Application Form', 'wporg-learn' ),
-	description: __(
-		'Render a form for applying to present a workshop.',
-		'wporg-learn'
-	),
+	description: __( 'Render a form for applying to present a workshop.', 'wporg-learn' ),
 	category: 'widgets',
 	icon: 'forms',
 	supports: {
