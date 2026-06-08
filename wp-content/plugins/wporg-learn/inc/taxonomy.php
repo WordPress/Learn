@@ -753,4 +753,3 @@ function get_available_taxonomy_terms( $taxonomy, $post_type, $post_status = nul
 		return $terms;
 	}, array());
 }
-

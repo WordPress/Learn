@@ -200,25 +200,6 @@ function filter_activity_kit_archive( $query ) {
 		$query->set( 'tax_query', $tax_query );
 	}
 
-	if ( ! empty( $_GET['language'] ) ) {
-		// Merge with any existing meta_query (e.g. set by add_language_to_archive_queries)
-		// rather than replacing it, to avoid discarding other meta conditions.
-		$existing_meta_query = $query->get( 'meta_query' );
-		$lang_clause         = array(
-			'key'     => 'language',
-			'value'   => sanitize_text_field( wp_unslash( $_GET['language'] ) ),
-			'compare' => '=',
-		);
-
-		if ( ! empty( $existing_meta_query ) && is_array( $existing_meta_query ) ) {
-			$existing_meta_query[] = $lang_clause;
-		} else {
-			$existing_meta_query = array( $lang_clause );
-		}
-
-		$query->set( 'meta_query', $existing_meta_query );
-	}
-
 	if ( $query->is_search() && isset( $_GET['post_type'] ) && 'activity_kit' === $_GET['post_type'] ) {
 		$query->set( 'post_type', 'activity_kit' );
 	}
