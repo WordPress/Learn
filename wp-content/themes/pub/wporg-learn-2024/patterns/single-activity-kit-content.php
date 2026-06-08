@@ -5,10 +5,6 @@
  * Inserter: no
  */
 
-if ( 'activity_kit' !== get_post_type() ) {
-	return;
-}
-
 $kit_id   = get_the_ID();
 $duration = get_post_meta( $kit_id, '_activity_duration', true );
 $zip_id   = (int) get_post_meta( $kit_id, '_activity_zip_id', true );
