@@ -6,8 +6,6 @@
 	const localeNotice = window.WPOrgLearnLocaleNotice || {};
 
 	const app = $.extend( localeNotice, {
-		$notice: $(),
-
 		init() {
 			app.$notice = $( '.wporg-learn-locale-notice' );
 
@@ -34,6 +32,7 @@
 			);
 		},
 	} );
+	app.$notice = $();
 
 	$( document ).ready( function () {
 		app.init();
