@@ -57,10 +57,9 @@ $icon_desk_lg  = '<svg width="20" height="20" viewBox="-2 -2 24 24" fill="curren
 			<span class="wporg-activity-kit-meta__duration">
 				<?php echo $icon_clock; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Static SVG markup. ?>
 				<?php
-				$duration_num = absint( $duration );
-				if ( $duration_num ) {
+				if ( ctype_digit( (string) $duration ) ) {
 					/* translators: %d: number of minutes */
-					echo esc_html( sprintf( __( '%d mins', 'wporg-learn' ), $duration_num ) );
+					echo esc_html( sprintf( __( '%d mins', 'wporg-learn' ), (int) $duration ) );
 				} else {
 					echo esc_html( $duration );
 				}

@@ -247,10 +247,9 @@ function replace_card_with_activity_kit_card( $block_content, $parsed_block ) {
 					<?php if ( $duration ) : ?>
 						<span class="wporg-activity-kit-card__duration">
 							<?php
-							$duration_num = absint( $duration );
-							if ( $duration_num ) {
+							if ( ctype_digit( (string) $duration ) ) {
 								/* translators: %d: number of minutes */
-								echo esc_html( sprintf( __( '%d mins', 'wporg-learn' ), $duration_num ) );
+								echo esc_html( sprintf( __( '%d mins', 'wporg-learn' ), (int) $duration ) );
 							} else {
 								echo esc_html( $duration );
 							}

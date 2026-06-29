@@ -170,7 +170,10 @@ function filter_activity_kit_archive( $query ) {
 		return;
 	}
 
-	if ( ! is_post_type_archive( 'activity_kit' ) && ! ( $query->is_search() && isset( $_GET['post_type'] ) && 'activity_kit' === $_GET['post_type'] ) ) {
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	$requested_post_type = isset( $_GET['post_type'] ) ? sanitize_key( wp_unslash( $_GET['post_type'] ) ) : '';
+
+	if ( ! is_post_type_archive( 'activity_kit' ) && ! ( $query->is_search() && 'activity_kit' === $requested_post_type ) ) {
 		return;
 	}
 
@@ -178,6 +181,7 @@ function filter_activity_kit_archive( $query ) {
 
 	$tax_query = array();
 
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	if ( ! empty( $_GET['topic'] ) ) {
 		$tax_query[] = array(
 			'taxonomy' => 'topic',
@@ -200,7 +204,7 @@ function filter_activity_kit_archive( $query ) {
 		$query->set( 'tax_query', $tax_query );
 	}
 
-	if ( $query->is_search() && isset( $_GET['post_type'] ) && 'activity_kit' === $_GET['post_type'] ) {
+	if ( $query->is_search() && 'activity_kit' === $requested_post_type ) {
 		$query->set( 'post_type', 'activity_kit' );
 	}
 }

@@ -246,11 +246,11 @@ function render_page() {
 			<div class="ak-postbox-inside">
 				<div class="ak-chart-legend" id="ak-chart-legend">
 					<div class="ak-legend-item" id="ak-legend-views">
-						<div class="ak-legend-swatch" style="background:#2271b1;"></div>
+						<div class="ak-legend-swatch" style="background:#3858e9;"></div>
 						<span><?php esc_html_e( 'Views', 'wporg-learn' ); ?></span>
 					</div>
 					<div class="ak-legend-item" id="ak-legend-downloads">
-						<div class="ak-legend-swatch" style="background:#72aee6;"></div>
+						<div class="ak-legend-swatch" style="background:#9fb1ff;"></div>
 						<span><?php esc_html_e( 'Downloads', 'wporg-learn' ); ?></span>
 					</div>
 				</div>
