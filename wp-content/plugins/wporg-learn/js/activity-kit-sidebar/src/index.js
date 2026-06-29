@@ -33,10 +33,7 @@ function ActivityKitDetailsPanel() {
 	);
 
 	return (
-		<PluginDocumentSettingPanel
-			name="activity-kit-details"
-			title={ __( 'Activity Kit Details', 'wporg-learn' ) }
-		>
+		<PluginDocumentSettingPanel name="activity-kit-details" title={ __( 'Activity Kit Details', 'wporg-learn' ) }>
 			<TextControl
 				label={ __( 'Duration (minutes)', 'wporg-learn' ) }
 				value={ duration }
@@ -76,11 +73,7 @@ function ActivityKitDetailsPanel() {
 					{ slidesPdfId ? (
 						<>
 							<span>{ slidesTitle || `Attachment #${ slidesPdfId }` }</span>
-							<Button
-								isDestructive
-								isSmall
-								onClick={ () => setMeta( '_activity_slides_pdf_id', 0 ) }
-							>
+							<Button isDestructive isSmall onClick={ () => setMeta( '_activity_slides_pdf_id', 0 ) }>
 								{ __( 'Remove', 'wporg-learn' ) }
 							</Button>
 						</>
@@ -140,9 +133,7 @@ function ActivityKitDetailsPanel() {
 function ActivityKitLevelPanel() {
 	const { removeEditorPanel } = useDispatch( 'core/editor' );
 
-	const levelTermIds = useSelect(
-		( select ) => select( 'core/editor' ).getEditedPostAttribute( 'level' ) || []
-	);
+	const levelTermIds = useSelect( ( select ) => select( 'core/editor' ).getEditedPostAttribute( 'level' ) || [] );
 	const { editPost } = useDispatch( 'core/editor' );
 
 	const levelTerms = useSelect(

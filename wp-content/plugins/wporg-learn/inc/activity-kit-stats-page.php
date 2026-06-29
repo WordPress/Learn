@@ -32,11 +32,17 @@ function enqueue_scripts( $hook ) {
 		true
 	);
 
+	$script_asset_path = \WPOrg_Learn\get_build_path() . 'activity-kit-stats.asset.php';
+	if ( ! is_readable( $script_asset_path ) ) {
+		return;
+	}
+	$script_asset = require $script_asset_path; // phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.UsingVariable
+
 	wp_enqueue_script(
 		'activity-kit-stats',
-		\WPOrg_Learn\PLUGIN_URL . 'js/activity-kit-stats/index.js',
-		array( 'chartjs' ),
-		(string) filemtime( \WPOrg_Learn\PLUGIN_DIR . 'js/activity-kit-stats/index.js' ),
+		\WPOrg_Learn\get_build_url() . 'activity-kit-stats.js',
+		array_merge( array( 'chartjs' ), $script_asset['dependencies'] ),
+		$script_asset['version'],
 		true
 	);
 

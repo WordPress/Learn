@@ -8,7 +8,7 @@
 	const app = $.extend( localeNotice, {
 		$notice: $(),
 
-		init: function () {
+		init() {
 			app.$notice = $( '.wporg-learn-locale-notice' );
 
 			app.$notice.on( 'click', '.wporg-learn-locale-notice-dismiss', function ( event ) {
@@ -17,7 +17,7 @@
 			} );
 		},
 
-		dismissNotice: function () {
+		dismissNotice() {
 			app.$notice.fadeTo( 100, 0, function () {
 				app.$notice.slideUp( 100, function () {
 					app.$notice.remove();
