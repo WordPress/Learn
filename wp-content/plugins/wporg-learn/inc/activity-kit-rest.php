@@ -1,4 +1,9 @@
 <?php
+/**
+ * REST API routes for activity kits: stats endpoint backed by Jetpack Stats.
+ *
+ * @package WPOrg_Learn
+ */
 
 namespace WPOrg_Learn\Activity_Kit_REST;
 
@@ -8,34 +13,11 @@ defined( 'WPINC' ) || die();
  * Actions and filters.
  */
 add_action( 'rest_api_init', __NAMESPACE__ . '\register_routes' );
-add_action( 'init', __NAMESPACE__ . '\maybe_create_events_table' );
 
 /**
  * Register REST API routes for activity kits.
  */
 function register_routes() {
-	register_rest_route(
-		'activity-kits/v1',
-		'/track',
-		array(
-			'methods'             => 'POST',
-			'callback'            => __NAMESPACE__ . '\handle_track',
-			'permission_callback' => '__return_true',
-			'args'                => array(
-				'post_id' => array(
-					'required'          => true,
-					'type'              => 'integer',
-					'sanitize_callback' => 'absint',
-				),
-				'action'  => array(
-					'required' => true,
-					'type'     => 'string',
-					'enum'     => array( 'view', 'download' ),
-				),
-			),
-		)
-	);
-
 	register_rest_route(
 		'activity-kits/v1',
 		'/stats',
@@ -46,25 +28,15 @@ function register_routes() {
 				return current_user_can( 'manage_options' );
 			},
 			'args'                => array(
-				'metric'    => array(
+				'metric' => array(
 					'default' => 'both',
 					'enum'    => array( 'both', 'views', 'downloads' ),
 				),
-				'range'     => array(
+				'range'  => array(
 					'default' => 'all',
-					'enum'    => array( '7d', '30d', '90d', 'all', 'custom' ),
+					'enum'    => array( '7d', '30d', '90d', 'all' ),
 				),
-				'kit'       => array(
-					'default'           => '',
-					'type'              => 'string',
-					'sanitize_callback' => 'sanitize_text_field',
-				),
-				'date_from' => array(
-					'default'           => '',
-					'type'              => 'string',
-					'sanitize_callback' => 'sanitize_text_field',
-				),
-				'date_to'   => array(
+				'kit'    => array(
 					'default'           => '',
 					'type'              => 'string',
 					'sanitize_callback' => 'sanitize_text_field',
@@ -75,55 +47,15 @@ function register_routes() {
 }
 
 /**
- * Handle POST /activity-kits/v1/track
- *
- * @param \WP_REST_Request $request
- * @return \WP_REST_Response|\WP_Error
- */
-function handle_track( $request ) {
-	$post_id = $request->get_param( 'post_id' );
-	$action  = $request->get_param( 'action' );
-
-	if ( 'activity_kit' !== get_post_type( $post_id ) ) {
-		return new \WP_Error( 'invalid_post', __( 'Invalid activity kit.', 'wporg-learn' ), array( 'status' => 404 ) );
-	}
-
-	// Downloads: rate-limit to one per IP per post per 24 hours.
-	// Views: count every page load (no rate limit).
-	if ( 'download' === $action ) {
-		$rate_key = 'ak_rate_dl_' . md5( $post_id . sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? '' ) ) );
-		if ( get_transient( $rate_key ) ) {
-			return rest_ensure_response(
-				array(
-					'tracked' => false,
-					'reason'  => 'rate_limited',
-				)
-			);
-		}
-		set_transient( $rate_key, 1, DAY_IN_SECONDS );
-	}
-
-	$meta_key = 'view' === $action ? '_view_count' : '_download_count';
-	$current  = (int) get_post_meta( $post_id, $meta_key, true );
-	update_post_meta( $post_id, $meta_key, $current + 1 );
-
-	log_event( $post_id, $action );
-
-	return rest_ensure_response( array( 'tracked' => true ) );
-}
-
-/**
  * Handle GET /activity-kits/v1/stats
  *
- * @param \WP_REST_Request $request
+ * @param \WP_REST_Request $request The REST request.
  * @return \WP_REST_Response
  */
 function handle_stats( $request ) {
-	$metric    = $request->get_param( 'metric' );
-	$range     = $request->get_param( 'range' );
-	$kit       = $request->get_param( 'kit' );
-	$date_from = $request->get_param( 'date_from' );
-	$date_to   = $request->get_param( 'date_to' );
+	$metric = $request->get_param( 'metric' );
+	$range  = $request->get_param( 'range' );
+	$kit    = $request->get_param( 'kit' );
 
 	$kits = get_posts(
 		array(
@@ -134,6 +66,32 @@ function handle_stats( $request ) {
 			'order'          => 'ASC',
 		)
 	);
+
+	$jetpack_unavailable = ! class_exists( '\Automattic\Jetpack\Stats\WPCOM_Stats' );
+
+	// Build ZIP URL => post ID map for download click matching.
+	$zip_url_map = array();
+	foreach ( $kits as $kit_post ) {
+		$zip_id = (int) get_post_meta( $kit_post->ID, '_activity_zip_id', true );
+		if ( $zip_id ) {
+			$zip_url = wp_get_attachment_url( $zip_id );
+			if ( $zip_url ) {
+				$zip_url_map[ $zip_url ] = $kit_post->ID;
+			}
+		}
+	}
+
+	$views_map     = array();
+	$downloads_map = array();
+
+	if ( ! $jetpack_unavailable ) {
+		if ( 'both' === $metric || 'views' === $metric ) {
+			$views_map = get_jetpack_post_views( $range );
+		}
+		if ( 'both' === $metric || 'downloads' === $metric ) {
+			$downloads_map = get_jetpack_download_clicks( $range, $zip_url_map );
+		}
+	}
 
 	$results = array();
 
@@ -149,17 +107,17 @@ function handle_stats( $request ) {
 			'updated' => get_the_modified_date( 'Y-m-d', $kit_post->ID ),
 		);
 
-		if ( 'custom' === $range && $date_from && $date_to ) {
-			$data = array_merge( $data, get_stats_from_events_daterange( $kit_post->ID, $metric, $date_from, $date_to ) );
-		} elseif ( 'all' === $range ) {
+		if ( $jetpack_unavailable ) {
+			$data['jetpack_unavailable'] = true;
+			$data['views']               = 0;
+			$data['downloads']           = 0;
+		} else {
 			if ( 'both' === $metric || 'views' === $metric ) {
-				$data['views'] = (int) get_post_meta( $kit_post->ID, '_view_count', true );
+				$data['views'] = $views_map[ $kit_post->ID ] ?? 0;
 			}
 			if ( 'both' === $metric || 'downloads' === $metric ) {
-				$data['downloads'] = (int) get_post_meta( $kit_post->ID, '_download_count', true );
+				$data['downloads'] = $downloads_map[ $kit_post->ID ] ?? 0;
 			}
-		} else {
-			$data = array_merge( $data, get_stats_from_events( $kit_post->ID, $metric, $range ) );
 		}
 
 		$results[] = $data;
@@ -169,139 +127,106 @@ function handle_stats( $request ) {
 }
 
 /**
- * Get stats from the events log table for a given kit, metric, and time range.
+ * Get per-post view counts from Jetpack Stats for a given time range.
  *
- * @param int    $post_id
- * @param string $metric  'both', 'views', or 'downloads'.
- * @param string $range   '7d', '30d', or '90d'.
- * @return array
+ * @param string $range One of '7d', '30d', '90d', 'all'.
+ * @return array        Map of post_id (int) => view_count (int). Empty on failure.
  */
-function get_stats_from_events( $post_id, $metric, $range ) {
-	global $wpdb;
-
-	$table = $wpdb->prefix . 'activity_kit_events';
-	$days  = intval( str_replace( 'd', '', $range ) );
-	$data  = array();
-
-	if ( 'both' === $metric || 'views' === $metric ) {
-		$data['views'] = (int) $wpdb->get_var(
-			$wpdb->prepare(
-				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name cannot use a placeholder.
-				"SELECT COUNT(*) FROM `{$table}` WHERE post_id = %d AND action = 'view' AND created_at >= DATE_SUB(NOW(), INTERVAL %d DAY)",
-				$post_id,
-				$days
-			)
-		);
+function get_jetpack_post_views( $range ) {
+	if ( ! class_exists( '\Automattic\Jetpack\Stats\WPCOM_Stats' ) ) {
+		return array();
 	}
 
-	if ( 'both' === $metric || 'downloads' === $metric ) {
-		$data['downloads'] = (int) $wpdb->get_var(
-			$wpdb->prepare(
-				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name cannot use a placeholder.
-				"SELECT COUNT(*) FROM `{$table}` WHERE post_id = %d AND action = 'download' AND created_at >= DATE_SUB(NOW(), INTERVAL %d DAY)",
-				$post_id,
-				$days
-			)
-		);
+	$stats = new \Automattic\Jetpack\Stats\WPCOM_Stats();
+
+	if ( 'all' === $range ) {
+		$period = 'month';
+		$num    = 36;
+	} else {
+		$period = 'day';
+		$num    = intval( str_replace( 'd', '', $range ) );
 	}
 
-	return $data;
-}
-
-/**
- * Get stats from the events log table for a given kit between two specific dates.
- *
- * @param int    $post_id
- * @param string $metric    'both', 'views', or 'downloads'.
- * @param string $date_from Start date in Y-m-d format.
- * @param string $date_to   End date in Y-m-d format (inclusive).
- * @return array
- */
-function get_stats_from_events_daterange( $post_id, $metric, $date_from, $date_to ) {
-	global $wpdb;
-
-	$table = $wpdb->prefix . 'activity_kit_events';
-	$data  = array();
-
-	$from = sanitize_text_field( $date_from ) . ' 00:00:00';
-	$to   = sanitize_text_field( $date_to ) . ' 23:59:59';
-
-	if ( 'both' === $metric || 'views' === $metric ) {
-		$data['views'] = (int) $wpdb->get_var(
-			$wpdb->prepare(
-				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name cannot use a placeholder.
-				"SELECT COUNT(*) FROM `{$table}` WHERE post_id = %d AND action = 'view' AND created_at BETWEEN %s AND %s",
-				$post_id,
-				$from,
-				$to
-			)
-		);
-	}
-
-	if ( 'both' === $metric || 'downloads' === $metric ) {
-		$data['downloads'] = (int) $wpdb->get_var(
-			$wpdb->prepare(
-				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name cannot use a placeholder.
-				"SELECT COUNT(*) FROM `{$table}` WHERE post_id = %d AND action = 'download' AND created_at BETWEEN %s AND %s",
-				$post_id,
-				$from,
-				$to
-			)
-		);
-	}
-
-	return $data;
-}
-
-/**
- * Log a view or download event to the events table.
- *
- * @param int    $post_id
- * @param string $action 'view' or 'download'.
- */
-function log_event( $post_id, $action ) {
-	global $wpdb;
-
-	$table = $wpdb->prefix . 'activity_kit_events';
-
-	$wpdb->insert(
-		$table,
+	$result = $stats->get_top_posts(
 		array(
-			'post_id'    => $post_id,
-			'action'     => $action,
-			'created_at' => current_time( 'mysql', true ),
-		),
-		array( '%d', '%s', '%s' )
+			'period'    => $period,
+			'num'       => $num,
+			'date'      => gmdate( 'Y-m-d' ),
+			'summarize' => true,
+			'max'       => 1000,
+		)
 	);
+
+	if ( is_wp_error( $result ) || ! is_array( $result ) ) {
+		return array();
+	}
+
+	$top_posts = isset( $result['summary']['top-posts'] ) ? $result['summary']['top-posts'] : array();
+	if ( ! is_array( $top_posts ) ) {
+		return array();
+	}
+
+	$map = array();
+	foreach ( $top_posts as $post_data ) {
+		if ( isset( $post_data['id'], $post_data['views'] ) ) {
+			$map[ (int) $post_data['id'] ] = (int) $post_data['views'];
+		}
+	}
+
+	return $map;
 }
 
 /**
- * Create the events table if it does not already exist.
+ * Get per-kit download click counts from Jetpack Clicks report.
+ *
+ * @param string $range       One of '7d', '30d', '90d', 'all'.
+ * @param array  $zip_url_map Map of zip_url (string) => post_id (int).
+ * @return array              Map of post_id (int) => click_count (int). Empty on failure.
  */
-function maybe_create_events_table() {
-	global $wpdb;
-
-	$table   = $wpdb->prefix . 'activity_kit_events';
-	$version = get_option( 'activity_kit_events_db_version', '0' );
-
-	if ( '1.0' === $version ) {
-		return;
+function get_jetpack_download_clicks( $range, $zip_url_map ) {
+	if ( ! class_exists( '\Automattic\Jetpack\Stats\WPCOM_Stats' ) || empty( $zip_url_map ) ) {
+		return array();
 	}
 
-	$charset_collate = $wpdb->get_charset_collate();
+	$stats = new \Automattic\Jetpack\Stats\WPCOM_Stats();
 
-	$sql = "CREATE TABLE IF NOT EXISTS `{$table}` (
-		id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-		post_id bigint(20) unsigned NOT NULL,
-		action varchar(20) NOT NULL,
-		created_at datetime NOT NULL,
-		PRIMARY KEY (id),
-		KEY post_id (post_id),
-		KEY created_at (created_at)
-	) {$charset_collate};";
+	if ( 'all' === $range ) {
+		$period = 'month';
+		$num    = 36;
+	} else {
+		$period = 'day';
+		$num    = intval( str_replace( 'd', '', $range ) );
+	}
 
-	require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-	dbDelta( $sql );
+	$result = $stats->get_clicks(
+		array(
+			'period'    => $period,
+			'num'       => $num,
+			'date'      => gmdate( 'Y-m-d' ),
+			'summarize' => true,
+			'max'       => 1000,
+		)
+	);
 
-	update_option( 'activity_kit_events_db_version', '1.0' );
+	if ( is_wp_error( $result ) || ! is_array( $result ) ) {
+		return array();
+	}
+
+	$clicks = isset( $result['summary']['clicks'] ) ? $result['summary']['clicks'] : array();
+	if ( ! is_array( $clicks ) ) {
+		return array();
+	}
+
+	$map = array();
+	foreach ( $clicks as $click ) {
+		if ( ! isset( $click['url'], $click['views'] ) ) {
+			continue;
+		}
+		if ( isset( $zip_url_map[ $click['url'] ] ) ) {
+			$post_id         = $zip_url_map[ $click['url'] ];
+			$map[ $post_id ] = ( isset( $map[ $post_id ] ) ? $map[ $post_id ] : 0 ) + (int) $click['views'];
+		}
+	}
+
+	return $map;
 }

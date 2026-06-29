@@ -1035,34 +1035,6 @@ function register_activity_kit_meta() {
 
 	register_post_meta(
 		'activity_kit',
-		'_view_count',
-		array(
-			'description'       => __( 'Number of times this activity kit has been viewed.', 'wporg-learn' ),
-			'type'              => 'integer',
-			'single'            => true,
-			'default'           => 0,
-			'sanitize_callback' => 'absint',
-			'show_in_rest'      => true,
-			'auth_callback'     => $auth_callback,
-		)
-	);
-
-	register_post_meta(
-		'activity_kit',
-		'_download_count',
-		array(
-			'description'       => __( 'Number of times this activity kit has been downloaded.', 'wporg-learn' ),
-			'type'              => 'integer',
-			'single'            => true,
-			'default'           => 0,
-			'sanitize_callback' => 'absint',
-			'show_in_rest'      => true,
-			'auth_callback'     => $auth_callback,
-		)
-	);
-
-	register_post_meta(
-		'activity_kit',
 		'_activity_feedback_url',
 		array(
 			'description'       => __( 'Optional per-kit feedback form URL. Overrides the global setting when set.', 'wporg-learn' ),

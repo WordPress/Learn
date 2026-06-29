@@ -1,7 +1,7 @@
 /* global activityKitStats, Chart */
 
 ( function () {
-	const { restUrl, nonce } = activityKitStats;
+	const { restUrl, nonce, jetpackAvailable } = activityKitStats;
 
 	// ── Constants ──
 	const CHART_PAGE = 8;
@@ -15,8 +15,6 @@
 	let sortCol = 'views';
 	let sortDir = 'desc';
 	let chartOffset = 0;
-	let customFrom = '';
-	let customTo = '';
 
 	// ── DOM refs ──
 	const filterKit = document.getElementById( 'ak-filter-kit' );
@@ -46,10 +44,6 @@
 	const thViews = document.getElementById( 'ak-th-views' );
 	const thDownloads = document.getElementById( 'ak-th-downloads' );
 	const exportBtn = document.getElementById( 'ak-export-csv' );
-	const customRangePicker = document.getElementById( 'ak-custom-range-picker' );
-	const dateFromInput = document.getElementById( 'ak-date-from' );
-	const dateToInput = document.getElementById( 'ak-date-to' );
-	const applyCustomRange = document.getElementById( 'ak-apply-custom-range' );
 	const chartSliderWrap = document.getElementById( 'ak-chart-slider-wrap' );
 	const chartSlider = document.getElementById( 'ak-chart-slider' );
 	const chartSliderLabel = document.getElementById( 'ak-chart-slider-label' );
@@ -89,9 +83,6 @@
 			'90d': 'Last 90 days',
 			all: 'All time',
 		};
-		if ( activeRange === 'custom' && customFrom && customTo ) {
-			return customFrom + ' – ' + customTo;
-		}
 		return labels[ activeRange ] || 'All time';
 	}
 
@@ -105,18 +96,7 @@
 	async function fetchStats() {
 		const url = new URL( restUrl );
 		url.searchParams.set( 'metric', 'both' );
-
-		if ( activeRange === 'custom' ) {
-			url.searchParams.set( 'range', 'custom' );
-			if ( customFrom ) {
-				url.searchParams.set( 'date_from', customFrom );
-			}
-			if ( customTo ) {
-				url.searchParams.set( 'date_to', customTo );
-			}
-		} else {
-			url.searchParams.set( 'range', activeRange );
-		}
+		url.searchParams.set( 'range', activeRange );
 
 		if ( activeKit ) {
 			url.searchParams.set( 'kit', activeKit );
@@ -231,9 +211,7 @@
 			chartSliderLabel.textContent = chartOffset + 1 + '–' + end + ' of ' + total;
 		}
 
-		const labels = sliced.map( ( row ) =>
-			row.title.length > 20 ? row.title.slice( 0, 18 ) + '…' : row.title
-		);
+		const labels = sliced.map( ( row ) => ( row.title.length > 20 ? row.title.slice( 0, 18 ) + '…' : row.title ) );
 		const datasets = [];
 
 		if ( activeMetric !== 'downloads' ) {
@@ -406,6 +384,12 @@
 
 	// ── Main render ──
 	async function render() {
+		if ( ! jetpackAvailable ) {
+			tableBody.innerHTML =
+				'<tr><td colspan="5">Jetpack Stats is not connected. View and download counts require a Jetpack connection to WordPress.com.</td></tr>';
+			return;
+		}
+
 		tableBody.innerHTML = '<tr><td colspan="5">Loading…</td></tr>';
 
 		try {
@@ -416,18 +400,14 @@
 			renderChart( data );
 			renderTable( data );
 		} catch ( error ) {
-			tableBody.innerHTML = `<tr><td colspan="5">Error loading stats: ${ escHtml(
-				error.message
-			) }</td></tr>`;
+			tableBody.innerHTML = `<tr><td colspan="5">Error loading stats: ${ escHtml( error.message ) }</td></tr>`;
 		}
 	}
 
 	// ── Setters ──
 	function setMetric( metric ) {
 		activeMetric = metric;
-		metricBtns.forEach( ( button ) =>
-			button.classList.toggle( 'is-active', button.dataset.akMetric === metric )
-		);
+		metricBtns.forEach( ( button ) => button.classList.toggle( 'is-active', button.dataset.akMetric === metric ) );
 		const data = activeKit ? allData.filter( ( row ) => row.slug === activeKit ) : allData;
 		updateSummary( data );
 		updateUI();
@@ -437,18 +417,8 @@
 
 	function setRange( range ) {
 		activeRange = range;
-		rangeBtns.forEach( ( button ) =>
-			button.classList.toggle( 'is-active', button.dataset.akRange === range )
-		);
-
-		const isCustom = range === 'custom';
-		if ( customRangePicker ) {
-			customRangePicker.classList.toggle( 'is-visible', isCustom );
-		}
-
-		if ( ! isCustom ) {
-			render();
-		}
+		rangeBtns.forEach( ( button ) => button.classList.toggle( 'is-active', button.dataset.akRange === range ) );
+		render();
 	}
 
 	function setKit( slug ) {
@@ -505,31 +475,6 @@
 		chartOffset = 0;
 		render();
 	} );
-
-	if ( applyCustomRange ) {
-		applyCustomRange.addEventListener( 'click', () => {
-			customFrom = dateFromInput ? dateFromInput.value : '';
-			customTo = dateToInput ? dateToInput.value : '';
-			if ( customFrom && customTo ) {
-				render();
-			}
-		} );
-	}
-
-	const clearCustomRange = document.getElementById( 'ak-clear-custom-range' );
-	if ( clearCustomRange ) {
-		clearCustomRange.addEventListener( 'click', () => {
-			customFrom = '';
-			customTo = '';
-			if ( dateFromInput ) {
-				dateFromInput.value = '';
-			}
-			if ( dateToInput ) {
-				dateToInput.value = '';
-			}
-			setRange( 'all' );
-		} );
-	}
 
 	if ( chartSlider ) {
 		chartSlider.addEventListener( 'input', () => {

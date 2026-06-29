@@ -3,6 +3,8 @@
  * Title: Single Activity Kit Content
  * Slug: wporg-learn-2024/single-activity-kit-content
  * Inserter: no
+ *
+ * @package WPOrg_Learn
  */
 
 $kit_id   = get_the_ID();
@@ -305,6 +307,13 @@ if ( $feedback_url ) :
 </div>
 <?php endif; ?>
 
+<?php
+$wpcom_blog_id = '';
+if ( class_exists( '\Jetpack_Options' ) ) {
+	$wpcom_blog_id = (string) \Jetpack_Options::get_option( 'id', '' );
+}
+?>
+
 <!-- Download this kit -->
 <?php if ( $zip_url ) : ?>
 <div class="wporg-activity-kit-download-box">
@@ -328,27 +337,21 @@ if ( $feedback_url ) :
 
 <script>
 ( function () {
-	var trackUrl = '<?php echo esc_js( rest_url( 'activity-kits/v1/track' ) ); ?>';
+	var blogId = '<?php echo esc_js( $wpcom_blog_id ); ?>';
+	if ( ! blogId || ! window._stq ) {
+		return;
+	}
 	document.querySelectorAll( '[data-track-download="1"]' ).forEach( function ( btn ) {
 		btn.addEventListener( 'click', function () {
-			fetch( trackUrl, {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify( { post_id: parseInt( btn.dataset.postId, 10 ), action: 'download' } ),
-				keepalive: true,
-			} ).catch( function () {} );
+			window._stq.push( [ 'click', {
+				s: '2',
+				u: btn.href,
+				r: '0',
+				b: blogId,
+				p: btn.dataset.postId || '0',
+			} ] );
 		} );
 	} );
 } )();
 </script>
 <?php endif; ?>
-
-<script>
-( function () {
-	fetch( '<?php echo esc_js( rest_url( 'activity-kits/v1/track' ) ); ?>', {
-		method: 'POST',
-		headers: { 'Content-Type': 'application/json' },
-		body: JSON.stringify( { post_id: <?php echo absint( $kit_id ); ?>, action: 'view' } ),
-	} ).catch( function () {} );
-} )();
-</script>

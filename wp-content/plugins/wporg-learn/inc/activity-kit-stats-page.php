@@ -1,4 +1,9 @@
 <?php
+/**
+ * Admin page for Activity Kit stats, backed by Jetpack Stats.
+ *
+ * @package WPOrg_Learn
+ */
 
 namespace WPOrg_Learn\Activity_Kit_Stats;
 
@@ -39,8 +44,9 @@ function enqueue_scripts( $hook ) {
 		'activity-kit-stats',
 		'activityKitStats',
 		array(
-			'restUrl' => rest_url( 'activity-kits/v1/stats' ),
-			'nonce'   => wp_create_nonce( 'wp_rest' ),
+			'restUrl'          => rest_url( 'activity-kits/v1/stats' ),
+			'nonce'            => wp_create_nonce( 'wp_rest' ),
+			'jetpackAvailable' => class_exists( '\Automattic\Jetpack\Stats\WPCOM_Stats' ),
 		)
 	);
 }
@@ -63,12 +69,6 @@ function render_page() {
 		)
 	);
 
-	$total_views     = 0;
-	$total_downloads = 0;
-	foreach ( $kits as $kit ) {
-		$total_views     += (int) get_post_meta( $kit->ID, '_view_count', true );
-		$total_downloads += (int) get_post_meta( $kit->ID, '_download_count', true );
-	}
 	?>
 	<style>
 		.ak-stats-filter-bar {
@@ -148,28 +148,6 @@ function render_page() {
 		.ak-stats-table thead th.ak-col-number { text-align: right; }
 		.ak-hidden-col { display: none !important; }
 		.page-title-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-		.ak-custom-range-picker {
-			display: none;
-			background: #fff; border: 1px solid #c3c4c7;
-			padding: 12px 16px; margin-bottom: 16px;
-			align-items: center; flex-wrap: wrap; gap: 12px; font-size: 13px;
-		}
-		.ak-custom-range-picker.is-visible { display: flex; }
-		.ak-custom-range-picker label { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #646970; }
-		.ak-custom-range-picker input[type="date"] {
-			border: 1px solid #c3c4c7; border-radius: 3px; padding: 4px 8px;
-			font-size: 12px; color: #1d2327; font-family: inherit;
-		}
-		.ak-apply-range-btn {
-			background: #3858e9; color: #fff; border: 1px solid #3858e9; border-radius: 3px;
-			padding: 5px 14px; font-size: 12px; font-family: inherit; cursor: pointer;
-		}
-		.ak-apply-range-btn:hover { background: #213fd4; border-color: #213fd4; }
-		.ak-clear-range-btn {
-			background: #fff; color: #3858e9; border: 1px solid #3858e9; border-radius: 3px;
-			padding: 5px 14px; font-size: 12px; font-family: inherit; cursor: pointer;
-		}
-		.ak-clear-range-btn:hover { background: #eef0fd; }
 		.ak-chart-slider-wrap {
 			display: none; margin-top: 12px; padding: 0 4px;
 		}
@@ -206,7 +184,6 @@ function render_page() {
 					<button type="button" data-ak-range="30d"><?php esc_html_e( 'Last 30 days', 'wporg-learn' ); ?></button>
 					<button type="button" data-ak-range="90d"><?php esc_html_e( 'Last 90 days', 'wporg-learn' ); ?></button>
 					<button type="button" class="is-active" data-ak-range="all"><?php esc_html_e( 'All time', 'wporg-learn' ); ?></button>
-					<button type="button" data-ak-range="custom"><?php esc_html_e( 'Custom range', 'wporg-learn' ); ?></button>
 				</div>
 			</div>
 
@@ -221,14 +198,6 @@ function render_page() {
 					<?php endforeach; ?>
 				</select>
 			</div>
-		</div>
-
-		<!-- Custom date range picker (shown when Custom range is selected) -->
-		<div class="ak-custom-range-picker" id="ak-custom-range-picker">
-			<label for="ak-date-from"><?php esc_html_e( 'From', 'wporg-learn' ); ?> <input type="date" id="ak-date-from" /></label>
-			<label for="ak-date-to"><?php esc_html_e( 'To', 'wporg-learn' ); ?> <input type="date" id="ak-date-to" /></label>
-			<button type="button" class="ak-apply-range-btn" id="ak-apply-custom-range"><?php esc_html_e( 'Apply', 'wporg-learn' ); ?></button>
-			<button type="button" class="ak-clear-range-btn" id="ak-clear-custom-range"><?php esc_html_e( 'Clear', 'wporg-learn' ); ?></button>
 		</div>
 
 		<!-- Back link (shown when a single kit is selected) -->
@@ -249,11 +218,11 @@ function render_page() {
 				<span class="ak-stat-label"><?php esc_html_e( 'Total Kits', 'wporg-learn' ); ?></span>
 			</div>
 			<div class="ak-summary-box is-views" id="ak-box-views">
-				<span class="ak-stat-number" id="ak-summary-views"><?php echo esc_html( number_format_i18n( $total_views ) ); ?></span>
+				<span class="ak-stat-number" id="ak-summary-views">—</span>
 				<span class="ak-stat-label"><?php esc_html_e( 'Total Views', 'wporg-learn' ); ?></span>
 			</div>
 			<div class="ak-summary-box is-downloads" id="ak-box-downloads">
-				<span class="ak-stat-number" id="ak-summary-downloads"><?php echo esc_html( number_format_i18n( $total_downloads ) ); ?></span>
+				<span class="ak-stat-number" id="ak-summary-downloads">—</span>
 				<span class="ak-stat-label"><?php esc_html_e( 'Total Downloads', 'wporg-learn' ); ?></span>
 			</div>
 			<div class="ak-summary-box is-rate" id="ak-box-rate" style="display:none">
