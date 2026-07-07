@@ -13,6 +13,7 @@ defined( 'WPINC' ) || die();
  * Actions and filters.
  */
 add_action( 'rest_api_init', __NAMESPACE__ . '\register_routes' );
+add_filter( 'jetpack_fetch_stats_cache_expiration', __NAMESPACE__ . '\stats_cache_expiration' );
 
 /**
  * Register REST API routes for activity kits.
@@ -47,6 +48,24 @@ function register_routes() {
 }
 
 /**
+ * Shorten Jetpack's stats API cache so the activity kit dashboard tracks
+ * WordPress.com's near-real-time counts more closely.
+ *
+ * Jetpack caches stats REST responses for 5 minutes by default. This caps the
+ * lifetime at 1 minute (never lengthening it) and floors it at 1 second, so a
+ * stray 0 from another filter can't turn into a never-expiring transient. Note
+ * this only affects the local cache layer — WordPress.com's own per-post
+ * aggregation has its own, separate processing delay that cannot be shortened
+ * from here.
+ *
+ * @param int $expiration Default cache expiration, in seconds.
+ * @return int Cache expiration, in seconds.
+ */
+function stats_cache_expiration( $expiration ) {
+	return (int) max( 1, min( $expiration, MINUTE_IN_SECONDS ) );
+}
+
+/**
  * Handle GET /activity-kits/v1/stats
  *
  * @param \WP_REST_Request $request The REST request.
@@ -69,14 +88,16 @@ function handle_stats( $request ) {
 
 	$jetpack_unavailable = ! class_exists( '\Automattic\Jetpack\Stats\WPCOM_Stats' );
 
-	// Build ZIP URL => post ID map for download click matching.
+	// Build ZIP URL => post IDs map for download click matching.
+	// A URL maps to an array of kit IDs so that if multiple kits share a zip,
+	// each kit is credited rather than silently dropped by a key collision.
 	$zip_url_map = array();
 	foreach ( $kits as $kit_post ) {
 		$zip_id = (int) get_post_meta( $kit_post->ID, '_activity_zip_id', true );
 		if ( $zip_id ) {
 			$zip_url = wp_get_attachment_url( $zip_id );
 			if ( $zip_url ) {
-				$zip_url_map[ $zip_url ] = $kit_post->ID;
+				$zip_url_map[ $zip_url ][] = $kit_post->ID;
 			}
 		}
 	}
@@ -161,13 +182,13 @@ function get_jetpack_post_views( $range ) {
 		return array();
 	}
 
-	$top_posts = isset( $result['summary']['top-posts'] ) ? $result['summary']['top-posts'] : array();
-	if ( ! is_array( $top_posts ) ) {
+	$post_views = isset( $result['summary']['postviews'] ) ? $result['summary']['postviews'] : array();
+	if ( ! is_array( $post_views ) ) {
 		return array();
 	}
 
 	$map = array();
-	foreach ( $top_posts as $post_data ) {
+	foreach ( $post_views as $post_data ) {
 		if ( isset( $post_data['id'], $post_data['views'] ) ) {
 			$map[ (int) $post_data['id'] ] = (int) $post_data['views'];
 		}
@@ -180,7 +201,7 @@ function get_jetpack_post_views( $range ) {
  * Get per-kit download click counts from Jetpack Clicks report.
  *
  * @param string $range       One of '7d', '30d', '90d', 'all'.
- * @param array  $zip_url_map Map of zip_url (string) => post_id (int).
+ * @param array  $zip_url_map Map of zip_url (string) => array of post_ids (int[]).
  * @return array              Map of post_id (int) => click_count (int). Empty on failure.
  */
 function get_jetpack_download_clicks( $range, $zip_url_map ) {
@@ -217,14 +238,29 @@ function get_jetpack_download_clicks( $range, $zip_url_map ) {
 		return array();
 	}
 
+	// Jetpack groups clicks into a tree: a domain node carries a NULL url and
+	// the real per-URL clicks under `children`, while a lone click can appear
+	// as a flat leaf. Walk the tree and keep only leaves with a url + views.
+	$leaves = array();
+	$stack  = $clicks;
+	while ( $stack ) {
+		$node = array_pop( $stack );
+		if ( ! empty( $node['children'] ) && is_array( $node['children'] ) ) {
+			foreach ( $node['children'] as $child ) {
+				$stack[] = $child;
+			}
+		} elseif ( isset( $node['url'], $node['views'] ) ) {
+			$leaves[] = $node;
+		}
+	}
+
 	$map = array();
-	foreach ( $clicks as $click ) {
-		if ( ! isset( $click['url'], $click['views'] ) ) {
+	foreach ( $leaves as $leaf ) {
+		if ( ! isset( $zip_url_map[ $leaf['url'] ] ) ) {
 			continue;
 		}
-		if ( isset( $zip_url_map[ $click['url'] ] ) ) {
-			$post_id         = $zip_url_map[ $click['url'] ];
-			$map[ $post_id ] = ( isset( $map[ $post_id ] ) ? $map[ $post_id ] : 0 ) + (int) $click['views'];
+		foreach ( $zip_url_map[ $leaf['url'] ] as $post_id ) {
+			$map[ $post_id ] = ( isset( $map[ $post_id ] ) ? $map[ $post_id ] : 0 ) + (int) $leaf['views'];
 		}
 	}
 
