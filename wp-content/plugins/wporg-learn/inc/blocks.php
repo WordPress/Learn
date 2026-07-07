@@ -336,7 +336,7 @@ function workshop_details_render_callback( $attributes, $content ) {
 			'label' => __( 'Subtitles', 'wporg-learn' ),
 			'param' => $captions,
 			'value' => array_map(
-				function( $caption_lang ) {
+				function ( $caption_lang ) {
 					return esc_html( get_locale_name_from_code( $caption_lang, 'native' ) );
 				},
 				$captions
@@ -345,7 +345,7 @@ function workshop_details_render_callback( $attributes, $content ) {
 	);
 
 	// Remove fields with empty values.
-	$fields = array_filter( $fields, function( $data ) {
+	$fields = array_filter( $fields, function ( $data ) {
 		return $data['value'];
 	} );
 
@@ -425,7 +425,7 @@ function register_learning_duration() {
 	register_block_type(
 		get_js_path() . 'learning-duration/',
 		array(
-			'render_callback' => function( $attributes, $content, $block ) {
+			'render_callback' => function ( $attributes, $content, $block ) {
 				return \WPOrg_Learn\View\Blocks\Learning_Duration\render( $attributes, $content, $block );
 			},
 		)
@@ -439,7 +439,7 @@ function register_lesson_count() {
 	register_block_type(
 		get_js_path() . 'lesson-count/',
 		array(
-			'render_callback' => function( $attributes, $content, $block ) {
+			'render_callback' => function ( $attributes, $content, $block ) {
 				return \WPOrg_Learn\View\Blocks\Lesson_Count\render( $attributes, $content, $block );
 			},
 		)
@@ -453,7 +453,7 @@ function register_course_status() {
 	register_block_type(
 		get_js_path() . 'course-status/',
 		array(
-			'render_callback' => function( $attributes, $content, $block ) {
+			'render_callback' => function ( $attributes, $content, $block ) {
 				return \WPOrg_Learn\View\Blocks\Course_Status\render( $attributes, $content, $block );
 			},
 		)
@@ -467,7 +467,7 @@ function register_activity_kit_card() {
 	register_block_type(
 		get_js_path() . 'activity-kit-card/',
 		array(
-			'render_callback' => function( $attributes, $content, $block ) {
+			'render_callback' => function ( $attributes, $content, $block ) {
 				ob_start();
 				require get_views_path() . 'block-activity-kit-card.php';
 				return ob_get_clean();
