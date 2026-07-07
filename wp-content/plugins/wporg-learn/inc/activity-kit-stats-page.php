@@ -270,7 +270,7 @@ function render_page() {
 		<div class="ak-postbox">
 			<div class="ak-postbox-header">
 				<h2><?php esc_html_e( 'Kit Details', 'wporg-learn' ); ?></h2>
-				<span class="ak-subtitle" id="ak-table-subtitle"><?php esc_html_e( 'Click a row to drill into a single kit', 'wporg-learn' ); ?></span>
+				<span class="ak-subtitle" id="ak-table-subtitle"><?php esc_html_e( 'Click a row to see a single kit\'s stats', 'wporg-learn' ); ?></span>
 			</div>
 			<div style="padding:0;">
 				<table class="ak-stats-table" id="ak-stats-table">

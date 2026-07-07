@@ -378,7 +378,7 @@
 		}
 
 		if ( tableSubtitle ) {
-			tableSubtitle.textContent = isSingle ? 'Showing single kit' : 'Click a row to drill into a single kit';
+			tableSubtitle.textContent = isSingle ? 'Showing single kit' : "Click a row to see a single kit's stats";
 		}
 	}
 
