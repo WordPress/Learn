@@ -13,7 +13,6 @@ defined( 'WPINC' ) || die();
  * Actions and filters.
  */
 add_action( 'rest_api_init', __NAMESPACE__ . '\register_routes' );
-add_filter( 'jetpack_fetch_stats_cache_expiration', __NAMESPACE__ . '\stats_cache_expiration' );
 
 /**
  * Register REST API routes for activity kits.
@@ -49,7 +48,9 @@ function register_routes() {
 
 /**
  * Shorten Jetpack's stats API cache so the activity kit dashboard tracks
- * WordPress.com's near-real-time counts more closely.
+ * WordPress.com's near-real-time counts more closely. Registered only for the
+ * duration of the activity kit stats REST request (see handle_stats()), so it
+ * does not affect other Jetpack Stats consumers site-wide.
  *
  * Jetpack caches stats REST responses for 5 minutes by default. This caps the
  * lifetime at 1 minute (never lengthening it) and floors it at 1 second, so a
@@ -106,6 +107,10 @@ function handle_stats( $request ) {
 	$downloads_map = array();
 
 	if ( ! $jetpack_unavailable ) {
+		// Shorten the Jetpack stats cache for this dashboard request only, so it
+		// doesn't affect other Jetpack Stats consumers site-wide.
+		add_filter( 'jetpack_fetch_stats_cache_expiration', __NAMESPACE__ . '\stats_cache_expiration' );
+
 		if ( 'both' === $metric || 'views' === $metric ) {
 			$views_map = get_jetpack_post_views( $range );
 		}

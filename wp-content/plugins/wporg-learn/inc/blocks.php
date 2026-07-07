@@ -19,7 +19,6 @@ defined( 'WPINC' ) || die();
 require_once get_views_path() . 'block-course-status.php';
 require_once get_views_path() . 'block-learning-duration.php';
 require_once get_views_path() . 'block-lesson-count.php';
-require_once get_views_path() . 'block-activity-kit-card.php';
 
 /**
  * Actions and filters.
