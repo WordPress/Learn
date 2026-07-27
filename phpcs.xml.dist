@@ -141,6 +141,9 @@
 	<rule ref="WordPress-Extra">
 		<!-- I think it's better to have all the `use` statements come right after the namespace line. -->
 		<exclude name="PSR2.Namespaces.NamespaceDeclaration.BlankLineAfter" />
+
+		<!-- Short ternaries are used deliberately throughout; expanding them is a style call for maintainers. -->
+		<exclude name="Universal.Operators.DisallowShortTernary" />
 	</rule>
 
 	<!-- Verify that the text_domain is set to the desired text-domain. Multiple valid text domains can be
@@ -149,5 +152,15 @@
 		<properties>
 			<property name="text_domain" type="array" value="wporg-learn,wporg_learn,sensei-lms" />
 		</properties>
+	</rule>
+	<!-- locales.php intentionally combines a global and a named namespace using the brace syntax. -->
+	<rule ref="Universal.Namespaces.DisallowCurlyBraceSyntax">
+		<exclude-pattern>*/mu-plugins/pub/locales\.php$</exclude-pattern>
+	</rule>
+	<rule ref="Universal.Namespaces.DisallowDeclarationWithoutName">
+		<exclude-pattern>*/mu-plugins/pub/locales\.php$</exclude-pattern>
+	</rule>
+	<rule ref="Universal.Namespaces.OneDeclarationPerFile">
+		<exclude-pattern>*/mu-plugins/pub/locales\.php$</exclude-pattern>
 	</rule>
 </ruleset>

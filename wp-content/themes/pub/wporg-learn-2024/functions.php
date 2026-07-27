@@ -46,11 +46,11 @@ add_filter( 'jetpack_implode_frontend_css', '__return_false', 99 );
 add_filter( 'post_thumbnail_html', __NAMESPACE__ . '\set_default_featured_image', 10, 5 );
 add_filter( 'search_template_hierarchy', __NAMESPACE__ . '\modify_search_template' );
 add_filter( 'sensei_learning_mode_lesson_status_icon', __NAMESPACE__ . '\modify_lesson_status_icon_add_aria', 10, 2 );
-add_filter( 'sensei_register_post_type_course', function( $args ) {
+add_filter( 'sensei_register_post_type_course', function ( $args ) {
 	$args['has_archive'] = 'courses';
 	return $args;
 } );
-add_filter( 'sensei_register_post_type_lesson', function( $args ) {
+add_filter( 'sensei_register_post_type_lesson', function ( $args ) {
 	$args['has_archive'] = 'lessons';
 	return $args;
 } );
@@ -204,7 +204,7 @@ function maybe_enqueue_sensei_assets() {
 	if ( ( is_singular( 'lesson' ) || is_singular( 'quiz' ) ) && ! wp_style_is( 'sensei-course-theme-style', 'enqueued' ) ) {
 		wp_enqueue_style( 'sensei-learning-mode' );
 
-		add_filter( 'body_class', function( $classes ) {
+		add_filter( 'body_class', function ( $classes ) {
 			$sensei_body_class = 'sensei-course-theme';
 
 			if ( ! in_array( $sensei_body_class, $classes, true ) ) {
@@ -374,7 +374,7 @@ function add_site_navigation_menus( $menus ) {
 
 	$learning_pathways_menu = array(
 		'label'   => __( 'Learning Pathways', 'wporg-learn' ),
-		'submenu' => array_map( function( $term ) {
+		'submenu' => array_map( function ( $term ) {
 			return array(
 				'label' => $term->name,
 				'url'   => get_term_link( $term ),

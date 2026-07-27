@@ -87,20 +87,18 @@ class Markdown_Import {
 				$parents = wp_filter_object_list( $existing, array( 'post_name' => $doc['parent'] ) );
 				if ( ! empty( $parents ) ) {
 					$parent = array_shift( $parents );
-				} else {
+				} elseif ( isset( $manifest[ $doc['parent'] ] ) ) {
 					// Create the parent and add it to the stack
-					if ( isset( $manifest[ $doc['parent'] ] ) ) {
-						$parent_doc = $manifest[ $doc['parent'] ];
-						$parent     = self::create_post_from_manifest_doc( $parent_doc );
-						if ( $parent ) {
-							$created++;
-							$existing[] = $parent;
-						} else {
-							continue;
-						}
+					$parent_doc = $manifest[ $doc['parent'] ];
+					$parent     = self::create_post_from_manifest_doc( $parent_doc );
+					if ( $parent ) {
+						$created++;
+						$existing[] = $parent;
 					} else {
 						continue;
 					}
+				} else {
+					continue;
 				}
 				$post_parent = $parent->ID;
 			}

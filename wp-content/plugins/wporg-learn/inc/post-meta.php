@@ -50,7 +50,7 @@ function register_course_meta() {
 			'single'            => true,
 			'sanitize_callback' => 'sanitize_text_field',
 			'show_in_rest'      => true,
-			'auth_callback'     => function( $allowed, $meta_key, $post_id ) {
+			'auth_callback'     => function ( $allowed, $meta_key, $post_id ) {
 				return current_user_can( 'edit_post', $post_id );
 			},
 		)
@@ -66,7 +66,7 @@ function register_course_meta() {
 			'default'           => '',
 			'sanitize_callback' => 'esc_url_raw',
 			'show_in_rest'      => true,
-			'auth_callback'     => function( $allowed, $meta_key, $post_id ) {
+			'auth_callback'     => function ( $allowed, $meta_key, $post_id ) {
 				return current_user_can( 'edit_post', $post_id );
 			},
 		)
@@ -86,7 +86,7 @@ function register_lesson_meta() {
 			'single'            => true,
 			'sanitize_callback' => 'sanitize_text_field',
 			'show_in_rest'      => true,
-			'auth_callback'     => function( $allowed, $meta_key, $post_id ) {
+			'auth_callback'     => function ( $allowed, $meta_key, $post_id ) {
 				return current_user_can( 'edit_post', $post_id );
 			},
 		),
@@ -247,11 +247,11 @@ function register_common_meta() {
 				'type'              => 'number',
 				'single'            => true,
 				'default'           => 0,
-				'sanitize_callback' => function( $value ) {
+				'sanitize_callback' => function ( $value ) {
 					return floatval( $value );
 				},
 				'show_in_rest'      => true,
-				'auth_callback'     => function() {
+				'auth_callback'     => function () {
 					return current_user_can( 'edit_courses' ) || current_user_can( 'edit_lessons' );
 				},
 			)
@@ -767,7 +767,6 @@ function save_meeting_metabox_fields( $post_id ) {
 
 	$language = filter_input( INPUT_POST, 'meeting-language' );
 	update_post_meta( $post_id, 'language', $language );
-
 }
 
 /**
@@ -808,7 +807,7 @@ function enqueue_expiration_date_assets() {
 			wp_die( 'You need to run `yarn start` or `yarn build` to build the required assets.' );
 		}
 
-		$script_asset = require( $script_asset_path );
+		$script_asset = require $script_asset_path;
 		wp_enqueue_script(
 			'wporg-learn-expiration-date',
 			get_build_url() . 'expiration-date.js',
@@ -835,7 +834,7 @@ function enqueue_language_meta_assets() {
 			wp_die( 'You need to run `yarn start` or `yarn build` to build the required assets.' );
 		}
 
-		$script_asset = require( $script_asset_path );
+		$script_asset = require $script_asset_path;
 		wp_enqueue_script(
 			'wporg-learn-language-meta',
 			get_build_url() . 'language-meta.js',
@@ -860,7 +859,7 @@ function enqueue_lesson_featured_meta_assets() {
 			wp_die( 'You need to run `yarn start` or `yarn build` to build the required assets.' );
 		}
 
-		$script_asset = require( $script_asset_path );
+		$script_asset = require $script_asset_path;
 		wp_enqueue_script(
 			'wporg-learn-lesson-featured-meta',
 			get_build_url() . 'lesson-featured-meta.js',
@@ -886,7 +885,7 @@ function enqueue_duration_meta_assets() {
 			wp_die( 'You need to run `yarn start` or `yarn build` to build the required assets.' );
 		}
 
-		$script_asset = require( $script_asset_path );
+		$script_asset = require $script_asset_path;
 		wp_enqueue_script(
 			'wporg-learn-duration-meta',
 			get_build_url() . 'duration-meta.js',
@@ -911,7 +910,7 @@ function enqueue_course_completion_meta_assets() {
 			wp_die( 'You need to run `yarn start` or `yarn build` to build the required assets.' );
 		}
 
-		$script_asset = require( $script_asset_path );
+		$script_asset = require $script_asset_path;
 		wp_enqueue_script(
 			'wporg-learn-course-completion-meta',
 			get_build_url() . 'course-completion-meta.js',

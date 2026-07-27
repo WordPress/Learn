@@ -158,7 +158,7 @@ function render_workshop_list_table_columns( $column_name, $post_id ) {
 			echo esc_html( implode(
 				', ',
 				array_map(
-					function( $caption_lang ) {
+					function ( $caption_lang ) {
 						return get_locale_name_from_code( $caption_lang, 'english' );
 					},
 					$captions

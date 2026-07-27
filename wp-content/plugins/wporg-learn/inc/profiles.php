@@ -102,7 +102,7 @@ function notify_workshop_presenter( $post ) {
 /**
  * Add an activity to a user's profile when they complete a course.
  */
-function add_course_completed_activity( string $status, int $user_id, int $course_id, int $comment_id, ?string $previous_status ) : void {
+function add_course_completed_activity( string $status, int $user_id, int $course_id, int $comment_id, ?string $previous_status ): void {
 	if ( 'complete' !== $status || 'complete' === $previous_status ) {
 		return;
 	}

@@ -41,7 +41,7 @@ function modify_lesson_query( $pre_render, $parsed_block ) {
 	) {
 		add_filter(
 			'query_loop_block_query_vars',
-			function( $query, $block ) use ( $parsed_block ) {
+			function ( $query, $block ) use ( $parsed_block ) {
 				if ( 'lesson' !== $query['post_type'] || ! isset( $parsed_block['attrs']['query']['lessonFeatured'] ) ) {
 					return $query;
 				}

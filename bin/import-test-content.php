@@ -1,8 +1,5 @@
 #!/usr/bin/php
 <?php
-
-namespace WPOrg_Learn\Bin\ImportTestContent;
-
 /**
  * CLI script for generating local test content, fetched from the live learn.wordpress.org site.
  *
@@ -10,6 +7,8 @@ namespace WPOrg_Learn\Bin\ImportTestContent;
  *
  * yarn run wp-env run cli "php bin/import-test-content.php"
  */
+
+namespace WPOrg_Learn\Bin\ImportTestContent;
 
 // This script should only be called in a CLI environment.
 if ( 'cli' != php_sapi_name() ) {
@@ -19,7 +18,7 @@ if ( 'cli' != php_sapi_name() ) {
 
 $opts = getopt( '', array( 'post:', 'url:', 'abspath:', 'age:' ) );
 
-require dirname( dirname( __FILE__ ) ) . '/wp-load.php';
+require dirname( __DIR__ ) . '/wp-load.php';
 
 if ( 'local' !== wp_get_environment_type() ) {
 	die( 'Not safe to run on ' . esc_html( get_site_url() ) );
@@ -67,7 +66,6 @@ function import_rest_to_posts( $rest_url ) {
 			'import_id' => $post->id,
 			'post_date' => gmdate( 'Y-m-d H:i:s', strtotime( $post->date ) ),
 			'post_name' => $post->slug,
-			'post_title' => $post->title,
 			'post_status' => $post->status,
 			'post_type' => $post->type,
 			'post_title' => $post->title->rendered,
