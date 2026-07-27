@@ -36,7 +36,6 @@ function wporg_learn_redirect_meetings() {
 			}
 		}
 	}
-
 }
 
 /**
@@ -62,9 +61,6 @@ function wporg_learn_redirect_old_urls() {
 	);
 
 	$tutorials = array(
-		'/tutorial/block-editor-01-basics/'                                                       => 'https://wordpress.tv/2021/06/18/shusei-toda-naoko-takano-block-editor-01-basics/',
-		'/tutorial/block-editor-02-text-blocks/'                                                  => 'https://wordpress.tv/2021/06/03/shusei-toda-block-editor-02-text-blocks/',
-		'/tutorial/ja-login-password-reset/'                                                      => 'https://wordpress.tv/2021/02/16/login-password-reset/',
 
 		// Tutorial -> Lesson migration Nov 2024
 		'/tutorial/testing-your-products-for-php-version-compatibility/'                          => '/lesson/testing-your-products-for-php-version-compatibility/',

@@ -13,7 +13,7 @@ function enqueue_assets() {
 		wp_die( 'You need to run `yarn start` or `yarn build` to build the required assets.' );
 	}
 
-	$script_asset = require( $script_asset_path );
+	$script_asset = require $script_asset_path;
 	wp_enqueue_script(
 		'wporg-learn-2024-course-outline',
 		get_stylesheet_directory_uri() . '/build/course-outline/index.js',

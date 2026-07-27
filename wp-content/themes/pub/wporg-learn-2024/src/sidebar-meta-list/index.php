@@ -112,7 +112,7 @@ function render( $attributes, $content, $block ) {
 
 		$captions = get_post_meta( $block->context['postId'], 'video_caption_language' );
 		$subtitles = array_map(
-			function( $caption_lang ) {
+			function ( $caption_lang ) {
 				return esc_html( get_locale_name_from_code( $caption_lang, 'native' ) );
 			},
 			$captions

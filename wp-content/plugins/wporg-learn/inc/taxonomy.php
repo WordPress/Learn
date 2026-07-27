@@ -744,7 +744,7 @@ function get_available_taxonomy_terms( $taxonomy, $post_type, $post_status = nul
 		'hide_empty' => false,
 	) );
 
-	return array_reduce( $term_objects, function( $terms, $term_object ) {
+	return array_reduce( $term_objects, function ( $terms, $term_object ) {
 		$terms[ $term_object->slug ] = $term_object->name;
 		return $terms;
 	}, array());

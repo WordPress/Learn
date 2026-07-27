@@ -5,8 +5,8 @@
 
 namespace WordPressdotorg\Theme\Learn_2024\Block_Config;
 
-use function WPOrg_Learn\Post_Meta\{get_available_post_type_locales};
 use Sensei_Learner;
+use function WPOrg_Learn\Post_Meta\{get_available_post_type_locales};
 
 add_filter( 'wporg_query_filter_options_content_type', __NAMESPACE__ . '\get_content_type_options' );
 
