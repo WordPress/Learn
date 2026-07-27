@@ -76,7 +76,7 @@
 		"wordpress-meta/locale-detection": "1",
 		"wordpress-meta/pub": "1",
 		"dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
-		"wp-coding-standards/wpcs": "2.*",
+		"wp-coding-standards/wpcs": "^3.4.1",
 		"phpcompatibility/phpcompatibility-wp": "*",
 		"rmccue/requests": "^1.7",
 		"wporg/wporg-mu-plugins": "dev-build",
