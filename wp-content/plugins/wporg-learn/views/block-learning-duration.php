@@ -29,7 +29,7 @@ function render( $attributes, $content, $block ) {
 		return '';
 	}
 
-	if ( 1 === $duration ) {
+	if ( 1.0 === $duration ) {
 		$content = __( '1 hour', 'wporg-learn' );
 	} elseif ( $duration > 1 ) {
 		$content = sprintf(
