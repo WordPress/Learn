@@ -15,13 +15,13 @@ defined( 'WPINC' ) || die();
  * @return string The rendered output.
  */
 function render( $attributes, $content, $block ) {
-	$post_type = $block->context['postType'];
+	$post_type = $block->context['postType'] ?? '';
+	$course_id = $block->context['postId'] ?? 0;
 
-	if ( 'course' !== $post_type || ! class_exists( 'Sensei_Main' ) ) {
+	if ( ! $course_id || 'course' !== $post_type || ! class_exists( 'Sensei_Main' ) ) {
 		return '';
 	}
 
-	$course_id    = $block->context['postId'];
 	$user_id      = get_current_user_id();
 	$is_completed = Sensei_Utils::user_completed_course( $course_id, $user_id );
 
