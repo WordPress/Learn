@@ -14,13 +14,14 @@ defined( 'WPINC' ) || die();
  * @return string The rendered output.
  */
 function render( $attributes, $content, $block ) {
-	$post_type = $block->context['postType'];
+	$post_type = $block->context['postType'] ?? '';
+	$post_id   = $block->context['postId'] ?? 0;
 
-	if ( 'course' !== $post_type || ! class_exists( 'Sensei_Main' ) ) {
+	if ( ! $post_id || 'course' !== $post_type || ! class_exists( 'Sensei_Main' ) ) {
 		return '';
 	}
 
-	$lessons = Sensei()->course->course_lessons( $block->context['postId'] );
+	$lessons = Sensei()->course->course_lessons( $post_id );
 
 	if ( empty( $lessons ) ) {
 		return '';

@@ -15,7 +15,7 @@ A team member will review the proposal and share next steps.
 - Topic description: 
 - Audience (User, Developer, Designer, Contributor, etc.): 
 - Learning objectives (What will the learner be able to do as a result of this content?): 
-- Content type (Online Workshop, Lesson, Course, or Facilitator Notes): 
+- Content type (Online Workshop, Lesson, Course, Activity Kit or Facilitator Notes): 
 - WordPress version (optional): 
 - Will you be creating this content? (Yes or No): 
 

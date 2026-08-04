@@ -91,7 +91,7 @@ function get_workshop_application_field_schema() {
 				'default'           => '',
 			),
 			'audience'                => array(
-				'sanitize_callback' => function( $value ) {
+				'sanitize_callback' => function ( $value ) {
 					if ( ! is_array( $value ) ) {
 						return array();
 					}
@@ -107,7 +107,7 @@ function get_workshop_application_field_schema() {
 				'default'           => array(),
 			),
 			'experience-level'        => array(
-				'sanitize_callback' => function( $value ) {
+				'sanitize_callback' => function ( $value ) {
 					if ( ! is_array( $value ) ) {
 						return array();
 					}
@@ -168,7 +168,7 @@ function get_workshop_application_form_submission() {
 	}
 
 	$submission = array_map(
-		function( $item ) {
+		function ( $item ) {
 			// Ensure arrays don't contain items that are empty strings.
 			if ( is_array( $item ) ) {
 				$item = array_filter( $item );
@@ -394,7 +394,7 @@ function prepare_post_content_from_submission( $submission ) {
 		$split   = explode( "\n", $content );
 		$split   = array_filter(
 			array_map(
-				function( $item ) {
+				function ( $item ) {
 					// Attempt to strip out list item enumeration characters.
 					$item = preg_replace( '/^([*\-]+|[1-9]{1,2}[\.\)]?|[A-Z]+[\.\)]+) ?/', '', $item );
 
@@ -448,7 +448,7 @@ function render_workshop_application_form() {
 		$form         = wp_parse_args( $submission, $defaults );
 		$errors       = $processed;
 		$error_fields = array_map(
-			function( $code ) {
+			function ( $code ) {
 				return preg_replace(
 					array(
 						'/^submission:/',

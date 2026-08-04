@@ -28,7 +28,7 @@ function init() {
 	// Enqueue the assets only when the Sensei progress bar block is on the page.
 	add_action(
 		'render_block_sensei-lms/course-progress',
-		function( $block_content ) use ( $script_handle ) {
+		function ( $block_content ) use ( $script_handle ) {
 			wp_enqueue_script( $script_handle );
 			return $block_content;
 		}

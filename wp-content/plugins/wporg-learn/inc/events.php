@@ -36,7 +36,7 @@ function get_discussion_events() {
 
 		$event_fields_to_keep = array( 'title', 'url', 'description', 'date_utc', 'date_utc_offset' );
 		$events = array_map(
-			function( $event ) use ( $event_fields_to_keep ) {
+			function ( $event ) use ( $event_fields_to_keep ) {
 				return array_intersect_key(
 					$event,
 					array_fill_keys( $event_fields_to_keep, '' )

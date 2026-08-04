@@ -397,6 +397,8 @@ _x( 'widgets', 'Included Content term name', 'wporg-learn' );
 _x( 'WordPress.org', 'Included Content term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/wporg_included_content/writing/ */
 _x( 'writing', 'Included Content term name', 'wporg-learn' );
+/* translators: https://learn.wordpress.org/?wporg_workshop_topic=artificial-intelligence */
+_x( 'Artificial Intelligence', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/?wporg_workshop_topic=block-development */
 _x( 'Block Development', 'Topics term name', 'wporg-learn' );
 /* translators: https://learn.wordpress.org/?wporg_workshop_topic=block-editor */

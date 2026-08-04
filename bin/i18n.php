@@ -34,7 +34,7 @@ function get_taxonomies( array $valid_post_types = array() ) {
 	if ( count( $valid_post_types ) > 0 ) {
 		$taxonomies = array_filter(
 			$taxonomies,
-			function( $tax ) use ( $valid_post_types ) {
+			function ( $tax ) use ( $valid_post_types ) {
 				$supported_types = $tax['types'];
 				$matches = array_intersect( $supported_types, $valid_post_types );
 
@@ -127,7 +127,7 @@ function main() {
 		// Sort the terms by slug for consistency.
 		usort(
 			$terms,
-			function( $a, $b ) {
+			function ( $a, $b ) {
 				return strcmp( $a['slug'], $b['slug'] );
 			}
 		);

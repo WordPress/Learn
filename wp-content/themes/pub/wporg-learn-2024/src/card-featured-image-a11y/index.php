@@ -28,7 +28,7 @@ function init() {
 	// Enqueue the assets when one of the card templates is on the page.
 	add_action(
 		'render_block_core/template-part',
-		function( $block_content, $block ) use ( $script_handle ) {
+		function ( $block_content, $block ) use ( $script_handle ) {
 			$slugs = array( 'card-course-h3', 'card-course', 'card-lesson-h3', 'card-lesson', 'card' );
 			if ( isset( $block['attrs']['slug'] ) && in_array( $block['attrs']['slug'], $slugs, true ) ) {
 				wp_enqueue_script( $script_handle );
@@ -43,7 +43,7 @@ function init() {
 	// The blocks composition of this pattern is similar to that of the card course.
 	add_action(
 		'render_block_core/pattern',
-		function( $block_content, $block ) use ( $script_handle ) {
+		function ( $block_content, $block ) use ( $script_handle ) {
 			if ( isset( $block['attrs']['slug'] ) && 'wporg-learn-2024/page-my-courses-content' === $block['attrs']['slug'] ) {
 				wp_enqueue_script( $script_handle );
 			}

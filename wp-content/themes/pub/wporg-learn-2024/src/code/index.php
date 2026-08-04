@@ -40,7 +40,7 @@ function init() {
 	// Enqueue the assets only when the code block is on the page.
 	add_action(
 		'render_block_core/code',
-		function( $block_content ) use ( $script_handle, $style_handle ) {
+		function ( $block_content ) use ( $script_handle, $style_handle ) {
 			wp_enqueue_script( $script_handle );
 			wp_enqueue_style( $style_handle );
 			return $block_content;

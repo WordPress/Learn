@@ -119,7 +119,7 @@ function locale_notice() {
  */
 function locale_switcher_options( $options ) {
 	$options = array_map(
-		function( $locale ) {
+		function ( $locale ) {
 			$locale['label'] .= " [{$locale['value']}]";
 
 			return $locale;

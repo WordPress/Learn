@@ -16,19 +16,20 @@ defined( 'WPINC' ) || die();
  * @return string The rendered output.
  */
 function render( $attributes, $content, $block ) {
-	$post_type = $block->context['postType'];
+	$post_type = $block->context['postType'] ?? '';
+	$post_id   = $block->context['postId'] ?? 0;
 
-	if ( 'course' !== $post_type && 'lesson' !== $post_type ) {
+	if ( ! $post_id || ( 'course' !== $post_type && 'lesson' !== $post_type ) ) {
 		return '';
 	}
 
-	$duration = ensure_float( get_post_meta( $block->context['postId'], '_duration', true ) );
+	$duration = ensure_float( get_post_meta( $post_id, '_duration', true ) );
 
 	if ( empty( $duration ) ) {
 		return '';
 	}
 
-	if ( 1 === $duration ) {
+	if ( 1.0 === $duration ) {
 		$content = __( '1 hour', 'wporg-learn' );
 	} elseif ( $duration > 1 ) {
 		$content = sprintf(

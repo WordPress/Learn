@@ -28,7 +28,7 @@ function init() {
 	// Enqueue the assets when the sensei lesson standalone pattern is on the page.
 	add_action(
 		'render_block_core/pattern',
-		function( $block_content, $block ) use ( $script_handle ) {
+		function ( $block_content, $block ) use ( $script_handle ) {
 			if ( isset( $block['attrs']['slug'] ) && 'wporg-learn-2024/sensei-lesson-standalone' === $block['attrs']['slug'] ) {
 				wp_enqueue_script( $script_handle );
 			}
