@@ -258,7 +258,7 @@ function register_lesson_level() {
 		),
 	);
 
-	register_taxonomy( 'level', array( 'lesson-plan', 'lesson', 'course' ), $args );
+	register_taxonomy( 'level', array( 'lesson-plan', 'lesson', 'course', 'activity_kit' ), $args );
 }
 
 /**
@@ -445,7 +445,7 @@ function register_topic() {
 		),
 	);
 
-	register_taxonomy( 'topic', array( 'lesson-plan', 'wporg_workshop', 'course', 'lesson', 'meeting' ), $args );
+	register_taxonomy( 'topic', array( 'lesson-plan', 'wporg_workshop', 'course', 'lesson', 'meeting', 'activity_kit' ), $args );
 }
 
 /**
@@ -682,6 +682,10 @@ function tax_edit_term_fields( $term, $taxonomy ) {
  * @param int $term_id the term id to update.
  */
 function tax_save_term_fields( $term_id ) {
+	if ( defined( 'WP_CLI' ) && WP_CLI ) {
+		return;
+	}
+
 	$wp_list_table = \_get_list_table( 'WP_Terms_List_Table' );
 
 	if ( 'add-tag' === $wp_list_table->current_action() ) {

@@ -602,3 +602,43 @@ function remove_duplicate_post_row_action( $actions, $post ) {
 
 	return $actions;
 }
+
+// Activity Kit admin hooks.
+add_action( 'admin_menu', __NAMESPACE__ . '\add_activity_kit_stats_submenu' );
+add_action( 'admin_menu', __NAMESPACE__ . '\remove_activity_kit_taxonomy_submenus', 99 );
+
+/**
+ * Remove shared taxonomy submenu items from under Activity Kits.
+ * Level and Topic are shared across post types; editing them from here is confusing.
+ */
+function remove_activity_kit_taxonomy_submenus() {
+	global $submenu;
+
+	$parent = 'edit.php?post_type=activity_kit';
+	if ( ! isset( $submenu[ $parent ] ) ) {
+		return;
+	}
+
+	foreach ( $submenu[ $parent ] as $key => $item ) {
+		if ( isset( $item[2] ) && (
+			false !== strpos( $item[2], 'taxonomy=level' ) ||
+			false !== strpos( $item[2], 'taxonomy=topic' )
+		) ) {
+			unset( $submenu[ $parent ][ $key ] );
+		}
+	}
+}
+
+/**
+ * Add a Stats submenu page under the Activity Kits post type menu.
+ */
+function add_activity_kit_stats_submenu() {
+	add_submenu_page(
+		'edit.php?post_type=activity_kit',
+		__( 'Activity Kit Stats', 'wporg-learn' ),
+		__( 'Stats', 'wporg-learn' ),
+		'manage_options',
+		'activity-kit-stats',
+		'WPOrg_Learn\Activity_Kit_Stats\render_page'
+	);
+}

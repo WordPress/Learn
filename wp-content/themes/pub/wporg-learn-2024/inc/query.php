@@ -8,6 +8,7 @@ namespace WordPressdotorg\Theme\Learn_2024\Query;
 add_action( 'pre_get_posts', __NAMESPACE__ . '\add_language_to_archive_queries' );
 add_action( 'pre_get_posts', __NAMESPACE__ . '\filter_hidden_lessons_from_archive_and_search' );
 add_action( 'pre_get_posts', __NAMESPACE__ . '\filter_search_queries_by_post_type' );
+add_action( 'pre_get_posts', __NAMESPACE__ . '\filter_activity_kit_archive' );
 add_filter( 'request', __NAMESPACE__ . '\handle_all_level_query' );
 add_filter( 'jetpack_search_es_wp_query_args', __NAMESPACE__ . '\filter_jetpack_wp_search_query', 10, 2 );
 add_filter( 'jetpack_search_es_query_args', __NAMESPACE__ . '\filter_jetpack_es_search_query', 10, 2 );
@@ -65,7 +66,7 @@ function filter_hidden_lessons_from_archive_and_search( $query ) {
 		// If there's an existing tax query, add the new condition
 		if ( ! empty( $tax_query ) ) {
 			$tax_query['relation'] = 'AND';
-			$tax_query[] = $exclude_lessons_by_taxonomy;
+			$tax_query[]           = $exclude_lessons_by_taxonomy;
 		} else {
 			$tax_query = array( $exclude_lessons_by_taxonomy );
 		}
@@ -151,10 +152,59 @@ function filter_jetpack_es_search_query( $es_query_args, $query ) {
 	}
 	$es_query_args['query'] = array(
 		'bool' => array(
-			'must' => array( $es_query_args['query'] ),
+			'must'     => array( $es_query_args['query'] ),
 			'must_not' => $must_not,
 		),
 	);
 
 	return $es_query_args;
+}
+
+/**
+ * Filter the activity kit archive by taxonomy terms from URL query params.
+ *
+ * @param \WP_Query $query
+ */
+function filter_activity_kit_archive( $query ) {
+	if ( is_admin() || ! $query->is_main_query() ) {
+		return;
+	}
+
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	$requested_post_type = isset( $_GET['post_type'] ) ? sanitize_key( wp_unslash( $_GET['post_type'] ) ) : '';
+
+	if ( ! is_post_type_archive( 'activity_kit' ) && ! ( $query->is_search() && 'activity_kit' === $requested_post_type ) ) {
+		return;
+	}
+
+	$query->set( 'posts_per_page', 12 );
+
+	$tax_query = array();
+
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	if ( ! empty( $_GET['topic'] ) ) {
+		$tax_query[] = array(
+			'taxonomy' => 'topic',
+			'field'    => 'slug',
+			'terms'    => array_map( 'sanitize_text_field', (array) wp_unslash( $_GET['topic'] ) ),
+		);
+	}
+
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	$level_slug = isset( $_GET['level'] ) ? sanitize_text_field( wp_unslash( $_GET['level'] ) ) : '';
+	if ( $level_slug && 'all' !== $level_slug ) {
+		$tax_query[] = array(
+			'taxonomy' => 'level',
+			'field'    => 'slug',
+			'terms'    => $level_slug,
+		);
+	}
+
+	if ( ! empty( $tax_query ) ) {
+		$query->set( 'tax_query', $tax_query );
+	}
+
+	if ( $query->is_search() && 'activity_kit' === $requested_post_type ) {
+		$query->set( 'post_type', 'activity_kit' );
+	}
 }

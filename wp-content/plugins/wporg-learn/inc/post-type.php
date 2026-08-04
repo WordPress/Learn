@@ -20,6 +20,7 @@ add_filter( 'jetpack_page_sitemap_other_urls', __NAMESPACE__ . '\jetpack_page_si
 function register() {
 	register_lesson_plan();
 	register_workshop();
+	register_activity_kit();
 }
 
 /**
@@ -157,6 +158,69 @@ function register_workshop() {
 }
 
 /**
+ * Register an Activity Kit post type.
+ */
+function register_activity_kit() {
+	$labels = array(
+		'name'                  => _x( 'Activity Kits', 'Post Type General Name', 'wporg_learn' ),
+		'singular_name'         => _x( 'Activity Kit', 'Post Type Singular Name', 'wporg_learn' ),
+		'menu_name'             => __( 'Activity Kits', 'wporg_learn' ),
+		'name_admin_bar'        => __( 'Activity Kit', 'wporg_learn' ),
+		'archives'              => __( 'Activity Kit Archives', 'wporg_learn' ),
+		'attributes'            => __( 'Activity Kit Attributes', 'wporg_learn' ),
+		'parent_item_colon'     => __( 'Parent Activity Kit:', 'wporg_learn' ),
+		'all_items'             => __( 'All Activity Kits', 'wporg_learn' ),
+		'add_new_item'          => __( 'Add Activity Kit', 'wporg_learn' ),
+		'add_new'               => __( 'Add Activity Kit', 'wporg_learn' ),
+		'new_item'              => __( 'New Activity Kit', 'wporg_learn' ),
+		'edit_item'             => __( 'Edit Activity Kit', 'wporg_learn' ),
+		'update_item'           => __( 'Update Activity Kit', 'wporg_learn' ),
+		'view_item'             => __( 'View Activity Kit', 'wporg_learn' ),
+		'view_items'            => __( 'View Activity Kits', 'wporg_learn' ),
+		'search_items'          => __( 'Search Activity Kits', 'wporg_learn' ),
+		'not_found'             => __( 'No activity kits found.', 'wporg_learn' ),
+		'not_found_in_trash'    => __( 'No activity kits found in Trash.', 'wporg_learn' ),
+		'featured_image'        => __( 'Featured image', 'wporg_learn' ),
+		'set_featured_image'    => __( 'Set featured image', 'wporg_learn' ),
+		'remove_featured_image' => __( 'Remove featured image', 'wporg_learn' ),
+		'use_featured_image'    => __( 'Use as featured image', 'wporg_learn' ),
+		'insert_into_item'      => __( 'Insert into activity kit', 'wporg_learn' ),
+		'uploaded_to_this_item' => __( 'Uploaded to this activity kit', 'wporg_learn' ),
+		'items_list'            => __( 'Activity kits list', 'wporg_learn' ),
+		'items_list_navigation' => __( 'Activity kits list navigation', 'wporg_learn' ),
+		'filter_items_list'     => __( 'Filter activity kits list', 'wporg_learn' ),
+	);
+
+	$args = array(
+		'label'               => __( 'Activity Kit', 'wporg_learn' ),
+		'description'         => __( 'WordPress.org Training Activity Kit', 'wporg_learn' ),
+		'labels'              => $labels,
+		'supports'            => array( 'title', 'editor', 'thumbnail', 'excerpt', 'custom-fields', 'author' ),
+		'hierarchical'        => false,
+		'public'              => true,
+		'show_ui'             => true,
+		'show_in_menu'        => true,
+		'menu_position'       => 7,
+		'menu_icon'           => 'dashicons-clipboard',
+		'show_in_admin_bar'   => true,
+		'show_in_nav_menus'   => true,
+		'can_export'          => true,
+		'has_archive'         => 'activity-library',
+		'exclude_from_search' => false,
+		'publicly_queryable'  => true,
+		'capability_type'     => array( 'activity_kit', 'activity_kits' ),
+		'map_meta_cap'        => true,
+		'show_in_rest'        => true,
+		'rewrite'             => array(
+			'slug'       => 'activity-library',
+			'with_front' => false,
+		),
+	);
+
+	register_post_type( 'activity_kit', $args );
+}
+
+/**
  * Create an array representation of a workshop's content template.
  *
  * ⚠️ Note that if this template structure changes, the content in views/content-workshop.php
@@ -237,6 +301,7 @@ function generate_workshop_template_structure() {
 function jetpack_copy_post_post_types( $post_types ) {
 	$post_types[] = 'lesson-plan';
 	$post_types[] = 'wporg_workshop';
+	$post_types[] = 'activity_kit';
 
 	return $post_types;
 }
@@ -255,6 +320,7 @@ function jetpack_sitemap_post_types( $post_types ) {
 	// The "lesson" has been excluded in Sensei LMS, but it is needed in Learn.
 	// See https://github.com/Automattic/sensei/blob/trunk/includes/class-sensei-posttypes.php#L25.
 	$post_types[] = 'lesson';
+	$post_types[] = 'activity_kit';
 
 	return $post_types;
 }
@@ -268,7 +334,7 @@ function jetpack_sitemap_post_types( $post_types ) {
  * @return array
  */
 function jetpack_page_sitemap_other_urls( $urls ) {
-	foreach ( array( 'wporg_workshop', 'lesson-plan' ) as $post_type ) {
+	foreach ( array( 'wporg_workshop', 'lesson-plan', 'activity_kit' ) as $post_type ) {
 		$url = get_post_type_archive_link( $post_type );
 		if ( ! $url ) {
 			continue;

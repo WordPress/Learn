@@ -1,0 +1,496 @@
+// -------------------------------------------------------------------------
+// Activity Kit Card (archive grid)
+// -------------------------------------------------------------------------
+.wporg-activity-kit-card {
+	display: flex;
+	flex-direction: column;
+	border: 1px solid var(--wp--custom--color--border);
+	border-radius: 2px;
+	overflow: hidden;
+	background: var(--wp--preset--color--white);
+	height: 100%;
+
+	&__image {
+		height: 152px;
+		flex-shrink: 0;
+		overflow: hidden;
+		background: var(--wp--preset--color--light-grey-2);
+
+		a {
+			display: block;
+			height: 100%;
+		}
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		&-placeholder {
+			width: 100%;
+			height: 100%;
+			background: var(--wp--preset--color--light-grey-2);
+		}
+	}
+
+	&__body {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		padding: 16px;
+		gap: 12px;
+	}
+
+	&__title {
+		font-size: var(--wp--preset--font-size--normal);
+		font-weight: 600;
+		margin: 0;
+
+		a {
+			color: var(--wp--custom--link--color--text);
+			text-decoration: none;
+
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+
+	&__excerpt {
+		font-size: var(--wp--preset--font-size--small);
+		color: var(--wp--preset--color--charcoal-2);
+		margin: 0;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	&__meta {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: var(--wp--preset--spacing--10);
+		font-size: var(--wp--preset--font-size--small);
+		color: var(--wp--preset--color--charcoal-3);
+		margin-top: auto;
+
+		span + span::before {
+			content: "·";
+			margin-right: var(--wp--preset--spacing--10);
+		}
+	}
+
+	&__duration {
+		display: flex;
+		align-items: center;
+		gap: 4px;
+
+		&::before {
+			content: "";
+			display: inline-block;
+			width: 14px;
+			height: 14px;
+			background: url(../../assets/icon-clock.svg) no-repeat center / contain;
+			flex-shrink: 0;
+		}
+	}
+
+	&__actions {
+		display: flex;
+		gap: 8px;
+		flex-wrap: wrap;
+		margin-top: auto;
+	}
+
+	&__view-btn,
+	&__download-btn {
+		flex: 1;
+		text-align: center;
+		padding: 7px 12px;
+		font-size: var(--wp--preset--font-size--small);
+		font-weight: 500;
+		border-radius: 2px;
+		text-decoration: none;
+		line-height: 1.4;
+		display: inline-block;
+	}
+
+	&__view-btn {
+		border: 1px solid var(--wp--preset--color--blueberry-1);
+		color: var(--wp--preset--color--blueberry-1);
+
+		&:hover {
+			background: color-mix(in sRGB, var(--wp--preset--color--blueberry-1) 8%, transparent);
+			text-decoration: none;
+		}
+	}
+
+	&__download-btn {
+		background: var(--wp--preset--color--blueberry-1);
+		color: var(--wp--preset--color--white) !important;
+
+		&:hover {
+			background: var(--wp--preset--color--deep-blueberry);
+			text-decoration: none;
+		}
+	}
+}
+
+// -------------------------------------------------------------------------
+// Activity Kit Single Page
+// -------------------------------------------------------------------------
+.wporg-activity-kit-breadcrumb {
+	font-size: var(--wp--preset--font-size--small);
+	color: var(--wp--preset--color--charcoal-3);
+	margin-bottom: var(--wp--preset--spacing--30);
+
+	a {
+		color: var(--wp--preset--color--blueberry-1);
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+}
+
+.wporg-activity-kit-action-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: var(--wp--preset--spacing--20);
+	margin-bottom: var(--wp--preset--spacing--40);
+
+	&__back {
+		font-size: var(--wp--preset--font-size--small);
+		color: var(--wp--preset--color--blueberry-1);
+		text-decoration: none;
+		display: inline-flex;
+		align-items: center;
+		gap: 5px;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	&__download {
+		display: inline-flex;
+		align-items: center;
+		gap: 7px;
+		background: var(--wp--preset--color--blueberry-1);
+		color: var(--wp--preset--color--white) !important;
+		padding: 9px 20px;
+		border-radius: 2px;
+		font-size: var(--wp--preset--font-size--small);
+		font-weight: 500;
+		text-decoration: none;
+
+		&:hover {
+			background: var(--wp--preset--color--deep-blueberry);
+			text-decoration: none;
+		}
+	}
+}
+
+.wporg-activity-kit-header {
+	margin-bottom: var(--wp--preset--spacing--30);
+}
+
+.wporg-activity-kit-title {
+	margin-bottom: var(--wp--preset--spacing--20);
+}
+
+.wporg-activity-kit-meta {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--wp--preset--spacing--10);
+	font-size: var(--wp--preset--font-size--small);
+	color: var(--wp--preset--color--charcoal-2);
+
+	&__duration,
+	&__updated {
+		display: flex;
+		align-items: center;
+		gap: 5px;
+
+		svg {
+			flex-shrink: 0;
+			color: var(--wp--preset--color--charcoal-3);
+		}
+	}
+
+	span + span::before {
+		content: "·";
+		margin-right: var(--wp--preset--spacing--10);
+	}
+}
+
+// Section label (e.g. "Kit Preview")
+.wporg-activity-kit-section-label {
+	font-size: 11px;
+	color: var(--wp--preset--color--charcoal-3);
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	font-weight: 500;
+	margin-bottom: var(--wp--preset--spacing--20);
+}
+
+.wporg-activity-kit-pdf-section {
+	margin-bottom: var(--wp--preset--spacing--40);
+}
+
+// PDF tab toggle
+.wporg-activity-kit-pdf-tabs {
+	&__header {
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: var(--wp--preset--spacing--20);
+	}
+
+	&__dl-btn {
+		display: none; // shown via JS only for non-Chromium browsers (Firefox, Safari)
+		align-items: center;
+		gap: 5px;
+		font-size: var(--wp--preset--font-size--small);
+		color: var(--wp--preset--color--blueberry-1);
+		text-decoration: none;
+		padding-bottom: 9px; // align baseline with tab bottom border
+		white-space: nowrap;
+		flex-shrink: 0;
+
+		svg {
+			flex-shrink: 0;
+		}
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	&__nav {
+		display: flex;
+		gap: 0;
+		border: 1px solid var(--wp--custom--color--border);
+		border-bottom: none;
+		border-radius: 2px 2px 0 0;
+		overflow: hidden;
+		width: fit-content;
+	}
+
+	&__tab {
+		background: var(--wp--preset--color--light-grey-2);
+		border: none;
+		border-right: 1px solid var(--wp--custom--color--border);
+		padding: 9px 20px;
+		font-size: var(--wp--preset--font-size--small);
+		font-weight: 400;
+		color: var(--wp--preset--color--charcoal-2);
+		cursor: pointer;
+		transition: background 0.1s, color 0.1s;
+		display: inline-flex;
+		align-items: center;
+		gap: 7px;
+
+		&:last-child {
+			border-right: none;
+		}
+
+		&:hover {
+			background: #ebebeb;
+			color: var(--wp--preset--color--charcoal-1);
+		}
+
+		&.is-active {
+			background: var(--wp--preset--color--white);
+			color: var(--wp--preset--color--charcoal-1);
+			font-weight: 500;
+		}
+	}
+
+	&__panel {
+		display: none;
+		border: 1px solid var(--wp--custom--color--border);
+		border-radius: 0 2px 2px 2px;
+
+		&.is-active {
+			display: block;
+		}
+
+		iframe {
+			width: 100%;
+			height: 520px;
+			border: none;
+			display: block;
+		}
+	}
+}
+
+.wporg-activity-kit-no-pdf {
+	color: var(--wp--preset--color--charcoal-3);
+	font-style: italic;
+}
+
+// Feedback strip — appears below PDF preview tabs, above post content.
+.wporg-activity-kit-feedback-strip {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 12px;
+	padding: 14px 20px;
+	margin-bottom: 44px;
+	background: #f6f7f7;
+	border: 1px solid #d9d9d9;
+	border-radius: 2px;
+
+	&__prompt {
+		font-size: var(--wp--preset--font-size--small);
+		color: var(--wp--preset--color--charcoal-2);
+		margin: 0;
+	}
+
+	&__btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		padding: 7px 18px;
+		font-size: 13px;
+		font-weight: 500;
+		color: var(--wp--preset--color--blueberry-1);
+		background: var(--wp--preset--color--white);
+		border: 1px solid var(--wp--preset--color--blueberry-1);
+		border-radius: 2px;
+		text-decoration: none;
+		white-space: nowrap;
+		transition: background 0.1s ease, color 0.1s ease;
+
+		svg {
+			flex-shrink: 0;
+		}
+
+		&:hover {
+			background: var(--wp--preset--color--blueberry-1);
+			color: var(--wp--preset--color--white);
+			text-decoration: none;
+		}
+
+		&:focus-visible {
+			background: var(--wp--preset--color--blueberry-1);
+			color: var(--wp--preset--color--white);
+			outline: 2px solid var(--wp--preset--color--blueberry-1);
+			outline-offset: 2px;
+			text-decoration: none;
+		}
+	}
+}
+
+// "What's included" grid
+.wporg-activity-kit-included {
+	margin-bottom: var(--wp--preset--spacing--40);
+
+	h2 {
+		font-size: var(--wp--preset--font-size--large);
+		font-family: var(--wp--preset--font-family--eb-garamond);
+		margin-bottom: var(--wp--preset--spacing--30);
+	}
+
+	&__grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+		gap: var(--wp--preset--spacing--30);
+	}
+
+	&__card {
+		border: 1px solid var(--wp--custom--color--border);
+		border-radius: 2px;
+		padding: var(--wp--preset--spacing--30);
+		display: flex;
+		flex-direction: row;
+		gap: var(--wp--preset--spacing--20);
+		align-items: flex-start;
+		background: var(--wp--preset--color--white);
+	}
+
+	&__card-body {
+		flex: 1;
+		min-width: 0;
+
+		h3 {
+			font-size: var(--wp--preset--font-size--normal);
+			font-weight: 600;
+			margin: 0 0 6px;
+			line-height: 1.4;
+		}
+
+		p {
+			font-size: var(--wp--preset--font-size--small);
+			color: var(--wp--preset--color--charcoal-2);
+			margin: 0;
+			line-height: 1.5;
+		}
+	}
+
+	&__icon {
+		flex-shrink: 0;
+		margin-top: 3px;
+		color: var(--wp--preset--color--blueberry-1);
+		display: flex;
+	}
+
+	// Higher-specificity override for parent theme's h3 margin-top rule.
+	.wporg-activity-kit-included__card-body h3 {
+		margin-top: 0;
+	}
+}
+
+// "Download this kit" box at bottom
+.wporg-activity-kit-download-box {
+	border: 1px solid var(--wp--custom--color--border);
+	border-radius: 2px;
+	padding: 32px;
+	text-align: center;
+	margin-top: var(--wp--preset--spacing--40);
+
+	h2 {
+		font-size: var(--wp--preset--font-size--large);
+		font-family: var(--wp--preset--font-family--eb-garamond);
+		margin-bottom: var(--wp--preset--spacing--20);
+	}
+
+	p {
+		font-size: var(--wp--preset--font-size--normal);
+		color: var(--wp--preset--color--charcoal-1);
+		margin-bottom: var(--wp--preset--spacing--40);
+		line-height: 1.7;
+	}
+
+	&__btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		background: var(--wp--preset--color--blueberry-1);
+		color: var(--wp--preset--color--white) !important;
+		padding: 12px 32px;
+		border-radius: 2px;
+		font-size: var(--wp--preset--font-size--normal);
+		font-weight: 500;
+		text-decoration: none;
+
+		&:hover {
+			background: var(--wp--preset--color--deep-blueberry);
+			text-decoration: none;
+		}
+	}
+
+	&__note {
+		font-size: var(--wp--preset--font-size--small);
+		color: var(--wp--preset--color--charcoal-3);
+		margin: var(--wp--preset--spacing--20) 0 0;
+	}
+}

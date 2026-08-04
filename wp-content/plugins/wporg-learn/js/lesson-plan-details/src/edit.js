@@ -12,10 +12,7 @@ export default function Edit( { clientId } ) {
 		'lesson-plan',
 		useGetCurrentPostType(),
 		useIsBlockInSidebar( clientId, 'wporg-learn-lesson-plans' ),
-		__(
-			'This will be dynamically populated based on settings in the Lesson Plan Details meta box.',
-			'wporg-learn'
-		)
+		__( 'This will be dynamically populated based on settings in the Lesson Plan Details meta box.', 'wporg-learn' )
 	);
 
 	return (

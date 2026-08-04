@@ -27,6 +27,7 @@ function set_post_type_caps( $user_caps ) {
 	$capability_types = array(
 		array( 'lesson_plan', 'lesson_plans' ),
 		array( 'tutorial', 'tutorials' ),
+		array( 'activity_kit', 'activity_kits' ),
 	);
 
 	foreach ( $capability_types as $capability_type ) {
@@ -80,7 +81,7 @@ function map_meta_caps( $required_caps, $current_cap, $user_id, $args ) {
 	switch ( $current_cap ) {
 		case 'edit_any_learn_content':
 			$required_caps       = array();
-			$learn_content_types = array( 'lesson-plan', 'wporg_workshop', 'course', 'lesson' );
+			$learn_content_types = array( 'lesson-plan', 'wporg_workshop', 'course', 'lesson', 'activity_kit' );
 
 			// Grant `edit_any_learn_content` when the user has `edit_posts` for any of our custom post types.
 			foreach ( $learn_content_types as $post_type ) {

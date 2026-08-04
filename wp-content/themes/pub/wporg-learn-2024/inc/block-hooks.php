@@ -14,6 +14,7 @@ add_filter( 'render_block_data', __NAMESPACE__ . '\modify_course_outline_lesson_
 add_filter( 'render_block_sensei-lms/course-outline', __NAMESPACE__ . '\update_course_outline_block_add_aria' );
 add_filter( 'render_block_sensei-lms/course-theme-notices', __NAMESPACE__ . '\update_lesson_quiz_notice_text' );
 add_filter( 'render_block_sensei-lms/quiz-actions', __NAMESPACE__ . '\update_quiz_actions' );
+add_filter( 'render_block_core/template-part', __NAMESPACE__ . '\replace_card_with_activity_kit_card', 10, 2 );
 
 /**
  * Update header template based on current query.
@@ -53,10 +54,10 @@ function modify_course_outline_lesson_block_attrs( $parsed_block ) {
 	}
 
 	$lesson_id = $parsed_block['attrs']['id'];
-	$classes = array();
+	$classes   = array();
 	$classes[] = $parsed_block['attrs']['className'] ?? '';
 
-	$status = 'not-started';
+	$status        = 'not-started';
 	$lesson_status = Sensei_Utils::user_lesson_status( $lesson_id );
 	if ( $lesson_status ) {
 		$status = $lesson_status->comment_approved;
@@ -95,7 +96,7 @@ function update_course_outline_block_add_aria( $block_content ) {
 	while ( $html->next_tag( array( 'class_name' => 'wp-block-sensei-lms-course-outline-lesson' ) ) ) {
 		if ( $html->has_class( 'is-complete' ) || $html->has_class( 'is-passed' ) ) {
 			$label = __( 'Completed', 'wporg-learn' );
-		} else if ( $html->has_class( 'is-in-progress' ) ) {
+		} elseif ( $html->has_class( 'is-in-progress' ) ) {
 			$label = __( 'In progress', 'wporg-learn' );
 		} else {
 			$label = __( 'Not started', 'wporg-learn' );
@@ -149,17 +150,19 @@ function update_lesson_quiz_notice_text( $block_content ) {
  */
 function update_quiz_actions( $block_content ) {
 	if ( is_singular( 'quiz' ) && is_quiz_ungraded() ) {
-		$lesson_id = Sensei()->quiz->get_lesson_id();
+		$lesson_id   = Sensei()->quiz->get_lesson_id();
 		$lesson_link = get_permalink( $lesson_id );
 
 		// Add a new button to go back to the lesson.
-		$new_button_block = do_blocks( '
+		$new_button_block = do_blocks(
+			'
 			<!-- wp:button {"className":"has-text-align-center is-style-fill","fontSize":"normal","fontFamily":"inter"} -->
 			<div class="wp-block-button has-custom-font-size has-text-align-center is-style-fill has-inter-font-family has-normal-font-size">
 				<a class="wp-block-button__link wp-element-button" style="font-weight:600;line-height:1;outline:unset" href="' . esc_attr( $lesson_link ) . '">' . esc_html__( 'Back to lesson', 'wporg-learn' ) . '</a>
 			</div>
 			<!-- /wp:button -->
-		');
+		'
+		);
 
 		$block_content = str_replace(
 			'<div class="sensei-quiz-actions-secondary">',
@@ -169,6 +172,114 @@ function update_quiz_actions( $block_content ) {
 	}
 
 	return $block_content;
+}
+
+/**
+ * Replace the generic card template part with the activity kit card when the
+ * current post in the loop is an activity_kit.
+ *
+ * This ensures that search results pages (which use the generic `card` template
+ * part) render the same card component as the activity library archive grid.
+ *
+ * @param string $block_content The rendered block HTML.
+ * @param array  $parsed_block  The parsed block data.
+ * @return string The (possibly replaced) block HTML.
+ */
+function replace_card_with_activity_kit_card( $block_content, $parsed_block ) {
+	if ( ( $parsed_block['attrs']['slug'] ?? '' ) !== 'card' ) {
+		return $block_content;
+	}
+
+	global $post;
+	if ( ! $post || 'activity_kit' !== $post->post_type ) {
+		return $block_content;
+	}
+
+	$kit_post_id = $post->ID;
+	$kit_title   = get_the_title( $kit_post_id );
+	$permalink   = get_permalink( $kit_post_id );
+	$excerpt     = get_the_excerpt( $post );
+	$duration    = get_post_meta( $kit_post_id, '_activity_duration', true );
+	$zip_id      = (int) get_post_meta( $kit_post_id, '_activity_zip_id', true );
+	$zip_url     = $zip_id ? wp_get_attachment_url( $zip_id ) : '';
+
+	$level_terms = wp_get_post_terms( $kit_post_id, 'level', array( 'fields' => 'names' ) );
+	$level_name  = ! is_wp_error( $level_terms ) && ! empty( $level_terms ) ? $level_terms[0] : '';
+
+	$thumbnail_html = '';
+	if ( has_post_thumbnail( $kit_post_id ) ) {
+		$thumbnail_html = get_the_post_thumbnail(
+			$kit_post_id,
+			'medium',
+			array(
+				'style' => 'width:100%;height:100%;object-fit:cover;',
+				'alt'   => esc_attr( $kit_title ),
+			)
+		);
+	}
+
+	ob_start();
+	?>
+	<div class="wporg-activity-kit-card">
+		<div class="wporg-activity-kit-card__image">
+			<?php if ( $thumbnail_html ) : ?>
+				<a href="<?php echo esc_url( $permalink ); ?>" tabindex="-1" aria-hidden="true">
+					<?php echo $thumbnail_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Thumbnail HTML built by WordPress. ?>
+				</a>
+			<?php else : ?>
+				<div class="wporg-activity-kit-card__image-placeholder"></div>
+			<?php endif; ?>
+		</div>
+
+		<div class="wporg-activity-kit-card__body">
+			<h2 class="wporg-activity-kit-card__title">
+				<a href="<?php echo esc_url( $permalink ); ?>"><?php echo esc_html( $kit_title ); ?></a>
+			</h2>
+
+			<?php if ( $excerpt ) : ?>
+				<p class="wporg-activity-kit-card__excerpt">
+					<?php echo esc_html( $excerpt ); ?>
+				</p>
+			<?php endif; ?>
+
+			<?php if ( $duration || $level_name ) : ?>
+				<div class="wporg-activity-kit-card__meta">
+					<?php if ( $duration ) : ?>
+						<span class="wporg-activity-kit-card__duration">
+							<?php
+							if ( ctype_digit( (string) $duration ) ) {
+								/* translators: %d: number of minutes */
+								echo esc_html( sprintf( __( '%d mins', 'wporg-learn' ), (int) $duration ) );
+							} else {
+								echo esc_html( $duration );
+							}
+							?>
+						</span>
+					<?php endif; ?>
+					<?php if ( $level_name ) : ?>
+						<span class="wporg-activity-kit-card__level"><?php echo esc_html( $level_name ); ?></span>
+					<?php endif; ?>
+				</div>
+			<?php endif; ?>
+
+			<div class="wporg-activity-kit-card__actions">
+				<a class="wporg-activity-kit-card__view-btn"
+					href="<?php echo esc_url( $permalink ); ?>">
+					<?php esc_html_e( 'View', 'wporg-learn' ); ?>
+				</a>
+				<?php if ( $zip_url ) : ?>
+					<a class="wporg-activity-kit-card__download-btn"
+						href="<?php echo esc_url( $zip_url ); ?>"
+						data-post-id="<?php echo absint( $kit_post_id ); ?>"
+						data-track-download="1">
+						<?php esc_html_e( 'Download ↓', 'wporg-learn' ); ?>
+					</a>
+				<?php endif; ?>
+			</div>
+		</div>
+	</div>
+	<?php
+	return ob_get_clean();
 }
 
 /**
@@ -182,7 +293,7 @@ function is_quiz_ungraded() {
 	if ( ! $quiz_id ) {
 		return false;
 	}
-	$user_id   = get_current_user_id();
+	$user_id       = get_current_user_id();
 	$quiz_progress = Sensei()->quiz_progress_repository->get( $quiz_id, $user_id );
 
 	if ( $quiz_progress && 'ungraded' === $quiz_progress->get_status() ) {

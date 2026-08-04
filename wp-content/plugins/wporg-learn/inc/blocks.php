@@ -24,6 +24,8 @@ require_once get_views_path() . 'block-lesson-count.php';
  * Actions and filters.
  */
 add_action( 'init', __NAMESPACE__ . '\register_types' );
+add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\enqueue_activity_kit_editor_assets' );
+add_filter( 'query_loop_block_query_vars', __NAMESPACE__ . '\activity_kit_query_vars', 10, 2 );
 
 /**
  * Register block types.
@@ -39,6 +41,7 @@ function register_types() {
 	register_lesson_plan_details();
 	register_workshop_details();
 	register_workshop_application_form();
+	register_activity_kit_card();
 }
 
 /**
@@ -455,4 +458,74 @@ function register_course_status() {
 			},
 		)
 	);
+}
+
+/**
+ * Register the Activity Kit Card block.
+ */
+function register_activity_kit_card() {
+	register_block_type(
+		get_js_path() . 'activity-kit-card/',
+		array(
+			'render_callback' => function ( $attributes, $content, $block ) {
+				ob_start();
+				require get_views_path() . 'block-activity-kit-card.php';
+				return ob_get_clean();
+			},
+		)
+	);
+}
+
+/**
+ * Enqueue editor assets for the Activity Kit sidebar panel and query variation.
+ * The sidebar panel is enqueued only when editing activity_kit posts.
+ */
+function enqueue_activity_kit_editor_assets() {
+	global $typenow;
+
+	// Query variation: enqueue for all post types so it appears in the block inserter.
+	$variation_asset_path = get_build_path() . 'query-activity-kits.asset.php';
+	if ( is_readable( $variation_asset_path ) ) {
+		$variation_asset = require $variation_asset_path;
+		wp_enqueue_script(
+			'query-activity-kits',
+			get_build_url() . 'query-activity-kits.js',
+			$variation_asset['dependencies'],
+			$variation_asset['version'],
+			true
+		);
+	}
+
+	// Sidebar panel: only on activity_kit post edit screens.
+	if ( 'activity_kit' !== $typenow ) {
+		return;
+	}
+
+	$sidebar_asset_path = get_build_path() . 'activity-kit-sidebar.asset.php';
+	if ( ! is_readable( $sidebar_asset_path ) ) {
+		return;
+	}
+
+	$sidebar_asset = require $sidebar_asset_path;
+	wp_enqueue_script(
+		'activity-kit-sidebar',
+		get_build_url() . 'activity-kit-sidebar.js',
+		$sidebar_asset['dependencies'],
+		$sidebar_asset['version'],
+		true
+	);
+}
+
+/**
+ * Map the wporg/activity-kits query variation namespace to the activity_kit post type.
+ *
+ * @param array     $query
+ * @param \WP_Block $block
+ * @return array
+ */
+function activity_kit_query_vars( $query, $block ) {
+	if ( isset( $block->context['query']['namespace'] ) && 'wporg/activity-kits' === $block->context['query']['namespace'] ) {
+		$query['post_type'] = 'activity_kit';
+	}
+	return $query;
 }

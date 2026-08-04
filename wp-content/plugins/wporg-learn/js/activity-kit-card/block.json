@@ -1,0 +1,17 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "wporg/activity-kit-card",
+	"version": "0.1.0",
+	"title": "Activity Kit Card",
+	"category": "wporg-learn",
+	"description": "Displays a single activity kit as a card.",
+	"parent": [ "core/post-template" ],
+	"usesContext": [ "postId", "postType" ],
+	"attributes": {},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "wporg-learn",
+	"editorScript": "file:../../build/activity-kit-card.js"
+}

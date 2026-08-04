@@ -10,6 +10,9 @@ use function WPOrg_Learn\Post_Meta\{get_available_post_type_locales};
 
 add_filter( 'wporg_query_filter_options_content_type', __NAMESPACE__ . '\get_content_type_options' );
 
+add_filter( 'wporg_query_filter_options_activity_kit_topic', __NAMESPACE__ . '\get_activity_kit_topic_options' );
+add_filter( 'wporg_query_filter_options_activity_kit_level', __NAMESPACE__ . '\get_activity_kit_level_options' );
+
 add_filter( 'wporg_query_filter_options_language', __NAMESPACE__ . '\get_language_options' );
 add_filter( 'wporg_query_filter_options_archive_language', __NAMESPACE__ . '\get_language_options_by_post_type' );
 
@@ -49,21 +52,22 @@ function get_content_type_options( $options ) {
 	global $wp_query;
 
 	$options = array(
-		'any' => __( 'Any', 'wporg-learn' ),
-		'course' => __( 'Course', 'wporg-learn' ),
-		'lesson' => __( 'Lesson', 'wporg-learn' ),
+		'any'          => __( 'Any', 'wporg-learn' ),
+		'course'       => __( 'Course', 'wporg-learn' ),
+		'lesson'       => __( 'Lesson', 'wporg-learn' ),
+		'activity_kit' => __( 'Activity Kit', 'wporg-learn' ),
 	);
 
-	$post_type = $wp_query->get( 'post_type' );
+	$post_type     = $wp_query->get( 'post_type' );
 	$selected_slug = is_string( $post_type ) ? $post_type : 'any';
-	$label = $options[ $selected_slug ] ?? $options['any'];
+	$label         = $options[ $selected_slug ] ?? $options['any'];
 
 	return array(
-		'label' => sprintf( __( 'Type: %s', 'wporg-learn' ), $label ),
-		'title' => __( 'Content type', 'wporg-learn' ),
-		'key' => 'post_type',
-		'action' => get_filtered_url(),
-		'options' => $options,
+		'label'    => sprintf( __( 'Type: %s', 'wporg-learn' ), $label ),
+		'title'    => __( 'Content type', 'wporg-learn' ),
+		'key'      => 'post_type',
+		'action'   => get_filtered_url(),
+		'options'  => $options,
 		'selected' => array( $selected_slug ),
 	);
 }
@@ -109,18 +113,18 @@ function create_level_options( $levels ) {
 		$selected_level = wp_list_filter( $levels, array( 'slug' => $selected_slug ) );
 		if ( ! empty( $selected_level ) ) {
 			$selected_level = array_shift( $selected_level );
-			$label = $selected_level->name;
+			$label          = $selected_level->name;
 		}
 	} else {
 		$selected_slug = 'all';
 	}
 
 	return array(
-		'label' => sprintf( __( 'Level: %s', 'wporg-learn' ), $label ),
-		'title' => __( 'Level', 'wporg-learn' ),
-		'key' => 'wporg_lesson_level',
-		'action' => get_filtered_url(),
-		'options' => array_combine( wp_list_pluck( $levels, 'slug' ), wp_list_pluck( $levels, 'name' ) ),
+		'label'    => sprintf( __( 'Level: %s', 'wporg-learn' ), $label ),
+		'title'    => __( 'Level', 'wporg-learn' ),
+		'key'      => 'wporg_lesson_level',
+		'action'   => get_filtered_url(),
+		'options'  => array_combine( wp_list_pluck( $levels, 'slug' ), wp_list_pluck( $levels, 'name' ) ),
 		'selected' => array( $selected_slug ),
 	);
 }
@@ -142,18 +146,18 @@ function get_level_options_by_post_type( $options ) {
 	// Get top 10 levels ordered by count, not empty, filtered by post_type.
 	$object_ids = get_posts(
 		array(
-			'post_type' => $wp_query->query_vars['post_type'],
-			'fields' => 'ids',
+			'post_type'      => $wp_query->query_vars['post_type'],
+			'fields'         => 'ids',
 			'posts_per_page' => -1,
-			'post_status' => 'publish',
+			'post_status'    => 'publish',
 		)
 	);
-	$levels = get_terms(
+	$levels     = get_terms(
 		array(
-			'taxonomy' => 'level',
-			'orderby' => 'count',
-			'order' => 'DESC',
-			'number' => 10,
+			'taxonomy'   => 'level',
+			'orderby'    => 'count',
+			'order'      => 'DESC',
+			'number'     => 10,
 			'hide_empty' => true,
 			'object_ids' => $object_ids,
 		)
@@ -173,10 +177,10 @@ function get_level_options( $options ) {
 	// Get top 10 levels ordered by count, not empty.
 	$levels = get_terms(
 		array(
-			'taxonomy' => 'level',
-			'orderby' => 'count',
-			'order' => 'DESC',
-			'number' => 10,
+			'taxonomy'   => 'level',
+			'orderby'    => 'count',
+			'order'      => 'DESC',
+			'number'     => 10,
 			'hide_empty' => true,
 		)
 	);
@@ -200,25 +204,25 @@ function get_learning_pathway_level_options( $options ) {
 	// Get top 10 levels ordered by count, not empty, filtered by post_type.
 	$object_ids = get_posts(
 		array(
-			'fields' => 'ids',
+			'fields'         => 'ids',
 			'posts_per_page' => -1,
-			'post_status' => 'publish',
-			'post_type' => 'course',
-			'tax_query' => array(
+			'post_status'    => 'publish',
+			'post_type'      => 'course',
+			'tax_query'      => array(
 				array(
 					'taxonomy' => 'learning-pathway',
-					'field' => 'slug',
-					'terms' => $wp_query->query_vars['wporg_learning_pathway'],
+					'field'    => 'slug',
+					'terms'    => $wp_query->query_vars['wporg_learning_pathway'],
 				),
 			),
 		)
 	);
-	$levels = get_terms(
+	$levels     = get_terms(
 		array(
-			'taxonomy' => 'level',
-			'orderby' => 'count',
-			'order' => 'DESC',
-			'number' => 10,
+			'taxonomy'   => 'level',
+			'orderby'    => 'count',
+			'order'      => 'DESC',
+			'number'     => 10,
 			'hide_empty' => true,
 			'object_ids' => $object_ids,
 		)
@@ -250,19 +254,19 @@ function create_topic_options( $topics ) {
 	);
 
 	$selected = isset( $wp_query->query['wporg_workshop_topic'] ) ? (array) $wp_query->query['wporg_workshop_topic'] : array();
-	$count = count( $selected );
-	$label = sprintf(
+	$count    = count( $selected );
+	$label    = sprintf(
 		/* translators: The dropdown label for filtering, %s is the selected term count. */
 		_n( 'Topic <span>%s</span>', 'Topic <span>%s</span>', $count, 'wporg-learn' ),
 		$count
 	);
 
 	return array(
-		'label' => $label,
-		'title' => __( 'Filter', 'wporg-learn' ),
-		'key' => 'wporg_workshop_topic',
-		'action' => get_filtered_url(),
-		'options' => array_combine( wp_list_pluck( $topics, 'slug' ), wp_list_pluck( $topics, 'name' ) ),
+		'label'    => $label,
+		'title'    => __( 'Filter', 'wporg-learn' ),
+		'key'      => 'wporg_workshop_topic',
+		'action'   => get_filtered_url(),
+		'options'  => array_combine( wp_list_pluck( $topics, 'slug' ), wp_list_pluck( $topics, 'name' ) ),
 		'selected' => $selected,
 	);
 }
@@ -282,18 +286,20 @@ function get_topic_options_by_post_type( $options ) {
 	}
 
 	// Get top 20 topics ordered by count, not empty, filtered by post_type.
-	$object_ids = get_posts( array(
-		'fields' => 'ids',
-		'posts_per_page' => -1,
-		'post_status' => 'publish',
-		'post_type' => $wp_query->query_vars['post_type'],
-	) );
-	$topics = get_terms(
+	$object_ids = get_posts(
 		array(
-			'taxonomy' => 'topic',
-			'orderby' => 'count',
-			'order' => 'DESC',
-			'number' => 20,
+			'fields'         => 'ids',
+			'posts_per_page' => -1,
+			'post_status'    => 'publish',
+			'post_type'      => $wp_query->query_vars['post_type'],
+		)
+	);
+	$topics     = get_terms(
+		array(
+			'taxonomy'   => 'topic',
+			'orderby'    => 'count',
+			'order'      => 'DESC',
+			'number'     => 20,
 			'hide_empty' => true,
 			'object_ids' => $object_ids,
 		)
@@ -313,10 +319,10 @@ function get_topic_options( $options ) {
 	// Get top 20 topics ordered by count, not empty.
 	$topics = get_terms(
 		array(
-			'taxonomy' => 'topic',
-			'orderby' => 'count',
-			'order' => 'DESC',
-			'number' => 20,
+			'taxonomy'   => 'topic',
+			'orderby'    => 'count',
+			'order'      => 'DESC',
+			'number'     => 20,
 			'hide_empty' => true,
 		)
 	);
@@ -340,25 +346,25 @@ function get_learning_pathway_topic_options( $options ) {
 	// Get top 20 topics ordered by count, not empty, filtered by post_type.
 	$object_ids = get_posts(
 		array(
-			'fields' => 'ids',
+			'fields'         => 'ids',
 			'posts_per_page' => -1,
-			'post_status' => 'publish',
-			'post_type' => 'course',
-			'tax_query' => array(
+			'post_status'    => 'publish',
+			'post_type'      => 'course',
+			'tax_query'      => array(
 				array(
 					'taxonomy' => 'learning-pathway',
-					'field' => 'slug',
-					'terms' => $wp_query->query_vars['wporg_learning_pathway'],
+					'field'    => 'slug',
+					'terms'    => $wp_query->query_vars['wporg_learning_pathway'],
 				),
 			),
 		)
 	);
-	$topics = get_terms(
+	$topics     = get_terms(
 		array(
-			'taxonomy' => 'topic',
-			'orderby' => 'count',
-			'order' => 'DESC',
-			'number' => 20,
+			'taxonomy'   => 'topic',
+			'orderby'    => 'count',
+			'order'      => 'DESC',
+			'number'     => 20,
 			'hide_empty' => true,
 			'object_ids' => $object_ids,
 		)
@@ -431,19 +437,19 @@ function create_language_options( $languages ) {
 	}
 
 	$selected = get_meta_query_values_by_key( $wp_query, 'language' );
-	$count = count( $selected );
-	$label = sprintf(
+	$count    = count( $selected );
+	$label    = sprintf(
 		/* translators: The dropdown label for filtering, %s is the selected term count. */
 		_n( 'Language <span>%s</span>', 'Language <span>%s</span>', $count, 'wporg-learn' ),
 		$count
 	);
 
 	return array(
-		'label' => $label,
-		'title' => __( 'Filter', 'wporg-learn' ),
-		'key' => 'language',
-		'action' => get_filtered_url(),
-		'options' => $languages,
+		'label'    => $label,
+		'title'    => __( 'Filter', 'wporg-learn' ),
+		'key'      => 'language',
+		'action'   => get_filtered_url(),
+		'options'  => $languages,
 		'selected' => $selected,
 	);
 }
@@ -520,20 +526,20 @@ function get_student_course_options( $options ) {
 	$key = get_student_course_filter_query_var_name();
 
 	$options = array(
-		'all' => __( 'All', 'wporg-learn' ),
-		'active' => __( 'Active', 'wporg-learn' ),
+		'all'       => __( 'All', 'wporg-learn' ),
+		'active'    => __( 'Active', 'wporg-learn' ),
 		'completed' => __( 'Completed', 'wporg-learn' ),
 	);
 
 	$selected_slug = $wp_query->get( $key ) ? $wp_query->get( $key ) : 'all';
-	$label = $options[ $selected_slug ] ?? $options['all'];
+	$label         = $options[ $selected_slug ] ?? $options['all'];
 
 	return array(
-		'label' => sprintf( __( 'Status: %s', 'wporg-learn' ), $label ),
-		'title' => __( 'Completion status', 'wporg-learn' ),
-		'key' => $key,
-		'action' => get_filtered_url(),
-		'options' => $options,
+		'label'    => sprintf( __( 'Status: %s', 'wporg-learn' ), $label ),
+		'title'    => __( 'Completion status', 'wporg-learn' ),
+		'key'      => $key,
+		'action'   => get_filtered_url(),
+		'options'  => $options,
 		'selected' => array( $selected_slug ),
 	);
 }
@@ -550,7 +556,7 @@ function get_student_course_options( $options ) {
 function inject_other_filters( $key ) {
 	global $wp_query;
 
-	$single_query_vars = array( 'wporg_lesson_level', 'wporg_learning_pathway', 'post_type' );
+	$single_query_vars = array( 'wporg_lesson_level', 'wporg_learning_pathway', 'post_type', 'level' );
 	foreach ( $single_query_vars as $single_query_var ) {
 		if ( ! isset( $wp_query->query[ $single_query_var ] ) ) {
 			continue;
@@ -565,7 +571,7 @@ function inject_other_filters( $key ) {
 		printf( '<input type="hidden" name="%s" value="%s" />', esc_attr( $single_query_var ), esc_attr( $value ) );
 	}
 
-	$multi_query_vars = array( 'wporg_workshop_topic' );
+	$multi_query_vars = array( 'wporg_workshop_topic', 'topic' );
 	foreach ( $multi_query_vars as $multi_query_var ) {
 		if ( ! isset( $wp_query->query[ $multi_query_var ] ) ) {
 			continue;
@@ -638,4 +644,114 @@ function modify_course_query( $query ) {
 	}
 
 	return $query;
+}
+
+/**
+ * Get topic filter options for the Activity Kit archive.
+ *
+ * @return array
+ */
+function get_activity_kit_topic_options() {
+	$terms = get_terms(
+		array(
+			'taxonomy'   => 'topic',
+			'object_ids' => get_posts(
+				array(
+					'post_type'      => 'activity_kit',
+					'post_status'    => 'publish',
+					'posts_per_page' => -1,
+					'fields'         => 'ids',
+				)
+			),
+			'hide_empty' => true,
+			'number'     => 20,
+			'orderby'    => 'count',
+			'order'      => 'DESC',
+		)
+	);
+
+	if ( is_wp_error( $terms ) || count( $terms ) < 2 ) {
+		return array();
+	}
+
+	usort(
+		$terms,
+		function ( $a, $b ) {
+			return strcmp( strtolower( $a->name ), strtolower( $b->name ) );
+		}
+	);
+
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	$selected = isset( $_GET['topic'] ) ? array_map( 'sanitize_text_field', (array) wp_unslash( $_GET['topic'] ) ) : array();
+	$count    = count( $selected );
+	$label    = $count
+		? sprintf( _n( 'Topic <span>%s</span>', 'Topic <span>%s</span>', $count, 'wporg-learn' ), $count )
+		: __( 'Topic', 'wporg-learn' );
+
+	return array(
+		'label'    => $label,
+		'title'    => __( 'Topic', 'wporg-learn' ),
+		'key'      => 'topic',
+		'action'   => get_filtered_url(),
+		'options'  => array_combine(
+			wp_list_pluck( $terms, 'slug' ),
+			wp_list_pluck( $terms, 'name' )
+		),
+		'selected' => $selected,
+	);
+}
+
+/**
+ * Get level filter options for the Activity Kit archive.
+ *
+ * @return array
+ */
+function get_activity_kit_level_options() {
+	$terms = get_terms(
+		array(
+			'taxonomy'   => 'level',
+			'object_ids' => get_posts(
+				array(
+					'post_type'      => 'activity_kit',
+					'post_status'    => 'publish',
+					'posts_per_page' => -1,
+					'fields'         => 'ids',
+				)
+			),
+			'hide_empty' => true,
+			'orderby'    => 'name',
+			'order'      => 'ASC',
+		)
+	);
+
+	if ( is_wp_error( $terms ) || empty( $terms ) ) {
+		return array();
+	}
+
+	$all_levels = array_merge(
+		array(
+			(object) array(
+				'slug' => 'all',
+				'name' => __( 'All', 'wporg-learn' ),
+			),
+		),
+		$terms
+	);
+
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	$selected_slug  = isset( $_GET['level'] ) ? sanitize_text_field( wp_unslash( $_GET['level'] ) ) : 'all';
+	$matching       = wp_list_filter( $all_levels, array( 'slug' => $selected_slug ) );
+	$selected_label = ! empty( $matching ) ? reset( $matching )->name : __( 'All', 'wporg-learn' );
+
+	return array(
+		'label'    => sprintf( __( 'Level: %s', 'wporg-learn' ), $selected_label ),
+		'title'    => __( 'Level', 'wporg-learn' ),
+		'key'      => 'level',
+		'action'   => get_filtered_url(),
+		'options'  => array_combine(
+			wp_list_pluck( $all_levels, 'slug' ),
+			wp_list_pluck( $all_levels, 'name' )
+		),
+		'selected' => array( $selected_slug ),
+	);
 }

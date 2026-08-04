@@ -261,6 +261,9 @@ add_action( 'sensei_reports_overview_before_top_filters', __NAMESPACE__ . '\wpor
  * Redirect requests for the "My Courses" page to the login page and back, if logged out.
  */
 function restrict_my_courses_page_access() {
+	if ( ! function_exists( 'Sensei' ) ) {
+		return;
+	}
 	if ( ! is_user_logged_in() && is_page( Sensei()->settings->get_my_courses_page_id() ) ) {
 		$redirect_to = wp_unslash( $_GET['redirect_to'] ?? '' ) ?: sensei_get_current_page_url();
 

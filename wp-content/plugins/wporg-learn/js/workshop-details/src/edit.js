@@ -12,10 +12,7 @@ export default function Edit( { clientId } ) {
 		'wporg_workshop',
 		useGetCurrentPostType(),
 		useIsBlockInSidebar( clientId, 'wporg-learn-workshops' ),
-		__(
-			'This will be dynamically populated based on settings in the Workshop Details meta box.',
-			'wporg-learn'
-		)
+		__( 'This will be dynamically populated based on settings in the Workshop Details meta box.', 'wporg-learn' )
 	);
 
 	return (
