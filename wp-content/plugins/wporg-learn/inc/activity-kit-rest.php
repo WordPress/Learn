@@ -107,8 +107,6 @@ function handle_stats( $request ) {
 	$downloads_map = array();
 
 	if ( ! $jetpack_unavailable ) {
-		// Shorten the Jetpack stats cache for this dashboard request only, so it
-		// doesn't affect other Jetpack Stats consumers site-wide.
 		add_filter( 'jetpack_fetch_stats_cache_expiration', __NAMESPACE__ . '\stats_cache_expiration' );
 
 		if ( 'both' === $metric || 'views' === $metric ) {
@@ -117,6 +115,8 @@ function handle_stats( $request ) {
 		if ( 'both' === $metric || 'downloads' === $metric ) {
 			$downloads_map = get_jetpack_download_clicks( $range, $zip_url_map );
 		}
+
+		remove_filter( 'jetpack_fetch_stats_cache_expiration', __NAMESPACE__ . '\stats_cache_expiration' );
 	}
 
 	$results = array();
