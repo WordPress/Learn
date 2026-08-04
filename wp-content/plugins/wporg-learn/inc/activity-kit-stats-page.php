@@ -24,14 +24,6 @@ function enqueue_scripts( $hook ) {
 		return;
 	}
 
-	wp_enqueue_script(
-		'chartjs',
-		'https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js',
-		array(),
-		'4.4.0',
-		true
-	);
-
 	$script_asset_path = \WPOrg_Learn\get_build_path() . 'activity-kit-stats.asset.php';
 	if ( ! is_readable( $script_asset_path ) ) {
 		return;
@@ -41,7 +33,7 @@ function enqueue_scripts( $hook ) {
 	wp_enqueue_script(
 		'activity-kit-stats',
 		\WPOrg_Learn\get_build_url() . 'activity-kit-stats.js',
-		array_merge( array( 'chartjs' ), $script_asset['dependencies'] ),
+		$script_asset['dependencies'],
 		$script_asset['version'],
 		true
 	);

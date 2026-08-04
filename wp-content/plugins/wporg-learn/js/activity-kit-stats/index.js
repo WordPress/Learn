@@ -1,30 +1,28 @@
-/* global activityKitStats, Chart */
+import { Chart } from 'chart.js/auto';
 
-( function () {
-	const { restUrl, nonce, jetpackAvailable } = activityKitStats;
+/* global activityKitStats */
 
-	// ── Constants ──
-	const CHART_PAGE = 8;
+const { restUrl, nonce, jetpackAvailable } = activityKitStats;
 
-	// ── State ──
-	let allData = [];
-	let chart = null;
-	let activeMetric = 'both';
-	let activeRange = 'all';
-	let activeKit = '';
-	let sortCol = 'views';
-	let sortDir = 'desc';
-	let chartOffset = 0;
+// ── Constants ──
+const CHART_PAGE = 8;
 
-	// ── DOM refs ──
-	const filterKit = document.getElementById( 'ak-filter-kit' );
-	const tableBody = document.getElementById( 'ak-stats-table-body' );
-	const chartCanvas = document.getElementById( 'ak-stats-chart' );
+// ── State ──
+let allData = [];
+let chart = null;
+let activeMetric = 'both';
+let activeRange = 'all';
+let activeKit = '';
+let sortCol = 'views';
+let sortDir = 'desc';
+let chartOffset = 0;
 
-	if ( ! filterKit || ! tableBody || ! chartCanvas ) {
-		return;
-	}
+// ── DOM refs ──
+const filterKit = document.getElementById( 'ak-filter-kit' );
+const tableBody = document.getElementById( 'ak-stats-table-body' );
+const chartCanvas = document.getElementById( 'ak-stats-chart' );
 
+if ( filterKit && tableBody && chartCanvas ) {
 	const summaryViews = document.getElementById( 'ak-summary-views' );
 	const summaryDownloads = document.getElementById( 'ak-summary-downloads' );
 	const summaryRate = document.getElementById( 'ak-summary-rate' );
@@ -68,14 +66,6 @@
 		} );
 	}
 
-	function escHtml( value ) {
-		return String( value )
-			.replace( /&/g, '&amp;' )
-			.replace( /</g, '&lt;' )
-			.replace( />/g, '&gt;' )
-			.replace( /"/g, '&quot;' );
-	}
-
 	function rangeLabel() {
 		const labels = {
 			'7d': 'Last 7 days',
@@ -91,6 +81,16 @@
 		views: 'Views',
 		downloads: 'Downloads',
 	};
+
+	// Creates a single full-width message row for the stats table.
+	function msgRow( text ) {
+		const tr = document.createElement( 'tr' );
+		const td = document.createElement( 'td' );
+		td.colSpan = 5;
+		td.textContent = text;
+		tr.appendChild( td );
+		return tr;
+	}
 
 	// ── Fetch ──
 	async function fetchStats() {
@@ -241,7 +241,7 @@
 	// ── Table ──
 	function renderTable( data ) {
 		if ( ! data.length ) {
-			tableBody.innerHTML = '<tr><td colspan="5">No data found.</td></tr>';
+			tableBody.replaceChildren( msgRow( 'No data found.' ) );
 			return;
 		}
 
@@ -304,18 +304,33 @@
 			const viewsClass = 'ak-col-number' + ( activeMetric === 'downloads' ? ' ak-hidden-col' : '' );
 			const dlClass = 'ak-col-number' + ( activeMetric === 'views' ? ' ak-hidden-col' : '' );
 
-			tableRow.innerHTML = `
-				<td><a href="#" data-slug="${ escHtml( row.slug ) }">${ escHtml( row.title ) }</a></td>
-				<td class="${ viewsClass }">${ fmt( views ) }</td>
-				<td class="${ dlClass }">${ fmt( downloads ) }</td>
-				<td class="ak-col-number">${ rate }</td>
-				<td>${ formatDate( row.updated ) }</td>
-			`;
-
-			tableRow.querySelector( 'a' ).addEventListener( 'click', ( event ) => {
+			const tdTitle = document.createElement( 'td' );
+			const link = document.createElement( 'a' );
+			link.href = '#';
+			link.dataset.slug = row.slug;
+			link.textContent = row.title;
+			link.addEventListener( 'click', ( event ) => {
 				event.preventDefault();
 				setKit( event.currentTarget.dataset.slug );
 			} );
+			tdTitle.appendChild( link );
+
+			const tdViews = document.createElement( 'td' );
+			tdViews.className = viewsClass;
+			tdViews.textContent = fmt( views );
+
+			const tdDl = document.createElement( 'td' );
+			tdDl.className = dlClass;
+			tdDl.textContent = fmt( downloads );
+
+			const tdRate = document.createElement( 'td' );
+			tdRate.className = 'ak-col-number';
+			tdRate.textContent = rate;
+
+			const tdUpdated = document.createElement( 'td' );
+			tdUpdated.textContent = formatDate( row.updated );
+
+			tableRow.append( tdTitle, tdViews, tdDl, tdRate, tdUpdated );
 			tableRow.addEventListener( 'click', ( event ) => {
 				if ( event.target.tagName !== 'A' ) {
 					setKit( row.slug );
@@ -385,12 +400,15 @@
 	// ── Main render ──
 	async function render() {
 		if ( ! jetpackAvailable ) {
-			tableBody.innerHTML =
-				'<tr><td colspan="5">Jetpack Stats is not connected. View and download counts require a Jetpack connection to WordPress.com.</td></tr>';
+			tableBody.replaceChildren(
+				msgRow(
+					'Jetpack Stats is not connected. View and download counts require a Jetpack connection to WordPress.com.'
+				)
+			);
 			return;
 		}
 
-		tableBody.innerHTML = '<tr><td colspan="5">Loading…</td></tr>';
+		tableBody.replaceChildren( msgRow( 'Loading…' ) );
 
 		try {
 			allData = await fetchStats();
@@ -400,7 +418,7 @@
 			renderChart( data );
 			renderTable( data );
 		} catch ( error ) {
-			tableBody.innerHTML = `<tr><td colspan="5">Error loading stats: ${ escHtml( error.message ) }</td></tr>`;
+			tableBody.replaceChildren( msgRow( 'Error loading stats: ' + error.message ) );
 		}
 	}
 
@@ -440,6 +458,13 @@
 	}
 
 	// ── Export CSV ──
+	function csvCell( value ) {
+		const str = String( value );
+		// Prefix formula trigger characters to prevent spreadsheet formula injection.
+		const safe = /^[=+\-@\t\r]/.test( str ) ? "'" + str : str;
+		return '"' + safe.replace( /"/g, '""' ) + '"';
+	}
+
 	function exportCSV() {
 		const data = activeKit ? allData.filter( ( row ) => row.slug === activeKit ) : allData;
 		const rows = [ [ 'Kit Name', 'Views', 'Downloads', 'Download Rate', 'Last Updated' ] ];
@@ -449,9 +474,7 @@
 			const rate = views > 0 ? ( ( downloads / views ) * 100 ).toFixed( 1 ) + '%' : '0%';
 			rows.push( [ row.title, views, downloads, rate, row.updated || '' ] );
 		} );
-		const csv = rows
-			.map( ( row ) => row.map( ( cell ) => `"${ String( cell ).replace( /"/g, '""' ) }"` ).join( ',' ) )
-			.join( '\n' );
+		const csv = rows.map( ( row ) => row.map( csvCell ).join( ',' ) ).join( '\n' );
 		const blob = new Blob( [ csv ], { type: 'text/csv' } );
 		const url = URL.createObjectURL( blob );
 		const a = document.createElement( 'a' );
@@ -526,4 +549,4 @@
 	// ── Init ──
 	initChart();
 	render();
-} )();
+}
