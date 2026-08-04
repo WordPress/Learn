@@ -84,12 +84,12 @@ if ( filterKit && tableBody && chartCanvas ) {
 
 	// Creates a single full-width message row for the stats table.
 	function msgRow( text ) {
-		const tr = document.createElement( 'tr' );
-		const td = document.createElement( 'td' );
-		td.colSpan = 5;
-		td.textContent = text;
-		tr.appendChild( td );
-		return tr;
+		const row = document.createElement( 'tr' );
+		const cell = document.createElement( 'td' );
+		cell.colSpan = 5;
+		cell.textContent = text;
+		row.appendChild( cell );
+		return row;
 	}
 
 	// ── Fetch ──
