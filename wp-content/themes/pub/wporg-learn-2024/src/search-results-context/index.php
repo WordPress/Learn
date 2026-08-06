@@ -58,9 +58,13 @@ function render( $attributes ) {
 
 	$wrapper_attributes = get_block_wrapper_attributes();
 
+	$tag_name = in_array( $attributes['tagName'], array( 'p', 'div', 'span' ), true )
+		? $attributes['tagName']
+		: 'p';
+
 	return sprintf(
 		'<%1$s %2$s>%3$s %4$s %5$s</%1$s>',
-		esc_attr( $attributes['tagName'] ),
+		tag_escape( $tag_name ),
 		$wrapper_attributes,
 		$content,
 		$filters,
