@@ -344,6 +344,10 @@ function add_site_navigation_menus( $menus ) {
 			'url'   => '/online-workshops/',
 		),
 		array(
+			'label' => __( 'Activity Library', 'wporg-learn' ),
+			'url'   => get_post_type_archive_link( 'activity_kit' ) ?: '/activity-library/',
+		),
+		array(
 			'label'     => __( 'My courses', 'wporg-learn' ),
 			'url'       => get_my_courses_page_url(),
 			'className' => 'has-separator',
