@@ -345,7 +345,7 @@ function add_site_navigation_menus( $menus ) {
 		),
 		array(
 			'label' => __( 'Activity Library', 'wporg-learn' ),
-			'url'   => '/activity-library/',
+			'url'   => get_post_type_archive_link( 'activity_kit' ) ?: '/activity-library/',
 		),
 		array(
 			'label'     => __( 'My courses', 'wporg-learn' ),
