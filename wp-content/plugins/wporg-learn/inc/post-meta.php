@@ -337,6 +337,32 @@ function sanitize_locale( $meta_value, $meta_key, $object_type, $object_subtype 
 }
 
 /**
+ * Sanitize an attachment ID, returning 0 when the attachment MIME type is not in the allowed list.
+ *
+ * Used as the sanitize_callback for activity kit attachment meta fields so that
+ * editors cannot save an arbitrary attachment ID that does not match the expected
+ * file type — even when bypassing the block-editor UI.
+ *
+ * @param mixed    $value         Raw meta value (expected integer attachment ID).
+ * @param string[] $allowed_mimes Allowed MIME types, e.g. array( 'application/pdf' ).
+ * @return int Validated attachment ID, or 0 if the ID is invalid or the MIME type is not allowed.
+ */
+function sanitize_attachment_id_by_mime( $value, array $allowed_mimes ) {
+	$id = absint( $value );
+	if ( ! $id ) {
+		return 0;
+	}
+
+	$mime = get_post_mime_type( $id );
+
+	if ( ! $mime || ! in_array( $mime, $allowed_mimes, true ) ) {
+		return 0;
+	}
+
+	return $id;
+}
+
+/**
  * Get the duration of a workshop in a specified format.
  *
  * @param WP_Post $workshop The workshop post to get the duration for.
@@ -999,7 +1025,9 @@ function register_activity_kit_meta() {
 			'type'              => 'integer',
 			'single'            => true,
 			'default'           => 0,
-			'sanitize_callback' => 'absint',
+			'sanitize_callback' => function ( $value ) {
+				return sanitize_attachment_id_by_mime( $value, array( 'application/pdf' ) );
+			},
 			'show_in_rest'      => true,
 			'auth_callback'     => $auth_callback,
 		)
@@ -1013,7 +1041,9 @@ function register_activity_kit_meta() {
 			'type'              => 'integer',
 			'single'            => true,
 			'default'           => 0,
-			'sanitize_callback' => 'absint',
+			'sanitize_callback' => function ( $value ) {
+				return sanitize_attachment_id_by_mime( $value, array( 'application/pdf' ) );
+			},
 			'show_in_rest'      => true,
 			'auth_callback'     => $auth_callback,
 		)
@@ -1027,7 +1057,9 @@ function register_activity_kit_meta() {
 			'type'              => 'integer',
 			'single'            => true,
 			'default'           => 0,
-			'sanitize_callback' => 'absint',
+			'sanitize_callback' => function ( $value ) {
+				return sanitize_attachment_id_by_mime( $value, array( 'application/zip', 'application/x-zip', 'application/x-zip-compressed' ) );
+			},
 			'show_in_rest'      => true,
 			'auth_callback'     => $auth_callback,
 		)
