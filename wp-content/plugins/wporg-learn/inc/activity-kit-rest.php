@@ -110,7 +110,8 @@ function handle_stats( $request ) {
 		add_filter( 'jetpack_fetch_stats_cache_expiration', __NAMESPACE__ . '\stats_cache_expiration' );
 
 		if ( 'both' === $metric || 'views' === $metric ) {
-			$views_map = get_jetpack_post_views( $range );
+			$kit_ids   = wp_list_pluck( $kits, 'ID' );
+			$views_map = get_jetpack_post_views( $range, $kit_ids );
 		}
 		if ( 'both' === $metric || 'downloads' === $metric ) {
 			$downloads_map = get_jetpack_download_clicks( $range, $zip_url_map );
@@ -155,11 +156,17 @@ function handle_stats( $request ) {
 /**
  * Get per-post view counts from Jetpack Stats for a given time range.
  *
- * @param string $range One of '7d', '30d', '90d', 'all'.
- * @return array        Map of post_id (int) => view_count (int). Empty on failure.
+ * Uses get_total_post_views() rather than get_top_posts() so that views are
+ * fetched by post ID directly. get_top_posts() only returns the site-wide top N
+ * posts ranked by all-time views, which means newly published activity kits
+ * never appear — they're outranked by years of established content.
+ *
+ * @param string $range   One of '7d', '30d', '90d', 'all'.
+ * @param int[]  $kit_ids Post IDs of the activity kits to fetch views for.
+ * @return array          Map of post_id (int) => view_count (int). Empty on failure.
  */
-function get_jetpack_post_views( $range ) {
-	if ( ! class_exists( '\Automattic\Jetpack\Stats\WPCOM_Stats' ) ) {
+function get_jetpack_post_views( $range, array $kit_ids ) {
+	if ( ! class_exists( '\Automattic\Jetpack\Stats\WPCOM_Stats' ) || empty( $kit_ids ) ) {
 		return array();
 	}
 
@@ -173,13 +180,12 @@ function get_jetpack_post_views( $range ) {
 		$num    = intval( str_replace( 'd', '', $range ) );
 	}
 
-	$result = $stats->get_top_posts(
+	$result = $stats->get_total_post_views(
 		array(
-			'period'    => $period,
-			'num'       => $num,
-			'date'      => gmdate( 'Y-m-d' ),
-			'summarize' => true,
-			'max'       => 1000,
+			'post_ids' => implode( ',', array_map( 'absint', $kit_ids ) ),
+			'period'   => $period,
+			'num'      => $num,
+			'date'     => gmdate( 'Y-m-d' ),
 		)
 	);
 
@@ -187,15 +193,16 @@ function get_jetpack_post_views( $range ) {
 		return array();
 	}
 
-	$post_views = isset( $result['summary']['postviews'] ) ? $result['summary']['postviews'] : array();
+	$post_views = isset( $result['posts'] ) ? $result['posts'] : array();
 	if ( ! is_array( $post_views ) ) {
 		return array();
 	}
 
 	$map = array();
 	foreach ( $post_views as $post_data ) {
-		if ( isset( $post_data['id'], $post_data['views'] ) ) {
-			$map[ (int) $post_data['id'] ] = (int) $post_data['views'];
+		// The views/posts API uses uppercase 'ID' (unlike top-posts which uses 'id').
+		if ( isset( $post_data['ID'], $post_data['views'] ) ) {
+			$map[ (int) $post_data['ID'] ] = (int) $post_data['views'];
 		}
 	}
 
