@@ -1046,4 +1046,17 @@ function register_activity_kit_meta() {
 			'auth_callback'     => $auth_callback,
 		)
 	);
+
+	register_post_meta(
+		'activity_kit',
+		'_activity_download_count',
+		array(
+			'description'       => __( 'Number of times this activity kit ZIP has been downloaded via the tracked download endpoint.', 'wporg-learn' ),
+			'type'              => 'integer',
+			'single'            => true,
+			'default'           => 0,
+			'sanitize_callback' => 'absint',
+			'show_in_rest'      => false,
+		)
+	);
 }
