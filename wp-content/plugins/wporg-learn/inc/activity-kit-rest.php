@@ -123,10 +123,16 @@ function handle_download( $request ) {
 	}
 
 	// Increment the download counter stored in post meta.
-	$current_count = (int) get_post_meta( $kit_post->ID, '_activity_download_count', true );
-	update_post_meta( $kit_post->ID, '_activity_download_count', $current_count + 1 );
+	// Use a compare-and-swap retry loop (update_post_meta's $prev_value arg) to avoid
+	// lost increments when two requests arrive simultaneously.
+	$retries = 0;
+	do {
+		$current_count = (int) get_post_meta( $kit_post->ID, '_activity_download_count', true );
+		$updated       = update_post_meta( $kit_post->ID, '_activity_download_count', $current_count + 1, $current_count );
+		$retries++;
+	} while ( ! $updated && $retries < 5 );
 
-	return new \WP_REST_Response( null, 302, array( 'Location' => $zip_url ) );
+	return new \WP_REST_Response( null, 302, array( 'Location' => esc_url_raw( $zip_url ) ) );
 }
 
 /**
@@ -175,17 +181,17 @@ function handle_stats( $request ) {
 			'updated' => get_the_modified_date( 'Y-m-d', $kit_post->ID ),
 		);
 
-		if ( $jetpack_unavailable ) {
-			$data['jetpack_unavailable'] = true;
-			$data['views']               = 0;
-			$data['downloads']           = 0;
-		} else {
-			if ( 'both' === $metric || 'views' === $metric ) {
+		// Views depend on Jetpack; downloads come from post meta regardless.
+		if ( 'both' === $metric || 'views' === $metric ) {
+			if ( $jetpack_unavailable ) {
+				$data['jetpack_unavailable'] = true;
+				$data['views']               = 0;
+			} else {
 				$data['views'] = $views_map[ $kit_post->ID ] ?? 0;
 			}
-			if ( 'both' === $metric || 'downloads' === $metric ) {
-				$data['downloads'] = (int) get_post_meta( $kit_post->ID, '_activity_download_count', true );
-			}
+		}
+		if ( 'both' === $metric || 'downloads' === $metric ) {
+			$data['downloads'] = (int) get_post_meta( $kit_post->ID, '_activity_download_count', true );
 		}
 
 		$results[] = $data;

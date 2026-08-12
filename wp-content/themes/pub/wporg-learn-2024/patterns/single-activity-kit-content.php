@@ -10,7 +10,6 @@
 $kit_id       = get_the_ID();
 $duration     = get_post_meta( $kit_id, '_activity_duration', true );
 $zip_id       = (int) get_post_meta( $kit_id, '_activity_zip_id', true );
-$zip_url      = $zip_id ? wp_get_attachment_url( $zip_id ) : '';
 // Use the server-side download endpoint so every click increments the post meta counter.
 $download_url = $zip_id ? rest_url( 'activity-kits/v1/download/' . get_post_field( 'post_name', $kit_id ) ) : '';
 

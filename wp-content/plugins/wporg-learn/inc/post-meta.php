@@ -1057,6 +1057,7 @@ function register_activity_kit_meta() {
 			'default'           => 0,
 			'sanitize_callback' => 'absint',
 			'show_in_rest'      => false,
+			'auth_callback'     => $auth_callback,
 		)
 	);
 }
