@@ -161,6 +161,15 @@ function handle_stats( $request ) {
  * posts ranked by all-time views, which means newly published activity kits
  * never appear — they're outranked by years of established content.
  *
+ * API constraints (Jetpack / WPCOM /stats/views/posts endpoint):
+ *   - `period` is silently discarded; only daily granularity is returned.
+ *   - `num` is capped at 30 days per call (422 if larger).
+ *   - `post_ids` accepts at most 100 IDs per call.
+ *
+ * To cover ranges longer than 30 days, multiple 30-day windows are issued with
+ * a date offset and the results are summed. Kit IDs are chunked into groups of
+ * 100 so the library can grow past 100 kits without silently losing data.
+ *
  * @param string $range   One of '7d', '30d', '90d', 'all'.
  * @param int[]  $kit_ids Post IDs of the activity kits to fetch views for.
  * @return array          Map of post_id (int) => view_count (int). Empty on failure.
@@ -172,37 +181,81 @@ function get_jetpack_post_views( $range, array $kit_ids ) {
 
 	$stats = new \Automattic\Jetpack\Stats\WPCOM_Stats();
 
-	if ( 'all' === $range ) {
-		$period = 'month';
-		$num    = 36;
-	} else {
-		$period = 'day';
-		$num    = intval( str_replace( 'd', '', $range ) );
+	/*
+	 * Map the UI range to one or more 30-day windows. Each window is defined by
+	 * how many days back its end-date is offset from today. The 'all' range is
+	 * capped at 90 days (3 × 30) — covering more would require an unreasonable
+	 * number of sequential API calls.
+	 */
+	switch ( $range ) {
+		case '7d':
+			$windows = array(
+				array(
+					'num'    => 7,
+					'offset' => 0,
+				),
+			);
+			break;
+		case '30d':
+			$windows = array(
+				array(
+					'num'    => 30,
+					'offset' => 0,
+				),
+			);
+			break;
+		case '90d':
+		case 'all':
+		default:
+			$windows = array(
+				array(
+					'num'    => 30,
+					'offset' => 0,
+				),
+				array(
+					'num'    => 30,
+					'offset' => 30,
+				),
+				array(
+					'num'    => 30,
+					'offset' => 60,
+				),
+			);
+			break;
 	}
 
-	$result = $stats->get_total_post_views(
-		array(
-			'post_ids' => implode( ',', array_map( 'absint', $kit_ids ) ),
-			'period'   => $period,
-			'num'      => $num,
-			'date'     => gmdate( 'Y-m-d' ),
-		)
-	);
+	$chunks = array_chunk( $kit_ids, 100 );
+	$map    = array();
 
-	if ( is_wp_error( $result ) || ! is_array( $result ) ) {
-		return array();
-	}
+	foreach ( $chunks as $chunk ) {
+		$post_ids_str = implode( ',', array_map( 'absint', $chunk ) );
 
-	$post_views = isset( $result['posts'] ) ? $result['posts'] : array();
-	if ( ! is_array( $post_views ) ) {
-		return array();
-	}
+		foreach ( $windows as $window ) {
+			$date   = gmdate( 'Y-m-d', time() - $window['offset'] * DAY_IN_SECONDS );
+			$result = $stats->get_total_post_views(
+				array(
+					'post_ids' => $post_ids_str,
+					'num'      => $window['num'],
+					'date'     => $date,
+				)
+			);
 
-	$map = array();
-	foreach ( $post_views as $post_data ) {
-		// The views/posts API uses uppercase 'ID' (unlike top-posts which uses 'id').
-		if ( isset( $post_data['ID'], $post_data['views'] ) ) {
-			$map[ (int) $post_data['ID'] ] = (int) $post_data['views'];
+			if ( is_wp_error( $result ) || ! is_array( $result ) ) {
+				continue;
+			}
+
+			$post_views = isset( $result['posts'] ) ? $result['posts'] : array();
+			if ( ! is_array( $post_views ) ) {
+				continue;
+			}
+
+			foreach ( $post_views as $post_data ) {
+				// The views/posts API uses uppercase 'ID' (unlike top-posts which uses 'id').
+				if ( isset( $post_data['ID'], $post_data['views'] ) ) {
+					$id         = (int) $post_data['ID'];
+					$map[ $id ] = ( isset( $map[ $id ] ) ? $map[ $id ] : 0 ) + (int) $post_data['views'];
+				}
+			}
 		}
 	}
 
