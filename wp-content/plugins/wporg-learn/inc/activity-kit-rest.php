@@ -169,6 +169,8 @@ function handle_stats( $request ) {
  * To cover ranges longer than 30 days, multiple 30-day windows are issued with
  * a date offset and the results are summed. Kit IDs are chunked into groups of
  * 100 so the library can grow past 100 kits without silently losing data.
+ * '90d' uses 3 windows (90 days); 'all' uses 6 windows (≈ 180 days) to give a
+ * meaningful distinction from the 90-day range.
  *
  * @param string $range   One of '7d', '30d', '90d', 'all'.
  * @param int[]  $kit_ids Post IDs of the activity kits to fetch views for.
@@ -183,9 +185,10 @@ function get_jetpack_post_views( $range, array $kit_ids ) {
 
 	/*
 	 * Map the UI range to one or more 30-day windows. Each window is defined by
-	 * how many days back its end-date is offset from today. The 'all' range is
-	 * capped at 90 days (3 × 30) — covering more would require an unreasonable
-	 * number of sequential API calls.
+	 * how many days back its end-date is offset from today. 'all' uses 6 windows
+	 * (≈ 6 months) rather than 3, giving a meaningful distinction from '90d'.
+	 * Extending further would multiply sequential API calls proportionally; 6 is
+	 * a reasonable ceiling for an admin-only dashboard with a small post count.
 	 */
 	switch ( $range ) {
 		case '7d':
@@ -205,6 +208,21 @@ function get_jetpack_post_views( $range, array $kit_ids ) {
 			);
 			break;
 		case '90d':
+			$windows = array(
+				array(
+					'num'    => 30,
+					'offset' => 0,
+				),
+				array(
+					'num'    => 30,
+					'offset' => 30,
+				),
+				array(
+					'num'    => 30,
+					'offset' => 60,
+				),
+			);
+			break;
 		case 'all':
 		default:
 			$windows = array(
@@ -219,6 +237,18 @@ function get_jetpack_post_views( $range, array $kit_ids ) {
 				array(
 					'num'    => 30,
 					'offset' => 60,
+				),
+				array(
+					'num'    => 30,
+					'offset' => 90,
+				),
+				array(
+					'num'    => 30,
+					'offset' => 120,
+				),
+				array(
+					'num'    => 30,
+					'offset' => 150,
 				),
 			);
 			break;

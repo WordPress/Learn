@@ -71,9 +71,12 @@ if ( filterKit && tableBody && chartCanvas ) {
 			'7d': 'Last 7 days',
 			'30d': 'Last 30 days',
 			'90d': 'Last 90 days',
-			all: 'All time',
+			// 'All time' covers ~6 months (6 × 30-day windows) — the WPCOM
+			// /stats/views/posts API caps each call at 30 days; see
+			// get_jetpack_post_views() in activity-kit-rest.php.
+			all: 'All time (max ~6 months)',
 		};
-		return labels[ activeRange ] || 'All time';
+		return labels[ activeRange ] || 'All time (max ~6 months)';
 	}
 
 	const metricLabel = {
@@ -118,7 +121,9 @@ if ( filterKit && tableBody && chartCanvas ) {
 		const isSingle = !! activeKit;
 		const totalV = data.reduce( ( sum, row ) => sum + ( row.views ?? 0 ), 0 );
 		const totalD = data.reduce( ( sum, row ) => sum + ( row.downloads ?? 0 ), 0 );
-		const rate = totalV > 0 ? ( ( totalD / totalV ) * 100 ).toFixed( 1 ) + '%' : '—';
+		// Downloads are an all-time cumulative counter; rate is only meaningful
+		// when views cover the same all-time window.
+		const rate = activeRange === 'all' && totalV > 0 ? ( ( totalD / totalV ) * 100 ).toFixed( 1 ) + '%' : '—';
 
 		if ( summaryViews ) {
 			summaryViews.textContent = fmt( totalV );
@@ -142,8 +147,9 @@ if ( filterKit && tableBody && chartCanvas ) {
 		if ( boxDownloads ) {
 			boxDownloads.style.display = activeMetric === 'views' ? 'none' : '';
 		}
+		// Rate is only valid when views cover the same window as the all-time download counter.
 		if ( boxRate ) {
-			boxRate.style.display = isSingle ? '' : 'none';
+			boxRate.style.display = isSingle && activeRange === 'all' ? '' : 'none';
 		}
 	}
 
@@ -294,7 +300,8 @@ if ( filterKit && tableBody && chartCanvas ) {
 		sorted.forEach( ( row ) => {
 			const views = row.views ?? 0;
 			const downloads = row.downloads ?? 0;
-			const rate = views > 0 ? ( ( downloads / views ) * 100 ).toFixed( 1 ) + '%' : '—';
+			// Suppress rate when views are range-scoped but downloads are all-time.
+			const rate = activeRange === 'all' && views > 0 ? ( ( downloads / views ) * 100 ).toFixed( 1 ) + '%' : '—';
 			const isSelected = row.slug === activeKit;
 			const tableRow = document.createElement( 'tr' );
 			if ( isSelected ) {
@@ -380,6 +387,22 @@ if ( filterKit && tableBody && chartCanvas ) {
 		}
 		if ( thDownloads ) {
 			thDownloads.classList.toggle( 'ak-hidden-col', activeMetric === 'views' );
+			// Label the column so admins know downloads are always all-time when a
+			// range-scoped view window is selected.
+			const arrow = thDownloads.querySelector( '.ak-sort-arrow' );
+			thDownloads.textContent = activeRange === 'all' ? 'Downloads' : 'Downloads (all time)';
+			if ( arrow ) {
+				thDownloads.appendChild( arrow );
+			}
+		}
+		// Mirror the same label on the summary box.
+		if ( summaryDownloads ) {
+			const dlLabel = summaryDownloads.closest( '.ak-summary-box' )
+				? summaryDownloads.closest( '.ak-summary-box' ).querySelector( '.ak-stat-label' )
+				: null;
+			if ( dlLabel ) {
+				dlLabel.textContent = activeRange === 'all' ? 'Total Downloads' : 'Total Downloads (all time)';
+			}
 		}
 
 		if ( backLinkBar ) {
@@ -467,11 +490,15 @@ if ( filterKit && tableBody && chartCanvas ) {
 
 	function exportCSV() {
 		const data = activeKit ? allData.filter( ( row ) => row.slug === activeKit ) : allData;
-		const rows = [ [ 'Kit Name', 'Views', 'Downloads', 'Download Rate', 'Last Updated' ] ];
+		// Downloads column header clarifies scope when views are range-filtered.
+		const dlHeader = activeRange === 'all' ? 'Downloads' : 'Downloads (all time)';
+		const rows = [ [ 'Kit Name', 'Views', dlHeader, 'Download Rate', 'Last Updated' ] ];
 		data.forEach( ( row ) => {
 			const views = row.views ?? 0;
 			const downloads = row.downloads ?? 0;
-			const rate = views > 0 ? ( ( downloads / views ) * 100 ).toFixed( 1 ) + '%' : '0%';
+			// Rate is only meaningful when views and downloads cover the same window.
+			const rate =
+				activeRange === 'all' && views > 0 ? ( ( downloads / views ) * 100 ).toFixed( 1 ) + '%' : 'N/A';
 			rows.push( [ row.title, views, downloads, rate, row.updated || '' ] );
 		} );
 		const csv = rows.map( ( row ) => row.map( csvCell ).join( ',' ) ).join( '\n' );
