@@ -45,18 +45,23 @@ function register_routes() {
 		)
 	);
 
+	/*
+	 * Route on post ID (integer) rather than slug so that kits with underscores,
+	 * percent-encoded non-Latin characters, or other slug forms not matched by a
+	 * narrow character class all resolve correctly.
+	 */
 	register_rest_route(
 		'activity-kits/v1',
-		'/download/(?P<slug>[a-z0-9-]+)',
+		'/download/(?P<id>\d+)',
 		array(
 			'methods'             => 'GET',
 			'callback'            => __NAMESPACE__ . '\handle_download',
 			'permission_callback' => '__return_true',
 			'args'                => array(
-				'slug' => array(
+				'id' => array(
 					'required'          => true,
-					'type'              => 'string',
-					'sanitize_callback' => 'sanitize_title',
+					'type'              => 'integer',
+					'sanitize_callback' => 'absint',
 				),
 			),
 		)
@@ -84,33 +89,36 @@ function stats_cache_expiration( $expiration ) {
 }
 
 /**
- * Handle GET /activity-kits/v1/download/{slug}
+ * Handle GET /activity-kits/v1/download/{id}
  *
  * Increments the kit's download counter (stored in post meta) and redirects
- * the browser to the actual ZIP file URL. Using a server-side redirect lets
- * us track same-domain downloads that Jetpack's outbound-click tracker misses.
+ * the browser to the actual ZIP file URL. Using a server-side redirect lets us
+ * track same-domain downloads that Jetpack's outbound-click tracker misses.
  *
  * @param \WP_REST_Request $request The REST request.
  * @return \WP_REST_Response|\WP_Error 302 redirect on success, WP_Error on failure.
  */
 function handle_download( $request ) {
-	$slug = $request->get_param( 'slug' );
+	global $wpdb;
 
-	$kits = get_posts(
-		array(
-			'post_type'      => 'activity_kit',
-			'posts_per_page' => 1,
-			'post_status'    => 'publish',
-			'name'           => $slug,
-		)
-	);
+	/*
+	 * Reject obvious crawler / link-unfurler User-Agents so that Slack previews,
+	 * email scanners, and browser prefetch rules do not increment the counter.
+	 * Empty User-Agent also suggests an automated tool rather than a real download.
+	 */
+	$user_agent = sanitize_text_field( wp_unslash( isset( $_SERVER['HTTP_USER_AGENT'] ) ? $_SERVER['HTTP_USER_AGENT'] : '' ) );
+	if ( empty( $user_agent ) || preg_match( '/bot|crawl|slurp|spider|mediapartners|facebookexternalhit|linkedinbot|twitterbot|whatsapp|slack|discord|prefetch/i', $user_agent ) ) {
+		return new \WP_Error( 'activity_kit_bot', '', array( 'status' => 404 ) );
+	}
 
-	if ( empty( $kits ) ) {
+	$kit_id   = absint( $request->get_param( 'id' ) );
+	$kit_post = get_post( $kit_id );
+
+	if ( ! $kit_post || 'activity_kit' !== $kit_post->post_type || 'publish' !== $kit_post->post_status ) {
 		return new \WP_Error( 'activity_kit_not_found', __( 'Activity kit not found.', 'wporg-learn' ), array( 'status' => 404 ) );
 	}
 
-	$kit_post = $kits[0];
-	$zip_id   = (int) get_post_meta( $kit_post->ID, '_activity_zip_id', true );
+	$zip_id = (int) get_post_meta( $kit_post->ID, '_activity_zip_id', true );
 
 	if ( ! $zip_id ) {
 		return new \WP_Error( 'activity_kit_no_zip', __( 'No downloadable file attached to this activity kit.', 'wporg-learn' ), array( 'status' => 404 ) );
@@ -122,17 +130,38 @@ function handle_download( $request ) {
 		return new \WP_Error( 'activity_kit_zip_url', __( 'Could not resolve the download URL.', 'wporg-learn' ), array( 'status' => 500 ) );
 	}
 
-	// Increment the download counter stored in post meta.
-	// Use a compare-and-swap retry loop (update_post_meta's $prev_value arg) to avoid
-	// lost increments when two requests arrive simultaneously.
-	$retries = 0;
-	do {
-		$current_count = (int) get_post_meta( $kit_post->ID, '_activity_download_count', true );
-		$updated       = update_post_meta( $kit_post->ID, '_activity_download_count', $current_count + 1, $current_count );
-		$retries++;
-	} while ( ! $updated && $retries < 5 );
+	/*
+	 * Atomic increment via a direct UPDATE — avoids the read-then-write race where
+	 * two simultaneous downloads overwrite each other. update_post_meta()'s
+	 * $prev_value CAS skips the WHERE clause when $prev_value is 0 (so two
+	 * concurrent first-downloads both write 1), and a genuine CAS failure leaves
+	 * the object cache stale so retries keep issuing the same failing UPDATE.
+	 * A single UPDATE with no read is safe. The object cache is invalidated after
+	 * either path so subsequent get_post_meta() calls see the new value.
+	 */
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Atomic increment; cache invalidated immediately below.
+	$updated = $wpdb->query(
+		$wpdb->prepare(
+			"UPDATE {$wpdb->postmeta} SET meta_value = meta_value + 1 WHERE post_id = %d AND meta_key = %s",
+			$kit_post->ID,
+			'_activity_download_count'
+		)
+	);
+	if ( ! $updated ) {
+		// No row yet — insert with an initial count of 1.
+		add_post_meta( $kit_post->ID, '_activity_download_count', 1, true );
+	}
+	wp_cache_delete( $kit_post->ID, 'post_meta' );
 
-	return new \WP_REST_Response( null, 302, array( 'Location' => esc_url_raw( $zip_url ) ) );
+	return new \WP_REST_Response(
+		null,
+		302,
+		array(
+			'Location'      => esc_url_raw( $zip_url ),
+			'Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0',
+			'Pragma'        => 'no-cache',
+		)
+	);
 }
 
 /**
@@ -203,13 +232,22 @@ function handle_stats( $request ) {
 /**
  * Get per-post view counts from Jetpack Stats for a given time range.
  *
- * Uses get_total_post_views() to query specific post IDs directly, rather
- * than get_top_posts() which only returns site-wide top posts and misses
- * recently published kits with low overall traffic.
+ * Uses get_total_post_views() to query specific post IDs directly, rather than
+ * get_top_posts() which only returns the site-wide top-N posts by all-time views
+ * and misses recently published kits with low overall traffic.
  *
- * @param string $range    One of '7d', '30d', '90d', 'all'.
- * @param array  $kit_ids  Array of post IDs to query.
- * @return array           Map of post_id (int) => view_count (int). Empty on failure.
+ * API constraints (Jetpack 13.3.1 / WPCOM /stats/views/posts endpoint):
+ *   - `period` is ignored; only daily granularity is returned.
+ *   - `num` is capped at 30 days per call.
+ *   - `post_ids` accepts at most 100 IDs per call.
+ *
+ * To cover ranges longer than 30 days, multiple 30-day windows are issued with
+ * a date offset and the results are summed. post_ids are chunked into groups of
+ * 100 so the library can grow past 100 kits without silently losing data.
+ *
+ * @param string $range   One of '7d', '30d', '90d', 'all'.
+ * @param int[]  $kit_ids Post IDs of the activity kits to fetch views for.
+ * @return array          Map of post_id (int) => view_count (int). Empty on failure.
  */
 function get_jetpack_post_views( $range, array $kit_ids ) {
 	if ( ! class_exists( '\Automattic\Jetpack\Stats\WPCOM_Stats' ) || empty( $kit_ids ) ) {
@@ -218,36 +256,76 @@ function get_jetpack_post_views( $range, array $kit_ids ) {
 
 	$stats = new \Automattic\Jetpack\Stats\WPCOM_Stats();
 
-	if ( 'all' === $range ) {
-		$period = 'month';
-		$num    = 36;
-	} else {
-		$period = 'day';
-		$num    = intval( str_replace( 'd', '', $range ) );
+	/*
+	 * Map the UI range to one or more 30-day windows. Each window is defined by
+	 * how many days back its end-date is offset from today. The 'all' range is
+	 * capped at 90 days (3 × 30) — covering more would require an unreasonable
+	 * number of sequential API calls.
+	 */
+	switch ( $range ) {
+		case '7d':
+			$windows = array(
+				array(
+					'num' => 7, 'offset' => 0,
+				),
+			);
+			break;
+		case '30d':
+			$windows = array(
+				array(
+					'num' => 30, 'offset' => 0,
+				),
+			);
+			break;
+		case '90d':
+		case 'all':
+		default:
+			$windows = array(
+				array(
+					'num' => 30, 'offset' => 0,
+				),
+				array(
+					'num' => 30, 'offset' => 30,
+				),
+				array(
+					'num' => 30, 'offset' => 60,
+				),
+			);
+			break;
 	}
 
-	$result = $stats->get_total_post_views(
-		array(
-			'post_ids' => implode( ',', array_map( 'absint', $kit_ids ) ),
-			'period'   => $period,
-			'num'      => $num,
-			'date'     => gmdate( 'Y-m-d' ),
-		)
-	);
+	$chunks = array_chunk( $kit_ids, 100 );
+	$map    = array();
 
-	if ( is_wp_error( $result ) || ! is_array( $result ) ) {
-		return array();
-	}
+	foreach ( $chunks as $chunk ) {
+		$post_ids_str = implode( ',', array_map( 'absint', $chunk ) );
 
-	$post_views = isset( $result['posts'] ) ? $result['posts'] : array();
-	if ( ! is_array( $post_views ) ) {
-		return array();
-	}
+		foreach ( $windows as $window ) {
+			$date   = gmdate( 'Y-m-d', time() - $window['offset'] * DAY_IN_SECONDS );
+			$result = $stats->get_total_post_views(
+				array(
+					'post_ids' => $post_ids_str,
+					'num'      => $window['num'],
+					'date'     => $date,
+				)
+			);
 
-	$map = array();
-	foreach ( $post_views as $post_data ) {
-		if ( isset( $post_data['ID'], $post_data['views'] ) ) {
-			$map[ (int) $post_data['ID'] ] = (int) $post_data['views'];
+			if ( is_wp_error( $result ) || ! is_array( $result ) ) {
+				continue;
+			}
+
+			$post_views = isset( $result['posts'] ) ? $result['posts'] : array();
+			if ( ! is_array( $post_views ) ) {
+				continue;
+			}
+
+			foreach ( $post_views as $post_data ) {
+				// The views/posts API uses uppercase 'ID' (unlike top-posts which uses 'id').
+				if ( isset( $post_data['ID'], $post_data['views'] ) ) {
+					$id         = (int) $post_data['ID'];
+					$map[ $id ] = ( isset( $map[ $id ] ) ? $map[ $id ] : 0 ) + (int) $post_data['views'];
+				}
+			}
 		}
 	}
 
