@@ -122,7 +122,7 @@ if ( filterKit && tableBody && chartCanvas ) {
 		const totalD = data.reduce( ( sum, row ) => sum + ( row.downloads ?? 0 ), 0 );
 		// Downloads are an all-time cumulative counter; rate is only meaningful
 		// when views cover the same all-time window.
-		const rate = ( activeRange === 'all' && totalV > 0 ) ? ( ( totalD / totalV ) * 100 ).toFixed( 1 ) + '%' : '—';
+		const rate = activeRange === 'all' && totalV > 0 ? ( ( totalD / totalV ) * 100 ).toFixed( 1 ) + '%' : '—';
 
 		if ( summaryViews ) {
 			summaryViews.textContent = fmt( totalV );
@@ -148,7 +148,7 @@ if ( filterKit && tableBody && chartCanvas ) {
 		}
 		// Rate is only valid when views cover the same window as the all-time download counter.
 		if ( boxRate ) {
-			boxRate.style.display = ( isSingle && activeRange === 'all' ) ? '' : 'none';
+			boxRate.style.display = isSingle && activeRange === 'all' ? '' : 'none';
 		}
 	}
 
@@ -300,7 +300,7 @@ if ( filterKit && tableBody && chartCanvas ) {
 			const views = row.views ?? 0;
 			const downloads = row.downloads ?? 0;
 			// Suppress rate when views are range-scoped but downloads are all-time.
-			const rate = ( activeRange === 'all' && views > 0 ) ? ( ( downloads / views ) * 100 ).toFixed( 1 ) + '%' : '—';
+			const rate = activeRange === 'all' && views > 0 ? ( ( downloads / views ) * 100 ).toFixed( 1 ) + '%' : '—';
 			const isSelected = row.slug === activeKit;
 			const tableRow = document.createElement( 'tr' );
 			if ( isSelected ) {
@@ -496,7 +496,8 @@ if ( filterKit && tableBody && chartCanvas ) {
 			const views = row.views ?? 0;
 			const downloads = row.downloads ?? 0;
 			// Rate is only meaningful when views and downloads cover the same window.
-			const rate = ( activeRange === 'all' && views > 0 ) ? ( ( downloads / views ) * 100 ).toFixed( 1 ) + '%' : 'N/A';
+			const rate =
+				activeRange === 'all' && views > 0 ? ( ( downloads / views ) * 100 ).toFixed( 1 ) + '%' : 'N/A';
 			rows.push( [ row.title, views, downloads, rate, row.updated || '' ] );
 		} );
 		const csv = rows.map( ( row ) => row.map( csvCell ).join( ',' ) ).join( '\n' );
