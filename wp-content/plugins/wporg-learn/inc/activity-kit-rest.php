@@ -295,6 +295,11 @@ function get_jetpack_post_views( $range, array $kit_ids ) {
 /**
  * Get per-kit download click counts from Jetpack Clicks report.
  *
+ * Clicks are scoped to the same window as get_jetpack_post_views() so that the
+ * download rate (downloads / views) divides two figures covering the same span.
+ * For 'all' that means ~6 months, matching the 6 x 30-day view windows, rather
+ * than the 36 months the Clicks report is otherwise happy to return.
+ *
  * @param string $range       One of '7d', '30d', '90d', 'all'.
  * @param array  $zip_url_map Map of zip_url (string) => array of post_ids (int[]).
  * @return array              Map of post_id (int) => click_count (int). Empty on failure.
@@ -308,7 +313,7 @@ function get_jetpack_download_clicks( $range, $zip_url_map ) {
 
 	if ( 'all' === $range ) {
 		$period = 'month';
-		$num    = 36;
+		$num    = 6;
 	} else {
 		$period = 'day';
 		$num    = intval( str_replace( 'd', '', $range ) );
