@@ -15,7 +15,7 @@
 	<!-- /wp:heading -->
 
 	<!-- wp:paragraph -->
-	<p><?php esc_html_e( 'Download ready-to-use WordPress activity kits designed for educators, meetup organizers, and community facilitators. Each kit includes everything you need to run a hands-on WordPress learning session.', 'wporg-learn' ); ?></p>
+	<p><?php esc_html_e( 'Download ready-to-use WordPress activity kits designed for educators, meetup organizers, and community facilitators. Each kit includes a facilitation guide and presentation slides, everything you need to run a hands-on WordPress learning session.', 'wporg-learn' ); ?></p>
 	<!-- /wp:paragraph -->
 
 </div>
