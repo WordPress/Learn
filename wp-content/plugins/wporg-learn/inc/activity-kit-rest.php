@@ -91,9 +91,10 @@ function stats_cache_expiration( $expiration ) {
 /**
  * Handle GET /activity-kits/v1/download/{id}
  *
- * Increments the kit's download counter (stored in post meta) and redirects
- * the browser to the actual ZIP file URL. Using a server-side redirect lets us
- * track same-domain downloads that Jetpack's outbound-click tracker misses.
+ * Increments the kit's download counter (stored in post meta) for requests that
+ * look like a person, and redirects the browser to the actual ZIP file URL.
+ * Using a server-side redirect lets us track same-domain downloads that
+ * Jetpack's outbound-click tracker misses.
  *
  * @param \WP_REST_Request $request The REST request.
  * @return \WP_REST_Response|\WP_Error 302 redirect on success, WP_Error on failure.
@@ -102,14 +103,12 @@ function handle_download( $request ) {
 	global $wpdb;
 
 	/*
-	 * Reject obvious crawler / link-unfurler User-Agents so that Slack previews,
-	 * email scanners, and browser prefetch rules do not increment the counter.
-	 * Empty User-Agent also suggests an automated tool rather than a real download.
+	 * Skip counting unfurlers, scanners and prefetches. Still redirect: the
+	 * heuristic has false positives, and those should cost an uncounted
+	 * download, not a failed one.
 	 */
 	$user_agent = sanitize_text_field( wp_unslash( isset( $_SERVER['HTTP_USER_AGENT'] ) ? $_SERVER['HTTP_USER_AGENT'] : '' ) );
-	if ( empty( $user_agent ) || preg_match( '/bot|crawl|slurp|spider|mediapartners|facebookexternalhit|linkedinbot|twitterbot|whatsapp|slack|discord|prefetch/i', $user_agent ) ) {
-		return new \WP_Error( 'activity_kit_bot', '', array( 'status' => 404 ) );
-	}
+	$is_bot     = empty( $user_agent ) || preg_match( '/bot|crawl|slurp|spider|mediapartners|facebookexternalhit|linkedinbot|twitterbot|whatsapp|slack|discord|prefetch/i', $user_agent );
 
 	$kit_id   = absint( $request->get_param( 'id' ) );
 	$kit_post = get_post( $kit_id );
@@ -130,28 +129,26 @@ function handle_download( $request ) {
 		return new \WP_Error( 'activity_kit_zip_url', __( 'Could not resolve the download URL.', 'wporg-learn' ), array( 'status' => 500 ) );
 	}
 
-	/*
-	 * Atomic increment via a direct UPDATE — avoids the read-then-write race where
-	 * two simultaneous downloads overwrite each other. update_post_meta()'s
-	 * $prev_value CAS skips the WHERE clause when $prev_value is 0 (so two
-	 * concurrent first-downloads both write 1), and a genuine CAS failure leaves
-	 * the object cache stale so retries keep issuing the same failing UPDATE.
-	 * A single UPDATE with no read is safe. The object cache is invalidated after
-	 * either path so subsequent get_post_meta() calls see the new value.
-	 */
-	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Atomic increment; cache invalidated immediately below.
-	$updated = $wpdb->query(
-		$wpdb->prepare(
-			"UPDATE {$wpdb->postmeta} SET meta_value = meta_value + 1 WHERE post_id = %d AND meta_key = %s",
-			$kit_post->ID,
-			'_activity_download_count'
-		)
-	);
-	if ( ! $updated ) {
-		// No row yet — insert with an initial count of 1.
-		add_post_meta( $kit_post->ID, '_activity_download_count', 1, true );
+	if ( ! $is_bot ) {
+		/*
+		 * Direct UPDATE, not update_post_meta(): its $prev_value CAS drops the WHERE
+		 * clause when the previous value is 0, so two concurrent first-downloads
+		 * would both write 1.
+		 */
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Atomic increment; cache invalidated immediately below.
+		$updated = $wpdb->query(
+			$wpdb->prepare(
+				"UPDATE {$wpdb->postmeta} SET meta_value = meta_value + 1 WHERE post_id = %d AND meta_key = %s",
+				$kit_post->ID,
+				'_activity_download_count'
+			)
+		);
+		if ( ! $updated ) {
+			// No row yet — insert with an initial count of 1.
+			add_post_meta( $kit_post->ID, '_activity_download_count', 1, true );
+		}
+		wp_cache_delete( $kit_post->ID, 'post_meta' );
 	}
-	wp_cache_delete( $kit_post->ID, 'post_meta' );
 
 	return new \WP_REST_Response(
 		null,

@@ -10,9 +10,8 @@
 $kit_id       = get_the_ID();
 $duration     = get_post_meta( $kit_id, '_activity_duration', true );
 $zip_id       = (int) get_post_meta( $kit_id, '_activity_zip_id', true );
-// Use the server-side download endpoint so every click increments the post meta counter.
-// Route on post ID (integer) to avoid slug-encoding issues with non-ASCII and underscore slugs.
-$download_url = $zip_id ? rest_url( 'activity-kits/v1/download/' . $kit_id ) : '';
+// Link at the counting endpoint, not the file; route on ID since slugs may not URL-encode cleanly.
+$download_url = ( $zip_id && wp_get_attachment_url( $zip_id ) ) ? rest_url( 'activity-kits/v1/download/' . $kit_id ) : '';
 
 $guide_pdf_id  = (int) get_post_meta( $kit_id, '_activity_guide_pdf_id', true );
 $slides_pdf_id = (int) get_post_meta( $kit_id, '_activity_slides_pdf_id', true );
