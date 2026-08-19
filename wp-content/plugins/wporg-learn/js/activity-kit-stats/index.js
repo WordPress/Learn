@@ -71,9 +71,14 @@ if ( filterKit && tableBody && chartCanvas ) {
 			'7d': 'Last 7 days',
 			'30d': 'Last 30 days',
 			'90d': 'Last 90 days',
-			all: 'All time',
+			/*
+			 * 'All time' covers ~6 months (6 x 30-day windows) — the WPCOM
+			 * /stats/views/posts API caps each call at 30 days; see
+			 * get_jetpack_post_views() in activity-kit-rest.php.
+			 */
+			all: 'All time (max ~6 months)',
 		};
-		return labels[ activeRange ] || 'All time';
+		return labels[ activeRange ] || 'All time (max ~6 months)';
 	}
 
 	const metricLabel = {

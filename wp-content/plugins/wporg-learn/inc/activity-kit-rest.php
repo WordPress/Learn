@@ -110,7 +110,8 @@ function handle_stats( $request ) {
 		add_filter( 'jetpack_fetch_stats_cache_expiration', __NAMESPACE__ . '\stats_cache_expiration' );
 
 		if ( 'both' === $metric || 'views' === $metric ) {
-			$views_map = get_jetpack_post_views( $range );
+			$kit_ids   = wp_list_pluck( $kits, 'ID' );
+			$views_map = get_jetpack_post_views( $range, $kit_ids );
 		}
 		if ( 'both' === $metric || 'downloads' === $metric ) {
 			$downloads_map = get_jetpack_download_clicks( $range, $zip_url_map );
@@ -155,47 +156,152 @@ function handle_stats( $request ) {
 /**
  * Get per-post view counts from Jetpack Stats for a given time range.
  *
- * @param string $range One of '7d', '30d', '90d', 'all'.
- * @return array        Map of post_id (int) => view_count (int). Empty on failure.
+ * Uses get_total_post_views() rather than get_top_posts() so that views are
+ * fetched by post ID directly. get_top_posts() only returns the site-wide top N
+ * posts ranked by all-time views, which means newly published activity kits
+ * never appear — they're outranked by years of established content.
+ *
+ * API constraints (Jetpack / WPCOM /stats/views/posts endpoint):
+ *   - `period` is silently discarded; only daily granularity is returned.
+ *   - `num` is capped at 30 days per call (422 if larger).
+ *   - `post_ids` accepts at most 100 IDs per call.
+ *
+ * To cover ranges longer than 30 days, multiple 30-day windows are issued with
+ * a date offset and the results are summed. Kit IDs are chunked into groups of
+ * 100 so the library can grow past 100 kits without silently losing data.
+ * '90d' uses 3 windows (90 days); 'all' uses 6 windows (≈ 180 days) to give a
+ * meaningful distinction from the 90-day range.
+ *
+ * @param string $range   One of '7d', '30d', '90d', 'all'.
+ * @param int[]  $kit_ids Post IDs of the activity kits to fetch views for.
+ * @return array          Map of post_id (int) => view_count (int). Empty on failure.
  */
-function get_jetpack_post_views( $range ) {
-	if ( ! class_exists( '\Automattic\Jetpack\Stats\WPCOM_Stats' ) ) {
+function get_jetpack_post_views( $range, array $kit_ids ) {
+	if ( ! class_exists( '\Automattic\Jetpack\Stats\WPCOM_Stats' ) || empty( $kit_ids ) ) {
 		return array();
 	}
 
 	$stats = new \Automattic\Jetpack\Stats\WPCOM_Stats();
 
-	if ( 'all' === $range ) {
-		$period = 'month';
-		$num    = 36;
-	} else {
-		$period = 'day';
-		$num    = intval( str_replace( 'd', '', $range ) );
+	/*
+	 * Map the UI range to one or more 30-day windows. Each window is defined by
+	 * how many days back its end-date is offset from today. 'all' uses 6 windows
+	 * (≈ 6 months) rather than 3, giving a meaningful distinction from '90d'.
+	 * Extending further would multiply sequential API calls proportionally; 6 is
+	 * a reasonable ceiling for an admin-only dashboard with a small post count.
+	 */
+	switch ( $range ) {
+		case '7d':
+			$windows = array(
+				array(
+					'num'    => 7,
+					'offset' => 0,
+				),
+			);
+			break;
+		case '30d':
+			$windows = array(
+				array(
+					'num'    => 30,
+					'offset' => 0,
+				),
+			);
+			break;
+		case '90d':
+			$windows = array(
+				array(
+					'num'    => 30,
+					'offset' => 0,
+				),
+				array(
+					'num'    => 30,
+					'offset' => 30,
+				),
+				array(
+					'num'    => 30,
+					'offset' => 60,
+				),
+			);
+			break;
+		case 'all':
+		default:
+			$windows = array(
+				array(
+					'num'    => 30,
+					'offset' => 0,
+				),
+				array(
+					'num'    => 30,
+					'offset' => 30,
+				),
+				array(
+					'num'    => 30,
+					'offset' => 60,
+				),
+				array(
+					'num'    => 30,
+					'offset' => 90,
+				),
+				array(
+					'num'    => 30,
+					'offset' => 120,
+				),
+				array(
+					'num'    => 30,
+					'offset' => 150,
+				),
+			);
+			break;
 	}
 
-	$result = $stats->get_top_posts(
-		array(
-			'period'    => $period,
-			'num'       => $num,
-			'date'      => gmdate( 'Y-m-d' ),
-			'summarize' => true,
-			'max'       => 1000,
-		)
-	);
-
-	if ( is_wp_error( $result ) || ! is_array( $result ) ) {
-		return array();
+	// Pre-compute window end-dates once so every chunk uses the same calendar
+	// day, even if a UTC midnight falls between chunk iterations.
+	$now           = time();
+	$dated_windows = array();
+	foreach ( $windows as $window ) {
+		$dated_windows[] = array(
+			'num'  => $window['num'],
+			'date' => gmdate( 'Y-m-d', $now - $window['offset'] * DAY_IN_SECONDS ),
+		);
 	}
 
-	$post_views = isset( $result['summary']['postviews'] ) ? $result['summary']['postviews'] : array();
-	if ( ! is_array( $post_views ) ) {
-		return array();
-	}
+	$chunks = array_chunk( $kit_ids, 100 );
+	$map    = array();
 
-	$map = array();
-	foreach ( $post_views as $post_data ) {
-		if ( isset( $post_data['id'], $post_data['views'] ) ) {
-			$map[ (int) $post_data['id'] ] = (int) $post_data['views'];
+	foreach ( $chunks as $chunk ) {
+		$post_ids_str = implode( ',', array_map( 'absint', $chunk ) );
+
+		foreach ( $dated_windows as $window ) {
+			$result = $stats->get_total_post_views(
+				array(
+					'post_ids' => $post_ids_str,
+					'num'      => $window['num'],
+					'date'     => $window['date'],
+				)
+			);
+
+			/*
+			 * Any unusable response — API failure or unexpected shape — returns empty
+			 * so the caller shows 0 for all kits (a visible failure signal) rather
+			 * than a plausible-looking undercount. Skipping just the bad window would
+			 * drop its views from a sum the other windows still make look reasonable.
+			 */
+			if ( is_wp_error( $result ) || ! is_array( $result ) ) {
+				return array();
+			}
+
+			$post_views = isset( $result['posts'] ) ? $result['posts'] : array();
+			if ( ! is_array( $post_views ) ) {
+				return array();
+			}
+
+			foreach ( $post_views as $post_data ) {
+				// The views/posts API uses uppercase 'ID' (unlike top-posts which uses 'id').
+				if ( isset( $post_data['ID'], $post_data['views'] ) ) {
+					$id         = (int) $post_data['ID'];
+					$map[ $id ] = ( isset( $map[ $id ] ) ? $map[ $id ] : 0 ) + (int) $post_data['views'];
+				}
+			}
 		}
 	}
 
@@ -204,6 +310,12 @@ function get_jetpack_post_views( $range ) {
 
 /**
  * Get per-kit download click counts from Jetpack Clicks report.
+ *
+ * Clicks are scoped to the same window as get_jetpack_post_views() so that the
+ * download rate (downloads / views) divides two figures covering the same span.
+ * For 'all' that means exactly 180 days (period=day, num=180), matching the
+ * 6 × 30-day view windows — calendar-month boundaries would give 181–184 days
+ * and introduce a slight rate inflation relative to the view window.
  *
  * @param string $range       One of '7d', '30d', '90d', 'all'.
  * @param array  $zip_url_map Map of zip_url (string) => array of post_ids (int[]).
@@ -217,8 +329,11 @@ function get_jetpack_download_clicks( $range, $zip_url_map ) {
 	$stats = new \Automattic\Jetpack\Stats\WPCOM_Stats();
 
 	if ( 'all' === $range ) {
-		$period = 'month';
-		$num    = 36;
+		// Use day granularity for 'all' so the window is exactly 180 days,
+		// matching the 6 × 30-day view windows in get_jetpack_post_views().
+		// period=month would give 181–184 days depending on the calendar.
+		$period = 'day';
+		$num    = 180;
 	} else {
 		$period = 'day';
 		$num    = intval( str_replace( 'd', '', $range ) );
