@@ -1052,7 +1052,7 @@ function register_activity_kit_meta() {
 		'activity_kit',
 		'_activity_download_count',
 		array(
-			'description'       => __( 'Number of times this activity kit ZIP has been downloaded via the tracked download endpoint.', 'wporg-learn' ),
+			'description'       => 'Number of times this activity kit ZIP has been downloaded via the tracked download endpoint.',
 			'type'              => 'integer',
 			'single'            => true,
 			'default'           => 0,
