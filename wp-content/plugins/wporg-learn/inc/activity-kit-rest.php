@@ -254,23 +254,39 @@ function get_jetpack_post_views( $range, array $kit_ids ) {
 			break;
 	}
 
+	// Pre-compute window end-dates once so every chunk uses the same calendar
+	// day, even if a UTC midnight falls between chunk iterations.
+	$now           = time();
+	$dated_windows = array();
+	foreach ( $windows as $window ) {
+		$dated_windows[] = array(
+			'num'  => $window['num'],
+			'date' => gmdate( 'Y-m-d', $now - $window['offset'] * DAY_IN_SECONDS ),
+		);
+	}
+
 	$chunks = array_chunk( $kit_ids, 100 );
 	$map    = array();
 
 	foreach ( $chunks as $chunk ) {
 		$post_ids_str = implode( ',', array_map( 'absint', $chunk ) );
 
-		foreach ( $windows as $window ) {
-			$date   = gmdate( 'Y-m-d', time() - $window['offset'] * DAY_IN_SECONDS );
+		foreach ( $dated_windows as $window ) {
 			$result = $stats->get_total_post_views(
 				array(
 					'post_ids' => $post_ids_str,
 					'num'      => $window['num'],
-					'date'     => $date,
+					'date'     => $window['date'],
 				)
 			);
 
-			if ( is_wp_error( $result ) || ! is_array( $result ) ) {
+			if ( is_wp_error( $result ) ) {
+				// Real API failure — return empty so the caller shows 0 for all
+				// kits (a visible failure signal) rather than a plausible-looking
+				// undercount that is harder to detect.
+				return array();
+			}
+			if ( ! is_array( $result ) ) {
 				continue;
 			}
 
@@ -297,8 +313,9 @@ function get_jetpack_post_views( $range, array $kit_ids ) {
  *
  * Clicks are scoped to the same window as get_jetpack_post_views() so that the
  * download rate (downloads / views) divides two figures covering the same span.
- * For 'all' that means ~6 months, matching the 6 x 30-day view windows, rather
- * than the 36 months the Clicks report is otherwise happy to return.
+ * For 'all' that means exactly 180 days (period=day, num=180), matching the
+ * 6 × 30-day view windows — calendar-month boundaries would give 181–184 days
+ * and introduce a slight rate inflation relative to the view window.
  *
  * @param string $range       One of '7d', '30d', '90d', 'all'.
  * @param array  $zip_url_map Map of zip_url (string) => array of post_ids (int[]).
@@ -312,8 +329,11 @@ function get_jetpack_download_clicks( $range, $zip_url_map ) {
 	$stats = new \Automattic\Jetpack\Stats\WPCOM_Stats();
 
 	if ( 'all' === $range ) {
-		$period = 'month';
-		$num    = 6;
+		// Use day granularity for 'all' so the window is exactly 180 days,
+		// matching the 6 × 30-day view windows in get_jetpack_post_views().
+		// period=month would give 181–184 days depending on the calendar.
+		$period = 'day';
+		$num    = 180;
 	} else {
 		$period = 'day';
 		$num    = intval( str_replace( 'd', '', $range ) );
