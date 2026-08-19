@@ -280,19 +280,19 @@ function get_jetpack_post_views( $range, array $kit_ids ) {
 				)
 			);
 
-			if ( is_wp_error( $result ) ) {
-				// Real API failure — return empty so the caller shows 0 for all
-				// kits (a visible failure signal) rather than a plausible-looking
-				// undercount that is harder to detect.
+			/*
+			 * Any unusable response — API failure or unexpected shape — returns empty
+			 * so the caller shows 0 for all kits (a visible failure signal) rather
+			 * than a plausible-looking undercount. Skipping just the bad window would
+			 * drop its views from a sum the other windows still make look reasonable.
+			 */
+			if ( is_wp_error( $result ) || ! is_array( $result ) ) {
 				return array();
-			}
-			if ( ! is_array( $result ) ) {
-				continue;
 			}
 
 			$post_views = isset( $result['posts'] ) ? $result['posts'] : array();
 			if ( ! is_array( $post_views ) ) {
-				continue;
+				return array();
 			}
 
 			foreach ( $post_views as $post_data ) {
