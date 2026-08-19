@@ -144,10 +144,22 @@ function handle_download( $request ) {
 			)
 		);
 		if ( 0 === $updated ) {
-			// No row yet — insert with an initial count of 1.
-			// $wpdb->query() returns false on DB error and 0 when no rows matched;
-			// strict comparison avoids falling into this branch on a real error.
-			add_post_meta( $kit_post->ID, '_activity_download_count', 1, true );
+			// No row yet (e.g. a kit published before the pre-seeding hook was
+			// added). Insert with an initial count of 1. If a concurrent
+			// first-download wins the INSERT race, add_post_meta() returns false
+			// ($unique=true blocks the duplicate); re-run the UPDATE so this
+			// download is still counted.
+			$inserted = add_post_meta( $kit_post->ID, '_activity_download_count', 1, true );
+			if ( ! $inserted ) {
+				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Atomic fallback after concurrent INSERT collision; cache invalidated immediately below.
+				$wpdb->query(
+					$wpdb->prepare(
+						"UPDATE {$wpdb->postmeta} SET meta_value = meta_value + 1 WHERE post_id = %d AND meta_key = %s",
+						$kit_post->ID,
+						'_activity_download_count'
+					)
+				);
+			}
 		}
 		wp_cache_delete( $kit_post->ID, 'post_meta' );
 	}
