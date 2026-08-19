@@ -71,11 +71,14 @@ if ( filterKit && tableBody && chartCanvas ) {
 			'7d': 'Last 7 days',
 			'30d': 'Last 30 days',
 			'90d': 'Last 90 days',
-			// 'All time' is capped at 90 days by the WPCOM /stats/views/posts API
-			// (30-day max per call; see get_jetpack_post_views() in activity-kit-rest.php).
-			all: 'All time (max 90 days)',
+			/*
+			 * 'All time' covers ~6 months (6 x 30-day windows) — the WPCOM
+			 * /stats/views/posts API caps each call at 30 days; see
+			 * get_jetpack_post_views() in activity-kit-rest.php.
+			 */
+			all: 'All time (max ~6 months)',
 		};
-		return labels[ activeRange ] || 'All time (max 90 days)';
+		return labels[ activeRange ] || 'All time (max ~6 months)';
 	}
 
 	const metricLabel = {
@@ -118,11 +121,20 @@ if ( filterKit && tableBody && chartCanvas ) {
 	// ── Summary ──
 	function updateSummary( data ) {
 		const isSingle = !! activeKit;
-		const totalV = data.reduce( ( sum, row ) => sum + ( row.views ?? 0 ), 0 );
-		const totalD = data.reduce( ( sum, row ) => sum + ( row.downloads ?? 0 ), 0 );
+		const totalV = data.reduce(
+			( sum, row ) => sum + ( row.views ?? 0 ),
+			0
+		);
+		const totalD = data.reduce(
+			( sum, row ) => sum + ( row.downloads ?? 0 ),
+			0
+		);
 		// Downloads are an all-time cumulative counter; rate is only meaningful
 		// when views cover the same all-time window.
-		const rate = activeRange === 'all' && totalV > 0 ? ( ( totalD / totalV ) * 100 ).toFixed( 1 ) + '%' : '—';
+		const rate =
+			activeRange === 'all' && totalV > 0
+				? ( ( totalD / totalV ) * 100 ).toFixed( 1 ) + '%'
+				: '—';
 
 		if ( summaryViews ) {
 			summaryViews.textContent = fmt( totalV );
@@ -148,7 +160,8 @@ if ( filterKit && tableBody && chartCanvas ) {
 		}
 		// Rate is only valid when views cover the same window as the all-time download counter.
 		if ( boxRate ) {
-			boxRate.style.display = isSingle && activeRange === 'all' ? '' : 'none';
+			boxRate.style.display =
+				isSingle && activeRange === 'all' ? '' : 'none';
 		}
 	}
 
@@ -166,7 +179,10 @@ if ( filterKit && tableBody && chartCanvas ) {
 					tooltip: {
 						callbacks: {
 							label: ( context ) =>
-								' ' + context.dataset.label + ': ' + context.parsed.y.toLocaleString(),
+								' ' +
+								context.dataset.label +
+								': ' +
+								context.parsed.y.toLocaleString(),
 						},
 					},
 				},
@@ -200,7 +216,9 @@ if ( filterKit && tableBody && chartCanvas ) {
 
 		const total = data.length;
 		const paged = total > CHART_PAGE;
-		const sliced = paged ? data.slice( chartOffset, chartOffset + CHART_PAGE ) : data;
+		const sliced = paged
+			? data.slice( chartOffset, chartOffset + CHART_PAGE )
+			: data;
 
 		// Slider visibility and state.
 		if ( chartSliderWrap ) {
@@ -213,10 +231,13 @@ if ( filterKit && tableBody && chartCanvas ) {
 		}
 		if ( paged && chartSliderLabel ) {
 			const end = Math.min( chartOffset + CHART_PAGE, total );
-			chartSliderLabel.textContent = chartOffset + 1 + '–' + end + ' of ' + total;
+			chartSliderLabel.textContent =
+				chartOffset + 1 + '–' + end + ' of ' + total;
 		}
 
-		const labels = sliced.map( ( row ) => ( row.title.length > 20 ? row.title.slice( 0, 18 ) + '…' : row.title ) );
+		const labels = sliced.map( ( row ) =>
+			row.title.length > 20 ? row.title.slice( 0, 18 ) + '…' : row.title
+		);
 		const datasets = [];
 
 		if ( activeMetric !== 'downloads' ) {
@@ -282,7 +303,10 @@ if ( filterKit && tableBody && chartCanvas ) {
 			} else if ( sortCol === 'downloads' ) {
 				valueA = a.downloads ?? 0;
 			} else {
-				valueA = ( a.views ?? 0 ) > 0 ? ( a.downloads ?? 0 ) / ( a.views ?? 0 ) : 0;
+				valueA =
+					( a.views ?? 0 ) > 0
+						? ( a.downloads ?? 0 ) / ( a.views ?? 0 )
+						: 0;
 			}
 			let valueB;
 			if ( sortCol === 'views' ) {
@@ -290,7 +314,10 @@ if ( filterKit && tableBody && chartCanvas ) {
 			} else if ( sortCol === 'downloads' ) {
 				valueB = b.downloads ?? 0;
 			} else {
-				valueB = ( b.views ?? 0 ) > 0 ? ( b.downloads ?? 0 ) / ( b.views ?? 0 ) : 0;
+				valueB =
+					( b.views ?? 0 ) > 0
+						? ( b.downloads ?? 0 ) / ( b.views ?? 0 )
+						: 0;
 			}
 			return sortDir === 'asc' ? valueA - valueB : valueB - valueA;
 		} );
@@ -300,15 +327,22 @@ if ( filterKit && tableBody && chartCanvas ) {
 			const views = row.views ?? 0;
 			const downloads = row.downloads ?? 0;
 			// Suppress rate when views are range-scoped but downloads are all-time.
-			const rate = activeRange === 'all' && views > 0 ? ( ( downloads / views ) * 100 ).toFixed( 1 ) + '%' : '—';
+			const rate =
+				activeRange === 'all' && views > 0
+					? ( ( downloads / views ) * 100 ).toFixed( 1 ) + '%'
+					: '—';
 			const isSelected = row.slug === activeKit;
 			const tableRow = document.createElement( 'tr' );
 			if ( isSelected ) {
 				tableRow.classList.add( 'is-selected' );
 			}
 
-			const viewsClass = 'ak-col-number' + ( activeMetric === 'downloads' ? ' ak-hidden-col' : '' );
-			const dlClass = 'ak-col-number' + ( activeMetric === 'views' ? ' ak-hidden-col' : '' );
+			const viewsClass =
+				'ak-col-number' +
+				( activeMetric === 'downloads' ? ' ak-hidden-col' : '' );
+			const dlClass =
+				'ak-col-number' +
+				( activeMetric === 'views' ? ' ak-hidden-col' : '' );
 
 			const tdTitle = document.createElement( 'td' );
 			const link = document.createElement( 'a' );
@@ -347,49 +381,64 @@ if ( filterKit && tableBody && chartCanvas ) {
 		} );
 
 		// Update sort arrows.
-		document.querySelectorAll( '#ak-stats-table thead th' ).forEach( ( tableHeader ) => {
-			const col = tableHeader.dataset.col;
-			const arrow = tableHeader.querySelector( '.ak-sort-arrow' );
-			tableHeader.classList.remove( 'is-sorted' );
-			if ( arrow ) {
-				arrow.textContent = '';
-			}
-			if ( col === sortCol && arrow ) {
-				tableHeader.classList.add( 'is-sorted' );
-				arrow.textContent = sortDir === 'asc' ? ' ↑' : ' ↓';
-			}
-		} );
+		document
+			.querySelectorAll( '#ak-stats-table thead th' )
+			.forEach( ( tableHeader ) => {
+				const col = tableHeader.dataset.col;
+				const arrow = tableHeader.querySelector( '.ak-sort-arrow' );
+				tableHeader.classList.remove( 'is-sorted' );
+				if ( arrow ) {
+					arrow.textContent = '';
+				}
+				if ( col === sortCol && arrow ) {
+					tableHeader.classList.add( 'is-sorted' );
+					arrow.textContent = sortDir === 'asc' ? ' ↑' : ' ↓';
+				}
+			} );
 	}
 
 	// ── UI state ──
 	function updateUI() {
 		const isSingle = !! activeKit;
-		const kitObj = isSingle ? allData.find( ( row ) => row.slug === activeKit ) : null;
+		const kitObj = isSingle
+			? allData.find( ( row ) => row.slug === activeKit )
+			: null;
 
 		if ( chartTitle ) {
 			chartTitle.textContent =
-				metricLabel[ activeMetric ] + ' — ' + ( isSingle && kitObj ? kitObj.title : 'All Kits' );
+				metricLabel[ activeMetric ] +
+				' — ' +
+				( isSingle && kitObj ? kitObj.title : 'All Kits' );
 		}
 		if ( chartSubtitle ) {
 			chartSubtitle.textContent = rangeLabel();
 		}
 
 		if ( legendViews ) {
-			legendViews.style.display = activeMetric === 'downloads' ? 'none' : '';
+			legendViews.style.display =
+				activeMetric === 'downloads' ? 'none' : '';
 		}
 		if ( legendDownloads ) {
-			legendDownloads.style.display = activeMetric === 'views' ? 'none' : '';
+			legendDownloads.style.display =
+				activeMetric === 'views' ? 'none' : '';
 		}
 
 		if ( thViews ) {
-			thViews.classList.toggle( 'ak-hidden-col', activeMetric === 'downloads' );
+			thViews.classList.toggle(
+				'ak-hidden-col',
+				activeMetric === 'downloads'
+			);
 		}
 		if ( thDownloads ) {
-			thDownloads.classList.toggle( 'ak-hidden-col', activeMetric === 'views' );
+			thDownloads.classList.toggle(
+				'ak-hidden-col',
+				activeMetric === 'views'
+			);
 			// Label the column so admins know downloads are always all-time when a
 			// range-scoped view window is selected.
 			const arrow = thDownloads.querySelector( '.ak-sort-arrow' );
-			thDownloads.textContent = activeRange === 'all' ? 'Downloads' : 'Downloads (all time)';
+			thDownloads.textContent =
+				activeRange === 'all' ? 'Downloads' : 'Downloads (all time)';
 			if ( arrow ) {
 				thDownloads.appendChild( arrow );
 			}
@@ -397,10 +446,15 @@ if ( filterKit && tableBody && chartCanvas ) {
 		// Mirror the same label on the summary box.
 		if ( summaryDownloads ) {
 			const dlLabel = summaryDownloads.closest( '.ak-summary-box' )
-				? summaryDownloads.closest( '.ak-summary-box' ).querySelector( '.ak-stat-label' )
+				? summaryDownloads
+						.closest( '.ak-summary-box' )
+						.querySelector( '.ak-stat-label' )
 				: null;
 			if ( dlLabel ) {
-				dlLabel.textContent = activeRange === 'all' ? 'Total Downloads' : 'Total Downloads (all time)';
+				dlLabel.textContent =
+					activeRange === 'all'
+						? 'Total Downloads'
+						: 'Total Downloads (all time)';
 			}
 		}
 
@@ -415,7 +469,9 @@ if ( filterKit && tableBody && chartCanvas ) {
 		}
 
 		if ( tableSubtitle ) {
-			tableSubtitle.textContent = isSingle ? 'Showing single kit' : "Click a row to see a single kit's stats";
+			tableSubtitle.textContent = isSingle
+				? 'Showing single kit'
+				: "Click a row to see a single kit's stats";
 		}
 	}
 
@@ -434,21 +490,32 @@ if ( filterKit && tableBody && chartCanvas ) {
 
 		try {
 			allData = await fetchStats();
-			const data = activeKit ? allData.filter( ( row ) => row.slug === activeKit ) : allData;
+			const data = activeKit
+				? allData.filter( ( row ) => row.slug === activeKit )
+				: allData;
 			updateSummary( data );
 			updateUI();
 			renderChart( data );
 			renderTable( data );
 		} catch ( error ) {
-			tableBody.replaceChildren( msgRow( 'Error loading stats: ' + error.message ) );
+			tableBody.replaceChildren(
+				msgRow( 'Error loading stats: ' + error.message )
+			);
 		}
 	}
 
 	// ── Setters ──
 	function setMetric( metric ) {
 		activeMetric = metric;
-		metricBtns.forEach( ( button ) => button.classList.toggle( 'is-active', button.dataset.akMetric === metric ) );
-		const data = activeKit ? allData.filter( ( row ) => row.slug === activeKit ) : allData;
+		metricBtns.forEach( ( button ) =>
+			button.classList.toggle(
+				'is-active',
+				button.dataset.akMetric === metric
+			)
+		);
+		const data = activeKit
+			? allData.filter( ( row ) => row.slug === activeKit )
+			: allData;
 		updateSummary( data );
 		updateUI();
 		renderChart( data );
@@ -457,7 +524,12 @@ if ( filterKit && tableBody && chartCanvas ) {
 
 	function setRange( range ) {
 		activeRange = range;
-		rangeBtns.forEach( ( button ) => button.classList.toggle( 'is-active', button.dataset.akRange === range ) );
+		rangeBtns.forEach( ( button ) =>
+			button.classList.toggle(
+				'is-active',
+				button.dataset.akRange === range
+			)
+		);
 		render();
 	}
 
@@ -488,19 +560,34 @@ if ( filterKit && tableBody && chartCanvas ) {
 	}
 
 	function exportCSV() {
-		const data = activeKit ? allData.filter( ( row ) => row.slug === activeKit ) : allData;
+		const data = activeKit
+			? allData.filter( ( row ) => row.slug === activeKit )
+			: allData;
 		// Downloads column header clarifies scope when views are range-filtered.
-		const dlHeader = activeRange === 'all' ? 'Downloads' : 'Downloads (all time)';
-		const rows = [ [ 'Kit Name', 'Views', dlHeader, 'Download Rate', 'Last Updated' ] ];
+		const dlHeader =
+			activeRange === 'all' ? 'Downloads' : 'Downloads (all time)';
+		const rows = [
+			[ 'Kit Name', 'Views', dlHeader, 'Download Rate', 'Last Updated' ],
+		];
 		data.forEach( ( row ) => {
 			const views = row.views ?? 0;
 			const downloads = row.downloads ?? 0;
 			// Rate is only meaningful when views and downloads cover the same window.
 			const rate =
-				activeRange === 'all' && views > 0 ? ( ( downloads / views ) * 100 ).toFixed( 1 ) + '%' : 'N/A';
-			rows.push( [ row.title, views, downloads, rate, row.updated || '' ] );
+				activeRange === 'all' && views > 0
+					? ( ( downloads / views ) * 100 ).toFixed( 1 ) + '%'
+					: 'N/A';
+			rows.push( [
+				row.title,
+				views,
+				downloads,
+				rate,
+				row.updated || '',
+			] );
 		} );
-		const csv = rows.map( ( row ) => row.map( csvCell ).join( ',' ) ).join( '\n' );
+		const csv = rows
+			.map( ( row ) => row.map( csvCell ).join( ',' ) )
+			.join( '\n' );
 		const blob = new Blob( [ csv ], { type: 'text/csv' } );
 		const url = URL.createObjectURL( blob );
 		const a = document.createElement( 'a' );
@@ -512,7 +599,9 @@ if ( filterKit && tableBody && chartCanvas ) {
 
 	// ── Event listeners ──
 	metricBtns.forEach( ( btn ) => {
-		btn.addEventListener( 'click', () => setMetric( btn.dataset.akMetric ) );
+		btn.addEventListener( 'click', () =>
+			setMetric( btn.dataset.akMetric )
+		);
 	} );
 
 	rangeBtns.forEach( ( btn ) => {
@@ -528,7 +617,9 @@ if ( filterKit && tableBody && chartCanvas ) {
 	if ( chartSlider ) {
 		chartSlider.addEventListener( 'input', () => {
 			chartOffset = parseInt( chartSlider.value, 10 );
-			const data = activeKit ? allData.filter( ( row ) => row.slug === activeKit ) : allData;
+			const data = activeKit
+				? allData.filter( ( row ) => row.slug === activeKit )
+				: allData;
 			renderChart( data );
 		} );
 	}
@@ -555,22 +646,27 @@ if ( filterKit && tableBody && chartCanvas ) {
 	}
 
 	// Sortable column headers.
-	document.querySelectorAll( '#ak-stats-table thead th' ).forEach( ( tableHeader ) => {
-		tableHeader.addEventListener( 'click', () => {
-			const col = tableHeader.dataset.col;
-			if ( ! col ) {
-				return;
-			}
-			if ( sortCol === col ) {
-				sortDir = sortDir === 'asc' ? 'desc' : 'asc';
-			} else {
-				sortCol = col;
-				sortDir = tableHeader.dataset.type === 'number' ? 'desc' : 'asc';
-			}
-			const data = activeKit ? allData.filter( ( row ) => row.slug === activeKit ) : allData;
-			renderTable( data );
+	document
+		.querySelectorAll( '#ak-stats-table thead th' )
+		.forEach( ( tableHeader ) => {
+			tableHeader.addEventListener( 'click', () => {
+				const col = tableHeader.dataset.col;
+				if ( ! col ) {
+					return;
+				}
+				if ( sortCol === col ) {
+					sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+				} else {
+					sortCol = col;
+					sortDir =
+						tableHeader.dataset.type === 'number' ? 'desc' : 'asc';
+				}
+				const data = activeKit
+					? allData.filter( ( row ) => row.slug === activeKit )
+					: allData;
+				renderTable( data );
+			} );
 		} );
-	} );
 
 	// ── Init ──
 	initChart();
