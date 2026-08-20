@@ -19,7 +19,6 @@
  *  on a single language per request.
  *
  * @package LearnWP\LanguageBridge
- *
  */
 
 namespace LearnWP\LanguageBridge;
