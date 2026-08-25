@@ -91,8 +91,9 @@ function stats_cache_expiration( $expiration ) {
 /**
  * Handle GET /activity-kits/v1/download/{id}
  *
- * Increments the kit's download counter (stored in post meta) for requests that
- * look like a person, and redirects the browser to the actual ZIP file URL.
+ * Increments the kit's download counter (stored in one post meta row per UTC
+ * day) for requests that look like a person, and redirects the browser to the
+ * actual ZIP file URL.
  * Using a server-side redirect lets us track same-domain downloads that
  * Jetpack's outbound-click tracker misses.
  *
@@ -107,7 +108,7 @@ function handle_download( $request ) {
 	 * heuristic has false positives, and those should cost an uncounted
 	 * download, not a failed one.
 	 */
-	$user_agent = sanitize_text_field( wp_unslash( isset( $_SERVER['HTTP_USER_AGENT'] ) ? $_SERVER['HTTP_USER_AGENT'] : '' ) );
+	$user_agent = sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ?? '' ) );
 	$is_bot     = empty( $user_agent ) || preg_match( '/bot|crawl|slurp|spider|mediapartners|facebookexternalhit|linkedinbot|twitterbot|whatsapp|slack|discord|prefetch/i', $user_agent );
 
 	$kit_id   = absint( $request->get_param( 'id' ) );
@@ -131,36 +132,26 @@ function handle_download( $request ) {
 
 	if ( ! $is_bot ) {
 		/*
-		 * Direct UPDATE, not update_post_meta(): its $prev_value CAS drops the WHERE
-		 * clause when the previous value is 0, so two concurrent first-downloads
-		 * would both write 1.
+		 * Downloads are stored in one meta row per kit per UTC day so the stats
+		 * endpoint can sum them over the same day span as the Jetpack view
+		 * ranges (see get_download_counts()). Seed today's bucket ($unique=true
+		 * is a no-op once it exists), then increment with a direct UPDATE —
+		 * update_post_meta()'s $prev_value CAS drops its WHERE clause when the
+		 * previous value is 0, so two concurrent downloads would both write 1.
+		 * If two first-downloads of the day race the seed into duplicate rows,
+		 * every UPDATE increments both and reads take MAX per bucket, so no
+		 * download is lost.
 		 */
+		$meta_key = '_activity_downloads_' . gmdate( 'Ymd' );
+		add_post_meta( $kit_post->ID, $meta_key, 0, true );
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Atomic increment; cache invalidated immediately below.
-		$updated = $wpdb->query(
+		$wpdb->query(
 			$wpdb->prepare(
 				"UPDATE {$wpdb->postmeta} SET meta_value = meta_value + 1 WHERE post_id = %d AND meta_key = %s",
 				$kit_post->ID,
-				'_activity_download_count'
+				$meta_key
 			)
 		);
-		if ( 0 === $updated ) {
-			// No row yet (e.g. a kit published before the pre-seeding hook was
-			// added). Insert with an initial count of 1. If a concurrent
-			// first-download wins the INSERT race, add_post_meta() returns false
-			// ($unique=true blocks the duplicate); re-run the UPDATE so this
-			// download is still counted.
-			$inserted = add_post_meta( $kit_post->ID, '_activity_download_count', 1, true );
-			if ( ! $inserted ) {
-				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Atomic fallback after concurrent INSERT collision; cache invalidated immediately below.
-				$wpdb->query(
-					$wpdb->prepare(
-						"UPDATE {$wpdb->postmeta} SET meta_value = meta_value + 1 WHERE post_id = %d AND meta_key = %s",
-						$kit_post->ID,
-						'_activity_download_count'
-					)
-				);
-			}
-		}
 		wp_cache_delete( $kit_post->ID, 'post_meta' );
 	}
 
@@ -215,6 +206,12 @@ function handle_stats( $request ) {
 		remove_filter( 'jetpack_fetch_stats_cache_expiration', __NAMESPACE__ . '\stats_cache_expiration' );
 	}
 
+	$downloads_map = array();
+
+	if ( 'both' === $metric || 'downloads' === $metric ) {
+		$downloads_map = get_download_counts( $range, $kit_ids );
+	}
+
 	$results = array();
 
 	foreach ( $kits as $kit_post ) {
@@ -239,7 +236,7 @@ function handle_stats( $request ) {
 			}
 		}
 		if ( 'both' === $metric || 'downloads' === $metric ) {
-			$data['downloads'] = (int) get_post_meta( $kit_post->ID, '_activity_download_count', true );
+			$data['downloads'] = $downloads_map[ $kit_post->ID ] ?? 0;
 		}
 
 		$results[] = $data;
@@ -286,27 +283,32 @@ function get_jetpack_post_views( $range, array $kit_ids ) {
 		case '7d':
 			$windows = array(
 				array(
-					'num' => 7, 'offset' => 0,
+					'num'    => 7,
+					'offset' => 0,
 				),
 			);
 			break;
 		case '30d':
 			$windows = array(
 				array(
-					'num' => 30, 'offset' => 0,
+					'num'    => 30,
+					'offset' => 0,
 				),
 			);
 			break;
 		case '90d':
 			$windows = array(
 				array(
-					'num' => 30, 'offset' => 0,
+					'num'    => 30,
+					'offset' => 0,
 				),
 				array(
-					'num' => 30, 'offset' => 30,
+					'num'    => 30,
+					'offset' => 30,
 				),
 				array(
-					'num' => 30, 'offset' => 60,
+					'num'    => 30,
+					'offset' => 60,
 				),
 			);
 			break;
@@ -314,22 +316,28 @@ function get_jetpack_post_views( $range, array $kit_ids ) {
 		default:
 			$windows = array(
 				array(
-					'num' => 30, 'offset' => 0,
+					'num'    => 30,
+					'offset' => 0,
 				),
 				array(
-					'num' => 30, 'offset' => 30,
+					'num'    => 30,
+					'offset' => 30,
 				),
 				array(
-					'num' => 30, 'offset' => 60,
+					'num'    => 30,
+					'offset' => 60,
 				),
 				array(
-					'num' => 30, 'offset' => 90,
+					'num'    => 30,
+					'offset' => 90,
 				),
 				array(
-					'num' => 30, 'offset' => 120,
+					'num'    => 30,
+					'offset' => 120,
 				),
 				array(
-					'num' => 30, 'offset' => 150,
+					'num'    => 30,
+					'offset' => 150,
 				),
 			);
 			break;
@@ -361,19 +369,14 @@ function get_jetpack_post_views( $range, array $kit_ids ) {
 				)
 			);
 
-			if ( is_wp_error( $result ) ) {
-				// Real API failure — return empty so the caller shows 0 for all
-				// kits (a visible failure signal) rather than a plausible-looking
-				// undercount that is harder to detect.
+			// Any unusable response returns empty so all kits show 0 (a visible failure) rather than a plausible-looking undercount.
+			if ( is_wp_error( $result ) || ! is_array( $result ) ) {
 				return array();
-			}
-			if ( ! is_array( $result ) ) {
-				continue;
 			}
 
 			$post_views = isset( $result['posts'] ) ? $result['posts'] : array();
 			if ( ! is_array( $post_views ) ) {
-				continue;
+				return array();
 			}
 
 			foreach ( $post_views as $post_data ) {
@@ -384,6 +387,63 @@ function get_jetpack_post_views( $range, array $kit_ids ) {
 				}
 			}
 		}
+	}
+
+	return $map;
+}
+
+/**
+ * Get per-kit download counts from the daily download meta buckets.
+ *
+ * Downloads are stored as one meta row per kit per UTC day
+ * ('_activity_downloads_YYYYMMDD', see handle_download()), so they can be
+ * summed over the same day span as the Jetpack view windows and the download
+ * rate always divides two figures covering the identical period.
+ *
+ * MAX() per bucket (instead of SUM) makes duplicate rows from a concurrent
+ * first-download race harmless: the atomic UPDATE in handle_download()
+ * increments every duplicate equally, so each row holds the full count for
+ * its day.
+ *
+ * @param string $range   One of '7d', '30d', '90d', 'all'.
+ * @param int[]  $kit_ids Post IDs of the activity kits to fetch downloads for.
+ * @return array          Map of post_id (int) => download_count (int).
+ */
+function get_download_counts( $range, array $kit_ids ) {
+	global $wpdb;
+
+	if ( empty( $kit_ids ) ) {
+		return array();
+	}
+
+	// Day spans matching the view windows in get_jetpack_post_views().
+	$range_days = array(
+		'7d'  => 7,
+		'30d' => 30,
+		'90d' => 90,
+		'all' => 180,
+	);
+	$days       = isset( $range_days[ $range ] ) ? $range_days[ $range ] : 180;
+
+	$now       = time();
+	$first_key = '_activity_downloads_' . gmdate( 'Ymd', $now - ( $days - 1 ) * DAY_IN_SECONDS );
+	$last_key  = '_activity_downloads_' . gmdate( 'Ymd', $now );
+
+	$id_placeholders = implode( ',', array_fill( 0, count( $kit_ids ), '%d' ) );
+
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- The meta API has no ranged multi-key read.
+	$rows = $wpdb->get_results(
+		$wpdb->prepare(
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $id_placeholders is a list of %d placeholders built above from count().
+			"SELECT post_id, meta_key, MAX( CAST( meta_value AS UNSIGNED ) ) AS downloads FROM {$wpdb->postmeta} WHERE post_id IN ( {$id_placeholders} ) AND meta_key BETWEEN %s AND %s GROUP BY post_id, meta_key",
+			array_merge( $kit_ids, array( $first_key, $last_key ) )
+		)
+	);
+
+	$map = array();
+	foreach ( $rows as $row ) {
+		$id         = (int) $row->post_id;
+		$map[ $id ] = ( isset( $map[ $id ] ) ? $map[ $id ] : 0 ) + (int) $row->downloads;
 	}
 
 	return $map;

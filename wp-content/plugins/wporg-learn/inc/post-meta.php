@@ -25,7 +25,6 @@ add_action( 'save_post_meeting', __NAMESPACE__ . '\save_meeting_metabox_fields' 
 add_action( 'admin_footer', __NAMESPACE__ . '\render_locales_list' );
 add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\enqueue_editor_assets' );
 add_action( 'wp_insert_post', __NAMESPACE__ . '\set_default_lesson_preview', 10, 3 );
-add_action( 'publish_activity_kit', __NAMESPACE__ . '\initialize_activity_download_count' );
 
 /**
  * Register all post meta keys.
@@ -1079,36 +1078,4 @@ function register_activity_kit_meta() {
 			'auth_callback'     => $auth_callback,
 		)
 	);
-
-	register_post_meta(
-		'activity_kit',
-		'_activity_download_count',
-		array(
-			'description'       => 'Number of times this activity kit ZIP has been downloaded via the tracked download endpoint.',
-			'type'              => 'integer',
-			'single'            => true,
-			'default'           => 0,
-			'sanitize_callback' => 'absint',
-			'show_in_rest'      => false,
-			'auth_callback'     => $auth_callback,
-		)
-	);
-}
-
-/**
- * Pre-create the _activity_download_count meta row when a kit is first published.
- *
- * The handle_download() callback uses an atomic UPDATE (meta_value = meta_value + 1) to avoid
- * the lost-update race that update_post_meta()'s CAS pattern has. But UPDATE
- * requires the row to already exist — without it, two concurrent first-downloads
- * can both see 0 rows matched, both fall through to add_post_meta(), and both
- * INSERT, creating a duplicate meta row. Pre-creating the row at publish time
- * ensures every download hits the UPDATE path and the race never occurs.
- *
- * @param int $post_id ID of the newly-published activity kit.
- */
-function initialize_activity_download_count( $post_id ) {
-	// add_post_meta() with $unique=true is a no-op if the row already exists,
-	// so re-publishing or repeated saves cannot reset or duplicate the counter.
-	add_post_meta( $post_id, '_activity_download_count', 0, true );
 }
