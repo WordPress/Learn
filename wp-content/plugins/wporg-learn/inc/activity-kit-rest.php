@@ -71,11 +71,6 @@ function register_routes() {
 /**
  * Get the tracked download URL for an activity kit.
  *
- * Templates must link kit ZIPs through this endpoint (rather than the raw
- * attachment URL) so the download is counted before the redirect. Keeping the
- * route path in one place next to its registration means a route change cannot
- * leave a template linking to a 404.
- *
  * @param int $kit_id Post ID of the activity kit.
  * @return string     URL of the counting download endpoint.
  */
@@ -151,15 +146,9 @@ function handle_download( $request ) {
 
 	if ( ! $is_bot ) {
 		/*
-		 * Downloads are stored in one meta row per kit per UTC day so the stats
-		 * endpoint can sum them over the same day span as the Jetpack view
-		 * ranges (see get_download_counts()). Seed today's bucket ($unique=true
-		 * is a no-op once it exists), then increment with a direct UPDATE —
-		 * update_post_meta()'s $prev_value CAS drops its WHERE clause when the
-		 * previous value is 0, so two concurrent downloads would both write 1.
-		 * If two first-downloads of the day race the seed into duplicate rows,
-		 * every UPDATE increments both and reads take MAX per bucket, so no
-		 * download is lost.
+		 * Seed today's bucket, then increment atomically — update_post_meta()'s
+		 * CAS is racy when the previous value is 0, and a seed race is harmless
+		 * because reads take MAX per bucket.
 		 */
 		$meta_key = '_activity_downloads_' . gmdate( 'Ymd' );
 		add_post_meta( $kit_post->ID, $meta_key, 0, true );
@@ -267,12 +256,8 @@ function handle_stats( $request ) {
 /**
  * Get the day span a stats range covers.
  *
- * Single source of truth for both metrics: get_jetpack_post_views() derives
- * its API windows from this and get_download_counts() sums bucket rows over
- * it, so the download rate always divides two figures covering the identical
- * period. 'all' caps at 180 days — each extra 30-day window is another
- * sequential API call, and 6 is a reasonable ceiling for an admin-only
- * dashboard with a small post count.
+ * Shared by get_jetpack_post_views() and get_download_counts() so views and
+ * downloads always cover the same period.
  *
  * @param string $range One of '7d', '30d', '90d', 'all'.
  * @return int          Number of days the range covers.
