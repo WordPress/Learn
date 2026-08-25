@@ -11,7 +11,7 @@ $kit_id       = get_the_ID();
 $duration     = get_post_meta( $kit_id, '_activity_duration', true );
 $zip_id       = (int) get_post_meta( $kit_id, '_activity_zip_id', true );
 // Link at the counting endpoint, not the file; route on ID since slugs may not URL-encode cleanly.
-$download_url = ( $zip_id && wp_get_attachment_url( $zip_id ) ) ? rest_url( 'activity-kits/v1/download/' . $kit_id ) : '';
+$download_url = ( $zip_id && wp_get_attachment_url( $zip_id ) ) ? \WPOrg_Learn\Activity_Kit_REST\get_download_url( $kit_id ) : '';
 
 $guide_pdf_id  = (int) get_post_meta( $kit_id, '_activity_guide_pdf_id', true );
 $slides_pdf_id = (int) get_post_meta( $kit_id, '_activity_slides_pdf_id', true );

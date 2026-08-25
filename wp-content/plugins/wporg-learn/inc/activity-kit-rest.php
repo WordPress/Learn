@@ -69,6 +69,21 @@ function register_routes() {
 }
 
 /**
+ * Get the tracked download URL for an activity kit.
+ *
+ * Templates must link kit ZIPs through this endpoint (rather than the raw
+ * attachment URL) so the download is counted before the redirect. Keeping the
+ * route path in one place next to its registration means a route change cannot
+ * leave a template linking to a 404.
+ *
+ * @param int $kit_id Post ID of the activity kit.
+ * @return string     URL of the counting download endpoint.
+ */
+function get_download_url( $kit_id ) {
+	return rest_url( 'activity-kits/v1/download/' . absint( $kit_id ) );
+}
+
+/**
  * Shorten Jetpack's stats API cache so the activity kit dashboard tracks
  * WordPress.com's near-real-time counts more closely. Registered only for the
  * duration of the activity kit stats REST request (see handle_stats()), so it
@@ -109,7 +124,11 @@ function handle_download( $request ) {
 	 * download, not a failed one.
 	 */
 	$user_agent = sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ?? '' ) );
-	$is_bot     = empty( $user_agent ) || preg_match( '/bot|crawl|slurp|spider|mediapartners|facebookexternalhit|linkedinbot|twitterbot|whatsapp|slack|discord|prefetch/i', $user_agent );
+	// Browsers signal speculative loads via headers, not the User-Agent: Sec-Purpose (standard), Purpose (WebKit), X-moz (older Firefox).
+	$purpose = sanitize_text_field( wp_unslash( $_SERVER['HTTP_SEC_PURPOSE'] ?? $_SERVER['HTTP_PURPOSE'] ?? $_SERVER['HTTP_X_MOZ'] ?? '' ) );
+	$is_bot  = empty( $user_agent )
+		|| preg_match( '/bot|crawl|slurp|spider|mediapartners|facebookexternalhit|linkedinbot|twitterbot|whatsapp|slack|discord|prefetch/i', $user_agent )
+		|| preg_match( '/prefetch|prerender|preview/i', $purpose );
 
 	$kit_id   = absint( $request->get_param( 'id' ) );
 	$kit_post = get_post( $kit_id );
@@ -246,6 +265,32 @@ function handle_stats( $request ) {
 }
 
 /**
+ * Get the day span a stats range covers.
+ *
+ * Single source of truth for both metrics: get_jetpack_post_views() derives
+ * its API windows from this and get_download_counts() sums bucket rows over
+ * it, so the download rate always divides two figures covering the identical
+ * period. 'all' caps at 180 days — each extra 30-day window is another
+ * sequential API call, and 6 is a reasonable ceiling for an admin-only
+ * dashboard with a small post count.
+ *
+ * @param string $range One of '7d', '30d', '90d', 'all'.
+ * @return int          Number of days the range covers.
+ */
+function get_range_days( $range ) {
+	switch ( $range ) {
+		case '7d':
+			return 7;
+		case '30d':
+			return 30;
+		case '90d':
+			return 90;
+		default:
+			return 180;
+	}
+}
+
+/**
  * Get per-post view counts from Jetpack Stats for a given time range.
  *
  * Uses get_total_post_views() to query specific post IDs directly, rather than
@@ -273,74 +318,17 @@ function get_jetpack_post_views( $range, array $kit_ids ) {
 	$stats = new \Automattic\Jetpack\Stats\WPCOM_Stats();
 
 	/*
-	 * Map the UI range to one or more 30-day windows. Each window is defined by
-	 * how many days back its end-date is offset from today. 'all' uses 6 windows
-	 * (≈ 6 months) rather than 3, giving a meaningful distinction from '90d'.
-	 * Extending further would multiply sequential API calls proportionally; 6 is
-	 * a reasonable ceiling for an admin-only dashboard with a small post count.
+	 * Break the range's day span into windows of at most 30 days — the WPCOM
+	 * /stats/views/posts API caps `num` at 30 per call. Each window is defined
+	 * by how many days back its end-date is offset from today.
 	 */
-	switch ( $range ) {
-		case '7d':
-			$windows = array(
-				array(
-					'num'    => 7,
-					'offset' => 0,
-				),
-			);
-			break;
-		case '30d':
-			$windows = array(
-				array(
-					'num'    => 30,
-					'offset' => 0,
-				),
-			);
-			break;
-		case '90d':
-			$windows = array(
-				array(
-					'num'    => 30,
-					'offset' => 0,
-				),
-				array(
-					'num'    => 30,
-					'offset' => 30,
-				),
-				array(
-					'num'    => 30,
-					'offset' => 60,
-				),
-			);
-			break;
-		case 'all':
-		default:
-			$windows = array(
-				array(
-					'num'    => 30,
-					'offset' => 0,
-				),
-				array(
-					'num'    => 30,
-					'offset' => 30,
-				),
-				array(
-					'num'    => 30,
-					'offset' => 60,
-				),
-				array(
-					'num'    => 30,
-					'offset' => 90,
-				),
-				array(
-					'num'    => 30,
-					'offset' => 120,
-				),
-				array(
-					'num'    => 30,
-					'offset' => 150,
-				),
-			);
-			break;
+	$days    = get_range_days( $range );
+	$windows = array();
+	for ( $offset = 0; $offset < $days; $offset += 30 ) {
+		$windows[] = array(
+			'num'    => min( 30, $days - $offset ),
+			'offset' => $offset,
+		);
 	}
 
 	// Pre-compute window end-dates once so every chunk uses the same calendar
@@ -416,15 +404,7 @@ function get_download_counts( $range, array $kit_ids ) {
 		return array();
 	}
 
-	// Day spans matching the view windows in get_jetpack_post_views().
-	$range_days = array(
-		'7d'  => 7,
-		'30d' => 30,
-		'90d' => 90,
-		'all' => 180,
-	);
-	$days       = isset( $range_days[ $range ] ) ? $range_days[ $range ] : 180;
-
+	$days      = get_range_days( $range );
 	$now       = time();
 	$first_key = '_activity_downloads_' . gmdate( 'Ymd', $now - ( $days - 1 ) * DAY_IN_SECONDS );
 	$last_key  = '_activity_downloads_' . gmdate( 'Ymd', $now );

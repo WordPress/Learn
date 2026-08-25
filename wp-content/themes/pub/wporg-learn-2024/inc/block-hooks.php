@@ -204,7 +204,7 @@ function replace_card_with_activity_kit_card( $block_content, $parsed_block ) {
 	$zip_url     = $zip_id ? wp_get_attachment_url( $zip_id ) : '';
 
 	// Route through the counting endpoint so card downloads are tracked too.
-	$download_url = $zip_url ? rest_url( 'activity-kits/v1/download/' . $kit_post_id ) : '';
+	$download_url = $zip_url ? \WPOrg_Learn\Activity_Kit_REST\get_download_url( $kit_post_id ) : '';
 
 	$level_terms = wp_get_post_terms( $kit_post_id, 'level', array( 'fields' => 'names' ) );
 	$level_name  = ! is_wp_error( $level_terms ) && ! empty( $level_terms ) ? $level_terms[0] : '';
