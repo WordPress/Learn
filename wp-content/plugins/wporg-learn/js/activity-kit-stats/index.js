@@ -123,7 +123,6 @@ if ( filterKit && tableBody && chartCanvas ) {
 		const isSingle = !! activeKit;
 		const totalV = data.reduce( ( sum, row ) => sum + ( row.views ?? 0 ), 0 );
 		const totalD = data.reduce( ( sum, row ) => sum + ( row.downloads ?? 0 ), 0 );
-		// Downloads and views both cover the selected range, so the rate is valid for every range.
 		const rate = totalV > 0 ? ( ( totalD / totalV ) * 100 ).toFixed( 1 ) + '%' : '—';
 
 		if ( summaryViews ) {
