@@ -35,7 +35,7 @@ add_action( 'admin_post_wporg_learn_export_feedback_logged_in_users', __NAMESPAC
  *                          broke (so that's never confused with a genuinely empty result).
  */
 function get_rows( array $args ) {
-	if ( ! class_exists( Contact_Form_Plugin::class ) ) {
+	if ( ! class_exists( Contact_Form_Plugin::class ) || ! class_exists( Feedback::class ) ) {
 		return new WP_Error( 'feedback_export_missing_plugin', __( 'Jetpack Forms is not active.', 'wporg-learn' ) );
 	}
 
@@ -177,7 +177,7 @@ function render_admin_page(): void {
 		wp_die( esc_html__( 'You do not have permission to export this data.', 'wporg-learn' ) );
 	}
 
-	if ( ! class_exists( Feedback::class ) ) {
+	if ( ! class_exists( Feedback::class ) || ! class_exists( Contact_Form_Plugin::class ) ) {
 		echo '<div class="wrap"><p>' . esc_html__( 'Jetpack Forms is not active.', 'wporg-learn' ) . '</p></div>';
 		return;
 	}
@@ -229,7 +229,8 @@ function render_admin_page(): void {
 					<td>
 						<input type="date" id="wporg-learn-feedback-export-after" name="after" />
 						<?php esc_html_e( 'to', 'wporg-learn' ); ?>
-						<input type="date" name="before" />
+						<label for="wporg-learn-feedback-export-before" class="screen-reader-text"><?php esc_html_e( 'End date', 'wporg-learn' ); ?></label>
+						<input type="date" id="wporg-learn-feedback-export-before" name="before" />
 					</td>
 				</tr>
 			</table>
@@ -244,7 +245,7 @@ function render_admin_page(): void {
  */
 function handle_admin_export_request(): void {
 	if ( ! current_user_can( 'export' ) ) {
-		wp_die( esc_html__( 'You do not have permission to export this data.', 'wporg-learn' ), 403 );
+		wp_die( esc_html__( 'You do not have permission to export this data.', 'wporg-learn' ), '', array( 'response' => 403 ) );
 	}
 
 	check_admin_referer( 'wporg_learn_export_feedback_logged_in_users' );
@@ -269,7 +270,9 @@ function handle_admin_export_request(): void {
 	}
 
 	if ( empty( $rows ) ) {
-		wp_safe_redirect( add_query_arg( 'wporg_learn_feedback_export', 'empty', wp_get_referer() ) );
+		// Fall back to the Tools page itself if there's no referer to bounce back to (e.g. stripped by the browser).
+		$redirect_to = wp_get_referer() ?: admin_url( 'tools.php?page=wporg-learn-feedback-logged-in-users' );
+		wp_safe_redirect( add_query_arg( 'wporg_learn_feedback_export', 'empty', $redirect_to ) );
 		exit;
 	}
 

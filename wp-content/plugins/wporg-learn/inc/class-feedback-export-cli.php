@@ -2,8 +2,8 @@
 /**
  * WP-CLI command for exporting WPFTP Jetpack Forms feedback.
  *
- * Shares its query/CSV logic with the Tools admin page in feedback-logged-in-user-export.php, which that
- * file must be loaded before this one for.
+ * Shares its query/CSV logic with the Tools admin page in feedback-logged-in-user-export.php; that file
+ * must be loaded before this one.
  *
  * @package WPOrg_Learn
  */
