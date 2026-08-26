@@ -54,6 +54,11 @@ if ( filterKit && tableBody && chartCanvas ) {
 		return ( num ?? 0 ).toLocaleString();
 	}
 
+	// Formats downloads/views as a percentage; '—' when there are no views to divide by.
+	function formatRate( views, downloads ) {
+		return views > 0 ? ( ( downloads / views ) * 100 ).toFixed( 1 ) + '%' : '—';
+	}
+
 	function formatDate( dateStr ) {
 		if ( ! dateStr ) {
 			return '—';
@@ -123,7 +128,7 @@ if ( filterKit && tableBody && chartCanvas ) {
 		const isSingle = !! activeKit;
 		const totalV = data.reduce( ( sum, row ) => sum + ( row.views ?? 0 ), 0 );
 		const totalD = data.reduce( ( sum, row ) => sum + ( row.downloads ?? 0 ), 0 );
-		const rate = totalV > 0 ? ( ( totalD / totalV ) * 100 ).toFixed( 1 ) + '%' : '—';
+		const rate = formatRate( totalV, totalD );
 
 		if ( summaryViews ) {
 			summaryViews.textContent = fmt( totalV );
@@ -299,7 +304,7 @@ if ( filterKit && tableBody && chartCanvas ) {
 		sorted.forEach( ( row ) => {
 			const views = row.views ?? 0;
 			const downloads = row.downloads ?? 0;
-			const rate = views > 0 ? ( ( downloads / views ) * 100 ).toFixed( 1 ) + '%' : '—';
+			const rate = formatRate( views, downloads );
 			const isSelected = row.slug === activeKit;
 			const tableRow = document.createElement( 'tr' );
 			if ( isSelected ) {
@@ -476,7 +481,7 @@ if ( filterKit && tableBody && chartCanvas ) {
 		data.forEach( ( row ) => {
 			const views = row.views ?? 0;
 			const downloads = row.downloads ?? 0;
-			const rate = views > 0 ? ( ( downloads / views ) * 100 ).toFixed( 1 ) + '%' : '0%';
+			const rate = formatRate( views, downloads );
 			rows.push( [ row.title, views, downloads, rate, row.updated || '' ] );
 		} );
 		const csv = rows.map( ( row ) => row.map( csvCell ).join( ',' ) ).join( '\n' );

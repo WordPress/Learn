@@ -1,6 +1,6 @@
 <?php
 /**
- * REST API routes for activity kits: stats endpoint backed by Jetpack Stats.
+ * REST API routes for activity kits: stats and download-tracking endpoints.
  *
  * @package WPOrg_Learn
  */
@@ -44,6 +44,38 @@ function register_routes() {
 			),
 		)
 	);
+
+	/*
+	 * Route on post ID (integer) rather than slug so that kits with underscores,
+	 * percent-encoded non-Latin characters, or other slug forms not matched by a
+	 * narrow character class all resolve correctly.
+	 */
+	register_rest_route(
+		'activity-kits/v1',
+		'/download/(?P<id>\d+)',
+		array(
+			'methods'             => 'GET',
+			'callback'            => __NAMESPACE__ . '\handle_download',
+			'permission_callback' => '__return_true',
+			'args'                => array(
+				'id' => array(
+					'required'          => true,
+					'type'              => 'integer',
+					'sanitize_callback' => 'absint',
+				),
+			),
+		)
+	);
+}
+
+/**
+ * Get the tracked download URL for an activity kit.
+ *
+ * @param int $kit_id Post ID of the activity kit.
+ * @return string     URL of the counting download endpoint.
+ */
+function get_download_url( $kit_id ) {
+	return rest_url( 'activity-kits/v1/download/' . absint( $kit_id ) );
 }
 
 /**
@@ -64,6 +96,82 @@ function register_routes() {
  */
 function stats_cache_expiration( $expiration ) {
 	return (int) max( 1, min( $expiration, MINUTE_IN_SECONDS ) );
+}
+
+/**
+ * Handle GET /activity-kits/v1/download/{id}
+ *
+ * Increments the kit's download counter (stored in one post meta row per UTC
+ * day) for requests that look like a person, and redirects the browser to the
+ * actual ZIP file URL.
+ * Using a server-side redirect lets us track same-domain downloads that
+ * Jetpack's outbound-click tracker misses.
+ *
+ * @param \WP_REST_Request $request The REST request.
+ * @return \WP_REST_Response|\WP_Error 302 redirect on success, WP_Error on failure.
+ */
+function handle_download( $request ) {
+	global $wpdb;
+
+	/*
+	 * Skip counting unfurlers, scanners and prefetches. Still redirect: the
+	 * heuristic has false positives, and those should cost an uncounted
+	 * download, not a failed one.
+	 */
+	$user_agent = sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ?? '' ) );
+	// Browsers signal speculative loads via headers, not the User-Agent: Sec-Purpose (standard), Purpose (WebKit), X-moz (older Firefox).
+	$purpose = sanitize_text_field( wp_unslash( $_SERVER['HTTP_SEC_PURPOSE'] ?? $_SERVER['HTTP_PURPOSE'] ?? $_SERVER['HTTP_X_MOZ'] ?? '' ) );
+	$is_bot  = empty( $user_agent )
+		|| preg_match( '/bot|crawl|slurp|spider|mediapartners|facebookexternalhit|linkedinbot|twitterbot|whatsapp|slack|discord|prefetch/i', $user_agent )
+		|| preg_match( '/prefetch|prerender|preview/i', $purpose );
+
+	$kit_id   = absint( $request->get_param( 'id' ) );
+	$kit_post = get_post( $kit_id );
+
+	if ( ! $kit_post || 'activity_kit' !== $kit_post->post_type || 'publish' !== $kit_post->post_status ) {
+		return new \WP_Error( 'activity_kit_not_found', __( 'Activity kit not found.', 'wporg-learn' ), array( 'status' => 404 ) );
+	}
+
+	$zip_id = (int) get_post_meta( $kit_post->ID, '_activity_zip_id', true );
+
+	if ( ! $zip_id ) {
+		return new \WP_Error( 'activity_kit_no_zip', __( 'No downloadable file attached to this activity kit.', 'wporg-learn' ), array( 'status' => 404 ) );
+	}
+
+	$zip_url = wp_get_attachment_url( $zip_id );
+
+	if ( ! $zip_url ) {
+		return new \WP_Error( 'activity_kit_zip_url', __( 'Could not resolve the download URL.', 'wporg-learn' ), array( 'status' => 500 ) );
+	}
+
+	if ( ! $is_bot ) {
+		/*
+		 * Seed today's bucket, then increment atomically — update_post_meta()'s
+		 * CAS is racy when the previous value is 0, and a seed race is harmless
+		 * because reads take MAX per bucket.
+		 */
+		$meta_key = '_activity_downloads_' . gmdate( 'Ymd' );
+		add_post_meta( $kit_post->ID, $meta_key, 0, true );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Atomic increment; cache invalidated immediately below.
+		$wpdb->query(
+			$wpdb->prepare(
+				"UPDATE {$wpdb->postmeta} SET meta_value = meta_value + 1 WHERE post_id = %d AND meta_key = %s",
+				$kit_post->ID,
+				$meta_key
+			)
+		);
+		wp_cache_delete( $kit_post->ID, 'post_meta' );
+	}
+
+	return new \WP_REST_Response(
+		null,
+		302,
+		array(
+			'Location'      => esc_url_raw( $zip_url ),
+			'Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0',
+			'Pragma'        => 'no-cache',
+		)
+	);
 }
 
 /**
@@ -89,35 +197,27 @@ function handle_stats( $request ) {
 
 	$jetpack_unavailable = ! class_exists( '\Automattic\Jetpack\Stats\WPCOM_Stats' );
 
-	// Build ZIP URL => post IDs map for download click matching.
-	// A URL maps to an array of kit IDs so that if multiple kits share a zip,
-	// each kit is credited rather than silently dropped by a key collision.
-	$zip_url_map = array();
+	// Narrow to only the requested kit when a slug filter is active, so that
+	// the Jetpack API is not queried for IDs whose data will never be returned.
+	$kit_ids = array();
 	foreach ( $kits as $kit_post ) {
-		$zip_id = (int) get_post_meta( $kit_post->ID, '_activity_zip_id', true );
-		if ( $zip_id ) {
-			$zip_url = wp_get_attachment_url( $zip_id );
-			if ( $zip_url ) {
-				$zip_url_map[ $zip_url ][] = $kit_post->ID;
-			}
+		if ( ! $kit || $kit_post->post_name === $kit ) {
+			$kit_ids[] = $kit_post->ID;
 		}
 	}
 
-	$views_map     = array();
+	$views_map = array();
+
+	if ( ! $jetpack_unavailable && ( 'both' === $metric || 'views' === $metric ) ) {
+		add_filter( 'jetpack_fetch_stats_cache_expiration', __NAMESPACE__ . '\stats_cache_expiration' );
+		$views_map = get_jetpack_post_views( $range, $kit_ids );
+		remove_filter( 'jetpack_fetch_stats_cache_expiration', __NAMESPACE__ . '\stats_cache_expiration' );
+	}
+
 	$downloads_map = array();
 
-	if ( ! $jetpack_unavailable ) {
-		add_filter( 'jetpack_fetch_stats_cache_expiration', __NAMESPACE__ . '\stats_cache_expiration' );
-
-		if ( 'both' === $metric || 'views' === $metric ) {
-			$kit_ids   = wp_list_pluck( $kits, 'ID' );
-			$views_map = get_jetpack_post_views( $range, $kit_ids );
-		}
-		if ( 'both' === $metric || 'downloads' === $metric ) {
-			$downloads_map = get_jetpack_download_clicks( $range, $zip_url_map );
-		}
-
-		remove_filter( 'jetpack_fetch_stats_cache_expiration', __NAMESPACE__ . '\stats_cache_expiration' );
+	if ( 'both' === $metric || 'downloads' === $metric ) {
+		$downloads_map = get_download_counts( $range, $kit_ids );
 	}
 
 	$results = array();
@@ -134,17 +234,17 @@ function handle_stats( $request ) {
 			'updated' => get_the_modified_date( 'Y-m-d', $kit_post->ID ),
 		);
 
-		if ( $jetpack_unavailable ) {
-			$data['jetpack_unavailable'] = true;
-			$data['views']               = 0;
-			$data['downloads']           = 0;
-		} else {
-			if ( 'both' === $metric || 'views' === $metric ) {
+		// Views depend on Jetpack; downloads come from post meta regardless.
+		if ( 'both' === $metric || 'views' === $metric ) {
+			if ( $jetpack_unavailable ) {
+				$data['jetpack_unavailable'] = true;
+				$data['views']               = 0;
+			} else {
 				$data['views'] = $views_map[ $kit_post->ID ] ?? 0;
 			}
-			if ( 'both' === $metric || 'downloads' === $metric ) {
-				$data['downloads'] = $downloads_map[ $kit_post->ID ] ?? 0;
-			}
+		}
+		if ( 'both' === $metric || 'downloads' === $metric ) {
+			$data['downloads'] = $downloads_map[ $kit_post->ID ] ?? 0;
 		}
 
 		$results[] = $data;
@@ -154,23 +254,42 @@ function handle_stats( $request ) {
 }
 
 /**
+ * Get the day span a stats range covers.
+ *
+ * Shared by get_jetpack_post_views() and get_download_counts() so views and
+ * downloads always cover the same period.
+ *
+ * @param string $range One of '7d', '30d', '90d', 'all'.
+ * @return int          Number of days the range covers.
+ */
+function get_range_days( $range ) {
+	switch ( $range ) {
+		case '7d':
+			return 7;
+		case '30d':
+			return 30;
+		case '90d':
+			return 90;
+		default:
+			return 180;
+	}
+}
+
+/**
  * Get per-post view counts from Jetpack Stats for a given time range.
  *
- * Uses get_total_post_views() rather than get_top_posts() so that views are
- * fetched by post ID directly. get_top_posts() only returns the site-wide top N
- * posts ranked by all-time views, which means newly published activity kits
- * never appear — they're outranked by years of established content.
+ * Uses get_total_post_views() to query specific post IDs directly, rather than
+ * get_top_posts() which only returns the site-wide top-N posts by all-time views
+ * and misses recently published kits with low overall traffic.
  *
- * API constraints (Jetpack / WPCOM /stats/views/posts endpoint):
- *   - `period` is silently discarded; only daily granularity is returned.
- *   - `num` is capped at 30 days per call (422 if larger).
+ * API constraints (Jetpack 13.3.1 / WPCOM /stats/views/posts endpoint):
+ *   - `period` is ignored; only daily granularity is returned.
+ *   - `num` is capped at 30 days per call.
  *   - `post_ids` accepts at most 100 IDs per call.
  *
  * To cover ranges longer than 30 days, multiple 30-day windows are issued with
- * a date offset and the results are summed. Kit IDs are chunked into groups of
+ * a date offset and the results are summed. post_ids are chunked into groups of
  * 100 so the library can grow past 100 kits without silently losing data.
- * '90d' uses 3 windows (90 days); 'all' uses 6 windows (≈ 180 days) to give a
- * meaningful distinction from the 90-day range.
  *
  * @param string $range   One of '7d', '30d', '90d', 'all'.
  * @param int[]  $kit_ids Post IDs of the activity kits to fetch views for.
@@ -184,74 +303,17 @@ function get_jetpack_post_views( $range, array $kit_ids ) {
 	$stats = new \Automattic\Jetpack\Stats\WPCOM_Stats();
 
 	/*
-	 * Map the UI range to one or more 30-day windows. Each window is defined by
-	 * how many days back its end-date is offset from today. 'all' uses 6 windows
-	 * (≈ 6 months) rather than 3, giving a meaningful distinction from '90d'.
-	 * Extending further would multiply sequential API calls proportionally; 6 is
-	 * a reasonable ceiling for an admin-only dashboard with a small post count.
+	 * Break the range's day span into windows of at most 30 days — the WPCOM
+	 * /stats/views/posts API caps `num` at 30 per call. Each window is defined
+	 * by how many days back its end-date is offset from today.
 	 */
-	switch ( $range ) {
-		case '7d':
-			$windows = array(
-				array(
-					'num'    => 7,
-					'offset' => 0,
-				),
-			);
-			break;
-		case '30d':
-			$windows = array(
-				array(
-					'num'    => 30,
-					'offset' => 0,
-				),
-			);
-			break;
-		case '90d':
-			$windows = array(
-				array(
-					'num'    => 30,
-					'offset' => 0,
-				),
-				array(
-					'num'    => 30,
-					'offset' => 30,
-				),
-				array(
-					'num'    => 30,
-					'offset' => 60,
-				),
-			);
-			break;
-		case 'all':
-		default:
-			$windows = array(
-				array(
-					'num'    => 30,
-					'offset' => 0,
-				),
-				array(
-					'num'    => 30,
-					'offset' => 30,
-				),
-				array(
-					'num'    => 30,
-					'offset' => 60,
-				),
-				array(
-					'num'    => 30,
-					'offset' => 90,
-				),
-				array(
-					'num'    => 30,
-					'offset' => 120,
-				),
-				array(
-					'num'    => 30,
-					'offset' => 150,
-				),
-			);
-			break;
+	$days    = get_range_days( $range );
+	$windows = array();
+	for ( $offset = 0; $offset < $days; $offset += 30 ) {
+		$windows[] = array(
+			'num'    => min( 30, $days - $offset ),
+			'offset' => $offset,
+		);
 	}
 
 	// Pre-compute window end-dates once so every chunk uses the same calendar
@@ -280,12 +342,7 @@ function get_jetpack_post_views( $range, array $kit_ids ) {
 				)
 			);
 
-			/*
-			 * Any unusable response — API failure or unexpected shape — returns empty
-			 * so the caller shows 0 for all kits (a visible failure signal) rather
-			 * than a plausible-looking undercount. Skipping just the bad window would
-			 * drop its views from a sum the other windows still make look reasonable.
-			 */
+			// Any unusable response returns empty so all kits show 0 (a visible failure) rather than a plausible-looking undercount.
 			if ( is_wp_error( $result ) || ! is_array( $result ) ) {
 				return array();
 			}
@@ -309,79 +366,49 @@ function get_jetpack_post_views( $range, array $kit_ids ) {
 }
 
 /**
- * Get per-kit download click counts from Jetpack Clicks report.
+ * Get per-kit download counts from the daily download meta buckets.
  *
- * Clicks are scoped to the same window as get_jetpack_post_views() so that the
- * download rate (downloads / views) divides two figures covering the same span.
- * For 'all' that means exactly 180 days (period=day, num=180), matching the
- * 6 × 30-day view windows — calendar-month boundaries would give 181–184 days
- * and introduce a slight rate inflation relative to the view window.
+ * Downloads are stored as one meta row per kit per UTC day
+ * ('_activity_downloads_YYYYMMDD', see handle_download()), so they can be
+ * summed over the same day span as the Jetpack view windows and the download
+ * rate always divides two figures covering the identical period.
  *
- * @param string $range       One of '7d', '30d', '90d', 'all'.
- * @param array  $zip_url_map Map of zip_url (string) => array of post_ids (int[]).
- * @return array              Map of post_id (int) => click_count (int). Empty on failure.
+ * MAX() per bucket (instead of SUM) makes duplicate rows from a concurrent
+ * first-download race harmless: the atomic UPDATE in handle_download()
+ * increments every duplicate equally, so each row holds the full count for
+ * its day.
+ *
+ * @param string $range   One of '7d', '30d', '90d', 'all'.
+ * @param int[]  $kit_ids Post IDs of the activity kits to fetch downloads for.
+ * @return array          Map of post_id (int) => download_count (int).
  */
-function get_jetpack_download_clicks( $range, $zip_url_map ) {
-	if ( ! class_exists( '\Automattic\Jetpack\Stats\WPCOM_Stats' ) || empty( $zip_url_map ) ) {
+function get_download_counts( $range, array $kit_ids ) {
+	global $wpdb;
+
+	if ( empty( $kit_ids ) ) {
 		return array();
 	}
 
-	$stats = new \Automattic\Jetpack\Stats\WPCOM_Stats();
+	$days      = get_range_days( $range );
+	$now       = time();
+	$first_key = '_activity_downloads_' . gmdate( 'Ymd', $now - ( $days - 1 ) * DAY_IN_SECONDS );
+	$last_key  = '_activity_downloads_' . gmdate( 'Ymd', $now );
 
-	if ( 'all' === $range ) {
-		// Use day granularity for 'all' so the window is exactly 180 days,
-		// matching the 6 × 30-day view windows in get_jetpack_post_views().
-		// period=month would give 181–184 days depending on the calendar.
-		$period = 'day';
-		$num    = 180;
-	} else {
-		$period = 'day';
-		$num    = intval( str_replace( 'd', '', $range ) );
-	}
+	$id_placeholders = implode( ',', array_fill( 0, count( $kit_ids ), '%d' ) );
 
-	$result = $stats->get_clicks(
-		array(
-			'period'    => $period,
-			'num'       => $num,
-			'date'      => gmdate( 'Y-m-d' ),
-			'summarize' => true,
-			'max'       => 1000,
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- The meta API has no ranged multi-key read.
+	$rows = $wpdb->get_results(
+		$wpdb->prepare(
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $id_placeholders is a list of %d placeholders built above from count().
+			"SELECT post_id, meta_key, MAX( CAST( meta_value AS UNSIGNED ) ) AS downloads FROM {$wpdb->postmeta} WHERE post_id IN ( {$id_placeholders} ) AND meta_key BETWEEN %s AND %s GROUP BY post_id, meta_key",
+			array_merge( $kit_ids, array( $first_key, $last_key ) )
 		)
 	);
 
-	if ( is_wp_error( $result ) || ! is_array( $result ) ) {
-		return array();
-	}
-
-	$clicks = isset( $result['summary']['clicks'] ) ? $result['summary']['clicks'] : array();
-	if ( ! is_array( $clicks ) ) {
-		return array();
-	}
-
-	// Jetpack groups clicks into a tree: a domain node carries a NULL url and
-	// the real per-URL clicks under `children`, while a lone click can appear
-	// as a flat leaf. Walk the tree and keep only leaves with a url + views.
-	$leaves = array();
-	$stack  = $clicks;
-	while ( $stack ) {
-		$node = array_pop( $stack );
-		if ( ! empty( $node['children'] ) && is_array( $node['children'] ) ) {
-			foreach ( $node['children'] as $child ) {
-				$stack[] = $child;
-			}
-		} elseif ( isset( $node['url'], $node['views'] ) ) {
-			$leaves[] = $node;
-		}
-	}
-
 	$map = array();
-	foreach ( $leaves as $leaf ) {
-		if ( ! isset( $zip_url_map[ $leaf['url'] ] ) ) {
-			continue;
-		}
-		foreach ( $zip_url_map[ $leaf['url'] ] as $post_id ) {
-			$map[ $post_id ] = ( isset( $map[ $post_id ] ) ? $map[ $post_id ] : 0 ) + (int) $leaf['views'];
-		}
+	foreach ( $rows as $row ) {
+		$id         = (int) $row->post_id;
+		$map[ $id ] = ( isset( $map[ $id ] ) ? $map[ $id ] : 0 ) + (int) $row->downloads;
 	}
 
 	return $map;

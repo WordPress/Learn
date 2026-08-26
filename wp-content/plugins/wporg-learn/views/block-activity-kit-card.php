@@ -24,6 +24,9 @@ $duration = get_post_meta( $kit_post_id, '_activity_duration', true );
 $zip_id   = (int) get_post_meta( $kit_post_id, '_activity_zip_id', true );
 $zip_url  = $zip_id ? wp_get_attachment_url( $zip_id ) : '';
 
+// Route through the counting endpoint so card downloads are tracked too.
+$download_url = $zip_url ? \WPOrg_Learn\Activity_Kit_REST\get_download_url( $kit_post_id ) : '';
+
 $level_terms = wp_get_post_terms( $kit_post_id, 'level', array( 'fields' => 'names' ) );
 $level_name  = ! is_wp_error( $level_terms ) && ! empty( $level_terms ) ? $level_terms[0] : '';
 
@@ -86,11 +89,9 @@ if ( has_post_thumbnail( $kit_post_id ) ) {
 				href="<?php echo esc_url( $permalink ); ?>">
 				<?php esc_html_e( 'View', 'wporg-learn' ); ?>
 			</a>
-			<?php if ( $zip_url ) : ?>
+			<?php if ( $download_url ) : ?>
 				<a class="wporg-activity-kit-card__download-btn button button-primary"
-					href="<?php echo esc_url( $zip_url ); ?>"
-					data-post-id="<?php echo absint( $kit_post_id ); ?>"
-					data-track-download="1">
+					href="<?php echo esc_url( $download_url ); ?>">
 					<?php esc_html_e( 'Download ↓', 'wporg-learn' ); ?>
 				</a>
 			<?php endif; ?>

@@ -7,10 +7,11 @@
  * @package WPOrg_Learn
  */
 
-$kit_id   = get_the_ID();
-$duration = get_post_meta( $kit_id, '_activity_duration', true );
-$zip_id   = (int) get_post_meta( $kit_id, '_activity_zip_id', true );
-$zip_url  = $zip_id ? wp_get_attachment_url( $zip_id ) : '';
+$kit_id       = get_the_ID();
+$duration     = get_post_meta( $kit_id, '_activity_duration', true );
+$zip_id       = (int) get_post_meta( $kit_id, '_activity_zip_id', true );
+// Link at the counting endpoint, not the file; route on ID since slugs may not URL-encode cleanly.
+$download_url = ( $zip_id && wp_get_attachment_url( $zip_id ) ) ? \WPOrg_Learn\Activity_Kit_REST\get_download_url( $kit_id ) : '';
 
 $guide_pdf_id  = (int) get_post_meta( $kit_id, '_activity_guide_pdf_id', true );
 $slides_pdf_id = (int) get_post_meta( $kit_id, '_activity_slides_pdf_id', true );
@@ -100,11 +101,9 @@ $icon_desk_lg  = '<svg width="20" height="20" viewBox="-2 -2 24 24" fill="curren
 		<?php echo $icon_back; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Static SVG markup. ?>
 		<?php esc_html_e( 'Back to Activity Library', 'wporg-learn' ); ?>
 	</a>
-	<?php if ( $zip_url ) : ?>
+	<?php if ( $download_url ) : ?>
 		<a class="wporg-activity-kit-action-row__download wp-block-button__link"
-			href="<?php echo esc_url( $zip_url ); ?>"
-			data-post-id="<?php echo absint( $kit_id ); ?>"
-			data-track-download="1">
+			href="<?php echo esc_url( $download_url ); ?>">
 			<?php echo $icon_download; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Static SVG markup. ?>
 			<?php esc_html_e( 'Download kit', 'wporg-learn' ); ?>
 		</a>
@@ -306,22 +305,13 @@ if ( $feedback_url ) :
 </div>
 <?php endif; ?>
 
-<?php
-$wpcom_blog_id = '';
-if ( class_exists( '\Jetpack_Options' ) ) {
-	$wpcom_blog_id = (string) \Jetpack_Options::get_option( 'id', '' );
-}
-?>
-
 <!-- Download this kit -->
-<?php if ( $zip_url ) : ?>
+<?php if ( $download_url ) : ?>
 <div class="wporg-activity-kit-download-box">
 	<h2><?php esc_html_e( 'Download this kit', 'wporg-learn' ); ?></h2>
 	<p><?php echo esc_html( $download_desc ); ?></p>
 	<a class="wporg-activity-kit-download-box__btn"
-		href="<?php echo esc_url( $zip_url ); ?>"
-		data-post-id="<?php echo absint( $kit_id ); ?>"
-		data-track-download="1">
+		href="<?php echo esc_url( $download_url ); ?>">
 		<?php echo $icon_download; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Static SVG markup. ?>
 		<?php esc_html_e( 'Download kit', 'wporg-learn' ); ?>
 	</a>
@@ -333,24 +323,4 @@ if ( class_exists( '\Jetpack_Options' ) ) {
 		<?php endif; ?>
 	</p>
 </div>
-
-<script>
-( function () {
-	var blogId = '<?php echo esc_js( $wpcom_blog_id ); ?>';
-	if ( ! blogId || ! window._stq ) {
-		return;
-	}
-	document.querySelectorAll( '[data-track-download="1"]' ).forEach( function ( btn ) {
-		btn.addEventListener( 'click', function () {
-			window._stq.push( [ 'click', {
-				s: '2',
-				u: btn.href,
-				r: '0',
-				b: blogId,
-				p: btn.dataset.postId || '0',
-			} ] );
-		} );
-	} );
-} )();
-</script>
 <?php endif; ?>
