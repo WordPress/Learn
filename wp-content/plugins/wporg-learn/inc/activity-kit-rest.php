@@ -482,7 +482,12 @@ function get_last_downloaded_date( $kit_id ) {
 		return null;
 	}
 
-	return gmdate( 'Y-m-d', strtotime( $timestamp ) );
+	/*
+	 * $timestamp is stored as GMT (current_time( 'mysql', true )) but carries no timezone
+	 * of its own — strtotime() would otherwise interpret it in PHP's default timezone,
+	 * which can shift the resulting day near midnight. The explicit +0000 forces UTC.
+	 */
+	return gmdate( 'Y-m-d', strtotime( $timestamp . ' +0000' ) );
 }
 
 /**

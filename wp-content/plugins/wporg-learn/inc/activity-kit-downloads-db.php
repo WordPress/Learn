@@ -81,7 +81,17 @@ function maybe_upgrade_schema() {
 
 	dbDelta( $sql );
 
-	update_option( DB_VERSION_OPTION, DB_VERSION );
+	/*
+	 * Only record the upgrade as done once the table is confirmed to exist — dbDelta()
+	 * doesn't reliably signal failure, and marking the version as current after a failed
+	 * CREATE (a permissions issue, a syntax problem introduced by a future edit, etc.)
+	 * would stop every later request from retrying, leaving download tracking silently
+	 * and permanently broken on that environment.
+	 */
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- One-off existence check right after a schema change; not a data query.
+	if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) ) === $table_name ) {
+		update_option( DB_VERSION_OPTION, DB_VERSION );
+	}
 }
 
 /**
@@ -96,8 +106,18 @@ function get_site_secret() {
 	$secret = get_option( SECRET_OPTION );
 
 	if ( ! $secret ) {
-		$secret = wp_generate_password( 64, true, true );
-		add_option( SECRET_OPTION, $secret, '', false );
+		$generated = wp_generate_password( 64, true, true );
+
+		/*
+		 * add_option() is a no-op if another concurrent request already won this race
+		 * and inserted the option first — re-read rather than trusting $generated, so
+		 * every request ends up hashing against the one secret that actually persisted.
+		 */
+		if ( add_option( SECRET_OPTION, $generated, '', false ) ) {
+			$secret = $generated;
+		} else {
+			$secret = get_option( SECRET_OPTION );
+		}
 	}
 
 	return $secret;
