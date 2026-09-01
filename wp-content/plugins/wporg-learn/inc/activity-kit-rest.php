@@ -101,9 +101,11 @@ function stats_cache_expiration( $expiration ) {
 /**
  * Handle GET /activity-kits/v1/download/{id}
  *
- * Increments the kit's download counter (stored in one post meta row per UTC
- * day) for requests that look like a person, and redirects the browser to the
- * actual ZIP file URL.
+ * For requests that look like a person: increments the kit's download counter
+ * (stored in one post meta row per UTC day), records a de-duplicated
+ * (kit, visitor, day) row for the unique-downloader count (see
+ * activity-kit-downloads-db.php), and updates the kit's last-downloaded
+ * timestamp. Then redirects the browser to the actual ZIP file URL.
  * Using a server-side redirect lets us track same-domain downloads that
  * Jetpack's outbound-click tracker misses.
  *
@@ -161,6 +163,21 @@ function handle_download( $request ) {
 			)
 		);
 		wp_cache_delete( $kit_post->ID, 'post_meta' );
+
+		/*
+		 * REMOTE_ADDR is used as-is, with no X-Forwarded-For/CF-Connecting-IP fallback.
+		 * If WordPress.org's edge doesn't already rewrite REMOTE_ADDR to the real client
+		 * IP for this site, every visitor would share one IP here, and uniqueness would
+		 * collapse to distinguishing visitors by User-Agent alone — undercounting
+		 * unique_downloaders. This is only used for an anonymized analytics hash (never
+		 * stored or trusted for access control), so a forwarded-header fallback would be
+		 * safe to add against spoofing, but blindly trusting an unvalidated header without
+		 * confirming this site's actual proxy setup first could make counting worse, not
+		 * better. Confirm with WordPress.org infra before changing this.
+		 */
+		$ip = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? '' ) );
+		\WPOrg_Learn\Activity_Kit_Downloads_DB\record_download( $kit_post->ID, $ip, $user_agent );
+		update_post_meta( $kit_post->ID, '_activity_last_downloaded', current_time( 'mysql', true ) );
 	}
 
 	return new \WP_REST_Response(
@@ -206,18 +223,29 @@ function handle_stats( $request ) {
 		}
 	}
 
-	$views_map = array();
+	/*
+	 * Last-viewed is approximated from Jetpack's own per-post view history, so it shares
+	 * $views_map's Jetpack-availability guard, not just the metric filter.
+	 */
+	$should_fetch_views = ! $jetpack_unavailable && ( 'both' === $metric || 'views' === $metric );
 
-	if ( ! $jetpack_unavailable && ( 'both' === $metric || 'views' === $metric ) ) {
+	$views_map       = array();
+	$last_viewed_map = array();
+
+	if ( $should_fetch_views ) {
 		add_filter( 'jetpack_fetch_stats_cache_expiration', __NAMESPACE__ . '\stats_cache_expiration' );
 		$views_map = get_jetpack_post_views( $range, $kit_ids );
 		remove_filter( 'jetpack_fetch_stats_cache_expiration', __NAMESPACE__ . '\stats_cache_expiration' );
+
+		$last_viewed_map = get_last_viewed_dates( $kit_ids );
 	}
 
-	$downloads_map = array();
+	$downloads_map          = array();
+	$unique_downloaders_map = array();
 
 	if ( 'both' === $metric || 'downloads' === $metric ) {
-		$downloads_map = get_download_counts( $range, $kit_ids );
+		$downloads_map          = get_download_counts( $range, $kit_ids );
+		$unique_downloaders_map = \WPOrg_Learn\Activity_Kit_Downloads_DB\get_unique_downloader_counts( $range, $kit_ids );
 	}
 
 	$results = array();
@@ -234,17 +262,20 @@ function handle_stats( $request ) {
 			'updated' => get_the_modified_date( 'Y-m-d', $kit_post->ID ),
 		);
 
-		// Views depend on Jetpack; downloads come from post meta regardless.
+		// Views depend on Jetpack; downloads come from post meta/the downloads table regardless.
 		if ( 'both' === $metric || 'views' === $metric ) {
 			if ( $jetpack_unavailable ) {
 				$data['jetpack_unavailable'] = true;
 				$data['views']               = 0;
 			} else {
-				$data['views'] = $views_map[ $kit_post->ID ] ?? 0;
+				$data['views']       = $views_map[ $kit_post->ID ] ?? 0;
+				$data['last_viewed'] = $last_viewed_map[ $kit_post->ID ] ?? null;
 			}
 		}
 		if ( 'both' === $metric || 'downloads' === $metric ) {
-			$data['downloads'] = $downloads_map[ $kit_post->ID ] ?? 0;
+			$data['downloads']          = $downloads_map[ $kit_post->ID ] ?? 0;
+			$data['unique_downloaders'] = $unique_downloaders_map[ $kit_post->ID ] ?? 0;
+			$data['last_downloaded']    = get_last_downloaded_date( $kit_post->ID );
 		}
 
 		$results[] = $data;
@@ -273,6 +304,27 @@ function get_range_days( $range ) {
 		default:
 			return 180;
 	}
+}
+
+/**
+ * Get the Unix timestamp boundaries a stats range covers.
+ *
+ * Shared by get_download_counts() and Activity_Kit_Downloads_DB\get_unique_downloader_counts()
+ * (each formats these into whatever date/meta-key string shape it needs) so the two
+ * counts — and any other range-scoped query added later — can't silently drift onto
+ * different day spans if this boundary math ever changes.
+ *
+ * @param string $range One of '7d', '30d', '90d', 'all'.
+ * @return array{first: int, last: int} Unix timestamps for the first and last day.
+ */
+function get_range_timestamps( $range ) {
+	$days = get_range_days( $range );
+	$now  = time();
+
+	return array(
+		'first' => $now - ( $days - 1 ) * DAY_IN_SECONDS,
+		'last'  => $now,
+	);
 }
 
 /**
@@ -389,10 +441,9 @@ function get_download_counts( $range, array $kit_ids ) {
 		return array();
 	}
 
-	$days      = get_range_days( $range );
-	$now       = time();
-	$first_key = '_activity_downloads_' . gmdate( 'Ymd', $now - ( $days - 1 ) * DAY_IN_SECONDS );
-	$last_key  = '_activity_downloads_' . gmdate( 'Ymd', $now );
+	$bounds    = get_range_timestamps( $range );
+	$first_key = '_activity_downloads_' . gmdate( 'Ymd', $bounds['first'] );
+	$last_key  = '_activity_downloads_' . gmdate( 'Ymd', $bounds['last'] );
 
 	$id_placeholders = implode( ',', array_fill( 0, count( $kit_ids ), '%d' ) );
 
@@ -412,4 +463,114 @@ function get_download_counts( $range, array $kit_ids ) {
 	}
 
 	return $map;
+}
+
+/**
+ * Get a kit's last-downloaded date, if it has ever been downloaded.
+ *
+ * Not range-scoped, same as get_the_modified_date() for the 'updated' field — this
+ * reflects the kit's real download history regardless of which time range the
+ * dashboard happens to be filtered to.
+ *
+ * @param int $kit_id Post ID of the activity kit.
+ * @return string|null 'Y-m-d', or null if the kit has never been downloaded.
+ */
+function get_last_downloaded_date( $kit_id ) {
+	$timestamp = get_post_meta( $kit_id, '_activity_last_downloaded', true );
+
+	if ( ! $timestamp ) {
+		return null;
+	}
+
+	return gmdate( 'Y-m-d', strtotime( $timestamp ) );
+}
+
+/**
+ * Get, for each kit, the most recent date Jetpack recorded a view for it.
+ *
+ * Jetpack Stats has no dedicated "last viewed" field, so this is approximated from
+ * WPCOM_Stats::get_post_views()'s per-post view history (the 'weeks' field is the one
+ * part of that response confirmed to carry day-level granularity). This runs only when
+ * an admin loads the stats dashboard — an infrequent, authenticated read, not the
+ * per-visitor-page-load case that ruled out custom view tracking for this project.
+ *
+ * There's no batched form of this specific Jetpack call (unlike get_jetpack_post_views(),
+ * which fetches up to 100 kits per request) — get_post_views() is a single-post endpoint,
+ * so this is one Jetpack API call per kit on a cache miss. The cache TTL below is
+ * intentionally longer than an hour to keep that cost infrequent; if the kit library
+ * grows large enough that even a once-a-day cache-miss burst becomes noticeable, the
+ * next step would be warming this cache from a scheduled cron event instead of on-demand
+ * from the dashboard request.
+ *
+ * @param int[] $kit_ids Post IDs of the activity kits to fetch last-viewed dates for.
+ * @return array         Map of post_id (int) => 'Y-m-d' (string). Kits with no cached
+ *                        or parseable result are omitted, not set to null.
+ */
+function get_last_viewed_dates( array $kit_ids ) {
+	if ( ! class_exists( '\Automattic\Jetpack\Stats\WPCOM_Stats' ) || empty( $kit_ids ) ) {
+		return array();
+	}
+
+	$stats = new \Automattic\Jetpack\Stats\WPCOM_Stats();
+	$map   = array();
+
+	foreach ( $kit_ids as $kit_id ) {
+		$cache_key = 'ak_last_viewed_' . $kit_id;
+		$cached    = wp_cache_get( $cache_key, 'activity_kit_stats' );
+
+		if ( false !== $cached ) {
+			if ( $cached ) {
+				$map[ $kit_id ] = $cached;
+			}
+			continue;
+		}
+
+		$result = $stats->get_post_views( $kit_id, array( 'fields' => 'weeks' ) );
+		$date   = is_wp_error( $result ) ? null : extract_last_viewed_date( $result );
+
+		/* Cache the miss too (as an empty string), so a kit with no recorded views doesn't trigger a fresh API call on every dashboard load for the next several hours. */
+		wp_cache_set( $cache_key, $date ?? '', 'activity_kit_stats', 6 * HOUR_IN_SECONDS );
+
+		if ( $date ) {
+			$map[ $kit_id ] = $date;
+		}
+	}
+
+	return $map;
+}
+
+/**
+ * Pull the most recent date with a nonzero view count out of a get_post_views() response.
+ *
+ * The exact shape of the 'weeks' field isn't fully documented publicly, so this is
+ * intentionally defensive: it tolerates either an associative 'Y-m-d' => count shape or a
+ * nested 'Y-m-d' => array( 'days' => array( 'Y-m-d' => count ) ) shape, and returns null
+ * (rather than a wrong-but-plausible date) on anything else. Verify this against a live
+ * Jetpack connection before relying on it — see the PR description.
+ *
+ * @param array $result Response from WPCOM_Stats::get_post_views().
+ * @return string|null 'Y-m-d', or null if no parseable, nonzero-view date was found.
+ */
+function extract_last_viewed_date( $result ) {
+	if ( ! is_array( $result ) || empty( $result['weeks'] ) || ! is_array( $result['weeks'] ) ) {
+		return null;
+	}
+
+	$last_viewed = null;
+
+	foreach ( $result['weeks'] as $date => $value ) {
+		$days = is_array( $value ) && isset( $value['days'] ) ? $value['days'] : array( $date => $value );
+
+		if ( ! is_array( $days ) ) {
+			continue;
+		}
+
+		foreach ( $days as $day => $count ) {
+			if ( (int) $count > 0 && ( null === $last_viewed || $day > $last_viewed ) ) {
+				$last_viewed = $day;
+			}
+		}
+	}
+
+	return $last_viewed;
 }
