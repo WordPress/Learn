@@ -291,6 +291,26 @@ function register_common_meta() {
 		);
 	}
 
+	/*
+	 * `register_post_meta()` scopes a `sanitize_callback` to one object subtype, so the callbacks
+	 * below only run for the post types they are registered against. These keys hold URLs that
+	 * the theme prints, so also register them without a subtype: `sanitize_meta()` then has a
+	 * callback to fall back on for post types with no registration of their own.
+	 */
+	$url_meta_keys = array( 'video_url', 'slides_view_url', 'slides_download_url' );
+	foreach ( $url_meta_keys as $url_meta_key ) {
+		register_meta(
+			'post',
+			$url_meta_key,
+			array(
+				'type'              => 'string',
+				'single'            => true,
+				'sanitize_callback' => 'esc_url_raw',
+				'show_in_rest'      => false,
+			)
+		);
+	}
+
 	// Video URL field.
 	$post_types = array( 'wporg_workshop', 'lesson' );
 	foreach ( $post_types as $post_type ) {
@@ -702,7 +722,8 @@ function save_workshop_meta_fields( $post_id ) {
 		return;
 	}
 
-	$video_url = filter_input( INPUT_POST, 'video-url', FILTER_SANITIZE_URL );
+	// Use the same escaper the meta key is registered with.
+	$video_url = esc_url_raw( (string) filter_input( INPUT_POST, 'video-url' ) );
 	update_post_meta( $post_id, 'video_url', $video_url );
 
 	$duration = filter_input( INPUT_POST, 'duration', FILTER_SANITIZE_NUMBER_INT, FILTER_REQUIRE_ARRAY );
