@@ -8,6 +8,7 @@ defined( 'WPINC' ) || die();
  * Actions and filters.
  */
 add_filter( 'user_has_cap', __NAMESPACE__ . '\set_post_type_caps' );
+add_action( 'pre_get_posts', __NAMESPACE__ . '\scope_learn_content_list_to_author' );
 add_filter( 'user_has_cap', __NAMESPACE__ . '\set_caps_for_internal_notes' );
 add_filter( 'map_meta_cap', __NAMESPACE__ . '\map_meta_caps', 20, 4 ); // Needs to fire after meta caps in wporg-internal-notes.
 add_action( 'init', __NAMESPACE__ . '\add_or_update_lesson_plan_editor_role' );
@@ -18,6 +19,12 @@ add_action( 'init', __NAMESPACE__ . '\add_or_update_workshop_reviewer_role' );
  *
  * Example: If a user has the `edit_others_posts` cap (from Editor role), this will also give them
  * the equivalent `edit_others_lesson_plans` and `edit_others_workshops` caps.
+ *
+ * Below the Editor threshold only the authoring caps are mirrored. Learn content reaches the
+ * site through the submission form in `inc/form.php`, which files applications as
+ * `needs-vetting` for a reviewer to triage, so Contributors and Authors create and edit their
+ * own unpublished content while publishing and maintaining live content stays with the
+ * reviewer roles.
  *
  * @param bool[] $user_caps A list of primitive caps (keys) and whether user has them (boolean values).
  *
@@ -30,6 +37,13 @@ function set_post_type_caps( $user_caps ) {
 		array( 'activity_kit', 'activity_kits' ),
 	);
 
+	// `edit_others_posts` is the Editor threshold; the Lesson Plan Editor and Tutorial Reviewer
+	// roles and the administrator hold it, Contributor and Author do not.
+	$has_editor_caps = ! empty( $user_caps['edit_others_posts'] );
+
+	// Deliberately excludes `publish_posts`, `edit_published_posts` and `delete_published_posts`.
+	$authoring_caps = array( 'edit_posts', 'delete_posts' );
+
 	foreach ( $capability_types as $capability_type ) {
 		// Generate the caps for a capability type.
 		$cap_args = array(
@@ -40,13 +54,50 @@ function set_post_type_caps( $user_caps ) {
 		$cap_map = (array) get_post_type_capabilities( (object) $cap_args );
 
 		foreach ( $user_caps as $cap_slug => $granted ) {
-			if ( $granted && isset( $cap_map[ $cap_slug ] ) ) {
-				$user_caps[ $cap_map[ $cap_slug ] ] = true;
+			if ( ! $granted || ! isset( $cap_map[ $cap_slug ] ) ) {
+				continue;
 			}
+
+			if ( ! $has_editor_caps && ! in_array( $cap_slug, $authoring_caps, true ) ) {
+				continue;
+			}
+
+			$user_caps[ $cap_map[ $cap_slug ] ] = true;
 		}
 	}
 
 	return $user_caps;
+}
+
+/**
+ * Restrict the Learn content list tables to the current user's own posts.
+ *
+ * `wp-admin/edit.php` does not author-scope its query for every post status, so scope it here
+ * for users who cannot edit other people's content.
+ *
+ * @param \WP_Query $query
+ *
+ * @return void
+ */
+function scope_learn_content_list_to_author( $query ) {
+	global $pagenow;
+
+	if ( ! is_admin() || 'edit.php' !== $pagenow || ! $query->is_main_query() ) {
+		return;
+	}
+
+	$learn_post_types = array( 'lesson-plan', 'wporg_workshop', 'activity_kit' );
+	$post_type        = $query->get( 'post_type' );
+
+	if ( ! in_array( $post_type, $learn_post_types, true ) ) {
+		return;
+	}
+
+	$post_type_object = get_post_type_object( $post_type );
+
+	if ( $post_type_object && ! current_user_can( $post_type_object->cap->edit_others_posts ) ) {
+		$query->set( 'author', get_current_user_id() );
+	}
 }
 
 /**
