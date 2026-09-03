@@ -94,8 +94,6 @@ function load_files() {
 	require_once get_includes_path() . 'activity-kit-settings.php';
 	require_once get_includes_path() . 'activity-kit-stats-page.php';
 	require_once get_includes_path() . 'activity-kit-import.php';
-	require_once get_includes_path() . 'feedback-logged-in-user-export.php';
-	require_once get_includes_path() . 'class-feedback-export-cli.php';
 }
 
 /**
