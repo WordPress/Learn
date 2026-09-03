@@ -9,6 +9,15 @@
 
 $current_post = get_post();
 
+/*
+ * A registered pattern can be rendered outside the template it was written for, and this file
+ * reads post meta off the current post. That meta is registered per post type, so only render
+ * for the type this pattern is designed around.
+ */
+if ( ! $current_post || 'lesson-plan' !== get_post_type( $current_post ) ) {
+	return;
+}
+
 ?>
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"className":"wporg-learn-sidebar-meta-info","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch"}} -->
@@ -23,7 +32,7 @@ $current_post = get_post();
 				<?php if ( $current_post->slides_view_url ) : ?>
 					<!-- wp:button {"textAlign":"center","width":100,"style":{"border":{"radius":"2px"},"spacing":{"padding":{"left":"13px","right":"13px","top":"16px","bottom":"16px"}},"typography":{"lineHeight":0,"fontStyle":"normal","fontWeight":"400"}},"className":"aligncenter is-style-fill","fontSize":"normal","fontFamily":"inter"} -->
 					<div class="wp-block-button has-custom-width wp-block-button__width-100 has-custom-font-size aligncenter is-style-fill has-inter-font-family has-normal-font-size" style="font-style:normal;font-weight:400;line-height:0">
-						<a class="wp-block-button__link has-text-align-center wp-element-button" href="<?php echo esc_attr( $current_post->slides_view_url ); ?>" style="border-radius:2px;padding-top:16px;padding-right:13px;padding-bottom:16px;padding-left:13px" target="_blank" rel="noreferrer noopener">
+						<a class="wp-block-button__link has-text-align-center wp-element-button" href="<?php echo esc_url( $current_post->slides_view_url ); ?>" style="border-radius:2px;padding-top:16px;padding-right:13px;padding-bottom:16px;padding-left:13px" target="_blank" rel="noreferrer noopener">
 							<?php esc_html_e( 'View slides ↗', 'wporg-learn' ); ?>
 						</a>
 					</div>
@@ -32,7 +41,7 @@ $current_post = get_post();
 				<?php if ( $current_post->slides_view_url && $current_post->slides_download_url ) : ?>
 					<!-- wp:button {"textAlign":"center","width":100,"style":{"border":{"radius":"2px"},"spacing":{"margin":{"bottom":"40px"},"padding":{"left":"13px","right":"13px","top":"16px","bottom":"16px"}},"typography":{"lineHeight":0,"fontStyle":"normal","fontWeight":"400"}},"className":"aligncenter is-style-text","fontSize":"normal","fontFamily":"inter"} -->
 					<div class="wp-block-button has-custom-width wp-block-button__width-100 has-custom-font-size aligncenter is-style-text has-inter-font-family has-normal-font-size" style="font-style:normal;font-weight:400;line-height:0">
-						<a class="wp-block-button__link has-text-align-center wp-element-button" href="<?php echo esc_attr( $current_post->slides_download_url ); ?>" style="border-radius:2px;padding-top:16px;padding-right:13px;padding-bottom:16px;padding-left:13px" target="_blank" rel="noreferrer noopener">
+						<a class="wp-block-button__link has-text-align-center wp-element-button" href="<?php echo esc_url( $current_post->slides_download_url ); ?>" style="border-radius:2px;padding-top:16px;padding-right:13px;padding-bottom:16px;padding-left:13px" target="_blank" rel="noreferrer noopener">
 							<?php esc_html_e( 'Download slides ↗', 'wporg-learn' ); ?>
 						</a>
 					</div>
@@ -40,7 +49,7 @@ $current_post = get_post();
 				<?php elseif ( $current_post->slides_download_url ) : ?>
 					<!-- wp:button {"textAlign":"center","width":100,"style":{"border":{"radius":"2px"},"spacing":{"padding":{"left":"13px","right":"13px","top":"16px","bottom":"16px"}},"typography":{"lineHeight":0,"fontStyle":"normal","fontWeight":"400"}},"className":"aligncenter is-style-fill","fontSize":"normal","fontFamily":"inter"} -->
 					<div class="wp-block-button has-custom-width wp-block-button__width-100 has-custom-font-size aligncenter is-style-fill has-inter-font-family has-normal-font-size" style="font-style:normal;font-weight:400;line-height:0">
-						<a class="wp-block-button__link has-text-align-center wp-element-button" href="<?php echo esc_attr( $current_post->slides_download_url ); ?>" style="border-radius:2px;padding-top:16px;padding-right:13px;padding-bottom:16px;padding-left:13px" target="_blank" rel="noreferrer noopener">
+						<a class="wp-block-button__link has-text-align-center wp-element-button" href="<?php echo esc_url( $current_post->slides_download_url ); ?>" style="border-radius:2px;padding-top:16px;padding-right:13px;padding-bottom:16px;padding-left:13px" target="_blank" rel="noreferrer noopener">
 							<?php esc_html_e( 'Download slides ↗', 'wporg-learn' ); ?>
 						</a>				
 					</div>
