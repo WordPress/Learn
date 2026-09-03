@@ -181,7 +181,7 @@ function render_page() {
 					<button type="button" data-ak-range="7d"><?php esc_html_e( 'Last 7 days', 'wporg-learn' ); ?></button>
 					<button type="button" data-ak-range="30d"><?php esc_html_e( 'Last 30 days', 'wporg-learn' ); ?></button>
 					<button type="button" data-ak-range="90d"><?php esc_html_e( 'Last 90 days', 'wporg-learn' ); ?></button>
-					<button type="button" class="is-active" data-ak-range="all"><?php esc_html_e( 'All time', 'wporg-learn' ); ?></button>
+					<button type="button" class="is-active" data-ak-range="all" title="<?php esc_attr_e( 'The longest range available: WordPress.com serves per-post views in windows of at most 30 days, and downloads are shown over the same period so the download rate compares like with like.', 'wporg-learn' ); ?>"><?php esc_html_e( 'Last 6 months', 'wporg-learn' ); ?></button>
 				</div>
 			</div>
 
@@ -233,7 +233,7 @@ function render_page() {
 		<div class="ak-postbox">
 			<div class="ak-postbox-header">
 				<h2 id="ak-chart-title"><?php esc_html_e( 'Views vs. Downloads — All Kits', 'wporg-learn' ); ?></h2>
-				<span class="ak-subtitle" id="ak-chart-subtitle"><?php esc_html_e( 'All time', 'wporg-learn' ); ?></span>
+				<span class="ak-subtitle" id="ak-chart-subtitle"><?php esc_html_e( 'Last 6 months', 'wporg-learn' ); ?></span>
 			</div>
 			<div class="ak-postbox-inside">
 				<div class="ak-chart-legend" id="ak-chart-legend">
@@ -271,22 +271,31 @@ function render_page() {
 							<th data-col="title" data-type="string">
 								<?php esc_html_e( 'Kit Name', 'wporg-learn' ); ?> <span class="ak-sort-arrow"></span>
 							</th>
-							<th data-col="views" data-type="number" class="ak-col-number is-sorted" id="ak-th-views">
+							<th data-col="views" data-type="number" class="ak-col-number is-sorted" id="ak-th-views" title="<?php esc_attr_e( 'Page views recorded by Jetpack Stats for the selected time range.', 'wporg-learn' ); ?>">
 								<?php esc_html_e( 'Views', 'wporg-learn' ); ?> <span class="ak-sort-arrow">↓</span>
 							</th>
-							<th data-col="downloads" data-type="number" class="ak-col-number" id="ak-th-downloads">
+							<th data-col="downloads" data-type="number" class="ak-col-number" id="ak-th-downloads" title="<?php esc_attr_e( "Total number of times this kit's ZIP was downloaded, including repeat downloads by the same visitor (at most five a day per visitor are counted).", 'wporg-learn' ); ?>">
 								<?php esc_html_e( 'Downloads', 'wporg-learn' ); ?> <span class="ak-sort-arrow"></span>
 							</th>
-							<th data-col="rate" data-type="number" class="ak-col-number" id="ak-th-rate">
+							<th data-col="unique_downloaders" data-type="number" class="ak-col-number" id="ak-th-unique-downloaders" title="<?php esc_attr_e( "Number of distinct visitors, told apart by network address, who downloaded this kit's ZIP on any single day, summed across the selected range. Deduplication is per day and per address: the same visitor on two different days counts twice, and a classroom sharing one address counts once. No address is stored; a daily one-way hash is kept for 24 hours.", 'wporg-learn' ); ?>">
+								<?php esc_html_e( 'Unique Daily Downloaders', 'wporg-learn' ); ?> <span class="ak-sort-arrow"></span>
+							</th>
+							<th data-col="rate" data-type="number" class="ak-col-number" id="ak-th-rate" title="<?php esc_attr_e( 'Unique Daily Downloaders as a percentage of Views, an approximation of the share of visitors who went on to download the kit. Since Unique Daily Downloaders can count the same visitor more than once across a multi-day range, this rate is most accurate for short ranges.', 'wporg-learn' ); ?>">
 								<?php esc_html_e( 'Download Rate', 'wporg-learn' ); ?> <span class="ak-sort-arrow"></span>
 							</th>
-							<th data-col="updated" data-type="string">
-								<?php esc_html_e( 'Last Updated', 'wporg-learn' ); ?> <span class="ak-sort-arrow"></span>
+							<th data-col="last_downloaded" data-type="string" id="ak-th-last-downloaded" title="<?php esc_attr_e( 'The most recent date this kit was downloaded.', 'wporg-learn' ); ?>">
+								<?php esc_html_e( 'Last Downloaded', 'wporg-learn' ); ?> <span class="ak-sort-arrow"></span>
+							</th>
+							<th data-col="last_viewed" data-type="string" id="ak-th-last-viewed" title="<?php esc_attr_e( "The most recent date Jetpack recorded a view for this kit. Approximate — based on Jetpack's own view history, not a dedicated timestamp.", 'wporg-learn' ); ?>">
+								<?php esc_html_e( 'Last Viewed', 'wporg-learn' ); ?> <span class="ak-sort-arrow"></span>
+							</th>
+							<th data-col="updated" data-type="string" title="<?php esc_attr_e( "The date this kit's content was last edited.", 'wporg-learn' ); ?>">
+								<?php esc_html_e( 'Kit Last Updated', 'wporg-learn' ); ?> <span class="ak-sort-arrow"></span>
 							</th>
 						</tr>
 					</thead>
 					<tbody id="ak-stats-table-body">
-						<tr><td colspan="5"><?php esc_html_e( 'Loading…', 'wporg-learn' ); ?></td></tr>
+						<tr><td colspan="8"><?php esc_html_e( 'Loading…', 'wporg-learn' ); ?></td></tr>
 					</tbody>
 				</table>
 			</div>
