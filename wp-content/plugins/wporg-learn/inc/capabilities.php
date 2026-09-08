@@ -158,7 +158,7 @@ function map_meta_caps( $required_caps, $current_cap, $user_id, $args ) {
 
 			// `delete-note` is checked against the note itself, not the post it belongs to.
 			if ( $parent && 'delete-note' === $current_cap ) {
-				$parent = get_post( $parent->post_parent );
+				$parent = get_post_parent( $parent );
 			}
 
 			if ( $parent && 'wporg_workshop' === get_post_type( $parent ) ) {
