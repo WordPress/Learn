@@ -146,11 +146,21 @@ function map_meta_caps( $required_caps, $current_cap, $user_id, $args ) {
 			$required_caps[] = 'do_not_allow';
 			break;
 
-		case 'read-internal-notes':
-		case 'create-internal-note':
-		case 'delete-internal-note':
+		case 'read-notes':
+		case 'create-note':
+		case 'delete-note':
 			// Override the meta caps set up in the Internal Notes plugin, specifically for the workshop post type.
+			if ( in_array( 'do_not_allow', $required_caps, true ) ) {
+				break;
+			}
+
 			$parent = ! empty( $args[0] ) ? get_post( $args[0] ) : false;
+
+			// `delete-note` is checked against the note itself, not the post it belongs to.
+			if ( $parent && 'delete-note' === $current_cap ) {
+				$parent = get_post_parent( $parent );
+			}
+
 			if ( $parent && 'wporg_workshop' === get_post_type( $parent ) ) {
 				$required_caps = array( 'manage_workshop_internal_notes' );
 			}
