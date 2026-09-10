@@ -173,24 +173,47 @@ function map_meta_caps( $required_caps, $current_cap, $user_id, $args ) {
 }
 
 /**
- * Limit presenter onboarding to the Author role.
+ * Limit role assignment to capabilities the current user already holds.
  *
- * Tutorial Reviewers have `promote_users` to add existing network users as presenters. Authors
- * edit specific workshops and lesson plans; appointing editors or reviewers is an admin task.
- * Use `manage_options` for admins because multisite restricts `edit_users` to network managers.
- *
- * @see https://github.com/WordPress/Learn/issues/220
+ * Compare primitive grants, including dynamically assigned capabilities. Checking mapped
+ * capabilities would exclude roles with grants such as `unfiltered_html` that multisite
+ * restricts independently of the role. Multisite super admins inherently hold all capabilities.
  *
  * @param array[] $roles Array of arrays containing role information.
  *
  * @return array[]
  */
 function restrict_editable_roles( $roles ) {
-	if ( current_user_can( 'manage_options' ) ) {
-		return $roles;
+	$user           = wp_get_current_user();
+	$is_super_admin = is_multisite() && is_super_admin( $user->ID );
+
+	foreach ( $roles as $slug => $role ) {
+		foreach ( array_keys( array_filter( $role['capabilities'] ) ) as $capability ) {
+			if ( 'do_not_allow' === $capability ) {
+				unset( $roles[ $slug ] );
+				break;
+			}
+
+			if ( $is_super_admin || 'exist' === $capability ) {
+				continue;
+			}
+
+			$user_caps = apply_filters(
+				'user_has_cap',
+				$user->allcaps,
+				array( $capability ),
+				array( $capability, $user->ID ),
+				$user
+			);
+
+			if ( empty( $user_caps[ $capability ] ) ) {
+				unset( $roles[ $slug ] );
+				break;
+			}
+		}
 	}
 
-	return array_intersect_key( $roles, array( 'author' => true ) );
+	return $roles;
 }
 
 /**
@@ -329,7 +352,7 @@ function add_or_update_workshop_reviewer_role() {
  *
  * The Workshop Reviewer should have all the same caps as the Editor role, with the addition of `promote_users`
  * (normally reserved for the Admin role), so that they can add workshop presenters as new users on the site.
- * `restrict_editable_roles` limits that cap to assigning the Author role for presenters.
+ * `restrict_editable_roles` limits role assignment to capabilities the current user already holds.
  *
  * This also gives them the cap to manage internal notes on workshop posts. (See `set_caps_for_internal_notes` above.)
  *
