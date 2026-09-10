@@ -198,6 +198,7 @@ function restrict_editable_roles( $roles ) {
 				continue;
 			}
 
+			/** This filter is documented in wp-includes/class-wp-user.php */
 			$user_caps = apply_filters(
 				'user_has_cap',
 				$user->allcaps,
