@@ -11,6 +11,8 @@ add_filter( 'user_has_cap', __NAMESPACE__ . '\set_post_type_caps' );
 add_action( 'pre_get_posts', __NAMESPACE__ . '\scope_learn_content_list_to_author' );
 add_filter( 'user_has_cap', __NAMESPACE__ . '\set_caps_for_internal_notes' );
 add_filter( 'map_meta_cap', __NAMESPACE__ . '\map_meta_caps', 20, 4 ); // Needs to fire after meta caps in wporg-internal-notes.
+add_filter( 'editable_roles', __NAMESPACE__ . '\restrict_editable_roles' );
+add_action( 'load-user-new.php', __NAMESPACE__ . '\restrict_invited_user_role' );
 add_action( 'init', __NAMESPACE__ . '\add_or_update_lesson_plan_editor_role' );
 add_action( 'init', __NAMESPACE__ . '\add_or_update_workshop_reviewer_role' );
 
@@ -171,6 +173,70 @@ function map_meta_caps( $required_caps, $current_cap, $user_id, $args ) {
 }
 
 /**
+ * Limit role assignment to capabilities the current user already holds.
+ *
+ * Compare primitive grants, including dynamically assigned capabilities. Checking mapped
+ * capabilities would exclude roles with grants such as `unfiltered_html` that multisite
+ * restricts independently of the role. Multisite super admins inherently hold all capabilities.
+ *
+ * @param array[] $roles Array of arrays containing role information.
+ *
+ * @return array[]
+ */
+function restrict_editable_roles( $roles ) {
+	$user           = wp_get_current_user();
+	$is_super_admin = is_multisite() && is_super_admin( $user->ID );
+
+	foreach ( $roles as $slug => $role ) {
+		foreach ( array_keys( array_filter( $role['capabilities'] ) ) as $capability ) {
+			if ( 'do_not_allow' === $capability ) {
+				unset( $roles[ $slug ] );
+				break;
+			}
+
+			if ( $is_super_admin || 'exist' === $capability ) {
+				continue;
+			}
+
+			/** This filter is documented in wp-includes/class-wp-user.php */
+			$user_caps = apply_filters(
+				'user_has_cap',
+				$user->allcaps,
+				array( $capability ),
+				array( $capability, $user->ID ),
+				$user
+			);
+
+			if ( empty( $user_caps[ $capability ] ) ) {
+				unset( $roles[ $slug ] );
+				break;
+			}
+		}
+	}
+
+	return $roles;
+}
+
+/**
+ * Enforce editable roles before multisite stores an existing-user invitation.
+ *
+ * Core's confirmation flow stores the requested role without validating it against editable roles.
+ *
+ * @return void
+ */
+function restrict_invited_user_role() {
+	if ( ! is_multisite() || ! isset( $_REQUEST['action'] ) || 'adduser' !== $_REQUEST['action'] ) {
+		return;
+	}
+
+	check_admin_referer( 'add-user', '_wpnonce_add-user' );
+
+	// Validate the exact value core persists; sanitizing it could validate a different role.
+	$role = isset( $_REQUEST['role'] ) && is_string( $_REQUEST['role'] ) ? $_REQUEST['role'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+	wp_ensure_editable_role( $role );
+}
+
+/**
  * Add the Lesson Plan Editor role if it doesn't exist yet, or ensure it has the correct capabilities.
  *
  * Once a role has been added, and is stored in the database, it can't be changed using `add_role` because it
@@ -287,6 +353,7 @@ function add_or_update_workshop_reviewer_role() {
  *
  * The Workshop Reviewer should have all the same caps as the Editor role, with the addition of `promote_users`
  * (normally reserved for the Admin role), so that they can add workshop presenters as new users on the site.
+ * `restrict_editable_roles` limits role assignment to capabilities the current user already holds.
  *
  * This also gives them the cap to manage internal notes on workshop posts. (See `set_caps_for_internal_notes` above.)
  *
