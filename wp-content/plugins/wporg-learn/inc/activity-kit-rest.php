@@ -496,14 +496,22 @@ function get_download_counts( $range, array $kit_ids, $prefix = '_activity_downl
 
 	$id_placeholders = implode( ',', array_fill( 0, count( $kit_ids ), '%d' ) );
 
-	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- The meta API has no ranged multi-key read.
+	/*
+	 * phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery
+	 * phpcs:disable WordPress.DB.DirectDatabaseQuery.NoCaching
+	 * phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+	 * phpcs:disable WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber
+	 *
+	 * The meta API has no ranged multi-key read; $id_placeholders is a list of
+	 * %d tokens built dynamically from count( $kit_ids ) — phpcs cannot count them.
+	 */
 	$rows = $wpdb->get_results(
 		$wpdb->prepare(
-			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $id_placeholders is a list of %d placeholders built above from count().
 			"SELECT post_id, meta_key, MAX( CAST( meta_value AS UNSIGNED ) ) AS downloads FROM {$wpdb->postmeta} WHERE post_id IN ( {$id_placeholders} ) AND meta_key BETWEEN %s AND %s GROUP BY post_id, meta_key",
 			array_merge( $kit_ids, array( $first_key, $last_key ) )
 		)
 	);
+	// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber
 
 	$map = array();
 	foreach ( $rows as $row ) {
