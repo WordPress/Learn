@@ -226,6 +226,14 @@ function validate_workshop_application_form_submission( $submission ) {
  * @param array $submission
  */
 function process_workshop_application_form_submission( $submission ) {
+	// The submission is authored as the current user, so require a logged-in request instead of relying on the form only being rendered for logged-in visitors.
+	if ( ! is_user_logged_in() ) {
+		return new WP_Error(
+			'submission_error',
+			__( 'You need to be logged in to submit an application.', 'wporg-learn' )
+		);
+	}
+
 	$nonce = $submission['nonce'] ?? '';
 	$user  = $submission['wporg-user-name'] ?? '';
 	if ( ! wp_verify_nonce( $nonce, 'workshop-application-' . $user ) ) {
@@ -276,6 +284,13 @@ function process_workshop_application_form_submission( $submission ) {
 			'original_application' => $validated,
 		),
 	);
+
+	/*
+	 * The submitted values were unslashed on the way in (get_workshop_application_form_submission),
+	 * but wp_insert_post() and update_post_meta() both expect slashed data and strip one level
+	 * before storing. Re-slash so a backslash in a blurb survives instead of being silently eaten.
+	 */
+	$post_args = wp_slash( $post_args );
 
 	$result = wp_insert_post( $post_args );
 
@@ -366,6 +381,22 @@ function prepare_post_content_from_submission( $submission ) {
 			'comprehension-questions' => '',
 		)
 	);
+
+	/*
+	 * content-workshop.php prints these blurbs into the post_content markup without escaping.
+	 * Encode square brackets so submitted text can't register as a shortcode when the saved
+	 * content later runs through do_shortcode() on the front end. sanitize_textarea_field()
+	 * leaves brackets untouched, so this is where they get neutralised.
+	 */
+	foreach ( array( 'description', 'learning-objectives', 'comprehension-questions' ) as $key ) {
+		$blurbs[ $key ] = strtr(
+			(string) $blurbs[ $key ],
+			array(
+				'[' => '&#91;',
+				']' => '&#93;',
+			)
+		);
+	}
 
 	$blurbs['description'] = wpautop( $blurbs['description'] );
 	if ( empty( $blurbs['description'] ) ) {

@@ -5,9 +5,11 @@
  *
  * ⚠️ Note that if the template for the workshop post type changes, this will need to be updated as well.
  *
- * phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped -- The data from this file is being saved to
- * the database rather than output; therefore it should be validated rather than escaped. It's validated by
- * `validate_workshop_application_form_submission()`, which strips all HTML tags.
+ * phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped -- This builds the post_content
+ * string that gets saved to the database, not page output, so the blurbs are assembled into block
+ * markup here and must not be escaped. They pass through wp_kses_post() when the post is saved, and
+ * square brackets are encoded in `prepare_post_content_from_submission()` so submitted text can't
+ * register as a shortcode on render.
  */
 
 /** @var array $blurbs */
