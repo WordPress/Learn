@@ -421,11 +421,11 @@ if ( filterKit && tableBody && chartCanvas ) {
 		}
 	}
 
-	// Blank the summary strip and the chart, so a failed fetch never leaves the previous
-	// range's numbers on screen under the newly selected range.
+	// Blank the summary strip, chart, and pagination controls so a failed fetch
+	// never leaves the previous range's numbers or slider on screen.
 	function clearDisplayedData() {
 		allData = [];
-		[ summaryViews, summaryDownloads, summaryRate ].forEach( ( element ) => {
+		[ summaryViews, summaryDownloads, summaryRate, totalKits ].forEach( ( element ) => {
 			if ( element ) {
 				element.textContent = '—';
 			}
@@ -434,6 +434,15 @@ if ( filterKit && tableBody && chartCanvas ) {
 			chart.data.labels = [];
 			chart.data.datasets = [];
 			chart.update();
+		}
+		if ( chartSliderWrap ) {
+			chartSliderWrap.classList.remove( 'is-visible' );
+		}
+		if ( chartSliderLabel ) {
+			chartSliderLabel.textContent = '';
+		}
+		if ( chartSlider ) {
+			chartSlider.value = 0;
 		}
 	}
 

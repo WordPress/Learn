@@ -188,24 +188,58 @@ function handle_download( $request ) {
  * @param int $kit_id Post ID of the activity kit.
  */
 function count_download( $kit_id ) {
+	global $wpdb;
+
 	$day       = gmdate( 'Ymd' );
 	$ip        = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? '' ) );
 	$day_salt  = hash_hmac( 'sha256', $day, wp_salt( 'nonce' ) );
 	$visitor   = hash_hmac( 'sha256', $ip . '|' . $kit_id, $day_salt );
 	$transient = 'ak_dl_' . substr( $visitor, 0, 40 );
-	$counted   = (int) get_transient( $transient );
-
-	if ( $counted >= DOWNLOAD_COUNT_CAP_PER_VISITOR ) {
-		return;
-	}
 
 	// Expire at the next UTC midnight, when the salt changes anyway.
-	$seconds_left = DAY_IN_SECONDS - ( time() % DAY_IN_SECONDS );
-	set_transient( $transient, $counted + 1, max( MINUTE_IN_SECONDS, $seconds_left ) );
+	$seconds_left = max( MINUTE_IN_SECONDS, DAY_IN_SECONDS - ( time() % DAY_IN_SECONDS ) );
+	$option_name  = '_transient_' . $transient;
+	$timeout_name = '_transient_timeout_' . $transient;
+
+	/*
+	 * Atomic INSERT … ON DUPLICATE KEY UPDATE so two concurrent first-downloads
+	 * from the same address can't both slip through the cap or both inflate the
+	 * unique bucket. MySQL/MariaDB affected-row semantics:
+	 *   1 = new row inserted  → first download from this visitor today.
+	 *   2 = existing row incremented (was below cap).
+	 *   0 = existing row unchanged (already at cap) → serve without counting.
+	 *
+	 * phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery
+	 * phpcs:disable WordPress.DB.DirectDatabaseQuery.NoCaching
+	 * phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+	 */
+	$affected = $wpdb->query(
+		$wpdb->prepare(
+			"INSERT INTO {$wpdb->options} (option_name, option_value, autoload)
+			 VALUES (%s, '1', 'no')
+			 ON DUPLICATE KEY UPDATE
+			   option_value = IF( CAST(option_value AS UNSIGNED) < %d,
+			                      CAST(option_value AS UNSIGNED) + 1,
+			                      option_value )",
+			$option_name,
+			DOWNLOAD_COUNT_CAP_PER_VISITOR
+		)
+	);
+	// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+
+	if ( 0 === $affected ) {
+		return; // At cap: serve the file without counting.
+	}
+
+	$is_first = 1 === $affected;
+
+	// Keep the expiry option in sync so the transient is cleaned up at midnight.
+	update_option( $timeout_name, time() + $seconds_left, 'no' );
+	wp_cache_delete( $transient, 'transient' );
 
 	increment_daily_bucket( $kit_id, '_activity_downloads_' . $day );
 
-	if ( 0 === $counted ) {
+	if ( $is_first ) {
 		increment_daily_bucket( $kit_id, '_activity_unique_downloads_' . $day );
 	}
 
@@ -281,10 +315,14 @@ function handle_stats( $request ) {
 
 	if ( $should_fetch_views ) {
 		add_filter( 'jetpack_fetch_stats_cache_expiration', __NAMESPACE__ . '\stats_cache_expiration' );
-		$views_map = get_jetpack_post_views( $range, $kit_ids );
+		$views_result = get_jetpack_post_views( $range, $kit_ids );
 		remove_filter( 'jetpack_fetch_stats_cache_expiration', __NAMESPACE__ . '\stats_cache_expiration' );
 
-		$last_viewed_map = get_last_viewed_dates( $kit_ids );
+		if ( null !== $views_result ) {
+			$views_map = $views_result;
+			/* Skip get_last_viewed_dates() when the first Jetpack fetch already failed. */
+			$last_viewed_map = get_last_viewed_dates( $kit_ids );
+		}
 	}
 
 	$downloads_map          = array();
@@ -391,7 +429,7 @@ function get_range_timestamps( $range ) {
  *
  * @param string $range   One of '7d', '30d', '90d', 'all'.
  * @param int[]  $kit_ids Post IDs of the activity kits to fetch views for.
- * @return array          Map of post_id (int) => view_count (int). Empty on failure.
+ * @return array|null     Map of post_id (int) => view_count (int), or null on Jetpack failure.
  */
 function get_jetpack_post_views( $range, array $kit_ids ) {
 	if ( ! class_exists( '\Automattic\Jetpack\Stats\WPCOM_Stats' ) || empty( $kit_ids ) ) {
@@ -440,9 +478,13 @@ function get_jetpack_post_views( $range, array $kit_ids ) {
 				)
 			);
 
-			// Any unusable response returns empty so all kits show 0 (a visible failure) rather than a plausible-looking undercount.
+			/*
+			 * Any unusable response returns null — distinct from an empty array —
+			 * so the caller can skip get_last_viewed_dates() and avoid a second
+			 * Jetpack request when the connection is already known to be broken.
+			 */
 			if ( is_wp_error( $result ) || ! is_array( $result ) ) {
-				return array();
+				return null;
 			}
 
 			$post_views = isset( $result['posts'] ) ? $result['posts'] : array();
@@ -629,10 +671,17 @@ function extract_last_viewed_date( $result ) {
 	$last_viewed = null;
 
 	foreach ( $result['weeks'] as $week_key => $week ) {
-		if ( is_array( $week ) && isset( $week['days'] ) && is_array( $week['days'] ) ) {
-			foreach ( $week['days'] as $day_key => $day ) {
+		/*
+		 * Normalize $days to whatever holds the per-day entries:
+		 *   - Object shape:        $week = [ 'days' => [ {day,count}, ... ], 'total' => n ]
+		 *   - Live list-of-lists:  $week = [ {day,count}, {day,count}, ... ] (no 'days' key)
+		 * Both yield an iterable list; the flat-map fallback handles 'Y-m-d' => count maps.
+		 */
+		if ( is_array( $week ) ) {
+			$days = isset( $week['days'] ) && is_array( $week['days'] ) ? $week['days'] : $week;
+			foreach ( $days as $day_key => $day ) {
 				if ( is_array( $day ) && isset( $day['day'], $day['count'] ) ) {
-					// Live shape: a list of { day, count } objects.
+					// { day, count } object (object shape or live list-of-lists).
 					$last_viewed = later_viewed_day( $last_viewed, $day['day'], $day['count'] );
 				} elseif ( is_string( $day_key ) ) {
 					// Nested map shape: 'Y-m-d' => count.
@@ -661,6 +710,12 @@ function extract_last_viewed_date( $result ) {
  */
 function later_viewed_day( $current, $day, $count ) {
 	if ( ! is_string( $day ) || ! preg_match( '/^\d{4}-\d{2}-\d{2}$/', $day ) || (int) $count <= 0 ) {
+		return $current;
+	}
+
+	/* Require the date to be a real calendar day (e.g. reject 2024-02-31). */
+	$parsed = date_create_from_format( 'Y-m-d', $day );
+	if ( ! $parsed || $parsed->format( 'Y-m-d' ) !== $day ) {
 		return $current;
 	}
 
