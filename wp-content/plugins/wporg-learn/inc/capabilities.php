@@ -10,6 +10,7 @@ defined( 'WPINC' ) || die();
 add_filter( 'user_has_cap', __NAMESPACE__ . '\set_post_type_caps' );
 add_action( 'pre_get_posts', __NAMESPACE__ . '\scope_learn_content_list_to_author' );
 add_filter( 'user_has_cap', __NAMESPACE__ . '\set_caps_for_internal_notes' );
+add_filter( 'user_has_cap', __NAMESPACE__ . '\set_caps_for_feedback_export' );
 add_filter( 'map_meta_cap', __NAMESPACE__ . '\map_meta_caps', 20, 4 ); // Needs to fire after meta caps in wporg-internal-notes.
 add_filter( 'editable_roles', __NAMESPACE__ . '\restrict_editable_roles' );
 add_action( 'load-user-new.php', __NAMESPACE__ . '\restrict_invited_user_role' );
@@ -115,6 +116,25 @@ function scope_learn_content_list_to_author( $query ) {
 function set_caps_for_internal_notes( $user_caps ) {
 	if ( isset( $user_caps['promote_users'] ) && true === $user_caps['promote_users'] ) {
 		$user_caps['manage_workshop_internal_notes'] = true;
+	}
+
+	return $user_caps;
+}
+
+/**
+ * Enable the cap for exporting Jetpack Forms responses with their logged-in submitter.
+ *
+ * The export places a WordPress.org username next to an IP address, so it is gated on its own cap rather than
+ * core's general-purpose `export`. Administrators get it here; add it to another role explicitly to grant a
+ * facilitator access without making them an administrator.
+ *
+ * @param bool[] $user_caps
+ *
+ * @return mixed
+ */
+function set_caps_for_feedback_export( $user_caps ) {
+	if ( isset( $user_caps['manage_options'] ) && true === $user_caps['manage_options'] ) {
+		$user_caps['export_feedback_responses'] = true;
 	}
 
 	return $user_caps;
