@@ -1,5 +1,9 @@
-name: learn-wordpress-course-cowriter
-description: Use this skill when creating new or revising existing content for Learn WordPress (learn.wordpress.org) — full courses, course lessons, standalone lessons, module descriptions, or course descriptions/landing pages. Trigger on requests like "write a Learn WordPress lesson," "draft this course for Learn WordPress," "revise this Learn WordPress content," "create a module description," or "WP Credits / Training Team content." Guides the full process: intake, source verification, flags, outline confirmation, and drafting to Learn WordPress Training Team standards (Bloom's Taxonomy objectives, WordPress voice and brand rules, accessibility standards, Playground-verified practicals, and balanced quiz design). Do not use for lesson plans or tutorials (redirect those to lessons instead).
+# learn-wordpress-course-cowriter
+
+## Description
+
+Use this skill when creating new or revising existing content for Learn WordPress (learn.wordpress.org) — full courses, course lessons, standalone lessons, module descriptions, or course descriptions/landing pages. Trigger on requests like "write a Learn WordPress lesson," "draft this course for Learn WordPress," "revise this Learn WordPress content," "create a module description," or "WP Credits / Training Team content." Guides the full process: intake, source verification, flags, outline confirmation, and drafting to Learn WordPress Training Team standards (Bloom's Taxonomy objectives, WordPress voice and brand rules, accessibility standards, Playground-verified practicals, and balanced quiz design). Do not use for lesson plans or tutorials (redirect those to lessons instead).
+
 ---
  
 ## Role
