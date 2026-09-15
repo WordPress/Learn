@@ -13,6 +13,47 @@ add_action( 'init', __NAMESPACE__ . '\register' );
 add_filter( 'jetpack_copy_post_post_types', __NAMESPACE__ . '\jetpack_copy_post_post_types' );
 add_filter( 'jetpack_sitemap_post_types', __NAMESPACE__ . '\jetpack_sitemap_post_types' );
 add_filter( 'jetpack_page_sitemap_other_urls', __NAMESPACE__ . '\jetpack_page_sitemap_other_urls' );
+add_filter( 'wp_insert_post_data', __NAMESPACE__ . '\store_workshop_bracket_references_as_parentheses', 10, 2 );
+
+/**
+ * Store numeric character references for square brackets in tutorial content as parentheses.
+ *
+ * Runs on every save of a tutorial, whatever wrote it, so the normalisation that
+ * `sanitize_application_text()` applies to form submissions is not undone by a later write that
+ * carries the reference form. Only references are touched: a literal bracket is left alone, so
+ * notice shortcodes and block markup are unaffected.
+ *
+ * @param array $data    Slashed post data about to be written.
+ * @param array $postarr Slashed, sanitized post data as passed to wp_insert_post().
+ *
+ * @return array
+ */
+function store_workshop_bracket_references_as_parentheses( $data, $postarr ) {
+	$post_type = $data['post_type'] ?? '';
+
+	// An update that passes an ID without a post_type arrives here typed as 'post'; look up the stored type.
+	if ( 'wporg_workshop' !== $post_type && ! empty( $postarr['ID'] ) ) {
+		$post_type = get_post_type( $postarr['ID'] );
+	}
+
+	if ( 'wporg_workshop' !== $post_type ) {
+		return $data;
+	}
+
+	foreach ( array( 'post_content', 'post_excerpt' ) as $field ) {
+		if ( empty( $data[ $field ] ) ) {
+			continue;
+		}
+
+		$data[ $field ] = preg_replace(
+			array( '/&#0*91;|&#[xX]0*5[bB];/', '/&#0*93;|&#[xX]0*5[dD];/' ),
+			array( '(', ')' ),
+			$data[ $field ]
+		);
+	}
+
+	return $data;
+}
 
 /**
  * Register all post types.
