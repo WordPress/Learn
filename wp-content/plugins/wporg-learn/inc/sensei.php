@@ -267,7 +267,7 @@ function restrict_my_courses_page_access() {
 	if ( ! is_user_logged_in() && is_page( Sensei()->settings->get_my_courses_page_id() ) ) {
 		$redirect_to = wp_unslash( $_GET['redirect_to'] ?? '' ) ?: sensei_get_current_page_url();
 
-		wp_redirect( wp_login_url( $redirect_to ) );
+		wp_safe_redirect( wp_login_url( $redirect_to ) );
 		exit;
 	}
 }

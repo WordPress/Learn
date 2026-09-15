@@ -31,6 +31,7 @@ function wporg_learn_redirect_meetings() {
 
 			$redirect = wp_http_validate_url( get_post_meta( $post->ID, 'link', true ) );
 
+			// phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect -- Meeting posts link to external sites; the target is checked with wp_http_validate_url() above.
 			if ( $redirect && wp_redirect( $redirect ) ) {
 				exit;
 			}
