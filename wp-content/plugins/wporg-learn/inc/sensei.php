@@ -2,8 +2,9 @@
 
 namespace WPOrg_Learn\Sensei;
 
-use Exception;
+use Exception, WP_Post;
 use Sensei_Course, Sensei_Lesson, Sensei_Course_Enrolment_Manager, WooThemes_Sensei_Certificates;
+use Sensei\Admin\Content_Duplicators\Post_Duplicator;
 
 defined( 'WPINC' ) || die();
 
@@ -30,6 +31,10 @@ add_filter( 'init', __NAMESPACE__ . '\block_login_register_actions', 1 );
 
 // Don't create certificate reservations for non-templated certificates.
 add_action( 'init', __NAMESPACE__ . '\disable_certificate_reservations' );
+
+// Give duplicated lessons their own quiz questions instead of sharing the original's.
+add_action( 'added_post_meta', __NAMESPACE__ . '\unshare_duplicated_quiz_question', 10, 4 );
+add_filter( 'sensei_duplicate_post_ignore_meta', __NAMESPACE__ . '\detach_duplicated_lesson_from_course', 10, 3 );
 
 /**
  * Slugs in Sensei are translatable, which won't work for our site and the language switcher.
@@ -414,4 +419,105 @@ function disable_certificate_reservations() {
 		// Call the original handler.
 		$instance->handle_course_completed( $status, $user_id, $course_id );
 	}, 9, 3 );
+}
+
+/**
+ * Replace a question Sensei attached to a duplicated quiz with a copy of it.
+ *
+ * When duplicating a lesson, Sensei creates a new quiz but attaches the original
+ * question posts to it. Editing those questions in the copy (e.g. to translate
+ * it) then overwrites the original lesson's quiz.
+ *
+ * See https://github.com/WordPress/Learn/issues/2805
+ * See https://github.com/Automattic/sensei/issues/7674
+ *
+ * @param int    $meta_id     ID of the added metadata entry.
+ * @param int    $question_id ID of the post the metadata was added to.
+ * @param string $meta_key    Metadata key.
+ * @param mixed  $quiz_id     Metadata value.
+ * @return void
+ */
+function unshare_duplicated_quiz_question( int $meta_id, int $question_id, string $meta_key, $quiz_id ): void {
+	if ( '_quiz_id' !== $meta_key ) {
+		return;
+	}
+
+	if ( ! doing_action( 'admin_action_duplicate_lesson' ) && ! doing_action( 'admin_action_duplicate_course_with_lessons' ) ) {
+		return;
+	}
+
+	$question = get_post( $question_id );
+	if ( ! $question instanceof WP_Post || ! in_array( $question->post_type, array( 'question', 'multiple_question' ), true ) ) {
+		return;
+	}
+
+	$quiz_id = (int) $quiz_id;
+
+	// Copies only belong to the new quiz, which also keeps this from acting on them.
+	if ( array( $quiz_id ) === array_map( 'intval', get_post_meta( $question_id, '_quiz_id' ) ) ) {
+		return;
+	}
+
+	$order_key = '_quiz_question_order' . $quiz_id;
+	$order     = get_post_meta( $question_id, $order_key, true );
+
+	$ignore_order_meta = static function ( array $ignore_meta ) use ( $question_id ): array {
+		$order_keys = preg_grep( '/^_quiz_question_order\d+$/', array_keys( get_post_custom( $question_id ) ) );
+
+		return array_merge( $ignore_meta, $order_keys );
+	};
+	$keep_status       = static function ( array $args ) use ( $question ): array {
+		$args['post_status'] = $question->post_status;
+
+		return $args;
+	};
+
+	add_filter( 'sensei_duplicate_post_ignore_meta', $ignore_order_meta );
+	add_filter( 'sensei_duplicate_post_args', $keep_status );
+	$copy = ( new Post_Duplicator() )->duplicate( $question, '' );
+	remove_filter( 'sensei_duplicate_post_ignore_meta', $ignore_order_meta );
+	remove_filter( 'sensei_duplicate_post_args', $keep_status );
+
+	if ( ! $copy ) {
+		return;
+	}
+
+	add_post_meta( $copy->ID, $order_key, $order );
+	add_post_meta( $copy->ID, '_quiz_id', $quiz_id );
+
+	// Sensei diffs against this list on save to find removed questions.
+	$question_order = get_post_meta( $quiz_id, '_question_order', true );
+	if ( is_array( $question_order ) ) {
+		$question_order = array_map(
+			static fn( $id ) => (int) $id === $question_id ? (string) $copy->ID : $id,
+			$question_order
+		);
+		update_post_meta( $quiz_id, '_question_order', $question_order );
+	}
+
+	delete_post_meta( $question_id, '_quiz_id', $quiz_id );
+	delete_post_meta( $question_id, $order_key );
+}
+
+/**
+ * Keep a duplicated lesson out of the original lesson's course.
+ *
+ * Duplicated lessons are mostly translations, and courses are per locale, so a
+ * copy left in the original course would show up there once published.
+ *
+ * See https://github.com/WordPress/Learn/issues/2805
+ *
+ * @param array   $ignore_meta Meta keys not copied to the duplicate.
+ * @param array   $new_post    Arguments the duplicate is created with.
+ * @param WP_Post $post        Post being duplicated.
+ * @return array
+ */
+function detach_duplicated_lesson_from_course( array $ignore_meta, array $new_post, WP_Post $post ): array {
+	if ( 'lesson' !== $post->post_type || ! doing_action( 'admin_action_duplicate_lesson' ) ) {
+		return $ignore_meta;
+	}
+
+	$order_keys = preg_grep( '/^_order_\d+$/', array_keys( get_post_custom( $post->ID ) ) );
+
+	return array_merge( $ignore_meta, array( '_lesson_course' ), $order_keys );
 }
