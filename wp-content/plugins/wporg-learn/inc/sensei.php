@@ -485,6 +485,16 @@ function unshare_duplicated_quiz_question( int $meta_id, int $question_id, strin
 	add_post_meta( $copy->ID, $order_key, $order );
 	add_post_meta( $copy->ID, '_quiz_id', $quiz_id );
 
+	// Sensei diffs against this list on save to find removed questions.
+	$question_order = get_post_meta( $quiz_id, '_question_order', true );
+	if ( is_array( $question_order ) ) {
+		$question_order = array_map(
+			static fn( $id ) => (int) $id === $question_id ? (string) $copy->ID : $id,
+			$question_order
+		);
+		update_post_meta( $quiz_id, '_question_order', $question_order );
+	}
+
 	delete_post_meta( $question_id, '_quiz_id', $quiz_id );
 	delete_post_meta( $question_id, $order_key );
 }
