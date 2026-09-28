@@ -34,6 +34,7 @@ add_action( 'init', __NAMESPACE__ . '\disable_certificate_reservations' );
 
 // Give duplicated lessons their own quiz questions instead of sharing the original's.
 add_action( 'added_post_meta', __NAMESPACE__ . '\unshare_duplicated_quiz_question', 10, 4 );
+add_filter( 'sensei_duplicate_post_ignore_meta', __NAMESPACE__ . '\detach_duplicated_lesson_from_course', 10, 3 );
 
 /**
  * Slugs in Sensei are translatable, which won't work for our site and the language switcher.
@@ -486,4 +487,27 @@ function unshare_duplicated_quiz_question( int $meta_id, int $question_id, strin
 
 	delete_post_meta( $question_id, '_quiz_id', $quiz_id );
 	delete_post_meta( $question_id, $order_key );
+}
+
+/**
+ * Keep a duplicated lesson out of the original lesson's course.
+ *
+ * Duplicated lessons are mostly translations, and courses are per locale, so a
+ * copy left in the original course would show up there once published.
+ *
+ * See https://github.com/WordPress/Learn/issues/2805
+ *
+ * @param array   $ignore_meta Meta keys not copied to the duplicate.
+ * @param array   $new_post    Arguments the duplicate is created with.
+ * @param WP_Post $post        Post being duplicated.
+ * @return array
+ */
+function detach_duplicated_lesson_from_course( array $ignore_meta, array $new_post, WP_Post $post ): array {
+	if ( 'lesson' !== $post->post_type || ! doing_action( 'admin_action_duplicate_lesson' ) ) {
+		return $ignore_meta;
+	}
+
+	$order_keys = preg_grep( '/^_order_\d+$/', array_keys( get_post_custom( $post->ID ) ) );
+
+	return array_merge( $ignore_meta, array( '_lesson_course' ), $order_keys );
 }
