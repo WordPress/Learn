@@ -309,11 +309,12 @@ function process_workshop_application_form_submission( $submission ) {
 
 	$content = prepare_post_content_from_submission( $validated );
 
+	// Title and excerpt are edited as plain text, so only neutralise what kses could rebuild into a tag.
 	$post_args = array(
 		'post_status'  => get_default_workshop_status(),
 		'post_type'    => 'wporg_workshop',
-		'post_title'   => $validated['workshop-title'],
-		'post_excerpt' => $validated['description-short'],
+		'post_title'   => str_replace( '<', '&lt;', $validated['workshop-title'] ),
+		'post_excerpt' => str_replace( '<', '&lt;', $validated['description-short'] ),
 		'post_content' => $content,
 		'meta_input'   => array(
 			'language'             => $validated['language'],
@@ -418,7 +419,11 @@ function prepare_post_content_from_submission( $submission ) {
 		)
 	);
 
-	$blurbs['description'] = wpautop( $blurbs['description'] );
+	/*
+	 * The blurbs are plain text, but `sanitize_application_text()` leaves a `<` followed by whitespace
+	 * in place, which kses would rebuild into a real element on save. Escape before adding markup.
+	 */
+	$blurbs['description'] = wpautop( esc_html( $blurbs['description'] ) );
 	if ( empty( $blurbs['description'] ) ) {
 		$blurbs['description'] = '
 			<!-- wp:paragraph {"placeholder":"Describe what the workshop is about."} -->
@@ -449,7 +454,7 @@ function prepare_post_content_from_submission( $submission ) {
 					// Attempt to strip out list item enumeration characters.
 					$item = preg_replace( '/^([*\-]+|[1-9]{1,2}[\.\)]?|[A-Z]+[\.\)]+) ?/', '', $item );
 
-					return trim( $item );
+					return esc_html( trim( $item ) );
 				},
 				(array) $split
 			)

@@ -5,12 +5,8 @@
  *
  * ⚠️ Note that if the template for the workshop post type changes, this will need to be updated as well.
  *
- * phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped -- This builds the post_content
- * string that gets saved to the database, not page output, so the blurbs are assembled into block
- * markup here and must not be escaped. The blurbs come through `sanitize_application_text()`, which
- * resolves character references, strips tags and swaps square brackets for parentheses, and the
- * assembled content is filtered by `wp_filter_post_kses()` on save for authors without
- * `unfiltered_html`, which includes every form submitter.
+ * phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped -- The blurbs are already escaped
+ * and wrapped in paragraph and list item markup by `prepare_post_content_from_submission()`.
  */
 
 /** @var array $blurbs */

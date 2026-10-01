@@ -21,9 +21,9 @@ defined( 'WPINC' ) || die();
 			</th>
 			<td>
 				<?php if ( is_array( $application[ $property ] ) ) : ?>
-					<?php echo wp_kses_post( implode( '<br />', $application[ $property ] ) ); ?>
+					<?php echo wp_kses_post( implode( '<br />', array_map( 'esc_html', $application[ $property ] ) ) ); ?>
 				<?php else : ?>
-					<?php echo wp_kses_post( wpautop( $application[ $property ] ) ); ?>
+					<?php echo wp_kses_post( wpautop( esc_html( $application[ $property ] ) ) ); ?>
 				<?php endif; ?>
 			</td>
 		</tr>
