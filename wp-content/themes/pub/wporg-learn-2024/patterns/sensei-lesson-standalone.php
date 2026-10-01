@@ -15,8 +15,8 @@
 
 		<!-- wp:wporg/site-breadcrumbs {"fontSize":"small","style":{"spacing":{"padding":{"top":"18px","bottom":"18px"}}}} /-->
 
-		<!-- wp:group {"style":{"spacing":{"blockGap":"12px"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
-		<div class="wp-block-group">
+		<!-- wp:group {"className":"wp-block-sensei-lms-exit-lesson","style":{"spacing":{"blockGap":"12px"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+		<div class="wp-block-group wp-block-sensei-lms-exit-lesson">
 
 			<!-- wp:paragraph {"className":"is-style-short-text","fontSize":"small"} -->
 			<p class="is-style-short-text has-small-font-size"><a href="<?php echo esc_url( get_post_type_archive_link( 'lesson' ) ); ?>"><?php echo esc_html_e( 'Exit lesson', 'wporg-learn' ); ?></a></p>
