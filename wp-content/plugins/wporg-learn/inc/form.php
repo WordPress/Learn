@@ -419,10 +419,6 @@ function prepare_post_content_from_submission( $submission ) {
 		)
 	);
 
-	/*
-	 * The blurbs are plain text, but `sanitize_application_text()` leaves a `<` followed by whitespace
-	 * in place, which kses would rebuild into a real element on save. Escape before adding markup.
-	 */
 	$blurbs['description'] = wpautop( esc_html( $blurbs['description'] ) );
 	if ( empty( $blurbs['description'] ) ) {
 		$blurbs['description'] = '
