@@ -41,6 +41,9 @@ if ( filterKit && tableBody && chartCanvas ) {
 	const kitBannerName = document.getElementById( 'ak-kit-banner-name' );
 	const thViews = document.getElementById( 'ak-th-views' );
 	const thDownloads = document.getElementById( 'ak-th-downloads' );
+	const thUniqueDownloaders = document.getElementById( 'ak-th-unique-downloaders' );
+	const thLastDownloaded = document.getElementById( 'ak-th-last-downloaded' );
+	const thLastViewed = document.getElementById( 'ak-th-last-viewed' );
 	const exportBtn = document.getElementById( 'ak-export-csv' );
 	const chartSliderWrap = document.getElementById( 'ak-chart-slider-wrap' );
 	const chartSlider = document.getElementById( 'ak-chart-slider' );
@@ -54,9 +57,9 @@ if ( filterKit && tableBody && chartCanvas ) {
 		return ( num ?? 0 ).toLocaleString();
 	}
 
-	// Formats downloads/views as a percentage; '—' when there are no views to divide by.
-	function formatRate( views, downloads ) {
-		return views > 0 ? ( ( downloads / views ) * 100 ).toFixed( 1 ) + '%' : '—';
+	// Formats a numerator (e.g. unique downloaders) as a percentage of views; '—' when there are no views to divide by.
+	function formatRate( views, numerator ) {
+		return views > 0 ? ( ( numerator / views ) * 100 ).toFixed( 1 ) + '%' : '—';
 	}
 
 	function formatDate( dateStr ) {
@@ -77,13 +80,14 @@ if ( filterKit && tableBody && chartCanvas ) {
 			'30d': 'Last 30 days',
 			'90d': 'Last 90 days',
 			/*
-			 * 'All time' covers ~6 months (6 x 30-day windows) — the WPCOM
-			 * /stats/views/posts API caps each call at 30 days; see
-			 * get_jetpack_post_views() in activity-kit-rest.php.
+			 * The longest range is six months (6 x 30-day windows): the WPCOM
+			 * /stats/views/posts API caps each call at 30 days, and downloads are
+			 * shown over the same span; see get_jetpack_post_views() and
+			 * get_range_days() in activity-kit-rest.php.
 			 */
-			all: 'All time (max ~6 months)',
+			all: 'Last 6 months',
 		};
-		return labels[ activeRange ] || 'All time (max ~6 months)';
+		return labels[ activeRange ] || 'Last 6 months';
 	}
 
 	const metricLabel = {
@@ -96,7 +100,7 @@ if ( filterKit && tableBody && chartCanvas ) {
 	function msgRow( text ) {
 		const row = document.createElement( 'tr' );
 		const cell = document.createElement( 'td' );
-		cell.colSpan = 5;
+		cell.colSpan = 8;
 		cell.textContent = text;
 		row.appendChild( cell );
 		return row;
@@ -128,7 +132,8 @@ if ( filterKit && tableBody && chartCanvas ) {
 		const isSingle = !! activeKit;
 		const totalV = data.reduce( ( sum, row ) => sum + ( row.views ?? 0 ), 0 );
 		const totalD = data.reduce( ( sum, row ) => sum + ( row.downloads ?? 0 ), 0 );
-		const rate = formatRate( totalV, totalD );
+		const totalUD = data.reduce( ( sum, row ) => sum + ( row.unique_downloaders ?? 0 ), 0 );
+		const rate = formatRate( totalV, totalUD );
 
 		if ( summaryViews ) {
 			summaryViews.textContent = fmt( totalV );
@@ -255,56 +260,41 @@ if ( filterKit && tableBody && chartCanvas ) {
 			return;
 		}
 
+		// The value a row sorts by for the active column: a lower-cased string for text
+		// columns (dates are Y-m-d, so plain string order is date order), a number otherwise.
+		function sortValue( row ) {
+			switch ( sortCol ) {
+				case 'title':
+					return ( row.title || '' ).toLowerCase();
+				case 'updated':
+				case 'last_downloaded':
+				case 'last_viewed':
+					return String( row[ sortCol ] || '' );
+				case 'views':
+				case 'downloads':
+				case 'unique_downloaders':
+					return row[ sortCol ] ?? 0;
+				default:
+					return ( row.views ?? 0 ) > 0 ? ( row.unique_downloaders ?? 0 ) / ( row.views ?? 0 ) : 0;
+			}
+		}
+
+		const direction = sortDir === 'asc' ? 1 : -1;
 		const sorted = [ ...data ].sort( ( a, b ) => {
-			if ( sortCol === 'title' ) {
-				const titleA = a.title.toLowerCase();
-				const titleB = b.title.toLowerCase();
-				if ( sortDir === 'asc' ) {
-					if ( titleA < titleB ) {
-						return -1;
-					}
-					if ( titleA > titleB ) {
-						return 1;
-					}
-					return 0;
-				}
-				if ( titleB < titleA ) {
-					return -1;
-				}
-				if ( titleB > titleA ) {
-					return 1;
-				}
-				return 0;
+			const valueA = sortValue( a );
+			const valueB = sortValue( b );
+			if ( typeof valueA === 'string' ) {
+				return direction * valueA.localeCompare( valueB );
 			}
-			if ( sortCol === 'updated' ) {
-				return sortDir === 'asc'
-					? ( a.updated || '' ).localeCompare( b.updated || '' )
-					: ( b.updated || '' ).localeCompare( a.updated || '' );
-			}
-			let valueA;
-			if ( sortCol === 'views' ) {
-				valueA = a.views ?? 0;
-			} else if ( sortCol === 'downloads' ) {
-				valueA = a.downloads ?? 0;
-			} else {
-				valueA = ( a.views ?? 0 ) > 0 ? ( a.downloads ?? 0 ) / ( a.views ?? 0 ) : 0;
-			}
-			let valueB;
-			if ( sortCol === 'views' ) {
-				valueB = b.views ?? 0;
-			} else if ( sortCol === 'downloads' ) {
-				valueB = b.downloads ?? 0;
-			} else {
-				valueB = ( b.views ?? 0 ) > 0 ? ( b.downloads ?? 0 ) / ( b.views ?? 0 ) : 0;
-			}
-			return sortDir === 'asc' ? valueA - valueB : valueB - valueA;
+			return direction * ( valueA - valueB );
 		} );
 
 		tableBody.innerHTML = '';
 		sorted.forEach( ( row ) => {
 			const views = row.views ?? 0;
 			const downloads = row.downloads ?? 0;
-			const rate = formatRate( views, downloads );
+			const uniqueDownloaders = row.unique_downloaders ?? 0;
+			const rate = formatRate( views, uniqueDownloaders );
 			const isSelected = row.slug === activeKit;
 			const tableRow = document.createElement( 'tr' );
 			if ( isSelected ) {
@@ -313,6 +303,9 @@ if ( filterKit && tableBody && chartCanvas ) {
 
 			const viewsClass = 'ak-col-number' + ( activeMetric === 'downloads' ? ' ak-hidden-col' : '' );
 			const dlClass = 'ak-col-number' + ( activeMetric === 'views' ? ' ak-hidden-col' : '' );
+			const udClass = 'ak-col-number' + ( activeMetric === 'views' ? ' ak-hidden-col' : '' );
+			const lastDlClass = activeMetric === 'views' ? 'ak-hidden-col' : '';
+			const lastViewedClass = activeMetric === 'downloads' ? 'ak-hidden-col' : '';
 
 			const tdTitle = document.createElement( 'td' );
 			const link = document.createElement( 'a' );
@@ -333,14 +326,26 @@ if ( filterKit && tableBody && chartCanvas ) {
 			tdDl.className = dlClass;
 			tdDl.textContent = fmt( downloads );
 
+			const tdUniqueDl = document.createElement( 'td' );
+			tdUniqueDl.className = udClass;
+			tdUniqueDl.textContent = fmt( uniqueDownloaders );
+
 			const tdRate = document.createElement( 'td' );
 			tdRate.className = 'ak-col-number';
 			tdRate.textContent = rate;
 
+			const tdLastDl = document.createElement( 'td' );
+			tdLastDl.className = lastDlClass;
+			tdLastDl.textContent = formatDate( row.last_downloaded );
+
+			const tdLastViewed = document.createElement( 'td' );
+			tdLastViewed.className = lastViewedClass;
+			tdLastViewed.textContent = formatDate( row.last_viewed );
+
 			const tdUpdated = document.createElement( 'td' );
 			tdUpdated.textContent = formatDate( row.updated );
 
-			tableRow.append( tdTitle, tdViews, tdDl, tdRate, tdUpdated );
+			tableRow.append( tdTitle, tdViews, tdDl, tdUniqueDl, tdRate, tdLastDl, tdLastViewed, tdUpdated );
 			tableRow.addEventListener( 'click', ( event ) => {
 				if ( event.target.tagName !== 'A' ) {
 					setKit( row.slug );
@@ -391,6 +396,15 @@ if ( filterKit && tableBody && chartCanvas ) {
 		if ( thDownloads ) {
 			thDownloads.classList.toggle( 'ak-hidden-col', activeMetric === 'views' );
 		}
+		if ( thUniqueDownloaders ) {
+			thUniqueDownloaders.classList.toggle( 'ak-hidden-col', activeMetric === 'views' );
+		}
+		if ( thLastDownloaded ) {
+			thLastDownloaded.classList.toggle( 'ak-hidden-col', activeMetric === 'views' );
+		}
+		if ( thLastViewed ) {
+			thLastViewed.classList.toggle( 'ak-hidden-col', activeMetric === 'downloads' );
+		}
 
 		if ( backLinkBar ) {
 			backLinkBar.classList.toggle( 'is-visible', isSingle );
@@ -407,7 +421,36 @@ if ( filterKit && tableBody && chartCanvas ) {
 		}
 	}
 
+	// Blank the summary strip, chart, and pagination controls so a failed fetch
+	// never leaves the previous range's numbers or slider on screen.
+	function clearDisplayedData() {
+		allData = [];
+		[ summaryViews, summaryDownloads, summaryRate, totalKits ].forEach( ( element ) => {
+			if ( element ) {
+				element.textContent = '—';
+			}
+		} );
+		if ( chart ) {
+			chart.data.labels = [];
+			chart.data.datasets = [];
+			chart.update();
+		}
+		if ( chartSliderWrap ) {
+			chartSliderWrap.classList.remove( 'is-visible' );
+		}
+		if ( chartSliderLabel ) {
+			chartSliderLabel.textContent = '';
+		}
+		if ( chartSlider ) {
+			chartSlider.value = 0;
+		}
+	}
+
 	// ── Main render ──
+	// Each call takes a ticket; a response whose ticket is no longer current belongs to a
+	// selection the admin has already moved past, and is dropped instead of drawn.
+	let renderTicket = 0;
+
 	async function render() {
 		if ( ! jetpackAvailable ) {
 			tableBody.replaceChildren(
@@ -418,16 +461,26 @@ if ( filterKit && tableBody && chartCanvas ) {
 			return;
 		}
 
+		const ticket = ++renderTicket;
 		tableBody.replaceChildren( msgRow( 'Loading…' ) );
+		updateUI();
 
 		try {
-			allData = await fetchStats();
+			const fetched = await fetchStats();
+			if ( ticket !== renderTicket ) {
+				return;
+			}
+			allData = fetched;
 			const data = activeKit ? allData.filter( ( row ) => row.slug === activeKit ) : allData;
 			updateSummary( data );
 			updateUI();
 			renderChart( data );
 			renderTable( data );
 		} catch ( error ) {
+			if ( ticket !== renderTicket ) {
+				return;
+			}
+			clearDisplayedData();
 			tableBody.replaceChildren( msgRow( 'Error loading stats: ' + error.message ) );
 		}
 	}
@@ -477,21 +530,48 @@ if ( filterKit && tableBody && chartCanvas ) {
 
 	function exportCSV() {
 		const data = activeKit ? allData.filter( ( row ) => row.slug === activeKit ) : allData;
-		const rows = [ [ 'Kit Name', 'Views', 'Downloads', 'Download Rate', 'Last Updated' ] ];
+		const rows = [
+			[
+				'Kit Name',
+				'Views',
+				'Downloads',
+				'Unique Daily Downloaders',
+				'Download Rate',
+				'Last Downloaded',
+				'Last Viewed',
+				'Kit Last Updated',
+			],
+		];
 		data.forEach( ( row ) => {
 			const views = row.views ?? 0;
 			const downloads = row.downloads ?? 0;
-			const rate = formatRate( views, downloads );
-			rows.push( [ row.title, views, downloads, rate, row.updated || '' ] );
+			const uniqueDownloaders = row.unique_downloaders ?? 0;
+			const rate = formatRate( views, uniqueDownloaders );
+			rows.push( [
+				row.title,
+				views,
+				downloads,
+				uniqueDownloaders,
+				rate,
+				row.last_downloaded || '',
+				row.last_viewed || '',
+				row.updated || '',
+			] );
 		} );
 		const csv = rows.map( ( row ) => row.map( csvCell ).join( ',' ) ).join( '\n' );
 		const blob = new Blob( [ csv ], { type: 'text/csv' } );
 		const url = URL.createObjectURL( blob );
 		const a = document.createElement( 'a' );
 		a.href = url;
-		a.download = 'activity-kit-stats.csv';
+		a.download = 'activity-kit-stats-' + activeRange + '.csv';
+		// Firefox and Safari need the anchor in the document and the URL alive until the
+		// download has started, so attach first and revoke on a delay.
+		document.body.appendChild( a );
 		a.click();
-		URL.revokeObjectURL( url );
+		setTimeout( () => {
+			URL.revokeObjectURL( url );
+			a.remove();
+		}, 1000 );
 	}
 
 	// ── Event listeners ──
