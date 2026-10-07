@@ -1,8 +1,11 @@
 # Keeps the SHA-pinned actions in .github/workflows and .github/actions current.
+# "/" covers the workflows; composite actions are only scanned from their own directory.
 version: 2
 updates:
   - package-ecosystem: github-actions
-    directory: /
+    directories:
+      - /
+      - /.github/actions/*
     schedule:
       interval: weekly
     groups:

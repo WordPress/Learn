@@ -38,7 +38,8 @@ on:
 # Any needed permissions should be configured at the job level.
 permissions: {}
 
-# A new push to a PR supersedes its in-flight run. Trunk runs always finish so they populate the caches.
+# A new push to a PR cancels its in-flight run. On trunk a running job is never cancelled, so the
+# caches get populated; GitHub still drops a queued run once a newer one queues behind it.
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
