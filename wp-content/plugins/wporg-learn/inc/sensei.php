@@ -3,7 +3,7 @@
 namespace WPOrg_Learn\Sensei;
 
 use WP_Post;
-use Sensei_Course, Sensei_Lesson, WooThemes_Sensei_Certificates;
+use Sensei_Course, Sensei_Course_Enrolment, Sensei_Lesson, WooThemes_Sensei_Certificates;
 use Sensei\Admin\Content_Duplicators\Post_Duplicator;
 
 defined( 'WPINC' ) || die();
@@ -128,6 +128,8 @@ function course_autoenrollment_from_quiz() {
 			|| ! Sensei_Course::can_current_user_manually_enrol( $course_id )
 			|| ! Sensei_Course::is_prerequisite_complete( $course_id )
 			|| post_password_required( $course_id )
+			// Learners an admin removed must re-enroll deliberately from the course page.
+			|| Sensei_Course_Enrolment::get_course_instance( $course_id )->is_learner_removed( $user_id )
 		) {
 			return;
 		}
