@@ -1,0 +1,46 @@
+name: Static Analysis (PHP)
+
+# Runs on pushes to trunk and on PRs, but only when PHP or its lint tooling changed.
+on:
+  push:
+    branches: [trunk]
+    paths:
+    - '**.php'
+    - phpcs.xml.dist
+    - composer.json
+    - composer.lock
+    - .github/workflows/lint-php.yml
+    - .github/actions/setup-composer/**
+  pull_request:
+    paths:
+    - '**.php'
+    - phpcs.xml.dist
+    - composer.json
+    - composer.lock
+    - .github/workflows/lint-php.yml
+    - .github/actions/setup-composer/**
+  workflow_dispatch:
+
+# Disable permissions for all available scopes by default.
+# Any needed permissions should be configured at the job level.
+permissions: {}
+
+# A new push to a PR supersedes its in-flight run. Trunk runs always finish so they populate the caches.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  phpcs:
+    name: Lint PHP
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read # Required to clone the repo
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: ./.github/actions/setup-composer
+
+    - name: Lint PHP
+      run: yarn lint:php

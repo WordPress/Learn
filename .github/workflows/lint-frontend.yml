@@ -1,0 +1,88 @@
+name: Static Analysis (JavaScript and Styles)
+
+# Runs on pushes to trunk and on PRs, but only when front-end code or its lint tooling changed.
+# composer.lock is included because the shared ESLint/Stylelint configs come from wporg-repo-tools.
+on:
+  push:
+    branches: [trunk]
+    paths:
+    - '**.js'
+    - '**.scss'
+    - '**.css'
+    - '**/package.json'
+    - '**/.eslintrc.js'
+    - '**/.prettierrc'
+    - '**/.stylelintrc'
+    - yarn.lock
+    - .nvmrc
+    - composer.lock
+    - .github/workflows/lint-frontend.yml
+    - .github/actions/setup-composer/**
+  pull_request:
+    paths:
+    - '**.js'
+    - '**.scss'
+    - '**.css'
+    - '**/package.json'
+    - '**/.eslintrc.js'
+    - '**/.prettierrc'
+    - '**/.stylelintrc'
+    - yarn.lock
+    - .nvmrc
+    - composer.lock
+    - .github/workflows/lint-frontend.yml
+    - .github/actions/setup-composer/**
+  workflow_dispatch:
+
+# Disable permissions for all available scopes by default.
+# Any needed permissions should be configured at the job level.
+permissions: {}
+
+# A new push to a PR supersedes its in-flight run. Trunk runs always finish so they populate the caches.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  lint:
+    name: Lint JavaScript and Styles
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read # Required to clone the repo
+    steps:
+    - uses: actions/checkout@v4
+
+    # Provides wporg-repo-tools, which supplies the .eslintrc.js / .stylelintrc used below.
+    - uses: ./.github/actions/setup-composer
+
+    - name: Copy shared lint configs from wporg-repo-tools
+      run: yarn setup:tools
+
+    - name: Install NodeJS
+      uses: actions/setup-node@v4
+      with:
+        node-version-file: '.nvmrc'
+
+    # Skips yarn install on a hit. Deliberately no restore-keys: a stale
+    # node_modules is only safe on an exact lockfile + Node match.
+    - name: Restore node_modules cache
+      id: node-modules-cache
+      uses: actions/cache@v4
+      with:
+        path: |
+          node_modules
+          wp-content/mu-plugins/pub/locale-switcher/node_modules
+          wp-content/plugins/wporg-learn/node_modules
+          wp-content/themes/pub/wporg-learn-2024/node_modules
+        key: node-modules-${{ runner.os }}-${{ hashFiles('.nvmrc', 'yarn.lock') }}
+
+    - name: yarn install
+      if: steps.node-modules-cache.outputs.cache-hit != 'true'
+      run: yarn install --frozen-lockfile
+
+    - name: Lint JavaScript
+      run: yarn lint:js
+
+    - name: Lint Styles
+      run: yarn lint:css

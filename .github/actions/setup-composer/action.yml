@@ -29,7 +29,3 @@ runs:
       run: |
         git reset --hard
         git clean -f -d
-
-    - name: Copy shared lint configs from wporg-repo-tools
-      shell: bash
-      run: yarn setup:tools

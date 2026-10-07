@@ -36,6 +36,9 @@
 	<arg value="psn" />
 	<arg name="colors" />
 
+	<!-- Scan files on 4 processes, matching the GitHub-hosted runner core count -->
+	<arg name="parallel" value="4" />
+
 	<!-- Scan all (php) files in the current folder and subfolders -->
 	<file>.</file>
 	<arg name="extensions" value="php" />
