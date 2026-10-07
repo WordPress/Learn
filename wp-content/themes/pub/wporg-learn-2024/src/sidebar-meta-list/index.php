@@ -135,38 +135,55 @@ function render( $attributes, $content, $block ) {
 		$wporg_wp_version = get_post_taxonomy_terms( $lesson_plan_id, 'wporg_wp_version' );
 		$last_updated     = get_last_updated_time( $lesson_plan_id );
 
-		$meta_fields = array(
-			array(
+		$meta_fields = array();
+
+		if ( ! empty( $duration ) ) {
+			$meta_fields[] = array(
 				'label' => __( 'Duration', 'wporg-learn' ),
 				'value' => $duration,
 				'key'   => 'duration',
-			),
-			array(
+			);
+		}
+
+		if ( ! empty( $audience ) ) {
+			$meta_fields[] = array(
 				'label' => __( 'Audience', 'wporg-learn' ),
 				'value' => $audience,
 				'key'   => 'audience',
-			),
-			array(
+			);
+		}
+
+		if ( ! empty( $level ) ) {
+			$meta_fields[] = array(
 				'label' => __( 'Level', 'wporg-learn' ),
 				'value' => $level,
 				'key'   => 'level',
-			),
-			array(
+			);
+		}
+
+		if ( ! empty( $instruction_type ) ) {
+			$meta_fields[] = array(
 				'label' => __( 'Type', 'wporg-learn' ),
 				'value' => $instruction_type,
 				'key'   => 'type',
-			),
-			array(
+			);
+		}
+
+		if ( ! empty( $wporg_wp_version ) ) {
+			$meta_fields[] = array(
 				'label' => __( 'WordPress Version', 'wporg-learn' ),
 				'value' => $wporg_wp_version,
-				'key'   => 'type',
-			),
-			array(
+				'key'   => 'wp-version',
+			);
+		}
+
+		if ( ! empty( $last_updated ) ) {
+			$meta_fields[] = array(
 				'label' => __( 'Last updated', 'wporg-learn' ),
 				'value' => $last_updated,
 				'key'   => 'last-updated',
-			),
-		);
+			);
+		}
 	}
 
 	foreach ( $meta_fields as $field ) {
