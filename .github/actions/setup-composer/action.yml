@@ -1,0 +1,35 @@
+name: Set up Composer dependencies
+description: Restores vendor/ from cache, installing it (and the svn client Composer needs) only on a cache miss.
+
+runs:
+  using: composite
+  steps:
+    - name: Restore vendor cache
+      id: vendor-cache
+      uses: actions/cache@v4
+      with:
+        path: vendor
+        key: vendor-${{ runner.os }}-${{ hashFiles('composer.lock') }}
+
+    # Two require-dev packages are checked out from meta.svn.wordpress.org.
+    - name: Install svn
+      if: steps.vendor-cache.outputs.cache-hit != 'true'
+      shell: bash
+      run: sudo apt-get install -y --no-install-recommends subversion
+
+    - name: composer install
+      if: steps.vendor-cache.outputs.cache-hit != 'true'
+      shell: bash
+      run: composer install --no-interaction --no-progress
+
+    # The svn checkout into wp-content/mu-plugins/pub can clobber tracked files.
+    - name: Git reset and clean
+      if: steps.vendor-cache.outputs.cache-hit != 'true'
+      shell: bash
+      run: |
+        git reset --hard
+        git clean -f -d
+
+    - name: Copy shared lint configs from wporg-repo-tools
+      shell: bash
+      run: yarn setup:tools

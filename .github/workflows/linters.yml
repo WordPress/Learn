@@ -11,50 +11,58 @@ on:
 # Any needed permissions should be configured at the job level.
 permissions: {}
 
+# A new push to the same PR supersedes any lint run still in flight.
+concurrency:
+  group: lint-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  check:
-    name: Lint
+  php:
+    name: Lint PHP
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 10
     permissions:
       contents: read # Required to clone the repo
     steps:
     - uses: actions/checkout@v4
 
-    - name: Install svn
-      shell: bash
-      run: |
-        sudo apt install subversion
+    - uses: ./.github/actions/setup-composer
 
-    - name: composer install
-      run: |
-        composer install
+    - name: Lint PHP
+      run: yarn lint:php
 
-    - name: Git reset and clean
-      run: |
-        git reset --hard
-        git clean -f -d
+  js:
+    name: Lint JavaScript and Styles
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read # Required to clone the repo
+    steps:
+    - uses: actions/checkout@v4
 
-    - name: Setup tools
-      run: |
-        yarn setup:tools
+    # Needed for the .eslintrc.js / .stylelintrc that wporg-repo-tools provides.
+    - uses: ./.github/actions/setup-composer
 
     - name: Install NodeJS
       uses: actions/setup-node@v4
       with:
         node-version-file: '.nvmrc'
-        cache: 'yarn'
 
-    - name: yarn install and build
-      run: |
-        yarn
-        yarn build
+    - name: Restore node_modules cache
+      uses: actions/cache@v4
+      with:
+        path: |
+          node_modules
+          wp-content/mu-plugins/pub/locale-switcher/node_modules
+          wp-content/plugins/wporg-learn/node_modules
+          wp-content/themes/pub/wporg-learn-2024/node_modules
+        key: node-modules-${{ runner.os }}-${{ hashFiles('.nvmrc', 'yarn.lock') }}
 
-    - name: Lint JavaScript and Styles
-      run: |
-        yarn lint:js
-        yarn lint:css
+    - name: yarn install
+      run: yarn install --frozen-lockfile --prefer-offline
 
-    - name: Lint PHP
-      run: |
-        yarn lint:php
+    - name: Lint JavaScript
+      run: yarn lint:js
+
+    - name: Lint Styles
+      run: yarn lint:css
