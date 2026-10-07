@@ -18,10 +18,10 @@ jobs:
     permissions:
       issues: write # Required to add labels to issues
     steps:
-      - uses: actions/github-script@v7.0.1
+      - uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
           script: console.log(context)
-      - uses: actions/github-script@v7.0.1
+      - uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         if: contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.issue.body, '//content')  
         with:
           script: |
@@ -31,7 +31,7 @@ jobs:
               repo: context.repo.repo,
               labels: ["[Content] Feedback"]
             })
-      - uses: actions/github-script@v7.0.1
+      - uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         if: contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.issue.body, '//dev')  
         with:
           script: |
@@ -41,7 +41,7 @@ jobs:
               repo: context.repo.repo,
               labels: ["[Type] Bug"]
             })
-      - uses: actions/github-script@v7.0.1
+      - uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         if: contains(github.event.issue.labels.*.name, 'Awaiting Triage') && contains(github.event.issue.body, '//handbook')  
         with:
           script: |

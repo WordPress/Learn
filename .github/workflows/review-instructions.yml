@@ -9,13 +9,13 @@ permissions: {}
 
 jobs:
   add-comment:
+    if: ${{ contains(github.event.comment.body, '//review') }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
       issues: write # Required to post comments on issues
     steps:
-      - uses: peter-evans/create-or-update-comment@v3
-        if: ${{ contains(github.event.comment.body, '//review') }}
+      - uses: peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9 # v5.0.0
         with:
           issue-number: ${{ github.event.issue.number }}
           body: |
