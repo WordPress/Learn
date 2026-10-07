@@ -2,8 +2,8 @@
 
 namespace WPOrg_Learn\Sensei;
 
-use Exception, WP_Post;
-use Sensei_Course, Sensei_Lesson, Sensei_Course_Enrolment_Manager, WooThemes_Sensei_Certificates;
+use WP_Post;
+use Sensei_Course, Sensei_Course_Enrolment, Sensei_Lesson, WooThemes_Sensei_Certificates;
 use Sensei\Admin\Content_Duplicators\Post_Duplicator;
 
 defined( 'WPINC' ) || die();
@@ -110,6 +110,10 @@ function quiz_status_message( $status, $lesson_id ) {
 /**
  * Enroll a logged-in user in a course when they visit a quiz page.
  *
+ * Applies the same enrollment policy as Sensei's own "Take Course" handler
+ * (Sensei_Frontend::sensei_course_start()), so a quiz URL can't enroll users
+ * the course page would turn away.
+ *
  * @return void
  */
 function course_autoenrollment_from_quiz() {
@@ -119,16 +123,27 @@ function course_autoenrollment_from_quiz() {
 		$course_id = intval( $lesson->_lesson_course );
 		$user_id = get_current_user_id();
 
-		if ( $course_id && ! Sensei_Course::is_user_enrolled( $course_id, $user_id ) ) {
-			$enrollment_manager = Sensei_Course_Enrolment_Manager::instance();
+		if (
+			! $course_id
+			|| ! Sensei_Course::can_current_user_manually_enrol( $course_id )
+			|| ! Sensei_Course::is_prerequisite_complete( $course_id )
+			|| post_password_required( $course_id )
+			// Learners an admin removed must re-enroll deliberately from the course page.
+			|| Sensei_Course_Enrolment::get_course_instance( $course_id )->is_learner_removed( $user_id )
+		) {
+			return;
+		}
 
-			try {
-				$manual_enrollment  = $enrollment_manager->get_manual_enrolment_provider();
-			} catch ( Exception $e ) {
-				return;
-			}
+		/** This filter is documented in wp-content/plugins/sensei-lms/includes/class-sensei-frontend.php */
+		$enrol = apply_filters(
+			'sensei_frontend_learner_enrolment_handler',
+			array( Sensei()->frontend, 'manually_enrol_learner' ),
+			$user_id,
+			$course_id
+		);
 
-			$manual_enrollment->enrol_learner( $user_id, $course_id );
+		if ( is_callable( $enrol ) ) {
+			call_user_func( $enrol, $user_id, $course_id );
 		}
 	}
 }
