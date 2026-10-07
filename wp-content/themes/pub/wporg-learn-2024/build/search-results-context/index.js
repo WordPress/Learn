@@ -1,0 +1,1 @@
+(()=>{"use strict";const e=window.React,t=window.wp.blocks,o=window.wp.blockEditor,r=JSON.parse('{"UU":"wporg-learn/search-results-context"}');(0,t.registerBlockType)(r.UU,{edit:function(){return(0,e.createElement)("div",{...(0,o.useBlockProps)()},"Search Results Context")},save:()=>null})})();
