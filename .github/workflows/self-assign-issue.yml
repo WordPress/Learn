@@ -18,7 +18,7 @@ jobs:
       issues: write # Required to assign issues, add labels, and post comments
     steps:
       - name: Assign the comment author
-        uses: takanome-dev/assign-issue-action@v2.0.0
+        uses: takanome-dev/assign-issue-action@da1c682620b11d1a16b0b32853f6c2ed45fcb068 # v2.0.0
         with:
           github_token: '${{ secrets.GITHUB_TOKEN }}'
           trigger: '//assign'

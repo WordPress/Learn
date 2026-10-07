@@ -149,11 +149,14 @@
 		<exclude name="Universal.Operators.DisallowShortTernary" />
 	</rule>
 
-	<!-- Verify that the text_domain is set to the desired text-domain. Multiple valid text domains can be
-	     provided as a comma-delimited list. -->
+	<!-- Verify that the text_domain is set to one of the desired text-domains. -->
 	<rule ref="WordPress.WP.I18n">
 		<properties>
-			<property name="text_domain" type="array" value="wporg-learn,wporg_learn,sensei-lms" />
+			<property name="text_domain" type="array">
+				<element value="wporg-learn" />
+				<element value="wporg_learn" />
+				<element value="sensei-lms" />
+			</property>
 		</properties>
 	</rule>
 	<!-- locales.php intentionally combines a global and a named namespace using the brace syntax. -->
