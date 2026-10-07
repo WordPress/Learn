@@ -30,11 +30,14 @@
 		"lint:css": "yarn workspaces run lint:css",
 		"lint:js": "yarn workspaces run lint:js",
 		"lint:php": "composer run lint",
-		"setup:tools": "TEXTDOMAIN=wporg-learn composer exec update-configs",
+		"setup:tools": "cross-env TEXTDOMAIN=wporg-learn composer exec update-configs",
 		"start:locale-switcher": "yarn workspace wporg-locale-switcher start",
 		"start:plugin": "yarn workspace wporg-learn-plugin start",
 		"start:theme": "yarn workspace wporg-learn-2024 start",
 		"wp-env": "wp-env"
 	},
-	"main": "index.js"
+	"main": "index.js",
+	"devDependencies": {
+		"cross-env": "^7.0.3"
+	}
 }
