@@ -1,0 +1,50 @@
+.wp-block-wporg-learn-lesson-facilitator-notes {
+	.components-base-control__field {
+		margin-bottom: var(--wp--preset--spacing--10);
+	}
+
+	.block-editor-rich-text__editable {
+		white-space: unset !important;
+		overflow: scroll;
+		border: 1px solid var(--wp--preset--color--charcoal-5);
+		margin: var(--wp--preset--spacing--10) 0;
+		padding: var(--wp--preset--spacing--10);
+
+		&.is-expanded {
+			max-height: none;
+		}
+
+		&.is-collapsed {
+			max-height: 300px;
+		}
+	}
+
+	h1.block-editor-rich-text__editable {
+		padding: 0 var(--wp--preset--spacing--10);
+	}
+
+	button {
+		min-width: 118px;
+		justify-content: center;
+
+		&.is-success {
+			background-color: var(--wp--custom--color--green-50) !important;
+
+			&:hover {
+				opacity: 0.9;
+			}
+		}
+
+		&.is-failure {
+			background-color: var(--wp--preset--color--vivid-red) !important;
+
+			&:hover {
+				opacity: 0.9;
+			}
+		}
+	}
+
+	.components-spinner {
+		margin-top: 0;
+	}
+}
