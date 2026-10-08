@@ -8,6 +8,17 @@
 	font-weight: 600;
 }
 
+// Logged-in users get a disabled field prefilled with their email. Jetpack styles it with
+// `currentcolor` at half opacity, which turns it into an empty grey box on a dark background.
+.wp-block-jetpack-subscriptions.wp-block-jetpack-subscriptions__supports-newline {
+	.wp-block-jetpack-subscriptions__form-elements input[type="email"]:disabled {
+		color: var(--wp--custom--form--color--text);
+		-webkit-text-fill-color: var(--wp--custom--form--color--text);
+		background: var(--wp--custom--form--search--color--background);
+		opacity: 1;
+	}
+}
+
 .wp-block-jetpack-contact-form-container .contact-form {
 	.grunion-checkbox-multiple-options legend,
 	.grunion-radio-options legend,
