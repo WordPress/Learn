@@ -10,6 +10,12 @@ namespace WPOrg_Learn\Activity_Kit_REST;
 defined( 'WPINC' ) || die();
 
 /**
+ * Most downloads counted per visitor per kit per UTC day. Further downloads are still
+ * served, just not counted; see count_download().
+ */
+const DOWNLOAD_COUNT_CAP_PER_VISITOR = 5;
+
+/**
  * Actions and filters.
  */
 add_action( 'rest_api_init', __NAMESPACE__ . '\register_routes' );
@@ -101,18 +107,15 @@ function stats_cache_expiration( $expiration ) {
 /**
  * Handle GET /activity-kits/v1/download/{id}
  *
- * Increments the kit's download counter (stored in one post meta row per UTC
- * day) for requests that look like a person, and redirects the browser to the
- * actual ZIP file URL.
- * Using a server-side redirect lets us track same-domain downloads that
+ * For requests that look like a person, counts the download (see
+ * count_download()) and then redirects the browser to the actual ZIP file
+ * URL. Using a server-side redirect lets us track same-domain downloads that
  * Jetpack's outbound-click tracker misses.
  *
  * @param \WP_REST_Request $request The REST request.
  * @return \WP_REST_Response|\WP_Error 302 redirect on success, WP_Error on failure.
  */
 function handle_download( $request ) {
-	global $wpdb;
-
 	/*
 	 * Skip counting unfurlers, scanners and prefetches. Still redirect: the
 	 * heuristic has false positives, and those should cost an uncounted
@@ -145,22 +148,7 @@ function handle_download( $request ) {
 	}
 
 	if ( ! $is_bot ) {
-		/*
-		 * Seed today's bucket, then increment atomically — update_post_meta()'s
-		 * CAS is racy when the previous value is 0, and a seed race is harmless
-		 * because reads take MAX per bucket.
-		 */
-		$meta_key = '_activity_downloads_' . gmdate( 'Ymd' );
-		add_post_meta( $kit_post->ID, $meta_key, 0, true );
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Atomic increment; cache invalidated immediately below.
-		$wpdb->query(
-			$wpdb->prepare(
-				"UPDATE {$wpdb->postmeta} SET meta_value = meta_value + 1 WHERE post_id = %d AND meta_key = %s",
-				$kit_post->ID,
-				$meta_key
-			)
-		);
-		wp_cache_delete( $kit_post->ID, 'post_meta' );
+		count_download( $kit_post->ID );
 	}
 
 	return new \WP_REST_Response(
@@ -170,6 +158,116 @@ function handle_download( $request ) {
 			'Location'      => esc_url_raw( $zip_url ),
 			'Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0',
 			'Pragma'        => 'no-cache',
+		)
+	);
+}
+
+/**
+ * Count one download of a kit for the visitor making the current request.
+ *
+ * Two daily postmeta buckets per kit, one row per UTC day: '_activity_downloads_YYYYMMDD'
+ * counts every download and '_activity_unique_downloads_YYYYMMDD' counts each visitor
+ * once. Both are read back by get_download_counts().
+ *
+ * Visitors are told apart by a one-way hash of the IP address and the kit ID with a salt
+ * that changes every UTC day, remembered in a transient that expires at the end of that
+ * day. Nothing about the visitor is stored, and the same person hashes to an unrelated
+ * value tomorrow. The User-Agent is deliberately left out: it is client-controlled, so
+ * hashing it in would let one client mint an unlimited number of "unique" downloaders.
+ *
+ * The same transient holds how many downloads this visitor has been counted for today.
+ * Past DOWNLOAD_COUNT_CAP_PER_VISITOR the file is still served but the counters stop
+ * moving, which bounds what a scripted loop can do to the numbers.
+ *
+ * Two known limits, both acceptable for a "did visitors download" signal: a classroom
+ * behind one NAT address counts as one downloader per day, and on a persistent object
+ * cache an evicted transient can count a visitor twice. REMOTE_ADDR is used as-is; if
+ * the edge does not rewrite it to the client address, confirm the proxy setup with
+ * WordPress.org systems before trusting a forwarded header here.
+ *
+ * @param int $kit_id Post ID of the activity kit.
+ */
+function count_download( $kit_id ) {
+	global $wpdb;
+
+	$day       = gmdate( 'Ymd' );
+	$ip        = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? '' ) );
+	$day_salt  = hash_hmac( 'sha256', $day, wp_salt( 'nonce' ) );
+	$visitor   = hash_hmac( 'sha256', $ip . '|' . $kit_id, $day_salt );
+	$transient = 'ak_dl_' . substr( $visitor, 0, 40 );
+
+	// Expire at the next UTC midnight, when the salt changes anyway.
+	$seconds_left = max( MINUTE_IN_SECONDS, DAY_IN_SECONDS - ( time() % DAY_IN_SECONDS ) );
+	$option_name  = '_transient_' . $transient;
+	$timeout_name = '_transient_timeout_' . $transient;
+
+	/*
+	 * Atomic INSERT … ON DUPLICATE KEY UPDATE so two concurrent first-downloads
+	 * from the same address can't both slip through the cap or both inflate the
+	 * unique bucket. MySQL/MariaDB affected-row semantics:
+	 *   1 = new row inserted  → first download from this visitor today.
+	 *   2 = existing row incremented (was below cap).
+	 *   0 = existing row unchanged (already at cap) → serve without counting.
+	 *
+	 * phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery
+	 * phpcs:disable WordPress.DB.DirectDatabaseQuery.NoCaching
+	 * phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+	 */
+	$affected = $wpdb->query(
+		$wpdb->prepare(
+			"INSERT INTO {$wpdb->options} (option_name, option_value, autoload)
+			 VALUES (%s, '1', 'no')
+			 ON DUPLICATE KEY UPDATE
+			   option_value = IF( CAST(option_value AS UNSIGNED) < %d,
+			                      CAST(option_value AS UNSIGNED) + 1,
+			                      option_value )",
+			$option_name,
+			DOWNLOAD_COUNT_CAP_PER_VISITOR
+		)
+	);
+	// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+
+	if ( 0 === $affected ) {
+		return; // At cap: serve the file without counting.
+	}
+
+	$is_first = 1 === $affected;
+
+	// Keep the expiry option in sync so the transient is cleaned up at midnight.
+	update_option( $timeout_name, time() + $seconds_left, 'no' );
+	wp_cache_delete( $transient, 'transient' );
+
+	increment_daily_bucket( $kit_id, '_activity_downloads_' . $day );
+
+	if ( $is_first ) {
+		increment_daily_bucket( $kit_id, '_activity_unique_downloads_' . $day );
+	}
+
+	// One overwritten row, not history; read by get_last_downloaded_date().
+	update_post_meta( $kit_id, '_activity_last_downloaded', gmdate( 'Y-m-d H:i:s' ) );
+	wp_cache_delete( $kit_id, 'post_meta' );
+}
+
+/**
+ * Add one to a kit's daily counter bucket.
+ *
+ * Seeds the bucket, then increments atomically: update_post_meta()'s compare-and-set
+ * is racy when the previous value is 0, and a seed race is harmless because
+ * get_download_counts() takes MAX per bucket.
+ *
+ * @param int    $kit_id   Post ID of the activity kit.
+ * @param string $meta_key Bucket key, e.g. '_activity_downloads_20260903'.
+ */
+function increment_daily_bucket( $kit_id, $meta_key ) {
+	global $wpdb;
+
+	add_post_meta( $kit_id, $meta_key, 0, true );
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Atomic increment; the caller invalidates the post's meta cache.
+	$wpdb->query(
+		$wpdb->prepare(
+			"UPDATE {$wpdb->postmeta} SET meta_value = meta_value + 1 WHERE post_id = %d AND meta_key = %s",
+			$kit_id,
+			$meta_key
 		)
 	);
 }
@@ -206,18 +304,33 @@ function handle_stats( $request ) {
 		}
 	}
 
-	$views_map = array();
+	/*
+	 * Last-viewed is approximated from Jetpack's own per-post view history, so it shares
+	 * $views_map's Jetpack-availability guard, not just the metric filter.
+	 */
+	$should_fetch_views = ! $jetpack_unavailable && ( 'both' === $metric || 'views' === $metric );
 
-	if ( ! $jetpack_unavailable && ( 'both' === $metric || 'views' === $metric ) ) {
+	$views_map       = array();
+	$last_viewed_map = array();
+
+	if ( $should_fetch_views ) {
 		add_filter( 'jetpack_fetch_stats_cache_expiration', __NAMESPACE__ . '\stats_cache_expiration' );
-		$views_map = get_jetpack_post_views( $range, $kit_ids );
+		$views_result = get_jetpack_post_views( $range, $kit_ids );
 		remove_filter( 'jetpack_fetch_stats_cache_expiration', __NAMESPACE__ . '\stats_cache_expiration' );
+
+		if ( null !== $views_result ) {
+			$views_map = $views_result;
+			/* Skip get_last_viewed_dates() when the first Jetpack fetch already failed. */
+			$last_viewed_map = get_last_viewed_dates( $kit_ids );
+		}
 	}
 
-	$downloads_map = array();
+	$downloads_map          = array();
+	$unique_downloaders_map = array();
 
 	if ( 'both' === $metric || 'downloads' === $metric ) {
-		$downloads_map = get_download_counts( $range, $kit_ids );
+		$downloads_map          = get_download_counts( $range, $kit_ids );
+		$unique_downloaders_map = get_download_counts( $range, $kit_ids, '_activity_unique_downloads_' );
 	}
 
 	$results = array();
@@ -240,11 +353,14 @@ function handle_stats( $request ) {
 				$data['jetpack_unavailable'] = true;
 				$data['views']               = 0;
 			} else {
-				$data['views'] = $views_map[ $kit_post->ID ] ?? 0;
+				$data['views']       = $views_map[ $kit_post->ID ] ?? 0;
+				$data['last_viewed'] = $last_viewed_map[ $kit_post->ID ] ?? null;
 			}
 		}
 		if ( 'both' === $metric || 'downloads' === $metric ) {
-			$data['downloads'] = $downloads_map[ $kit_post->ID ] ?? 0;
+			$data['downloads']          = $downloads_map[ $kit_post->ID ] ?? 0;
+			$data['unique_downloaders'] = $unique_downloaders_map[ $kit_post->ID ] ?? 0;
+			$data['last_downloaded']    = get_last_downloaded_date( $kit_post->ID );
 		}
 
 		$results[] = $data;
@@ -276,6 +392,26 @@ function get_range_days( $range ) {
 }
 
 /**
+ * Get the Unix timestamp boundaries a stats range covers.
+ *
+ * Shared by both get_download_counts() bucket reads (every download, and one per visitor
+ * per day) so the two counts, and any other range-scoped query added later, can't
+ * silently drift onto different day spans if this boundary math ever changes.
+ *
+ * @param string $range One of '7d', '30d', '90d', 'all'.
+ * @return array{first: int, last: int} Unix timestamps for the first and last day.
+ */
+function get_range_timestamps( $range ) {
+	$days = get_range_days( $range );
+	$now  = time();
+
+	return array(
+		'first' => $now - ( $days - 1 ) * DAY_IN_SECONDS,
+		'last'  => $now,
+	);
+}
+
+/**
  * Get per-post view counts from Jetpack Stats for a given time range.
  *
  * Uses get_total_post_views() to query specific post IDs directly, rather than
@@ -293,7 +429,7 @@ function get_range_days( $range ) {
  *
  * @param string $range   One of '7d', '30d', '90d', 'all'.
  * @param int[]  $kit_ids Post IDs of the activity kits to fetch views for.
- * @return array          Map of post_id (int) => view_count (int). Empty on failure.
+ * @return array|null     Map of post_id (int) => view_count (int), or null on Jetpack failure.
  */
 function get_jetpack_post_views( $range, array $kit_ids ) {
 	if ( ! class_exists( '\Automattic\Jetpack\Stats\WPCOM_Stats' ) || empty( $kit_ids ) ) {
@@ -342,9 +478,13 @@ function get_jetpack_post_views( $range, array $kit_ids ) {
 				)
 			);
 
-			// Any unusable response returns empty so all kits show 0 (a visible failure) rather than a plausible-looking undercount.
+			/*
+			 * Any unusable response returns null — distinct from an empty array —
+			 * so the caller can skip get_last_viewed_dates() and avoid a second
+			 * Jetpack request when the connection is already known to be broken.
+			 */
 			if ( is_wp_error( $result ) || ! is_array( $result ) ) {
-				return array();
+				return null;
 			}
 
 			$post_views = isset( $result['posts'] ) ? $result['posts'] : array();
@@ -380,30 +520,40 @@ function get_jetpack_post_views( $range, array $kit_ids ) {
  *
  * @param string $range   One of '7d', '30d', '90d', 'all'.
  * @param int[]  $kit_ids Post IDs of the activity kits to fetch downloads for.
- * @return array          Map of post_id (int) => download_count (int).
+ * @param string $prefix  Bucket key prefix: '_activity_downloads_' (every download, the
+ *                        default) or '_activity_unique_downloads_' (one per visitor per
+ *                        day). See count_download().
+ * @return array          Map of post_id (int) => count (int).
  */
-function get_download_counts( $range, array $kit_ids ) {
+function get_download_counts( $range, array $kit_ids, $prefix = '_activity_downloads_' ) {
 	global $wpdb;
 
 	if ( empty( $kit_ids ) ) {
 		return array();
 	}
 
-	$days      = get_range_days( $range );
-	$now       = time();
-	$first_key = '_activity_downloads_' . gmdate( 'Ymd', $now - ( $days - 1 ) * DAY_IN_SECONDS );
-	$last_key  = '_activity_downloads_' . gmdate( 'Ymd', $now );
+	$bounds    = get_range_timestamps( $range );
+	$first_key = $prefix . gmdate( 'Ymd', $bounds['first'] );
+	$last_key  = $prefix . gmdate( 'Ymd', $bounds['last'] );
 
 	$id_placeholders = implode( ',', array_fill( 0, count( $kit_ids ), '%d' ) );
 
-	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- The meta API has no ranged multi-key read.
+	/*
+	 * phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery
+	 * phpcs:disable WordPress.DB.DirectDatabaseQuery.NoCaching
+	 * phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+	 * phpcs:disable WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber
+	 *
+	 * The meta API has no ranged multi-key read; $id_placeholders is a list of
+	 * %d tokens built dynamically from count( $kit_ids ) — phpcs cannot count them.
+	 */
 	$rows = $wpdb->get_results(
 		$wpdb->prepare(
-			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $id_placeholders is a list of %d placeholders built above from count().
 			"SELECT post_id, meta_key, MAX( CAST( meta_value AS UNSIGNED ) ) AS downloads FROM {$wpdb->postmeta} WHERE post_id IN ( {$id_placeholders} ) AND meta_key BETWEEN %s AND %s GROUP BY post_id, meta_key",
 			array_merge( $kit_ids, array( $first_key, $last_key ) )
 		)
 	);
+	// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber
 
 	$map = array();
 	foreach ( $rows as $row ) {
@@ -412,4 +562,162 @@ function get_download_counts( $range, array $kit_ids ) {
 	}
 
 	return $map;
+}
+
+/**
+ * Get a kit's last-downloaded date, if it has ever been downloaded.
+ *
+ * Not range-scoped, same as get_the_modified_date() for the 'updated' field — this
+ * reflects the kit's real download history regardless of which time range the
+ * dashboard happens to be filtered to.
+ *
+ * @param int $kit_id Post ID of the activity kit.
+ * @return string|null 'Y-m-d', or null if the kit has never been downloaded.
+ */
+function get_last_downloaded_date( $kit_id ) {
+	$timestamp = get_post_meta( $kit_id, '_activity_last_downloaded', true );
+
+	if ( ! $timestamp ) {
+		return null;
+	}
+
+	/*
+	 * $timestamp is stored as GMT (current_time( 'mysql', true )) but carries no timezone
+	 * of its own — strtotime() would otherwise interpret it in PHP's default timezone,
+	 * which can shift the resulting day near midnight. The explicit +0000 forces UTC.
+	 */
+	return gmdate( 'Y-m-d', strtotime( $timestamp . ' +0000' ) );
+}
+
+/**
+ * Get, for each kit, the most recent date Jetpack recorded a view for it.
+ *
+ * Jetpack Stats has no dedicated "last viewed" field, so this is approximated from
+ * WPCOM_Stats::get_post_views()'s per-post view history (the 'weeks' field is the one
+ * part of that response confirmed to carry day-level granularity). This runs only when
+ * an admin loads the stats dashboard — an infrequent, authenticated read, not the
+ * per-visitor-page-load case that ruled out custom view tracking for this project.
+ *
+ * There's no batched form of this specific Jetpack call (unlike get_jetpack_post_views(),
+ * which fetches up to 100 kits per request) — get_post_views() is a single-post endpoint,
+ * so this is one Jetpack API call per kit on a cache miss. Results, including "no views
+ * yet", are kept in a transient for six hours (a real transient, not the object cache:
+ * wp_cache_set() only survives the request where a persistent cache is configured). The
+ * loop stops at the first Jetpack error, since one failure means the connection is down
+ * for every kit and each further call would cost a full timeout. If the kit library grows
+ * large enough that even a once-a-day cache-miss burst becomes noticeable, the next step
+ * would be warming this cache from a scheduled cron event instead of on demand.
+ *
+ * @param int[] $kit_ids Post IDs of the activity kits to fetch last-viewed dates for.
+ * @return array         Map of post_id (int) => 'Y-m-d' (string). Kits with no cached
+ *                        or parseable result are omitted, not set to null.
+ */
+function get_last_viewed_dates( array $kit_ids ) {
+	if ( ! class_exists( '\Automattic\Jetpack\Stats\WPCOM_Stats' ) || empty( $kit_ids ) ) {
+		return array();
+	}
+
+	$stats = new \Automattic\Jetpack\Stats\WPCOM_Stats();
+	$map   = array();
+
+	foreach ( $kit_ids as $kit_id ) {
+		$transient = 'ak_last_viewed_' . $kit_id;
+		$cached    = get_transient( $transient );
+
+		if ( false !== $cached ) {
+			if ( $cached ) {
+				$map[ $kit_id ] = $cached;
+			}
+			continue;
+		}
+
+		$result = $stats->get_post_views( $kit_id, array( 'fields' => 'weeks' ) );
+
+		if ( is_wp_error( $result ) ) {
+			break;
+		}
+
+		$date = extract_last_viewed_date( $result );
+
+		// Cache the miss too (as an empty string), so a kit with no recorded views doesn't trigger a fresh API call on every dashboard load.
+		set_transient( $transient, $date ?? '', 6 * HOUR_IN_SECONDS );
+
+		if ( $date ) {
+			$map[ $kit_id ] = $date;
+		}
+	}
+
+	return $map;
+}
+
+/**
+ * Pull the most recent date with a nonzero view count out of a get_post_views() response.
+ *
+ * The WordPress.com /stats/post/{id} response carries `weeks` as a list of weeks, each
+ * `array( 'days' => array( array( 'day' => 'Y-m-d', 'count' => n ), ... ), 'total' => ... )`.
+ * That list shape is handled first. Two older shapes are accepted as well, a nested
+ * 'Y-m-d' => array( 'days' => array( 'Y-m-d' => count ) ) map and a flat 'Y-m-d' => count
+ * map. Anything else, including a list index where a date was expected, is ignored, so
+ * the result is a real date or null, never an integer that only looks like one.
+ *
+ * @param array $result Response from WPCOM_Stats::get_post_views().
+ * @return string|null 'Y-m-d', or null if no parseable, nonzero-view date was found.
+ */
+function extract_last_viewed_date( $result ) {
+	if ( ! is_array( $result ) || empty( $result['weeks'] ) || ! is_array( $result['weeks'] ) ) {
+		return null;
+	}
+
+	$last_viewed = null;
+
+	foreach ( $result['weeks'] as $week_key => $week ) {
+		/*
+		 * Normalize $days to whatever holds the per-day entries:
+		 *   - Object shape:        $week = [ 'days' => [ {day,count}, ... ], 'total' => n ]
+		 *   - Live list-of-lists:  $week = [ {day,count}, {day,count}, ... ] (no 'days' key)
+		 * Both yield an iterable list; the flat-map fallback handles 'Y-m-d' => count maps.
+		 */
+		if ( is_array( $week ) ) {
+			$days = isset( $week['days'] ) && is_array( $week['days'] ) ? $week['days'] : $week;
+			foreach ( $days as $day_key => $day ) {
+				if ( is_array( $day ) && isset( $day['day'], $day['count'] ) ) {
+					// { day, count } object (object shape or live list-of-lists).
+					$last_viewed = later_viewed_day( $last_viewed, $day['day'], $day['count'] );
+				} elseif ( is_string( $day_key ) ) {
+					// Nested map shape: 'Y-m-d' => count.
+					$last_viewed = later_viewed_day( $last_viewed, $day_key, $day );
+				}
+			}
+			continue;
+		}
+
+		// Flat map shape: 'Y-m-d' => count.
+		if ( is_string( $week_key ) && is_scalar( $week ) ) {
+			$last_viewed = later_viewed_day( $last_viewed, $week_key, $week );
+		}
+	}
+
+	return $last_viewed;
+}
+
+/**
+ * Keep whichever of two dates is later, if the candidate is a real Y-m-d with views.
+ *
+ * @param string|null $current The latest viewed day found so far.
+ * @param mixed       $day     Candidate day; anything but a 'Y-m-d' string is ignored.
+ * @param mixed       $count   View count for that day.
+ * @return string|null
+ */
+function later_viewed_day( $current, $day, $count ) {
+	if ( ! is_string( $day ) || ! preg_match( '/^\d{4}-\d{2}-\d{2}$/', $day ) || (int) $count <= 0 ) {
+		return $current;
+	}
+
+	/* Require the date to be a real calendar day (e.g. reject 2024-02-31). */
+	$parsed = date_create_from_format( 'Y-m-d', $day );
+	if ( ! $parsed || $parsed->format( 'Y-m-d' ) !== $day ) {
+		return $current;
+	}
+
+	return ( null === $current || $day > $current ) ? $day : $current;
 }
