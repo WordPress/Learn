@@ -170,7 +170,9 @@ $icon_desk_lg  = '<svg width="20" height="20" viewBox="-2 -2 24 24" fill="curren
 	</div>
 </div>
 
-<script>
+<?php
+wp_print_inline_script_tag(
+	<<<'JS'
 ( function () {
 	var container = document.querySelector( '.wporg-activity-kit-pdf-tabs' );
 	if ( ! container ) return;
@@ -224,7 +226,9 @@ $icon_desk_lg  = '<svg width="20" height="20" viewBox="-2 -2 24 24" fill="curren
 		} );
 	} );
 } )();
-</script>
+JS
+);
+?>
 <?php else : ?>
 <p class="wporg-activity-kit-no-pdf"><?php esc_html_e( 'No PDF preview available yet.', 'wporg-learn' ); ?></p>
 <?php endif; ?>
