@@ -131,6 +131,7 @@ function add_course_completed_activity( string $status, int $user_id, int $cours
 		case 'wordpress-credits-designer-track':
 		case 'wordpress-credits-translation-track':
 		case 'wordpress-credits-foundations':
+		case 'wordpress-credits-intro-to-contribution':
 		case 'wordpress-credits-self-onboarding-pilot':
 			Profiles_API\assign_badge( 'credits-graduate', $user_id );
 			break;
