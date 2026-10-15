@@ -1,0 +1,29 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 2,
+	"name": "wporg-learn/lesson-facilitator-notes",
+    "version": "0.1.0",
+    "title": "Lesson Facilitator Notes",
+    "category": "widgets",
+    "icon": "text",
+    "description": "Shows the facilitator notes for a lesson",
+    "usesContext": [],
+    "attributes": {
+      "lessonPlanId": {
+        "type": "number",
+        "default": null
+      },
+      "lessonPlanContent": {
+        "type": "string",
+        "default": ""
+      },
+      "lessonPlanTitle": {
+        "type": "string",
+        "default": ""
+      }
+	},
+	"textdomain": "wporg-learn",
+	"editorScript": "file:./index.js",
+	"viewScript": "file:./view.js",
+	"style": "file:./style-index.css"
+}
