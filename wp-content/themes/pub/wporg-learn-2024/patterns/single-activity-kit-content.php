@@ -170,61 +170,65 @@ $icon_desk_lg  = '<svg width="20" height="20" viewBox="-2 -2 24 24" fill="curren
 	</div>
 </div>
 
-<script>
-( function () {
-	var container = document.querySelector( '.wporg-activity-kit-pdf-tabs' );
-	if ( ! container ) return;
+	<?php
+	wp_print_inline_script_tag(
+		<<<'JS'
+		( function () {
+			var container = document.querySelector( '.wporg-activity-kit-pdf-tabs' );
+			if ( ! container ) return;
 
-	var tabs   = container.querySelectorAll( '.wporg-activity-kit-pdf-tabs__tab' );
-	var panels = container.querySelectorAll( '.wporg-activity-kit-pdf-tabs__panel' );
-	var dlBtn  = container.querySelector( '.wporg-activity-kit-pdf-tabs__dl-btn' );
+			var tabs   = container.querySelectorAll( '.wporg-activity-kit-pdf-tabs__tab' );
+			var panels = container.querySelectorAll( '.wporg-activity-kit-pdf-tabs__panel' );
+			var dlBtn  = container.querySelector( '.wporg-activity-kit-pdf-tabs__dl-btn' );
 
-	// Chromium browsers (Chrome, Edge, Brave, Opera) support #toolbar=0 to hide
-	// the native PDF viewer controls. Firefox and Safari don't, so we use
-	// #view=FitH (PDF spec "fit width") which fixes Safari's zoomed-out default
-	// view and also shows our tracked Download PDF link as a fallback.
-	var isChromium  = typeof window.chrome !== 'undefined';
-	var pdfFragment = isChromium ? '#toolbar=0' : '#view=FitH';
+			// Chromium browsers (Chrome, Edge, Brave, Opera) support #toolbar=0 to hide
+			// the native PDF viewer controls. Firefox and Safari don't, so we use
+			// #view=FitH (PDF spec "fit width") which fixes Safari's zoomed-out default
+			// view and also shows our tracked Download PDF link as a fallback.
+			var isChromium  = typeof window.chrome !== 'undefined';
+			var pdfFragment = isChromium ? '#toolbar=0' : '#view=FitH';
 
-	container.querySelectorAll( 'iframe[data-src]' ).forEach( function ( iframe ) {
-		iframe.src = iframe.getAttribute( 'data-src' ) + pdfFragment;
-	} );
-
-	if ( dlBtn && ! isChromium ) {
-		dlBtn.style.display = 'inline-flex';
-	}
-
-	tabs.forEach( function ( tab ) {
-		tab.addEventListener( 'click', function () {
-			var target = tab.dataset.tab;
-
-			tabs.forEach( function ( t ) {
-				t.classList.remove( 'is-active' );
-				t.setAttribute( 'aria-selected', 'false' );
-			} );
-			panels.forEach( function ( p ) {
-				p.classList.remove( 'is-active' );
-				p.setAttribute( 'hidden', '' );
+			container.querySelectorAll( 'iframe[data-src]' ).forEach( function ( iframe ) {
+				iframe.src = iframe.getAttribute( 'data-src' ) + pdfFragment;
 			} );
 
-			tab.classList.add( 'is-active' );
-			tab.setAttribute( 'aria-selected', 'true' );
-
-			var panel = document.getElementById( 'tab-' + target );
-			if ( panel ) {
-				panel.classList.add( 'is-active' );
-				panel.removeAttribute( 'hidden' );
+			if ( dlBtn && ! isChromium ) {
+				dlBtn.style.display = 'inline-flex';
 			}
 
-			// Swap the PDF download link to match the active tab.
-			if ( dlBtn ) {
-				var url = 'guide' === target ? dlBtn.dataset.guideUrl : dlBtn.dataset.slidesUrl;
-				if ( url ) dlBtn.href = url;
-			}
-		} );
-	} );
-} )();
-</script>
+			tabs.forEach( function ( tab ) {
+				tab.addEventListener( 'click', function () {
+					var target = tab.dataset.tab;
+
+					tabs.forEach( function ( t ) {
+						t.classList.remove( 'is-active' );
+						t.setAttribute( 'aria-selected', 'false' );
+					} );
+					panels.forEach( function ( p ) {
+						p.classList.remove( 'is-active' );
+						p.setAttribute( 'hidden', '' );
+					} );
+
+					tab.classList.add( 'is-active' );
+					tab.setAttribute( 'aria-selected', 'true' );
+
+					var panel = document.getElementById( 'tab-' + target );
+					if ( panel ) {
+						panel.classList.add( 'is-active' );
+						panel.removeAttribute( 'hidden' );
+					}
+
+					// Swap the PDF download link to match the active tab.
+					if ( dlBtn ) {
+						var url = 'guide' === target ? dlBtn.dataset.guideUrl : dlBtn.dataset.slidesUrl;
+						if ( url ) dlBtn.href = url;
+					}
+				} );
+			} );
+		} )();
+		JS
+	);
+	?>
 <?php else : ?>
 <p class="wporg-activity-kit-no-pdf"><?php esc_html_e( 'No PDF preview available yet.', 'wporg-learn' ); ?></p>
 <?php endif; ?>
