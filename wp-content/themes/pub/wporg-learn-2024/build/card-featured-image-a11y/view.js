@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",(function(){document.querySelectorAll(".wporg-learn-card-grid figure.wp-block-post-featured-image > a").forEach((t=>{t.setAttribute("aria-hidden","true"),t.setAttribute("tabindex","-1");const e=t.querySelector("img");e&&(e.setAttribute("role","presentation"),e.setAttribute("alt",""))}))}));

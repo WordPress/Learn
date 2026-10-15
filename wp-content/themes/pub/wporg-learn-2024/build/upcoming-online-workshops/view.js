@@ -1,0 +1,1 @@
+(()=>{"use strict";const t=window.wp.date;(()=>{const a=document.querySelectorAll("[data-date-utc]");Array.from(a).forEach((a=>{const e=a.dataset.dateUtc;a.textContent=(0,t.format)("g:i a (\\U\\T\\CP)",e)}))})()})();
