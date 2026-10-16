@@ -1,6 +1,8 @@
 <?php
 /**
  * Add activity, etc to profiles.wordpress.org when users do noteworthy things.
+ *
+ * @package WPOrg_Learn
  */
 
 namespace WPOrg_Learn\Profiles;
@@ -29,7 +31,7 @@ add_action( 'transition_post_status', __NAMESPACE__ . '\maybe_notify_new_publish
  * @param WP_Post $post The post.
  */
 function maybe_notify_new_published_post( $new_status, $old_status, $post ) {
-	if ( 'publish' != $new_status || 'publish' === $old_status ) {
+	if ( 'publish' !== $new_status || 'publish' === $old_status ) {
 		return;
 	}
 
@@ -101,6 +103,12 @@ function notify_workshop_presenter( $post ) {
 
 /**
  * Add an activity to a user's profile when they complete a course.
+ *
+ * @param string      $status          The new completion status.
+ * @param int         $user_id         The user's ID.
+ * @param int         $course_id       The course post ID.
+ * @param int         $comment_id      The comment ID associated with the status change.
+ * @param string|null $previous_status The previous completion status, or null if none.
  */
 function add_course_completed_activity( string $status, int $user_id, int $course_id, int $comment_id, ?string $previous_status ): void {
 	if ( 'complete' !== $status || 'complete' === $previous_status ) {
