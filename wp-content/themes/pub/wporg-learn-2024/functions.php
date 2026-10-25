@@ -44,6 +44,7 @@ add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\remove_sensei_course_archive
 // Remove Jetpack CSS on frontend
 add_filter( 'jetpack_implode_frontend_css', '__return_false', 99 );
 add_filter( 'post_thumbnail_html', __NAMESPACE__ . '\set_default_featured_image', 10, 5 );
+add_filter( '404_template_hierarchy', __NAMESPACE__ . '\modify_404_template' );
 add_filter( 'search_template_hierarchy', __NAMESPACE__ . '\modify_search_template' );
 add_filter( 'sensei_learning_mode_lesson_status_icon', __NAMESPACE__ . '\modify_lesson_status_icon_add_aria', 10, 2 );
 add_filter( 'sensei_register_post_type_course', function ( $args ) {
@@ -98,6 +99,55 @@ function modify_search_template( $templates ) {
 	}
 
 	return $templates;
+}
+
+/**
+ * Use the 410 template, and send a 410 status, for content that has been removed.
+ *
+ * Retired lessons, courses and tutorials are set to draft (or trashed) rather than deleted.
+ * Requests for them would otherwise get a 404, which tells search engines the page may come back.
+ *
+ * @param array $templates Array of template files.
+ * @return array
+ */
+function modify_404_template( $templates ) {
+	if ( is_removed_content_request() ) {
+		status_header( 410 );
+		array_unshift( $templates, '410' );
+	}
+
+	return $templates;
+}
+
+/**
+ * Check whether the current 404 request is for a lesson, course or tutorial that has been unpublished.
+ *
+ * @return bool
+ */
+function is_removed_content_request() {
+	$name      = get_query_var( 'name' );
+	$post_type = get_query_var( 'post_type' );
+
+	if ( ! is_404() || ! $name || ! is_string( $post_type ) ) {
+		return false;
+	}
+
+	if ( ! in_array( $post_type, array( 'course', 'lesson', 'lesson-plan', 'wporg_workshop' ), true ) ) {
+		return false;
+	}
+
+	$removed = get_posts(
+		array(
+			'post_type'     => $post_type,
+			'post_status'   => array( 'draft', 'trash' ),
+			// Trashed posts keep their slug with a suffix, so match that too.
+			'post_name__in' => array( $name, $name . '__trashed' ),
+			'fields'        => 'ids',
+			'numberposts'   => 1,
+		)
+	);
+
+	return ! empty( $removed );
 }
 
 /**
