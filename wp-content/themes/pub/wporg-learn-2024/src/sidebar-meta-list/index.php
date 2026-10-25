@@ -157,7 +157,7 @@ function render( $attributes, $content, $block ) {
 				'key'   => 'type',
 			),
 			array(
-				'label' => __( 'WordPress Version', 'wporg-learn' ),
+				'label' => __( 'Related WordPress version(s)', 'wporg-learn' ),
 				'value' => $wporg_wp_version,
 				'key'   => 'type',
 			),
