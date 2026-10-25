@@ -4,6 +4,7 @@ namespace WPOrg_Learn\Redirects;
 
 add_action( 'template_redirect', __NAMESPACE__ . '\wporg_learn_redirect_meetings' );
 add_action( 'template_redirect', __NAMESPACE__ . '\wporg_learn_redirect_old_urls' );
+add_action( 'template_redirect', __NAMESPACE__ . '\wporg_learn_redirect_paged_home' );
 
 add_filter( 'allowed_redirect_hosts', __NAMESPACE__ . '\wporg_learn_allowed_redirect_hosts' );
 
@@ -36,6 +37,21 @@ function wporg_learn_redirect_meetings() {
 				exit;
 			}
 		}
+	}
+}
+
+/**
+ * Redirect paginated views of the homepage to the homepage.
+ *
+ * The homepage template doesn't list posts, so `/page/2/` and later pages would
+ * otherwise return a 200 response with the same content as the homepage.
+ *
+ * @return void
+ */
+function wporg_learn_redirect_paged_home() {
+	if ( ( is_home() || is_front_page() ) && ( is_paged() || get_query_var( 'page' ) > 1 ) ) {
+		wp_safe_redirect( home_url( '/' ), 301, 'Learn WordPress' );
+		exit;
 	}
 }
 
