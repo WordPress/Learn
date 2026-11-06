@@ -4,6 +4,8 @@ namespace WPOrg_Learn\Taxonomy;
 
 defined( 'WPINC' ) || die();
 
+const PROFILE_BADGE_TAXONOMY = 'wporg_profile_badge';
+
 /**
  * Actions and filters.
  */
@@ -34,6 +36,7 @@ function register() {
 	register_included_content();
 	register_topic();
 	register_learning_pathway();
+	register_profile_badge();
 }
 
 /**
@@ -626,6 +629,57 @@ function register_learning_pathway() {
 	);
 
 	register_taxonomy( 'learning-pathway', array( 'course' ), $args );
+}
+
+/**
+ * Register the Profile Badge taxonomy.
+ *
+ * A term's slug is the slug of a badge on profiles.wordpress.org. A course carrying a term gives that badge to
+ * its learners; `inc/profiles.php` holds the badges the site knows how to give and when. The taxonomy is not
+ * public: nothing is queried or displayed by it on the front end, it only appears in the course editor.
+ */
+function register_profile_badge() {
+	$labels = array(
+		'name'                       => _x( 'Profile Badges', 'Taxonomy General Name', 'wporg-learn' ),
+		'singular_name'              => _x( 'Profile Badge', 'Taxonomy Singular Name', 'wporg-learn' ),
+		'menu_name'                  => __( 'Profile badges', 'wporg-learn' ),
+		'all_items'                  => __( 'All profile badges', 'wporg-learn' ),
+		'new_item_name'              => __( 'New profile badge name', 'wporg-learn' ),
+		'add_new_item'               => __( 'Add New profile badge', 'wporg-learn' ),
+		'edit_item'                  => __( 'Edit profile badge', 'wporg-learn' ),
+		'update_item'                => __( 'Update profile badge', 'wporg-learn' ),
+		'view_item'                  => __( 'View profile badge', 'wporg-learn' ),
+		'separate_items_with_commas' => __( 'Separate profile badges with commas', 'wporg-learn' ),
+		'add_or_remove_items'        => __( 'Add or remove profile badges', 'wporg-learn' ),
+		'choose_from_most_used'      => __( 'Choose from the most used', 'wporg-learn' ),
+		'popular_items'              => __( 'Popular profile badges', 'wporg-learn' ),
+		'search_items'               => __( 'Search profile badges', 'wporg-learn' ),
+		'not_found'                  => __( 'No profile badge found', 'wporg-learn' ),
+		'no_terms'                   => __( 'No profile badges', 'wporg-learn' ),
+		'items_list'                 => __( 'Profile badges list', 'wporg-learn' ),
+		'items_list_navigation'      => __( 'Profile badges list navigation', 'wporg-learn' ),
+	);
+
+	$args = array(
+		'labels'            => $labels,
+		'description'       => __( 'Badges on profiles.wordpress.org that this course gives. The slug of a term is the slug of the badge.', 'wporg-learn' ),
+		'hierarchical'      => false,
+		'public'            => false,
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'show_in_nav_menus' => false,
+		'show_tagcloud'     => false,
+		'show_in_rest'      => true,
+		'rewrite'           => false,
+		'capabilities'      => array(
+			'manage_terms' => 'manage_categories',
+			'edit_terms'   => 'manage_categories',
+			'delete_terms' => 'manage_categories',
+			'assign_terms' => 'edit_others_courses',
+		),
+	);
+
+	register_taxonomy( PROFILE_BADGE_TAXONOMY, array( 'course' ), $args );
 }
 
 /**
