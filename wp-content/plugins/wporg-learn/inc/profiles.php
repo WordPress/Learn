@@ -5,6 +5,7 @@
 
 namespace WPOrg_Learn\Profiles;
 
+use Sensei_Utils;
 use WordPressdotorg\Profiles as Profiles_API;
 use const WPOrg_Learn\Taxonomy\PROFILE_BADGE_TAXONOMY;
 
@@ -158,12 +159,11 @@ function add_course_completed_activity( string $status, int $user_id, int $cours
 		return;
 	}
 
+	Profiles_API\clear_user_badges_cache( $user_id );
 	assign_profile_badge( BADGE_GRADUATE, $user_id );
 
-	// Graduating supersedes being enrolled.
-	if ( in_array( BADGE_ENROLLED, $badges, true ) ) {
-		remove_profile_badge( BADGE_ENROLLED, $user_id );
-	}
+	// Graduating supersedes being enrolled, whichever course gave that badge. Nothing is sent if the user lacks it.
+	remove_profile_badge( BADGE_ENROLLED, $user_id );
 }
 
 /**
@@ -196,7 +196,31 @@ function maybe_assign_enrolled_badge( $user_id, $lesson_id ): void {
 		return;
 	}
 
-	// A graduate who retakes the course already has the badge this one leads to.
+	/*
+	 * Give the badge once the request is over. An administrator completing a course for a learner marks every
+	 * lesson complete and then the course in one request (`Sensei_Utils::force_complete_user_course()`), and that
+	 * learner must end up with the graduate badge only.
+	 */
+	add_action(
+		'shutdown',
+		function () use ( $user_id, $course_id ) {
+			give_enrolled_badge( $user_id, $course_id );
+		}
+	);
+}
+
+/**
+ * Give the enrolled badge, unless the learner has graduated in the meantime.
+ */
+function give_enrolled_badge( int $user_id, int $course_id ): void {
+	if ( Sensei_Utils::user_completed_course( $course_id, $user_id ) ) {
+		return;
+	}
+
+	// Badge ownership is cached for an hour by the profiles helpers; read it fresh.
+	Profiles_API\clear_user_badges_cache( $user_id );
+
+	// A graduate who retakes a course already has the badge this one leads to.
 	if ( Profiles_API\has_badge( BADGE_GRADUATE, $user_id ) ) {
 		return;
 	}
