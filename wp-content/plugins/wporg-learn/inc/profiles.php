@@ -6,8 +6,15 @@
 namespace WPOrg_Learn\Profiles;
 
 use WordPressdotorg\Profiles as Profiles_API;
+use const WPOrg_Learn\Taxonomy\PROFILE_BADGE_TAXONOMY;
 
 defined( 'WPINC' ) || die();
+
+/*
+ * Badges on profiles.wordpress.org that a course can give. A course gives a badge when it carries the Profile
+ * Badge term whose slug is the badge slug; see `register_profile_badge()` in `inc/taxonomy.php`.
+ */
+const BADGE_GRADUATE = 'credits-graduate'; // Given when the course is completed.
 
 /*
  * Requests will always fail when in local environments, unless the dev is proxied. Proxied devs could test
@@ -100,7 +107,7 @@ function notify_workshop_presenter( $post ) {
 
 
 /**
- * Add an activity to a user's profile when they complete a course.
+ * Add an activity to a user's profile when they complete a course, and give the badges the course carries.
  */
 function add_course_completed_activity( string $status, int $user_id, int $course_id, int $comment_id, ?string $previous_status ): void {
 	if ( 'complete' !== $status || 'complete' === $previous_status ) {
@@ -123,7 +130,12 @@ function add_course_completed_activity( string $status, int $user_id, int $cours
 		)
 	);
 
-	// Assign badges for some courses.
+	$badges = get_course_badges( $course_id );
+
+	/*
+	 * Courses that gave the graduate badge before the Profile Badge taxonomy existed. Remove this list once
+	 * each of them carries the `credits-graduate` term.
+	 */
 	switch ( get_post( $course_id )->post_name ) {
 		case '50-hours-wordpress-credits':
 		case 'wordpress-credits':
@@ -133,7 +145,61 @@ function add_course_completed_activity( string $status, int $user_id, int $cours
 		case 'wordpress-credits-foundations':
 		case 'wordpress-credits-intro-to-contribution':
 		case 'wordpress-credits-self-onboarding-pilot':
-			Profiles_API\assign_badge( 'credits-graduate', $user_id );
+			$badges[] = BADGE_GRADUATE;
 			break;
+	}
+
+	if ( ! in_array( BADGE_GRADUATE, $badges, true ) ) {
+		return;
+	}
+
+	assign_profile_badge( BADGE_GRADUATE, $user_id );
+}
+
+/**
+ * Get the badges a course gives, from its Profile Badge terms.
+ *
+ * A term's slug is the badge slug on profiles.wordpress.org. Only the badges this file knows how to give are
+ * returned; any other term is logged and ignored.
+ *
+ * @return string[] Badge slugs.
+ */
+function get_course_badges( int $course_id ): array {
+	$terms = get_the_terms( $course_id, PROFILE_BADGE_TAXONOMY );
+
+	if ( ! $terms || is_wp_error( $terms ) ) {
+		return array();
+	}
+
+	$known  = array( BADGE_GRADUATE );
+	$badges = array();
+
+	foreach ( $terms as $term ) {
+		if ( in_array( $term->slug, $known, true ) ) {
+			$badges[] = $term->slug;
+			continue;
+		}
+
+		trigger_error(
+			esc_html( sprintf( 'Course %d carries the profile badge term "%s", which this site does not know how to give.', $course_id, $term->slug ) ),
+			E_USER_WARNING
+		);
+	}
+
+	return $badges;
+}
+
+/**
+ * Give a badge to a user, logging a failure instead of stopping.
+ *
+ * On production the request is queued and sent later; on a sandbox it is sent at once. A badge that does not
+ * exist on profiles.wordpress.org yet fails there, not here.
+ */
+function assign_profile_badge( string $badge, int $user_id ): void {
+	if ( ! Profiles_API\assign_badge( $badge, $user_id ) ) {
+		trigger_error(
+			esc_html( sprintf( 'Could not give the "%s" profile badge to user %d.', $badge, $user_id ) ),
+			E_USER_WARNING
+		);
 	}
 }
