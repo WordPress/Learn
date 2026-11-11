@@ -5,7 +5,6 @@
 
 namespace WPOrg_Learn\Profiles;
 
-use Sensei_Utils;
 use WordPressdotorg\Profiles as Profiles_API;
 use const WPOrg_Learn\Taxonomy\PROFILE_BADGE_TAXONOMY;
 
@@ -16,10 +15,6 @@ defined( 'WPINC' ) || die();
  * Badge term whose slug is the badge slug; see `register_profile_badge()` in `inc/taxonomy.php`.
  */
 const BADGE_GRADUATE = 'credits-graduate'; // Given when the course is completed.
-const BADGE_ENROLLED = 'credits-enrolled'; // Given when the Onboarding module is completed, taken away on graduation.
-
-// The Sensei module whose completion gives the enrolled badge, matched by name.
-const ENROLLED_MODULE_NAME = 'Onboarding';
 
 /*
  * Requests will always fail when in local environments, unless the dev is proxied. Proxied devs could test
@@ -31,7 +26,6 @@ if ( 'local' === wp_get_environment_type() ) {
 }
 
 add_action( 'sensei_course_status_updated', __NAMESPACE__ . '\add_course_completed_activity', 9, 5 ); // Before `redirect_to_course_completed_page()`.
-add_action( 'sensei_user_lesson_end', __NAMESPACE__ . '\maybe_assign_enrolled_badge', 10, 2 );
 add_action( 'transition_post_status', __NAMESPACE__ . '\maybe_notify_new_published_post', 10, 3 );
 
 /**
@@ -159,73 +153,7 @@ function add_course_completed_activity( string $status, int $user_id, int $cours
 		return;
 	}
 
-	Profiles_API\clear_user_badges_cache( $user_id );
 	assign_profile_badge( BADGE_GRADUATE, $user_id );
-
-	// Graduating supersedes being enrolled, whichever course gave that badge. Nothing is sent if the user lacks it.
-	remove_profile_badge( BADGE_ENROLLED, $user_id );
-}
-
-/**
- * Give the enrolled badge when a learner completes the Onboarding module of a course that carries the term.
- *
- * The badge marks a learner who has reached the project phase of a course, not one who merely enrolled: Sensei
- * starts a lesson as soon as an enrolled learner opens it, so a started lesson proves little, while a completed
- * Onboarding module proves the learner did the work. `sensei_user_lesson_end` fires when a lesson is completed,
- * a quiz is passed or a quiz submission is graded, after the lesson progress is saved.
- *
- * @param int $user_id   The learner.
- * @param int $lesson_id The lesson just completed.
- */
-function maybe_assign_enrolled_badge( $user_id, $lesson_id ): void {
-	$user_id   = (int) $user_id;
-	$lesson_id = (int) $lesson_id;
-	$course_id = (int) Sensei()->lesson->get_course_id( $lesson_id );
-
-	if ( ! $user_id || ! $course_id || ! in_array( BADGE_ENROLLED, get_course_badges( $course_id ), true ) ) {
-		return;
-	}
-
-	$module = Sensei()->modules->get_lesson_module( $lesson_id );
-
-	if ( ! $module || 0 !== strcasecmp( ENROLLED_MODULE_NAME, trim( $module->name ) ) ) {
-		return;
-	}
-
-	if ( Sensei()->modules->calculate_user_module_progress( $user_id, $module->term_id, $course_id ) < 100 ) {
-		return;
-	}
-
-	/*
-	 * Give the badge once the request is over. An administrator completing a course for a learner marks every
-	 * lesson complete and then the course in one request (`Sensei_Utils::force_complete_user_course()`), and that
-	 * learner must end up with the graduate badge only.
-	 */
-	add_action(
-		'shutdown',
-		function () use ( $user_id, $course_id ) {
-			give_enrolled_badge( $user_id, $course_id );
-		}
-	);
-}
-
-/**
- * Give the enrolled badge, unless the learner has graduated in the meantime.
- */
-function give_enrolled_badge( int $user_id, int $course_id ): void {
-	if ( Sensei_Utils::user_completed_course( $course_id, $user_id ) ) {
-		return;
-	}
-
-	// Badge ownership is cached for an hour by the profiles helpers; read it fresh.
-	Profiles_API\clear_user_badges_cache( $user_id );
-
-	// A graduate who retakes a course already has the badge this one leads to.
-	if ( Profiles_API\has_badge( BADGE_GRADUATE, $user_id ) ) {
-		return;
-	}
-
-	assign_profile_badge( BADGE_ENROLLED, $user_id );
 }
 
 /**
@@ -243,7 +171,7 @@ function get_course_badges( int $course_id ): array {
 		return array();
 	}
 
-	$known  = array( BADGE_GRADUATE, BADGE_ENROLLED );
+	$known  = array( BADGE_GRADUATE );
 	$badges = array();
 
 	foreach ( $terms as $term ) {
@@ -271,20 +199,6 @@ function assign_profile_badge( string $badge, int $user_id ): void {
 	if ( ! Profiles_API\assign_badge( $badge, $user_id ) ) {
 		trigger_error(
 			esc_html( sprintf( 'Could not give the "%s" profile badge to user %d.', $badge, $user_id ) ),
-			E_USER_WARNING
-		);
-	}
-}
-
-/**
- * Take a badge away from a user, logging a failure instead of stopping.
- *
- * Nothing is sent when the user does not have the badge, so a badge that does not exist yet is skipped.
- */
-function remove_profile_badge( string $badge, int $user_id ): void {
-	if ( ! Profiles_API\remove_badge( $badge, $user_id ) ) {
-		trigger_error(
-			esc_html( sprintf( 'Could not take the "%s" profile badge away from user %d.', $badge, $user_id ) ),
 			E_USER_WARNING
 		);
 	}
