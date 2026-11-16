@@ -12,6 +12,7 @@ use Sensei_Utils;
 use Sensei_Reports_Overview_Service_Courses;
 use function WPOrg_Learn\Post_Meta\{get_workshop_duration};
 use function WordPressdotorg\Locales\get_locale_name_from_code;
+use function WPOrg_Learn\Utils\ensure_float;
 
 add_action( 'init', __NAMESPACE__ . '\init' );
 
@@ -72,6 +73,30 @@ function render( $attributes, $content, $block ) {
 		// Get the last updated time.
 		$last_updated = get_last_updated_time( $course_id );
 
+		// Settins for the Duration of the course, set in Course sidebar duration meta field
+		$duration = ensure_float( get_post_meta( $block->context['postId'], '_duration', true ) );
+
+		if ( empty( $duration ) ) {
+			return '';
+		}
+
+		if ( 1 === $duration ) {
+			$completion = __( '1 hour', 'wporg-learn' );
+		} elseif ( $duration > 1 ) {
+			$completion = sprintf(
+				/* translators: %s: duration in hours */
+				__( '%s hours', 'wporg-learn' ),
+				$duration
+			);
+		} else {
+			// Display it in minutes.
+			$minutes = round( $duration * 60 );
+			$completion = sprintf(
+				/* translators: %s: duration in minutes */
+				__( '%s minutes', 'wporg-learn' ),
+				$minutes
+			);
+		}
 		// Set up array of data to be used.
 		$meta_fields = array(
 			array(
@@ -88,6 +113,11 @@ function render( $attributes, $content, $block ) {
 				'label' => __( 'Last updated', 'wporg-learn' ),
 				'value' => $last_updated,
 				'key'   => 'last-updated',
+			),
+			array(
+				'label' => __( 'Estimated duration', 'wporg-learn' ),
+				'value' => $completion,
+				'key'   => 'duration',
 			),
 		);
 	} elseif ( 'wporg_workshop' === $block->context['postType'] ) {
