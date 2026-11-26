@@ -107,21 +107,28 @@ function add_course_completed_activity( string $status, int $user_id, int $cours
 		return;
 	}
 
-	$course_url = get_permalink( $course_id );
-	Profiles_API\add_activity(
-		'learn',
-		'learn_course_complete',
-		$user_id,
-		array(
-			'primary_link' => $course_url,
-			'item_id'      => $course_id,
-			'message'      => sprintf(
-				'Completed the course <em><a href="%s">%s</a></em> on learn.wordpress.org',
-				esc_url( $course_url ),
-				esc_html( get_the_title( $course_id ) )
-			),
-		)
-	);
+	// Retaking a quiz or lesson resets the course to in-progress, so completing it again must not add another activity.
+	$activity_meta_key = '_wporg_learn_course_complete_activity_' . $course_id;
+
+	if ( ! get_user_meta( $user_id, $activity_meta_key, true ) ) {
+		$course_url = get_permalink( $course_id );
+		Profiles_API\add_activity(
+			'learn',
+			'learn_course_complete',
+			$user_id,
+			array(
+				'primary_link' => $course_url,
+				'item_id'      => $course_id,
+				'message'      => sprintf(
+					'Completed the course <em><a href="%s">%s</a></em> on learn.wordpress.org',
+					esc_url( $course_url ),
+					esc_html( get_the_title( $course_id ) )
+				),
+			)
+		);
+
+		update_user_meta( $user_id, $activity_meta_key, time() );
+	}
 
 	// Assign badges for some courses.
 	switch ( get_post( $course_id )->post_name ) {
