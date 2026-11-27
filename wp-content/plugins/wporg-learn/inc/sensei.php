@@ -39,6 +39,7 @@ add_filter( 'sensei_duplicate_post_ignore_meta', __NAMESPACE__ . '\detach_duplic
 // Compute course average grades in the background, since the query can take tens of seconds.
 add_action( 'wporg_learn_update_course_average_grades', __NAMESPACE__ . '\schedule_course_average_grade_updates' );
 add_action( 'wporg_learn_update_course_average_grade', __NAMESPACE__ . '\update_course_average_grade' );
+add_filter( 'sensei_duplicate_post_ignore_meta', __NAMESPACE__ . '\skip_duplicating_course_average_grade' );
 
 if ( ! wp_next_scheduled( 'wporg_learn_update_course_average_grades' ) ) {
 	wp_schedule_event( time(), 'daily', 'wporg_learn_update_course_average_grades' );
@@ -604,4 +605,16 @@ function update_course_average_grade( $course_id ) {
 	$average_grade  = round( $course_service->get_courses_average_grade( array( (int) $course_id ) ), 0 );
 
 	update_post_meta( (int) $course_id, '_wporg_learn_average_grade', (int) $average_grade );
+}
+
+/**
+ * Keep a duplicated course from inheriting the original's stored average grade.
+ *
+ * @param array $ignore_meta Meta keys not copied to the duplicate.
+ * @return array
+ */
+function skip_duplicating_course_average_grade( array $ignore_meta ): array {
+	$ignore_meta[] = '_wporg_learn_average_grade';
+
+	return $ignore_meta;
 }
