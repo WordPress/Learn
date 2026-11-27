@@ -10,6 +10,7 @@ use function WordPressdotorg\Locales\get_locale_name_from_code;
 use function WPOrg_Learn\{get_build_path, get_build_url, get_js_path, get_views_path};
 use function WPOrg_Learn\Form\render_workshop_application_form;
 use function WPOrg_Learn\Post_Meta\get_workshop_duration;
+use function WPOrg_Learn\Sensei\get_course_average_grade;
 
 defined( 'WPINC' ) || die();
 
@@ -217,8 +218,8 @@ function course_data_render_callback( $attributes, $content ) {
 		)
 	);
 
-	// Get the average grade scross all learners
-	$average_grade = round( $course_service->get_courses_average_grade( array( $course_id ) ), 0 );
+	// Get the average grade across all learners
+	$average_grade = get_course_average_grade( $course_id );
 
 	// Get the average number of days it takes to complete a course
 	$average_days = $course_service->get_average_days_to_completion( array( $course_id ) );
@@ -238,6 +239,10 @@ function course_data_render_callback( $attributes, $content ) {
 			'value' => $average_days,
 		),
 	);
+
+	if ( false === $average_grade ) {
+		unset( $data['grade'] );
+	}
 
 	ob_start();
 	require get_views_path() . 'block-course-data.php';

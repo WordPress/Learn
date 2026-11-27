@@ -3,7 +3,7 @@
 namespace WPOrg_Learn\Sensei;
 
 use WP_Post;
-use Sensei_Course, Sensei_Course_Enrolment, Sensei_Lesson, WooThemes_Sensei_Certificates;
+use Sensei_Course, Sensei_Course_Enrolment, Sensei_Lesson, Sensei_Reports_Overview_Service_Courses, WooThemes_Sensei_Certificates;
 use Sensei\Admin\Content_Duplicators\Post_Duplicator;
 
 defined( 'WPINC' ) || die();
@@ -35,6 +35,14 @@ add_action( 'init', __NAMESPACE__ . '\disable_certificate_reservations' );
 // Give duplicated lessons their own quiz questions instead of sharing the original's.
 add_action( 'added_post_meta', __NAMESPACE__ . '\unshare_duplicated_quiz_question', 10, 4 );
 add_filter( 'sensei_duplicate_post_ignore_meta', __NAMESPACE__ . '\detach_duplicated_lesson_from_course', 10, 3 );
+
+// Compute course average grades in the background, since the query can take tens of seconds.
+add_action( 'wporg_learn_update_course_average_grades', __NAMESPACE__ . '\schedule_course_average_grade_updates' );
+add_action( 'wporg_learn_update_course_average_grade', __NAMESPACE__ . '\update_course_average_grade' );
+
+if ( ! wp_next_scheduled( 'wporg_learn_update_course_average_grades' ) ) {
+	wp_schedule_event( time(), 'daily', 'wporg_learn_update_course_average_grades' );
+}
 
 /**
  * Slugs in Sensei are translatable, which won't work for our site and the language switcher.
@@ -535,4 +543,65 @@ function detach_duplicated_lesson_from_course( array $ignore_meta, array $new_po
 	$order_keys = preg_grep( '/^_order_\d+$/', array_keys( get_post_custom( $post->ID ) ) );
 
 	return array_merge( $ignore_meta, array( '_lesson_course' ), $order_keys );
+}
+
+/**
+ * Get a course's average final grade from the value stored by the background update.
+ *
+ * Schedules an update when the course has no stored value yet.
+ *
+ * @param int $course_id The course ID.
+ *
+ * @return int|false The rounded average grade, or false when it has not been computed yet.
+ */
+function get_course_average_grade( int $course_id ) {
+	$average_grade = get_post_meta( $course_id, '_wporg_learn_average_grade', true );
+
+	if ( '' === $average_grade ) {
+		if ( ! wp_next_scheduled( 'wporg_learn_update_course_average_grade', array( $course_id ) ) ) {
+			wp_schedule_single_event( time(), 'wporg_learn_update_course_average_grade', array( $course_id ) );
+		}
+
+		return false;
+	}
+
+	return (int) $average_grade;
+}
+
+/**
+ * Schedule an average grade update for each published course.
+ *
+ * Each course gets its own event so one slow query does not hold up the rest.
+ */
+function schedule_course_average_grade_updates() {
+	$course_ids = get_posts(
+		array(
+			'post_type'      => 'course',
+			'post_status'    => 'publish',
+			'posts_per_page' => -1,
+			'fields'         => 'ids',
+		)
+	);
+
+	foreach ( $course_ids as $index => $course_id ) {
+		if ( ! wp_next_scheduled( 'wporg_learn_update_course_average_grade', array( $course_id ) ) ) {
+			wp_schedule_single_event( time() + $index * MINUTE_IN_SECONDS, 'wporg_learn_update_course_average_grade', array( $course_id ) );
+		}
+	}
+}
+
+/**
+ * Compute a course's average final grade and store it on the course.
+ *
+ * @param int $course_id The course ID.
+ */
+function update_course_average_grade( $course_id ) {
+	if ( ! class_exists( 'Sensei_Reports_Overview_Service_Courses' ) ) {
+		return;
+	}
+
+	$course_service = new Sensei_Reports_Overview_Service_Courses();
+	$average_grade  = round( $course_service->get_courses_average_grade( array( (int) $course_id ) ), 0 );
+
+	update_post_meta( (int) $course_id, '_wporg_learn_average_grade', (int) $average_grade );
 }
