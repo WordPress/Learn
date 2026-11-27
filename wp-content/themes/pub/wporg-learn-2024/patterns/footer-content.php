@@ -24,7 +24,7 @@
 			<ul class="is-style-links-list has-large-font-size">
 				
 				<!-- wp:list-item -->
-				<li><a href="https://wordpress.org/documentation"><?php esc_html_e( 'Documentation', 'wporg-learn' ); ?></a></li>
+				<li><a href="<?php echo esc_url( __( 'https://wordpress.org/documentation/', 'wporg-learn' ) ); ?>"><?php esc_html_e( 'Documentation', 'wporg-learn' ); ?></a></li>
 				<!-- /wp:list-item -->
 
 				<!-- wp:list-item -->
@@ -32,7 +32,7 @@
 				<!-- /wp:list-item -->
 
 				<!-- wp:list-item -->
-				<li><a href="https://wordpress.org/support/forums"><?php esc_html_e( 'Support Forums', 'wporg-learn' ); ?></a></li>
+				<li><a href="<?php echo esc_url( __( 'https://wordpress.org/support/forums/', 'wporg-learn' ) ); ?>"><?php esc_html_e( 'Support Forums', 'wporg-learn' ); ?></a></li>
 				<!-- /wp:list-item -->
 			
 			</ul>
