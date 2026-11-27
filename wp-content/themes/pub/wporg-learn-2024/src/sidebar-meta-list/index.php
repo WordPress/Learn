@@ -9,8 +9,8 @@
 namespace WordPressdotorg\Theme\Learn_2024\Sidebar_Meta_List;
 
 use Sensei_Utils;
-use Sensei_Reports_Overview_Service_Courses;
 use function WPOrg_Learn\Post_Meta\{get_workshop_duration};
+use function WPOrg_Learn\Sensei\{get_course_average_grade};
 use function WordPressdotorg\Locales\get_locale_name_from_code;
 
 add_action( 'init', __NAMESPACE__ . '\init' );
@@ -48,7 +48,6 @@ function render( $attributes, $content, $block ) {
 	$list_items = array();
 
 	if ( 'course' === $block->context['postType'] ) {
-		$course_service = new Sensei_Reports_Overview_Service_Courses();
 		$course_id = $block->context['postId'];
 
 		// Get the total number of learners enrolled in the course.
@@ -60,14 +59,7 @@ function render( $attributes, $content, $block ) {
 			)
 		);
 
-		// Get the average grade across all learners and cache it.
-		$average_grade_cache_key   = 'course-average-grade-' . $course_id;
-		$average_grade_cache_group = 'wporg-learn';
-		$average_grade             = wp_cache_get( $average_grade_cache_key, $average_grade_cache_group );
-		if ( false === $average_grade ) {
-			$average_grade = round( $course_service->get_courses_average_grade( array( $course_id ) ), 0 );
-			wp_cache_set( $average_grade_cache_key, $average_grade, $average_grade_cache_group, DAY_IN_SECONDS );
-		}
+		$average_grade = get_course_average_grade( $course_id );
 
 		// Get the last updated time.
 		$last_updated = get_last_updated_time( $course_id );
@@ -80,16 +72,26 @@ function render( $attributes, $content, $block ) {
 				'key'   => 'learners',
 			),
 			array(
-				'label' => __( 'Average final grade', 'wporg-learn' ),
-				'value' => $average_grade . '%',
-				'key'   => 'average-grade',
-			),
-			array(
 				'label' => __( 'Last updated', 'wporg-learn' ),
 				'value' => $last_updated,
 				'key'   => 'last-updated',
 			),
 		);
+
+		if ( false !== $average_grade ) {
+			array_splice(
+				$meta_fields,
+				1,
+				0,
+				array(
+					array(
+						'label' => __( 'Average final grade', 'wporg-learn' ),
+						'value' => $average_grade . '%',
+						'key'   => 'average-grade',
+					),
+				)
+			);
+		}
 	} elseif ( 'wporg_workshop' === $block->context['postType'] ) {
 		$workshop = get_post( $block->context['postId'] );
 
