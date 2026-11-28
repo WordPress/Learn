@@ -41,6 +41,8 @@ add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\maybe_enqueue_sensei_assets'
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\defer_scripts', 11 );
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\remove_sensei_course_archive_js', 100 );
 
+add_filter( 'gettext_sensei-lms', __NAMESPACE__ . '\update_preview_lesson_notice_text', 10, 2 );
+
 // Remove Jetpack CSS on frontend
 add_filter( 'jetpack_implode_frontend_css', '__return_false', 99 );
 add_filter( 'post_thumbnail_html', __NAMESPACE__ . '\set_default_featured_image', 10, 5 );
@@ -672,4 +674,23 @@ function sensei_question_add_opening_fieldset( $question_id ) {
  */
 function sensei_question_add_closing_fieldset() {
 	echo '</fieldset>';
+}
+
+/**
+ * Clarify that an account is only needed to track progress on a preview lesson.
+ *
+ * @param string $translation The translated text.
+ * @param string $text        The original text.
+ *
+ * @return string The updated text.
+ */
+function update_preview_lesson_notice_text( $translation, $text ) {
+	switch ( $text ) {
+		case 'Register or sign in to take this lesson.':
+			return __( 'Log in or register to track progress and complete this lesson.', 'wporg-learn' );
+		case 'Register for this course to take this lesson.':
+			return __( 'Take this course to track your progress and complete the materials.', 'wporg-learn' );
+	}
+
+	return $translation;
 }
