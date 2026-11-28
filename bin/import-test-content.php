@@ -30,7 +30,7 @@ if ( 'local' !== wp_get_environment_type() ) {
  * @return array An array suitable for meta_input.
  */
 function sanitize_meta_input( $meta ) {
-	$meta = array( $meta );
+	$meta = (array) $meta;
 	foreach ( $meta as $k => $v ) {
 		if ( is_array( $v ) ) {
 			$meta[ $k ] = implode( ',', $v );
