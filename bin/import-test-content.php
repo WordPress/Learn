@@ -27,13 +27,15 @@ if ( 'local' !== wp_get_environment_type() ) {
 /**
  * Sanitize postmeta from the rest API for the format required by wp_insert_post.
  *
+ * Multi-value keys are left out, as meta_input can only save one row per key.
+ *
  * @return array An array suitable for meta_input.
  */
 function sanitize_meta_input( $meta ) {
-	$meta = array( $meta );
+	$meta = (array) $meta;
 	foreach ( $meta as $k => $v ) {
 		if ( is_array( $v ) ) {
-			$meta[ $k ] = implode( ',', $v );
+			unset( $meta[ $k ] );
 		}
 	}
 
@@ -79,6 +81,14 @@ function import_rest_to_posts( $rest_url ) {
 
 		if ( is_wp_error( $new_post_id ) ) {
 			die( esc_html( $new_post_id->get_error_message() ) );
+		}
+
+		foreach ( (array) $post->meta as $key => $values ) {
+			if ( is_array( $values ) ) {
+				foreach ( $values as $value ) {
+					add_post_meta( $new_post_id, $key, $value );
+				}
+			}
 		}
 
 		echo esc_html( "Inserted $post->type $post->id as $new_post_id\n" );
